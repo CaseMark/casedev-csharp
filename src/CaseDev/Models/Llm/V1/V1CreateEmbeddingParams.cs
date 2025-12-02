@@ -304,6 +304,16 @@ public record class Input
             throw new CasedevInvalidDataException("Data did not match any variant of Input");
         }
     }
+
+    public virtual bool Equals(Input? other)
+    {
+        return other != null && JsonElement.DeepEquals(this.Json, other.Json);
+    }
+
+    public override int GetHashCode()
+    {
+        return 0;
+    }
 }
 
 sealed class InputConverter : JsonConverter<Input>

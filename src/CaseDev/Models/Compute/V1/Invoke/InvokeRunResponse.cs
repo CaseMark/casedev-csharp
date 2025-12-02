@@ -103,6 +103,16 @@ public record class InvokeRunResponse
             );
         }
     }
+
+    public virtual bool Equals(InvokeRunResponse? other)
+    {
+        return other != null && JsonElement.DeepEquals(this.Json, other.Json);
+    }
+
+    public override int GetHashCode()
+    {
+        return 0;
+    }
 }
 
 sealed class InvokeRunResponseConverter : JsonConverter<InvokeRunResponse>

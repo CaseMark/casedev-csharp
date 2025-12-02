@@ -94,8 +94,12 @@ public sealed record class TemplateCreateParams : ParamsBase
                 );
 
             return JsonSerializer.Deserialize<
-                ApiEnum<string, global::CaseDev.Models.Format.V1.Templates.Type>
-            >(element, ModelBase.SerializerOptions);
+                    ApiEnum<string, global::CaseDev.Models.Format.V1.Templates.Type>
+                >(element, ModelBase.SerializerOptions)
+                ?? throw new CasedevInvalidDataException(
+                    "'type' cannot be null",
+                    new System::ArgumentNullException("type")
+                );
         }
         init
         {

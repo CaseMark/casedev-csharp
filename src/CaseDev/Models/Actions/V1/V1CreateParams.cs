@@ -279,6 +279,16 @@ public record class Definition
             throw new CasedevInvalidDataException("Data did not match any variant of Definition");
         }
     }
+
+    public virtual bool Equals(Definition? other)
+    {
+        return other != null && JsonElement.DeepEquals(this.Json, other.Json);
+    }
+
+    public override int GetHashCode()
+    {
+        return 0;
+    }
 }
 
 sealed class DefinitionConverter : JsonConverter<Definition>
