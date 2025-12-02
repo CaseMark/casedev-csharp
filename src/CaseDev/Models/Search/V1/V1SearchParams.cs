@@ -29,27 +29,8 @@ public sealed record class V1SearchParams : ParamsBase
     /// </summary>
     public required string Query
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("query", out JsonElement element))
-                throw new CasedevInvalidDataException(
-                    "'query' cannot be null",
-                    new System::ArgumentOutOfRangeException("query", "Missing required argument")
-                );
-
-            return JsonSerializer.Deserialize<string>(element, ModelBase.SerializerOptions)
-                ?? throw new CasedevInvalidDataException(
-                    "'query' cannot be null",
-                    new System::ArgumentNullException("query")
-                );
-        }
-        init
-        {
-            this._rawBodyData["query"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
-        }
+        get { return ModelBase.GetNotNullClass<string>(this.RawBodyData, "query"); }
+        init { ModelBase.Set(this._rawBodyData, "query", value); }
     }
 
     /// <summary>
@@ -59,10 +40,7 @@ public sealed record class V1SearchParams : ParamsBase
     {
         get
         {
-            if (!this._rawBodyData.TryGetValue("additionalQueries", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<List<string>?>(element, ModelBase.SerializerOptions);
+            return ModelBase.GetNullableClass<List<string>>(this.RawBodyData, "additionalQueries");
         }
         init
         {
@@ -71,10 +49,7 @@ public sealed record class V1SearchParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["additionalQueries"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "additionalQueries", value);
         }
     }
 
@@ -83,13 +58,7 @@ public sealed record class V1SearchParams : ParamsBase
     /// </summary>
     public string? Category
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("category", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawBodyData, "category"); }
         init
         {
             if (value == null)
@@ -97,10 +66,7 @@ public sealed record class V1SearchParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["category"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "category", value);
         }
     }
 
@@ -109,13 +75,7 @@ public sealed record class V1SearchParams : ParamsBase
     /// </summary>
     public string? Contents
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("contents", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawBodyData, "contents"); }
         init
         {
             if (value == null)
@@ -123,10 +83,7 @@ public sealed record class V1SearchParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["contents"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "contents", value);
         }
     }
 
@@ -143,16 +100,13 @@ public sealed record class V1SearchParams : ParamsBase
     {
         get
         {
-            if (!this._rawBodyData.TryGetValue("endCrawlDate", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<
+            return ModelBase.GetNullableStruct<
 #if NET
             System::DateOnly
 #else
             System::DateTimeOffset
 #endif
-            ?>(element, ModelBase.SerializerOptions);
+            >(this.RawBodyData, "endCrawlDate");
         }
         init
         {
@@ -161,10 +115,7 @@ public sealed record class V1SearchParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["endCrawlDate"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "endCrawlDate", value);
         }
     }
 
@@ -181,16 +132,13 @@ public sealed record class V1SearchParams : ParamsBase
     {
         get
         {
-            if (!this._rawBodyData.TryGetValue("endPublishedDate", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<
+            return ModelBase.GetNullableStruct<
 #if NET
             System::DateOnly
 #else
             System::DateTimeOffset
 #endif
-            ?>(element, ModelBase.SerializerOptions);
+            >(this.RawBodyData, "endPublishedDate");
         }
         init
         {
@@ -199,10 +147,7 @@ public sealed record class V1SearchParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["endPublishedDate"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "endPublishedDate", value);
         }
     }
 
@@ -211,13 +156,7 @@ public sealed record class V1SearchParams : ParamsBase
     /// </summary>
     public IReadOnlyList<string>? ExcludeDomains
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("excludeDomains", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<List<string>?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<List<string>>(this.RawBodyData, "excludeDomains"); }
         init
         {
             if (value == null)
@@ -225,10 +164,7 @@ public sealed record class V1SearchParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["excludeDomains"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "excludeDomains", value);
         }
     }
 
@@ -237,13 +173,7 @@ public sealed record class V1SearchParams : ParamsBase
     /// </summary>
     public IReadOnlyList<string>? IncludeDomains
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("includeDomains", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<List<string>?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<List<string>>(this.RawBodyData, "includeDomains"); }
         init
         {
             if (value == null)
@@ -251,10 +181,7 @@ public sealed record class V1SearchParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["includeDomains"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "includeDomains", value);
         }
     }
 
@@ -263,13 +190,7 @@ public sealed record class V1SearchParams : ParamsBase
     /// </summary>
     public bool? IncludeText
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("includeText", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<bool?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<bool>(this.RawBodyData, "includeText"); }
         init
         {
             if (value == null)
@@ -277,10 +198,7 @@ public sealed record class V1SearchParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["includeText"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "includeText", value);
         }
     }
 
@@ -289,13 +207,7 @@ public sealed record class V1SearchParams : ParamsBase
     /// </summary>
     public long? NumResults
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("numResults", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<long?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<long>(this.RawBodyData, "numResults"); }
         init
         {
             if (value == null)
@@ -303,10 +215,7 @@ public sealed record class V1SearchParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["numResults"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "numResults", value);
         }
     }
 
@@ -323,16 +232,13 @@ public sealed record class V1SearchParams : ParamsBase
     {
         get
         {
-            if (!this._rawBodyData.TryGetValue("startCrawlDate", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<
+            return ModelBase.GetNullableStruct<
 #if NET
             System::DateOnly
 #else
             System::DateTimeOffset
 #endif
-            ?>(element, ModelBase.SerializerOptions);
+            >(this.RawBodyData, "startCrawlDate");
         }
         init
         {
@@ -341,10 +247,7 @@ public sealed record class V1SearchParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["startCrawlDate"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "startCrawlDate", value);
         }
     }
 
@@ -361,16 +264,13 @@ public sealed record class V1SearchParams : ParamsBase
     {
         get
         {
-            if (!this._rawBodyData.TryGetValue("startPublishedDate", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<
+            return ModelBase.GetNullableStruct<
 #if NET
             System::DateOnly
 #else
             System::DateTimeOffset
 #endif
-            ?>(element, ModelBase.SerializerOptions);
+            >(this.RawBodyData, "startPublishedDate");
         }
         init
         {
@@ -379,10 +279,7 @@ public sealed record class V1SearchParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["startPublishedDate"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "startPublishedDate", value);
         }
     }
 
@@ -393,13 +290,9 @@ public sealed record class V1SearchParams : ParamsBase
     {
         get
         {
-            if (!this._rawBodyData.TryGetValue("type", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<ApiEnum<
-                string,
-                global::CaseDev.Models.Search.V1.Type
-            >?>(element, ModelBase.SerializerOptions);
+            return ModelBase.GetNullableClass<
+                ApiEnum<string, global::CaseDev.Models.Search.V1.Type>
+            >(this.RawBodyData, "type");
         }
         init
         {
@@ -408,10 +301,7 @@ public sealed record class V1SearchParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["type"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "type", value);
         }
     }
 
@@ -420,13 +310,7 @@ public sealed record class V1SearchParams : ParamsBase
     /// </summary>
     public string? UserLocation
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("userLocation", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawBodyData, "userLocation"); }
         init
         {
             if (value == null)
@@ -434,10 +318,7 @@ public sealed record class V1SearchParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["userLocation"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "userLocation", value);
         }
     }
 

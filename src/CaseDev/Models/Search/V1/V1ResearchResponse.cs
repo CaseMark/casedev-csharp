@@ -15,13 +15,7 @@ public sealed record class V1ResearchResponse : ModelBase
     /// </summary>
     public string? Model
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("model", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "model"); }
         init
         {
             if (value == null)
@@ -29,10 +23,7 @@ public sealed record class V1ResearchResponse : ModelBase
                 return;
             }
 
-            this._rawData["model"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "model", value);
         }
     }
 
@@ -41,13 +32,7 @@ public sealed record class V1ResearchResponse : ModelBase
     /// </summary>
     public string? ResearchID
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("researchId", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "researchId"); }
         init
         {
             if (value == null)
@@ -55,10 +40,7 @@ public sealed record class V1ResearchResponse : ModelBase
                 return;
             }
 
-            this._rawData["researchId"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "researchId", value);
         }
     }
 
@@ -67,13 +49,7 @@ public sealed record class V1ResearchResponse : ModelBase
     /// </summary>
     public JsonElement? Results
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("results", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<JsonElement?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<JsonElement>(this.RawData, "results"); }
         init
         {
             if (value == null)
@@ -81,10 +57,7 @@ public sealed record class V1ResearchResponse : ModelBase
                 return;
             }
 
-            this._rawData["results"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "results", value);
         }
     }
 

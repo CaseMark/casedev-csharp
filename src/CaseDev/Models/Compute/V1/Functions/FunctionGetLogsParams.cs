@@ -22,13 +22,7 @@ public sealed record class FunctionGetLogsParams : ParamsBase
     /// </summary>
     public long? Tail
     {
-        get
-        {
-            if (!this._rawQueryData.TryGetValue("tail", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<long?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<long>(this.RawQueryData, "tail"); }
         init
         {
             if (value == null)
@@ -36,10 +30,7 @@ public sealed record class FunctionGetLogsParams : ParamsBase
                 return;
             }
 
-            this._rawQueryData["tail"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawQueryData, "tail", value);
         }
     }
 

@@ -21,16 +21,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
     /// </summary>
     public DateTimeOffset? ExpiresAt
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("expiresAt", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<DateTimeOffset?>(
-                element,
-                ModelBase.SerializerOptions
-            );
-        }
+        get { return ModelBase.GetNullableStruct<DateTimeOffset>(this.RawData, "expiresAt"); }
         init
         {
             if (value == null)
@@ -38,10 +29,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
                 return;
             }
 
-            this._rawData["expiresAt"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "expiresAt", value);
         }
     }
 
@@ -50,13 +38,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
     /// </summary>
     public long? ExpiresIn
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("expiresIn", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<long?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<long>(this.RawData, "expiresIn"); }
         init
         {
             if (value == null)
@@ -64,10 +46,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
                 return;
             }
 
-            this._rawData["expiresIn"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "expiresIn", value);
         }
     }
 
@@ -76,13 +55,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
     /// </summary>
     public string? Filename
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("filename", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "filename"); }
         init
         {
             if (value == null)
@@ -90,10 +63,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
                 return;
             }
 
-            this._rawData["filename"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "filename", value);
         }
     }
 
@@ -102,13 +72,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
     /// </summary>
     public JsonElement? Instructions
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("instructions", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<JsonElement?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<JsonElement>(this.RawData, "instructions"); }
         init
         {
             if (value == null)
@@ -116,22 +80,13 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
                 return;
             }
 
-            this._rawData["instructions"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "instructions", value);
         }
     }
 
     public Metadata? Metadata
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("metadata", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<Metadata?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<Metadata>(this.RawData, "metadata"); }
         init
         {
             if (value == null)
@@ -139,10 +94,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
                 return;
             }
 
-            this._rawData["metadata"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "metadata", value);
         }
     }
 
@@ -151,13 +103,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
     /// </summary>
     public string? ObjectID
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("objectId", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "objectId"); }
         init
         {
             if (value == null)
@@ -165,10 +111,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
                 return;
             }
 
-            this._rawData["objectId"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "objectId", value);
         }
     }
 
@@ -177,13 +120,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
     /// </summary>
     public string? Operation
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("operation", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "operation"); }
         init
         {
             if (value == null)
@@ -191,10 +128,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
                 return;
             }
 
-            this._rawData["operation"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "operation", value);
         }
     }
 
@@ -203,13 +137,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
     /// </summary>
     public string? PresignedURL
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("presignedUrl", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "presignedUrl"); }
         init
         {
             if (value == null)
@@ -217,10 +145,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
                 return;
             }
 
-            this._rawData["presignedUrl"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "presignedUrl", value);
         }
     }
 
@@ -229,13 +154,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
     /// </summary>
     public string? S3Key
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("s3Key", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "s3Key"); }
         init
         {
             if (value == null)
@@ -243,10 +162,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
                 return;
             }
 
-            this._rawData["s3Key"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "s3Key", value);
         }
     }
 
@@ -255,13 +171,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
     /// </summary>
     public string? VaultID
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("vaultId", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "vaultId"); }
         init
         {
             if (value == null)
@@ -269,10 +179,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
                 return;
             }
 
-            this._rawData["vaultId"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "vaultId", value);
         }
     }
 
@@ -325,13 +232,7 @@ public sealed record class Metadata : ModelBase
 {
     public string? Bucket
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("bucket", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "bucket"); }
         init
         {
             if (value == null)
@@ -339,22 +240,13 @@ public sealed record class Metadata : ModelBase
                 return;
             }
 
-            this._rawData["bucket"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "bucket", value);
         }
     }
 
     public string? ContentType
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("contentType", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "contentType"); }
         init
         {
             if (value == null)
@@ -362,22 +254,13 @@ public sealed record class Metadata : ModelBase
                 return;
             }
 
-            this._rawData["contentType"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "contentType", value);
         }
     }
 
     public string? Region
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("region", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "region"); }
         init
         {
             if (value == null)
@@ -385,22 +268,13 @@ public sealed record class Metadata : ModelBase
                 return;
             }
 
-            this._rawData["region"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "region", value);
         }
     }
 
     public long? SizeBytes
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("sizeBytes", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<long?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<long>(this.RawData, "sizeBytes"); }
         init
         {
             if (value == null)
@@ -408,10 +282,7 @@ public sealed record class Metadata : ModelBase
                 return;
             }
 
-            this._rawData["sizeBytes"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "sizeBytes", value);
         }
     }
 

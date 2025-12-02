@@ -6,7 +6,6 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using CaseDev.Core;
-using CaseDev.Exceptions;
 
 namespace CaseDev.Models.Voice.Transcription;
 
@@ -29,27 +28,8 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public required string AudioURL
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("audio_url", out JsonElement element))
-                throw new CasedevInvalidDataException(
-                    "'audio_url' cannot be null",
-                    new ArgumentOutOfRangeException("audio_url", "Missing required argument")
-                );
-
-            return JsonSerializer.Deserialize<string>(element, ModelBase.SerializerOptions)
-                ?? throw new CasedevInvalidDataException(
-                    "'audio_url' cannot be null",
-                    new ArgumentNullException("audio_url")
-                );
-        }
-        init
-        {
-            this._rawBodyData["audio_url"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
-        }
+        get { return ModelBase.GetNotNullClass<string>(this.RawBodyData, "audio_url"); }
+        init { ModelBase.Set(this._rawBodyData, "audio_url", value); }
     }
 
     /// <summary>
@@ -57,13 +37,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public bool? AutoHighlights
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("auto_highlights", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<bool?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<bool>(this.RawBodyData, "auto_highlights"); }
         init
         {
             if (value == null)
@@ -71,10 +45,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["auto_highlights"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "auto_highlights", value);
         }
     }
 
@@ -83,13 +54,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public bool? ContentSafetyLabels
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("content_safety_labels", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<bool?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<bool>(this.RawBodyData, "content_safety_labels"); }
         init
         {
             if (value == null)
@@ -97,10 +62,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["content_safety_labels"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "content_safety_labels", value);
         }
     }
 
@@ -109,13 +71,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public bool? FormatText
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("format_text", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<bool?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<bool>(this.RawBodyData, "format_text"); }
         init
         {
             if (value == null)
@@ -123,10 +79,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["format_text"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "format_text", value);
         }
     }
 
@@ -136,13 +89,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public string? LanguageCode
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("language_code", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawBodyData, "language_code"); }
         init
         {
             if (value == null)
@@ -150,10 +97,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["language_code"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "language_code", value);
         }
     }
 
@@ -162,13 +106,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public bool? LanguageDetection
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("language_detection", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<bool?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<bool>(this.RawBodyData, "language_detection"); }
         init
         {
             if (value == null)
@@ -176,10 +114,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["language_detection"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "language_detection", value);
         }
     }
 
@@ -188,13 +123,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public bool? Punctuate
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("punctuate", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<bool?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<bool>(this.RawBodyData, "punctuate"); }
         init
         {
             if (value == null)
@@ -202,10 +131,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["punctuate"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "punctuate", value);
         }
     }
 
@@ -214,13 +140,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public bool? SpeakerLabels
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("speaker_labels", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<bool?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<bool>(this.RawBodyData, "speaker_labels"); }
         init
         {
             if (value == null)
@@ -228,10 +148,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["speaker_labels"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "speaker_labels", value);
         }
     }
 

@@ -17,13 +17,7 @@ public sealed record class V1ExecuteResponse : ModelBase
     /// </summary>
     public JsonElement? Result
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("result", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<JsonElement?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<JsonElement>(this.RawData, "result"); }
         init
         {
             if (value == null)
@@ -31,25 +25,13 @@ public sealed record class V1ExecuteResponse : ModelBase
                 return;
             }
 
-            this._rawData["result"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "result", value);
         }
     }
 
     public ApiEnum<string, Status>? Status
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("status", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<ApiEnum<string, Status>?>(
-                element,
-                ModelBase.SerializerOptions
-            );
-        }
+        get { return ModelBase.GetNullableClass<ApiEnum<string, Status>>(this.RawData, "status"); }
         init
         {
             if (value == null)
@@ -57,22 +39,13 @@ public sealed record class V1ExecuteResponse : ModelBase
                 return;
             }
 
-            this._rawData["status"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "status", value);
         }
     }
 
     public Usage? Usage
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("usage", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<Usage?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<Usage>(this.RawData, "usage"); }
         init
         {
             if (value == null)
@@ -80,10 +53,7 @@ public sealed record class V1ExecuteResponse : ModelBase
                 return;
             }
 
-            this._rawData["usage"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "usage", value);
         }
     }
 
@@ -92,13 +62,7 @@ public sealed record class V1ExecuteResponse : ModelBase
     /// </summary>
     public string? WorkflowName
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("workflow_name", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "workflow_name"); }
         init
         {
             if (value == null)
@@ -106,10 +70,7 @@ public sealed record class V1ExecuteResponse : ModelBase
                 return;
             }
 
-            this._rawData["workflow_name"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "workflow_name", value);
         }
     }
 
@@ -195,13 +156,7 @@ public sealed record class Usage : ModelBase
 {
     public long? CompletionTokens
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("completion_tokens", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<long?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<long>(this.RawData, "completion_tokens"); }
         init
         {
             if (value == null)
@@ -209,10 +164,7 @@ public sealed record class Usage : ModelBase
                 return;
             }
 
-            this._rawData["completion_tokens"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "completion_tokens", value);
         }
     }
 
@@ -221,13 +173,7 @@ public sealed record class Usage : ModelBase
     /// </summary>
     public double? Cost
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("cost", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<double?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<double>(this.RawData, "cost"); }
         init
         {
             if (value == null)
@@ -235,22 +181,13 @@ public sealed record class Usage : ModelBase
                 return;
             }
 
-            this._rawData["cost"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "cost", value);
         }
     }
 
     public long? PromptTokens
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("prompt_tokens", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<long?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<long>(this.RawData, "prompt_tokens"); }
         init
         {
             if (value == null)
@@ -258,22 +195,13 @@ public sealed record class Usage : ModelBase
                 return;
             }
 
-            this._rawData["prompt_tokens"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "prompt_tokens", value);
         }
     }
 
     public long? TotalTokens
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("total_tokens", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<long?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<long>(this.RawData, "total_tokens"); }
         init
         {
             if (value == null)
@@ -281,10 +209,7 @@ public sealed record class Usage : ModelBase
                 return;
             }
 
-            this._rawData["total_tokens"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "total_tokens", value);
         }
     }
 

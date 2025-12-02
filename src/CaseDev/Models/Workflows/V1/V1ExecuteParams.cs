@@ -35,34 +35,13 @@ public sealed record class V1ExecuteParams : ParamsBase
     /// </summary>
     public required JsonElement Input
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("input", out JsonElement element))
-                throw new CasedevInvalidDataException(
-                    "'input' cannot be null",
-                    new ArgumentOutOfRangeException("input", "Missing required argument")
-                );
-
-            return JsonSerializer.Deserialize<JsonElement>(element, ModelBase.SerializerOptions);
-        }
-        init
-        {
-            this._rawBodyData["input"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
-        }
+        get { return ModelBase.GetNotNullStruct<JsonElement>(this.RawBodyData, "input"); }
+        init { ModelBase.Set(this._rawBodyData, "input", value); }
     }
 
     public Options? Options
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("options", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<Options?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<Options>(this.RawBodyData, "options"); }
         init
         {
             if (value == null)
@@ -70,10 +49,7 @@ public sealed record class V1ExecuteParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["options"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "options", value);
         }
     }
 
@@ -153,12 +129,9 @@ public sealed record class Options : ModelBase
     {
         get
         {
-            if (!this._rawData.TryGetValue("format", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<ApiEnum<string, OptionsFormat>?>(
-                element,
-                ModelBase.SerializerOptions
+            return ModelBase.GetNullableClass<ApiEnum<string, OptionsFormat>>(
+                this.RawData,
+                "format"
             );
         }
         init
@@ -168,10 +141,7 @@ public sealed record class Options : ModelBase
                 return;
             }
 
-            this._rawData["format"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "format", value);
         }
     }
 
@@ -180,13 +150,7 @@ public sealed record class Options : ModelBase
     /// </summary>
     public string? Model
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("model", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "model"); }
         init
         {
             if (value == null)
@@ -194,10 +158,7 @@ public sealed record class Options : ModelBase
                 return;
             }
 
-            this._rawData["model"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "model", value);
         }
     }
 

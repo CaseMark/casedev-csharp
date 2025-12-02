@@ -17,13 +17,7 @@ public sealed record class V1ProcessResponse : ModelBase
     /// </summary>
     public string? ID
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("id", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "id"); }
         init
         {
             if (value == null)
@@ -31,10 +25,7 @@ public sealed record class V1ProcessResponse : ModelBase
                 return;
             }
 
-            this._rawData["id"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "id", value);
         }
     }
 
@@ -45,13 +36,7 @@ public sealed record class V1ProcessResponse : ModelBase
     {
         get
         {
-            if (!this._rawData.TryGetValue("created_at", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<System::DateTimeOffset?>(
-                element,
-                ModelBase.SerializerOptions
-            );
+            return ModelBase.GetNullableStruct<System::DateTimeOffset>(this.RawData, "created_at");
         }
         init
         {
@@ -60,10 +45,7 @@ public sealed record class V1ProcessResponse : ModelBase
                 return;
             }
 
-            this._rawData["created_at"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "created_at", value);
         }
     }
 
@@ -72,13 +54,7 @@ public sealed record class V1ProcessResponse : ModelBase
     /// </summary>
     public string? DocumentID
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("document_id", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "document_id"); }
         init
         {
             if (value == null)
@@ -86,10 +62,7 @@ public sealed record class V1ProcessResponse : ModelBase
                 return;
             }
 
-            this._rawData["document_id"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "document_id", value);
         }
     }
 
@@ -98,13 +71,7 @@ public sealed record class V1ProcessResponse : ModelBase
     /// </summary>
     public string? Engine
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("engine", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "engine"); }
         init
         {
             if (value == null)
@@ -112,10 +79,7 @@ public sealed record class V1ProcessResponse : ModelBase
                 return;
             }
 
-            this._rawData["engine"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "engine", value);
         }
     }
 
@@ -126,12 +90,9 @@ public sealed record class V1ProcessResponse : ModelBase
     {
         get
         {
-            if (!this._rawData.TryGetValue("estimated_completion", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<System::DateTimeOffset?>(
-                element,
-                ModelBase.SerializerOptions
+            return ModelBase.GetNullableStruct<System::DateTimeOffset>(
+                this.RawData,
+                "estimated_completion"
             );
         }
         init
@@ -141,10 +102,7 @@ public sealed record class V1ProcessResponse : ModelBase
                 return;
             }
 
-            this._rawData["estimated_completion"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "estimated_completion", value);
         }
     }
 
@@ -153,13 +111,7 @@ public sealed record class V1ProcessResponse : ModelBase
     /// </summary>
     public long? PageCount
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("page_count", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<long?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<long>(this.RawData, "page_count"); }
         init
         {
             if (value == null)
@@ -167,10 +119,7 @@ public sealed record class V1ProcessResponse : ModelBase
                 return;
             }
 
-            this._rawData["page_count"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "page_count", value);
         }
     }
 
@@ -179,16 +128,7 @@ public sealed record class V1ProcessResponse : ModelBase
     /// </summary>
     public ApiEnum<string, Status>? Status
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("status", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<ApiEnum<string, Status>?>(
-                element,
-                ModelBase.SerializerOptions
-            );
-        }
+        get { return ModelBase.GetNullableClass<ApiEnum<string, Status>>(this.RawData, "status"); }
         init
         {
             if (value == null)
@@ -196,10 +136,7 @@ public sealed record class V1ProcessResponse : ModelBase
                 return;
             }
 
-            this._rawData["status"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "status", value);
         }
     }
 

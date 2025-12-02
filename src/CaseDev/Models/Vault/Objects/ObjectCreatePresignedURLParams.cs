@@ -33,13 +33,7 @@ public sealed record class ObjectCreatePresignedURLParams : ParamsBase
     /// </summary>
     public string? ContentType
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("contentType", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawBodyData, "contentType"); }
         init
         {
             if (value == null)
@@ -47,10 +41,7 @@ public sealed record class ObjectCreatePresignedURLParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["contentType"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "contentType", value);
         }
     }
 
@@ -59,13 +50,7 @@ public sealed record class ObjectCreatePresignedURLParams : ParamsBase
     /// </summary>
     public long? ExpiresIn
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("expiresIn", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<long?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<long>(this.RawBodyData, "expiresIn"); }
         init
         {
             if (value == null)
@@ -73,10 +58,7 @@ public sealed record class ObjectCreatePresignedURLParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["expiresIn"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "expiresIn", value);
         }
     }
 
@@ -87,12 +69,9 @@ public sealed record class ObjectCreatePresignedURLParams : ParamsBase
     {
         get
         {
-            if (!this._rawBodyData.TryGetValue("operation", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<ApiEnum<string, Operation>?>(
-                element,
-                ModelBase.SerializerOptions
+            return ModelBase.GetNullableClass<ApiEnum<string, Operation>>(
+                this.RawBodyData,
+                "operation"
             );
         }
         init
@@ -102,10 +81,7 @@ public sealed record class ObjectCreatePresignedURLParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["operation"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "operation", value);
         }
     }
 

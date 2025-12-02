@@ -17,13 +17,7 @@ public sealed record class V1ExecuteResponse : ModelBase
     /// </summary>
     public double? DurationMs
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("duration_ms", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<double?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<double>(this.RawData, "duration_ms"); }
         init
         {
             if (value == null)
@@ -31,10 +25,7 @@ public sealed record class V1ExecuteResponse : ModelBase
                 return;
             }
 
-            this._rawData["duration_ms"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "duration_ms", value);
         }
     }
 
@@ -43,13 +34,7 @@ public sealed record class V1ExecuteResponse : ModelBase
     /// </summary>
     public string? ExecutionID
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("execution_id", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "execution_id"); }
         init
         {
             if (value == null)
@@ -57,10 +42,7 @@ public sealed record class V1ExecuteResponse : ModelBase
                 return;
             }
 
-            this._rawData["execution_id"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "execution_id", value);
         }
     }
 
@@ -69,13 +51,7 @@ public sealed record class V1ExecuteResponse : ModelBase
     /// </summary>
     public string? Message
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("message", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "message"); }
         init
         {
             if (value == null)
@@ -83,10 +59,7 @@ public sealed record class V1ExecuteResponse : ModelBase
                 return;
             }
 
-            this._rawData["message"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "message", value);
         }
     }
 
@@ -97,12 +70,9 @@ public sealed record class V1ExecuteResponse : ModelBase
     {
         get
         {
-            if (!this._rawData.TryGetValue("output", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<Dictionary<string, JsonElement>?>(
-                element,
-                ModelBase.SerializerOptions
+            return ModelBase.GetNullableClass<Dictionary<string, JsonElement>>(
+                this.RawData,
+                "output"
             );
         }
         init
@@ -112,10 +82,7 @@ public sealed record class V1ExecuteResponse : ModelBase
                 return;
             }
 
-            this._rawData["output"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "output", value);
         }
     }
 
@@ -124,16 +91,7 @@ public sealed record class V1ExecuteResponse : ModelBase
     /// </summary>
     public ApiEnum<string, Status>? Status
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("status", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<ApiEnum<string, Status>?>(
-                element,
-                ModelBase.SerializerOptions
-            );
-        }
+        get { return ModelBase.GetNullableClass<ApiEnum<string, Status>>(this.RawData, "status"); }
         init
         {
             if (value == null)
@@ -141,10 +99,7 @@ public sealed record class V1ExecuteResponse : ModelBase
                 return;
             }
 
-            this._rawData["status"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "status", value);
         }
     }
 
@@ -155,12 +110,9 @@ public sealed record class V1ExecuteResponse : ModelBase
     {
         get
         {
-            if (!this._rawData.TryGetValue("step_results", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<List<Dictionary<string, JsonElement>>?>(
-                element,
-                ModelBase.SerializerOptions
+            return ModelBase.GetNullableClass<List<Dictionary<string, JsonElement>>>(
+                this.RawData,
+                "step_results"
             );
         }
         init
@@ -170,10 +122,7 @@ public sealed record class V1ExecuteResponse : ModelBase
                 return;
             }
 
-            this._rawData["step_results"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "step_results", value);
         }
     }
 
@@ -182,13 +131,7 @@ public sealed record class V1ExecuteResponse : ModelBase
     /// </summary>
     public bool? WebhookConfigured
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("webhook_configured", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<bool?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<bool>(this.RawData, "webhook_configured"); }
         init
         {
             if (value == null)
@@ -196,10 +139,7 @@ public sealed record class V1ExecuteResponse : ModelBase
                 return;
             }
 
-            this._rawData["webhook_configured"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "webhook_configured", value);
         }
     }
 

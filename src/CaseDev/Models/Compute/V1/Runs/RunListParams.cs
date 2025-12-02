@@ -20,13 +20,7 @@ public sealed record class RunListParams : ParamsBase
     /// </summary>
     public string? Env
     {
-        get
-        {
-            if (!this._rawQueryData.TryGetValue("env", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawQueryData, "env"); }
         init
         {
             if (value == null)
@@ -34,10 +28,7 @@ public sealed record class RunListParams : ParamsBase
                 return;
             }
 
-            this._rawQueryData["env"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawQueryData, "env", value);
         }
     }
 
@@ -46,13 +37,7 @@ public sealed record class RunListParams : ParamsBase
     /// </summary>
     public string? Function
     {
-        get
-        {
-            if (!this._rawQueryData.TryGetValue("function", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawQueryData, "function"); }
         init
         {
             if (value == null)
@@ -60,10 +45,7 @@ public sealed record class RunListParams : ParamsBase
                 return;
             }
 
-            this._rawQueryData["function"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawQueryData, "function", value);
         }
     }
 
@@ -72,13 +54,7 @@ public sealed record class RunListParams : ParamsBase
     /// </summary>
     public long? Limit
     {
-        get
-        {
-            if (!this._rawQueryData.TryGetValue("limit", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<long?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<long>(this.RawQueryData, "limit"); }
         init
         {
             if (value == null)
@@ -86,10 +62,7 @@ public sealed record class RunListParams : ParamsBase
                 return;
             }
 
-            this._rawQueryData["limit"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawQueryData, "limit", value);
         }
     }
 

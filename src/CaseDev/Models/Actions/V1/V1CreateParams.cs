@@ -29,27 +29,8 @@ public sealed record class V1CreateParams : ParamsBase
     /// </summary>
     public required Definition Definition
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("definition", out JsonElement element))
-                throw new CasedevInvalidDataException(
-                    "'definition' cannot be null",
-                    new ArgumentOutOfRangeException("definition", "Missing required argument")
-                );
-
-            return JsonSerializer.Deserialize<Definition>(element, ModelBase.SerializerOptions)
-                ?? throw new CasedevInvalidDataException(
-                    "'definition' cannot be null",
-                    new ArgumentNullException("definition")
-                );
-        }
-        init
-        {
-            this._rawBodyData["definition"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
-        }
+        get { return ModelBase.GetNotNullClass<Definition>(this.RawBodyData, "definition"); }
+        init { ModelBase.Set(this._rawBodyData, "definition", value); }
     }
 
     /// <summary>
@@ -57,27 +38,8 @@ public sealed record class V1CreateParams : ParamsBase
     /// </summary>
     public required string Name
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("name", out JsonElement element))
-                throw new CasedevInvalidDataException(
-                    "'name' cannot be null",
-                    new ArgumentOutOfRangeException("name", "Missing required argument")
-                );
-
-            return JsonSerializer.Deserialize<string>(element, ModelBase.SerializerOptions)
-                ?? throw new CasedevInvalidDataException(
-                    "'name' cannot be null",
-                    new ArgumentNullException("name")
-                );
-        }
-        init
-        {
-            this._rawBodyData["name"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
-        }
+        get { return ModelBase.GetNotNullClass<string>(this.RawBodyData, "name"); }
+        init { ModelBase.Set(this._rawBodyData, "name", value); }
     }
 
     /// <summary>
@@ -85,13 +47,7 @@ public sealed record class V1CreateParams : ParamsBase
     /// </summary>
     public string? Description
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("description", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawBodyData, "description"); }
         init
         {
             if (value == null)
@@ -99,10 +55,7 @@ public sealed record class V1CreateParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["description"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "description", value);
         }
     }
 
@@ -111,13 +64,7 @@ public sealed record class V1CreateParams : ParamsBase
     /// </summary>
     public string? WebhookID
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("webhook_id", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawBodyData, "webhook_id"); }
         init
         {
             if (value == null)
@@ -125,10 +72,7 @@ public sealed record class V1CreateParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["webhook_id"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "webhook_id", value);
         }
     }
 

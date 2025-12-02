@@ -6,7 +6,6 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using CaseDev.Core;
-using CaseDev.Exceptions;
 
 namespace CaseDev.Models.Vault;
 
@@ -31,27 +30,8 @@ public sealed record class VaultUploadParams : ParamsBase
     /// </summary>
     public required string ContentType
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("contentType", out JsonElement element))
-                throw new CasedevInvalidDataException(
-                    "'contentType' cannot be null",
-                    new ArgumentOutOfRangeException("contentType", "Missing required argument")
-                );
-
-            return JsonSerializer.Deserialize<string>(element, ModelBase.SerializerOptions)
-                ?? throw new CasedevInvalidDataException(
-                    "'contentType' cannot be null",
-                    new ArgumentNullException("contentType")
-                );
-        }
-        init
-        {
-            this._rawBodyData["contentType"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
-        }
+        get { return ModelBase.GetNotNullClass<string>(this.RawBodyData, "contentType"); }
+        init { ModelBase.Set(this._rawBodyData, "contentType", value); }
     }
 
     /// <summary>
@@ -59,27 +39,8 @@ public sealed record class VaultUploadParams : ParamsBase
     /// </summary>
     public required string Filename
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("filename", out JsonElement element))
-                throw new CasedevInvalidDataException(
-                    "'filename' cannot be null",
-                    new ArgumentOutOfRangeException("filename", "Missing required argument")
-                );
-
-            return JsonSerializer.Deserialize<string>(element, ModelBase.SerializerOptions)
-                ?? throw new CasedevInvalidDataException(
-                    "'filename' cannot be null",
-                    new ArgumentNullException("filename")
-                );
-        }
-        init
-        {
-            this._rawBodyData["filename"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
-        }
+        get { return ModelBase.GetNotNullClass<string>(this.RawBodyData, "filename"); }
+        init { ModelBase.Set(this._rawBodyData, "filename", value); }
     }
 
     /// <summary>
@@ -87,13 +48,7 @@ public sealed record class VaultUploadParams : ParamsBase
     /// </summary>
     public bool? AutoIndex
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("auto_index", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<bool?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<bool>(this.RawBodyData, "auto_index"); }
         init
         {
             if (value == null)
@@ -101,10 +56,7 @@ public sealed record class VaultUploadParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["auto_index"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "auto_index", value);
         }
     }
 
@@ -113,13 +65,7 @@ public sealed record class VaultUploadParams : ParamsBase
     /// </summary>
     public JsonElement? Metadata
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("metadata", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<JsonElement?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<JsonElement>(this.RawBodyData, "metadata"); }
         init
         {
             if (value == null)
@@ -127,10 +73,7 @@ public sealed record class VaultUploadParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["metadata"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "metadata", value);
         }
     }
 
@@ -139,13 +82,7 @@ public sealed record class VaultUploadParams : ParamsBase
     /// </summary>
     public double? SizeBytes
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("sizeBytes", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<double?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<double>(this.RawBodyData, "sizeBytes"); }
         init
         {
             if (value == null)
@@ -153,10 +90,7 @@ public sealed record class VaultUploadParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["sizeBytes"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "sizeBytes", value);
         }
     }
 

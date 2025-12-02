@@ -6,7 +6,6 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using CaseDev.Core;
-using CaseDev.Exceptions;
 
 namespace CaseDev.Models.Search.V1;
 
@@ -28,27 +27,8 @@ public sealed record class V1SimilarParams : ParamsBase
     /// </summary>
     public required string URL
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("url", out JsonElement element))
-                throw new CasedevInvalidDataException(
-                    "'url' cannot be null",
-                    new ArgumentOutOfRangeException("url", "Missing required argument")
-                );
-
-            return JsonSerializer.Deserialize<string>(element, ModelBase.SerializerOptions)
-                ?? throw new CasedevInvalidDataException(
-                    "'url' cannot be null",
-                    new ArgumentNullException("url")
-                );
-        }
-        init
-        {
-            this._rawBodyData["url"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
-        }
+        get { return ModelBase.GetNotNullClass<string>(this.RawBodyData, "url"); }
+        init { ModelBase.Set(this._rawBodyData, "url", value); }
     }
 
     /// <summary>
@@ -56,13 +36,7 @@ public sealed record class V1SimilarParams : ParamsBase
     /// </summary>
     public string? Contents
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("contents", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawBodyData, "contents"); }
         init
         {
             if (value == null)
@@ -70,10 +44,7 @@ public sealed record class V1SimilarParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["contents"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "contents", value);
         }
     }
 
@@ -88,19 +59,13 @@ public sealed record class V1SimilarParams : ParamsBase
 #endif
     ? EndCrawlDate
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("endCrawlDate", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<
+        get { return ModelBase.GetNullableStruct<
 #if NET
             DateOnly
 #else
             DateTimeOffset
 #endif
-            ?>(element, ModelBase.SerializerOptions);
-        }
+            >(this.RawBodyData, "endCrawlDate"); }
         init
         {
             if (value == null)
@@ -108,10 +73,7 @@ public sealed record class V1SimilarParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["endCrawlDate"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "endCrawlDate", value);
         }
     }
 
@@ -126,19 +88,13 @@ public sealed record class V1SimilarParams : ParamsBase
 #endif
     ? EndPublishedDate
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("endPublishedDate", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<
+        get { return ModelBase.GetNullableStruct<
 #if NET
             DateOnly
 #else
             DateTimeOffset
 #endif
-            ?>(element, ModelBase.SerializerOptions);
-        }
+            >(this.RawBodyData, "endPublishedDate"); }
         init
         {
             if (value == null)
@@ -146,10 +102,7 @@ public sealed record class V1SimilarParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["endPublishedDate"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "endPublishedDate", value);
         }
     }
 
@@ -158,13 +111,7 @@ public sealed record class V1SimilarParams : ParamsBase
     /// </summary>
     public IReadOnlyList<string>? ExcludeDomains
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("excludeDomains", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<List<string>?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<List<string>>(this.RawBodyData, "excludeDomains"); }
         init
         {
             if (value == null)
@@ -172,10 +119,7 @@ public sealed record class V1SimilarParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["excludeDomains"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "excludeDomains", value);
         }
     }
 
@@ -184,13 +128,7 @@ public sealed record class V1SimilarParams : ParamsBase
     /// </summary>
     public IReadOnlyList<string>? IncludeDomains
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("includeDomains", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<List<string>?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<List<string>>(this.RawBodyData, "includeDomains"); }
         init
         {
             if (value == null)
@@ -198,10 +136,7 @@ public sealed record class V1SimilarParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["includeDomains"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "includeDomains", value);
         }
     }
 
@@ -210,13 +145,7 @@ public sealed record class V1SimilarParams : ParamsBase
     /// </summary>
     public bool? IncludeText
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("includeText", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<bool?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<bool>(this.RawBodyData, "includeText"); }
         init
         {
             if (value == null)
@@ -224,10 +153,7 @@ public sealed record class V1SimilarParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["includeText"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "includeText", value);
         }
     }
 
@@ -236,13 +162,7 @@ public sealed record class V1SimilarParams : ParamsBase
     /// </summary>
     public long? NumResults
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("numResults", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<long?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<long>(this.RawBodyData, "numResults"); }
         init
         {
             if (value == null)
@@ -250,10 +170,7 @@ public sealed record class V1SimilarParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["numResults"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "numResults", value);
         }
     }
 
@@ -268,19 +185,13 @@ public sealed record class V1SimilarParams : ParamsBase
 #endif
     ? StartCrawlDate
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("startCrawlDate", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<
+        get { return ModelBase.GetNullableStruct<
 #if NET
             DateOnly
 #else
             DateTimeOffset
 #endif
-            ?>(element, ModelBase.SerializerOptions);
-        }
+            >(this.RawBodyData, "startCrawlDate"); }
         init
         {
             if (value == null)
@@ -288,10 +199,7 @@ public sealed record class V1SimilarParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["startCrawlDate"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "startCrawlDate", value);
         }
     }
 
@@ -308,16 +216,13 @@ public sealed record class V1SimilarParams : ParamsBase
     {
         get
         {
-            if (!this._rawBodyData.TryGetValue("startPublishedDate", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<
+            return ModelBase.GetNullableStruct<
 #if NET
             DateOnly
 #else
             DateTimeOffset
 #endif
-            ?>(element, ModelBase.SerializerOptions);
+            >(this.RawBodyData, "startPublishedDate");
         }
         init
         {
@@ -326,10 +231,7 @@ public sealed record class V1SimilarParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["startPublishedDate"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "startPublishedDate", value);
         }
     }
 

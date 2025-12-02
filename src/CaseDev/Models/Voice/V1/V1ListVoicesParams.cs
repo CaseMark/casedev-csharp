@@ -23,13 +23,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
     /// </summary>
     public string? Category
     {
-        get
-        {
-            if (!this._rawQueryData.TryGetValue("category", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawQueryData, "category"); }
         init
         {
             if (value == null)
@@ -37,10 +31,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
                 return;
             }
 
-            this._rawQueryData["category"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawQueryData, "category", value);
         }
     }
 
@@ -49,13 +40,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
     /// </summary>
     public string? CollectionID
     {
-        get
-        {
-            if (!this._rawQueryData.TryGetValue("collection_id", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawQueryData, "collection_id"); }
         init
         {
             if (value == null)
@@ -63,10 +48,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
                 return;
             }
 
-            this._rawQueryData["collection_id"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawQueryData, "collection_id", value);
         }
     }
 
@@ -75,13 +57,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
     /// </summary>
     public bool? IncludeTotalCount
     {
-        get
-        {
-            if (!this._rawQueryData.TryGetValue("include_total_count", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<bool?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<bool>(this.RawQueryData, "include_total_count"); }
         init
         {
             if (value == null)
@@ -89,10 +65,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
                 return;
             }
 
-            this._rawQueryData["include_total_count"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawQueryData, "include_total_count", value);
         }
     }
 
@@ -101,13 +74,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
     /// </summary>
     public string? NextPageToken
     {
-        get
-        {
-            if (!this._rawQueryData.TryGetValue("next_page_token", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawQueryData, "next_page_token"); }
         init
         {
             if (value == null)
@@ -115,10 +82,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
                 return;
             }
 
-            this._rawQueryData["next_page_token"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawQueryData, "next_page_token", value);
         }
     }
 
@@ -127,13 +91,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
     /// </summary>
     public long? PageSize
     {
-        get
-        {
-            if (!this._rawQueryData.TryGetValue("page_size", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<long?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<long>(this.RawQueryData, "page_size"); }
         init
         {
             if (value == null)
@@ -141,10 +99,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
                 return;
             }
 
-            this._rawQueryData["page_size"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawQueryData, "page_size", value);
         }
     }
 
@@ -153,13 +108,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
     /// </summary>
     public string? Search
     {
-        get
-        {
-            if (!this._rawQueryData.TryGetValue("search", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawQueryData, "search"); }
         init
         {
             if (value == null)
@@ -167,10 +116,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
                 return;
             }
 
-            this._rawQueryData["search"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawQueryData, "search", value);
         }
     }
 
@@ -179,16 +125,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
     /// </summary>
     public ApiEnum<string, Sort>? Sort
     {
-        get
-        {
-            if (!this._rawQueryData.TryGetValue("sort", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<ApiEnum<string, Sort>?>(
-                element,
-                ModelBase.SerializerOptions
-            );
-        }
+        get { return ModelBase.GetNullableClass<ApiEnum<string, Sort>>(this.RawQueryData, "sort"); }
         init
         {
             if (value == null)
@@ -196,10 +133,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
                 return;
             }
 
-            this._rawQueryData["sort"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawQueryData, "sort", value);
         }
     }
 
@@ -210,12 +144,9 @@ public sealed record class V1ListVoicesParams : ParamsBase
     {
         get
         {
-            if (!this._rawQueryData.TryGetValue("sort_direction", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<ApiEnum<string, SortDirection>?>(
-                element,
-                ModelBase.SerializerOptions
+            return ModelBase.GetNullableClass<ApiEnum<string, SortDirection>>(
+                this.RawQueryData,
+                "sort_direction"
             );
         }
         init
@@ -225,10 +156,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
                 return;
             }
 
-            this._rawQueryData["sort_direction"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawQueryData, "sort_direction", value);
         }
     }
 
@@ -239,12 +167,9 @@ public sealed record class V1ListVoicesParams : ParamsBase
     {
         get
         {
-            if (!this._rawQueryData.TryGetValue("voice_type", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<ApiEnum<string, VoiceType>?>(
-                element,
-                ModelBase.SerializerOptions
+            return ModelBase.GetNullableClass<ApiEnum<string, VoiceType>>(
+                this.RawQueryData,
+                "voice_type"
             );
         }
         init
@@ -254,10 +179,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
                 return;
             }
 
-            this._rawQueryData["voice_type"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawQueryData, "voice_type", value);
         }
     }
 

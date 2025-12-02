@@ -22,13 +22,7 @@ public sealed record class V1RetrieveResearchParams : ParamsBase
     /// </summary>
     public string? Events
     {
-        get
-        {
-            if (!this._rawQueryData.TryGetValue("events", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawQueryData, "events"); }
         init
         {
             if (value == null)
@@ -36,10 +30,7 @@ public sealed record class V1RetrieveResearchParams : ParamsBase
                 return;
             }
 
-            this._rawQueryData["events"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawQueryData, "events", value);
         }
     }
 
@@ -48,13 +39,7 @@ public sealed record class V1RetrieveResearchParams : ParamsBase
     /// </summary>
     public bool? Stream
     {
-        get
-        {
-            if (!this._rawQueryData.TryGetValue("stream", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<bool?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<bool>(this.RawQueryData, "stream"); }
         init
         {
             if (value == null)
@@ -62,10 +47,7 @@ public sealed record class V1RetrieveResearchParams : ParamsBase
                 return;
             }
 
-            this._rawQueryData["stream"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawQueryData, "stream", value);
         }
     }
 

@@ -23,13 +23,7 @@ public sealed record class SecretDeleteGroupParams : ParamsBase
     /// </summary>
     public string? Env
     {
-        get
-        {
-            if (!this._rawQueryData.TryGetValue("env", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawQueryData, "env"); }
         init
         {
             if (value == null)
@@ -37,10 +31,7 @@ public sealed record class SecretDeleteGroupParams : ParamsBase
                 return;
             }
 
-            this._rawQueryData["env"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawQueryData, "env", value);
         }
     }
 
@@ -50,13 +41,7 @@ public sealed record class SecretDeleteGroupParams : ParamsBase
     /// </summary>
     public string? Key
     {
-        get
-        {
-            if (!this._rawQueryData.TryGetValue("key", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawQueryData, "key"); }
         init
         {
             if (value == null)
@@ -64,10 +49,7 @@ public sealed record class SecretDeleteGroupParams : ParamsBase
                 return;
             }
 
-            this._rawQueryData["key"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawQueryData, "key", value);
         }
     }
 
