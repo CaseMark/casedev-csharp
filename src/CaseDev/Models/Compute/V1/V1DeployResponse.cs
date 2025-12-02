@@ -16,16 +16,7 @@ public sealed record class V1DeployResponse : ModelBase
     /// </summary>
     public DateTimeOffset? CreatedAt
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("createdAt", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<DateTimeOffset?>(
-                element,
-                ModelBase.SerializerOptions
-            );
-        }
+        get { return ModelBase.GetNullableStruct<DateTimeOffset>(this.RawData, "createdAt"); }
         init
         {
             if (value == null)
@@ -33,10 +24,7 @@ public sealed record class V1DeployResponse : ModelBase
                 return;
             }
 
-            this._rawData["createdAt"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "createdAt", value);
         }
     }
 
@@ -45,13 +33,7 @@ public sealed record class V1DeployResponse : ModelBase
     /// </summary>
     public string? DeploymentID
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("deploymentId", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "deploymentId"); }
         init
         {
             if (value == null)
@@ -59,10 +41,7 @@ public sealed record class V1DeployResponse : ModelBase
                 return;
             }
 
-            this._rawData["deploymentId"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "deploymentId", value);
         }
     }
 
@@ -71,13 +50,7 @@ public sealed record class V1DeployResponse : ModelBase
     /// </summary>
     public string? Environment
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("environment", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "environment"); }
         init
         {
             if (value == null)
@@ -85,10 +58,7 @@ public sealed record class V1DeployResponse : ModelBase
                 return;
             }
 
-            this._rawData["environment"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "environment", value);
         }
     }
 
@@ -97,13 +67,7 @@ public sealed record class V1DeployResponse : ModelBase
     /// </summary>
     public string? Runtime
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("runtime", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "runtime"); }
         init
         {
             if (value == null)
@@ -111,10 +75,7 @@ public sealed record class V1DeployResponse : ModelBase
                 return;
             }
 
-            this._rawData["runtime"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "runtime", value);
         }
     }
 
@@ -123,13 +84,7 @@ public sealed record class V1DeployResponse : ModelBase
     /// </summary>
     public string? Status
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("status", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "status"); }
         init
         {
             if (value == null)
@@ -137,10 +92,7 @@ public sealed record class V1DeployResponse : ModelBase
                 return;
             }
 
-            this._rawData["status"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "status", value);
         }
     }
 
@@ -149,13 +101,7 @@ public sealed record class V1DeployResponse : ModelBase
     /// </summary>
     public string? URL
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("url", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "url"); }
         init
         {
             if (value == null)
@@ -163,10 +109,7 @@ public sealed record class V1DeployResponse : ModelBase
                 return;
             }
 
-            this._rawData["url"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "url", value);
         }
     }
 

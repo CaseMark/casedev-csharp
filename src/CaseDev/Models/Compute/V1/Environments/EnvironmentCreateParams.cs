@@ -6,7 +6,6 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using CaseDev.Core;
-using CaseDev.Exceptions;
 
 namespace CaseDev.Models.Compute.V1.Environments;
 
@@ -28,27 +27,8 @@ public sealed record class EnvironmentCreateParams : ParamsBase
     /// </summary>
     public required string Name
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("name", out JsonElement element))
-                throw new CasedevInvalidDataException(
-                    "'name' cannot be null",
-                    new ArgumentOutOfRangeException("name", "Missing required argument")
-                );
-
-            return JsonSerializer.Deserialize<string>(element, ModelBase.SerializerOptions)
-                ?? throw new CasedevInvalidDataException(
-                    "'name' cannot be null",
-                    new ArgumentNullException("name")
-                );
-        }
-        init
-        {
-            this._rawBodyData["name"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
-        }
+        get { return ModelBase.GetNotNullClass<string>(this.RawBodyData, "name"); }
+        init { ModelBase.Set(this._rawBodyData, "name", value); }
     }
 
     public EnvironmentCreateParams() { }

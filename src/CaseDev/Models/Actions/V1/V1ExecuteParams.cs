@@ -6,7 +6,6 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using CaseDev.Core;
-using CaseDev.Exceptions;
 
 namespace CaseDev.Models.Actions.V1;
 
@@ -32,28 +31,12 @@ public sealed record class V1ExecuteParams : ParamsBase
     {
         get
         {
-            if (!this._rawBodyData.TryGetValue("input", out JsonElement element))
-                throw new CasedevInvalidDataException(
-                    "'input' cannot be null",
-                    new ArgumentOutOfRangeException("input", "Missing required argument")
-                );
-
-            return JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(
-                    element,
-                    ModelBase.SerializerOptions
-                )
-                ?? throw new CasedevInvalidDataException(
-                    "'input' cannot be null",
-                    new ArgumentNullException("input")
-                );
-        }
-        init
-        {
-            this._rawBodyData["input"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
+            return ModelBase.GetNotNullClass<Dictionary<string, JsonElement>>(
+                this.RawBodyData,
+                "input"
             );
         }
+        init { ModelBase.Set(this._rawBodyData, "input", value); }
     }
 
     /// <summary>
@@ -61,13 +44,7 @@ public sealed record class V1ExecuteParams : ParamsBase
     /// </summary>
     public string? WebhookID
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("webhook_id", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawBodyData, "webhook_id"); }
         init
         {
             if (value == null)
@@ -75,10 +52,7 @@ public sealed record class V1ExecuteParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["webhook_id"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "webhook_id", value);
         }
     }
 

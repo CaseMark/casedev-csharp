@@ -6,7 +6,6 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using CaseDev.Core;
-using CaseDev.Exceptions;
 
 namespace CaseDev.Models.Compute.V1.Secrets;
 
@@ -32,28 +31,12 @@ public sealed record class SecretUpdateGroupParams : ParamsBase
     {
         get
         {
-            if (!this._rawBodyData.TryGetValue("secrets", out JsonElement element))
-                throw new CasedevInvalidDataException(
-                    "'secrets' cannot be null",
-                    new ArgumentOutOfRangeException("secrets", "Missing required argument")
-                );
-
-            return JsonSerializer.Deserialize<Dictionary<string, string>>(
-                    element,
-                    ModelBase.SerializerOptions
-                )
-                ?? throw new CasedevInvalidDataException(
-                    "'secrets' cannot be null",
-                    new ArgumentNullException("secrets")
-                );
-        }
-        init
-        {
-            this._rawBodyData["secrets"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
+            return ModelBase.GetNotNullClass<Dictionary<string, string>>(
+                this.RawBodyData,
+                "secrets"
             );
         }
+        init { ModelBase.Set(this._rawBodyData, "secrets", value); }
     }
 
     /// <summary>
@@ -61,13 +44,7 @@ public sealed record class SecretUpdateGroupParams : ParamsBase
     /// </summary>
     public string? Env
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("env", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawBodyData, "env"); }
         init
         {
             if (value == null)
@@ -75,10 +52,7 @@ public sealed record class SecretUpdateGroupParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["env"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "env", value);
         }
     }
 

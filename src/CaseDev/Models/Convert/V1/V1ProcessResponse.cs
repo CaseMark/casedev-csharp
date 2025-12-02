@@ -17,13 +17,7 @@ public sealed record class V1ProcessResponse : ModelBase
     /// </summary>
     public string? JobID
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("job_id", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "job_id"); }
         init
         {
             if (value == null)
@@ -31,10 +25,7 @@ public sealed record class V1ProcessResponse : ModelBase
                 return;
             }
 
-            this._rawData["job_id"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "job_id", value);
         }
     }
 
@@ -43,13 +34,7 @@ public sealed record class V1ProcessResponse : ModelBase
     /// </summary>
     public string? Message
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("message", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "message"); }
         init
         {
             if (value == null)
@@ -57,10 +42,7 @@ public sealed record class V1ProcessResponse : ModelBase
                 return;
             }
 
-            this._rawData["message"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "message", value);
         }
     }
 
@@ -71,12 +53,9 @@ public sealed record class V1ProcessResponse : ModelBase
     {
         get
         {
-            if (!this._rawData.TryGetValue("status", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<ApiEnum<string, V1ProcessResponseStatus>?>(
-                element,
-                ModelBase.SerializerOptions
+            return ModelBase.GetNullableClass<ApiEnum<string, V1ProcessResponseStatus>>(
+                this.RawData,
+                "status"
             );
         }
         init
@@ -86,10 +65,7 @@ public sealed record class V1ProcessResponse : ModelBase
                 return;
             }
 
-            this._rawData["status"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "status", value);
         }
     }
 

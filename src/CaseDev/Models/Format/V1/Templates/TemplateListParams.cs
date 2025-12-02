@@ -23,13 +23,7 @@ public sealed record class TemplateListParams : ParamsBase
     /// </summary>
     public string? Type
     {
-        get
-        {
-            if (!this._rawQueryData.TryGetValue("type", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawQueryData, "type"); }
         init
         {
             if (value == null)
@@ -37,10 +31,7 @@ public sealed record class TemplateListParams : ParamsBase
                 return;
             }
 
-            this._rawQueryData["type"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawQueryData, "type", value);
         }
     }
 

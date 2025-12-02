@@ -20,13 +20,7 @@ public sealed record class V1ListParams : ParamsBase
     /// </summary>
     public string? Category
     {
-        get
-        {
-            if (!this._rawQueryData.TryGetValue("category", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawQueryData, "category"); }
         init
         {
             if (value == null)
@@ -34,10 +28,7 @@ public sealed record class V1ListParams : ParamsBase
                 return;
             }
 
-            this._rawQueryData["category"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawQueryData, "category", value);
         }
     }
 
@@ -46,13 +37,7 @@ public sealed record class V1ListParams : ParamsBase
     /// </summary>
     public long? Limit
     {
-        get
-        {
-            if (!this._rawQueryData.TryGetValue("limit", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<long?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<long>(this.RawQueryData, "limit"); }
         init
         {
             if (value == null)
@@ -60,10 +45,7 @@ public sealed record class V1ListParams : ParamsBase
                 return;
             }
 
-            this._rawQueryData["limit"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawQueryData, "limit", value);
         }
     }
 
@@ -72,13 +54,7 @@ public sealed record class V1ListParams : ParamsBase
     /// </summary>
     public long? Offset
     {
-        get
-        {
-            if (!this._rawQueryData.TryGetValue("offset", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<long?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<long>(this.RawQueryData, "offset"); }
         init
         {
             if (value == null)
@@ -86,10 +62,7 @@ public sealed record class V1ListParams : ParamsBase
                 return;
             }
 
-            this._rawQueryData["offset"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawQueryData, "offset", value);
         }
     }
 
@@ -98,13 +71,7 @@ public sealed record class V1ListParams : ParamsBase
     /// </summary>
     public bool? Published
     {
-        get
-        {
-            if (!this._rawQueryData.TryGetValue("published", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<bool?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<bool>(this.RawQueryData, "published"); }
         init
         {
             if (value == null)
@@ -112,10 +79,7 @@ public sealed record class V1ListParams : ParamsBase
                 return;
             }
 
-            this._rawQueryData["published"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawQueryData, "published", value);
         }
     }
 
@@ -124,13 +88,7 @@ public sealed record class V1ListParams : ParamsBase
     /// </summary>
     public string? SubCategory
     {
-        get
-        {
-            if (!this._rawQueryData.TryGetValue("sub_category", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawQueryData, "sub_category"); }
         init
         {
             if (value == null)
@@ -138,10 +96,7 @@ public sealed record class V1ListParams : ParamsBase
                 return;
             }
 
-            this._rawQueryData["sub_category"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawQueryData, "sub_category", value);
         }
     }
 
@@ -150,13 +105,7 @@ public sealed record class V1ListParams : ParamsBase
     /// </summary>
     public string? Type
     {
-        get
-        {
-            if (!this._rawQueryData.TryGetValue("type", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawQueryData, "type"); }
         init
         {
             if (value == null)
@@ -164,10 +113,7 @@ public sealed record class V1ListParams : ParamsBase
                 return;
             }
 
-            this._rawQueryData["type"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawQueryData, "type", value);
         }
     }
 

@@ -29,27 +29,8 @@ public sealed record class TemplateCreateParams : ParamsBase
     /// </summary>
     public required string Content
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("content", out JsonElement element))
-                throw new CasedevInvalidDataException(
-                    "'content' cannot be null",
-                    new System::ArgumentOutOfRangeException("content", "Missing required argument")
-                );
-
-            return JsonSerializer.Deserialize<string>(element, ModelBase.SerializerOptions)
-                ?? throw new CasedevInvalidDataException(
-                    "'content' cannot be null",
-                    new System::ArgumentNullException("content")
-                );
-        }
-        init
-        {
-            this._rawBodyData["content"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
-        }
+        get { return ModelBase.GetNotNullClass<string>(this.RawBodyData, "content"); }
+        init { ModelBase.Set(this._rawBodyData, "content", value); }
     }
 
     /// <summary>
@@ -57,27 +38,8 @@ public sealed record class TemplateCreateParams : ParamsBase
     /// </summary>
     public required string Name
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("name", out JsonElement element))
-                throw new CasedevInvalidDataException(
-                    "'name' cannot be null",
-                    new System::ArgumentOutOfRangeException("name", "Missing required argument")
-                );
-
-            return JsonSerializer.Deserialize<string>(element, ModelBase.SerializerOptions)
-                ?? throw new CasedevInvalidDataException(
-                    "'name' cannot be null",
-                    new System::ArgumentNullException("name")
-                );
-        }
-        init
-        {
-            this._rawBodyData["name"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
-        }
+        get { return ModelBase.GetNotNullClass<string>(this.RawBodyData, "name"); }
+        init { ModelBase.Set(this._rawBodyData, "name", value); }
     }
 
     /// <summary>
@@ -87,27 +49,11 @@ public sealed record class TemplateCreateParams : ParamsBase
     {
         get
         {
-            if (!this._rawBodyData.TryGetValue("type", out JsonElement element))
-                throw new CasedevInvalidDataException(
-                    "'type' cannot be null",
-                    new System::ArgumentOutOfRangeException("type", "Missing required argument")
-                );
-
-            return JsonSerializer.Deserialize<
-                    ApiEnum<string, global::CaseDev.Models.Format.V1.Templates.Type>
-                >(element, ModelBase.SerializerOptions)
-                ?? throw new CasedevInvalidDataException(
-                    "'type' cannot be null",
-                    new System::ArgumentNullException("type")
-                );
+            return ModelBase.GetNotNullClass<
+                ApiEnum<string, global::CaseDev.Models.Format.V1.Templates.Type>
+            >(this.RawBodyData, "type");
         }
-        init
-        {
-            this._rawBodyData["type"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
-        }
+        init { ModelBase.Set(this._rawBodyData, "type", value); }
     }
 
     /// <summary>
@@ -115,13 +61,7 @@ public sealed record class TemplateCreateParams : ParamsBase
     /// </summary>
     public string? Description
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("description", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawBodyData, "description"); }
         init
         {
             if (value == null)
@@ -129,10 +69,7 @@ public sealed record class TemplateCreateParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["description"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "description", value);
         }
     }
 
@@ -141,13 +78,7 @@ public sealed record class TemplateCreateParams : ParamsBase
     /// </summary>
     public JsonElement? Styles
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("styles", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<JsonElement?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<JsonElement>(this.RawBodyData, "styles"); }
         init
         {
             if (value == null)
@@ -155,10 +86,7 @@ public sealed record class TemplateCreateParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["styles"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "styles", value);
         }
     }
 
@@ -167,13 +95,7 @@ public sealed record class TemplateCreateParams : ParamsBase
     /// </summary>
     public IReadOnlyList<string>? Tags
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("tags", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<List<string>?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<List<string>>(this.RawBodyData, "tags"); }
         init
         {
             if (value == null)
@@ -181,10 +103,7 @@ public sealed record class TemplateCreateParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["tags"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "tags", value);
         }
     }
 
@@ -193,13 +112,7 @@ public sealed record class TemplateCreateParams : ParamsBase
     /// </summary>
     public IReadOnlyList<string>? Variables
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("variables", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<List<string>?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<List<string>>(this.RawBodyData, "variables"); }
         init
         {
             if (value == null)
@@ -207,10 +120,7 @@ public sealed record class TemplateCreateParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["variables"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "variables", value);
         }
     }
 

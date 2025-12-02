@@ -21,13 +21,7 @@ public sealed record class SecretRetrieveGroupParams : ParamsBase
     /// </summary>
     public string? Env
     {
-        get
-        {
-            if (!this._rawQueryData.TryGetValue("env", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawQueryData, "env"); }
         init
         {
             if (value == null)
@@ -35,10 +29,7 @@ public sealed record class SecretRetrieveGroupParams : ParamsBase
                 return;
             }
 
-            this._rawQueryData["env"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawQueryData, "env", value);
         }
     }
 

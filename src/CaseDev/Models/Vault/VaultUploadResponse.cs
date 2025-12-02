@@ -15,13 +15,7 @@ public sealed record class VaultUploadResponse : ModelBase
     /// </summary>
     public bool? AutoIndex
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("auto_index", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<bool?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<bool>(this.RawData, "auto_index"); }
         init
         {
             if (value == null)
@@ -29,10 +23,7 @@ public sealed record class VaultUploadResponse : ModelBase
                 return;
             }
 
-            this._rawData["auto_index"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "auto_index", value);
         }
     }
 
@@ -41,13 +32,7 @@ public sealed record class VaultUploadResponse : ModelBase
     /// </summary>
     public double? ExpiresIn
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("expiresIn", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<double?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<double>(this.RawData, "expiresIn"); }
         init
         {
             if (value == null)
@@ -55,22 +40,13 @@ public sealed record class VaultUploadResponse : ModelBase
                 return;
             }
 
-            this._rawData["expiresIn"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "expiresIn", value);
         }
     }
 
     public Instructions? Instructions
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("instructions", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<Instructions?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<Instructions>(this.RawData, "instructions"); }
         init
         {
             if (value == null)
@@ -78,10 +54,7 @@ public sealed record class VaultUploadResponse : ModelBase
                 return;
             }
 
-            this._rawData["instructions"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "instructions", value);
         }
     }
 
@@ -90,20 +63,8 @@ public sealed record class VaultUploadResponse : ModelBase
     /// </summary>
     public string? NextStep
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("next_step", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
-        init
-        {
-            this._rawData["next_step"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "next_step"); }
+        init { ModelBase.Set(this._rawData, "next_step", value); }
     }
 
     /// <summary>
@@ -111,13 +72,7 @@ public sealed record class VaultUploadResponse : ModelBase
     /// </summary>
     public string? ObjectID
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("objectId", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "objectId"); }
         init
         {
             if (value == null)
@@ -125,10 +80,7 @@ public sealed record class VaultUploadResponse : ModelBase
                 return;
             }
 
-            this._rawData["objectId"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "objectId", value);
         }
     }
 
@@ -137,13 +89,7 @@ public sealed record class VaultUploadResponse : ModelBase
     /// </summary>
     public string? S3Key
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("s3Key", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "s3Key"); }
         init
         {
             if (value == null)
@@ -151,10 +97,7 @@ public sealed record class VaultUploadResponse : ModelBase
                 return;
             }
 
-            this._rawData["s3Key"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "s3Key", value);
         }
     }
 
@@ -163,13 +106,7 @@ public sealed record class VaultUploadResponse : ModelBase
     /// </summary>
     public string? UploadURL
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("uploadUrl", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "uploadUrl"); }
         init
         {
             if (value == null)
@@ -177,10 +114,7 @@ public sealed record class VaultUploadResponse : ModelBase
                 return;
             }
 
-            this._rawData["uploadUrl"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "uploadUrl", value);
         }
     }
 
@@ -229,13 +163,7 @@ public sealed record class Instructions : ModelBase
 {
     public JsonElement? Headers
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("headers", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<JsonElement?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<JsonElement>(this.RawData, "headers"); }
         init
         {
             if (value == null)
@@ -243,22 +171,13 @@ public sealed record class Instructions : ModelBase
                 return;
             }
 
-            this._rawData["headers"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "headers", value);
         }
     }
 
     public string? Method
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("method", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "method"); }
         init
         {
             if (value == null)
@@ -266,22 +185,13 @@ public sealed record class Instructions : ModelBase
                 return;
             }
 
-            this._rawData["method"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "method", value);
         }
     }
 
     public string? Note
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("note", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "note"); }
         init
         {
             if (value == null)
@@ -289,10 +199,7 @@ public sealed record class Instructions : ModelBase
                 return;
             }
 
-            this._rawData["note"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "note", value);
         }
     }
 

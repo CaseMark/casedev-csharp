@@ -34,28 +34,12 @@ public sealed record class InvokeRunParams : ParamsBase
     {
         get
         {
-            if (!this._rawBodyData.TryGetValue("input", out JsonElement element))
-                throw new CasedevInvalidDataException(
-                    "'input' cannot be null",
-                    new System::ArgumentOutOfRangeException("input", "Missing required argument")
-                );
-
-            return JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(
-                    element,
-                    ModelBase.SerializerOptions
-                )
-                ?? throw new CasedevInvalidDataException(
-                    "'input' cannot be null",
-                    new System::ArgumentNullException("input")
-                );
-        }
-        init
-        {
-            this._rawBodyData["input"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
+            return ModelBase.GetNotNullClass<Dictionary<string, JsonElement>>(
+                this.RawBodyData,
+                "input"
             );
         }
+        init { ModelBase.Set(this._rawBodyData, "input", value); }
     }
 
     /// <summary>
@@ -63,13 +47,7 @@ public sealed record class InvokeRunParams : ParamsBase
     /// </summary>
     public bool? Async
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("async", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<bool?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<bool>(this.RawBodyData, "async"); }
         init
         {
             if (value == null)
@@ -77,10 +55,7 @@ public sealed record class InvokeRunParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["async"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "async", value);
         }
     }
 
@@ -91,12 +66,9 @@ public sealed record class InvokeRunParams : ParamsBase
     {
         get
         {
-            if (!this._rawBodyData.TryGetValue("functionSuffix", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<ApiEnum<string, FunctionSuffix>?>(
-                element,
-                ModelBase.SerializerOptions
+            return ModelBase.GetNullableClass<ApiEnum<string, FunctionSuffix>>(
+                this.RawBodyData,
+                "functionSuffix"
             );
         }
         init
@@ -106,10 +78,7 @@ public sealed record class InvokeRunParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["functionSuffix"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "functionSuffix", value);
         }
     }
 

@@ -6,7 +6,6 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using CaseDev.Core;
-using CaseDev.Exceptions;
 
 namespace CaseDev.Models.Convert.V1;
 
@@ -32,27 +31,8 @@ public sealed record class V1ProcessParams : ParamsBase
     /// </summary>
     public required string InputURL
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("input_url", out JsonElement element))
-                throw new CasedevInvalidDataException(
-                    "'input_url' cannot be null",
-                    new ArgumentOutOfRangeException("input_url", "Missing required argument")
-                );
-
-            return JsonSerializer.Deserialize<string>(element, ModelBase.SerializerOptions)
-                ?? throw new CasedevInvalidDataException(
-                    "'input_url' cannot be null",
-                    new ArgumentNullException("input_url")
-                );
-        }
-        init
-        {
-            this._rawBodyData["input_url"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
-        }
+        get { return ModelBase.GetNotNullClass<string>(this.RawBodyData, "input_url"); }
+        init { ModelBase.Set(this._rawBodyData, "input_url", value); }
     }
 
     /// <summary>
@@ -60,13 +40,7 @@ public sealed record class V1ProcessParams : ParamsBase
     /// </summary>
     public string? CallbackURL
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("callback_url", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawBodyData, "callback_url"); }
         init
         {
             if (value == null)
@@ -74,10 +48,7 @@ public sealed record class V1ProcessParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["callback_url"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "callback_url", value);
         }
     }
 

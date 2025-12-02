@@ -29,30 +29,8 @@ public sealed record class V1ResearchParams : ParamsBase
     /// </summary>
     public required string Instructions
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("instructions", out JsonElement element))
-                throw new CasedevInvalidDataException(
-                    "'instructions' cannot be null",
-                    new System::ArgumentOutOfRangeException(
-                        "instructions",
-                        "Missing required argument"
-                    )
-                );
-
-            return JsonSerializer.Deserialize<string>(element, ModelBase.SerializerOptions)
-                ?? throw new CasedevInvalidDataException(
-                    "'instructions' cannot be null",
-                    new System::ArgumentNullException("instructions")
-                );
-        }
-        init
-        {
-            this._rawBodyData["instructions"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
-        }
+        get { return ModelBase.GetNotNullClass<string>(this.RawBodyData, "instructions"); }
+        init { ModelBase.Set(this._rawBodyData, "instructions", value); }
     }
 
     /// <summary>
@@ -62,13 +40,7 @@ public sealed record class V1ResearchParams : ParamsBase
     {
         get
         {
-            if (!this._rawBodyData.TryGetValue("model", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<ApiEnum<string, Model>?>(
-                element,
-                ModelBase.SerializerOptions
-            );
+            return ModelBase.GetNullableClass<ApiEnum<string, Model>>(this.RawBodyData, "model");
         }
         init
         {
@@ -77,10 +49,7 @@ public sealed record class V1ResearchParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["model"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "model", value);
         }
     }
 
@@ -89,13 +58,7 @@ public sealed record class V1ResearchParams : ParamsBase
     /// </summary>
     public JsonElement? OutputSchema
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("outputSchema", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<JsonElement?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<JsonElement>(this.RawBodyData, "outputSchema"); }
         init
         {
             if (value == null)
@@ -103,10 +66,7 @@ public sealed record class V1ResearchParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["outputSchema"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "outputSchema", value);
         }
     }
 
@@ -115,13 +75,7 @@ public sealed record class V1ResearchParams : ParamsBase
     /// </summary>
     public string? Query
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("query", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawBodyData, "query"); }
         init
         {
             if (value == null)
@@ -129,10 +83,7 @@ public sealed record class V1ResearchParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["query"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "query", value);
         }
     }
 

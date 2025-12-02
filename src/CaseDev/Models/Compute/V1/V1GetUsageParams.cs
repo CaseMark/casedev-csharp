@@ -20,13 +20,7 @@ public sealed record class V1GetUsageParams : ParamsBase
     /// </summary>
     public long? Month
     {
-        get
-        {
-            if (!this._rawQueryData.TryGetValue("month", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<long?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<long>(this.RawQueryData, "month"); }
         init
         {
             if (value == null)
@@ -34,10 +28,7 @@ public sealed record class V1GetUsageParams : ParamsBase
                 return;
             }
 
-            this._rawQueryData["month"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawQueryData, "month", value);
         }
     }
 
@@ -46,13 +37,7 @@ public sealed record class V1GetUsageParams : ParamsBase
     /// </summary>
     public long? Year
     {
-        get
-        {
-            if (!this._rawQueryData.TryGetValue("year", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<long?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<long>(this.RawQueryData, "year"); }
         init
         {
             if (value == null)
@@ -60,10 +45,7 @@ public sealed record class V1GetUsageParams : ParamsBase
                 return;
             }
 
-            this._rawQueryData["year"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawQueryData, "year", value);
         }
     }
 

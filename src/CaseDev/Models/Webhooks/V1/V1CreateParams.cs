@@ -6,7 +6,6 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using CaseDev.Core;
-using CaseDev.Exceptions;
 
 namespace CaseDev.Models.Webhooks.V1;
 
@@ -35,27 +34,8 @@ public sealed record class V1CreateParams : ParamsBase
     /// </summary>
     public required IReadOnlyList<string> Events
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("events", out JsonElement element))
-                throw new CasedevInvalidDataException(
-                    "'events' cannot be null",
-                    new ArgumentOutOfRangeException("events", "Missing required argument")
-                );
-
-            return JsonSerializer.Deserialize<List<string>>(element, ModelBase.SerializerOptions)
-                ?? throw new CasedevInvalidDataException(
-                    "'events' cannot be null",
-                    new ArgumentNullException("events")
-                );
-        }
-        init
-        {
-            this._rawBodyData["events"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
-        }
+        get { return ModelBase.GetNotNullClass<List<string>>(this.RawBodyData, "events"); }
+        init { ModelBase.Set(this._rawBodyData, "events", value); }
     }
 
     /// <summary>
@@ -63,27 +43,8 @@ public sealed record class V1CreateParams : ParamsBase
     /// </summary>
     public required string URL
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("url", out JsonElement element))
-                throw new CasedevInvalidDataException(
-                    "'url' cannot be null",
-                    new ArgumentOutOfRangeException("url", "Missing required argument")
-                );
-
-            return JsonSerializer.Deserialize<string>(element, ModelBase.SerializerOptions)
-                ?? throw new CasedevInvalidDataException(
-                    "'url' cannot be null",
-                    new ArgumentNullException("url")
-                );
-        }
-        init
-        {
-            this._rawBodyData["url"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
-        }
+        get { return ModelBase.GetNotNullClass<string>(this.RawBodyData, "url"); }
+        init { ModelBase.Set(this._rawBodyData, "url", value); }
     }
 
     /// <summary>
@@ -91,13 +52,7 @@ public sealed record class V1CreateParams : ParamsBase
     /// </summary>
     public string? Description
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("description", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawBodyData, "description"); }
         init
         {
             if (value == null)
@@ -105,10 +60,7 @@ public sealed record class V1CreateParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["description"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "description", value);
         }
     }
 

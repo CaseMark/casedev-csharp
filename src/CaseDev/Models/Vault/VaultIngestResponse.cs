@@ -17,23 +17,8 @@ public sealed record class VaultIngestResponse : ModelBase
     /// </summary>
     public required bool EnableGraphRag
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("enableGraphRAG", out JsonElement element))
-                throw new CasedevInvalidDataException(
-                    "'enableGraphRAG' cannot be null",
-                    new ArgumentOutOfRangeException("enableGraphRAG", "Missing required argument")
-                );
-
-            return JsonSerializer.Deserialize<bool>(element, ModelBase.SerializerOptions);
-        }
-        init
-        {
-            this._rawData["enableGraphRAG"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
-        }
+        get { return ModelBase.GetNotNullStruct<bool>(this.RawData, "enableGraphRAG"); }
+        init { ModelBase.Set(this._rawData, "enableGraphRAG", value); }
     }
 
     /// <summary>
@@ -41,27 +26,8 @@ public sealed record class VaultIngestResponse : ModelBase
     /// </summary>
     public required string Message
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("message", out JsonElement element))
-                throw new CasedevInvalidDataException(
-                    "'message' cannot be null",
-                    new ArgumentOutOfRangeException("message", "Missing required argument")
-                );
-
-            return JsonSerializer.Deserialize<string>(element, ModelBase.SerializerOptions)
-                ?? throw new CasedevInvalidDataException(
-                    "'message' cannot be null",
-                    new ArgumentNullException("message")
-                );
-        }
-        init
-        {
-            this._rawData["message"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
-        }
+        get { return ModelBase.GetNotNullClass<string>(this.RawData, "message"); }
+        init { ModelBase.Set(this._rawData, "message", value); }
     }
 
     /// <summary>
@@ -69,27 +35,8 @@ public sealed record class VaultIngestResponse : ModelBase
     /// </summary>
     public required string ObjectID
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("objectId", out JsonElement element))
-                throw new CasedevInvalidDataException(
-                    "'objectId' cannot be null",
-                    new ArgumentOutOfRangeException("objectId", "Missing required argument")
-                );
-
-            return JsonSerializer.Deserialize<string>(element, ModelBase.SerializerOptions)
-                ?? throw new CasedevInvalidDataException(
-                    "'objectId' cannot be null",
-                    new ArgumentNullException("objectId")
-                );
-        }
-        init
-        {
-            this._rawData["objectId"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
-        }
+        get { return ModelBase.GetNotNullClass<string>(this.RawData, "objectId"); }
+        init { ModelBase.Set(this._rawData, "objectId", value); }
     }
 
     /// <summary>
@@ -97,30 +44,8 @@ public sealed record class VaultIngestResponse : ModelBase
     /// </summary>
     public required ApiEnum<string, Status> Status
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("status", out JsonElement element))
-                throw new CasedevInvalidDataException(
-                    "'status' cannot be null",
-                    new ArgumentOutOfRangeException("status", "Missing required argument")
-                );
-
-            return JsonSerializer.Deserialize<ApiEnum<string, Status>>(
-                    element,
-                    ModelBase.SerializerOptions
-                )
-                ?? throw new CasedevInvalidDataException(
-                    "'status' cannot be null",
-                    new ArgumentNullException("status")
-                );
-        }
-        init
-        {
-            this._rawData["status"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
-        }
+        get { return ModelBase.GetNotNullClass<ApiEnum<string, Status>>(this.RawData, "status"); }
+        init { ModelBase.Set(this._rawData, "status", value); }
     }
 
     /// <summary>
@@ -128,27 +53,8 @@ public sealed record class VaultIngestResponse : ModelBase
     /// </summary>
     public required string WorkflowID
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("workflowId", out JsonElement element))
-                throw new CasedevInvalidDataException(
-                    "'workflowId' cannot be null",
-                    new ArgumentOutOfRangeException("workflowId", "Missing required argument")
-                );
-
-            return JsonSerializer.Deserialize<string>(element, ModelBase.SerializerOptions)
-                ?? throw new CasedevInvalidDataException(
-                    "'workflowId' cannot be null",
-                    new ArgumentNullException("workflowId")
-                );
-        }
-        init
-        {
-            this._rawData["workflowId"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
-        }
+        get { return ModelBase.GetNotNullClass<string>(this.RawData, "workflowId"); }
+        init { ModelBase.Set(this._rawData, "workflowId", value); }
     }
 
     public override void Validate()

@@ -19,27 +19,8 @@ public sealed record class TranscriptionRetrieveResponse : ModelBase
     /// </summary>
     public required string ID
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("id", out JsonElement element))
-                throw new CasedevInvalidDataException(
-                    "'id' cannot be null",
-                    new ArgumentOutOfRangeException("id", "Missing required argument")
-                );
-
-            return JsonSerializer.Deserialize<string>(element, ModelBase.SerializerOptions)
-                ?? throw new CasedevInvalidDataException(
-                    "'id' cannot be null",
-                    new ArgumentNullException("id")
-                );
-        }
-        init
-        {
-            this._rawData["id"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
-        }
+        get { return ModelBase.GetNotNullClass<string>(this.RawData, "id"); }
+        init { ModelBase.Set(this._rawData, "id", value); }
     }
 
     /// <summary>
@@ -47,30 +28,8 @@ public sealed record class TranscriptionRetrieveResponse : ModelBase
     /// </summary>
     public required ApiEnum<string, Status> Status
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("status", out JsonElement element))
-                throw new CasedevInvalidDataException(
-                    "'status' cannot be null",
-                    new ArgumentOutOfRangeException("status", "Missing required argument")
-                );
-
-            return JsonSerializer.Deserialize<ApiEnum<string, Status>>(
-                    element,
-                    ModelBase.SerializerOptions
-                )
-                ?? throw new CasedevInvalidDataException(
-                    "'status' cannot be null",
-                    new ArgumentNullException("status")
-                );
-        }
-        init
-        {
-            this._rawData["status"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
-        }
+        get { return ModelBase.GetNotNullClass<ApiEnum<string, Status>>(this.RawData, "status"); }
+        init { ModelBase.Set(this._rawData, "status", value); }
     }
 
     /// <summary>
@@ -78,13 +37,7 @@ public sealed record class TranscriptionRetrieveResponse : ModelBase
     /// </summary>
     public double? AudioDuration
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("audio_duration", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<double?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<double>(this.RawData, "audio_duration"); }
         init
         {
             if (value == null)
@@ -92,10 +45,7 @@ public sealed record class TranscriptionRetrieveResponse : ModelBase
                 return;
             }
 
-            this._rawData["audio_duration"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "audio_duration", value);
         }
     }
 
@@ -104,13 +54,7 @@ public sealed record class TranscriptionRetrieveResponse : ModelBase
     /// </summary>
     public double? Confidence
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("confidence", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<double?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<double>(this.RawData, "confidence"); }
         init
         {
             if (value == null)
@@ -118,10 +62,7 @@ public sealed record class TranscriptionRetrieveResponse : ModelBase
                 return;
             }
 
-            this._rawData["confidence"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "confidence", value);
         }
     }
 
@@ -130,13 +71,7 @@ public sealed record class TranscriptionRetrieveResponse : ModelBase
     /// </summary>
     public string? Error
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("error", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "error"); }
         init
         {
             if (value == null)
@@ -144,10 +79,7 @@ public sealed record class TranscriptionRetrieveResponse : ModelBase
                 return;
             }
 
-            this._rawData["error"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "error", value);
         }
     }
 
@@ -156,13 +88,7 @@ public sealed record class TranscriptionRetrieveResponse : ModelBase
     /// </summary>
     public string? Text
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("text", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "text"); }
         init
         {
             if (value == null)
@@ -170,10 +96,7 @@ public sealed record class TranscriptionRetrieveResponse : ModelBase
                 return;
             }
 
-            this._rawData["text"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "text", value);
         }
     }
 
@@ -182,13 +105,7 @@ public sealed record class TranscriptionRetrieveResponse : ModelBase
     /// </summary>
     public IReadOnlyList<Word>? Words
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("words", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<List<Word>?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<List<Word>>(this.RawData, "words"); }
         init
         {
             if (value == null)
@@ -196,10 +113,7 @@ public sealed record class TranscriptionRetrieveResponse : ModelBase
                 return;
             }
 
-            this._rawData["words"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "words", value);
         }
     }
 
@@ -301,13 +215,7 @@ public sealed record class Word : ModelBase
 {
     public double? Confidence
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("confidence", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<double?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<double>(this.RawData, "confidence"); }
         init
         {
             if (value == null)
@@ -315,22 +223,13 @@ public sealed record class Word : ModelBase
                 return;
             }
 
-            this._rawData["confidence"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "confidence", value);
         }
     }
 
     public double? End
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("end", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<double?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<double>(this.RawData, "end"); }
         init
         {
             if (value == null)
@@ -338,22 +237,13 @@ public sealed record class Word : ModelBase
                 return;
             }
 
-            this._rawData["end"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "end", value);
         }
     }
 
     public double? Start
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("start", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<double?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<double>(this.RawData, "start"); }
         init
         {
             if (value == null)
@@ -361,22 +251,13 @@ public sealed record class Word : ModelBase
                 return;
             }
 
-            this._rawData["start"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "start", value);
         }
     }
 
     public string? Text
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("text", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "text"); }
         init
         {
             if (value == null)
@@ -384,10 +265,7 @@ public sealed record class Word : ModelBase
                 return;
             }
 
-            this._rawData["text"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "text", value);
         }
     }
 

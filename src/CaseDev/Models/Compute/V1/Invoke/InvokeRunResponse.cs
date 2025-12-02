@@ -173,13 +173,7 @@ public sealed record class SynchronousResponse : ModelBase
     /// </summary>
     public double? Duration
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("duration", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<double?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<double>(this.RawData, "duration"); }
         init
         {
             if (value == null)
@@ -187,10 +181,7 @@ public sealed record class SynchronousResponse : ModelBase
                 return;
             }
 
-            this._rawData["duration"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "duration", value);
         }
     }
 
@@ -199,13 +190,7 @@ public sealed record class SynchronousResponse : ModelBase
     /// </summary>
     public string? Error
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("error", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "error"); }
         init
         {
             if (value == null)
@@ -213,10 +198,7 @@ public sealed record class SynchronousResponse : ModelBase
                 return;
             }
 
-            this._rawData["error"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "error", value);
         }
     }
 
@@ -225,13 +207,7 @@ public sealed record class SynchronousResponse : ModelBase
     /// </summary>
     public JsonElement? Output
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("output", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<JsonElement?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<JsonElement>(this.RawData, "output"); }
         init
         {
             if (value == null)
@@ -239,10 +215,7 @@ public sealed record class SynchronousResponse : ModelBase
                 return;
             }
 
-            this._rawData["output"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "output", value);
         }
     }
 
@@ -251,13 +224,7 @@ public sealed record class SynchronousResponse : ModelBase
     /// </summary>
     public string? RunID
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("runId", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "runId"); }
         init
         {
             if (value == null)
@@ -265,25 +232,13 @@ public sealed record class SynchronousResponse : ModelBase
                 return;
             }
 
-            this._rawData["runId"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "runId", value);
         }
     }
 
     public ApiEnum<string, Status>? Status
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("status", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<ApiEnum<string, Status>?>(
-                element,
-                ModelBase.SerializerOptions
-            );
-        }
+        get { return ModelBase.GetNullableClass<ApiEnum<string, Status>>(this.RawData, "status"); }
         init
         {
             if (value == null)
@@ -291,10 +246,7 @@ public sealed record class SynchronousResponse : ModelBase
                 return;
             }
 
-            this._rawData["status"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "status", value);
         }
     }
 
@@ -384,13 +336,7 @@ public sealed record class AsynchronousResponse : ModelBase
     /// </summary>
     public string? LogsURL
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("logsUrl", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "logsUrl"); }
         init
         {
             if (value == null)
@@ -398,10 +344,7 @@ public sealed record class AsynchronousResponse : ModelBase
                 return;
             }
 
-            this._rawData["logsUrl"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "logsUrl", value);
         }
     }
 
@@ -410,13 +353,7 @@ public sealed record class AsynchronousResponse : ModelBase
     /// </summary>
     public string? RunID
     {
-        get
-        {
-            if (!this._rawData.TryGetValue("runId", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "runId"); }
         init
         {
             if (value == null)
@@ -424,10 +361,7 @@ public sealed record class AsynchronousResponse : ModelBase
                 return;
             }
 
-            this._rawData["runId"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "runId", value);
         }
     }
 
@@ -435,12 +369,9 @@ public sealed record class AsynchronousResponse : ModelBase
     {
         get
         {
-            if (!this._rawData.TryGetValue("status", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<ApiEnum<string, AsynchronousResponseStatus>?>(
-                element,
-                ModelBase.SerializerOptions
+            return ModelBase.GetNullableClass<ApiEnum<string, AsynchronousResponseStatus>>(
+                this.RawData,
+                "status"
             );
         }
         init
@@ -450,10 +381,7 @@ public sealed record class AsynchronousResponse : ModelBase
                 return;
             }
 
-            this._rawData["status"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawData, "status", value);
         }
     }
 

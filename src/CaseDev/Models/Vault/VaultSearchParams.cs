@@ -31,27 +31,8 @@ public sealed record class VaultSearchParams : ParamsBase
     /// </summary>
     public required string Query
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("query", out JsonElement element))
-                throw new CasedevInvalidDataException(
-                    "'query' cannot be null",
-                    new ArgumentOutOfRangeException("query", "Missing required argument")
-                );
-
-            return JsonSerializer.Deserialize<string>(element, ModelBase.SerializerOptions)
-                ?? throw new CasedevInvalidDataException(
-                    "'query' cannot be null",
-                    new ArgumentNullException("query")
-                );
-        }
-        init
-        {
-            this._rawBodyData["query"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
-        }
+        get { return ModelBase.GetNotNullClass<string>(this.RawBodyData, "query"); }
+        init { ModelBase.Set(this._rawBodyData, "query", value); }
     }
 
     /// <summary>
@@ -61,12 +42,9 @@ public sealed record class VaultSearchParams : ParamsBase
     {
         get
         {
-            if (!this._rawBodyData.TryGetValue("filters", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<Dictionary<string, JsonElement>?>(
-                element,
-                ModelBase.SerializerOptions
+            return ModelBase.GetNullableClass<Dictionary<string, JsonElement>>(
+                this.RawBodyData,
+                "filters"
             );
         }
         init
@@ -76,10 +54,7 @@ public sealed record class VaultSearchParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["filters"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "filters", value);
         }
     }
 
@@ -91,13 +66,7 @@ public sealed record class VaultSearchParams : ParamsBase
     {
         get
         {
-            if (!this._rawBodyData.TryGetValue("method", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<ApiEnum<string, Method>?>(
-                element,
-                ModelBase.SerializerOptions
-            );
+            return ModelBase.GetNullableClass<ApiEnum<string, Method>>(this.RawBodyData, "method");
         }
         init
         {
@@ -106,10 +75,7 @@ public sealed record class VaultSearchParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["method"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "method", value);
         }
     }
 
@@ -118,13 +84,7 @@ public sealed record class VaultSearchParams : ParamsBase
     /// </summary>
     public long? TopK
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("topK", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<long?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<long>(this.RawBodyData, "topK"); }
         init
         {
             if (value == null)
@@ -132,10 +92,7 @@ public sealed record class VaultSearchParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["topK"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "topK", value);
         }
     }
 

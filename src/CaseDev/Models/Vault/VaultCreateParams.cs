@@ -6,7 +6,6 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using CaseDev.Core;
-using CaseDev.Exceptions;
 
 namespace CaseDev.Models.Vault;
 
@@ -28,27 +27,8 @@ public sealed record class VaultCreateParams : ParamsBase
     /// </summary>
     public required string Name
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("name", out JsonElement element))
-                throw new CasedevInvalidDataException(
-                    "'name' cannot be null",
-                    new ArgumentOutOfRangeException("name", "Missing required argument")
-                );
-
-            return JsonSerializer.Deserialize<string>(element, ModelBase.SerializerOptions)
-                ?? throw new CasedevInvalidDataException(
-                    "'name' cannot be null",
-                    new ArgumentNullException("name")
-                );
-        }
-        init
-        {
-            this._rawBodyData["name"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
-        }
+        get { return ModelBase.GetNotNullClass<string>(this.RawBodyData, "name"); }
+        init { ModelBase.Set(this._rawBodyData, "name", value); }
     }
 
     /// <summary>
@@ -56,13 +36,7 @@ public sealed record class VaultCreateParams : ParamsBase
     /// </summary>
     public string? Description
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("description", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<string?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableClass<string>(this.RawBodyData, "description"); }
         init
         {
             if (value == null)
@@ -70,10 +44,7 @@ public sealed record class VaultCreateParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["description"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "description", value);
         }
     }
 
@@ -82,13 +53,7 @@ public sealed record class VaultCreateParams : ParamsBase
     /// </summary>
     public bool? EnableGraph
     {
-        get
-        {
-            if (!this._rawBodyData.TryGetValue("enableGraph", out JsonElement element))
-                return null;
-
-            return JsonSerializer.Deserialize<bool?>(element, ModelBase.SerializerOptions);
-        }
+        get { return ModelBase.GetNullableStruct<bool>(this.RawBodyData, "enableGraph"); }
         init
         {
             if (value == null)
@@ -96,10 +61,7 @@ public sealed record class VaultCreateParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData["enableGraph"] = JsonSerializer.SerializeToElement(
-                value,
-                ModelBase.SerializerOptions
-            );
+            ModelBase.Set(this._rawBodyData, "enableGraph", value);
         }
     }
 
