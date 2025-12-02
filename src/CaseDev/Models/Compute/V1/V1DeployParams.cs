@@ -70,8 +70,12 @@ public sealed record class V1DeployParams : ParamsBase
                 );
 
             return JsonSerializer.Deserialize<
-                ApiEnum<string, global::CaseDev.Models.Compute.V1.Type>
-            >(element, ModelBase.SerializerOptions);
+                    ApiEnum<string, global::CaseDev.Models.Compute.V1.Type>
+                >(element, ModelBase.SerializerOptions)
+                ?? throw new CasedevInvalidDataException(
+                    "'type' cannot be null",
+                    new System::ArgumentNullException("type")
+                );
         }
         init
         {

@@ -66,9 +66,13 @@ public sealed record class V1CreateDocumentParams : ParamsBase
                 );
 
             return JsonSerializer.Deserialize<ApiEnum<string, OutputFormat>>(
-                element,
-                ModelBase.SerializerOptions
-            );
+                    element,
+                    ModelBase.SerializerOptions
+                )
+                ?? throw new CasedevInvalidDataException(
+                    "'output_format' cannot be null",
+                    new ArgumentNullException("output_format")
+                );
         }
         init
         {

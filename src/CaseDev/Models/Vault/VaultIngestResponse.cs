@@ -106,9 +106,13 @@ public sealed record class VaultIngestResponse : ModelBase
                 );
 
             return JsonSerializer.Deserialize<ApiEnum<string, Status>>(
-                element,
-                ModelBase.SerializerOptions
-            );
+                    element,
+                    ModelBase.SerializerOptions
+                )
+                ?? throw new CasedevInvalidDataException(
+                    "'status' cannot be null",
+                    new ArgumentNullException("status")
+                );
         }
         init
         {
