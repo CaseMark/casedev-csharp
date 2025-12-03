@@ -49,7 +49,10 @@ public class ObjectCreatePresignedURLResponseTest : TestBase
         Assert.Equal(expectedExpiresAt, model.ExpiresAt);
         Assert.Equal(expectedExpiresIn, model.ExpiresIn);
         Assert.Equal(expectedFilename, model.Filename);
-        Assert.True(JsonElement.DeepEquals(expectedInstructions, model.Instructions));
+        Assert.True(
+            model.Instructions.HasValue
+                && JsonElement.DeepEquals(expectedInstructions, model.Instructions.Value)
+        );
         Assert.Equal(expectedMetadata, model.Metadata);
         Assert.Equal(expectedObjectID, model.ObjectID);
         Assert.Equal(expectedOperation, model.Operation);

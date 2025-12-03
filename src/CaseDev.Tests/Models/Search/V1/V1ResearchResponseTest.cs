@@ -21,6 +21,8 @@ public class V1ResearchResponseTest : TestBase
 
         Assert.Equal(expectedModel, model.Model);
         Assert.Equal(expectedResearchID, model.ResearchID);
-        Assert.True(JsonElement.DeepEquals(expectedResults, model.Results));
+        Assert.True(
+            model.Results.HasValue && JsonElement.DeepEquals(expectedResults, model.Results.Value)
+        );
     }
 }

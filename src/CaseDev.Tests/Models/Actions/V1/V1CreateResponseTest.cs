@@ -38,7 +38,10 @@ public class V1CreateResponseTest : TestBase
         Assert.Equal(expectedID, model.ID);
         Assert.Equal(expectedCreatedAt, model.CreatedAt);
         Assert.Equal(expectedCreatedBy, model.CreatedBy);
-        Assert.True(JsonElement.DeepEquals(expectedDefinition, model.Definition));
+        Assert.True(
+            model.Definition.HasValue
+                && JsonElement.DeepEquals(expectedDefinition, model.Definition.Value)
+        );
         Assert.Equal(expectedDescription, model.Description);
         Assert.Equal(expectedIsActive, model.IsActive);
         Assert.Equal(expectedName, model.Name);

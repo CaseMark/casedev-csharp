@@ -63,7 +63,9 @@ public class InstructionsTest : TestBase
         string expectedMethod = "method";
         string expectedNote = "note";
 
-        Assert.True(JsonElement.DeepEquals(expectedHeaders, model.Headers));
+        Assert.True(
+            model.Headers.HasValue && JsonElement.DeepEquals(expectedHeaders, model.Headers.Value)
+        );
         Assert.Equal(expectedMethod, model.Method);
         Assert.Equal(expectedNote, model.Note);
     }

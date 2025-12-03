@@ -26,7 +26,9 @@ public class SynchronousResponseTest : TestBase
 
         Assert.Equal(expectedDuration, model.Duration);
         Assert.Equal(expectedError, model.Error);
-        Assert.True(JsonElement.DeepEquals(expectedOutput, model.Output));
+        Assert.True(
+            model.Output.HasValue && JsonElement.DeepEquals(expectedOutput, model.Output.Value)
+        );
         Assert.Equal(expectedRunID, model.RunID);
         Assert.Equal(expectedStatus, model.Status);
     }

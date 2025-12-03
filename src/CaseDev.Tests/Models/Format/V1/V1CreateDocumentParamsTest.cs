@@ -61,8 +61,13 @@ public class ComponentTest : TestBase
         JsonElement expectedVariables = JsonSerializer.Deserialize<JsonElement>("{}");
 
         Assert.Equal(expectedContent, model.Content);
-        Assert.True(JsonElement.DeepEquals(expectedStyles, model.Styles));
+        Assert.True(
+            model.Styles.HasValue && JsonElement.DeepEquals(expectedStyles, model.Styles.Value)
+        );
         Assert.Equal(expectedTemplateID, model.TemplateID);
-        Assert.True(JsonElement.DeepEquals(expectedVariables, model.Variables));
+        Assert.True(
+            model.Variables.HasValue
+                && JsonElement.DeepEquals(expectedVariables, model.Variables.Value)
+        );
     }
 }
