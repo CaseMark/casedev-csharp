@@ -25,4 +25,113 @@ public class V1ResearchResponseTest : TestBase
             model.Results.HasValue && JsonElement.DeepEquals(expectedResults, model.Results.Value)
         );
     }
+
+    [Fact]
+    public void SerializationRoundtrip_Works()
+    {
+        var model = new V1ResearchResponse
+        {
+            Model = "model",
+            ResearchID = "researchId",
+            Results = JsonSerializer.Deserialize<JsonElement>("{}"),
+        };
+
+        string json = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<V1ResearchResponse>(json);
+
+        Assert.Equal(model, deserialized);
+    }
+
+    [Fact]
+    public void FieldRoundtripThroughSerialization_Works()
+    {
+        var model = new V1ResearchResponse
+        {
+            Model = "model",
+            ResearchID = "researchId",
+            Results = JsonSerializer.Deserialize<JsonElement>("{}"),
+        };
+
+        string json = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<V1ResearchResponse>(json);
+        Assert.NotNull(deserialized);
+
+        string expectedModel = "model";
+        string expectedResearchID = "researchId";
+        JsonElement expectedResults = JsonSerializer.Deserialize<JsonElement>("{}");
+
+        Assert.Equal(expectedModel, deserialized.Model);
+        Assert.Equal(expectedResearchID, deserialized.ResearchID);
+        Assert.True(
+            deserialized.Results.HasValue
+                && JsonElement.DeepEquals(expectedResults, deserialized.Results.Value)
+        );
+    }
+
+    [Fact]
+    public void Validation_Works()
+    {
+        var model = new V1ResearchResponse
+        {
+            Model = "model",
+            ResearchID = "researchId",
+            Results = JsonSerializer.Deserialize<JsonElement>("{}"),
+        };
+
+        model.Validate();
+    }
+
+    [Fact]
+    public void OptionalNonNullablePropertiesUnsetAreNotSet_Works()
+    {
+        var model = new V1ResearchResponse { };
+
+        Assert.Null(model.Model);
+        Assert.False(model.RawData.ContainsKey("model"));
+        Assert.Null(model.ResearchID);
+        Assert.False(model.RawData.ContainsKey("researchId"));
+        Assert.Null(model.Results);
+        Assert.False(model.RawData.ContainsKey("results"));
+    }
+
+    [Fact]
+    public void OptionalNonNullablePropertiesUnsetValidation_Works()
+    {
+        var model = new V1ResearchResponse { };
+
+        model.Validate();
+    }
+
+    [Fact]
+    public void OptionalNonNullablePropertiesSetToNullAreNotSet_Works()
+    {
+        var model = new V1ResearchResponse
+        {
+            // Null should be interpreted as omitted for these properties
+            Model = null,
+            ResearchID = null,
+            Results = null,
+        };
+
+        Assert.Null(model.Model);
+        Assert.False(model.RawData.ContainsKey("model"));
+        Assert.Null(model.ResearchID);
+        Assert.False(model.RawData.ContainsKey("researchId"));
+        Assert.Null(model.Results);
+        Assert.False(model.RawData.ContainsKey("results"));
+    }
+
+    [Fact]
+    public void OptionalNonNullablePropertiesSetToNullValidation_Works()
+    {
+        var model = new V1ResearchResponse
+        {
+            // Null should be interpreted as omitted for these properties
+            Model = null,
+            ResearchID = null,
+            Results = null,
+        };
+
+        model.Validate();
+    }
 }
