@@ -73,7 +73,10 @@ public class ResultTest : TestBase
         {
             Assert.Equal(expectedHighlights[i], model.Highlights[i]);
         }
-        Assert.True(JsonElement.DeepEquals(expectedMetadata, model.Metadata));
+        Assert.True(
+            model.Metadata.HasValue
+                && JsonElement.DeepEquals(expectedMetadata, model.Metadata.Value)
+        );
         Assert.Equal(expectedSummary, model.Summary);
         Assert.Equal(expectedText, model.Text);
         Assert.Equal(expectedTitle, model.Title);

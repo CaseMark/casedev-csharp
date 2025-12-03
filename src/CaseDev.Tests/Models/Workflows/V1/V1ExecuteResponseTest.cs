@@ -34,7 +34,9 @@ public class V1ExecuteResponseTest : TestBase
         };
         string expectedWorkflowName = "workflow_name";
 
-        Assert.True(JsonElement.DeepEquals(expectedResult, model.Result));
+        Assert.True(
+            model.Result.HasValue && JsonElement.DeepEquals(expectedResult, model.Result.Value)
+        );
         Assert.Equal(expectedStatus, model.Status);
         Assert.Equal(expectedUsage, model.Usage);
         Assert.Equal(expectedWorkflowName, model.WorkflowName);
