@@ -65,6 +65,8 @@ public sealed class CasedevClient : ICasedevClient
         init { this._options.APIKey = value; }
     }
 
+    internal static HttpMethod PatchMethod = new("PATCH");
+
     /// <inheritdoc/>
     public ICasedevClient WithOptions(Func<ClientOptions, ClientOptions> modifier)
     {

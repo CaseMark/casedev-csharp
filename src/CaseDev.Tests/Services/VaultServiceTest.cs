@@ -18,6 +18,13 @@ public class VaultServiceTest : TestBase
     }
 
     [Fact(Skip = "Prism tests are disabled")]
+    public async Task List_Works()
+    {
+        var vaults = await this.client.Vault.List();
+        vaults.Validate();
+    }
+
+    [Fact(Skip = "Prism tests are disabled")]
     public async Task Ingest_Works()
     {
         var response = await this.client.Vault.Ingest("objectId", new() { ID = "id" });

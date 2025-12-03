@@ -62,8 +62,18 @@ public abstract record class ModelBase
             new ApiEnumConverter<string, Speak::OutputFormat>(),
             new ApiEnumConverter<string, Speak::ModelIDModel>(),
             new ApiEnumConverter<string, Speak::OutputFormatModel>(),
+            new ApiEnumConverter<string, global::CaseDev.Models.Templates.V1.Status>(),
+            new ApiEnumConverter<string, global::CaseDev.Models.Templates.V1.OptionsFormat>(),
+            new ApiEnumConverter<
+                string,
+                global::CaseDev.Models.Workflows.V1.V1ExecuteResponseStatus
+            >(),
+            new ApiEnumConverter<string, global::CaseDev.Models.Workflows.V1.TriggerType>(),
+            new ApiEnumConverter<string, global::CaseDev.Models.Workflows.V1.Visibility>(),
+            new ApiEnumConverter<string, global::CaseDev.Models.Workflows.V1.TriggerTypeModel>(),
+            new ApiEnumConverter<string, global::CaseDev.Models.Workflows.V1.VisibilityModel>(),
+            new ApiEnumConverter<string, global::CaseDev.Models.Workflows.V1.Visibility1>(),
             new ApiEnumConverter<string, global::CaseDev.Models.Workflows.V1.Status>(),
-            new ApiEnumConverter<string, global::CaseDev.Models.Workflows.V1.OptionsFormat>(),
         },
     };
 

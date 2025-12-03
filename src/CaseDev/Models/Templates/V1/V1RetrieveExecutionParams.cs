@@ -6,10 +6,12 @@ using System.Net.Http;
 using System.Text.Json;
 using CaseDev.Core;
 
-namespace CaseDev.Models.Workflows.V1;
+namespace CaseDev.Models.Templates.V1;
 
 /// <summary>
-/// Get detailed information about a workflow execution.
+/// Retrieves the status and details of a workflow execution. This endpoint is designed
+/// for future asynchronous execution support and currently returns a 501 Not Implemented
+/// status since all executions are synchronous.
 /// </summary>
 public sealed record class V1RetrieveExecutionParams : ParamsBase
 {
@@ -53,7 +55,7 @@ public sealed record class V1RetrieveExecutionParams : ParamsBase
     {
         return new UriBuilder(
             options.BaseUrl.ToString().TrimEnd('/')
-                + string.Format("/workflows/v1/executions/{0}", this.ID)
+                + string.Format("/templates/v1/executions/{0}", this.ID)
         )
         {
             Query = this.QueryString(options),

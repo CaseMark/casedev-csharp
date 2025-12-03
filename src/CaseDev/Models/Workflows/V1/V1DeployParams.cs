@@ -9,15 +9,16 @@ using CaseDev.Core;
 namespace CaseDev.Models.Workflows.V1;
 
 /// <summary>
-/// Get detailed information about a workflow execution.
+/// Deploy a workflow to Modal compute. Returns a webhook URL and secret for triggering
+/// the workflow.
 /// </summary>
-public sealed record class V1RetrieveExecutionParams : ParamsBase
+public sealed record class V1DeployParams : ParamsBase
 {
     public string? ID { get; init; }
 
-    public V1RetrieveExecutionParams() { }
+    public V1DeployParams() { }
 
-    public V1RetrieveExecutionParams(
+    public V1DeployParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData
     )
@@ -28,7 +29,7 @@ public sealed record class V1RetrieveExecutionParams : ParamsBase
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    V1RetrieveExecutionParams(
+    V1DeployParams(
         FrozenDictionary<string, JsonElement> rawHeaderData,
         FrozenDictionary<string, JsonElement> rawQueryData
     )
@@ -38,7 +39,7 @@ public sealed record class V1RetrieveExecutionParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    public static V1RetrieveExecutionParams FromRawUnchecked(
+    public static V1DeployParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData
     )
@@ -53,7 +54,7 @@ public sealed record class V1RetrieveExecutionParams : ParamsBase
     {
         return new UriBuilder(
             options.BaseUrl.ToString().TrimEnd('/')
-                + string.Format("/workflows/v1/executions/{0}", this.ID)
+                + string.Format("/workflows/v1/{0}/deploy", this.ID)
         )
         {
             Query = this.QueryString(options),

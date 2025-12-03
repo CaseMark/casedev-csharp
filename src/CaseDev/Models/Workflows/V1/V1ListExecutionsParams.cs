@@ -11,13 +11,12 @@ using CaseDev.Exceptions;
 namespace CaseDev.Models.Workflows.V1;
 
 /// <summary>
-/// List all workflows for the authenticated organization.
+/// List all executions for a specific workflow.
 /// </summary>
-public sealed record class V1ListParams : ParamsBase
+public sealed record class V1ListExecutionsParams : ParamsBase
 {
-    /// <summary>
-    /// Maximum number of results
-    /// </summary>
+    public string? ID { get; init; }
+
     public long? Limit
     {
         get { return ModelBase.GetNullableStruct<long>(this.RawQueryData, "limit"); }
@@ -32,34 +31,11 @@ public sealed record class V1ListParams : ParamsBase
         }
     }
 
-    /// <summary>
-    /// Offset for pagination
-    /// </summary>
-    public long? Offset
-    {
-        get { return ModelBase.GetNullableStruct<long>(this.RawQueryData, "offset"); }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            ModelBase.Set(this._rawQueryData, "offset", value);
-        }
-    }
-
-    /// <summary>
-    /// Filter by visibility
-    /// </summary>
-    public ApiEnum<string, Visibility1>? Visibility
+    public ApiEnum<string, Status>? Status
     {
         get
         {
-            return ModelBase.GetNullableClass<ApiEnum<string, Visibility1>>(
-                this.RawQueryData,
-                "visibility"
-            );
+            return ModelBase.GetNullableClass<ApiEnum<string, Status>>(this.RawQueryData, "status");
         }
         init
         {
@@ -68,13 +44,13 @@ public sealed record class V1ListParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawQueryData, "visibility", value);
+            ModelBase.Set(this._rawQueryData, "status", value);
         }
     }
 
-    public V1ListParams() { }
+    public V1ListExecutionsParams() { }
 
-    public V1ListParams(
+    public V1ListExecutionsParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData
     )
@@ -85,7 +61,7 @@ public sealed record class V1ListParams : ParamsBase
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    V1ListParams(
+    V1ListExecutionsParams(
         FrozenDictionary<string, JsonElement> rawHeaderData,
         FrozenDictionary<string, JsonElement> rawQueryData
     )
@@ -95,7 +71,7 @@ public sealed record class V1ListParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    public static V1ListParams FromRawUnchecked(
+    public static V1ListExecutionsParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData
     )
@@ -108,7 +84,10 @@ public sealed record class V1ListParams : ParamsBase
 
     public override Uri Url(ClientOptions options)
     {
-        return new UriBuilder(options.BaseUrl.ToString().TrimEnd('/') + "/workflows/v1")
+        return new UriBuilder(
+            options.BaseUrl.ToString().TrimEnd('/')
+                + string.Format("/workflows/v1/{0}/executions", this.ID)
+        )
         {
             Query = this.QueryString(options),
         }.Uri;
@@ -124,20 +103,19 @@ public sealed record class V1ListParams : ParamsBase
     }
 }
 
-/// <summary>
-/// Filter by visibility
-/// </summary>
-[JsonConverter(typeof(Visibility1Converter))]
-public enum Visibility1
+[JsonConverter(typeof(StatusConverter))]
+public enum Status
 {
-    Private,
-    Org,
-    Public,
+    Pending,
+    Running,
+    Completed,
+    Failed,
+    Cancelled,
 }
 
-sealed class Visibility1Converter : JsonConverter<Visibility1>
+sealed class StatusConverter : JsonConverter<Status>
 {
-    public override Visibility1 Read(
+    public override Status Read(
         ref Utf8JsonReader reader,
         Type typeToConvert,
         JsonSerializerOptions options
@@ -145,26 +123,26 @@ sealed class Visibility1Converter : JsonConverter<Visibility1>
     {
         return JsonSerializer.Deserialize<string>(ref reader, options) switch
         {
-            "private" => Visibility1.Private,
-            "org" => Visibility1.Org,
-            "public" => Visibility1.Public,
-            _ => (Visibility1)(-1),
+            "pending" => Status.Pending,
+            "running" => Status.Running,
+            "completed" => Status.Completed,
+            "failed" => Status.Failed,
+            "cancelled" => Status.Cancelled,
+            _ => (Status)(-1),
         };
     }
 
-    public override void Write(
-        Utf8JsonWriter writer,
-        Visibility1 value,
-        JsonSerializerOptions options
-    )
+    public override void Write(Utf8JsonWriter writer, Status value, JsonSerializerOptions options)
     {
         JsonSerializer.Serialize(
             writer,
             value switch
             {
-                Visibility1.Private => "private",
-                Visibility1.Org => "org",
-                Visibility1.Public => "public",
+                Status.Pending => "pending",
+                Status.Running => "running",
+                Status.Completed => "completed",
+                Status.Failed => "failed",
+                Status.Cancelled => "cancelled",
                 _ => throw new CasedevInvalidDataException(
                     string.Format("Invalid value '{0}' in {1}", value, nameof(value))
                 ),

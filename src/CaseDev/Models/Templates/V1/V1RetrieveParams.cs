@@ -6,18 +6,19 @@ using System.Net.Http;
 using System.Text.Json;
 using CaseDev.Core;
 
-namespace CaseDev.Models.Workflows.V1;
+namespace CaseDev.Models.Templates.V1;
 
 /// <summary>
-/// Get detailed information about a workflow execution.
+/// Retrieve metadata for a published workflow by ID. Returns workflow configuration
+/// including input/output schemas, but excludes the prompt template for security.
 /// </summary>
-public sealed record class V1RetrieveExecutionParams : ParamsBase
+public sealed record class V1RetrieveParams : ParamsBase
 {
     public string? ID { get; init; }
 
-    public V1RetrieveExecutionParams() { }
+    public V1RetrieveParams() { }
 
-    public V1RetrieveExecutionParams(
+    public V1RetrieveParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData
     )
@@ -28,7 +29,7 @@ public sealed record class V1RetrieveExecutionParams : ParamsBase
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    V1RetrieveExecutionParams(
+    V1RetrieveParams(
         FrozenDictionary<string, JsonElement> rawHeaderData,
         FrozenDictionary<string, JsonElement> rawQueryData
     )
@@ -38,7 +39,7 @@ public sealed record class V1RetrieveExecutionParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    public static V1RetrieveExecutionParams FromRawUnchecked(
+    public static V1RetrieveParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData
     )
@@ -52,8 +53,7 @@ public sealed record class V1RetrieveExecutionParams : ParamsBase
     public override Uri Url(ClientOptions options)
     {
         return new UriBuilder(
-            options.BaseUrl.ToString().TrimEnd('/')
-                + string.Format("/workflows/v1/executions/{0}", this.ID)
+            options.BaseUrl.ToString().TrimEnd('/') + string.Format("/templates/v1/{0}", this.ID)
         )
         {
             Query = this.QueryString(options),
