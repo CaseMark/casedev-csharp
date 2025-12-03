@@ -77,10 +77,4 @@ public interface IV1Service
         V1RetrieveExecutionParams? parameters = null,
         CancellationToken cancellationToken = default
     );
-
-    /// <summary>
-    /// Perform semantic search across available workflows to find the most relevant
-    /// pre-built document processing pipelines for your legal use case.
-    /// </summary>
-    Task Search(V1SearchParams parameters, CancellationToken cancellationToken = default);
 }

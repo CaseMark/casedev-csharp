@@ -142,20 +142,4 @@ public sealed class V1Service : IV1Service
 
         await this.RetrieveExecution(parameters with { ID = id }, cancellationToken);
     }
-
-    /// <inheritdoc/>
-    public async Task Search(
-        V1SearchParams parameters,
-        CancellationToken cancellationToken = default
-    )
-    {
-        HttpRequest<V1SearchParams> request = new()
-        {
-            Method = HttpMethod.Post,
-            Params = parameters,
-        };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
-    }
 }

@@ -32,10 +32,4 @@ public class V1ServiceTest : TestBase
     {
         await this.client.Workflows.V1.RetrieveExecution("exec_abc123def456");
     }
-
-    [Fact(Skip = "Prism tests are disabled")]
-    public async Task Search_Works()
-    {
-        await this.client.Workflows.V1.Search(new() { Query = "query" });
-    }
 }

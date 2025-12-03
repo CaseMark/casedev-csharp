@@ -131,6 +131,12 @@ public sealed class CasedevClient : ICasedevClient
         get { return _webhooks.Value; }
     }
 
+    readonly Lazy<ITemplateService> _templates;
+    public ITemplateService Templates
+    {
+        get { return _templates.Value; }
+    }
+
     readonly Lazy<IWorkflowService> _workflows;
     public IWorkflowService Workflows
     {
@@ -333,6 +339,7 @@ public sealed class CasedevClient : ICasedevClient
         _vault = new(() => new VaultService(this));
         _voice = new(() => new VoiceService(this));
         _webhooks = new(() => new WebhookService(this));
+        _templates = new(() => new TemplateService(this));
         _workflows = new(() => new WorkflowService(this));
     }
 
