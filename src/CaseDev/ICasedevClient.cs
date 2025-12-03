@@ -112,6 +112,8 @@ public interface ICasedevClient
 
     IWebhookService Webhooks { get; }
 
+    ITemplateService Templates { get; }
+
     IWorkflowService Workflows { get; }
 
     /// <summary>

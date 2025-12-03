@@ -9,12 +9,16 @@ using CaseDev.Models.Format.V1.Templates;
 namespace CaseDev.Services.Format.V1;
 
 /// <inheritdoc />
-public sealed class TemplateService : ITemplateService
+public sealed class TemplateService : global::CaseDev.Services.Format.V1.ITemplateService
 {
     /// <inheritdoc/>
-    public ITemplateService WithOptions(Func<ClientOptions, ClientOptions> modifier)
+    public global::CaseDev.Services.Format.V1.ITemplateService WithOptions(
+        Func<ClientOptions, ClientOptions> modifier
+    )
     {
-        return new TemplateService(this._client.WithOptions(modifier));
+        return new global::CaseDev.Services.Format.V1.TemplateService(
+            this._client.WithOptions(modifier)
+        );
     }
 
     readonly ICasedevClient _client;

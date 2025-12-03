@@ -18,7 +18,9 @@ public interface ITemplateService
     ///
     /// <para>The original service is not modified.</para>
     /// </summary>
-    ITemplateService WithOptions(Func<ClientOptions, ClientOptions> modifier);
+    global::CaseDev.Services.Format.V1.ITemplateService WithOptions(
+        Func<ClientOptions, ClientOptions> modifier
+    );
 
     /// <summary>
     /// Create a new format template for document formatting. Templates support variables
