@@ -1,8 +1,8 @@
 using System.Text.Json;
 using CaseDev.Core;
-using CaseDev.Models.Workflows.V1;
+using CaseDev.Models.Templates.V1;
 
-namespace CaseDev.Tests.Models.Workflows.V1;
+namespace CaseDev.Tests.Models.Templates.V1;
 
 public class OptionsTest : TestBase
 {

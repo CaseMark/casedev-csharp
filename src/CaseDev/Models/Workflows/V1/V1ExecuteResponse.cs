@@ -12,12 +12,9 @@ namespace CaseDev.Models.Workflows.V1;
 [JsonConverter(typeof(ModelConverter<V1ExecuteResponse, V1ExecuteResponseFromRaw>))]
 public sealed record class V1ExecuteResponse : ModelBase
 {
-    /// <summary>
-    /// Workflow output (structure varies by workflow type)
-    /// </summary>
-    public JsonElement? Result
+    public long? Duration
     {
-        get { return ModelBase.GetNullableStruct<JsonElement>(this.RawData, "result"); }
+        get { return ModelBase.GetNullableStruct<long>(this.RawData, "duration"); }
         init
         {
             if (value == null)
@@ -25,13 +22,61 @@ public sealed record class V1ExecuteResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "result", value);
+            ModelBase.Set(this._rawData, "duration", value);
         }
     }
 
-    public ApiEnum<string, Status>? Status
+    public string? Error
     {
-        get { return ModelBase.GetNullableClass<ApiEnum<string, Status>>(this.RawData, "status"); }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "error"); }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            ModelBase.Set(this._rawData, "error", value);
+        }
+    }
+
+    public string? ExecutionID
+    {
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "executionId"); }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            ModelBase.Set(this._rawData, "executionId", value);
+        }
+    }
+
+    public JsonElement? Outputs
+    {
+        get { return ModelBase.GetNullableStruct<JsonElement>(this.RawData, "outputs"); }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            ModelBase.Set(this._rawData, "outputs", value);
+        }
+    }
+
+    public ApiEnum<string, V1ExecuteResponseStatus>? Status
+    {
+        get
+        {
+            return ModelBase.GetNullableClass<ApiEnum<string, V1ExecuteResponseStatus>>(
+                this.RawData,
+                "status"
+            );
+        }
         init
         {
             if (value == null)
@@ -43,43 +88,13 @@ public sealed record class V1ExecuteResponse : ModelBase
         }
     }
 
-    public Usage? Usage
-    {
-        get { return ModelBase.GetNullableClass<Usage>(this.RawData, "usage"); }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            ModelBase.Set(this._rawData, "usage", value);
-        }
-    }
-
-    /// <summary>
-    /// Name of the executed workflow
-    /// </summary>
-    public string? WorkflowName
-    {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "workflow_name"); }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            ModelBase.Set(this._rawData, "workflow_name", value);
-        }
-    }
-
     public override void Validate()
     {
-        _ = this.Result;
+        _ = this.Duration;
+        _ = this.Error;
+        _ = this.ExecutionID;
+        _ = this.Outputs;
         this.Status?.Validate();
-        this.Usage?.Validate();
-        _ = this.WorkflowName;
     }
 
     public V1ExecuteResponse() { }
@@ -111,16 +126,16 @@ class V1ExecuteResponseFromRaw : IFromRaw<V1ExecuteResponse>
         V1ExecuteResponse.FromRawUnchecked(rawData);
 }
 
-[JsonConverter(typeof(StatusConverter))]
-public enum Status
+[JsonConverter(typeof(V1ExecuteResponseStatusConverter))]
+public enum V1ExecuteResponseStatus
 {
     Completed,
     Failed,
 }
 
-sealed class StatusConverter : JsonConverter<Status>
+sealed class V1ExecuteResponseStatusConverter : JsonConverter<V1ExecuteResponseStatus>
 {
-    public override Status Read(
+    public override V1ExecuteResponseStatus Read(
         ref Utf8JsonReader reader,
         Type typeToConvert,
         JsonSerializerOptions options
@@ -128,20 +143,24 @@ sealed class StatusConverter : JsonConverter<Status>
     {
         return JsonSerializer.Deserialize<string>(ref reader, options) switch
         {
-            "completed" => Status.Completed,
-            "failed" => Status.Failed,
-            _ => (Status)(-1),
+            "completed" => V1ExecuteResponseStatus.Completed,
+            "failed" => V1ExecuteResponseStatus.Failed,
+            _ => (V1ExecuteResponseStatus)(-1),
         };
     }
 
-    public override void Write(Utf8JsonWriter writer, Status value, JsonSerializerOptions options)
+    public override void Write(
+        Utf8JsonWriter writer,
+        V1ExecuteResponseStatus value,
+        JsonSerializerOptions options
+    )
     {
         JsonSerializer.Serialize(
             writer,
             value switch
             {
-                Status.Completed => "completed",
-                Status.Failed => "failed",
+                V1ExecuteResponseStatus.Completed => "completed",
+                V1ExecuteResponseStatus.Failed => "failed",
                 _ => throw new CasedevInvalidDataException(
                     string.Format("Invalid value '{0}' in {1}", value, nameof(value))
                 ),
@@ -149,101 +168,4 @@ sealed class StatusConverter : JsonConverter<Status>
             options
         );
     }
-}
-
-[JsonConverter(typeof(ModelConverter<Usage, UsageFromRaw>))]
-public sealed record class Usage : ModelBase
-{
-    public long? CompletionTokens
-    {
-        get { return ModelBase.GetNullableStruct<long>(this.RawData, "completion_tokens"); }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            ModelBase.Set(this._rawData, "completion_tokens", value);
-        }
-    }
-
-    /// <summary>
-    /// Total cost in USD
-    /// </summary>
-    public double? Cost
-    {
-        get { return ModelBase.GetNullableStruct<double>(this.RawData, "cost"); }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            ModelBase.Set(this._rawData, "cost", value);
-        }
-    }
-
-    public long? PromptTokens
-    {
-        get { return ModelBase.GetNullableStruct<long>(this.RawData, "prompt_tokens"); }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            ModelBase.Set(this._rawData, "prompt_tokens", value);
-        }
-    }
-
-    public long? TotalTokens
-    {
-        get { return ModelBase.GetNullableStruct<long>(this.RawData, "total_tokens"); }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            ModelBase.Set(this._rawData, "total_tokens", value);
-        }
-    }
-
-    public override void Validate()
-    {
-        _ = this.CompletionTokens;
-        _ = this.Cost;
-        _ = this.PromptTokens;
-        _ = this.TotalTokens;
-    }
-
-    public Usage() { }
-
-    public Usage(IReadOnlyDictionary<string, JsonElement> rawData)
-    {
-        this._rawData = [.. rawData];
-    }
-
-#pragma warning disable CS8618
-    [SetsRequiredMembers]
-    Usage(FrozenDictionary<string, JsonElement> rawData)
-    {
-        this._rawData = [.. rawData];
-    }
-#pragma warning restore CS8618
-
-    public static Usage FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
-    {
-        return new(FrozenDictionary.ToFrozenDictionary(rawData));
-    }
-}
-
-class UsageFromRaw : IFromRaw<Usage>
-{
-    public Usage FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
-        Usage.FromRawUnchecked(rawData);
 }

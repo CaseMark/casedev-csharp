@@ -9,15 +9,15 @@ using CaseDev.Core;
 namespace CaseDev.Models.Workflows.V1;
 
 /// <summary>
-/// Get detailed information about a workflow execution.
+/// Stop a deployed workflow and release its webhook URL.
 /// </summary>
-public sealed record class V1RetrieveExecutionParams : ParamsBase
+public sealed record class V1UndeployParams : ParamsBase
 {
     public string? ID { get; init; }
 
-    public V1RetrieveExecutionParams() { }
+    public V1UndeployParams() { }
 
-    public V1RetrieveExecutionParams(
+    public V1UndeployParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData
     )
@@ -28,7 +28,7 @@ public sealed record class V1RetrieveExecutionParams : ParamsBase
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    V1RetrieveExecutionParams(
+    V1UndeployParams(
         FrozenDictionary<string, JsonElement> rawHeaderData,
         FrozenDictionary<string, JsonElement> rawQueryData
     )
@@ -38,7 +38,7 @@ public sealed record class V1RetrieveExecutionParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    public static V1RetrieveExecutionParams FromRawUnchecked(
+    public static V1UndeployParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData
     )
@@ -53,7 +53,7 @@ public sealed record class V1RetrieveExecutionParams : ParamsBase
     {
         return new UriBuilder(
             options.BaseUrl.ToString().TrimEnd('/')
-                + string.Format("/workflows/v1/executions/{0}", this.ID)
+                + string.Format("/workflows/v1/{0}/deploy", this.ID)
         )
         {
             Query = this.QueryString(options),

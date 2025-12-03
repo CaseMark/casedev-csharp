@@ -4,19 +4,36 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using CaseDev.Core;
-using CaseDev.Exceptions;
 
-namespace CaseDev.Models.Workflows.V1;
+namespace CaseDev.Models.Templates.V1;
 
 /// <summary>
-/// List all workflows for the authenticated organization.
+/// Retrieve a paginated list of available workflows with optional filtering by category,
+/// subcategory, type, and publication status. Workflows are pre-built document processing
+/// pipelines optimized for legal use cases.
 /// </summary>
 public sealed record class V1ListParams : ParamsBase
 {
     /// <summary>
-    /// Maximum number of results
+    /// Filter workflows by category (e.g., 'legal', 'compliance', 'contract')
+    /// </summary>
+    public string? Category
+    {
+        get { return ModelBase.GetNullableClass<string>(this.RawQueryData, "category"); }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            ModelBase.Set(this._rawQueryData, "category", value);
+        }
+    }
+
+    /// <summary>
+    /// Maximum number of workflows to return
     /// </summary>
     public long? Limit
     {
@@ -33,7 +50,7 @@ public sealed record class V1ListParams : ParamsBase
     }
 
     /// <summary>
-    /// Offset for pagination
+    /// Number of workflows to skip for pagination
     /// </summary>
     public long? Offset
     {
@@ -50,17 +67,11 @@ public sealed record class V1ListParams : ParamsBase
     }
 
     /// <summary>
-    /// Filter by visibility
+    /// Include only published workflows
     /// </summary>
-    public ApiEnum<string, Visibility1>? Visibility
+    public bool? Published
     {
-        get
-        {
-            return ModelBase.GetNullableClass<ApiEnum<string, Visibility1>>(
-                this.RawQueryData,
-                "visibility"
-            );
-        }
+        get { return ModelBase.GetNullableStruct<bool>(this.RawQueryData, "published"); }
         init
         {
             if (value == null)
@@ -68,7 +79,41 @@ public sealed record class V1ListParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawQueryData, "visibility", value);
+            ModelBase.Set(this._rawQueryData, "published", value);
+        }
+    }
+
+    /// <summary>
+    /// Filter workflows by subcategory (e.g., 'due-diligence', 'litigation', 'mergers')
+    /// </summary>
+    public string? SubCategory
+    {
+        get { return ModelBase.GetNullableClass<string>(this.RawQueryData, "sub_category"); }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            ModelBase.Set(this._rawQueryData, "sub_category", value);
+        }
+    }
+
+    /// <summary>
+    /// Filter workflows by type (e.g., 'document-review', 'contract-analysis', 'compliance-check')
+    /// </summary>
+    public string? Type
+    {
+        get { return ModelBase.GetNullableClass<string>(this.RawQueryData, "type"); }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            ModelBase.Set(this._rawQueryData, "type", value);
         }
     }
 
@@ -108,7 +153,7 @@ public sealed record class V1ListParams : ParamsBase
 
     public override Uri Url(ClientOptions options)
     {
-        return new UriBuilder(options.BaseUrl.ToString().TrimEnd('/') + "/workflows/v1")
+        return new UriBuilder(options.BaseUrl.ToString().TrimEnd('/') + "/templates/v1")
         {
             Query = this.QueryString(options),
         }.Uri;
@@ -121,55 +166,5 @@ public sealed record class V1ListParams : ParamsBase
         {
             ParamsBase.AddHeaderElementToRequest(request, item.Key, item.Value);
         }
-    }
-}
-
-/// <summary>
-/// Filter by visibility
-/// </summary>
-[JsonConverter(typeof(Visibility1Converter))]
-public enum Visibility1
-{
-    Private,
-    Org,
-    Public,
-}
-
-sealed class Visibility1Converter : JsonConverter<Visibility1>
-{
-    public override Visibility1 Read(
-        ref Utf8JsonReader reader,
-        Type typeToConvert,
-        JsonSerializerOptions options
-    )
-    {
-        return JsonSerializer.Deserialize<string>(ref reader, options) switch
-        {
-            "private" => Visibility1.Private,
-            "org" => Visibility1.Org,
-            "public" => Visibility1.Public,
-            _ => (Visibility1)(-1),
-        };
-    }
-
-    public override void Write(
-        Utf8JsonWriter writer,
-        Visibility1 value,
-        JsonSerializerOptions options
-    )
-    {
-        JsonSerializer.Serialize(
-            writer,
-            value switch
-            {
-                Visibility1.Private => "private",
-                Visibility1.Org => "org",
-                Visibility1.Public => "public",
-                _ => throw new CasedevInvalidDataException(
-                    string.Format("Invalid value '{0}' in {1}", value, nameof(value))
-                ),
-            },
-            options
-        );
     }
 }

@@ -50,6 +50,15 @@ public interface IVaultService
     );
 
     /// <summary>
+    /// List all vaults for the authenticated organization. Returns vault metadata
+    /// including storage configuration and usage statistics.
+    /// </summary>
+    Task<VaultListResponse> List(
+        VaultListParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
     /// Triggers OCR ingestion workflow for a vault object to extract text, generate
     /// chunks, and create embeddings. Processing happens asynchronously with GraphRAG
     /// support if enabled on the vault. Returns immediately with workflow tracking information.

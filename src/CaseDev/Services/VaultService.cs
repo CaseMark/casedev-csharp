@@ -97,6 +97,32 @@ public sealed class VaultService : IVaultService
     }
 
     /// <inheritdoc/>
+    public async Task<VaultListResponse> List(
+        VaultListParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        HttpRequest<VaultListParams> request = new()
+        {
+            Method = HttpMethod.Get,
+            Params = parameters,
+        };
+        using var response = await this
+            ._client.Execute(request, cancellationToken)
+            .ConfigureAwait(false);
+        var vaults = await response
+            .Deserialize<VaultListResponse>(cancellationToken)
+            .ConfigureAwait(false);
+        if (this._client.ResponseValidation)
+        {
+            vaults.Validate();
+        }
+        return vaults;
+    }
+
+    /// <inheritdoc/>
     public async Task<VaultIngestResponse> Ingest(
         VaultIngestParams parameters,
         CancellationToken cancellationToken = default

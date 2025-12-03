@@ -7,12 +7,13 @@ using System.Text;
 using System.Text.Json;
 using CaseDev.Core;
 
-namespace CaseDev.Models.Workflows.V1;
+namespace CaseDev.Models.Templates.V1;
 
 /// <summary>
-/// Execute a workflow for testing. This runs the workflow synchronously without deployment.
+/// Perform semantic search across available workflows to find the most relevant pre-built
+/// document processing pipelines for your legal use case.
 /// </summary>
-public sealed record class V1ExecuteParams : ParamsBase
+public sealed record class V1SearchParams : ParamsBase
 {
     readonly FreezableDictionary<string, JsonElement> _rawBodyData = [];
     public IReadOnlyDictionary<string, JsonElement> RawBodyData
@@ -20,14 +21,21 @@ public sealed record class V1ExecuteParams : ParamsBase
         get { return this._rawBodyData.Freeze(); }
     }
 
-    public string? ID { get; init; }
+    /// <summary>
+    /// Search query to find relevant workflows
+    /// </summary>
+    public required string Query
+    {
+        get { return ModelBase.GetNotNullClass<string>(this.RawBodyData, "query"); }
+        init { ModelBase.Set(this._rawBodyData, "query", value); }
+    }
 
     /// <summary>
-    /// Input data to pass to the workflow trigger
+    /// Optional category filter to narrow results
     /// </summary>
-    public JsonElement? Body
+    public string? Category
     {
-        get { return ModelBase.GetNullableStruct<JsonElement>(this.RawBodyData, "body"); }
+        get { return ModelBase.GetNullableClass<string>(this.RawBodyData, "category"); }
         init
         {
             if (value == null)
@@ -35,13 +43,30 @@ public sealed record class V1ExecuteParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "body", value);
+            ModelBase.Set(this._rawBodyData, "category", value);
         }
     }
 
-    public V1ExecuteParams() { }
+    /// <summary>
+    /// Maximum number of results to return (default: 10, max: 50)
+    /// </summary>
+    public long? Limit
+    {
+        get { return ModelBase.GetNullableStruct<long>(this.RawBodyData, "limit"); }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
 
-    public V1ExecuteParams(
+            ModelBase.Set(this._rawBodyData, "limit", value);
+        }
+    }
+
+    public V1SearchParams() { }
+
+    public V1SearchParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
         IReadOnlyDictionary<string, JsonElement> rawBodyData
@@ -54,7 +79,7 @@ public sealed record class V1ExecuteParams : ParamsBase
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    V1ExecuteParams(
+    V1SearchParams(
         FrozenDictionary<string, JsonElement> rawHeaderData,
         FrozenDictionary<string, JsonElement> rawQueryData,
         FrozenDictionary<string, JsonElement> rawBodyData
@@ -66,7 +91,7 @@ public sealed record class V1ExecuteParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    public static V1ExecuteParams FromRawUnchecked(
+    public static V1SearchParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
         IReadOnlyDictionary<string, JsonElement> rawBodyData
@@ -81,10 +106,7 @@ public sealed record class V1ExecuteParams : ParamsBase
 
     public override Uri Url(ClientOptions options)
     {
-        return new UriBuilder(
-            options.BaseUrl.ToString().TrimEnd('/')
-                + string.Format("/workflows/v1/{0}/execute", this.ID)
-        )
+        return new UriBuilder(options.BaseUrl.ToString().TrimEnd('/') + "/templates/v1/search")
         {
             Query = this.QueryString(options),
         }.Uri;

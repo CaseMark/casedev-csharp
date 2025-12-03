@@ -6,18 +6,17 @@ using System.Net.Http;
 using System.Text.Json;
 using CaseDev.Core;
 
-namespace CaseDev.Models.Workflows.V1;
+namespace CaseDev.Models.Vault;
 
 /// <summary>
-/// Get detailed information about a workflow execution.
+/// List all vaults for the authenticated organization. Returns vault metadata including
+/// storage configuration and usage statistics.
 /// </summary>
-public sealed record class V1RetrieveExecutionParams : ParamsBase
+public sealed record class VaultListParams : ParamsBase
 {
-    public string? ID { get; init; }
+    public VaultListParams() { }
 
-    public V1RetrieveExecutionParams() { }
-
-    public V1RetrieveExecutionParams(
+    public VaultListParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData
     )
@@ -28,7 +27,7 @@ public sealed record class V1RetrieveExecutionParams : ParamsBase
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    V1RetrieveExecutionParams(
+    VaultListParams(
         FrozenDictionary<string, JsonElement> rawHeaderData,
         FrozenDictionary<string, JsonElement> rawQueryData
     )
@@ -38,7 +37,7 @@ public sealed record class V1RetrieveExecutionParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    public static V1RetrieveExecutionParams FromRawUnchecked(
+    public static VaultListParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData
     )
@@ -51,10 +50,7 @@ public sealed record class V1RetrieveExecutionParams : ParamsBase
 
     public override Uri Url(ClientOptions options)
     {
-        return new UriBuilder(
-            options.BaseUrl.ToString().TrimEnd('/')
-                + string.Format("/workflows/v1/executions/{0}", this.ID)
-        )
+        return new UriBuilder(options.BaseUrl.ToString().TrimEnd('/') + "/vault")
         {
             Query = this.QueryString(options),
         }.Uri;

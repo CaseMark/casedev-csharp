@@ -9,8 +9,7 @@ using CaseDev.Core;
 namespace CaseDev.Models.Workflows.V1;
 
 /// <summary>
-/// Retrieve metadata for a published workflow by ID. Returns workflow configuration
-/// including input/output schemas, but excludes the prompt template for security.
+/// Get a specific workflow by ID with full configuration.
 /// </summary>
 public sealed record class V1RetrieveParams : ParamsBase
 {

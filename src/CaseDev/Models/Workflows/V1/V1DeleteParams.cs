@@ -9,15 +9,15 @@ using CaseDev.Core;
 namespace CaseDev.Models.Workflows.V1;
 
 /// <summary>
-/// Get detailed information about a workflow execution.
+/// Delete a workflow and all associated data.
 /// </summary>
-public sealed record class V1RetrieveExecutionParams : ParamsBase
+public sealed record class V1DeleteParams : ParamsBase
 {
     public string? ID { get; init; }
 
-    public V1RetrieveExecutionParams() { }
+    public V1DeleteParams() { }
 
-    public V1RetrieveExecutionParams(
+    public V1DeleteParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData
     )
@@ -28,7 +28,7 @@ public sealed record class V1RetrieveExecutionParams : ParamsBase
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    V1RetrieveExecutionParams(
+    V1DeleteParams(
         FrozenDictionary<string, JsonElement> rawHeaderData,
         FrozenDictionary<string, JsonElement> rawQueryData
     )
@@ -38,7 +38,7 @@ public sealed record class V1RetrieveExecutionParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    public static V1RetrieveExecutionParams FromRawUnchecked(
+    public static V1DeleteParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData
     )
@@ -52,8 +52,7 @@ public sealed record class V1RetrieveExecutionParams : ParamsBase
     public override Uri Url(ClientOptions options)
     {
         return new UriBuilder(
-            options.BaseUrl.ToString().TrimEnd('/')
-                + string.Format("/workflows/v1/executions/{0}", this.ID)
+            options.BaseUrl.ToString().TrimEnd('/') + string.Format("/workflows/v1/{0}", this.ID)
         )
         {
             Query = this.QueryString(options),

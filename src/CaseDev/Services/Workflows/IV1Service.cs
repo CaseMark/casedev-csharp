@@ -21,33 +21,84 @@ public interface IV1Service
     IV1Service WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Retrieve metadata for a published workflow by ID. Returns workflow configuration
-    /// including input/output schemas, but excludes the prompt template for security.
+    /// Create a new visual workflow with nodes, edges, and trigger configuration.
     /// </summary>
-    Task Retrieve(V1RetrieveParams parameters, CancellationToken cancellationToken = default);
+    Task<V1CreateResponse> Create(
+        V1CreateParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Get a specific workflow by ID with full configuration.
+    /// </summary>
+    Task<V1RetrieveResponse> Retrieve(
+        V1RetrieveParams parameters,
+        CancellationToken cancellationToken = default
+    );
 
     /// <inheritdoc cref="Retrieve(V1RetrieveParams, CancellationToken)"/>
-    Task Retrieve(
+    Task<V1RetrieveResponse> Retrieve(
         string id,
         V1RetrieveParams? parameters = null,
         CancellationToken cancellationToken = default
     );
 
     /// <summary>
-    /// Retrieve a paginated list of available workflows with optional filtering
-    /// by category, subcategory, type, and publication status. Workflows are pre-built
-    /// document processing pipelines optimized for legal use cases.
+    /// Update an existing workflow's configuration.
     /// </summary>
-    Task List(V1ListParams? parameters = null, CancellationToken cancellationToken = default);
+    Task<V1UpdateResponse> Update(
+        V1UpdateParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="Update(V1UpdateParams, CancellationToken)"/>
+    Task<V1UpdateResponse> Update(
+        string id,
+        V1UpdateParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
 
     /// <summary>
-    /// Execute a pre-built workflow with custom input data. Workflows automate common
-    /// legal document processing tasks like contract analysis, due diligence reviews,
-    /// and document classification.
-    ///
-    /// <para>**Available Workflows:** - Contract analysis and risk assessment - Document
-    /// classification and tagging - Legal research and case summarization - Due diligence
-    /// document review - Compliance checking and reporting</para>
+    /// List all workflows for the authenticated organization.
+    /// </summary>
+    Task<V1ListResponse> List(
+        V1ListParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Delete a workflow and all associated data.
+    /// </summary>
+    Task<V1DeleteResponse> Delete(
+        V1DeleteParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="Delete(V1DeleteParams, CancellationToken)"/>
+    Task<V1DeleteResponse> Delete(
+        string id,
+        V1DeleteParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Deploy a workflow to Modal compute. Returns a webhook URL and secret for triggering
+    /// the workflow.
+    /// </summary>
+    Task<V1DeployResponse> Deploy(
+        V1DeployParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="Deploy(V1DeployParams, CancellationToken)"/>
+    Task<V1DeployResponse> Deploy(
+        string id,
+        V1DeployParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Execute a workflow for testing. This runs the workflow synchronously without deployment.
     /// </summary>
     Task<V1ExecuteResponse> Execute(
         V1ExecuteParams parameters,
@@ -57,24 +108,52 @@ public interface IV1Service
     /// <inheritdoc cref="Execute(V1ExecuteParams, CancellationToken)"/>
     Task<V1ExecuteResponse> Execute(
         string id,
-        V1ExecuteParams parameters,
+        V1ExecuteParams? parameters = null,
         CancellationToken cancellationToken = default
     );
 
     /// <summary>
-    /// Retrieves the status and details of a workflow execution. This endpoint is
-    /// designed for future asynchronous execution support and currently returns a
-    /// 501 Not Implemented status since all executions are synchronous.
+    /// List all executions for a specific workflow.
     /// </summary>
-    Task RetrieveExecution(
+    Task<V1ListExecutionsResponse> ListExecutions(
+        V1ListExecutionsParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="ListExecutions(V1ListExecutionsParams, CancellationToken)"/>
+    Task<V1ListExecutionsResponse> ListExecutions(
+        string id,
+        V1ListExecutionsParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Get detailed information about a workflow execution.
+    /// </summary>
+    Task<V1RetrieveExecutionResponse> RetrieveExecution(
         V1RetrieveExecutionParams parameters,
         CancellationToken cancellationToken = default
     );
 
     /// <inheritdoc cref="RetrieveExecution(V1RetrieveExecutionParams, CancellationToken)"/>
-    Task RetrieveExecution(
+    Task<V1RetrieveExecutionResponse> RetrieveExecution(
         string id,
         V1RetrieveExecutionParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Stop a deployed workflow and release its webhook URL.
+    /// </summary>
+    Task<V1UndeployResponse> Undeploy(
+        V1UndeployParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="Undeploy(V1UndeployParams, CancellationToken)"/>
+    Task<V1UndeployResponse> Undeploy(
+        string id,
+        V1UndeployParams? parameters = null,
         CancellationToken cancellationToken = default
     );
 }

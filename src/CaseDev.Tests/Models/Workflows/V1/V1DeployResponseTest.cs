@@ -1,0 +1,146 @@
+using System.Text.Json;
+using CaseDev.Models.Workflows.V1;
+
+namespace CaseDev.Tests.Models.Workflows.V1;
+
+public class V1DeployResponseTest : TestBase
+{
+    [Fact]
+    public void FieldRoundtrip_Works()
+    {
+        var model = new V1DeployResponse
+        {
+            Message = "message",
+            Success = true,
+            WebhookSecret = "webhookSecret",
+            WebhookURL = "webhookUrl",
+        };
+
+        string expectedMessage = "message";
+        bool expectedSuccess = true;
+        string expectedWebhookSecret = "webhookSecret";
+        string expectedWebhookURL = "webhookUrl";
+
+        Assert.Equal(expectedMessage, model.Message);
+        Assert.Equal(expectedSuccess, model.Success);
+        Assert.Equal(expectedWebhookSecret, model.WebhookSecret);
+        Assert.Equal(expectedWebhookURL, model.WebhookURL);
+    }
+
+    [Fact]
+    public void SerializationRoundtrip_Works()
+    {
+        var model = new V1DeployResponse
+        {
+            Message = "message",
+            Success = true,
+            WebhookSecret = "webhookSecret",
+            WebhookURL = "webhookUrl",
+        };
+
+        string json = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<V1DeployResponse>(json);
+
+        Assert.Equal(model, deserialized);
+    }
+
+    [Fact]
+    public void FieldRoundtripThroughSerialization_Works()
+    {
+        var model = new V1DeployResponse
+        {
+            Message = "message",
+            Success = true,
+            WebhookSecret = "webhookSecret",
+            WebhookURL = "webhookUrl",
+        };
+
+        string json = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<V1DeployResponse>(json);
+        Assert.NotNull(deserialized);
+
+        string expectedMessage = "message";
+        bool expectedSuccess = true;
+        string expectedWebhookSecret = "webhookSecret";
+        string expectedWebhookURL = "webhookUrl";
+
+        Assert.Equal(expectedMessage, deserialized.Message);
+        Assert.Equal(expectedSuccess, deserialized.Success);
+        Assert.Equal(expectedWebhookSecret, deserialized.WebhookSecret);
+        Assert.Equal(expectedWebhookURL, deserialized.WebhookURL);
+    }
+
+    [Fact]
+    public void Validation_Works()
+    {
+        var model = new V1DeployResponse
+        {
+            Message = "message",
+            Success = true,
+            WebhookSecret = "webhookSecret",
+            WebhookURL = "webhookUrl",
+        };
+
+        model.Validate();
+    }
+
+    [Fact]
+    public void OptionalNonNullablePropertiesUnsetAreNotSet_Works()
+    {
+        var model = new V1DeployResponse { };
+
+        Assert.Null(model.Message);
+        Assert.False(model.RawData.ContainsKey("message"));
+        Assert.Null(model.Success);
+        Assert.False(model.RawData.ContainsKey("success"));
+        Assert.Null(model.WebhookSecret);
+        Assert.False(model.RawData.ContainsKey("webhookSecret"));
+        Assert.Null(model.WebhookURL);
+        Assert.False(model.RawData.ContainsKey("webhookUrl"));
+    }
+
+    [Fact]
+    public void OptionalNonNullablePropertiesUnsetValidation_Works()
+    {
+        var model = new V1DeployResponse { };
+
+        model.Validate();
+    }
+
+    [Fact]
+    public void OptionalNonNullablePropertiesSetToNullAreNotSet_Works()
+    {
+        var model = new V1DeployResponse
+        {
+            // Null should be interpreted as omitted for these properties
+            Message = null,
+            Success = null,
+            WebhookSecret = null,
+            WebhookURL = null,
+        };
+
+        Assert.Null(model.Message);
+        Assert.False(model.RawData.ContainsKey("message"));
+        Assert.Null(model.Success);
+        Assert.False(model.RawData.ContainsKey("success"));
+        Assert.Null(model.WebhookSecret);
+        Assert.False(model.RawData.ContainsKey("webhookSecret"));
+        Assert.Null(model.WebhookURL);
+        Assert.False(model.RawData.ContainsKey("webhookUrl"));
+    }
+
+    [Fact]
+    public void OptionalNonNullablePropertiesSetToNullValidation_Works()
+    {
+        var model = new V1DeployResponse
+        {
+            // Null should be interpreted as omitted for these properties
+            Message = null,
+            Success = null,
+            WebhookSecret = null,
+            WebhookURL = null,
+        };
+
+        model.Validate();
+    }
+}
