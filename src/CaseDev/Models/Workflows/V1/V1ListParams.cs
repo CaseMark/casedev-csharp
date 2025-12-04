@@ -52,11 +52,11 @@ public sealed record class V1ListParams : ParamsBase
     /// <summary>
     /// Filter by visibility
     /// </summary>
-    public ApiEnum<string, Visibility1>? Visibility
+    public ApiEnum<string, V1ListParamsVisibility>? Visibility
     {
         get
         {
-            return ModelBase.GetNullableClass<ApiEnum<string, Visibility1>>(
+            return ModelBase.GetNullableClass<ApiEnum<string, V1ListParamsVisibility>>(
                 this.RawQueryData,
                 "visibility"
             );
@@ -127,17 +127,17 @@ public sealed record class V1ListParams : ParamsBase
 /// <summary>
 /// Filter by visibility
 /// </summary>
-[JsonConverter(typeof(Visibility1Converter))]
-public enum Visibility1
+[JsonConverter(typeof(V1ListParamsVisibilityConverter))]
+public enum V1ListParamsVisibility
 {
     Private,
     Org,
     Public,
 }
 
-sealed class Visibility1Converter : JsonConverter<Visibility1>
+sealed class V1ListParamsVisibilityConverter : JsonConverter<V1ListParamsVisibility>
 {
-    public override Visibility1 Read(
+    public override V1ListParamsVisibility Read(
         ref Utf8JsonReader reader,
         Type typeToConvert,
         JsonSerializerOptions options
@@ -145,16 +145,16 @@ sealed class Visibility1Converter : JsonConverter<Visibility1>
     {
         return JsonSerializer.Deserialize<string>(ref reader, options) switch
         {
-            "private" => Visibility1.Private,
-            "org" => Visibility1.Org,
-            "public" => Visibility1.Public,
-            _ => (Visibility1)(-1),
+            "private" => V1ListParamsVisibility.Private,
+            "org" => V1ListParamsVisibility.Org,
+            "public" => V1ListParamsVisibility.Public,
+            _ => (V1ListParamsVisibility)(-1),
         };
     }
 
     public override void Write(
         Utf8JsonWriter writer,
-        Visibility1 value,
+        V1ListParamsVisibility value,
         JsonSerializerOptions options
     )
     {
@@ -162,9 +162,9 @@ sealed class Visibility1Converter : JsonConverter<Visibility1>
             writer,
             value switch
             {
-                Visibility1.Private => "private",
-                Visibility1.Org => "org",
-                Visibility1.Public => "public",
+                V1ListParamsVisibility.Private => "private",
+                V1ListParamsVisibility.Org => "org",
+                V1ListParamsVisibility.Public => "public",
                 _ => throw new CasedevInvalidDataException(
                     string.Format("Invalid value '{0}' in {1}", value, nameof(value))
                 ),

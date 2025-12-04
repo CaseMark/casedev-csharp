@@ -94,11 +94,11 @@ public sealed record class V1UpdateParams : ParamsBase
         }
     }
 
-    public ApiEnum<string, TriggerTypeModel>? TriggerType
+    public ApiEnum<string, V1UpdateParamsTriggerType>? TriggerType
     {
         get
         {
-            return ModelBase.GetNullableClass<ApiEnum<string, TriggerTypeModel>>(
+            return ModelBase.GetNullableClass<ApiEnum<string, V1UpdateParamsTriggerType>>(
                 this.RawBodyData,
                 "triggerType"
             );
@@ -114,11 +114,11 @@ public sealed record class V1UpdateParams : ParamsBase
         }
     }
 
-    public ApiEnum<string, VisibilityModel>? Visibility
+    public ApiEnum<string, V1UpdateParamsVisibility>? Visibility
     {
         get
         {
-            return ModelBase.GetNullableClass<ApiEnum<string, VisibilityModel>>(
+            return ModelBase.GetNullableClass<ApiEnum<string, V1UpdateParamsVisibility>>(
                 this.RawBodyData,
                 "visibility"
             );
@@ -199,8 +199,8 @@ public sealed record class V1UpdateParams : ParamsBase
     }
 }
 
-[JsonConverter(typeof(TriggerTypeModelConverter))]
-public enum TriggerTypeModel
+[JsonConverter(typeof(V1UpdateParamsTriggerTypeConverter))]
+public enum V1UpdateParamsTriggerType
 {
     Manual,
     Webhook,
@@ -208,9 +208,9 @@ public enum TriggerTypeModel
     VaultUpload,
 }
 
-sealed class TriggerTypeModelConverter : JsonConverter<TriggerTypeModel>
+sealed class V1UpdateParamsTriggerTypeConverter : JsonConverter<V1UpdateParamsTriggerType>
 {
-    public override TriggerTypeModel Read(
+    public override V1UpdateParamsTriggerType Read(
         ref Utf8JsonReader reader,
         Type typeToConvert,
         JsonSerializerOptions options
@@ -218,17 +218,17 @@ sealed class TriggerTypeModelConverter : JsonConverter<TriggerTypeModel>
     {
         return JsonSerializer.Deserialize<string>(ref reader, options) switch
         {
-            "manual" => TriggerTypeModel.Manual,
-            "webhook" => TriggerTypeModel.Webhook,
-            "schedule" => TriggerTypeModel.Schedule,
-            "vault_upload" => TriggerTypeModel.VaultUpload,
-            _ => (TriggerTypeModel)(-1),
+            "manual" => V1UpdateParamsTriggerType.Manual,
+            "webhook" => V1UpdateParamsTriggerType.Webhook,
+            "schedule" => V1UpdateParamsTriggerType.Schedule,
+            "vault_upload" => V1UpdateParamsTriggerType.VaultUpload,
+            _ => (V1UpdateParamsTriggerType)(-1),
         };
     }
 
     public override void Write(
         Utf8JsonWriter writer,
-        TriggerTypeModel value,
+        V1UpdateParamsTriggerType value,
         JsonSerializerOptions options
     )
     {
@@ -236,10 +236,10 @@ sealed class TriggerTypeModelConverter : JsonConverter<TriggerTypeModel>
             writer,
             value switch
             {
-                TriggerTypeModel.Manual => "manual",
-                TriggerTypeModel.Webhook => "webhook",
-                TriggerTypeModel.Schedule => "schedule",
-                TriggerTypeModel.VaultUpload => "vault_upload",
+                V1UpdateParamsTriggerType.Manual => "manual",
+                V1UpdateParamsTriggerType.Webhook => "webhook",
+                V1UpdateParamsTriggerType.Schedule => "schedule",
+                V1UpdateParamsTriggerType.VaultUpload => "vault_upload",
                 _ => throw new CasedevInvalidDataException(
                     string.Format("Invalid value '{0}' in {1}", value, nameof(value))
                 ),
@@ -249,17 +249,17 @@ sealed class TriggerTypeModelConverter : JsonConverter<TriggerTypeModel>
     }
 }
 
-[JsonConverter(typeof(VisibilityModelConverter))]
-public enum VisibilityModel
+[JsonConverter(typeof(V1UpdateParamsVisibilityConverter))]
+public enum V1UpdateParamsVisibility
 {
     Private,
     Org,
     Public,
 }
 
-sealed class VisibilityModelConverter : JsonConverter<VisibilityModel>
+sealed class V1UpdateParamsVisibilityConverter : JsonConverter<V1UpdateParamsVisibility>
 {
-    public override VisibilityModel Read(
+    public override V1UpdateParamsVisibility Read(
         ref Utf8JsonReader reader,
         Type typeToConvert,
         JsonSerializerOptions options
@@ -267,16 +267,16 @@ sealed class VisibilityModelConverter : JsonConverter<VisibilityModel>
     {
         return JsonSerializer.Deserialize<string>(ref reader, options) switch
         {
-            "private" => VisibilityModel.Private,
-            "org" => VisibilityModel.Org,
-            "public" => VisibilityModel.Public,
-            _ => (VisibilityModel)(-1),
+            "private" => V1UpdateParamsVisibility.Private,
+            "org" => V1UpdateParamsVisibility.Org,
+            "public" => V1UpdateParamsVisibility.Public,
+            _ => (V1UpdateParamsVisibility)(-1),
         };
     }
 
     public override void Write(
         Utf8JsonWriter writer,
-        VisibilityModel value,
+        V1UpdateParamsVisibility value,
         JsonSerializerOptions options
     )
     {
@@ -284,9 +284,9 @@ sealed class VisibilityModelConverter : JsonConverter<VisibilityModel>
             writer,
             value switch
             {
-                VisibilityModel.Private => "private",
-                VisibilityModel.Org => "org",
-                VisibilityModel.Public => "public",
+                V1UpdateParamsVisibility.Private => "private",
+                V1UpdateParamsVisibility.Org => "org",
+                V1UpdateParamsVisibility.Public => "public",
                 _ => throw new CasedevInvalidDataException(
                     string.Format("Invalid value '{0}' in {1}", value, nameof(value))
                 ),

@@ -1,14 +1,15 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using CaseDev.Exceptions;
+using CaseDev.Models.Actions.V1;
 using CaseDev.Models.Compute.V1;
-using CaseDev.Models.Compute.V1.Invoke;
 using CaseDev.Models.Format.V1;
 using CaseDev.Models.Llm.V1;
 using CaseDev.Models.Llm.V1.Chat;
 using CaseDev.Models.Vault.Objects;
 using CaseDev.Models.Voice.V1;
 using Environments = CaseDev.Models.Compute.V1.Environments;
+using Invoke = CaseDev.Models.Compute.V1.Invoke;
 using Speak = CaseDev.Models.Voice.V1.Speak;
 using Templates = CaseDev.Models.Format.V1.Templates;
 using Transcription = CaseDev.Models.Voice.Transcription;
@@ -30,14 +31,14 @@ public abstract record class ModelBase
     {
         Converters =
         {
-            new ApiEnumConverter<string, global::CaseDev.Models.Actions.V1.Status>(),
+            new ApiEnumConverter<string, Status>(),
             new ApiEnumConverter<string, Type>(),
             new ApiEnumConverter<string, GPUType>(),
             new ApiEnumConverter<string, Runtime>(),
             new ApiEnumConverter<string, Environments::Status>(),
-            new ApiEnumConverter<string, Status>(),
-            new ApiEnumConverter<string, AsynchronousResponseStatus>(),
-            new ApiEnumConverter<string, FunctionSuffix>(),
+            new ApiEnumConverter<string, Invoke::Status>(),
+            new ApiEnumConverter<string, Invoke::AsynchronousResponseStatus>(),
+            new ApiEnumConverter<string, Invoke::FunctionSuffix>(),
             new ApiEnumConverter<string, V1::V1ProcessResponseStatus>(),
             new ApiEnumConverter<string, V1::Status>(),
             new ApiEnumConverter<string, OutputFormat>(),
@@ -60,8 +61,8 @@ public abstract record class ModelBase
             new ApiEnumConverter<string, VoiceType>(),
             new ApiEnumConverter<string, Speak::ModelID>(),
             new ApiEnumConverter<string, Speak::OutputFormat>(),
-            new ApiEnumConverter<string, Speak::ModelIDModel>(),
-            new ApiEnumConverter<string, Speak::OutputFormatModel>(),
+            new ApiEnumConverter<string, Speak::SpeakStreamParamsModelID>(),
+            new ApiEnumConverter<string, Speak::SpeakStreamParamsOutputFormat>(),
             new ApiEnumConverter<string, global::CaseDev.Models.Templates.V1.Status>(),
             new ApiEnumConverter<string, global::CaseDev.Models.Templates.V1.OptionsFormat>(),
             new ApiEnumConverter<
@@ -70,9 +71,18 @@ public abstract record class ModelBase
             >(),
             new ApiEnumConverter<string, global::CaseDev.Models.Workflows.V1.TriggerType>(),
             new ApiEnumConverter<string, global::CaseDev.Models.Workflows.V1.Visibility>(),
-            new ApiEnumConverter<string, global::CaseDev.Models.Workflows.V1.TriggerTypeModel>(),
-            new ApiEnumConverter<string, global::CaseDev.Models.Workflows.V1.VisibilityModel>(),
-            new ApiEnumConverter<string, global::CaseDev.Models.Workflows.V1.Visibility1>(),
+            new ApiEnumConverter<
+                string,
+                global::CaseDev.Models.Workflows.V1.V1UpdateParamsTriggerType
+            >(),
+            new ApiEnumConverter<
+                string,
+                global::CaseDev.Models.Workflows.V1.V1UpdateParamsVisibility
+            >(),
+            new ApiEnumConverter<
+                string,
+                global::CaseDev.Models.Workflows.V1.V1ListParamsVisibility
+            >(),
             new ApiEnumConverter<string, global::CaseDev.Models.Workflows.V1.Status>(),
         },
     };

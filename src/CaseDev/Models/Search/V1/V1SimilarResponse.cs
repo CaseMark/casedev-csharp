@@ -24,9 +24,15 @@ public sealed record class V1SimilarResponse : ModelBase
         }
     }
 
-    public IReadOnlyList<Result1>? Results
+    public IReadOnlyList<V1SimilarResponseResult>? Results
     {
-        get { return ModelBase.GetNullableClass<List<Result1>>(this.RawData, "results"); }
+        get
+        {
+            return ModelBase.GetNullableClass<List<V1SimilarResponseResult>>(
+                this.RawData,
+                "results"
+            );
+        }
         init
         {
             if (value == null)
@@ -91,8 +97,8 @@ class V1SimilarResponseFromRaw : IFromRaw<V1SimilarResponse>
         V1SimilarResponse.FromRawUnchecked(rawData);
 }
 
-[JsonConverter(typeof(ModelConverter<Result1, Result1FromRaw>))]
-public sealed record class Result1 : ModelBase
+[JsonConverter(typeof(ModelConverter<V1SimilarResponseResult, V1SimilarResponseResultFromRaw>))]
+public sealed record class V1SimilarResponseResult : ModelBase
 {
     public string? Domain
     {
@@ -203,29 +209,32 @@ public sealed record class Result1 : ModelBase
         _ = this.URL;
     }
 
-    public Result1() { }
+    public V1SimilarResponseResult() { }
 
-    public Result1(IReadOnlyDictionary<string, JsonElement> rawData)
+    public V1SimilarResponseResult(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];
     }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    Result1(FrozenDictionary<string, JsonElement> rawData)
+    V1SimilarResponseResult(FrozenDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];
     }
 #pragma warning restore CS8618
 
-    public static Result1 FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
+    public static V1SimilarResponseResult FromRawUnchecked(
+        IReadOnlyDictionary<string, JsonElement> rawData
+    )
     {
         return new(FrozenDictionary.ToFrozenDictionary(rawData));
     }
 }
 
-class Result1FromRaw : IFromRaw<Result1>
+class V1SimilarResponseResultFromRaw : IFromRaw<V1SimilarResponseResult>
 {
-    public Result1 FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
-        Result1.FromRawUnchecked(rawData);
+    public V1SimilarResponseResult FromRawUnchecked(
+        IReadOnlyDictionary<string, JsonElement> rawData
+    ) => V1SimilarResponseResult.FromRawUnchecked(rawData);
 }

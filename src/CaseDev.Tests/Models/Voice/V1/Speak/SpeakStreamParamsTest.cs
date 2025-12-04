@@ -3,12 +3,12 @@ using CaseDev.Models.Voice.V1.Speak;
 
 namespace CaseDev.Tests.Models.Voice.V1.Speak;
 
-public class VoiceSettingsModelTest : TestBase
+public class SpeakStreamParamsVoiceSettingsTest : TestBase
 {
     [Fact]
     public void FieldRoundtrip_Works()
     {
-        var model = new VoiceSettingsModel
+        var model = new SpeakStreamParamsVoiceSettings
         {
             SimilarityBoost = 0,
             Stability = 0,
@@ -30,7 +30,7 @@ public class VoiceSettingsModelTest : TestBase
     [Fact]
     public void SerializationRoundtrip_Works()
     {
-        var model = new VoiceSettingsModel
+        var model = new SpeakStreamParamsVoiceSettings
         {
             SimilarityBoost = 0,
             Stability = 0,
@@ -39,7 +39,7 @@ public class VoiceSettingsModelTest : TestBase
         };
 
         string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<VoiceSettingsModel>(json);
+        var deserialized = JsonSerializer.Deserialize<SpeakStreamParamsVoiceSettings>(json);
 
         Assert.Equal(model, deserialized);
     }
@@ -47,7 +47,7 @@ public class VoiceSettingsModelTest : TestBase
     [Fact]
     public void FieldRoundtripThroughSerialization_Works()
     {
-        var model = new VoiceSettingsModel
+        var model = new SpeakStreamParamsVoiceSettings
         {
             SimilarityBoost = 0,
             Stability = 0,
@@ -56,7 +56,7 @@ public class VoiceSettingsModelTest : TestBase
         };
 
         string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<VoiceSettingsModel>(json);
+        var deserialized = JsonSerializer.Deserialize<SpeakStreamParamsVoiceSettings>(json);
         Assert.NotNull(deserialized);
 
         double expectedSimilarityBoost = 0;
@@ -73,7 +73,7 @@ public class VoiceSettingsModelTest : TestBase
     [Fact]
     public void Validation_Works()
     {
-        var model = new VoiceSettingsModel
+        var model = new SpeakStreamParamsVoiceSettings
         {
             SimilarityBoost = 0,
             Stability = 0,
@@ -87,7 +87,7 @@ public class VoiceSettingsModelTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetAreNotSet_Works()
     {
-        var model = new VoiceSettingsModel { };
+        var model = new SpeakStreamParamsVoiceSettings { };
 
         Assert.Null(model.SimilarityBoost);
         Assert.False(model.RawData.ContainsKey("similarity_boost"));
@@ -102,7 +102,7 @@ public class VoiceSettingsModelTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetValidation_Works()
     {
-        var model = new VoiceSettingsModel { };
+        var model = new SpeakStreamParamsVoiceSettings { };
 
         model.Validate();
     }
@@ -110,7 +110,7 @@ public class VoiceSettingsModelTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesSetToNullAreNotSet_Works()
     {
-        var model = new VoiceSettingsModel
+        var model = new SpeakStreamParamsVoiceSettings
         {
             // Null should be interpreted as omitted for these properties
             SimilarityBoost = null,
@@ -132,7 +132,7 @@ public class VoiceSettingsModelTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesSetToNullValidation_Works()
     {
-        var model = new VoiceSettingsModel
+        var model = new SpeakStreamParamsVoiceSettings
         {
             // Null should be interpreted as omitted for these properties
             SimilarityBoost = null,
