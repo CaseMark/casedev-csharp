@@ -8,7 +8,7 @@ using CaseDev.Models.Compute.V1.Environments;
 
 namespace CaseDev.Services.Compute.V1;
 
-/// <inheritdoc />
+/// <inheritdoc/>
 public sealed class EnvironmentService : IEnvironmentService
 {
     /// <inheritdoc/>

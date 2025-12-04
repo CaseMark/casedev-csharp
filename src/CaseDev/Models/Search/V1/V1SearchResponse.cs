@@ -68,6 +68,7 @@ public sealed record class V1SearchResponse : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.Query;
@@ -93,6 +94,7 @@ public sealed record class V1SearchResponse : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="V1SearchResponseFromRaw.FromRawUnchecked"/>
     public static V1SearchResponse FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawData
     )
@@ -103,6 +105,7 @@ public sealed record class V1SearchResponse : ModelBase
 
 class V1SearchResponseFromRaw : IFromRaw<V1SearchResponse>
 {
+    /// <inheritdoc/>
     public V1SearchResponse FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         V1SearchResponse.FromRawUnchecked(rawData);
 }
@@ -195,6 +198,7 @@ public sealed record class V1SearchResponseResult : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.Domain;
@@ -219,6 +223,7 @@ public sealed record class V1SearchResponseResult : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="V1SearchResponseResultFromRaw.FromRawUnchecked"/>
     public static V1SearchResponseResult FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawData
     )
@@ -229,6 +234,7 @@ public sealed record class V1SearchResponseResult : ModelBase
 
 class V1SearchResponseResultFromRaw : IFromRaw<V1SearchResponseResult>
 {
+    /// <inheritdoc/>
     public V1SearchResponseResult FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawData
     ) => V1SearchResponseResult.FromRawUnchecked(rawData);

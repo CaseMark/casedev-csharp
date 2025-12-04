@@ -8,7 +8,7 @@ using CaseDev.Models.Format.V1.Templates;
 
 namespace CaseDev.Services.Format.V1;
 
-/// <inheritdoc />
+/// <inheritdoc/>
 public sealed class TemplateService : global::CaseDev.Services.Format.V1.ITemplateService
 {
     /// <inheritdoc/>

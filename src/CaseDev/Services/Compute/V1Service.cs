@@ -8,7 +8,7 @@ using CaseDev.Services.Compute.V1;
 
 namespace CaseDev.Services.Compute;
 
-/// <inheritdoc />
+/// <inheritdoc/>
 public sealed class V1Service : IV1Service
 {
     /// <inheritdoc/>

@@ -271,6 +271,7 @@ public sealed record class SpeakCreateParams : ParamsBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="IFromRaw.FromRawUnchecked"/>
     public static SpeakCreateParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
@@ -486,6 +487,7 @@ public sealed record class VoiceSettings : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.SimilarityBoost;
@@ -509,6 +511,7 @@ public sealed record class VoiceSettings : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="VoiceSettingsFromRaw.FromRawUnchecked"/>
     public static VoiceSettings FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         return new(FrozenDictionary.ToFrozenDictionary(rawData));
@@ -517,6 +520,7 @@ public sealed record class VoiceSettings : ModelBase
 
 class VoiceSettingsFromRaw : IFromRaw<VoiceSettings>
 {
+    /// <inheritdoc/>
     public VoiceSettings FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         VoiceSettings.FromRawUnchecked(rawData);
 }

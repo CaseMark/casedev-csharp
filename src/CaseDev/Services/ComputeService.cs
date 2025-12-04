@@ -4,7 +4,7 @@ using CaseDev.Services.Compute;
 
 namespace CaseDev.Services;
 
-/// <inheritdoc />
+/// <inheritdoc/>
 public sealed class ComputeService : IComputeService
 {
     /// <inheritdoc/>

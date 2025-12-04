@@ -4,7 +4,7 @@ using CaseDev.Services.Format;
 
 namespace CaseDev.Services;
 
-/// <inheritdoc />
+/// <inheritdoc/>
 public sealed class FormatService : IFormatService
 {
     /// <inheritdoc/>

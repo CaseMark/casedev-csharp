@@ -4,7 +4,7 @@ using CaseDev.Services.Actions;
 
 namespace CaseDev.Services;
 
-/// <inheritdoc />
+/// <inheritdoc/>
 public sealed class ActionService : IActionService
 {
     /// <inheritdoc/>

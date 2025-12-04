@@ -179,6 +179,7 @@ public sealed record class ChatCreateCompletionParams : ParamsBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="IFromRaw.FromRawUnchecked"/>
     public static ChatCreateCompletionParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
@@ -252,6 +253,7 @@ public sealed record class Message : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.Content;
@@ -273,6 +275,7 @@ public sealed record class Message : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="MessageFromRaw.FromRawUnchecked"/>
     public static Message FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         return new(FrozenDictionary.ToFrozenDictionary(rawData));
@@ -281,6 +284,7 @@ public sealed record class Message : ModelBase
 
 class MessageFromRaw : IFromRaw<Message>
 {
+    /// <inheritdoc/>
     public Message FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         Message.FromRawUnchecked(rawData);
 }

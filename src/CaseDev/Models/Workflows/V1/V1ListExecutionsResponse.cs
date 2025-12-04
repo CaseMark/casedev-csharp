@@ -24,6 +24,7 @@ public sealed record class V1ListExecutionsResponse : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         foreach (var item in this.Executions ?? [])
@@ -47,6 +48,7 @@ public sealed record class V1ListExecutionsResponse : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="V1ListExecutionsResponseFromRaw.FromRawUnchecked"/>
     public static V1ListExecutionsResponse FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawData
     )
@@ -57,6 +59,7 @@ public sealed record class V1ListExecutionsResponse : ModelBase
 
 class V1ListExecutionsResponseFromRaw : IFromRaw<V1ListExecutionsResponse>
 {
+    /// <inheritdoc/>
     public V1ListExecutionsResponse FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawData
     ) => V1ListExecutionsResponse.FromRawUnchecked(rawData);
@@ -149,6 +152,7 @@ public sealed record class Execution : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.ID;
@@ -174,6 +178,7 @@ public sealed record class Execution : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="ExecutionFromRaw.FromRawUnchecked"/>
     public static Execution FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         return new(FrozenDictionary.ToFrozenDictionary(rawData));
@@ -182,6 +187,7 @@ public sealed record class Execution : ModelBase
 
 class ExecutionFromRaw : IFromRaw<Execution>
 {
+    /// <inheritdoc/>
     public Execution FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         Execution.FromRawUnchecked(rawData);
 }

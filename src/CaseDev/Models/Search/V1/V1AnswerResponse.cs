@@ -78,6 +78,7 @@ public sealed record class V1AnswerResponse : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.Answer;
@@ -104,6 +105,7 @@ public sealed record class V1AnswerResponse : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="V1AnswerResponseFromRaw.FromRawUnchecked"/>
     public static V1AnswerResponse FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawData
     )
@@ -114,6 +116,7 @@ public sealed record class V1AnswerResponse : ModelBase
 
 class V1AnswerResponseFromRaw : IFromRaw<V1AnswerResponse>
 {
+    /// <inheritdoc/>
     public V1AnswerResponse FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         V1AnswerResponse.FromRawUnchecked(rawData);
 }
@@ -191,6 +194,7 @@ public sealed record class Citation : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.ID;
@@ -215,6 +219,7 @@ public sealed record class Citation : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="CitationFromRaw.FromRawUnchecked"/>
     public static Citation FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         return new(FrozenDictionary.ToFrozenDictionary(rawData));
@@ -223,6 +228,7 @@ public sealed record class Citation : ModelBase
 
 class CitationFromRaw : IFromRaw<Citation>
 {
+    /// <inheritdoc/>
     public Citation FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         Citation.FromRawUnchecked(rawData);
 }

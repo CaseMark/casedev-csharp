@@ -112,6 +112,7 @@ public sealed record class V1CreateDocumentParams : ParamsBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="IFromRaw.FromRawUnchecked"/>
     public static V1CreateDocumentParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
@@ -268,6 +269,7 @@ public sealed record class Options : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         foreach (var item in this.Components ?? [])
@@ -291,6 +293,7 @@ public sealed record class Options : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="OptionsFromRaw.FromRawUnchecked"/>
     public static Options FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         return new(FrozenDictionary.ToFrozenDictionary(rawData));
@@ -299,6 +302,7 @@ public sealed record class Options : ModelBase
 
 class OptionsFromRaw : IFromRaw<Options>
 {
+    /// <inheritdoc/>
     public Options FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         Options.FromRawUnchecked(rawData);
 }
@@ -374,6 +378,7 @@ public sealed record class Component : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.Content;
@@ -397,6 +402,7 @@ public sealed record class Component : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="ComponentFromRaw.FromRawUnchecked"/>
     public static Component FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         return new(FrozenDictionary.ToFrozenDictionary(rawData));
@@ -405,6 +411,7 @@ public sealed record class Component : ModelBase
 
 class ComponentFromRaw : IFromRaw<Component>
 {
+    /// <inheritdoc/>
     public Component FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         Component.FromRawUnchecked(rawData);
 }

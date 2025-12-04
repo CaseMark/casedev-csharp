@@ -7,7 +7,7 @@ using CaseDev.Models.Llm.V1.Chat;
 
 namespace CaseDev.Services.Llm.V1;
 
-/// <inheritdoc />
+/// <inheritdoc/>
 public sealed class ChatService : IChatService
 {
     /// <inheritdoc/>

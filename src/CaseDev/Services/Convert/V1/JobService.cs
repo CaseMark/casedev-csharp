@@ -8,7 +8,7 @@ using CaseDev.Models.Convert.V1.Jobs;
 
 namespace CaseDev.Services.Convert.V1;
 
-/// <inheritdoc />
+/// <inheritdoc/>
 public sealed class JobService : IJobService
 {
     /// <inheritdoc/>

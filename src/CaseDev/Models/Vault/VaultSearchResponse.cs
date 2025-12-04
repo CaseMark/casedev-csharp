@@ -110,6 +110,7 @@ public sealed record class VaultSearchResponse : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         foreach (var item in this.Chunks ?? [])
@@ -141,6 +142,7 @@ public sealed record class VaultSearchResponse : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="VaultSearchResponseFromRaw.FromRawUnchecked"/>
     public static VaultSearchResponse FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawData
     )
@@ -151,6 +153,7 @@ public sealed record class VaultSearchResponse : ModelBase
 
 class VaultSearchResponseFromRaw : IFromRaw<VaultSearchResponse>
 {
+    /// <inheritdoc/>
     public VaultSearchResponse FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         VaultSearchResponse.FromRawUnchecked(rawData);
 }
@@ -200,6 +203,7 @@ public sealed record class Chunk : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.Score;
@@ -222,6 +226,7 @@ public sealed record class Chunk : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="ChunkFromRaw.FromRawUnchecked"/>
     public static Chunk FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         return new(FrozenDictionary.ToFrozenDictionary(rawData));
@@ -230,6 +235,7 @@ public sealed record class Chunk : ModelBase
 
 class ChunkFromRaw : IFromRaw<Chunk>
 {
+    /// <inheritdoc/>
     public Chunk FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         Chunk.FromRawUnchecked(rawData);
 }
@@ -341,6 +347,7 @@ public sealed record class Source : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.ID;
@@ -367,6 +374,7 @@ public sealed record class Source : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="SourceFromRaw.FromRawUnchecked"/>
     public static Source FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         return new(FrozenDictionary.ToFrozenDictionary(rawData));
@@ -375,6 +383,7 @@ public sealed record class Source : ModelBase
 
 class SourceFromRaw : IFromRaw<Source>
 {
+    /// <inheritdoc/>
     public Source FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         Source.FromRawUnchecked(rawData);
 }

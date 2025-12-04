@@ -8,7 +8,7 @@ using CaseDev.Services.Llm;
 
 namespace CaseDev.Services;
 
-/// <inheritdoc />
+/// <inheritdoc/>
 public sealed class LlmService : ILlmService
 {
     /// <inheritdoc/>

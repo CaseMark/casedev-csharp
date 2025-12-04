@@ -74,6 +74,7 @@ public sealed record class V1ExecuteResponse : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.Result;
@@ -97,6 +98,7 @@ public sealed record class V1ExecuteResponse : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="V1ExecuteResponseFromRaw.FromRawUnchecked"/>
     public static V1ExecuteResponse FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawData
     )
@@ -107,6 +109,7 @@ public sealed record class V1ExecuteResponse : ModelBase
 
 class V1ExecuteResponseFromRaw : IFromRaw<V1ExecuteResponse>
 {
+    /// <inheritdoc/>
     public V1ExecuteResponse FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         V1ExecuteResponse.FromRawUnchecked(rawData);
 }
@@ -213,6 +216,7 @@ public sealed record class Usage : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.CompletionTokens;
@@ -236,6 +240,7 @@ public sealed record class Usage : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="UsageFromRaw.FromRawUnchecked"/>
     public static Usage FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         return new(FrozenDictionary.ToFrozenDictionary(rawData));
@@ -244,6 +249,7 @@ public sealed record class Usage : ModelBase
 
 class UsageFromRaw : IFromRaw<Usage>
 {
+    /// <inheritdoc/>
     public Usage FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         Usage.FromRawUnchecked(rawData);
 }

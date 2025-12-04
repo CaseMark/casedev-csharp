@@ -9,7 +9,7 @@ using CaseDev.Services.Vault;
 
 namespace CaseDev.Services;
 
-/// <inheritdoc />
+/// <inheritdoc/>
 public sealed class VaultService : IVaultService
 {
     /// <inheritdoc/>

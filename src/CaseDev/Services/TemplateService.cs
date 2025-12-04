@@ -4,7 +4,7 @@ using CaseDev.Services.Templates;
 
 namespace CaseDev.Services;
 
-/// <inheritdoc />
+/// <inheritdoc/>
 public sealed class TemplateService : ITemplateService
 {
     /// <inheritdoc/>

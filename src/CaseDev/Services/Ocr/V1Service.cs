@@ -8,7 +8,7 @@ using V1 = CaseDev.Models.Ocr.V1;
 
 namespace CaseDev.Services.Ocr;
 
-/// <inheritdoc />
+/// <inheritdoc/>
 public sealed class V1Service : IV1Service
 {
     /// <inheritdoc/>

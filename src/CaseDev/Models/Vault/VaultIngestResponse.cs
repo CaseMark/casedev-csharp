@@ -57,6 +57,7 @@ public sealed record class VaultIngestResponse : ModelBase
         init { ModelBase.Set(this._rawData, "workflowId", value); }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.EnableGraphRag;
@@ -81,6 +82,7 @@ public sealed record class VaultIngestResponse : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="VaultIngestResponseFromRaw.FromRawUnchecked"/>
     public static VaultIngestResponse FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawData
     )
@@ -91,6 +93,7 @@ public sealed record class VaultIngestResponse : ModelBase
 
 class VaultIngestResponseFromRaw : IFromRaw<VaultIngestResponse>
 {
+    /// <inheritdoc/>
     public VaultIngestResponse FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         VaultIngestResponse.FromRawUnchecked(rawData);
 }

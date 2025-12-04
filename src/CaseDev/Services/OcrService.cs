@@ -4,7 +4,7 @@ using CaseDev.Services.Ocr;
 
 namespace CaseDev.Services;
 
-/// <inheritdoc />
+/// <inheritdoc/>
 public sealed class OcrService : IOcrService
 {
     /// <inheritdoc/>

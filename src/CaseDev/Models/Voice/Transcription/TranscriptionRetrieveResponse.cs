@@ -117,6 +117,7 @@ public sealed record class TranscriptionRetrieveResponse : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.ID;
@@ -146,6 +147,7 @@ public sealed record class TranscriptionRetrieveResponse : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="TranscriptionRetrieveResponseFromRaw.FromRawUnchecked"/>
     public static TranscriptionRetrieveResponse FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawData
     )
@@ -156,6 +158,7 @@ public sealed record class TranscriptionRetrieveResponse : ModelBase
 
 class TranscriptionRetrieveResponseFromRaw : IFromRaw<TranscriptionRetrieveResponse>
 {
+    /// <inheritdoc/>
     public TranscriptionRetrieveResponse FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawData
     ) => TranscriptionRetrieveResponse.FromRawUnchecked(rawData);
@@ -269,6 +272,7 @@ public sealed record class Word : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.Confidence;
@@ -292,6 +296,7 @@ public sealed record class Word : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="WordFromRaw.FromRawUnchecked"/>
     public static Word FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         return new(FrozenDictionary.ToFrozenDictionary(rawData));
@@ -300,6 +305,7 @@ public sealed record class Word : ModelBase
 
 class WordFromRaw : IFromRaw<Word>
 {
+    /// <inheritdoc/>
     public Word FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         Word.FromRawUnchecked(rawData);
 }

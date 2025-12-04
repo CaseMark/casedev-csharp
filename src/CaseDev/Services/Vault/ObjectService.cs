@@ -8,7 +8,7 @@ using CaseDev.Models.Vault.Objects;
 
 namespace CaseDev.Services.Vault;
 
-/// <inheritdoc />
+/// <inheritdoc/>
 public sealed class ObjectService : IObjectService
 {
     /// <inheritdoc/>

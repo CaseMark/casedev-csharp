@@ -9,7 +9,7 @@ using CaseDev.Services.Convert.V1;
 
 namespace CaseDev.Services.Convert;
 
-/// <inheritdoc />
+/// <inheritdoc/>
 public sealed class V1Service : IV1Service
 {
     /// <inheritdoc/>

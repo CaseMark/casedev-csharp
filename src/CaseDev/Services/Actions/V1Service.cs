@@ -8,7 +8,7 @@ using CaseDev.Models.Actions.V1;
 
 namespace CaseDev.Services.Actions;
 
-/// <inheritdoc />
+/// <inheritdoc/>
 public sealed class V1Service : IV1Service
 {
     /// <inheritdoc/>
