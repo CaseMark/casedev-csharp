@@ -200,6 +200,7 @@ public sealed record class V1DeployParams : ParamsBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="IFromRaw.FromRawUnchecked"/>
     public static V1DeployParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
@@ -668,6 +669,7 @@ public sealed record class Config : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.AddPython;
@@ -709,6 +711,7 @@ public sealed record class Config : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="ConfigFromRaw.FromRawUnchecked"/>
     public static Config FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         return new(FrozenDictionary.ToFrozenDictionary(rawData));
@@ -717,6 +720,7 @@ public sealed record class Config : ModelBase
 
 class ConfigFromRaw : IFromRaw<Config>
 {
+    /// <inheritdoc/>
     public Config FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         Config.FromRawUnchecked(rawData);
 }

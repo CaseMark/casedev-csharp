@@ -58,6 +58,7 @@ public sealed record class V1SimilarResponse : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.ProcessingTime;
@@ -83,6 +84,7 @@ public sealed record class V1SimilarResponse : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="V1SimilarResponseFromRaw.FromRawUnchecked"/>
     public static V1SimilarResponse FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawData
     )
@@ -93,6 +95,7 @@ public sealed record class V1SimilarResponse : ModelBase
 
 class V1SimilarResponseFromRaw : IFromRaw<V1SimilarResponse>
 {
+    /// <inheritdoc/>
     public V1SimilarResponse FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         V1SimilarResponse.FromRawUnchecked(rawData);
 }
@@ -198,6 +201,7 @@ public sealed record class V1SimilarResponseResult : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.Domain;
@@ -224,6 +228,7 @@ public sealed record class V1SimilarResponseResult : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="V1SimilarResponseResultFromRaw.FromRawUnchecked"/>
     public static V1SimilarResponseResult FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawData
     )
@@ -234,6 +239,7 @@ public sealed record class V1SimilarResponseResult : ModelBase
 
 class V1SimilarResponseResultFromRaw : IFromRaw<V1SimilarResponseResult>
 {
+    /// <inheritdoc/>
     public V1SimilarResponseResult FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawData
     ) => V1SimilarResponseResult.FromRawUnchecked(rawData);

@@ -105,6 +105,7 @@ public sealed record class ChatCreateCompletionResponse : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.ID;
@@ -133,6 +134,7 @@ public sealed record class ChatCreateCompletionResponse : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="ChatCreateCompletionResponseFromRaw.FromRawUnchecked"/>
     public static ChatCreateCompletionResponse FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawData
     )
@@ -143,6 +145,7 @@ public sealed record class ChatCreateCompletionResponse : ModelBase
 
 class ChatCreateCompletionResponseFromRaw : IFromRaw<ChatCreateCompletionResponse>
 {
+    /// <inheritdoc/>
     public ChatCreateCompletionResponse FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawData
     ) => ChatCreateCompletionResponse.FromRawUnchecked(rawData);
@@ -193,6 +196,7 @@ public sealed record class Choice : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.FinishReason;
@@ -215,6 +219,7 @@ public sealed record class Choice : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="ChoiceFromRaw.FromRawUnchecked"/>
     public static Choice FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         return new(FrozenDictionary.ToFrozenDictionary(rawData));
@@ -223,6 +228,7 @@ public sealed record class Choice : ModelBase
 
 class ChoiceFromRaw : IFromRaw<Choice>
 {
+    /// <inheritdoc/>
     public Choice FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         Choice.FromRawUnchecked(rawData);
 }
@@ -258,6 +264,7 @@ public sealed record class ChoiceMessage : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.Content;
@@ -279,6 +286,7 @@ public sealed record class ChoiceMessage : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="ChoiceMessageFromRaw.FromRawUnchecked"/>
     public static ChoiceMessage FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         return new(FrozenDictionary.ToFrozenDictionary(rawData));
@@ -287,6 +295,7 @@ public sealed record class ChoiceMessage : ModelBase
 
 class ChoiceMessageFromRaw : IFromRaw<ChoiceMessage>
 {
+    /// <inheritdoc/>
     public ChoiceMessage FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         ChoiceMessage.FromRawUnchecked(rawData);
 }
@@ -353,6 +362,7 @@ public sealed record class Usage : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.CompletionTokens;
@@ -376,6 +386,7 @@ public sealed record class Usage : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="UsageFromRaw.FromRawUnchecked"/>
     public static Usage FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         return new(FrozenDictionary.ToFrozenDictionary(rawData));
@@ -384,6 +395,7 @@ public sealed record class Usage : ModelBase
 
 class UsageFromRaw : IFromRaw<Usage>
 {
+    /// <inheritdoc/>
     public Usage FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         Usage.FromRawUnchecked(rawData);
 }

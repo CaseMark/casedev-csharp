@@ -271,6 +271,7 @@ public sealed record class SpeakStreamParams : ParamsBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="IFromRaw.FromRawUnchecked"/>
     public static SpeakStreamParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
@@ -492,6 +493,7 @@ public sealed record class SpeakStreamParamsVoiceSettings : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.SimilarityBoost;
@@ -515,6 +517,7 @@ public sealed record class SpeakStreamParamsVoiceSettings : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="SpeakStreamParamsVoiceSettingsFromRaw.FromRawUnchecked"/>
     public static SpeakStreamParamsVoiceSettings FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawData
     )
@@ -525,6 +528,7 @@ public sealed record class SpeakStreamParamsVoiceSettings : ModelBase
 
 class SpeakStreamParamsVoiceSettingsFromRaw : IFromRaw<SpeakStreamParamsVoiceSettings>
 {
+    /// <inheritdoc/>
     public SpeakStreamParamsVoiceSettings FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawData
     ) => SpeakStreamParamsVoiceSettings.FromRawUnchecked(rawData);

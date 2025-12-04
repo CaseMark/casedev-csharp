@@ -45,6 +45,7 @@ public sealed record class VaultListResponse : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.Total;
@@ -69,6 +70,7 @@ public sealed record class VaultListResponse : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="VaultListResponseFromRaw.FromRawUnchecked"/>
     public static VaultListResponse FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawData
     )
@@ -79,6 +81,7 @@ public sealed record class VaultListResponse : ModelBase
 
 class VaultListResponseFromRaw : IFromRaw<VaultListResponse>
 {
+    /// <inheritdoc/>
     public VaultListResponse FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         VaultListResponse.FromRawUnchecked(rawData);
 }
@@ -205,6 +208,7 @@ public sealed record class VaultListResponseVault : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.ID;
@@ -231,6 +235,7 @@ public sealed record class VaultListResponseVault : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="VaultListResponseVaultFromRaw.FromRawUnchecked"/>
     public static VaultListResponseVault FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawData
     )
@@ -241,6 +246,7 @@ public sealed record class VaultListResponseVault : ModelBase
 
 class VaultListResponseVaultFromRaw : IFromRaw<VaultListResponseVault>
 {
+    /// <inheritdoc/>
     public VaultListResponseVault FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawData
     ) => VaultListResponseVault.FromRawUnchecked(rawData);

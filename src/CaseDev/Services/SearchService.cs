@@ -4,7 +4,7 @@ using CaseDev.Services.Search;
 
 namespace CaseDev.Services;
 
-/// <inheritdoc />
+/// <inheritdoc/>
 public sealed class SearchService : ISearchService
 {
     /// <inheritdoc/>

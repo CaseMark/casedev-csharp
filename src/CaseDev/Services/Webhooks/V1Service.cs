@@ -8,7 +8,7 @@ using CaseDev.Models.Webhooks.V1;
 
 namespace CaseDev.Services.Webhooks;
 
-/// <inheritdoc />
+/// <inheritdoc/>
 public sealed class V1Service : IV1Service
 {
     /// <inheritdoc/>

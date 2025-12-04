@@ -4,7 +4,7 @@ using CaseDev.Services.Webhooks;
 
 namespace CaseDev.Services;
 
-/// <inheritdoc />
+/// <inheritdoc/>
 public sealed class WebhookService : IWebhookService
 {
     /// <inheritdoc/>

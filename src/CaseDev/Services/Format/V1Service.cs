@@ -8,7 +8,7 @@ using V1 = CaseDev.Services.Format.V1;
 
 namespace CaseDev.Services.Format;
 
-/// <inheritdoc />
+/// <inheritdoc/>
 public sealed class V1Service : IV1Service
 {
     /// <inheritdoc/>

@@ -122,6 +122,7 @@ public sealed record class V1CreateResponse : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.ID;
@@ -148,6 +149,7 @@ public sealed record class V1CreateResponse : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="V1CreateResponseFromRaw.FromRawUnchecked"/>
     public static V1CreateResponse FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawData
     )
@@ -158,6 +160,7 @@ public sealed record class V1CreateResponse : ModelBase
 
 class V1CreateResponseFromRaw : IFromRaw<V1CreateResponse>
 {
+    /// <inheritdoc/>
     public V1CreateResponse FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         V1CreateResponse.FromRawUnchecked(rawData);
 }

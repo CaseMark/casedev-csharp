@@ -8,7 +8,7 @@ using CaseDev.Models.Search.V1;
 
 namespace CaseDev.Services.Search;
 
-/// <inheritdoc />
+/// <inheritdoc/>
 public sealed class V1Service : IV1Service
 {
     /// <inheritdoc/>

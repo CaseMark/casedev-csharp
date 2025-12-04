@@ -183,6 +183,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.ExpiresAt;
@@ -212,6 +213,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="ObjectCreatePresignedURLResponseFromRaw.FromRawUnchecked"/>
     public static ObjectCreatePresignedURLResponse FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawData
     )
@@ -222,6 +224,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
 
 class ObjectCreatePresignedURLResponseFromRaw : IFromRaw<ObjectCreatePresignedURLResponse>
 {
+    /// <inheritdoc/>
     public ObjectCreatePresignedURLResponse FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawData
     ) => ObjectCreatePresignedURLResponse.FromRawUnchecked(rawData);
@@ -286,6 +289,7 @@ public sealed record class Metadata : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.Bucket;
@@ -309,6 +313,7 @@ public sealed record class Metadata : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="MetadataFromRaw.FromRawUnchecked"/>
     public static Metadata FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         return new(FrozenDictionary.ToFrozenDictionary(rawData));
@@ -317,6 +322,7 @@ public sealed record class Metadata : ModelBase
 
 class MetadataFromRaw : IFromRaw<Metadata>
 {
+    /// <inheritdoc/>
     public Metadata FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         Metadata.FromRawUnchecked(rawData);
 }

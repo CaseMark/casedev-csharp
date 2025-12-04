@@ -7,7 +7,7 @@ using CaseDev.Models.Voice.Streaming;
 
 namespace CaseDev.Services.Voice;
 
-/// <inheritdoc />
+/// <inheritdoc/>
 public sealed class StreamingService : IStreamingService
 {
     /// <inheritdoc/>

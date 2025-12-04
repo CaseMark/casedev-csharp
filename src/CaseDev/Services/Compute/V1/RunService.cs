@@ -8,7 +8,7 @@ using CaseDev.Models.Compute.V1.Runs;
 
 namespace CaseDev.Services.Compute.V1;
 
-/// <inheritdoc />
+/// <inheritdoc/>
 public sealed class RunService : IRunService
 {
     /// <inheritdoc/>

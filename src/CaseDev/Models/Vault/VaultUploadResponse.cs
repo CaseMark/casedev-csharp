@@ -118,6 +118,7 @@ public sealed record class VaultUploadResponse : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.AutoIndex;
@@ -144,6 +145,7 @@ public sealed record class VaultUploadResponse : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="VaultUploadResponseFromRaw.FromRawUnchecked"/>
     public static VaultUploadResponse FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawData
     )
@@ -154,6 +156,7 @@ public sealed record class VaultUploadResponse : ModelBase
 
 class VaultUploadResponseFromRaw : IFromRaw<VaultUploadResponse>
 {
+    /// <inheritdoc/>
     public VaultUploadResponse FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         VaultUploadResponse.FromRawUnchecked(rawData);
 }
@@ -203,6 +206,7 @@ public sealed record class Instructions : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.Headers;
@@ -225,6 +229,7 @@ public sealed record class Instructions : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="InstructionsFromRaw.FromRawUnchecked"/>
     public static Instructions FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         return new(FrozenDictionary.ToFrozenDictionary(rawData));
@@ -233,6 +238,7 @@ public sealed record class Instructions : ModelBase
 
 class InstructionsFromRaw : IFromRaw<Instructions>
 {
+    /// <inheritdoc/>
     public Instructions FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         Instructions.FromRawUnchecked(rawData);
 }

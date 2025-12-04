@@ -8,7 +8,7 @@ using CaseDev.Models.Vault.Graphrag;
 
 namespace CaseDev.Services.Vault;
 
-/// <inheritdoc />
+/// <inheritdoc/>
 public sealed class GraphragService : IGraphragService
 {
     /// <inheritdoc/>

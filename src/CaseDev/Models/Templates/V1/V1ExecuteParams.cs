@@ -80,6 +80,7 @@ public sealed record class V1ExecuteParams : ParamsBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="IFromRaw.FromRawUnchecked"/>
     public static V1ExecuteParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
@@ -162,6 +163,7 @@ public sealed record class Options : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         this.Format?.Validate();
@@ -183,6 +185,7 @@ public sealed record class Options : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="OptionsFromRaw.FromRawUnchecked"/>
     public static Options FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         return new(FrozenDictionary.ToFrozenDictionary(rawData));
@@ -191,6 +194,7 @@ public sealed record class Options : ModelBase
 
 class OptionsFromRaw : IFromRaw<Options>
 {
+    /// <inheritdoc/>
     public Options FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         Options.FromRawUnchecked(rawData);
 }

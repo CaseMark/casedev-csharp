@@ -4,7 +4,7 @@ using CaseDev.Services.Workflows;
 
 namespace CaseDev.Services;
 
-/// <inheritdoc />
+/// <inheritdoc/>
 public sealed class WorkflowService : IWorkflowService
 {
     /// <inheritdoc/>

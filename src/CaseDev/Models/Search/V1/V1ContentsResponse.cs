@@ -24,6 +24,7 @@ public sealed record class V1ContentsResponse : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         foreach (var item in this.Results ?? [])
@@ -47,6 +48,7 @@ public sealed record class V1ContentsResponse : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="V1ContentsResponseFromRaw.FromRawUnchecked"/>
     public static V1ContentsResponse FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawData
     )
@@ -57,6 +59,7 @@ public sealed record class V1ContentsResponse : ModelBase
 
 class V1ContentsResponseFromRaw : IFromRaw<V1ContentsResponse>
 {
+    /// <inheritdoc/>
     public V1ContentsResponse FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         V1ContentsResponse.FromRawUnchecked(rawData);
 }
@@ -166,6 +169,7 @@ public sealed record class Result : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.Highlights;
@@ -191,6 +195,7 @@ public sealed record class Result : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="ResultFromRaw.FromRawUnchecked"/>
     public static Result FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         return new(FrozenDictionary.ToFrozenDictionary(rawData));
@@ -199,6 +204,7 @@ public sealed record class Result : ModelBase
 
 class ResultFromRaw : IFromRaw<Result>
 {
+    /// <inheritdoc/>
     public Result FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         Result.FromRawUnchecked(rawData);
 }

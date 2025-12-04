@@ -106,6 +106,7 @@ public sealed record class V1WebhookParams : ParamsBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="IFromRaw.FromRawUnchecked"/>
     public static V1WebhookParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
@@ -242,6 +243,7 @@ public sealed record class Result : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.DurationSeconds;
@@ -264,6 +266,7 @@ public sealed record class Result : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="ResultFromRaw.FromRawUnchecked"/>
     public static Result FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         return new(FrozenDictionary.ToFrozenDictionary(rawData));
@@ -272,6 +275,7 @@ public sealed record class Result : ModelBase
 
 class ResultFromRaw : IFromRaw<Result>
 {
+    /// <inheritdoc/>
     public Result FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         Result.FromRawUnchecked(rawData);
 }

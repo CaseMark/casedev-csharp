@@ -7,7 +7,7 @@ using CaseDev.Models.Voice.V1.Speak;
 
 namespace CaseDev.Services.Voice.V1;
 
-/// <inheritdoc />
+/// <inheritdoc/>
 public sealed class SpeakService : ISpeakService
 {
     /// <inheritdoc/>

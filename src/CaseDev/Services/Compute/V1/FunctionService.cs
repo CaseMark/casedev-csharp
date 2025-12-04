@@ -8,7 +8,7 @@ using CaseDev.Models.Compute.V1.Functions;
 
 namespace CaseDev.Services.Compute.V1;
 
-/// <inheritdoc />
+/// <inheritdoc/>
 public sealed class FunctionService : IFunctionService
 {
     /// <inheritdoc/>

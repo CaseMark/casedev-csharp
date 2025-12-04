@@ -66,6 +66,7 @@ public sealed record class V1ListResponse : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.Limit;
@@ -92,6 +93,7 @@ public sealed record class V1ListResponse : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="V1ListResponseFromRaw.FromRawUnchecked"/>
     public static V1ListResponse FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         return new(FrozenDictionary.ToFrozenDictionary(rawData));
@@ -100,6 +102,7 @@ public sealed record class V1ListResponse : ModelBase
 
 class V1ListResponseFromRaw : IFromRaw<V1ListResponse>
 {
+    /// <inheritdoc/>
     public V1ListResponse FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         V1ListResponse.FromRawUnchecked(rawData);
 }
@@ -219,6 +222,7 @@ public sealed record class Workflow : ModelBase
         }
     }
 
+    /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.ID;
@@ -246,6 +250,7 @@ public sealed record class Workflow : ModelBase
     }
 #pragma warning restore CS8618
 
+    /// <inheritdoc cref="WorkflowFromRaw.FromRawUnchecked"/>
     public static Workflow FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         return new(FrozenDictionary.ToFrozenDictionary(rawData));
@@ -254,6 +259,7 @@ public sealed record class Workflow : ModelBase
 
 class WorkflowFromRaw : IFromRaw<Workflow>
 {
+    /// <inheritdoc/>
     public Workflow FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         Workflow.FromRawUnchecked(rawData);
 }

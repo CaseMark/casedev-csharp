@@ -4,7 +4,7 @@ using CaseDev.Services.Convert;
 
 namespace CaseDev.Services;
 
-/// <inheritdoc />
+/// <inheritdoc/>
 public sealed class ConvertService : IConvertService
 {
     /// <inheritdoc/>

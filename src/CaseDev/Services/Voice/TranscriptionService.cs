@@ -8,7 +8,7 @@ using CaseDev.Models.Voice.Transcription;
 
 namespace CaseDev.Services.Voice;
 
-/// <inheritdoc />
+/// <inheritdoc/>
 public sealed class TranscriptionService : ITranscriptionService
 {
     /// <inheritdoc/>

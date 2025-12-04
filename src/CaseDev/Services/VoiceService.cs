@@ -4,7 +4,7 @@ using CaseDev.Services.Voice;
 
 namespace CaseDev.Services;
 
-/// <inheritdoc />
+/// <inheritdoc/>
 public sealed class VoiceService : IVoiceService
 {
     /// <inheritdoc/>
