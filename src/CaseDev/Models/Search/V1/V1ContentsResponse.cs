@@ -35,6 +35,9 @@ public sealed record class V1ContentsResponse : ModelBase
 
     public V1ContentsResponse() { }
 
+    public V1ContentsResponse(V1ContentsResponse v1ContentsResponse)
+        : base(v1ContentsResponse) { }
+
     public V1ContentsResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];
@@ -181,6 +184,9 @@ public sealed record class Result : ModelBase
     }
 
     public Result() { }
+
+    public Result(Result result)
+        : base(result) { }
 
     public Result(IReadOnlyDictionary<string, JsonElement> rawData)
     {

@@ -18,6 +18,9 @@ public sealed record class RunRetrieveParams : ParamsBase
 
     public RunRetrieveParams() { }
 
+    public RunRetrieveParams(RunRetrieveParams runRetrieveParams)
+        : base(runRetrieveParams) { }
+
     public RunRetrieveParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

@@ -71,6 +71,9 @@ public sealed record class V1ResearchResponse : ModelBase
 
     public V1ResearchResponse() { }
 
+    public V1ResearchResponse(V1ResearchResponse v1ResearchResponse)
+        : base(v1ResearchResponse) { }
+
     public V1ResearchResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];

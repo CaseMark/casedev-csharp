@@ -71,6 +71,9 @@ public sealed record class V1SimilarResponse : ModelBase
 
     public V1SimilarResponse() { }
 
+    public V1SimilarResponse(V1SimilarResponse v1SimilarResponse)
+        : base(v1SimilarResponse) { }
+
     public V1SimilarResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];
@@ -214,6 +217,9 @@ public sealed record class V1SimilarResponseResult : ModelBase
     }
 
     public V1SimilarResponseResult() { }
+
+    public V1SimilarResponseResult(V1SimilarResponseResult v1SimilarResponseResult)
+        : base(v1SimilarResponseResult) { }
 
     public V1SimilarResponseResult(IReadOnlyDictionary<string, JsonElement> rawData)
     {

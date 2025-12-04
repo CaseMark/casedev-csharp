@@ -88,6 +88,14 @@ public sealed record class ObjectCreatePresignedURLParams : ParamsBase
     public ObjectCreatePresignedURLParams() { }
 
     public ObjectCreatePresignedURLParams(
+        ObjectCreatePresignedURLParams objectCreatePresignedURLParams
+    )
+        : base(objectCreatePresignedURLParams)
+    {
+        this._rawBodyData = [.. objectCreatePresignedURLParams._rawBodyData];
+    }
+
+    public ObjectCreatePresignedURLParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
         IReadOnlyDictionary<string, JsonElement> rawBodyData

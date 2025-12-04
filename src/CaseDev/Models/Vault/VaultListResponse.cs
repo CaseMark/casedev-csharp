@@ -57,6 +57,9 @@ public sealed record class VaultListResponse : ModelBase
 
     public VaultListResponse() { }
 
+    public VaultListResponse(VaultListResponse vaultListResponse)
+        : base(vaultListResponse) { }
+
     public VaultListResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];
@@ -221,6 +224,9 @@ public sealed record class VaultListResponseVault : ModelBase
     }
 
     public VaultListResponseVault() { }
+
+    public VaultListResponseVault(VaultListResponseVault vaultListResponseVault)
+        : base(vaultListResponseVault) { }
 
     public VaultListResponseVault(IReadOnlyDictionary<string, JsonElement> rawData)
     {

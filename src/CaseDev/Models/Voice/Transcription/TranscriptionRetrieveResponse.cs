@@ -134,6 +134,11 @@ public sealed record class TranscriptionRetrieveResponse : ModelBase
 
     public TranscriptionRetrieveResponse() { }
 
+    public TranscriptionRetrieveResponse(
+        TranscriptionRetrieveResponse transcriptionRetrieveResponse
+    )
+        : base(transcriptionRetrieveResponse) { }
+
     public TranscriptionRetrieveResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];
@@ -282,6 +287,9 @@ public sealed record class Word : ModelBase
     }
 
     public Word() { }
+
+    public Word(Word word)
+        : base(word) { }
 
     public Word(IReadOnlyDictionary<string, JsonElement> rawData)
     {

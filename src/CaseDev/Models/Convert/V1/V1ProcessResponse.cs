@@ -79,6 +79,9 @@ public sealed record class V1ProcessResponse : ModelBase
 
     public V1ProcessResponse() { }
 
+    public V1ProcessResponse(V1ProcessResponse v1ProcessResponse)
+        : base(v1ProcessResponse) { }
+
     public V1ProcessResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];

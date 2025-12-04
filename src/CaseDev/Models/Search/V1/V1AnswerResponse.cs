@@ -92,6 +92,9 @@ public sealed record class V1AnswerResponse : ModelBase
 
     public V1AnswerResponse() { }
 
+    public V1AnswerResponse(V1AnswerResponse v1AnswerResponse)
+        : base(v1AnswerResponse) { }
+
     public V1AnswerResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];
@@ -205,6 +208,9 @@ public sealed record class Citation : ModelBase
     }
 
     public Citation() { }
+
+    public Citation(Citation citation)
+        : base(citation) { }
 
     public Citation(IReadOnlyDictionary<string, JsonElement> rawData)
     {

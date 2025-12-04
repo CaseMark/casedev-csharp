@@ -55,6 +55,9 @@ public sealed record class SecretDeleteGroupParams : ParamsBase
 
     public SecretDeleteGroupParams() { }
 
+    public SecretDeleteGroupParams(SecretDeleteGroupParams secretDeleteGroupParams)
+        : base(secretDeleteGroupParams) { }
+
     public SecretDeleteGroupParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

@@ -51,6 +51,9 @@ public sealed record class V1GetUsageParams : ParamsBase
 
     public V1GetUsageParams() { }
 
+    public V1GetUsageParams(V1GetUsageParams v1GetUsageParams)
+        : base(v1GetUsageParams) { }
+
     public V1GetUsageParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

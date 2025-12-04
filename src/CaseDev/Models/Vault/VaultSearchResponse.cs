@@ -129,6 +129,9 @@ public sealed record class VaultSearchResponse : ModelBase
 
     public VaultSearchResponse() { }
 
+    public VaultSearchResponse(VaultSearchResponse vaultSearchResponse)
+        : base(vaultSearchResponse) { }
+
     public VaultSearchResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];
@@ -212,6 +215,9 @@ public sealed record class Chunk : ModelBase
     }
 
     public Chunk() { }
+
+    public Chunk(Chunk chunk)
+        : base(chunk) { }
 
     public Chunk(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -360,6 +366,9 @@ public sealed record class Source : ModelBase
     }
 
     public Source() { }
+
+    public Source(Source source)
+        : base(source) { }
 
     public Source(IReadOnlyDictionary<string, JsonElement> rawData)
     {

@@ -17,6 +17,9 @@ public sealed record class V1RetrieveExecutionParams : ParamsBase
 
     public V1RetrieveExecutionParams() { }
 
+    public V1RetrieveExecutionParams(V1RetrieveExecutionParams v1RetrieveExecutionParams)
+        : base(v1RetrieveExecutionParams) { }
+
     public V1RetrieveExecutionParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

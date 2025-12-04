@@ -87,6 +87,12 @@ public sealed record class V1CreateDocumentParams : ParamsBase
 
     public V1CreateDocumentParams() { }
 
+    public V1CreateDocumentParams(V1CreateDocumentParams v1CreateDocumentParams)
+        : base(v1CreateDocumentParams)
+    {
+        this._rawBodyData = [.. v1CreateDocumentParams._rawBodyData];
+    }
+
     public V1CreateDocumentParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
@@ -280,6 +286,9 @@ public sealed record class Options : ModelBase
 
     public Options() { }
 
+    public Options(Options options)
+        : base(options) { }
+
     public Options(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];
@@ -388,6 +397,9 @@ public sealed record class Component : ModelBase
     }
 
     public Component() { }
+
+    public Component(Component component)
+        : base(component) { }
 
     public Component(IReadOnlyDictionary<string, JsonElement> rawData)
     {

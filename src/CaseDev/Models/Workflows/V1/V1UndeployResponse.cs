@@ -47,6 +47,9 @@ public sealed record class V1UndeployResponse : ModelBase
 
     public V1UndeployResponse() { }
 
+    public V1UndeployResponse(V1UndeployResponse v1UndeployResponse)
+        : base(v1UndeployResponse) { }
+
     public V1UndeployResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];

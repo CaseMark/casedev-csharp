@@ -81,6 +81,9 @@ public sealed record class V1SearchResponse : ModelBase
 
     public V1SearchResponse() { }
 
+    public V1SearchResponse(V1SearchResponse v1SearchResponse)
+        : base(v1SearchResponse) { }
+
     public V1SearchResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];
@@ -209,6 +212,9 @@ public sealed record class V1SearchResponseResult : ModelBase
     }
 
     public V1SearchResponseResult() { }
+
+    public V1SearchResponseResult(V1SearchResponseResult v1SearchResponseResult)
+        : base(v1SearchResponseResult) { }
 
     public V1SearchResponseResult(IReadOnlyDictionary<string, JsonElement> rawData)
     {

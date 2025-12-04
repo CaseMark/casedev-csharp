@@ -90,6 +90,9 @@ public sealed record class SecretCreateResponse : ModelBase
 
     public SecretCreateResponse() { }
 
+    public SecretCreateResponse(SecretCreateResponse secretCreateResponse)
+        : base(secretCreateResponse) { }
+
     public SecretCreateResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];

@@ -19,6 +19,9 @@ public sealed record class GraphragInitParams : ParamsBase
 
     public GraphragInitParams() { }
 
+    public GraphragInitParams(GraphragInitParams graphragInitParams)
+        : base(graphragInitParams) { }
+
     public GraphragInitParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

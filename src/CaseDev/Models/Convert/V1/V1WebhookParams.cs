@@ -81,6 +81,12 @@ public sealed record class V1WebhookParams : ParamsBase
 
     public V1WebhookParams() { }
 
+    public V1WebhookParams(V1WebhookParams v1WebhookParams)
+        : base(v1WebhookParams)
+    {
+        this._rawBodyData = [.. v1WebhookParams._rawBodyData];
+    }
+
     public V1WebhookParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
@@ -252,6 +258,9 @@ public sealed record class Result : ModelBase
     }
 
     public Result() { }
+
+    public Result(Result result)
+        : base(result) { }
 
     public Result(IReadOnlyDictionary<string, JsonElement> rawData)
     {

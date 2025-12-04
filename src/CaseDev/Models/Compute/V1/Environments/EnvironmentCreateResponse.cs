@@ -148,6 +148,9 @@ public sealed record class EnvironmentCreateResponse : ModelBase
 
     public EnvironmentCreateResponse() { }
 
+    public EnvironmentCreateResponse(EnvironmentCreateResponse environmentCreateResponse)
+        : base(environmentCreateResponse) { }
+
     public EnvironmentCreateResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];

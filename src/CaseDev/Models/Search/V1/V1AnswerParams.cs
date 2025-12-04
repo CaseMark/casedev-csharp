@@ -212,6 +212,12 @@ public sealed record class V1AnswerParams : ParamsBase
 
     public V1AnswerParams() { }
 
+    public V1AnswerParams(V1AnswerParams v1AnswerParams)
+        : base(v1AnswerParams)
+    {
+        this._rawBodyData = [.. v1AnswerParams._rawBodyData];
+    }
+
     public V1AnswerParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,

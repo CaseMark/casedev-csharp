@@ -96,6 +96,12 @@ public sealed record class VaultUploadParams : ParamsBase
 
     public VaultUploadParams() { }
 
+    public VaultUploadParams(VaultUploadParams vaultUploadParams)
+        : base(vaultUploadParams)
+    {
+        this._rawBodyData = [.. vaultUploadParams._rawBodyData];
+    }
+
     public VaultUploadParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,

@@ -84,6 +84,12 @@ public sealed record class InvokeRunParams : ParamsBase
 
     public InvokeRunParams() { }
 
+    public InvokeRunParams(InvokeRunParams invokeRunParams)
+        : base(invokeRunParams)
+    {
+        this._rawBodyData = [.. invokeRunParams._rawBodyData];
+    }
+
     public InvokeRunParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,

@@ -58,6 +58,12 @@ public sealed record class SecretUpdateGroupParams : ParamsBase
 
     public SecretUpdateGroupParams() { }
 
+    public SecretUpdateGroupParams(SecretUpdateGroupParams secretUpdateGroupParams)
+        : base(secretUpdateGroupParams)
+    {
+        this._rawBodyData = [.. secretUpdateGroupParams._rawBodyData];
+    }
+
     public SecretUpdateGroupParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,

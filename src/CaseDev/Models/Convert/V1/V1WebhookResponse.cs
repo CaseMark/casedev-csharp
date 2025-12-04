@@ -47,6 +47,9 @@ public sealed record class V1WebhookResponse : ModelBase
 
     public V1WebhookResponse() { }
 
+    public V1WebhookResponse(V1WebhookResponse v1WebhookResponse)
+        : base(v1WebhookResponse) { }
+
     public V1WebhookResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];

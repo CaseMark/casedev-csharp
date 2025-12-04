@@ -62,6 +62,9 @@ public sealed record class V1UpdateResponse : ModelBase
 
     public V1UpdateResponse() { }
 
+    public V1UpdateResponse(V1UpdateResponse v1UpdateResponse)
+        : base(v1UpdateResponse) { }
+
     public V1UpdateResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];

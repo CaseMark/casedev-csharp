@@ -33,6 +33,12 @@ public sealed record class EnvironmentCreateParams : ParamsBase
 
     public EnvironmentCreateParams() { }
 
+    public EnvironmentCreateParams(EnvironmentCreateParams environmentCreateParams)
+        : base(environmentCreateParams)
+    {
+        this._rawBodyData = [.. environmentCreateParams._rawBodyData];
+    }
+
     public EnvironmentCreateParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,

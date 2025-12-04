@@ -18,6 +18,9 @@ public sealed record class JobDeleteParams : ParamsBase
 
     public JobDeleteParams() { }
 
+    public JobDeleteParams(JobDeleteParams jobDeleteParams)
+        : base(jobDeleteParams) { }
+
     public JobDeleteParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

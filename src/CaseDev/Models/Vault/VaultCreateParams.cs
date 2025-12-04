@@ -67,6 +67,12 @@ public sealed record class VaultCreateParams : ParamsBase
 
     public VaultCreateParams() { }
 
+    public VaultCreateParams(VaultCreateParams vaultCreateParams)
+        : base(vaultCreateParams)
+    {
+        this._rawBodyData = [.. vaultCreateParams._rawBodyData];
+    }
+
     public VaultCreateParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,

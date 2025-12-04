@@ -154,6 +154,12 @@ public sealed record class TranscriptionCreateParams : ParamsBase
 
     public TranscriptionCreateParams() { }
 
+    public TranscriptionCreateParams(TranscriptionCreateParams transcriptionCreateParams)
+        : base(transcriptionCreateParams)
+    {
+        this._rawBodyData = [.. transcriptionCreateParams._rawBodyData];
+    }
+
     public TranscriptionCreateParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,

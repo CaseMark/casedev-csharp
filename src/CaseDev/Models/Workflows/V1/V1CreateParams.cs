@@ -144,6 +144,12 @@ public sealed record class V1CreateParams : ParamsBase
 
     public V1CreateParams() { }
 
+    public V1CreateParams(V1CreateParams v1CreateParams)
+        : base(v1CreateParams)
+    {
+        this._rawBodyData = [.. v1CreateParams._rawBodyData];
+    }
+
     public V1CreateParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,

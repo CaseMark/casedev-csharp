@@ -34,6 +34,9 @@ public sealed record class FunctionListParams : ParamsBase
 
     public FunctionListParams() { }
 
+    public FunctionListParams(FunctionListParams functionListParams)
+        : base(functionListParams) { }
+
     public FunctionListParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

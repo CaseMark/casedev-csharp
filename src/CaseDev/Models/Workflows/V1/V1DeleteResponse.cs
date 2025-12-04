@@ -47,6 +47,9 @@ public sealed record class V1DeleteResponse : ModelBase
 
     public V1DeleteResponse() { }
 
+    public V1DeleteResponse(V1DeleteResponse v1DeleteResponse)
+        : base(v1DeleteResponse) { }
+
     public V1DeleteResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];

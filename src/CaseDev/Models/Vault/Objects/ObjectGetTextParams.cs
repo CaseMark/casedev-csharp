@@ -21,6 +21,9 @@ public sealed record class ObjectGetTextParams : ParamsBase
 
     public ObjectGetTextParams() { }
 
+    public ObjectGetTextParams(ObjectGetTextParams objectGetTextParams)
+        : base(objectGetTextParams) { }
+
     public ObjectGetTextParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

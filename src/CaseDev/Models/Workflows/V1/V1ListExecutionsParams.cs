@@ -50,6 +50,9 @@ public sealed record class V1ListExecutionsParams : ParamsBase
 
     public V1ListExecutionsParams() { }
 
+    public V1ListExecutionsParams(V1ListExecutionsParams v1ListExecutionsParams)
+        : base(v1ListExecutionsParams) { }
+
     public V1ListExecutionsParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

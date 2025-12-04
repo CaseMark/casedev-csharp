@@ -136,6 +136,9 @@ public sealed record class V1CreateResponse : ModelBase
 
     public V1CreateResponse() { }
 
+    public V1CreateResponse(V1CreateResponse v1CreateResponse)
+        : base(v1CreateResponse) { }
+
     public V1CreateResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];

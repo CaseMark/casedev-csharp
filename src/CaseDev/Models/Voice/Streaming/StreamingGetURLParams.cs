@@ -22,6 +22,9 @@ public sealed record class StreamingGetURLParams : ParamsBase
 {
     public StreamingGetURLParams() { }
 
+    public StreamingGetURLParams(StreamingGetURLParams streamingGetURLParams)
+        : base(streamingGetURLParams) { }
+
     public StreamingGetURLParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

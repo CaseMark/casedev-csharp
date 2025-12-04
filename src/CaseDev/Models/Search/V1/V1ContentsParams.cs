@@ -186,6 +186,12 @@ public sealed record class V1ContentsParams : ParamsBase
 
     public V1ContentsParams() { }
 
+    public V1ContentsParams(V1ContentsParams v1ContentsParams)
+        : base(v1ContentsParams)
+    {
+        this._rawBodyData = [.. v1ContentsParams._rawBodyData];
+    }
+
     public V1ContentsParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,

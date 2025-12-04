@@ -69,6 +69,9 @@ public sealed record class VaultIngestResponse : ModelBase
 
     public VaultIngestResponse() { }
 
+    public VaultIngestResponse(VaultIngestResponse vaultIngestResponse)
+        : base(vaultIngestResponse) { }
+
     public VaultIngestResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];
