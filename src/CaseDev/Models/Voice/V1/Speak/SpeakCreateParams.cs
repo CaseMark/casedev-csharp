@@ -246,6 +246,12 @@ public sealed record class SpeakCreateParams : ParamsBase
 
     public SpeakCreateParams() { }
 
+    public SpeakCreateParams(SpeakCreateParams speakCreateParams)
+        : base(speakCreateParams)
+    {
+        this._rawBodyData = [.. speakCreateParams._rawBodyData];
+    }
+
     public SpeakCreateParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
@@ -497,6 +503,9 @@ public sealed record class VoiceSettings : ModelBase
     }
 
     public VoiceSettings() { }
+
+    public VoiceSettings(VoiceSettings voiceSettings)
+        : base(voiceSettings) { }
 
     public VoiceSettings(IReadOnlyDictionary<string, JsonElement> rawData)
     {

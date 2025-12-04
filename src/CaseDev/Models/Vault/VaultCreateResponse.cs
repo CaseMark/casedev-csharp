@@ -162,6 +162,9 @@ public sealed record class VaultCreateResponse : ModelBase
 
     public VaultCreateResponse() { }
 
+    public VaultCreateResponse(VaultCreateResponse vaultCreateResponse)
+        : base(vaultCreateResponse) { }
+
     public VaultCreateResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];

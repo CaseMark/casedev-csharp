@@ -73,6 +73,12 @@ public sealed record class SecretCreateParams : ParamsBase
 
     public SecretCreateParams() { }
 
+    public SecretCreateParams(SecretCreateParams secretCreateParams)
+        : base(secretCreateParams)
+    {
+        this._rawBodyData = [.. secretCreateParams._rawBodyData];
+    }
+
     public SecretCreateParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,

@@ -108,6 +108,9 @@ public sealed record class TemplateCreateResponse : ModelBase
 
     public TemplateCreateResponse() { }
 
+    public TemplateCreateResponse(TemplateCreateResponse templateCreateResponse)
+        : base(templateCreateResponse) { }
+
     public TemplateCreateResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];

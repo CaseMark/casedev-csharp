@@ -136,6 +136,12 @@ public sealed record class V1UpdateParams : ParamsBase
 
     public V1UpdateParams() { }
 
+    public V1UpdateParams(V1UpdateParams v1UpdateParams)
+        : base(v1UpdateParams)
+    {
+        this._rawBodyData = [.. v1UpdateParams._rawBodyData];
+    }
+
     public V1UpdateParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,

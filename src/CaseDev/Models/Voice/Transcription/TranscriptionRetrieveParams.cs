@@ -18,6 +18,9 @@ public sealed record class TranscriptionRetrieveParams : ParamsBase
 
     public TranscriptionRetrieveParams() { }
 
+    public TranscriptionRetrieveParams(TranscriptionRetrieveParams transcriptionRetrieveParams)
+        : base(transcriptionRetrieveParams) { }
+
     public TranscriptionRetrieveParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

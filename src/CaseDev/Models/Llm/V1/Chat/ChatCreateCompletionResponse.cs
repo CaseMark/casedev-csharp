@@ -121,6 +121,9 @@ public sealed record class ChatCreateCompletionResponse : ModelBase
 
     public ChatCreateCompletionResponse() { }
 
+    public ChatCreateCompletionResponse(ChatCreateCompletionResponse chatCreateCompletionResponse)
+        : base(chatCreateCompletionResponse) { }
+
     public ChatCreateCompletionResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];
@@ -206,6 +209,9 @@ public sealed record class Choice : ModelBase
 
     public Choice() { }
 
+    public Choice(Choice choice)
+        : base(choice) { }
+
     public Choice(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];
@@ -272,6 +278,9 @@ public sealed record class ChoiceMessage : ModelBase
     }
 
     public ChoiceMessage() { }
+
+    public ChoiceMessage(ChoiceMessage choiceMessage)
+        : base(choiceMessage) { }
 
     public ChoiceMessage(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -372,6 +381,9 @@ public sealed record class Usage : ModelBase
     }
 
     public Usage() { }
+
+    public Usage(Usage usage)
+        : base(usage) { }
 
     public Usage(IReadOnlyDictionary<string, JsonElement> rawData)
     {

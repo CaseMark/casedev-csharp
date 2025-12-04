@@ -126,6 +126,12 @@ public sealed record class TemplateCreateParams : ParamsBase
 
     public TemplateCreateParams() { }
 
+    public TemplateCreateParams(TemplateCreateParams templateCreateParams)
+        : base(templateCreateParams)
+    {
+        this._rawBodyData = [.. templateCreateParams._rawBodyData];
+    }
+
     public TemplateCreateParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,

@@ -66,6 +66,12 @@ public sealed record class V1SearchParams : ParamsBase
 
     public V1SearchParams() { }
 
+    public V1SearchParams(V1SearchParams v1SearchParams)
+        : base(v1SearchParams)
+    {
+        this._rawBodyData = [.. v1SearchParams._rawBodyData];
+    }
+
     public V1SearchParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,

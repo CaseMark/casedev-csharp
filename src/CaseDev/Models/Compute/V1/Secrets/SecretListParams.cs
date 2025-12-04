@@ -34,6 +34,9 @@ public sealed record class SecretListParams : ParamsBase
 
     public SecretListParams() { }
 
+    public SecretListParams(SecretListParams secretListParams)
+        : base(secretListParams) { }
+
     public SecretListParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

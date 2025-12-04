@@ -343,6 +343,9 @@ public sealed record class SynchronousResponse : ModelBase
 
     public SynchronousResponse() { }
 
+    public SynchronousResponse(SynchronousResponse synchronousResponse)
+        : base(synchronousResponse) { }
+
     public SynchronousResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];
@@ -478,6 +481,9 @@ public sealed record class AsynchronousResponse : ModelBase
     }
 
     public AsynchronousResponse() { }
+
+    public AsynchronousResponse(AsynchronousResponse asynchronousResponse)
+        : base(asynchronousResponse) { }
 
     public AsynchronousResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {

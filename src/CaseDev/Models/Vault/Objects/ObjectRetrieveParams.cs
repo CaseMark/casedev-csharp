@@ -21,6 +21,9 @@ public sealed record class ObjectRetrieveParams : ParamsBase
 
     public ObjectRetrieveParams() { }
 
+    public ObjectRetrieveParams(ObjectRetrieveParams objectRetrieveParams)
+        : base(objectRetrieveParams) { }
+
     public ObjectRetrieveParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

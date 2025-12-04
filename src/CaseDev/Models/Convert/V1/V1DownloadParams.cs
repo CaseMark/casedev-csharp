@@ -19,6 +19,9 @@ public sealed record class V1DownloadParams : ParamsBase
 
     public V1DownloadParams() { }
 
+    public V1DownloadParams(V1DownloadParams v1DownloadParams)
+        : base(v1DownloadParams) { }
+
     public V1DownloadParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

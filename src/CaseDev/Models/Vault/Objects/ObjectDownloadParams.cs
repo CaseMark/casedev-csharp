@@ -21,6 +21,9 @@ public sealed record class ObjectDownloadParams : ParamsBase
 
     public ObjectDownloadParams() { }
 
+    public ObjectDownloadParams(ObjectDownloadParams objectDownloadParams)
+        : base(objectDownloadParams) { }
+
     public ObjectDownloadParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

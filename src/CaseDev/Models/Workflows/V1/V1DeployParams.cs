@@ -18,6 +18,9 @@ public sealed record class V1DeployParams : ParamsBase
 
     public V1DeployParams() { }
 
+    public V1DeployParams(V1DeployParams v1DeployParams)
+        : base(v1DeployParams) { }
+
     public V1DeployParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

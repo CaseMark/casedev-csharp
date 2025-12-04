@@ -36,6 +36,9 @@ public sealed record class FunctionGetLogsParams : ParamsBase
 
     public FunctionGetLogsParams() { }
 
+    public FunctionGetLogsParams(FunctionGetLogsParams functionGetLogsParams)
+        : base(functionGetLogsParams) { }
+
     public FunctionGetLogsParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

@@ -100,6 +100,9 @@ public sealed record class V1ExecuteResponse : ModelBase
 
     public V1ExecuteResponse() { }
 
+    public V1ExecuteResponse(V1ExecuteResponse v1ExecuteResponse)
+        : base(v1ExecuteResponse) { }
+
     public V1ExecuteResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];

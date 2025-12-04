@@ -37,6 +37,9 @@ public sealed record class TemplateListParams : ParamsBase
 
     public TemplateListParams() { }
 
+    public TemplateListParams(TemplateListParams templateListParams)
+        : base(templateListParams) { }
+
     public TemplateListParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

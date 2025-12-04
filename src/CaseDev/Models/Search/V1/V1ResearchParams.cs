@@ -89,6 +89,12 @@ public sealed record class V1ResearchParams : ParamsBase
 
     public V1ResearchParams() { }
 
+    public V1ResearchParams(V1ResearchParams v1ResearchParams)
+        : base(v1ResearchParams)
+    {
+        this._rawBodyData = [.. v1ResearchParams._rawBodyData];
+    }
+
     public V1ResearchParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,

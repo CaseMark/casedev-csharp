@@ -19,6 +19,9 @@ public sealed record class V1DeleteParams : ParamsBase
 
     public V1DeleteParams() { }
 
+    public V1DeleteParams(V1DeleteParams v1DeleteParams)
+        : base(v1DeleteParams) { }
+
     public V1DeleteParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

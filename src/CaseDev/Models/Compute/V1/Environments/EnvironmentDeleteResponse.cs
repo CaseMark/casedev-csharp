@@ -31,6 +31,9 @@ public sealed record class EnvironmentDeleteResponse : ModelBase
 
     public EnvironmentDeleteResponse() { }
 
+    public EnvironmentDeleteResponse(EnvironmentDeleteResponse environmentDeleteResponse)
+        : base(environmentDeleteResponse) { }
+
     public EnvironmentDeleteResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];

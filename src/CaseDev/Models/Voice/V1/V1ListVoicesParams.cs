@@ -185,6 +185,9 @@ public sealed record class V1ListVoicesParams : ParamsBase
 
     public V1ListVoicesParams() { }
 
+    public V1ListVoicesParams(V1ListVoicesParams v1ListVoicesParams)
+        : base(v1ListVoicesParams) { }
+
     public V1ListVoicesParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

@@ -19,6 +19,9 @@ public sealed record class GraphragGetStatsParams : ParamsBase
 
     public GraphragGetStatsParams() { }
 
+    public GraphragGetStatsParams(GraphragGetStatsParams graphragGetStatsParams)
+        : base(graphragGetStatsParams) { }
+
     public GraphragGetStatsParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

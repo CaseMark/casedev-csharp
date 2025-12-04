@@ -16,6 +16,9 @@ public sealed record class VaultListParams : ParamsBase
 {
     public VaultListParams() { }
 
+    public VaultListParams(VaultListParams vaultListParams)
+        : base(vaultListParams) { }
+
     public VaultListParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

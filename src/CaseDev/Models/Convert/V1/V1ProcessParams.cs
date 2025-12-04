@@ -54,6 +54,12 @@ public sealed record class V1ProcessParams : ParamsBase
 
     public V1ProcessParams() { }
 
+    public V1ProcessParams(V1ProcessParams v1ProcessParams)
+        : base(v1ProcessParams)
+    {
+        this._rawBodyData = [.. v1ProcessParams._rawBodyData];
+    }
+
     public V1ProcessParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,

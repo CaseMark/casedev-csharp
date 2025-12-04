@@ -17,6 +17,9 @@ public sealed record class V1GetPricingParams : ParamsBase
 {
     public V1GetPricingParams() { }
 
+    public V1GetPricingParams(V1GetPricingParams v1GetPricingParams)
+        : base(v1GetPricingParams) { }
+
     public V1GetPricingParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

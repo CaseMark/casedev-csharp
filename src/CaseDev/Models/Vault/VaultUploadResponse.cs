@@ -132,6 +132,9 @@ public sealed record class VaultUploadResponse : ModelBase
 
     public VaultUploadResponse() { }
 
+    public VaultUploadResponse(VaultUploadResponse vaultUploadResponse)
+        : base(vaultUploadResponse) { }
+
     public VaultUploadResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];
@@ -215,6 +218,9 @@ public sealed record class Instructions : ModelBase
     }
 
     public Instructions() { }
+
+    public Instructions(Instructions instructions)
+        : base(instructions) { }
 
     public Instructions(IReadOnlyDictionary<string, JsonElement> rawData)
     {

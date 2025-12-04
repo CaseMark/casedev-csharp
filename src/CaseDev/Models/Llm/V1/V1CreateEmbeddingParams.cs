@@ -101,6 +101,12 @@ public sealed record class V1CreateEmbeddingParams : ParamsBase
 
     public V1CreateEmbeddingParams() { }
 
+    public V1CreateEmbeddingParams(V1CreateEmbeddingParams v1CreateEmbeddingParams)
+        : base(v1CreateEmbeddingParams)
+    {
+        this._rawBodyData = [.. v1CreateEmbeddingParams._rawBodyData];
+    }
+
     public V1CreateEmbeddingParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,

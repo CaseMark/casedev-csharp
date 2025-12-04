@@ -18,6 +18,9 @@ public sealed record class JobRetrieveParams : ParamsBase
 
     public JobRetrieveParams() { }
 
+    public JobRetrieveParams(JobRetrieveParams jobRetrieveParams)
+        : base(jobRetrieveParams) { }
+
     public JobRetrieveParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

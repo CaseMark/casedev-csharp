@@ -98,6 +98,12 @@ public sealed record class VaultSearchParams : ParamsBase
 
     public VaultSearchParams() { }
 
+    public VaultSearchParams(VaultSearchParams vaultSearchParams)
+        : base(vaultSearchParams)
+    {
+        this._rawBodyData = [.. vaultSearchParams._rawBodyData];
+    }
+
     public VaultSearchParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,

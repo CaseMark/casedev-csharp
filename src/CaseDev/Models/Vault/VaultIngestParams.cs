@@ -21,6 +21,9 @@ public sealed record class VaultIngestParams : ParamsBase
 
     public VaultIngestParams() { }
 
+    public VaultIngestParams(VaultIngestParams vaultIngestParams)
+        : base(vaultIngestParams) { }
+
     public VaultIngestParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

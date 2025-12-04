@@ -80,6 +80,9 @@ public sealed record class V1ListResponse : ModelBase
 
     public V1ListResponse() { }
 
+    public V1ListResponse(V1ListResponse v1ListResponse)
+        : base(v1ListResponse) { }
+
     public V1ListResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];
@@ -236,6 +239,9 @@ public sealed record class Workflow : ModelBase
     }
 
     public Workflow() { }
+
+    public Workflow(Workflow workflow)
+        : base(workflow) { }
 
     public Workflow(IReadOnlyDictionary<string, JsonElement> rawData)
     {

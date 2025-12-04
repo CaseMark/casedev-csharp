@@ -19,6 +19,9 @@ public sealed record class EnvironmentDeleteParams : ParamsBase
 
     public EnvironmentDeleteParams() { }
 
+    public EnvironmentDeleteParams(EnvironmentDeleteParams environmentDeleteParams)
+        : base(environmentDeleteParams) { }
+
     public EnvironmentDeleteParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

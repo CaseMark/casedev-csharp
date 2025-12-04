@@ -246,6 +246,12 @@ public sealed record class SpeakStreamParams : ParamsBase
 
     public SpeakStreamParams() { }
 
+    public SpeakStreamParams(SpeakStreamParams speakStreamParams)
+        : base(speakStreamParams)
+    {
+        this._rawBodyData = [.. speakStreamParams._rawBodyData];
+    }
+
     public SpeakStreamParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
@@ -503,6 +509,11 @@ public sealed record class SpeakStreamParamsVoiceSettings : ModelBase
     }
 
     public SpeakStreamParamsVoiceSettings() { }
+
+    public SpeakStreamParamsVoiceSettings(
+        SpeakStreamParamsVoiceSettings speakStreamParamsVoiceSettings
+    )
+        : base(speakStreamParamsVoiceSettings) { }
 
     public SpeakStreamParamsVoiceSettings(IReadOnlyDictionary<string, JsonElement> rawData)
     {

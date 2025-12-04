@@ -140,6 +140,12 @@ public sealed record class V1ProcessParams : ParamsBase
 
     public V1ProcessParams() { }
 
+    public V1ProcessParams(V1ProcessParams v1ProcessParams)
+        : base(v1ProcessParams)
+    {
+        this._rawBodyData = [.. v1ProcessParams._rawBodyData];
+    }
+
     public V1ProcessParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
@@ -329,6 +335,9 @@ public sealed record class Features : ModelBase
     }
 
     public Features() { }
+
+    public Features(Features features)
+        : base(features) { }
 
     public Features(IReadOnlyDictionary<string, JsonElement> rawData)
     {

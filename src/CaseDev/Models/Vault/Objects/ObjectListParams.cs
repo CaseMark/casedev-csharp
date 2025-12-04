@@ -18,6 +18,9 @@ public sealed record class ObjectListParams : ParamsBase
 
     public ObjectListParams() { }
 
+    public ObjectListParams(ObjectListParams objectListParams)
+        : base(objectListParams) { }
+
     public ObjectListParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

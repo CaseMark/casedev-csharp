@@ -58,6 +58,12 @@ public sealed record class V1ExecuteParams : ParamsBase
 
     public V1ExecuteParams() { }
 
+    public V1ExecuteParams(V1ExecuteParams v1ExecuteParams)
+        : base(v1ExecuteParams)
+    {
+        this._rawBodyData = [.. v1ExecuteParams._rawBodyData];
+    }
+
     public V1ExecuteParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,

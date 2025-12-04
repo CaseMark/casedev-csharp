@@ -35,6 +35,9 @@ public sealed record class V1ListExecutionsResponse : ModelBase
 
     public V1ListExecutionsResponse() { }
 
+    public V1ListExecutionsResponse(V1ListExecutionsResponse v1ListExecutionsResponse)
+        : base(v1ListExecutionsResponse) { }
+
     public V1ListExecutionsResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];
@@ -164,6 +167,9 @@ public sealed record class Execution : ModelBase
     }
 
     public Execution() { }
+
+    public Execution(Execution execution)
+        : base(execution) { }
 
     public Execution(IReadOnlyDictionary<string, JsonElement> rawData)
     {

@@ -16,6 +16,9 @@ public sealed record class EnvironmentListParams : ParamsBase
 {
     public EnvironmentListParams() { }
 
+    public EnvironmentListParams(EnvironmentListParams environmentListParams)
+        : base(environmentListParams) { }
+
     public EnvironmentListParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

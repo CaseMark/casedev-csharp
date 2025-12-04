@@ -20,6 +20,9 @@ public sealed record class LlmGetConfigParams : ParamsBase
 {
     public LlmGetConfigParams() { }
 
+    public LlmGetConfigParams(LlmGetConfigParams llmGetConfigParams)
+        : base(llmGetConfigParams) { }
+
     public LlmGetConfigParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

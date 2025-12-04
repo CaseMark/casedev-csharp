@@ -175,6 +175,12 @@ public sealed record class V1DeployParams : ParamsBase
 
     public V1DeployParams() { }
 
+    public V1DeployParams(V1DeployParams v1DeployParams)
+        : base(v1DeployParams)
+    {
+        this._rawBodyData = [.. v1DeployParams._rawBodyData];
+    }
+
     public V1DeployParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
@@ -697,6 +703,9 @@ public sealed record class Config : ModelBase
     }
 
     public Config() { }
+
+    public Config(Config config)
+        : base(config) { }
 
     public Config(IReadOnlyDictionary<string, JsonElement> rawData)
     {

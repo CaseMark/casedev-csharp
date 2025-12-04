@@ -197,6 +197,9 @@ public sealed record class V1RetrieveResponse : ModelBase
 
     public V1RetrieveResponse() { }
 
+    public V1RetrieveResponse(V1RetrieveResponse v1RetrieveResponse)
+        : base(v1RetrieveResponse) { }
+
     public V1RetrieveResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];

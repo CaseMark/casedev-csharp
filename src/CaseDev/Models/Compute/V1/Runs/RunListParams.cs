@@ -68,6 +68,9 @@ public sealed record class RunListParams : ParamsBase
 
     public RunListParams() { }
 
+    public RunListParams(RunListParams runListParams)
+        : base(runListParams) { }
+
     public RunListParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

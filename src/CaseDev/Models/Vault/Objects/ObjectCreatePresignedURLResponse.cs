@@ -200,6 +200,11 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
 
     public ObjectCreatePresignedURLResponse() { }
 
+    public ObjectCreatePresignedURLResponse(
+        ObjectCreatePresignedURLResponse objectCreatePresignedURLResponse
+    )
+        : base(objectCreatePresignedURLResponse) { }
+
     public ObjectCreatePresignedURLResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];
@@ -299,6 +304,9 @@ public sealed record class Metadata : ModelBase
     }
 
     public Metadata() { }
+
+    public Metadata(Metadata metadata)
+        : base(metadata) { }
 
     public Metadata(IReadOnlyDictionary<string, JsonElement> rawData)
     {

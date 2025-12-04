@@ -237,6 +237,12 @@ public sealed record class V1SimilarParams : ParamsBase
 
     public V1SimilarParams() { }
 
+    public V1SimilarParams(V1SimilarParams v1SimilarParams)
+        : base(v1SimilarParams)
+    {
+        this._rawBodyData = [.. v1SimilarParams._rawBodyData];
+    }
+
     public V1SimilarParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,

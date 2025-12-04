@@ -17,6 +17,9 @@ public sealed record class V1ListParams : ParamsBase
 {
     public V1ListParams() { }
 
+    public V1ListParams(V1ListParams v1ListParams)
+        : base(v1ListParams) { }
+
     public V1ListParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

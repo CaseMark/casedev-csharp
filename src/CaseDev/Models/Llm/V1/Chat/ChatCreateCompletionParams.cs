@@ -154,6 +154,12 @@ public sealed record class ChatCreateCompletionParams : ParamsBase
 
     public ChatCreateCompletionParams() { }
 
+    public ChatCreateCompletionParams(ChatCreateCompletionParams chatCreateCompletionParams)
+        : base(chatCreateCompletionParams)
+    {
+        this._rawBodyData = [.. chatCreateCompletionParams._rawBodyData];
+    }
+
     public ChatCreateCompletionParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
@@ -261,6 +267,9 @@ public sealed record class Message : ModelBase
     }
 
     public Message() { }
+
+    public Message(Message message)
+        : base(message) { }
 
     public Message(IReadOnlyDictionary<string, JsonElement> rawData)
     {
