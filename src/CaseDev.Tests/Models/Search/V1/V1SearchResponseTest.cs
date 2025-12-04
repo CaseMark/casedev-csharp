@@ -28,7 +28,7 @@ public class V1SearchResponseTest : TestBase
         };
 
         string expectedQuery = "query";
-        List<ResultModel> expectedResults =
+        List<V1SearchResponseResult> expectedResults =
         [
             new()
             {
@@ -101,7 +101,7 @@ public class V1SearchResponseTest : TestBase
         Assert.NotNull(deserialized);
 
         string expectedQuery = "query";
-        List<ResultModel> expectedResults =
+        List<V1SearchResponseResult> expectedResults =
         [
             new()
             {
@@ -201,12 +201,12 @@ public class V1SearchResponseTest : TestBase
     }
 }
 
-public class ResultModelTest : TestBase
+public class V1SearchResponseResultTest : TestBase
 {
     [Fact]
     public void FieldRoundtrip_Works()
     {
-        var model = new ResultModel
+        var model = new V1SearchResponseResult
         {
             Domain = "domain",
             PublishedDate = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
@@ -231,7 +231,7 @@ public class ResultModelTest : TestBase
     [Fact]
     public void SerializationRoundtrip_Works()
     {
-        var model = new ResultModel
+        var model = new V1SearchResponseResult
         {
             Domain = "domain",
             PublishedDate = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
@@ -241,7 +241,7 @@ public class ResultModelTest : TestBase
         };
 
         string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<ResultModel>(json);
+        var deserialized = JsonSerializer.Deserialize<V1SearchResponseResult>(json);
 
         Assert.Equal(model, deserialized);
     }
@@ -249,7 +249,7 @@ public class ResultModelTest : TestBase
     [Fact]
     public void FieldRoundtripThroughSerialization_Works()
     {
-        var model = new ResultModel
+        var model = new V1SearchResponseResult
         {
             Domain = "domain",
             PublishedDate = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
@@ -259,7 +259,7 @@ public class ResultModelTest : TestBase
         };
 
         string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<ResultModel>(json);
+        var deserialized = JsonSerializer.Deserialize<V1SearchResponseResult>(json);
         Assert.NotNull(deserialized);
 
         string expectedDomain = "domain";
@@ -278,7 +278,7 @@ public class ResultModelTest : TestBase
     [Fact]
     public void Validation_Works()
     {
-        var model = new ResultModel
+        var model = new V1SearchResponseResult
         {
             Domain = "domain",
             PublishedDate = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
@@ -293,7 +293,7 @@ public class ResultModelTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetAreNotSet_Works()
     {
-        var model = new ResultModel { };
+        var model = new V1SearchResponseResult { };
 
         Assert.Null(model.Domain);
         Assert.False(model.RawData.ContainsKey("domain"));
@@ -310,7 +310,7 @@ public class ResultModelTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetValidation_Works()
     {
-        var model = new ResultModel { };
+        var model = new V1SearchResponseResult { };
 
         model.Validate();
     }
@@ -318,7 +318,7 @@ public class ResultModelTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesSetToNullAreNotSet_Works()
     {
-        var model = new ResultModel
+        var model = new V1SearchResponseResult
         {
             // Null should be interpreted as omitted for these properties
             Domain = null,
@@ -343,7 +343,7 @@ public class ResultModelTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesSetToNullValidation_Works()
     {
-        var model = new ResultModel
+        var model = new V1SearchResponseResult
         {
             // Null should be interpreted as omitted for these properties
             Domain = null,

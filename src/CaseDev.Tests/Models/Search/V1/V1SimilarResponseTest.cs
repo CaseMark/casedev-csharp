@@ -29,7 +29,7 @@ public class V1SimilarResponseTest : TestBase
         };
 
         double expectedProcessingTime = 0;
-        List<Result1> expectedResults =
+        List<V1SimilarResponseResult> expectedResults =
         [
             new()
             {
@@ -108,7 +108,7 @@ public class V1SimilarResponseTest : TestBase
         Assert.NotNull(deserialized);
 
         double expectedProcessingTime = 0;
-        List<Result1> expectedResults =
+        List<V1SimilarResponseResult> expectedResults =
         [
             new()
             {
@@ -212,12 +212,12 @@ public class V1SimilarResponseTest : TestBase
     }
 }
 
-public class Result1Test : TestBase
+public class V1SimilarResponseResultTest : TestBase
 {
     [Fact]
     public void FieldRoundtrip_Works()
     {
-        var model = new Result1
+        var model = new V1SimilarResponseResult
         {
             Domain = "domain",
             PublishedDate = "publishedDate",
@@ -248,7 +248,7 @@ public class Result1Test : TestBase
     [Fact]
     public void SerializationRoundtrip_Works()
     {
-        var model = new Result1
+        var model = new V1SimilarResponseResult
         {
             Domain = "domain",
             PublishedDate = "publishedDate",
@@ -260,7 +260,7 @@ public class Result1Test : TestBase
         };
 
         string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<Result1>(json);
+        var deserialized = JsonSerializer.Deserialize<V1SimilarResponseResult>(json);
 
         Assert.Equal(model, deserialized);
     }
@@ -268,7 +268,7 @@ public class Result1Test : TestBase
     [Fact]
     public void FieldRoundtripThroughSerialization_Works()
     {
-        var model = new Result1
+        var model = new V1SimilarResponseResult
         {
             Domain = "domain",
             PublishedDate = "publishedDate",
@@ -280,7 +280,7 @@ public class Result1Test : TestBase
         };
 
         string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<Result1>(json);
+        var deserialized = JsonSerializer.Deserialize<V1SimilarResponseResult>(json);
         Assert.NotNull(deserialized);
 
         string expectedDomain = "domain";
@@ -303,7 +303,7 @@ public class Result1Test : TestBase
     [Fact]
     public void Validation_Works()
     {
-        var model = new Result1
+        var model = new V1SimilarResponseResult
         {
             Domain = "domain",
             PublishedDate = "publishedDate",
@@ -320,7 +320,7 @@ public class Result1Test : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetAreNotSet_Works()
     {
-        var model = new Result1 { };
+        var model = new V1SimilarResponseResult { };
 
         Assert.Null(model.Domain);
         Assert.False(model.RawData.ContainsKey("domain"));
@@ -341,7 +341,7 @@ public class Result1Test : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetValidation_Works()
     {
-        var model = new Result1 { };
+        var model = new V1SimilarResponseResult { };
 
         model.Validate();
     }
@@ -349,7 +349,7 @@ public class Result1Test : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesSetToNullAreNotSet_Works()
     {
-        var model = new Result1
+        var model = new V1SimilarResponseResult
         {
             // Null should be interpreted as omitted for these properties
             Domain = null,
@@ -380,7 +380,7 @@ public class Result1Test : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesSetToNullValidation_Works()
     {
-        var model = new Result1
+        var model = new V1SimilarResponseResult
         {
             // Null should be interpreted as omitted for these properties
             Domain = null,

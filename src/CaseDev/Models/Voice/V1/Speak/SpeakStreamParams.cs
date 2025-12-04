@@ -90,11 +90,11 @@ public sealed record class SpeakStreamParams : ParamsBase
     /// <summary>
     /// TTS model to use
     /// </summary>
-    public ApiEnum<string, ModelIDModel>? ModelID
+    public ApiEnum<string, SpeakStreamParamsModelID>? ModelID
     {
         get
         {
-            return ModelBase.GetNullableClass<ApiEnum<string, ModelIDModel>>(
+            return ModelBase.GetNullableClass<ApiEnum<string, SpeakStreamParamsModelID>>(
                 this.RawBodyData,
                 "model_id"
             );
@@ -153,11 +153,11 @@ public sealed record class SpeakStreamParams : ParamsBase
     /// <summary>
     /// Audio output format
     /// </summary>
-    public ApiEnum<string, OutputFormatModel>? OutputFormat
+    public ApiEnum<string, SpeakStreamParamsOutputFormat>? OutputFormat
     {
         get
         {
-            return ModelBase.GetNullableClass<ApiEnum<string, OutputFormatModel>>(
+            return ModelBase.GetNullableClass<ApiEnum<string, SpeakStreamParamsOutputFormat>>(
                 this.RawBodyData,
                 "output_format"
             );
@@ -224,11 +224,11 @@ public sealed record class SpeakStreamParams : ParamsBase
         }
     }
 
-    public VoiceSettingsModel? VoiceSettings
+    public SpeakStreamParamsVoiceSettings? VoiceSettings
     {
         get
         {
-            return ModelBase.GetNullableClass<VoiceSettingsModel>(
+            return ModelBase.GetNullableClass<SpeakStreamParamsVoiceSettings>(
                 this.RawBodyData,
                 "voice_settings"
             );
@@ -310,8 +310,8 @@ public sealed record class SpeakStreamParams : ParamsBase
 /// <summary>
 /// TTS model to use
 /// </summary>
-[JsonConverter(typeof(ModelIDModelConverter))]
-public enum ModelIDModel
+[JsonConverter(typeof(SpeakStreamParamsModelIDConverter))]
+public enum SpeakStreamParamsModelID
 {
     ElevenMonolingualV1,
     ElevenMultilingualV1,
@@ -319,9 +319,9 @@ public enum ModelIDModel
     ElevenTurboV2,
 }
 
-sealed class ModelIDModelConverter : JsonConverter<ModelIDModel>
+sealed class SpeakStreamParamsModelIDConverter : JsonConverter<SpeakStreamParamsModelID>
 {
-    public override ModelIDModel Read(
+    public override SpeakStreamParamsModelID Read(
         ref Utf8JsonReader reader,
         Type typeToConvert,
         JsonSerializerOptions options
@@ -329,17 +329,17 @@ sealed class ModelIDModelConverter : JsonConverter<ModelIDModel>
     {
         return JsonSerializer.Deserialize<string>(ref reader, options) switch
         {
-            "eleven_monolingual_v1" => ModelIDModel.ElevenMonolingualV1,
-            "eleven_multilingual_v1" => ModelIDModel.ElevenMultilingualV1,
-            "eleven_multilingual_v2" => ModelIDModel.ElevenMultilingualV2,
-            "eleven_turbo_v2" => ModelIDModel.ElevenTurboV2,
-            _ => (ModelIDModel)(-1),
+            "eleven_monolingual_v1" => SpeakStreamParamsModelID.ElevenMonolingualV1,
+            "eleven_multilingual_v1" => SpeakStreamParamsModelID.ElevenMultilingualV1,
+            "eleven_multilingual_v2" => SpeakStreamParamsModelID.ElevenMultilingualV2,
+            "eleven_turbo_v2" => SpeakStreamParamsModelID.ElevenTurboV2,
+            _ => (SpeakStreamParamsModelID)(-1),
         };
     }
 
     public override void Write(
         Utf8JsonWriter writer,
-        ModelIDModel value,
+        SpeakStreamParamsModelID value,
         JsonSerializerOptions options
     )
     {
@@ -347,10 +347,10 @@ sealed class ModelIDModelConverter : JsonConverter<ModelIDModel>
             writer,
             value switch
             {
-                ModelIDModel.ElevenMonolingualV1 => "eleven_monolingual_v1",
-                ModelIDModel.ElevenMultilingualV1 => "eleven_multilingual_v1",
-                ModelIDModel.ElevenMultilingualV2 => "eleven_multilingual_v2",
-                ModelIDModel.ElevenTurboV2 => "eleven_turbo_v2",
+                SpeakStreamParamsModelID.ElevenMonolingualV1 => "eleven_monolingual_v1",
+                SpeakStreamParamsModelID.ElevenMultilingualV1 => "eleven_multilingual_v1",
+                SpeakStreamParamsModelID.ElevenMultilingualV2 => "eleven_multilingual_v2",
+                SpeakStreamParamsModelID.ElevenTurboV2 => "eleven_turbo_v2",
                 _ => throw new CasedevInvalidDataException(
                     string.Format("Invalid value '{0}' in {1}", value, nameof(value))
                 ),
@@ -363,8 +363,8 @@ sealed class ModelIDModelConverter : JsonConverter<ModelIDModel>
 /// <summary>
 /// Audio output format
 /// </summary>
-[JsonConverter(typeof(OutputFormatModelConverter))]
-public enum OutputFormatModel
+[JsonConverter(typeof(SpeakStreamParamsOutputFormatConverter))]
+public enum SpeakStreamParamsOutputFormat
 {
     MP3_44100_128,
     MP3_22050_32,
@@ -374,9 +374,9 @@ public enum OutputFormatModel
     Pcm44100,
 }
 
-sealed class OutputFormatModelConverter : JsonConverter<OutputFormatModel>
+sealed class SpeakStreamParamsOutputFormatConverter : JsonConverter<SpeakStreamParamsOutputFormat>
 {
-    public override OutputFormatModel Read(
+    public override SpeakStreamParamsOutputFormat Read(
         ref Utf8JsonReader reader,
         Type typeToConvert,
         JsonSerializerOptions options
@@ -384,19 +384,19 @@ sealed class OutputFormatModelConverter : JsonConverter<OutputFormatModel>
     {
         return JsonSerializer.Deserialize<string>(ref reader, options) switch
         {
-            "mp3_44100_128" => OutputFormatModel.MP3_44100_128,
-            "mp3_22050_32" => OutputFormatModel.MP3_22050_32,
-            "pcm_16000" => OutputFormatModel.Pcm16000,
-            "pcm_22050" => OutputFormatModel.Pcm22050,
-            "pcm_24000" => OutputFormatModel.Pcm24000,
-            "pcm_44100" => OutputFormatModel.Pcm44100,
-            _ => (OutputFormatModel)(-1),
+            "mp3_44100_128" => SpeakStreamParamsOutputFormat.MP3_44100_128,
+            "mp3_22050_32" => SpeakStreamParamsOutputFormat.MP3_22050_32,
+            "pcm_16000" => SpeakStreamParamsOutputFormat.Pcm16000,
+            "pcm_22050" => SpeakStreamParamsOutputFormat.Pcm22050,
+            "pcm_24000" => SpeakStreamParamsOutputFormat.Pcm24000,
+            "pcm_44100" => SpeakStreamParamsOutputFormat.Pcm44100,
+            _ => (SpeakStreamParamsOutputFormat)(-1),
         };
     }
 
     public override void Write(
         Utf8JsonWriter writer,
-        OutputFormatModel value,
+        SpeakStreamParamsOutputFormat value,
         JsonSerializerOptions options
     )
     {
@@ -404,12 +404,12 @@ sealed class OutputFormatModelConverter : JsonConverter<OutputFormatModel>
             writer,
             value switch
             {
-                OutputFormatModel.MP3_44100_128 => "mp3_44100_128",
-                OutputFormatModel.MP3_22050_32 => "mp3_22050_32",
-                OutputFormatModel.Pcm16000 => "pcm_16000",
-                OutputFormatModel.Pcm22050 => "pcm_22050",
-                OutputFormatModel.Pcm24000 => "pcm_24000",
-                OutputFormatModel.Pcm44100 => "pcm_44100",
+                SpeakStreamParamsOutputFormat.MP3_44100_128 => "mp3_44100_128",
+                SpeakStreamParamsOutputFormat.MP3_22050_32 => "mp3_22050_32",
+                SpeakStreamParamsOutputFormat.Pcm16000 => "pcm_16000",
+                SpeakStreamParamsOutputFormat.Pcm22050 => "pcm_22050",
+                SpeakStreamParamsOutputFormat.Pcm24000 => "pcm_24000",
+                SpeakStreamParamsOutputFormat.Pcm44100 => "pcm_44100",
                 _ => throw new CasedevInvalidDataException(
                     string.Format("Invalid value '{0}' in {1}", value, nameof(value))
                 ),
@@ -419,8 +419,10 @@ sealed class OutputFormatModelConverter : JsonConverter<OutputFormatModel>
     }
 }
 
-[JsonConverter(typeof(ModelConverter<VoiceSettingsModel, VoiceSettingsModelFromRaw>))]
-public sealed record class VoiceSettingsModel : ModelBase
+[JsonConverter(
+    typeof(ModelConverter<SpeakStreamParamsVoiceSettings, SpeakStreamParamsVoiceSettingsFromRaw>)
+)]
+public sealed record class SpeakStreamParamsVoiceSettings : ModelBase
 {
     /// <summary>
     /// Similarity boost (0-1)
@@ -498,22 +500,22 @@ public sealed record class VoiceSettingsModel : ModelBase
         _ = this.UseSpeakerBoost;
     }
 
-    public VoiceSettingsModel() { }
+    public SpeakStreamParamsVoiceSettings() { }
 
-    public VoiceSettingsModel(IReadOnlyDictionary<string, JsonElement> rawData)
+    public SpeakStreamParamsVoiceSettings(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];
     }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    VoiceSettingsModel(FrozenDictionary<string, JsonElement> rawData)
+    SpeakStreamParamsVoiceSettings(FrozenDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];
     }
 #pragma warning restore CS8618
 
-    public static VoiceSettingsModel FromRawUnchecked(
+    public static SpeakStreamParamsVoiceSettings FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawData
     )
     {
@@ -521,8 +523,9 @@ public sealed record class VoiceSettingsModel : ModelBase
     }
 }
 
-class VoiceSettingsModelFromRaw : IFromRaw<VoiceSettingsModel>
+class SpeakStreamParamsVoiceSettingsFromRaw : IFromRaw<SpeakStreamParamsVoiceSettings>
 {
-    public VoiceSettingsModel FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
-        VoiceSettingsModel.FromRawUnchecked(rawData);
+    public SpeakStreamParamsVoiceSettings FromRawUnchecked(
+        IReadOnlyDictionary<string, JsonElement> rawData
+    ) => SpeakStreamParamsVoiceSettings.FromRawUnchecked(rawData);
 }

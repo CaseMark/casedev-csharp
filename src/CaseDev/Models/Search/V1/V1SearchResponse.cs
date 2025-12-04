@@ -31,9 +31,15 @@ public sealed record class V1SearchResponse : ModelBase
     /// <summary>
     /// Array of search results
     /// </summary>
-    public IReadOnlyList<ResultModel>? Results
+    public IReadOnlyList<V1SearchResponseResult>? Results
     {
-        get { return ModelBase.GetNullableClass<List<ResultModel>>(this.RawData, "results"); }
+        get
+        {
+            return ModelBase.GetNullableClass<List<V1SearchResponseResult>>(
+                this.RawData,
+                "results"
+            );
+        }
         init
         {
             if (value == null)
@@ -101,8 +107,8 @@ class V1SearchResponseFromRaw : IFromRaw<V1SearchResponse>
         V1SearchResponse.FromRawUnchecked(rawData);
 }
 
-[JsonConverter(typeof(ModelConverter<ResultModel, ResultModelFromRaw>))]
-public sealed record class ResultModel : ModelBase
+[JsonConverter(typeof(ModelConverter<V1SearchResponseResult, V1SearchResponseResultFromRaw>))]
+public sealed record class V1SearchResponseResult : ModelBase
 {
     /// <summary>
     /// Domain of the source
@@ -198,29 +204,32 @@ public sealed record class ResultModel : ModelBase
         _ = this.URL;
     }
 
-    public ResultModel() { }
+    public V1SearchResponseResult() { }
 
-    public ResultModel(IReadOnlyDictionary<string, JsonElement> rawData)
+    public V1SearchResponseResult(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];
     }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    ResultModel(FrozenDictionary<string, JsonElement> rawData)
+    V1SearchResponseResult(FrozenDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];
     }
 #pragma warning restore CS8618
 
-    public static ResultModel FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
+    public static V1SearchResponseResult FromRawUnchecked(
+        IReadOnlyDictionary<string, JsonElement> rawData
+    )
     {
         return new(FrozenDictionary.ToFrozenDictionary(rawData));
     }
 }
 
-class ResultModelFromRaw : IFromRaw<ResultModel>
+class V1SearchResponseResultFromRaw : IFromRaw<V1SearchResponseResult>
 {
-    public ResultModel FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
-        ResultModel.FromRawUnchecked(rawData);
+    public V1SearchResponseResult FromRawUnchecked(
+        IReadOnlyDictionary<string, JsonElement> rawData
+    ) => V1SearchResponseResult.FromRawUnchecked(rawData);
 }

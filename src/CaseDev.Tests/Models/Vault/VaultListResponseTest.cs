@@ -29,7 +29,7 @@ public class VaultListResponseTest : TestBase
         };
 
         long expectedTotal = 0;
-        List<VaultModel> expectedVaults =
+        List<VaultListResponseVault> expectedVaults =
         [
             new()
             {
@@ -104,7 +104,7 @@ public class VaultListResponseTest : TestBase
         Assert.NotNull(deserialized);
 
         long expectedTotal = 0;
-        List<VaultModel> expectedVaults =
+        List<VaultListResponseVault> expectedVaults =
         [
             new()
             {
@@ -199,12 +199,12 @@ public class VaultListResponseTest : TestBase
     }
 }
 
-public class VaultModelTest : TestBase
+public class VaultListResponseVaultTest : TestBase
 {
     [Fact]
     public void FieldRoundtrip_Works()
     {
-        var model = new VaultModel
+        var model = new VaultListResponseVault
         {
             ID = "id",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
@@ -235,7 +235,7 @@ public class VaultModelTest : TestBase
     [Fact]
     public void SerializationRoundtrip_Works()
     {
-        var model = new VaultModel
+        var model = new VaultListResponseVault
         {
             ID = "id",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
@@ -247,7 +247,7 @@ public class VaultModelTest : TestBase
         };
 
         string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<VaultModel>(json);
+        var deserialized = JsonSerializer.Deserialize<VaultListResponseVault>(json);
 
         Assert.Equal(model, deserialized);
     }
@@ -255,7 +255,7 @@ public class VaultModelTest : TestBase
     [Fact]
     public void FieldRoundtripThroughSerialization_Works()
     {
-        var model = new VaultModel
+        var model = new VaultListResponseVault
         {
             ID = "id",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
@@ -267,7 +267,7 @@ public class VaultModelTest : TestBase
         };
 
         string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<VaultModel>(json);
+        var deserialized = JsonSerializer.Deserialize<VaultListResponseVault>(json);
         Assert.NotNull(deserialized);
 
         string expectedID = "id";
@@ -290,7 +290,7 @@ public class VaultModelTest : TestBase
     [Fact]
     public void Validation_Works()
     {
-        var model = new VaultModel
+        var model = new VaultListResponseVault
         {
             ID = "id",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
@@ -307,7 +307,7 @@ public class VaultModelTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetAreNotSet_Works()
     {
-        var model = new VaultModel { };
+        var model = new VaultListResponseVault { };
 
         Assert.Null(model.ID);
         Assert.False(model.RawData.ContainsKey("id"));
@@ -328,7 +328,7 @@ public class VaultModelTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetValidation_Works()
     {
-        var model = new VaultModel { };
+        var model = new VaultListResponseVault { };
 
         model.Validate();
     }
@@ -336,7 +336,7 @@ public class VaultModelTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesSetToNullAreNotSet_Works()
     {
-        var model = new VaultModel
+        var model = new VaultListResponseVault
         {
             // Null should be interpreted as omitted for these properties
             ID = null,
@@ -367,7 +367,7 @@ public class VaultModelTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesSetToNullValidation_Works()
     {
-        var model = new VaultModel
+        var model = new VaultListResponseVault
         {
             // Null should be interpreted as omitted for these properties
             ID = null,

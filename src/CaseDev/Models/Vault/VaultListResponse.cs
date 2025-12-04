@@ -28,9 +28,12 @@ public sealed record class VaultListResponse : ModelBase
         }
     }
 
-    public IReadOnlyList<VaultModel>? Vaults
+    public IReadOnlyList<VaultListResponseVault>? Vaults
     {
-        get { return ModelBase.GetNullableClass<List<VaultModel>>(this.RawData, "vaults"); }
+        get
+        {
+            return ModelBase.GetNullableClass<List<VaultListResponseVault>>(this.RawData, "vaults");
+        }
         init
         {
             if (value == null)
@@ -80,8 +83,8 @@ class VaultListResponseFromRaw : IFromRaw<VaultListResponse>
         VaultListResponse.FromRawUnchecked(rawData);
 }
 
-[JsonConverter(typeof(ModelConverter<VaultModel, VaultModelFromRaw>))]
-public sealed record class VaultModel : ModelBase
+[JsonConverter(typeof(ModelConverter<VaultListResponseVault, VaultListResponseVaultFromRaw>))]
+public sealed record class VaultListResponseVault : ModelBase
 {
     /// <summary>
     /// Vault identifier
@@ -213,29 +216,32 @@ public sealed record class VaultModel : ModelBase
         _ = this.TotalObjects;
     }
 
-    public VaultModel() { }
+    public VaultListResponseVault() { }
 
-    public VaultModel(IReadOnlyDictionary<string, JsonElement> rawData)
+    public VaultListResponseVault(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];
     }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    VaultModel(FrozenDictionary<string, JsonElement> rawData)
+    VaultListResponseVault(FrozenDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];
     }
 #pragma warning restore CS8618
 
-    public static VaultModel FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
+    public static VaultListResponseVault FromRawUnchecked(
+        IReadOnlyDictionary<string, JsonElement> rawData
+    )
     {
         return new(FrozenDictionary.ToFrozenDictionary(rawData));
     }
 }
 
-class VaultModelFromRaw : IFromRaw<VaultModel>
+class VaultListResponseVaultFromRaw : IFromRaw<VaultListResponseVault>
 {
-    public VaultModel FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
-        VaultModel.FromRawUnchecked(rawData);
+    public VaultListResponseVault FromRawUnchecked(
+        IReadOnlyDictionary<string, JsonElement> rawData
+    ) => VaultListResponseVault.FromRawUnchecked(rawData);
 }
