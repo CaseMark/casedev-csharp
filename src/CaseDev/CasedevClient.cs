@@ -159,7 +159,8 @@ public sealed class CasedevClient : ICasedevClient
             HttpResponse? response = null;
             try
             {
-                response = await ExecuteOnce(request, cancellationToken).ConfigureAwait(false);
+                response = await ExecuteOnce(request, retries, cancellationToken)
+                    .ConfigureAwait(false);
             }
             catch (Exception e)
             {
@@ -201,6 +202,7 @@ public sealed class CasedevClient : ICasedevClient
 
     async Task<HttpResponse> ExecuteOnce<T>(
         HttpRequest<T> request,
+        int retryCount,
         CancellationToken cancellationToken = default
     )
         where T : ParamsBase
@@ -213,6 +215,10 @@ public sealed class CasedevClient : ICasedevClient
             Content = request.Params.BodyContent(),
         };
         request.Params.AddHeadersToRequest(requestMessage, this._options);
+        if (!requestMessage.Headers.Contains("x-stainless-retry-count"))
+        {
+            requestMessage.Headers.Add("x-stainless-retry-count", retryCount.ToString());
+        }
         using CancellationTokenSource timeoutCts = new(
             this.Timeout ?? ClientOptions.DefaultTimeout
         );
