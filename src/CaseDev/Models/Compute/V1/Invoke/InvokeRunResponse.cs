@@ -183,6 +183,10 @@ public record class InvokeRunResponse
                 "Data did not match any variant of InvokeRunResponse"
             );
         }
+        this.Switch(
+            (synchronous) => synchronous.Validate(),
+            (asynchronous) => asynchronous.Validate()
+        );
     }
 
     public virtual bool Equals(InvokeRunResponse? other)
