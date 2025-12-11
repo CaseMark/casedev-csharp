@@ -1,7 +1,65 @@
 using System.Text.Json;
+using CaseDev.Core;
+using CaseDev.Exceptions;
 using CaseDev.Models.Ocr.V1;
 
 namespace CaseDev.Tests.Models.Ocr.V1;
+
+public class EngineTest : TestBase
+{
+    [Theory]
+    [InlineData(Engine.Doctr)]
+    [InlineData(Engine.Paddleocr)]
+    public void Validation_Works(Engine rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, Engine> value = rawValue;
+        value.Validate();
+    }
+
+    [Fact]
+    public void InvalidEnumValidationThrows_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, Engine>>(
+            JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
+            ModelBase.SerializerOptions
+        );
+        Assert.Throws<CasedevInvalidDataException>(() => value.Validate());
+    }
+
+    [Theory]
+    [InlineData(Engine.Doctr)]
+    [InlineData(Engine.Paddleocr)]
+    public void SerializationRoundtrip_Works(Engine rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, Engine> value = rawValue;
+
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Engine>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
+    }
+
+    [Fact]
+    public void InvalidEnumSerializationRoundtrip_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, Engine>>(
+            JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
+            ModelBase.SerializerOptions
+        );
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Engine>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
+    }
+}
 
 public class FeaturesTest : TestBase
 {

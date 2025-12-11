@@ -1,8 +1,126 @@
 using System.Collections.Generic;
 using System.Text.Json;
+using CaseDev.Core;
+using CaseDev.Exceptions;
 using CaseDev.Models.Format.V1;
 
 namespace CaseDev.Tests.Models.Format.V1;
+
+public class OutputFormatTest : TestBase
+{
+    [Theory]
+    [InlineData(OutputFormat.Pdf)]
+    [InlineData(OutputFormat.Docx)]
+    [InlineData(OutputFormat.HTMLPreview)]
+    public void Validation_Works(OutputFormat rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, OutputFormat> value = rawValue;
+        value.Validate();
+    }
+
+    [Fact]
+    public void InvalidEnumValidationThrows_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, OutputFormat>>(
+            JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
+            ModelBase.SerializerOptions
+        );
+        Assert.Throws<CasedevInvalidDataException>(() => value.Validate());
+    }
+
+    [Theory]
+    [InlineData(OutputFormat.Pdf)]
+    [InlineData(OutputFormat.Docx)]
+    [InlineData(OutputFormat.HTMLPreview)]
+    public void SerializationRoundtrip_Works(OutputFormat rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, OutputFormat> value = rawValue;
+
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, OutputFormat>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
+    }
+
+    [Fact]
+    public void InvalidEnumSerializationRoundtrip_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, OutputFormat>>(
+            JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
+            ModelBase.SerializerOptions
+        );
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, OutputFormat>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
+    }
+}
+
+public class InputFormatTest : TestBase
+{
+    [Theory]
+    [InlineData(InputFormat.Md)]
+    [InlineData(InputFormat.Json)]
+    [InlineData(InputFormat.Text)]
+    public void Validation_Works(InputFormat rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, InputFormat> value = rawValue;
+        value.Validate();
+    }
+
+    [Fact]
+    public void InvalidEnumValidationThrows_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, InputFormat>>(
+            JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
+            ModelBase.SerializerOptions
+        );
+        Assert.Throws<CasedevInvalidDataException>(() => value.Validate());
+    }
+
+    [Theory]
+    [InlineData(InputFormat.Md)]
+    [InlineData(InputFormat.Json)]
+    [InlineData(InputFormat.Text)]
+    public void SerializationRoundtrip_Works(InputFormat rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, InputFormat> value = rawValue;
+
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, InputFormat>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
+    }
+
+    [Fact]
+    public void InvalidEnumSerializationRoundtrip_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, InputFormat>>(
+            JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
+            ModelBase.SerializerOptions
+        );
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, InputFormat>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
+    }
+}
 
 public class OptionsTest : TestBase
 {

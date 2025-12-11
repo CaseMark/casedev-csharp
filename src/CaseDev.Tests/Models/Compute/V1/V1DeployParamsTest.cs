@@ -1,9 +1,66 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using CaseDev.Core;
+using CaseDev.Exceptions;
 using CaseDev.Models.Compute.V1;
 
 namespace CaseDev.Tests.Models.Compute.V1;
+
+public class TypeTest : TestBase
+{
+    [Theory]
+    [InlineData(Type.Task)]
+    [InlineData(Type.Service)]
+    public void Validation_Works(Type rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, Type> value = rawValue;
+        value.Validate();
+    }
+
+    [Fact]
+    public void InvalidEnumValidationThrows_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, Type>>(
+            JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
+            ModelBase.SerializerOptions
+        );
+        Assert.Throws<CasedevInvalidDataException>(() => value.Validate());
+    }
+
+    [Theory]
+    [InlineData(Type.Task)]
+    [InlineData(Type.Service)]
+    public void SerializationRoundtrip_Works(Type rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, Type> value = rawValue;
+
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Type>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
+    }
+
+    [Fact]
+    public void InvalidEnumSerializationRoundtrip_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, Type>>(
+            JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
+            ModelBase.SerializerOptions
+        );
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Type>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
+    }
+}
 
 public class ConfigTest : TestBase
 {
@@ -448,5 +505,137 @@ public class ConfigTest : TestBase
         };
 
         model.Validate();
+    }
+}
+
+public class GPUTypeTest : TestBase
+{
+    [Theory]
+    [InlineData(GPUType.CPU)]
+    [InlineData(GPUType.T4)]
+    [InlineData(GPUType.L4)]
+    [InlineData(GPUType.A10G)]
+    [InlineData(GPUType.L40S)]
+    [InlineData(GPUType.A100)]
+    [InlineData(GPUType.A100_40GB)]
+    [InlineData(GPUType.A100_80GB)]
+    [InlineData(GPUType.H100)]
+    [InlineData(GPUType.H200)]
+    [InlineData(GPUType.B200)]
+    public void Validation_Works(GPUType rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, GPUType> value = rawValue;
+        value.Validate();
+    }
+
+    [Fact]
+    public void InvalidEnumValidationThrows_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, GPUType>>(
+            JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
+            ModelBase.SerializerOptions
+        );
+        Assert.Throws<CasedevInvalidDataException>(() => value.Validate());
+    }
+
+    [Theory]
+    [InlineData(GPUType.CPU)]
+    [InlineData(GPUType.T4)]
+    [InlineData(GPUType.L4)]
+    [InlineData(GPUType.A10G)]
+    [InlineData(GPUType.L40S)]
+    [InlineData(GPUType.A100)]
+    [InlineData(GPUType.A100_40GB)]
+    [InlineData(GPUType.A100_80GB)]
+    [InlineData(GPUType.H100)]
+    [InlineData(GPUType.H200)]
+    [InlineData(GPUType.B200)]
+    public void SerializationRoundtrip_Works(GPUType rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, GPUType> value = rawValue;
+
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, GPUType>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
+    }
+
+    [Fact]
+    public void InvalidEnumSerializationRoundtrip_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, GPUType>>(
+            JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
+            ModelBase.SerializerOptions
+        );
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, GPUType>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
+    }
+}
+
+public class RuntimeTest : TestBase
+{
+    [Theory]
+    [InlineData(Runtime.Python)]
+    [InlineData(Runtime.Dockerfile)]
+    [InlineData(Runtime.Image)]
+    public void Validation_Works(Runtime rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, Runtime> value = rawValue;
+        value.Validate();
+    }
+
+    [Fact]
+    public void InvalidEnumValidationThrows_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, Runtime>>(
+            JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
+            ModelBase.SerializerOptions
+        );
+        Assert.Throws<CasedevInvalidDataException>(() => value.Validate());
+    }
+
+    [Theory]
+    [InlineData(Runtime.Python)]
+    [InlineData(Runtime.Dockerfile)]
+    [InlineData(Runtime.Image)]
+    public void SerializationRoundtrip_Works(Runtime rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, Runtime> value = rawValue;
+
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Runtime>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
+    }
+
+    [Fact]
+    public void InvalidEnumSerializationRoundtrip_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, Runtime>>(
+            JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
+            ModelBase.SerializerOptions
+        );
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Runtime>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
     }
 }

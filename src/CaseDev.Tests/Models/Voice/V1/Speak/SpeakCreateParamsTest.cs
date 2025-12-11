@@ -1,7 +1,131 @@
 using System.Text.Json;
+using CaseDev.Core;
+using CaseDev.Exceptions;
 using CaseDev.Models.Voice.V1.Speak;
 
 namespace CaseDev.Tests.Models.Voice.V1.Speak;
+
+public class ModelIDTest : TestBase
+{
+    [Theory]
+    [InlineData(ModelID.ElevenMultilingualV2)]
+    [InlineData(ModelID.ElevenTurboV2)]
+    [InlineData(ModelID.ElevenMonolingualV1)]
+    public void Validation_Works(ModelID rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, ModelID> value = rawValue;
+        value.Validate();
+    }
+
+    [Fact]
+    public void InvalidEnumValidationThrows_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, ModelID>>(
+            JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
+            ModelBase.SerializerOptions
+        );
+        Assert.Throws<CasedevInvalidDataException>(() => value.Validate());
+    }
+
+    [Theory]
+    [InlineData(ModelID.ElevenMultilingualV2)]
+    [InlineData(ModelID.ElevenTurboV2)]
+    [InlineData(ModelID.ElevenMonolingualV1)]
+    public void SerializationRoundtrip_Works(ModelID rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, ModelID> value = rawValue;
+
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, ModelID>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
+    }
+
+    [Fact]
+    public void InvalidEnumSerializationRoundtrip_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, ModelID>>(
+            JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
+            ModelBase.SerializerOptions
+        );
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, ModelID>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
+    }
+}
+
+public class OutputFormatTest : TestBase
+{
+    [Theory]
+    [InlineData(OutputFormat.MP3_44100_128)]
+    [InlineData(OutputFormat.MP3_44100_192)]
+    [InlineData(OutputFormat.Pcm16000)]
+    [InlineData(OutputFormat.Pcm22050)]
+    [InlineData(OutputFormat.Pcm24000)]
+    [InlineData(OutputFormat.Pcm44100)]
+    public void Validation_Works(OutputFormat rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, OutputFormat> value = rawValue;
+        value.Validate();
+    }
+
+    [Fact]
+    public void InvalidEnumValidationThrows_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, OutputFormat>>(
+            JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
+            ModelBase.SerializerOptions
+        );
+        Assert.Throws<CasedevInvalidDataException>(() => value.Validate());
+    }
+
+    [Theory]
+    [InlineData(OutputFormat.MP3_44100_128)]
+    [InlineData(OutputFormat.MP3_44100_192)]
+    [InlineData(OutputFormat.Pcm16000)]
+    [InlineData(OutputFormat.Pcm22050)]
+    [InlineData(OutputFormat.Pcm24000)]
+    [InlineData(OutputFormat.Pcm44100)]
+    public void SerializationRoundtrip_Works(OutputFormat rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, OutputFormat> value = rawValue;
+
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, OutputFormat>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
+    }
+
+    [Fact]
+    public void InvalidEnumSerializationRoundtrip_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, OutputFormat>>(
+            JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
+            ModelBase.SerializerOptions
+        );
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, OutputFormat>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
+    }
+}
 
 public class VoiceSettingsTest : TestBase
 {
