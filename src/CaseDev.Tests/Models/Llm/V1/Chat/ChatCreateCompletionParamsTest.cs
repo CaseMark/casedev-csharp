@@ -1,5 +1,6 @@
 using System.Text.Json;
 using CaseDev.Core;
+using CaseDev.Exceptions;
 using CaseDev.Models.Llm.V1.Chat;
 
 namespace CaseDev.Tests.Models.Llm.V1.Chat;
@@ -99,5 +100,63 @@ public class MessageTest : TestBase
         };
 
         model.Validate();
+    }
+}
+
+public class RoleTest : TestBase
+{
+    [Theory]
+    [InlineData(Role.System)]
+    [InlineData(Role.User)]
+    [InlineData(Role.Assistant)]
+    public void Validation_Works(Role rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, Role> value = rawValue;
+        value.Validate();
+    }
+
+    [Fact]
+    public void InvalidEnumValidationThrows_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, Role>>(
+            JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
+            ModelBase.SerializerOptions
+        );
+        Assert.Throws<CasedevInvalidDataException>(() => value.Validate());
+    }
+
+    [Theory]
+    [InlineData(Role.System)]
+    [InlineData(Role.User)]
+    [InlineData(Role.Assistant)]
+    public void SerializationRoundtrip_Works(Role rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, Role> value = rawValue;
+
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Role>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
+    }
+
+    [Fact]
+    public void InvalidEnumSerializationRoundtrip_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, Role>>(
+            JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
+            ModelBase.SerializerOptions
+        );
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Role>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
     }
 }

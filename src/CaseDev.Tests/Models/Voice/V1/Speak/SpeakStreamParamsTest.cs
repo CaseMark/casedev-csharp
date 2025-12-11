@@ -1,7 +1,131 @@
 using System.Text.Json;
+using CaseDev.Core;
+using CaseDev.Exceptions;
 using CaseDev.Models.Voice.V1.Speak;
 
 namespace CaseDev.Tests.Models.Voice.V1.Speak;
+
+public class SpeakStreamParamsModelIDTest : TestBase
+{
+    [Theory]
+    [InlineData(SpeakStreamParamsModelID.ElevenMonolingualV1)]
+    [InlineData(SpeakStreamParamsModelID.ElevenMultilingualV1)]
+    [InlineData(SpeakStreamParamsModelID.ElevenMultilingualV2)]
+    [InlineData(SpeakStreamParamsModelID.ElevenTurboV2)]
+    public void Validation_Works(SpeakStreamParamsModelID rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, SpeakStreamParamsModelID> value = rawValue;
+        value.Validate();
+    }
+
+    [Fact]
+    public void InvalidEnumValidationThrows_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, SpeakStreamParamsModelID>>(
+            JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
+            ModelBase.SerializerOptions
+        );
+        Assert.Throws<CasedevInvalidDataException>(() => value.Validate());
+    }
+
+    [Theory]
+    [InlineData(SpeakStreamParamsModelID.ElevenMonolingualV1)]
+    [InlineData(SpeakStreamParamsModelID.ElevenMultilingualV1)]
+    [InlineData(SpeakStreamParamsModelID.ElevenMultilingualV2)]
+    [InlineData(SpeakStreamParamsModelID.ElevenTurboV2)]
+    public void SerializationRoundtrip_Works(SpeakStreamParamsModelID rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, SpeakStreamParamsModelID> value = rawValue;
+
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, SpeakStreamParamsModelID>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
+    }
+
+    [Fact]
+    public void InvalidEnumSerializationRoundtrip_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, SpeakStreamParamsModelID>>(
+            JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
+            ModelBase.SerializerOptions
+        );
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, SpeakStreamParamsModelID>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
+    }
+}
+
+public class SpeakStreamParamsOutputFormatTest : TestBase
+{
+    [Theory]
+    [InlineData(SpeakStreamParamsOutputFormat.MP3_44100_128)]
+    [InlineData(SpeakStreamParamsOutputFormat.MP3_22050_32)]
+    [InlineData(SpeakStreamParamsOutputFormat.Pcm16000)]
+    [InlineData(SpeakStreamParamsOutputFormat.Pcm22050)]
+    [InlineData(SpeakStreamParamsOutputFormat.Pcm24000)]
+    [InlineData(SpeakStreamParamsOutputFormat.Pcm44100)]
+    public void Validation_Works(SpeakStreamParamsOutputFormat rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, SpeakStreamParamsOutputFormat> value = rawValue;
+        value.Validate();
+    }
+
+    [Fact]
+    public void InvalidEnumValidationThrows_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, SpeakStreamParamsOutputFormat>>(
+            JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
+            ModelBase.SerializerOptions
+        );
+        Assert.Throws<CasedevInvalidDataException>(() => value.Validate());
+    }
+
+    [Theory]
+    [InlineData(SpeakStreamParamsOutputFormat.MP3_44100_128)]
+    [InlineData(SpeakStreamParamsOutputFormat.MP3_22050_32)]
+    [InlineData(SpeakStreamParamsOutputFormat.Pcm16000)]
+    [InlineData(SpeakStreamParamsOutputFormat.Pcm22050)]
+    [InlineData(SpeakStreamParamsOutputFormat.Pcm24000)]
+    [InlineData(SpeakStreamParamsOutputFormat.Pcm44100)]
+    public void SerializationRoundtrip_Works(SpeakStreamParamsOutputFormat rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, SpeakStreamParamsOutputFormat> value = rawValue;
+
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<
+            ApiEnum<string, SpeakStreamParamsOutputFormat>
+        >(json, ModelBase.SerializerOptions);
+
+        Assert.Equal(value, deserialized);
+    }
+
+    [Fact]
+    public void InvalidEnumSerializationRoundtrip_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, SpeakStreamParamsOutputFormat>>(
+            JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
+            ModelBase.SerializerOptions
+        );
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<
+            ApiEnum<string, SpeakStreamParamsOutputFormat>
+        >(json, ModelBase.SerializerOptions);
+
+        Assert.Equal(value, deserialized);
+    }
+}
 
 public class SpeakStreamParamsVoiceSettingsTest : TestBase
 {
