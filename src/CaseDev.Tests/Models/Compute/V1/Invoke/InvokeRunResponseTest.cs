@@ -5,6 +5,75 @@ using CaseDev.Models.Compute.V1.Invoke;
 
 namespace CaseDev.Tests.Models.Compute.V1.Invoke;
 
+public class InvokeRunResponseTest : TestBase
+{
+    [Fact]
+    public void synchronousValidation_Works()
+    {
+        InvokeRunResponse value = new(
+            new()
+            {
+                Duration = 0,
+                Error = "error",
+                Output = JsonSerializer.Deserialize<JsonElement>("{}"),
+                RunID = "runId",
+                Status = Status.Completed,
+            }
+        );
+        value.Validate();
+    }
+
+    [Fact]
+    public void asynchronousValidation_Works()
+    {
+        InvokeRunResponse value = new(
+            new()
+            {
+                LogsURL = "logsUrl",
+                RunID = "runId",
+                Status = AsynchronousResponseStatus.Running,
+            }
+        );
+        value.Validate();
+    }
+
+    [Fact]
+    public void synchronousSerializationRoundtrip_Works()
+    {
+        InvokeRunResponse value = new(
+            new()
+            {
+                Duration = 0,
+                Error = "error",
+                Output = JsonSerializer.Deserialize<JsonElement>("{}"),
+                RunID = "runId",
+                Status = Status.Completed,
+            }
+        );
+        string json = JsonSerializer.Serialize(value);
+        var deserialized = JsonSerializer.Deserialize<InvokeRunResponse>(json);
+
+        Assert.Equal(value, deserialized);
+    }
+
+    [Fact]
+    public void asynchronousSerializationRoundtrip_Works()
+    {
+        InvokeRunResponse value = new(
+            new()
+            {
+                LogsURL = "logsUrl",
+                RunID = "runId",
+                Status = AsynchronousResponseStatus.Running,
+            }
+        );
+        string json = JsonSerializer.Serialize(value);
+        var deserialized = JsonSerializer.Deserialize<InvokeRunResponse>(json);
+
+        Assert.Equal(value, deserialized);
+    }
+}
+
 public class SynchronousResponseTest : TestBase
 {
     [Fact]

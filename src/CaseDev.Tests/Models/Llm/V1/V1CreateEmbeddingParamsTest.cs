@@ -5,6 +5,43 @@ using CaseDev.Models.Llm.V1;
 
 namespace CaseDev.Tests.Models.Llm.V1;
 
+public class InputTest : TestBase
+{
+    [Fact]
+    public void stringValidation_Works()
+    {
+        Input value = new("string");
+        value.Validate();
+    }
+
+    [Fact]
+    public void stringsValidation_Works()
+    {
+        Input value = new(["string"]);
+        value.Validate();
+    }
+
+    [Fact]
+    public void stringSerializationRoundtrip_Works()
+    {
+        Input value = new("string");
+        string json = JsonSerializer.Serialize(value);
+        var deserialized = JsonSerializer.Deserialize<Input>(json);
+
+        Assert.Equal(value, deserialized);
+    }
+
+    [Fact]
+    public void stringsSerializationRoundtrip_Works()
+    {
+        Input value = new(["string"]);
+        string json = JsonSerializer.Serialize(value);
+        var deserialized = JsonSerializer.Deserialize<Input>(json);
+
+        Assert.Equal(value, deserialized);
+    }
+}
+
 public class EncodingFormatTest : TestBase
 {
     [Theory]
