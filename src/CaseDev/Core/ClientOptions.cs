@@ -24,23 +24,23 @@ public struct ClientOptions()
     /// </summary>
     public HttpClient HttpClient { get; set; } = new();
 
-    Lazy<Uri> _baseUrl = new(() =>
-        new Uri(Environment.GetEnvironmentVariable("CASEDEV_BASE_URL") ?? "https://api.case.dev")
+    Lazy<string> _baseUrl = new(() =>
+        Environment.GetEnvironmentVariable("CASEDEV_BASE_URL") ?? EnvironmentUrl.Production
     );
 
     /// <summary>
     /// The base URL to use for every request.
     ///
-    /// <para>Defaults to the production environment: https://api.case.dev</para>
+    /// <para>Defaults to the production environment: <see cref="EnvironmentUrl.Production"/></para>
     ///
     /// <para>
     /// The following other environments are available:
     /// <list type="bullet">
-    ///   <item>local: http://localhost:2728</item>
+    ///   <item>local: <see cref="EnvironmentUrl.Local"/></item>
     /// </list>
     /// </para>
     /// </summary>
-    public Uri BaseUrl
+    public string BaseUrl
     {
         readonly get { return _baseUrl.Value; }
         set { _baseUrl = new(() => value); }
