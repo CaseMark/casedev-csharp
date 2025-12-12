@@ -321,9 +321,8 @@ public class InstructionsTest : TestBase
         string expectedMethod = "method";
         string expectedNote = "note";
 
-        Assert.True(
-            model.Headers.HasValue && JsonElement.DeepEquals(expectedHeaders, model.Headers.Value)
-        );
+        Assert.NotNull(model.Headers);
+        Assert.True(JsonElement.DeepEquals(expectedHeaders, model.Headers.Value));
         Assert.Equal(expectedMethod, model.Method);
         Assert.Equal(expectedNote, model.Note);
     }
@@ -362,10 +361,8 @@ public class InstructionsTest : TestBase
         string expectedMethod = "method";
         string expectedNote = "note";
 
-        Assert.True(
-            deserialized.Headers.HasValue
-                && JsonElement.DeepEquals(expectedHeaders, deserialized.Headers.Value)
-        );
+        Assert.NotNull(deserialized.Headers);
+        Assert.True(JsonElement.DeepEquals(expectedHeaders, deserialized.Headers.Value));
         Assert.Equal(expectedMethod, deserialized.Method);
         Assert.Equal(expectedNote, deserialized.Note);
     }

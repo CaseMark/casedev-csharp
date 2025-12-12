@@ -42,6 +42,7 @@ public class V1SearchResponseTest : TestBase
         long expectedTotalResults = 0;
 
         Assert.Equal(expectedQuery, model.Query);
+        Assert.NotNull(model.Results);
         Assert.Equal(expectedResults.Count, model.Results.Count);
         for (int i = 0; i < expectedResults.Count; i++)
         {
@@ -115,6 +116,7 @@ public class V1SearchResponseTest : TestBase
         long expectedTotalResults = 0;
 
         Assert.Equal(expectedQuery, deserialized.Query);
+        Assert.NotNull(deserialized.Results);
         Assert.Equal(expectedResults.Count, deserialized.Results.Count);
         for (int i = 0; i < expectedResults.Count; i++)
         {

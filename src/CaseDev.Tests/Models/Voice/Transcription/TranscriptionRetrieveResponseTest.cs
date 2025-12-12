@@ -54,6 +54,7 @@ public class TranscriptionRetrieveResponseTest : TestBase
         Assert.Equal(expectedConfidence, model.Confidence);
         Assert.Equal(expectedError, model.Error);
         Assert.Equal(expectedText, model.Text);
+        Assert.NotNull(model.Words);
         Assert.Equal(expectedWords.Count, model.Words.Count);
         for (int i = 0; i < expectedWords.Count; i++)
         {
@@ -140,6 +141,7 @@ public class TranscriptionRetrieveResponseTest : TestBase
         Assert.Equal(expectedConfidence, deserialized.Confidence);
         Assert.Equal(expectedError, deserialized.Error);
         Assert.Equal(expectedText, deserialized.Text);
+        Assert.NotNull(deserialized.Words);
         Assert.Equal(expectedWords.Count, deserialized.Words.Count);
         for (int i = 0; i < expectedWords.Count; i++)
         {

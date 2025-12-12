@@ -32,6 +32,7 @@ public class V1CreateResponseTest : TestBase
         Assert.Equal(expectedID, model.ID);
         Assert.Equal(expectedCreatedAt, model.CreatedAt);
         Assert.Equal(expectedDescription, model.Description);
+        Assert.NotNull(model.Events);
         Assert.Equal(expectedEvents.Count, model.Events.Count);
         for (int i = 0; i < expectedEvents.Count; i++)
         {
@@ -91,6 +92,7 @@ public class V1CreateResponseTest : TestBase
         Assert.Equal(expectedID, deserialized.ID);
         Assert.Equal(expectedCreatedAt, deserialized.CreatedAt);
         Assert.Equal(expectedDescription, deserialized.Description);
+        Assert.NotNull(deserialized.Events);
         Assert.Equal(expectedEvents.Count, deserialized.Events.Count);
         for (int i = 0; i < expectedEvents.Count; i++)
         {

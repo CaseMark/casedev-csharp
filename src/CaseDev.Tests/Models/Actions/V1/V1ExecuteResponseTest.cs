@@ -59,6 +59,7 @@ public class V1ExecuteResponseTest : TestBase
             Assert.True(JsonElement.DeepEquals(value, model.Output[item.Key]));
         }
         Assert.Equal(expectedStatus, model.Status);
+        Assert.NotNull(model.StepResults);
         Assert.Equal(expectedStepResults.Count, model.StepResults.Count);
         for (int i = 0; i < expectedStepResults.Count; i++)
         {
@@ -157,6 +158,7 @@ public class V1ExecuteResponseTest : TestBase
             Assert.True(JsonElement.DeepEquals(value, deserialized.Output[item.Key]));
         }
         Assert.Equal(expectedStatus, deserialized.Status);
+        Assert.NotNull(deserialized.StepResults);
         Assert.Equal(expectedStepResults.Count, deserialized.StepResults.Count);
         for (int i = 0; i < expectedStepResults.Count; i++)
         {

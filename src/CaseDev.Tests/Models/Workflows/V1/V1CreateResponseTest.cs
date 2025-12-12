@@ -35,12 +35,14 @@ public class V1CreateResponseTest : TestBase
         Assert.Equal(expectedID, model.ID);
         Assert.Equal(expectedCreatedAt, model.CreatedAt);
         Assert.Equal(expectedDescription, model.Description);
+        Assert.NotNull(model.Edges);
         Assert.Equal(expectedEdges.Count, model.Edges.Count);
         for (int i = 0; i < expectedEdges.Count; i++)
         {
             Assert.True(JsonElement.DeepEquals(expectedEdges[i], model.Edges[i]));
         }
         Assert.Equal(expectedName, model.Name);
+        Assert.NotNull(model.Nodes);
         Assert.Equal(expectedNodes.Count, model.Nodes.Count);
         for (int i = 0; i < expectedNodes.Count; i++)
         {
@@ -106,12 +108,14 @@ public class V1CreateResponseTest : TestBase
         Assert.Equal(expectedID, deserialized.ID);
         Assert.Equal(expectedCreatedAt, deserialized.CreatedAt);
         Assert.Equal(expectedDescription, deserialized.Description);
+        Assert.NotNull(deserialized.Edges);
         Assert.Equal(expectedEdges.Count, deserialized.Edges.Count);
         for (int i = 0; i < expectedEdges.Count; i++)
         {
             Assert.True(JsonElement.DeepEquals(expectedEdges[i], deserialized.Edges[i]));
         }
         Assert.Equal(expectedName, deserialized.Name);
+        Assert.NotNull(deserialized.Nodes);
         Assert.Equal(expectedNodes.Count, deserialized.Nodes.Count);
         for (int i = 0; i < expectedNodes.Count; i++)
         {

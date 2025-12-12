@@ -51,6 +51,7 @@ public class V1ListResponseTest : TestBase
         Assert.Equal(expectedLimit, model.Limit);
         Assert.Equal(expectedOffset, model.Offset);
         Assert.Equal(expectedTotal, model.Total);
+        Assert.NotNull(model.Workflows);
         Assert.Equal(expectedWorkflows.Count, model.Workflows.Count);
         for (int i = 0; i < expectedWorkflows.Count; i++)
         {
@@ -137,6 +138,7 @@ public class V1ListResponseTest : TestBase
         Assert.Equal(expectedLimit, deserialized.Limit);
         Assert.Equal(expectedOffset, deserialized.Offset);
         Assert.Equal(expectedTotal, deserialized.Total);
+        Assert.NotNull(deserialized.Workflows);
         Assert.Equal(expectedWorkflows.Count, deserialized.Workflows.Count);
         for (int i = 0; i < expectedWorkflows.Count; i++)
         {

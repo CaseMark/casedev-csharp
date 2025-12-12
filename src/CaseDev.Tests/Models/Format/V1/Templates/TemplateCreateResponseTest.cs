@@ -29,6 +29,7 @@ public class TemplateCreateResponseTest : TestBase
         Assert.Equal(expectedCreatedAt, model.CreatedAt);
         Assert.Equal(expectedName, model.Name);
         Assert.Equal(expectedType, model.Type);
+        Assert.NotNull(model.Variables);
         Assert.Equal(expectedVariables.Count, model.Variables.Count);
         for (int i = 0; i < expectedVariables.Count; i++)
         {
@@ -80,6 +81,7 @@ public class TemplateCreateResponseTest : TestBase
         Assert.Equal(expectedCreatedAt, deserialized.CreatedAt);
         Assert.Equal(expectedName, deserialized.Name);
         Assert.Equal(expectedType, deserialized.Type);
+        Assert.NotNull(deserialized.Variables);
         Assert.Equal(expectedVariables.Count, deserialized.Variables.Count);
         for (int i = 0; i < expectedVariables.Count; i++)
         {

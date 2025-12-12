@@ -28,9 +28,8 @@ public class V1ExecuteResponseTest : TestBase
         Assert.Equal(expectedDuration, model.Duration);
         Assert.Equal(expectedError, model.Error);
         Assert.Equal(expectedExecutionID, model.ExecutionID);
-        Assert.True(
-            model.Outputs.HasValue && JsonElement.DeepEquals(expectedOutputs, model.Outputs.Value)
-        );
+        Assert.NotNull(model.Outputs);
+        Assert.True(JsonElement.DeepEquals(expectedOutputs, model.Outputs.Value));
         Assert.Equal(expectedStatus, model.Status);
     }
 
@@ -77,10 +76,8 @@ public class V1ExecuteResponseTest : TestBase
         Assert.Equal(expectedDuration, deserialized.Duration);
         Assert.Equal(expectedError, deserialized.Error);
         Assert.Equal(expectedExecutionID, deserialized.ExecutionID);
-        Assert.True(
-            deserialized.Outputs.HasValue
-                && JsonElement.DeepEquals(expectedOutputs, deserialized.Outputs.Value)
-        );
+        Assert.NotNull(deserialized.Outputs);
+        Assert.True(JsonElement.DeepEquals(expectedOutputs, deserialized.Outputs.Value));
         Assert.Equal(expectedStatus, deserialized.Status);
     }
 

@@ -67,6 +67,7 @@ public class VaultSearchResponseTest : TestBase
         ];
         string expectedVaultID = "vault_id";
 
+        Assert.NotNull(model.Chunks);
         Assert.Equal(expectedChunks.Count, model.Chunks.Count);
         for (int i = 0; i < expectedChunks.Count; i++)
         {
@@ -75,6 +76,7 @@ public class VaultSearchResponseTest : TestBase
         Assert.Equal(expectedMethod, model.Method);
         Assert.Equal(expectedQuery, model.Query);
         Assert.Equal(expectedResponse, model.Response);
+        Assert.NotNull(model.Sources);
         Assert.Equal(expectedSources.Count, model.Sources.Count);
         for (int i = 0; i < expectedSources.Count; i++)
         {
@@ -186,6 +188,7 @@ public class VaultSearchResponseTest : TestBase
         ];
         string expectedVaultID = "vault_id";
 
+        Assert.NotNull(deserialized.Chunks);
         Assert.Equal(expectedChunks.Count, deserialized.Chunks.Count);
         for (int i = 0; i < expectedChunks.Count; i++)
         {
@@ -194,6 +197,7 @@ public class VaultSearchResponseTest : TestBase
         Assert.Equal(expectedMethod, deserialized.Method);
         Assert.Equal(expectedQuery, deserialized.Query);
         Assert.Equal(expectedResponse, deserialized.Response);
+        Assert.NotNull(deserialized.Sources);
         Assert.Equal(expectedSources.Count, deserialized.Sources.Count);
         for (int i = 0; i < expectedSources.Count; i++)
         {

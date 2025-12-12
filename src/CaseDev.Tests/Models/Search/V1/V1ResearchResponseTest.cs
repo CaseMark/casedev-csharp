@@ -21,9 +21,8 @@ public class V1ResearchResponseTest : TestBase
 
         Assert.Equal(expectedModel, model.Model);
         Assert.Equal(expectedResearchID, model.ResearchID);
-        Assert.True(
-            model.Results.HasValue && JsonElement.DeepEquals(expectedResults, model.Results.Value)
-        );
+        Assert.NotNull(model.Results);
+        Assert.True(JsonElement.DeepEquals(expectedResults, model.Results.Value));
     }
 
     [Fact]
@@ -62,10 +61,8 @@ public class V1ResearchResponseTest : TestBase
 
         Assert.Equal(expectedModel, deserialized.Model);
         Assert.Equal(expectedResearchID, deserialized.ResearchID);
-        Assert.True(
-            deserialized.Results.HasValue
-                && JsonElement.DeepEquals(expectedResults, deserialized.Results.Value)
-        );
+        Assert.NotNull(deserialized.Results);
+        Assert.True(JsonElement.DeepEquals(expectedResults, deserialized.Results.Value));
     }
 
     [Fact]

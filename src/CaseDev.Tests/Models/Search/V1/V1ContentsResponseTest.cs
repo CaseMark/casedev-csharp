@@ -38,6 +38,7 @@ public class V1ContentsResponseTest : TestBase
             },
         ];
 
+        Assert.NotNull(model.Results);
         Assert.Equal(expectedResults.Count, model.Results.Count);
         for (int i = 0; i < expectedResults.Count; i++)
         {
@@ -106,6 +107,7 @@ public class V1ContentsResponseTest : TestBase
             },
         ];
 
+        Assert.NotNull(deserialized.Results);
         Assert.Equal(expectedResults.Count, deserialized.Results.Count);
         for (int i = 0; i < expectedResults.Count; i++)
         {
@@ -200,15 +202,14 @@ public class ResultTest : TestBase
         string expectedTitle = "title";
         string expectedURL = "url";
 
+        Assert.NotNull(model.Highlights);
         Assert.Equal(expectedHighlights.Count, model.Highlights.Count);
         for (int i = 0; i < expectedHighlights.Count; i++)
         {
             Assert.Equal(expectedHighlights[i], model.Highlights[i]);
         }
-        Assert.True(
-            model.Metadata.HasValue
-                && JsonElement.DeepEquals(expectedMetadata, model.Metadata.Value)
-        );
+        Assert.NotNull(model.Metadata);
+        Assert.True(JsonElement.DeepEquals(expectedMetadata, model.Metadata.Value));
         Assert.Equal(expectedSummary, model.Summary);
         Assert.Equal(expectedText, model.Text);
         Assert.Equal(expectedTitle, model.Title);
@@ -258,15 +259,14 @@ public class ResultTest : TestBase
         string expectedTitle = "title";
         string expectedURL = "url";
 
+        Assert.NotNull(deserialized.Highlights);
         Assert.Equal(expectedHighlights.Count, deserialized.Highlights.Count);
         for (int i = 0; i < expectedHighlights.Count; i++)
         {
             Assert.Equal(expectedHighlights[i], deserialized.Highlights[i]);
         }
-        Assert.True(
-            deserialized.Metadata.HasValue
-                && JsonElement.DeepEquals(expectedMetadata, deserialized.Metadata.Value)
-        );
+        Assert.NotNull(deserialized.Metadata);
+        Assert.True(JsonElement.DeepEquals(expectedMetadata, deserialized.Metadata.Value));
         Assert.Equal(expectedSummary, deserialized.Summary);
         Assert.Equal(expectedText, deserialized.Text);
         Assert.Equal(expectedTitle, deserialized.Title);

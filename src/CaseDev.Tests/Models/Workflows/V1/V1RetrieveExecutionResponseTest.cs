@@ -37,12 +37,10 @@ public class V1RetrieveExecutionResponseTest : TestBase
         Assert.Equal(expectedCompletedAt, model.CompletedAt);
         Assert.Equal(expectedDurationMs, model.DurationMs);
         Assert.Equal(expectedError, model.Error);
-        Assert.True(
-            model.Input.HasValue && JsonElement.DeepEquals(expectedInput, model.Input.Value)
-        );
-        Assert.True(
-            model.Output.HasValue && JsonElement.DeepEquals(expectedOutput, model.Output.Value)
-        );
+        Assert.NotNull(model.Input);
+        Assert.True(JsonElement.DeepEquals(expectedInput, model.Input.Value));
+        Assert.NotNull(model.Output);
+        Assert.True(JsonElement.DeepEquals(expectedOutput, model.Output.Value));
         Assert.Equal(expectedStartedAt, model.StartedAt);
         Assert.Equal(expectedStatus, model.Status);
         Assert.Equal(expectedTriggerType, model.TriggerType);
@@ -108,14 +106,10 @@ public class V1RetrieveExecutionResponseTest : TestBase
         Assert.Equal(expectedCompletedAt, deserialized.CompletedAt);
         Assert.Equal(expectedDurationMs, deserialized.DurationMs);
         Assert.Equal(expectedError, deserialized.Error);
-        Assert.True(
-            deserialized.Input.HasValue
-                && JsonElement.DeepEquals(expectedInput, deserialized.Input.Value)
-        );
-        Assert.True(
-            deserialized.Output.HasValue
-                && JsonElement.DeepEquals(expectedOutput, deserialized.Output.Value)
-        );
+        Assert.NotNull(deserialized.Input);
+        Assert.True(JsonElement.DeepEquals(expectedInput, deserialized.Input.Value));
+        Assert.NotNull(deserialized.Output);
+        Assert.True(JsonElement.DeepEquals(expectedOutput, deserialized.Output.Value));
         Assert.Equal(expectedStartedAt, deserialized.StartedAt);
         Assert.Equal(expectedStatus, deserialized.Status);
         Assert.Equal(expectedTriggerType, deserialized.TriggerType);

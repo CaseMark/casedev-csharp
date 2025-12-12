@@ -152,6 +152,7 @@ public class OptionsTest : TestBase
             },
         ];
 
+        Assert.NotNull(model.Components);
         Assert.Equal(expectedComponents.Count, model.Components.Count);
         for (int i = 0; i < expectedComponents.Count; i++)
         {
@@ -214,6 +215,7 @@ public class OptionsTest : TestBase
             },
         ];
 
+        Assert.NotNull(deserialized.Components);
         Assert.Equal(expectedComponents.Count, deserialized.Components.Count);
         for (int i = 0; i < expectedComponents.Count; i++)
         {
@@ -303,14 +305,11 @@ public class ComponentTest : TestBase
         JsonElement expectedVariables = JsonSerializer.Deserialize<JsonElement>("{}");
 
         Assert.Equal(expectedContent, model.Content);
-        Assert.True(
-            model.Styles.HasValue && JsonElement.DeepEquals(expectedStyles, model.Styles.Value)
-        );
+        Assert.NotNull(model.Styles);
+        Assert.True(JsonElement.DeepEquals(expectedStyles, model.Styles.Value));
         Assert.Equal(expectedTemplateID, model.TemplateID);
-        Assert.True(
-            model.Variables.HasValue
-                && JsonElement.DeepEquals(expectedVariables, model.Variables.Value)
-        );
+        Assert.NotNull(model.Variables);
+        Assert.True(JsonElement.DeepEquals(expectedVariables, model.Variables.Value));
     }
 
     [Fact]
@@ -351,15 +350,11 @@ public class ComponentTest : TestBase
         JsonElement expectedVariables = JsonSerializer.Deserialize<JsonElement>("{}");
 
         Assert.Equal(expectedContent, deserialized.Content);
-        Assert.True(
-            deserialized.Styles.HasValue
-                && JsonElement.DeepEquals(expectedStyles, deserialized.Styles.Value)
-        );
+        Assert.NotNull(deserialized.Styles);
+        Assert.True(JsonElement.DeepEquals(expectedStyles, deserialized.Styles.Value));
         Assert.Equal(expectedTemplateID, deserialized.TemplateID);
-        Assert.True(
-            deserialized.Variables.HasValue
-                && JsonElement.DeepEquals(expectedVariables, deserialized.Variables.Value)
-        );
+        Assert.NotNull(deserialized.Variables);
+        Assert.True(JsonElement.DeepEquals(expectedVariables, deserialized.Variables.Value));
     }
 
     [Fact]

@@ -44,6 +44,7 @@ public class VaultListResponseTest : TestBase
         ];
 
         Assert.Equal(expectedTotal, model.Total);
+        Assert.NotNull(model.Vaults);
         Assert.Equal(expectedVaults.Count, model.Vaults.Count);
         for (int i = 0; i < expectedVaults.Count; i++)
         {
@@ -119,6 +120,7 @@ public class VaultListResponseTest : TestBase
         ];
 
         Assert.Equal(expectedTotal, deserialized.Total);
+        Assert.NotNull(deserialized.Vaults);
         Assert.Equal(expectedVaults.Count, deserialized.Vaults.Count);
         for (int i = 0; i < expectedVaults.Count; i++)
         {
