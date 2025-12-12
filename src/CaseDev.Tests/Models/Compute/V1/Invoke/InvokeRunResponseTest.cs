@@ -11,7 +11,7 @@ public class InvokeRunResponseTest : TestBase
     public void synchronousValidation_Works()
     {
         InvokeRunResponse value = new(
-            new()
+            new SynchronousResponse()
             {
                 Duration = 0,
                 Error = "error",
@@ -27,7 +27,7 @@ public class InvokeRunResponseTest : TestBase
     public void asynchronousValidation_Works()
     {
         InvokeRunResponse value = new(
-            new()
+            new AsynchronousResponse()
             {
                 LogsURL = "logsUrl",
                 RunID = "runId",
@@ -41,7 +41,7 @@ public class InvokeRunResponseTest : TestBase
     public void synchronousSerializationRoundtrip_Works()
     {
         InvokeRunResponse value = new(
-            new()
+            new SynchronousResponse()
             {
                 Duration = 0,
                 Error = "error",
@@ -60,7 +60,7 @@ public class InvokeRunResponseTest : TestBase
     public void asynchronousSerializationRoundtrip_Works()
     {
         InvokeRunResponse value = new(
-            new()
+            new AsynchronousResponse()
             {
                 LogsURL = "logsUrl",
                 RunID = "runId",
