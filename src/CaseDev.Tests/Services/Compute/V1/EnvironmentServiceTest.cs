@@ -8,7 +8,8 @@ public class EnvironmentServiceTest : TestBase
     public async Task Create_Works()
     {
         var environment = await this.client.Compute.V1.Environments.Create(
-            new() { Name = "document-review-prod" }
+            new() { Name = "document-review-prod" },
+            TestContext.Current.CancellationToken
         );
         environment.Validate();
     }
@@ -16,25 +17,40 @@ public class EnvironmentServiceTest : TestBase
     [Fact(Skip = "Prism tests are disabled")]
     public async Task Retrieve_Works()
     {
-        await this.client.Compute.V1.Environments.Retrieve("name");
+        await this.client.Compute.V1.Environments.Retrieve(
+            "name",
+            new(),
+            TestContext.Current.CancellationToken
+        );
     }
 
     [Fact(Skip = "Prism tests are disabled")]
     public async Task List_Works()
     {
-        await this.client.Compute.V1.Environments.List();
+        await this.client.Compute.V1.Environments.List(
+            new(),
+            TestContext.Current.CancellationToken
+        );
     }
 
     [Fact(Skip = "Prism tests are disabled")]
     public async Task Delete_Works()
     {
-        var environment = await this.client.Compute.V1.Environments.Delete("litigation-processing");
+        var environment = await this.client.Compute.V1.Environments.Delete(
+            "litigation-processing",
+            new(),
+            TestContext.Current.CancellationToken
+        );
         environment.Validate();
     }
 
     [Fact(Skip = "Prism tests are disabled")]
     public async Task SetDefault_Works()
     {
-        await this.client.Compute.V1.Environments.SetDefault("prod-legal-docs");
+        await this.client.Compute.V1.Environments.SetDefault(
+            "prod-legal-docs",
+            new(),
+            TestContext.Current.CancellationToken
+        );
     }
 }

@@ -9,7 +9,8 @@ public class ChatServiceTest : TestBase
     public async Task CreateCompletion_Works()
     {
         var response = await this.client.Llm.V1.Chat.CreateCompletion(
-            new() { Messages = [new() { Content = "content", Role = Role.System }] }
+            new() { Messages = [new() { Content = "content", Role = Role.System }] },
+            TestContext.Current.CancellationToken
         );
         response.Validate();
     }

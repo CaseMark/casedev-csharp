@@ -7,12 +7,16 @@ public class RunServiceTest : TestBase
     [Fact(Skip = "Prism tests are disabled")]
     public async Task Retrieve_Works()
     {
-        await this.client.Compute.V1.Runs.Retrieve("id");
+        await this.client.Compute.V1.Runs.Retrieve(
+            "id",
+            new(),
+            TestContext.Current.CancellationToken
+        );
     }
 
     [Fact(Skip = "Prism tests are disabled")]
     public async Task List_Works()
     {
-        await this.client.Compute.V1.Runs.List();
+        await this.client.Compute.V1.Runs.List(new(), TestContext.Current.CancellationToken);
     }
 }

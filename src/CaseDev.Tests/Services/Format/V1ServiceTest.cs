@@ -9,7 +9,8 @@ public class V1ServiceTest : TestBase
     public async Task CreateDocument_Works()
     {
         await this.client.Format.V1.CreateDocument(
-            new() { Content = "content", OutputFormat = OutputFormat.Pdf }
+            new() { Content = "content", OutputFormat = OutputFormat.Pdf },
+            TestContext.Current.CancellationToken
         );
     }
 }

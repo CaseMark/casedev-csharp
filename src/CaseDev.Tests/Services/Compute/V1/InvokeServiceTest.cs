@@ -17,7 +17,8 @@ public class InvokeServiceTest : TestBase
                 {
                     { "foo", JsonSerializer.SerializeToElement("bar") },
                 },
-            }
+            },
+            TestContext.Current.CancellationToken
         );
         response.Validate();
     }

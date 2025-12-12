@@ -12,7 +12,8 @@ public class V1ServiceTest : TestBase
             {
                 Events = ["document.processed", "vault.updated"],
                 URL = "https://api.lawfirm.com/webhooks/case-dev",
-            }
+            },
+            TestContext.Current.CancellationToken
         );
         v1.Validate();
     }
@@ -20,18 +21,22 @@ public class V1ServiceTest : TestBase
     [Fact(Skip = "Prism tests are disabled")]
     public async Task Retrieve_Works()
     {
-        await this.client.Webhooks.V1.Retrieve("id");
+        await this.client.Webhooks.V1.Retrieve("id", new(), TestContext.Current.CancellationToken);
     }
 
     [Fact(Skip = "Prism tests are disabled")]
     public async Task List_Works()
     {
-        await this.client.Webhooks.V1.List();
+        await this.client.Webhooks.V1.List(new(), TestContext.Current.CancellationToken);
     }
 
     [Fact(Skip = "Prism tests are disabled")]
     public async Task Delete_Works()
     {
-        await this.client.Webhooks.V1.Delete("wh_abc123xyz789");
+        await this.client.Webhooks.V1.Delete(
+            "wh_abc123xyz789",
+            new(),
+            TestContext.Current.CancellationToken
+        );
     }
 }
