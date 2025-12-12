@@ -10,7 +10,8 @@ public class V1ServiceTest : TestBase
     public async Task Create_Works()
     {
         var v1 = await this.client.Actions.V1.Create(
-            new() { Definition = "string", Name = "name" }
+            new() { Definition = "string", Name = "name" },
+            TestContext.Current.CancellationToken
         );
         v1.Validate();
     }
@@ -18,19 +19,19 @@ public class V1ServiceTest : TestBase
     [Fact(Skip = "Prism tests are disabled")]
     public async Task Retrieve_Works()
     {
-        await this.client.Actions.V1.Retrieve("id");
+        await this.client.Actions.V1.Retrieve("id", new(), TestContext.Current.CancellationToken);
     }
 
     [Fact(Skip = "Prism tests are disabled")]
     public async Task List_Works()
     {
-        await this.client.Actions.V1.List();
+        await this.client.Actions.V1.List(new(), TestContext.Current.CancellationToken);
     }
 
     [Fact(Skip = "Prism tests are disabled")]
     public async Task Delete_Works()
     {
-        await this.client.Actions.V1.Delete("id");
+        await this.client.Actions.V1.Delete("id", new(), TestContext.Current.CancellationToken);
     }
 
     [Fact(Skip = "Prism tests are disabled")]
@@ -44,7 +45,8 @@ public class V1ServiceTest : TestBase
                 {
                     { "foo", JsonSerializer.SerializeToElement("bar") },
                 },
-            }
+            },
+            TestContext.Current.CancellationToken
         );
         response.Validate();
     }
@@ -52,6 +54,10 @@ public class V1ServiceTest : TestBase
     [Fact(Skip = "Prism tests are disabled")]
     public async Task RetrieveExecution_Works()
     {
-        await this.client.Actions.V1.RetrieveExecution("id");
+        await this.client.Actions.V1.RetrieveExecution(
+            "id",
+            new(),
+            TestContext.Current.CancellationToken
+        );
     }
 }
