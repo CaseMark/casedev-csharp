@@ -38,6 +38,7 @@ public class V1ListExecutionsResponseTest : TestBase
             },
         ];
 
+        Assert.NotNull(model.Executions);
         Assert.Equal(expectedExecutions.Count, model.Executions.Count);
         for (int i = 0; i < expectedExecutions.Count; i++)
         {
@@ -106,6 +107,7 @@ public class V1ListExecutionsResponseTest : TestBase
             },
         ];
 
+        Assert.NotNull(deserialized.Executions);
         Assert.Equal(expectedExecutions.Count, deserialized.Executions.Count);
         for (int i = 0; i < expectedExecutions.Count; i++)
         {

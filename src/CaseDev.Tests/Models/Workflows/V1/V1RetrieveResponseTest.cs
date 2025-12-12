@@ -43,21 +43,21 @@ public class V1RetrieveResponseTest : TestBase
         Assert.Equal(expectedDeployedAt, model.DeployedAt);
         Assert.Equal(expectedDeploymentURL, model.DeploymentURL);
         Assert.Equal(expectedDescription, model.Description);
+        Assert.NotNull(model.Edges);
         Assert.Equal(expectedEdges.Count, model.Edges.Count);
         for (int i = 0; i < expectedEdges.Count; i++)
         {
             Assert.True(JsonElement.DeepEquals(expectedEdges[i], model.Edges[i]));
         }
         Assert.Equal(expectedName, model.Name);
+        Assert.NotNull(model.Nodes);
         Assert.Equal(expectedNodes.Count, model.Nodes.Count);
         for (int i = 0; i < expectedNodes.Count; i++)
         {
             Assert.True(JsonElement.DeepEquals(expectedNodes[i], model.Nodes[i]));
         }
-        Assert.True(
-            model.TriggerConfig.HasValue
-                && JsonElement.DeepEquals(expectedTriggerConfig, model.TriggerConfig.Value)
-        );
+        Assert.NotNull(model.TriggerConfig);
+        Assert.True(JsonElement.DeepEquals(expectedTriggerConfig, model.TriggerConfig.Value));
         Assert.Equal(expectedTriggerType, model.TriggerType);
         Assert.Equal(expectedUpdatedAt, model.UpdatedAt);
         Assert.Equal(expectedVisibility, model.Visibility);
@@ -129,20 +129,22 @@ public class V1RetrieveResponseTest : TestBase
         Assert.Equal(expectedDeployedAt, deserialized.DeployedAt);
         Assert.Equal(expectedDeploymentURL, deserialized.DeploymentURL);
         Assert.Equal(expectedDescription, deserialized.Description);
+        Assert.NotNull(deserialized.Edges);
         Assert.Equal(expectedEdges.Count, deserialized.Edges.Count);
         for (int i = 0; i < expectedEdges.Count; i++)
         {
             Assert.True(JsonElement.DeepEquals(expectedEdges[i], deserialized.Edges[i]));
         }
         Assert.Equal(expectedName, deserialized.Name);
+        Assert.NotNull(deserialized.Nodes);
         Assert.Equal(expectedNodes.Count, deserialized.Nodes.Count);
         for (int i = 0; i < expectedNodes.Count; i++)
         {
             Assert.True(JsonElement.DeepEquals(expectedNodes[i], deserialized.Nodes[i]));
         }
+        Assert.NotNull(deserialized.TriggerConfig);
         Assert.True(
-            deserialized.TriggerConfig.HasValue
-                && JsonElement.DeepEquals(expectedTriggerConfig, deserialized.TriggerConfig.Value)
+            JsonElement.DeepEquals(expectedTriggerConfig, deserialized.TriggerConfig.Value)
         );
         Assert.Equal(expectedTriggerType, deserialized.TriggerType);
         Assert.Equal(expectedUpdatedAt, deserialized.UpdatedAt);

@@ -118,6 +118,7 @@ public class ConfigTest : TestBase
 
         Assert.Equal(expectedAddPython, model.AddPython);
         Assert.Equal(expectedAllowNetwork, model.AllowNetwork);
+        Assert.NotNull(model.Cmd);
         Assert.Equal(expectedCmd.Count, model.Cmd.Count);
         for (int i = 0; i < expectedCmd.Count; i++)
         {
@@ -126,11 +127,13 @@ public class ConfigTest : TestBase
         Assert.Equal(expectedConcurrency, model.Concurrency);
         Assert.Equal(expectedCPUCount, model.CPUCount);
         Assert.Equal(expectedCronSchedule, model.CronSchedule);
+        Assert.NotNull(model.Dependencies);
         Assert.Equal(expectedDependencies.Count, model.Dependencies.Count);
         for (int i = 0; i < expectedDependencies.Count; i++)
         {
             Assert.Equal(expectedDependencies[i], model.Dependencies[i]);
         }
+        Assert.NotNull(model.Entrypoint);
         Assert.Equal(expectedEntrypoint.Count, model.Entrypoint.Count);
         for (int i = 0; i < expectedEntrypoint.Count; i++)
         {
@@ -147,6 +150,7 @@ public class ConfigTest : TestBase
         Assert.Equal(expectedGPUType, model.GPUType);
         Assert.Equal(expectedIsWebService, model.IsWebService);
         Assert.Equal(expectedMemoryMB, model.MemoryMB);
+        Assert.NotNull(model.PipInstall);
         Assert.Equal(expectedPipInstall.Count, model.PipInstall.Count);
         for (int i = 0; i < expectedPipInstall.Count; i++)
         {
@@ -155,6 +159,7 @@ public class ConfigTest : TestBase
         Assert.Equal(expectedPort, model.Port);
         Assert.Equal(expectedPythonVersion, model.PythonVersion);
         Assert.Equal(expectedRetries, model.Retries);
+        Assert.NotNull(model.SecretGroups);
         Assert.Equal(expectedSecretGroups.Count, model.SecretGroups.Count);
         for (int i = 0; i < expectedSecretGroups.Count; i++)
         {
@@ -259,6 +264,7 @@ public class ConfigTest : TestBase
 
         Assert.Equal(expectedAddPython, deserialized.AddPython);
         Assert.Equal(expectedAllowNetwork, deserialized.AllowNetwork);
+        Assert.NotNull(deserialized.Cmd);
         Assert.Equal(expectedCmd.Count, deserialized.Cmd.Count);
         for (int i = 0; i < expectedCmd.Count; i++)
         {
@@ -267,11 +273,13 @@ public class ConfigTest : TestBase
         Assert.Equal(expectedConcurrency, deserialized.Concurrency);
         Assert.Equal(expectedCPUCount, deserialized.CPUCount);
         Assert.Equal(expectedCronSchedule, deserialized.CronSchedule);
+        Assert.NotNull(deserialized.Dependencies);
         Assert.Equal(expectedDependencies.Count, deserialized.Dependencies.Count);
         for (int i = 0; i < expectedDependencies.Count; i++)
         {
             Assert.Equal(expectedDependencies[i], deserialized.Dependencies[i]);
         }
+        Assert.NotNull(deserialized.Entrypoint);
         Assert.Equal(expectedEntrypoint.Count, deserialized.Entrypoint.Count);
         for (int i = 0; i < expectedEntrypoint.Count; i++)
         {
@@ -288,6 +296,7 @@ public class ConfigTest : TestBase
         Assert.Equal(expectedGPUType, deserialized.GPUType);
         Assert.Equal(expectedIsWebService, deserialized.IsWebService);
         Assert.Equal(expectedMemoryMB, deserialized.MemoryMB);
+        Assert.NotNull(deserialized.PipInstall);
         Assert.Equal(expectedPipInstall.Count, deserialized.PipInstall.Count);
         for (int i = 0; i < expectedPipInstall.Count; i++)
         {
@@ -296,6 +305,7 @@ public class ConfigTest : TestBase
         Assert.Equal(expectedPort, deserialized.Port);
         Assert.Equal(expectedPythonVersion, deserialized.PythonVersion);
         Assert.Equal(expectedRetries, deserialized.Retries);
+        Assert.NotNull(deserialized.SecretGroups);
         Assert.Equal(expectedSecretGroups.Count, deserialized.SecretGroups.Count);
         for (int i = 0; i < expectedSecretGroups.Count; i++)
         {

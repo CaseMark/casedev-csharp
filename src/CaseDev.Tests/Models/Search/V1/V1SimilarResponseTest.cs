@@ -45,6 +45,7 @@ public class V1SimilarResponseTest : TestBase
         long expectedTotalResults = 0;
 
         Assert.Equal(expectedProcessingTime, model.ProcessingTime);
+        Assert.NotNull(model.Results);
         Assert.Equal(expectedResults.Count, model.Results.Count);
         for (int i = 0; i < expectedResults.Count; i++)
         {
@@ -124,6 +125,7 @@ public class V1SimilarResponseTest : TestBase
         long expectedTotalResults = 0;
 
         Assert.Equal(expectedProcessingTime, deserialized.ProcessingTime);
+        Assert.NotNull(deserialized.Results);
         Assert.Equal(expectedResults.Count, deserialized.Results.Count);
         for (int i = 0; i < expectedResults.Count; i++)
         {

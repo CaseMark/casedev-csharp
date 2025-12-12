@@ -96,9 +96,8 @@ public class SynchronousResponseTest : TestBase
 
         Assert.Equal(expectedDuration, model.Duration);
         Assert.Equal(expectedError, model.Error);
-        Assert.True(
-            model.Output.HasValue && JsonElement.DeepEquals(expectedOutput, model.Output.Value)
-        );
+        Assert.NotNull(model.Output);
+        Assert.True(JsonElement.DeepEquals(expectedOutput, model.Output.Value));
         Assert.Equal(expectedRunID, model.RunID);
         Assert.Equal(expectedStatus, model.Status);
     }
@@ -145,10 +144,8 @@ public class SynchronousResponseTest : TestBase
 
         Assert.Equal(expectedDuration, deserialized.Duration);
         Assert.Equal(expectedError, deserialized.Error);
-        Assert.True(
-            deserialized.Output.HasValue
-                && JsonElement.DeepEquals(expectedOutput, deserialized.Output.Value)
-        );
+        Assert.NotNull(deserialized.Output);
+        Assert.True(JsonElement.DeepEquals(expectedOutput, deserialized.Output.Value));
         Assert.Equal(expectedRunID, deserialized.RunID);
         Assert.Equal(expectedStatus, deserialized.Status);
     }

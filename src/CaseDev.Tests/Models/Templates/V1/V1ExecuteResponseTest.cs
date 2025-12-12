@@ -35,9 +35,8 @@ public class V1ExecuteResponseTest : TestBase
         };
         string expectedWorkflowName = "workflow_name";
 
-        Assert.True(
-            model.Result.HasValue && JsonElement.DeepEquals(expectedResult, model.Result.Value)
-        );
+        Assert.NotNull(model.Result);
+        Assert.True(JsonElement.DeepEquals(expectedResult, model.Result.Value));
         Assert.Equal(expectedStatus, model.Status);
         Assert.Equal(expectedUsage, model.Usage);
         Assert.Equal(expectedWorkflowName, model.WorkflowName);
@@ -98,10 +97,8 @@ public class V1ExecuteResponseTest : TestBase
         };
         string expectedWorkflowName = "workflow_name";
 
-        Assert.True(
-            deserialized.Result.HasValue
-                && JsonElement.DeepEquals(expectedResult, deserialized.Result.Value)
-        );
+        Assert.NotNull(deserialized.Result);
+        Assert.True(JsonElement.DeepEquals(expectedResult, deserialized.Result.Value));
         Assert.Equal(expectedStatus, deserialized.Status);
         Assert.Equal(expectedUsage, deserialized.Usage);
         Assert.Equal(expectedWorkflowName, deserialized.WorkflowName);

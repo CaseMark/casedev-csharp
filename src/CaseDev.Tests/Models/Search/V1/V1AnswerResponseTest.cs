@@ -43,6 +43,7 @@ public class V1AnswerResponseTest : TestBase
         string expectedSearchType = "searchType";
 
         Assert.Equal(expectedAnswer, model.Answer);
+        Assert.NotNull(model.Citations);
         Assert.Equal(expectedCitations.Count, model.Citations.Count);
         for (int i = 0; i < expectedCitations.Count; i++)
         {
@@ -120,6 +121,7 @@ public class V1AnswerResponseTest : TestBase
         string expectedSearchType = "searchType";
 
         Assert.Equal(expectedAnswer, deserialized.Answer);
+        Assert.NotNull(deserialized.Citations);
         Assert.Equal(expectedCitations.Count, deserialized.Citations.Count);
         for (int i = 0; i < expectedCitations.Count; i++)
         {
