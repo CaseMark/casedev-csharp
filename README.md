@@ -91,7 +91,7 @@ var vault = await client
     .WithOptions(options =>
         options with
         {
-            BaseUrl = new("https://example.com"),
+            BaseUrl = "https://example.com",
             Timeout = TimeSpan.FromSeconds(42),
         }
     )
@@ -228,6 +228,17 @@ var vault = await client
     .Vault.Create(parameters);
 
 Console.WriteLine(vault);
+```
+
+### Environments
+
+The SDK sends requests to the production environment by default. To send requests to a different environment, configure the client like so:
+
+```csharp
+using CaseDev;
+using CaseDev.Core;
+
+CasedevClient client = new() { BaseUrl = EnvironmentUrl.Local };
 ```
 
 ## Undocumented API functionality

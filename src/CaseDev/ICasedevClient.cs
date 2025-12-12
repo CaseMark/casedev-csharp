@@ -29,16 +29,16 @@ public interface ICasedevClient
     /// <summary>
     /// The base URL to use for every request.
     ///
-    /// <para>Defaults to the production environment: https://api.case.dev</para>
+    /// <para>Defaults to the production environment: <see cref="EnvironmentUrl.Production"/></para>
     ///
     /// <para>
     /// The following other environments are available:
     /// <list type="bullet">
-    ///   <item>local: http://localhost:2728</item>
+    ///   <item>local: <see cref="EnvironmentUrl.Local"/></item>
     /// </list>
     /// </para>
     /// </summary>
-    Uri BaseUrl { get; init; }
+    string BaseUrl { get; init; }
 
     /// <summary>
     /// Whether to validate every response before returning it.
