@@ -74,8 +74,6 @@ public abstract record class ModelBase
             new ApiEnumConverter<string, VoiceType>(),
             new ApiEnumConverter<string, Speak::ModelID>(),
             new ApiEnumConverter<string, Speak::OutputFormat>(),
-            new ApiEnumConverter<string, Speak::SpeakStreamParamsModelID>(),
-            new ApiEnumConverter<string, Speak::SpeakStreamParamsOutputFormat>(),
             new ApiEnumConverter<string, global::CaseDev.Models.Templates.V1.Status>(),
             new ApiEnumConverter<string, global::CaseDev.Models.Templates.V1.OptionsFormat>(),
             new ApiEnumConverter<
