@@ -39,21 +39,4 @@ public sealed class SpeakService : ISpeakService
             .ConfigureAwait(false);
         return response;
     }
-
-    /// <inheritdoc/>
-    public async Task<HttpResponse> Stream(
-        SpeakStreamParams parameters,
-        CancellationToken cancellationToken = default
-    )
-    {
-        HttpRequest<SpeakStreamParams> request = new()
-        {
-            Method = HttpMethod.Post,
-            Params = parameters,
-        };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
-        return response;
-    }
 }

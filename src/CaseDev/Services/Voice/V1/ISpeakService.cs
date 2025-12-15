@@ -29,15 +29,4 @@ public interface ISpeakService
         SpeakCreateParams parameters,
         CancellationToken cancellationToken = default
     );
-
-    /// <summary>
-    /// Convert text to speech using ElevenLabs AI voices with streaming for real-time
-    /// playback. Returns audio data as an MP3 stream for immediate playback with
-    /// minimal latency. Perfect for legal document narration, client presentations,
-    /// or accessibility features.
-    /// </summary>
-    Task<HttpResponse> Stream(
-        SpeakStreamParams parameters,
-        CancellationToken cancellationToken = default
-    );
 }

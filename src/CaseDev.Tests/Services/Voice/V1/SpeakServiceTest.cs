@@ -12,13 +12,4 @@ public class SpeakServiceTest : TestBase
             TestContext.Current.CancellationToken
         );
     }
-
-    [Fact(Skip = "Prism doesn't support audio/mpeg responses")]
-    public async Task Stream_Works()
-    {
-        await this.client.Voice.V1.Speak.Stream(
-            new() { Text = "text" },
-            TestContext.Current.CancellationToken
-        );
-    }
 }
