@@ -9,8 +9,8 @@ using CaseDev.Core;
 namespace CaseDev.Models.Workflows.V1;
 
 /// <summary>
-/// Deploy a workflow to Modal compute. Returns a webhook URL and secret for triggering
-/// the workflow.
+/// Deploy a workflow to AWS Step Functions. Returns a webhook URL and secret for
+/// triggering the workflow.
 /// </summary>
 public sealed record class V1DeployParams : ParamsBase
 {

@@ -68,6 +68,20 @@ public sealed record class V1RetrieveExecutionResponse : ModelBase
         }
     }
 
+    public string? ExecutionArn
+    {
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "executionArn"); }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            ModelBase.Set(this._rawData, "executionArn", value);
+        }
+    }
+
     public JsonElement? Input
     {
         get { return ModelBase.GetNullableStruct<JsonElement>(this.RawData, "input"); }
@@ -124,6 +138,20 @@ public sealed record class V1RetrieveExecutionResponse : ModelBase
         }
     }
 
+    public IReadOnlyList<JsonElement>? Steps
+    {
+        get { return ModelBase.GetNullableClass<List<JsonElement>>(this.RawData, "steps"); }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            ModelBase.Set(this._rawData, "steps", value);
+        }
+    }
+
     public string? TriggerType
     {
         get { return ModelBase.GetNullableClass<string>(this.RawData, "triggerType"); }
@@ -159,10 +187,12 @@ public sealed record class V1RetrieveExecutionResponse : ModelBase
         _ = this.CompletedAt;
         _ = this.DurationMs;
         _ = this.Error;
+        _ = this.ExecutionArn;
         _ = this.Input;
         _ = this.Output;
         _ = this.StartedAt;
         _ = this.Status;
+        _ = this.Steps;
         _ = this.TriggerType;
         _ = this.WorkflowID;
     }

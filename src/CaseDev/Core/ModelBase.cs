@@ -1,15 +1,13 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using CaseDev.Exceptions;
-using CaseDev.Models.Actions.V1;
+using CaseDev.Models.Compute.V1.Environments;
 using CaseDev.Models.Format.V1;
 using CaseDev.Models.Format.V1.Templates;
 using CaseDev.Models.Llm.V1;
 using CaseDev.Models.Llm.V1.Chat;
 using CaseDev.Models.Vault.Objects;
 using CaseDev.Models.Voice.V1;
-using Environments = CaseDev.Models.Compute.V1.Environments;
-using Invoke = CaseDev.Models.Compute.V1.Invoke;
 using Speak = CaseDev.Models.Voice.V1.Speak;
 using Transcription = CaseDev.Models.Voice.Transcription;
 using V1 = CaseDev.Models.Convert.V1;
@@ -44,10 +42,6 @@ public abstract record class ModelBase
         Converters =
         {
             new ApiEnumConverter<string, Status>(),
-            new ApiEnumConverter<string, Environments::Status>(),
-            new ApiEnumConverter<string, Invoke::Status>(),
-            new ApiEnumConverter<string, Invoke::AsynchronousResponseStatus>(),
-            new ApiEnumConverter<string, Invoke::FunctionSuffix>(),
             new ApiEnumConverter<string, V1::V1ProcessResponseStatus>(),
             new ApiEnumConverter<string, V1::Status>(),
             new ApiEnumConverter<string, OutputFormat>(),
@@ -72,6 +66,7 @@ public abstract record class ModelBase
             new ApiEnumConverter<string, Speak::OutputFormat>(),
             new ApiEnumConverter<string, global::CaseDev.Models.Templates.V1.Status>(),
             new ApiEnumConverter<string, global::CaseDev.Models.Templates.V1.OptionsFormat>(),
+            new ApiEnumConverter<string, global::CaseDev.Models.Workflows.V1.Mode>(),
             new ApiEnumConverter<
                 string,
                 global::CaseDev.Models.Workflows.V1.V1ExecuteResponseStatus

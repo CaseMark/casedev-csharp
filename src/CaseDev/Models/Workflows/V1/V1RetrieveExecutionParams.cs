@@ -9,7 +9,7 @@ using CaseDev.Core;
 namespace CaseDev.Models.Workflows.V1;
 
 /// <summary>
-/// Get detailed information about a workflow execution.
+/// Get detailed information about a workflow execution, including live Step Functions status.
 /// </summary>
 public sealed record class V1RetrieveExecutionParams : ParamsBase
 {

@@ -10,7 +10,7 @@ namespace CaseDev.Models.Vault;
 
 /// <summary>
 /// List all vaults for the authenticated organization. Returns vault metadata including
-/// storage configuration and usage statistics.
+/// name, description, storage configuration, and usage statistics.
 /// </summary>
 public sealed record class VaultListParams : ParamsBase
 {

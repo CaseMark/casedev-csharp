@@ -12,7 +12,7 @@ namespace CaseDev.Models.Vault;
 /// <summary>
 /// Creates a new secure vault with dedicated S3 storage and vector search capabilities.
 /// Each vault provides isolated document storage with semantic search, OCR processing,
-/// and optional knowledge graph features for legal document analysis and discovery.
+/// and optional GraphRAG knowledge graph features for legal document analysis and discovery.
 /// </summary>
 public sealed record class VaultCreateParams : ParamsBase
 {

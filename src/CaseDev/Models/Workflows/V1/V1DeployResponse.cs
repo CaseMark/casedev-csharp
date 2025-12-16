@@ -24,6 +24,20 @@ public sealed record class V1DeployResponse : ModelBase
         }
     }
 
+    public string? StateMachineArn
+    {
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "stateMachineArn"); }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            ModelBase.Set(this._rawData, "stateMachineArn", value);
+        }
+    }
+
     public bool? Success
     {
         get { return ModelBase.GetNullableStruct<bool>(this.RawData, "success"); }
@@ -73,6 +87,7 @@ public sealed record class V1DeployResponse : ModelBase
     public override void Validate()
     {
         _ = this.Message;
+        _ = this.StateMachineArn;
         _ = this.Success;
         _ = this.WebhookSecret;
         _ = this.WebhookURL;

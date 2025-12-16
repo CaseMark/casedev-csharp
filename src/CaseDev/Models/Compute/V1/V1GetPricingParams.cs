@@ -9,9 +9,9 @@ using CaseDev.Core;
 namespace CaseDev.Models.Compute.V1;
 
 /// <summary>
-/// Returns current pricing for GPU and CPU compute resources. This public endpoint
-/// provides detailed pricing information for all available compute types, including
-/// GPU instances and CPU cores, with billing model details.
+/// Returns current pricing for GPU instances. Prices are fetched in real-time and
+/// include a 20% platform fee. For detailed instance types and availability, use
+/// GET /compute/v1/instance-types.
 /// </summary>
 public sealed record class V1GetPricingParams : ParamsBase
 {

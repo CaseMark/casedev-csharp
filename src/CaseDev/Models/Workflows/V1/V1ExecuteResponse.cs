@@ -26,9 +26,9 @@ public sealed record class V1ExecuteResponse : ModelBase
         }
     }
 
-    public string? Error
+    public string? ExecutionArn
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "error"); }
+        get { return ModelBase.GetNullableClass<string>(this.RawData, "executionArn"); }
         init
         {
             if (value == null)
@@ -36,7 +36,7 @@ public sealed record class V1ExecuteResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "error", value);
+            ModelBase.Set(this._rawData, "executionArn", value);
         }
     }
 
@@ -54,9 +54,9 @@ public sealed record class V1ExecuteResponse : ModelBase
         }
     }
 
-    public JsonElement? Outputs
+    public ApiEnum<string, Mode>? Mode
     {
-        get { return ModelBase.GetNullableStruct<JsonElement>(this.RawData, "outputs"); }
+        get { return ModelBase.GetNullableClass<ApiEnum<string, Mode>>(this.RawData, "mode"); }
         init
         {
             if (value == null)
@@ -64,7 +64,21 @@ public sealed record class V1ExecuteResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "outputs", value);
+            ModelBase.Set(this._rawData, "mode", value);
+        }
+    }
+
+    public JsonElement? Output
+    {
+        get { return ModelBase.GetNullableStruct<JsonElement>(this.RawData, "output"); }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            ModelBase.Set(this._rawData, "output", value);
         }
     }
 
@@ -92,9 +106,10 @@ public sealed record class V1ExecuteResponse : ModelBase
     public override void Validate()
     {
         _ = this.Duration;
-        _ = this.Error;
+        _ = this.ExecutionArn;
         _ = this.ExecutionID;
-        _ = this.Outputs;
+        this.Mode?.Validate();
+        _ = this.Output;
         this.Status?.Validate();
     }
 
@@ -132,9 +147,53 @@ class V1ExecuteResponseFromRaw : IFromRaw<V1ExecuteResponse>
         V1ExecuteResponse.FromRawUnchecked(rawData);
 }
 
+[JsonConverter(typeof(ModeConverter))]
+public enum Mode
+{
+    FireAndForget,
+    Callback,
+    Sync,
+}
+
+sealed class ModeConverter : JsonConverter<Mode>
+{
+    public override Mode Read(
+        ref Utf8JsonReader reader,
+        Type typeToConvert,
+        JsonSerializerOptions options
+    )
+    {
+        return JsonSerializer.Deserialize<string>(ref reader, options) switch
+        {
+            "fire-and-forget" => Mode.FireAndForget,
+            "callback" => Mode.Callback,
+            "sync" => Mode.Sync,
+            _ => (Mode)(-1),
+        };
+    }
+
+    public override void Write(Utf8JsonWriter writer, Mode value, JsonSerializerOptions options)
+    {
+        JsonSerializer.Serialize(
+            writer,
+            value switch
+            {
+                Mode.FireAndForget => "fire-and-forget",
+                Mode.Callback => "callback",
+                Mode.Sync => "sync",
+                _ => throw new CasedevInvalidDataException(
+                    string.Format("Invalid value '{0}' in {1}", value, nameof(value))
+                ),
+            },
+            options
+        );
+    }
+}
+
 [JsonConverter(typeof(V1ExecuteResponseStatusConverter))]
 public enum V1ExecuteResponseStatus
 {
+    Running,
     Completed,
     Failed,
 }
@@ -149,6 +208,7 @@ sealed class V1ExecuteResponseStatusConverter : JsonConverter<V1ExecuteResponseS
     {
         return JsonSerializer.Deserialize<string>(ref reader, options) switch
         {
+            "running" => V1ExecuteResponseStatus.Running,
             "completed" => V1ExecuteResponseStatus.Completed,
             "failed" => V1ExecuteResponseStatus.Failed,
             _ => (V1ExecuteResponseStatus)(-1),
@@ -165,6 +225,7 @@ sealed class V1ExecuteResponseStatusConverter : JsonConverter<V1ExecuteResponseS
             writer,
             value switch
             {
+                V1ExecuteResponseStatus.Running => "running",
                 V1ExecuteResponseStatus.Completed => "completed",
                 V1ExecuteResponseStatus.Failed => "failed",
                 _ => throw new CasedevInvalidDataException(

@@ -82,8 +82,8 @@ public interface IV1Service
     );
 
     /// <summary>
-    /// Deploy a workflow to Modal compute. Returns a webhook URL and secret for triggering
-    /// the workflow.
+    /// Deploy a workflow to AWS Step Functions. Returns a webhook URL and secret
+    /// for triggering the workflow.
     /// </summary>
     Task<V1DeployResponse> Deploy(
         V1DeployParams parameters,
@@ -98,7 +98,10 @@ public interface IV1Service
     );
 
     /// <summary>
-    /// Execute a workflow for testing. This runs the workflow synchronously without deployment.
+    /// Execute a deployed workflow. Supports three modes: - **Fire-and-forget** (default):
+    /// Returns immediately with executionId. Poll /executions/{id} for status. -
+    /// **Callback**: Returns immediately, POSTs result to callbackUrl when workflow
+    /// completes. - **Sync wait**: Blocks until workflow completes (max 5 minutes).
     /// </summary>
     Task<V1ExecuteResponse> Execute(
         V1ExecuteParams parameters,
@@ -128,7 +131,8 @@ public interface IV1Service
     );
 
     /// <summary>
-    /// Get detailed information about a workflow execution.
+    /// Get detailed information about a workflow execution, including live Step
+    /// Functions status.
     /// </summary>
     Task<V1RetrieveExecutionResponse> RetrieveExecution(
         V1RetrieveExecutionParams parameters,
@@ -143,7 +147,7 @@ public interface IV1Service
     );
 
     /// <summary>
-    /// Stop a deployed workflow and release its webhook URL.
+    /// Stop a deployed workflow and delete its Step Functions state machine.
     /// </summary>
     Task<V1UndeployResponse> Undeploy(
         V1UndeployParams parameters,
