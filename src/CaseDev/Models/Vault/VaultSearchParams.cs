@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Text;
@@ -36,17 +37,11 @@ public sealed record class VaultSearchParams : ParamsBase
     }
 
     /// <summary>
-    /// Additional filters to apply to search results
+    /// Filters to narrow search results to specific documents
     /// </summary>
-    public IReadOnlyDictionary<string, JsonElement>? Filters
+    public Filters? Filters
     {
-        get
-        {
-            return ModelBase.GetNullableClass<Dictionary<string, JsonElement>>(
-                this.RawBodyData,
-                "filters"
-            );
-        }
+        get { return ModelBase.GetNullableClass<Filters>(this.RawBodyData, "filters"); }
         init
         {
             if (value == null)
@@ -165,6 +160,288 @@ public sealed record class VaultSearchParams : ParamsBase
         {
             ParamsBase.AddHeaderElementToRequest(request, item.Key, item.Value);
         }
+    }
+}
+
+/// <summary>
+/// Filters to narrow search results to specific documents
+/// </summary>
+[JsonConverter(typeof(ModelConverter<Filters, FiltersFromRaw>))]
+public sealed record class Filters : ModelBase
+{
+    /// <summary>
+    /// Filter to specific document(s) by object ID. Accepts a single ID or array
+    /// of IDs.
+    /// </summary>
+    public ObjectID? ObjectID
+    {
+        get { return ModelBase.GetNullableClass<ObjectID>(this.RawData, "object_id"); }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            ModelBase.Set(this._rawData, "object_id", value);
+        }
+    }
+
+    /// <inheritdoc/>
+    public override void Validate()
+    {
+        this.ObjectID?.Validate();
+    }
+
+    public Filters() { }
+
+    public Filters(Filters filters)
+        : base(filters) { }
+
+    public Filters(IReadOnlyDictionary<string, JsonElement> rawData)
+    {
+        this._rawData = [.. rawData];
+    }
+
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
+    Filters(FrozenDictionary<string, JsonElement> rawData)
+    {
+        this._rawData = [.. rawData];
+    }
+#pragma warning restore CS8618
+
+    /// <inheritdoc cref="FiltersFromRaw.FromRawUnchecked"/>
+    public static Filters FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
+    {
+        return new(FrozenDictionary.ToFrozenDictionary(rawData));
+    }
+}
+
+class FiltersFromRaw : IFromRaw<Filters>
+{
+    /// <inheritdoc/>
+    public Filters FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
+        Filters.FromRawUnchecked(rawData);
+}
+
+/// <summary>
+/// Filter to specific document(s) by object ID. Accepts a single ID or array of IDs.
+/// </summary>
+[JsonConverter(typeof(ObjectIDConverter))]
+public record class ObjectID
+{
+    public object? Value { get; } = null;
+
+    JsonElement? _json = null;
+
+    public JsonElement Json
+    {
+        get { return this._json ??= JsonSerializer.SerializeToElement(this.Value); }
+    }
+
+    public ObjectID(string value, JsonElement? json = null)
+    {
+        this.Value = value;
+        this._json = json;
+    }
+
+    public ObjectID(IReadOnlyList<string> value, JsonElement? json = null)
+    {
+        this.Value = ImmutableArray.ToImmutableArray(value);
+        this._json = json;
+    }
+
+    public ObjectID(JsonElement json)
+    {
+        this._json = json;
+    }
+
+    /// <summary>
+    /// Returns true and sets the <c>out</c> parameter if the instance was constructed with a variant of
+    /// type <see cref="string"/>.
+    ///
+    /// <para>Consider using <see cref="Switch"> or <see cref="Match"> if you need to handle every variant.</para>
+    ///
+    /// <example>
+    /// <code>
+    /// if (instance.TryPickString(out var value)) {
+    ///     // `value` is of type `string`
+    ///     Console.WriteLine(value);
+    /// }
+    /// </code>
+    /// </example>
+    /// </summary>
+    public bool TryPickString([NotNullWhen(true)] out string? value)
+    {
+        value = this.Value as string;
+        return value != null;
+    }
+
+    /// <summary>
+    /// Returns true and sets the <c>out</c> parameter if the instance was constructed with a variant of
+    /// type <see cref="IReadOnlyList<string>"/>.
+    ///
+    /// <para>Consider using <see cref="Switch"> or <see cref="Match"> if you need to handle every variant.</para>
+    ///
+    /// <example>
+    /// <code>
+    /// if (instance.TryPickStrings(out var value)) {
+    ///     // `value` is of type `IReadOnlyList<string>`
+    ///     Console.WriteLine(value);
+    /// }
+    /// </code>
+    /// </example>
+    /// </summary>
+    public bool TryPickStrings([NotNullWhen(true)] out IReadOnlyList<string>? value)
+    {
+        value = this.Value as IReadOnlyList<string>;
+        return value != null;
+    }
+
+    /// <summary>
+    /// Calls the function parameter corresponding to the variant the instance was constructed with.
+    ///
+    /// <para>Use the <c>TryPick</c> method(s) if you don't need to handle every variant, or <see cref="Match">
+    /// if you need your function parameters to return something.</para>
+    ///
+    /// <exception cref="CasedevInvalidDataException">
+    /// Thrown when the instance was constructed with an unknown variant (e.g. deserialized from raw data
+    /// that doesn't match any variant's expected shape).
+    /// </exception>
+    ///
+    /// <example>
+    /// <code>
+    /// instance.Switch(
+    ///     (string value) => {...},
+    ///     (IReadOnlyList<string> value) => {...}
+    /// );
+    /// </code>
+    /// </example>
+    /// </summary>
+    public void Switch(Action<string> @string, Action<IReadOnlyList<string>> strings)
+    {
+        switch (this.Value)
+        {
+            case string value:
+                @string(value);
+                break;
+            case List<string> value:
+                strings(value);
+                break;
+            default:
+                throw new CasedevInvalidDataException("Data did not match any variant of ObjectID");
+        }
+    }
+
+    /// <summary>
+    /// Calls the function parameter corresponding to the variant the instance was constructed with and
+    /// returns its result.
+    ///
+    /// <para>Use the <c>TryPick</c> method(s) if you don't need to handle every variant, or <see cref="Switch">
+    /// if you don't need your function parameters to return a value.</para>
+    ///
+    /// <exception cref="CasedevInvalidDataException">
+    /// Thrown when the instance was constructed with an unknown variant (e.g. deserialized from raw data
+    /// that doesn't match any variant's expected shape).
+    /// </exception>
+    ///
+    /// <example>
+    /// <code>
+    /// var result = instance.Match(
+    ///     (string value) => {...},
+    ///     (IReadOnlyList<string> value) => {...}
+    /// );
+    /// </code>
+    /// </example>
+    /// </summary>
+    public T Match<T>(Func<string, T> @string, Func<IReadOnlyList<string>, T> strings)
+    {
+        return this.Value switch
+        {
+            string value => @string(value),
+            IReadOnlyList<string> value => strings(value),
+            _ => throw new CasedevInvalidDataException(
+                "Data did not match any variant of ObjectID"
+            ),
+        };
+    }
+
+    public static implicit operator ObjectID(string value) => new(value);
+
+    public static implicit operator ObjectID(List<string> value) =>
+        new((IReadOnlyList<string>)value);
+
+    /// <summary>
+    /// Validates that the instance was constructed with a known variant and that this variant is valid
+    /// (based on its own <c>Validate</c> method).
+    ///
+    /// <para>This is useful for instances constructed from raw JSON data (e.g. deserialized from an API response).</para>
+    ///
+    /// <exception cref="CasedevInvalidDataException">
+    /// Thrown when the instance does not pass validation.
+    /// </exception>
+    /// </summary>
+    public void Validate()
+    {
+        if (this.Value == null)
+        {
+            throw new CasedevInvalidDataException("Data did not match any variant of ObjectID");
+        }
+    }
+
+    public virtual bool Equals(ObjectID? other)
+    {
+        return other != null && JsonElement.DeepEquals(this.Json, other.Json);
+    }
+
+    public override int GetHashCode()
+    {
+        return 0;
+    }
+}
+
+sealed class ObjectIDConverter : JsonConverter<ObjectID>
+{
+    public override ObjectID? Read(
+        ref Utf8JsonReader reader,
+        Type typeToConvert,
+        JsonSerializerOptions options
+    )
+    {
+        var json = JsonSerializer.Deserialize<JsonElement>(ref reader, options);
+        try
+        {
+            var deserialized = JsonSerializer.Deserialize<string>(json, options);
+            if (deserialized != null)
+            {
+                return new(deserialized, json);
+            }
+        }
+        catch (Exception e) when (e is JsonException || e is CasedevInvalidDataException)
+        {
+            // ignore
+        }
+
+        try
+        {
+            var deserialized = JsonSerializer.Deserialize<List<string>>(json, options);
+            if (deserialized != null)
+            {
+                return new(deserialized, json);
+            }
+        }
+        catch (Exception e) when (e is JsonException || e is CasedevInvalidDataException)
+        {
+            // ignore
+        }
+
+        return new(json);
+    }
+
+    public override void Write(Utf8JsonWriter writer, ObjectID value, JsonSerializerOptions options)
+    {
+        JsonSerializer.Serialize(writer, value.Json, options);
     }
 }
 

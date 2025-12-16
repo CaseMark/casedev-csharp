@@ -9,7 +9,7 @@ using CaseDev.Core;
 namespace CaseDev.Models.Workflows.V1;
 
 /// <summary>
-/// Stop a deployed workflow and release its webhook URL.
+/// Stop a deployed workflow and delete its Step Functions state machine.
 /// </summary>
 public sealed record class V1UndeployParams : ParamsBase
 {

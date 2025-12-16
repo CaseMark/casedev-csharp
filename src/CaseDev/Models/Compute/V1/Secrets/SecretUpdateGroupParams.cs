@@ -10,9 +10,8 @@ using CaseDev.Core;
 namespace CaseDev.Models.Compute.V1.Secrets;
 
 /// <summary>
-/// Set or update secrets in a compute secret group. Secrets are encrypted with AES-256-GCM
-/// and synced to compute infrastructure in real-time. Use this to manage environment
-/// variables and API keys for your compute workloads.
+/// Set or update secrets in a compute secret group. Secrets are encrypted with AES-256-GCM.
+/// Use this to manage environment variables and API keys for your compute workloads.
 /// </summary>
 public sealed record class SecretUpdateGroupParams : ParamsBase
 {

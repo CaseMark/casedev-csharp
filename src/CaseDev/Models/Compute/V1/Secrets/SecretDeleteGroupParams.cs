@@ -9,10 +9,9 @@ using CaseDev.Core;
 namespace CaseDev.Models.Compute.V1.Secrets;
 
 /// <summary>
-/// Delete an entire secret group or a specific key within a secret group. Automatically
-/// syncs the deletion to Modal compute infrastructure. When deleting a specific key,
-/// the remaining secrets in the group are re-synced. When deleting the entire group,
-/// all secrets and the group itself are removed from both the database and Modal.
+/// Delete an entire secret group or a specific key within a secret group. When deleting
+/// a specific key, the remaining secrets in the group are preserved. When deleting
+/// the entire group, all secrets and the group itself are removed.
 /// </summary>
 public sealed record class SecretDeleteGroupParams : ParamsBase
 {

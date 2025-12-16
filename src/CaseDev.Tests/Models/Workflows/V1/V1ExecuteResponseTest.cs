@@ -13,23 +13,26 @@ public class V1ExecuteResponseTest : TestBase
         var model = new V1ExecuteResponse
         {
             Duration = 0,
-            Error = "error",
+            ExecutionArn = "executionArn",
             ExecutionID = "executionId",
-            Outputs = JsonSerializer.Deserialize<JsonElement>("{}"),
-            Status = V1ExecuteResponseStatus.Completed,
+            Mode = Mode.FireAndForget,
+            Output = JsonSerializer.Deserialize<JsonElement>("{}"),
+            Status = V1ExecuteResponseStatus.Running,
         };
 
         long expectedDuration = 0;
-        string expectedError = "error";
+        string expectedExecutionArn = "executionArn";
         string expectedExecutionID = "executionId";
-        JsonElement expectedOutputs = JsonSerializer.Deserialize<JsonElement>("{}");
-        ApiEnum<string, V1ExecuteResponseStatus> expectedStatus = V1ExecuteResponseStatus.Completed;
+        ApiEnum<string, Mode> expectedMode = Mode.FireAndForget;
+        JsonElement expectedOutput = JsonSerializer.Deserialize<JsonElement>("{}");
+        ApiEnum<string, V1ExecuteResponseStatus> expectedStatus = V1ExecuteResponseStatus.Running;
 
         Assert.Equal(expectedDuration, model.Duration);
-        Assert.Equal(expectedError, model.Error);
+        Assert.Equal(expectedExecutionArn, model.ExecutionArn);
         Assert.Equal(expectedExecutionID, model.ExecutionID);
-        Assert.NotNull(model.Outputs);
-        Assert.True(JsonElement.DeepEquals(expectedOutputs, model.Outputs.Value));
+        Assert.Equal(expectedMode, model.Mode);
+        Assert.NotNull(model.Output);
+        Assert.True(JsonElement.DeepEquals(expectedOutput, model.Output.Value));
         Assert.Equal(expectedStatus, model.Status);
     }
 
@@ -39,10 +42,11 @@ public class V1ExecuteResponseTest : TestBase
         var model = new V1ExecuteResponse
         {
             Duration = 0,
-            Error = "error",
+            ExecutionArn = "executionArn",
             ExecutionID = "executionId",
-            Outputs = JsonSerializer.Deserialize<JsonElement>("{}"),
-            Status = V1ExecuteResponseStatus.Completed,
+            Mode = Mode.FireAndForget,
+            Output = JsonSerializer.Deserialize<JsonElement>("{}"),
+            Status = V1ExecuteResponseStatus.Running,
         };
 
         string json = JsonSerializer.Serialize(model);
@@ -57,10 +61,11 @@ public class V1ExecuteResponseTest : TestBase
         var model = new V1ExecuteResponse
         {
             Duration = 0,
-            Error = "error",
+            ExecutionArn = "executionArn",
             ExecutionID = "executionId",
-            Outputs = JsonSerializer.Deserialize<JsonElement>("{}"),
-            Status = V1ExecuteResponseStatus.Completed,
+            Mode = Mode.FireAndForget,
+            Output = JsonSerializer.Deserialize<JsonElement>("{}"),
+            Status = V1ExecuteResponseStatus.Running,
         };
 
         string json = JsonSerializer.Serialize(model);
@@ -68,16 +73,18 @@ public class V1ExecuteResponseTest : TestBase
         Assert.NotNull(deserialized);
 
         long expectedDuration = 0;
-        string expectedError = "error";
+        string expectedExecutionArn = "executionArn";
         string expectedExecutionID = "executionId";
-        JsonElement expectedOutputs = JsonSerializer.Deserialize<JsonElement>("{}");
-        ApiEnum<string, V1ExecuteResponseStatus> expectedStatus = V1ExecuteResponseStatus.Completed;
+        ApiEnum<string, Mode> expectedMode = Mode.FireAndForget;
+        JsonElement expectedOutput = JsonSerializer.Deserialize<JsonElement>("{}");
+        ApiEnum<string, V1ExecuteResponseStatus> expectedStatus = V1ExecuteResponseStatus.Running;
 
         Assert.Equal(expectedDuration, deserialized.Duration);
-        Assert.Equal(expectedError, deserialized.Error);
+        Assert.Equal(expectedExecutionArn, deserialized.ExecutionArn);
         Assert.Equal(expectedExecutionID, deserialized.ExecutionID);
-        Assert.NotNull(deserialized.Outputs);
-        Assert.True(JsonElement.DeepEquals(expectedOutputs, deserialized.Outputs.Value));
+        Assert.Equal(expectedMode, deserialized.Mode);
+        Assert.NotNull(deserialized.Output);
+        Assert.True(JsonElement.DeepEquals(expectedOutput, deserialized.Output.Value));
         Assert.Equal(expectedStatus, deserialized.Status);
     }
 
@@ -87,10 +94,11 @@ public class V1ExecuteResponseTest : TestBase
         var model = new V1ExecuteResponse
         {
             Duration = 0,
-            Error = "error",
+            ExecutionArn = "executionArn",
             ExecutionID = "executionId",
-            Outputs = JsonSerializer.Deserialize<JsonElement>("{}"),
-            Status = V1ExecuteResponseStatus.Completed,
+            Mode = Mode.FireAndForget,
+            Output = JsonSerializer.Deserialize<JsonElement>("{}"),
+            Status = V1ExecuteResponseStatus.Running,
         };
 
         model.Validate();
@@ -103,12 +111,14 @@ public class V1ExecuteResponseTest : TestBase
 
         Assert.Null(model.Duration);
         Assert.False(model.RawData.ContainsKey("duration"));
-        Assert.Null(model.Error);
-        Assert.False(model.RawData.ContainsKey("error"));
+        Assert.Null(model.ExecutionArn);
+        Assert.False(model.RawData.ContainsKey("executionArn"));
         Assert.Null(model.ExecutionID);
         Assert.False(model.RawData.ContainsKey("executionId"));
-        Assert.Null(model.Outputs);
-        Assert.False(model.RawData.ContainsKey("outputs"));
+        Assert.Null(model.Mode);
+        Assert.False(model.RawData.ContainsKey("mode"));
+        Assert.Null(model.Output);
+        Assert.False(model.RawData.ContainsKey("output"));
         Assert.Null(model.Status);
         Assert.False(model.RawData.ContainsKey("status"));
     }
@@ -128,20 +138,23 @@ public class V1ExecuteResponseTest : TestBase
         {
             // Null should be interpreted as omitted for these properties
             Duration = null,
-            Error = null,
+            ExecutionArn = null,
             ExecutionID = null,
-            Outputs = null,
+            Mode = null,
+            Output = null,
             Status = null,
         };
 
         Assert.Null(model.Duration);
         Assert.False(model.RawData.ContainsKey("duration"));
-        Assert.Null(model.Error);
-        Assert.False(model.RawData.ContainsKey("error"));
+        Assert.Null(model.ExecutionArn);
+        Assert.False(model.RawData.ContainsKey("executionArn"));
         Assert.Null(model.ExecutionID);
         Assert.False(model.RawData.ContainsKey("executionId"));
-        Assert.Null(model.Outputs);
-        Assert.False(model.RawData.ContainsKey("outputs"));
+        Assert.Null(model.Mode);
+        Assert.False(model.RawData.ContainsKey("mode"));
+        Assert.Null(model.Output);
+        Assert.False(model.RawData.ContainsKey("output"));
         Assert.Null(model.Status);
         Assert.False(model.RawData.ContainsKey("status"));
     }
@@ -153,9 +166,10 @@ public class V1ExecuteResponseTest : TestBase
         {
             // Null should be interpreted as omitted for these properties
             Duration = null,
-            Error = null,
+            ExecutionArn = null,
             ExecutionID = null,
-            Outputs = null,
+            Mode = null,
+            Output = null,
             Status = null,
         };
 
@@ -163,9 +177,68 @@ public class V1ExecuteResponseTest : TestBase
     }
 }
 
+public class ModeTest : TestBase
+{
+    [Theory]
+    [InlineData(Mode.FireAndForget)]
+    [InlineData(Mode.Callback)]
+    [InlineData(Mode.Sync)]
+    public void Validation_Works(Mode rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, Mode> value = rawValue;
+        value.Validate();
+    }
+
+    [Fact]
+    public void InvalidEnumValidationThrows_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, Mode>>(
+            JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
+            ModelBase.SerializerOptions
+        );
+        Assert.Throws<CasedevInvalidDataException>(() => value.Validate());
+    }
+
+    [Theory]
+    [InlineData(Mode.FireAndForget)]
+    [InlineData(Mode.Callback)]
+    [InlineData(Mode.Sync)]
+    public void SerializationRoundtrip_Works(Mode rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, Mode> value = rawValue;
+
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Mode>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
+    }
+
+    [Fact]
+    public void InvalidEnumSerializationRoundtrip_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, Mode>>(
+            JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
+            ModelBase.SerializerOptions
+        );
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Mode>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
+    }
+}
+
 public class V1ExecuteResponseStatusTest : TestBase
 {
     [Theory]
+    [InlineData(V1ExecuteResponseStatus.Running)]
     [InlineData(V1ExecuteResponseStatus.Completed)]
     [InlineData(V1ExecuteResponseStatus.Failed)]
     public void Validation_Works(V1ExecuteResponseStatus rawValue)
@@ -186,6 +259,7 @@ public class V1ExecuteResponseStatusTest : TestBase
     }
 
     [Theory]
+    [InlineData(V1ExecuteResponseStatus.Running)]
     [InlineData(V1ExecuteResponseStatus.Completed)]
     [InlineData(V1ExecuteResponseStatus.Failed)]
     public void SerializationRoundtrip_Works(V1ExecuteResponseStatus rawValue)

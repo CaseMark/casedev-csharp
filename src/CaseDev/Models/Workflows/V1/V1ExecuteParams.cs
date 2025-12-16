@@ -10,7 +10,10 @@ using CaseDev.Core;
 namespace CaseDev.Models.Workflows.V1;
 
 /// <summary>
-/// Execute a workflow for testing. This runs the workflow synchronously without deployment.
+/// Execute a deployed workflow. Supports three modes: - **Fire-and-forget** (default):
+/// Returns immediately with executionId. Poll /executions/{id} for status. - **Callback**:
+/// Returns immediately, POSTs result to callbackUrl when workflow completes. - **Sync
+/// wait**: Blocks until workflow completes (max 5 minutes).
 /// </summary>
 public sealed record class V1ExecuteParams : ParamsBase
 {
@@ -23,11 +26,14 @@ public sealed record class V1ExecuteParams : ParamsBase
     public string? ID { get; init; }
 
     /// <summary>
-    /// Input data to pass to the workflow trigger
+    /// Headers to include in callback request (e.g., Authorization)
     /// </summary>
-    public JsonElement? Body
+    public JsonElement? CallbackHeaders
     {
-        get { return ModelBase.GetNullableStruct<JsonElement>(this.RawBodyData, "body"); }
+        get
+        {
+            return ModelBase.GetNullableStruct<JsonElement>(this.RawBodyData, "callbackHeaders");
+        }
         init
         {
             if (value == null)
@@ -35,7 +41,75 @@ public sealed record class V1ExecuteParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "body", value);
+            ModelBase.Set(this._rawBodyData, "callbackHeaders", value);
+        }
+    }
+
+    /// <summary>
+    /// URL to POST results when workflow completes (enables callback mode)
+    /// </summary>
+    public string? CallbackURL
+    {
+        get { return ModelBase.GetNullableClass<string>(this.RawBodyData, "callbackUrl"); }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            ModelBase.Set(this._rawBodyData, "callbackUrl", value);
+        }
+    }
+
+    /// <summary>
+    /// Input data to pass to the workflow
+    /// </summary>
+    public JsonElement? Input
+    {
+        get { return ModelBase.GetNullableStruct<JsonElement>(this.RawBodyData, "input"); }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            ModelBase.Set(this._rawBodyData, "input", value);
+        }
+    }
+
+    /// <summary>
+    /// Timeout for sync wait mode (e.g., '30s', '2m'). Max 5m. Default: 30s
+    /// </summary>
+    public string? Timeout
+    {
+        get { return ModelBase.GetNullableClass<string>(this.RawBodyData, "timeout"); }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            ModelBase.Set(this._rawBodyData, "timeout", value);
+        }
+    }
+
+    /// <summary>
+    /// Wait for completion (default: false, max 5 min)
+    /// </summary>
+    public bool? Wait
+    {
+        get { return ModelBase.GetNullableStruct<bool>(this.RawBodyData, "wait"); }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            ModelBase.Set(this._rawBodyData, "wait", value);
         }
     }
 
