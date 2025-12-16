@@ -32,17 +32,6 @@ public interface IV1Service
     ISecretService Secrets { get; }
 
     /// <summary>
-    /// Deploy code to Case.dev's serverless compute infrastructure powered by Modal.
-    /// Supports Python, Dockerfile, and container image runtimes with GPU acceleration
-    /// for AI/ML workloads. Code is deployed as tasks (batch jobs) or services (web
-    /// endpoints) with automatic scaling.
-    /// </summary>
-    Task<V1DeployResponse> Deploy(
-        V1DeployParams parameters,
-        CancellationToken cancellationToken = default
-    );
-
-    /// <summary>
     /// Returns current pricing for GPU and CPU compute resources. This public endpoint
     /// provides detailed pricing information for all available compute types, including
     /// GPU instances and CPU cores, with billing model details.

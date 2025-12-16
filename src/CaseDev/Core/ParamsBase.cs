@@ -249,7 +249,7 @@ public abstract record class ParamsBase
             ?.InformationalVersion
         ?? "unknown";
 
-    static Runtime1 GetRuntime()
+    static Runtime GetRuntime()
     {
         var runtimeDescription = RuntimeInformation.FrameworkDescription;
         var lastSpaceIndex = runtimeDescription.LastIndexOf(' ');
@@ -267,5 +267,5 @@ public abstract record class ParamsBase
         };
     }
 
-    readonly record struct Runtime1(string Name, string Version);
+    readonly record struct Runtime(string Name, string Version);
 }

@@ -60,30 +60,6 @@ public sealed class V1Service : IV1Service
     }
 
     /// <inheritdoc/>
-    public async Task<V1DeployResponse> Deploy(
-        V1DeployParams parameters,
-        CancellationToken cancellationToken = default
-    )
-    {
-        HttpRequest<V1DeployParams> request = new()
-        {
-            Method = HttpMethod.Post,
-            Params = parameters,
-        };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
-        var deserializedResponse = await response
-            .Deserialize<V1DeployResponse>(cancellationToken)
-            .ConfigureAwait(false);
-        if (this._client.ResponseValidation)
-        {
-            deserializedResponse.Validate();
-        }
-        return deserializedResponse;
-    }
-
-    /// <inheritdoc/>
     public async Task GetPricing(
         V1GetPricingParams? parameters = null,
         CancellationToken cancellationToken = default

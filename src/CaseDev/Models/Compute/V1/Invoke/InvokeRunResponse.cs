@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -5,7 +6,6 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using CaseDev.Core;
 using CaseDev.Exceptions;
-using System = System;
 
 namespace CaseDev.Models.Compute.V1.Invoke;
 
@@ -106,8 +106,8 @@ public record class InvokeRunResponse
     /// </example>
     /// </summary>
     public void Switch(
-        System::Action<SynchronousResponse> synchronous,
-        System::Action<AsynchronousResponse> asynchronous
+        Action<SynchronousResponse> synchronous,
+        Action<AsynchronousResponse> asynchronous
     )
     {
         switch (this.Value)
@@ -147,8 +147,8 @@ public record class InvokeRunResponse
     /// </example>
     /// </summary>
     public T Match<T>(
-        System::Func<SynchronousResponse, T> synchronous,
-        System::Func<AsynchronousResponse, T> asynchronous
+        Func<SynchronousResponse, T> synchronous,
+        Func<AsynchronousResponse, T> asynchronous
     )
     {
         return this.Value switch
@@ -204,7 +204,7 @@ sealed class InvokeRunResponseConverter : JsonConverter<InvokeRunResponse>
 {
     public override InvokeRunResponse? Read(
         ref Utf8JsonReader reader,
-        System::Type typeToConvert,
+        Type typeToConvert,
         JsonSerializerOptions options
     )
     {
@@ -218,7 +218,7 @@ sealed class InvokeRunResponseConverter : JsonConverter<InvokeRunResponse>
                 return new(deserialized, json);
             }
         }
-        catch (System::Exception e) when (e is JsonException || e is CasedevInvalidDataException)
+        catch (Exception e) when (e is JsonException || e is CasedevInvalidDataException)
         {
             // ignore
         }
@@ -232,7 +232,7 @@ sealed class InvokeRunResponseConverter : JsonConverter<InvokeRunResponse>
                 return new(deserialized, json);
             }
         }
-        catch (System::Exception e) when (e is JsonException || e is CasedevInvalidDataException)
+        catch (Exception e) when (e is JsonException || e is CasedevInvalidDataException)
         {
             // ignore
         }
@@ -390,7 +390,7 @@ sealed class StatusConverter : JsonConverter<Status>
 {
     public override Status Read(
         ref Utf8JsonReader reader,
-        System::Type typeToConvert,
+        Type typeToConvert,
         JsonSerializerOptions options
     )
     {
@@ -529,7 +529,7 @@ sealed class AsynchronousResponseStatusConverter : JsonConverter<AsynchronousRes
 {
     public override AsynchronousResponseStatus Read(
         ref Utf8JsonReader reader,
-        System::Type typeToConvert,
+        Type typeToConvert,
         JsonSerializerOptions options
     )
     {
