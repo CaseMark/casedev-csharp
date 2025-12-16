@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -5,7 +6,6 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using CaseDev.Core;
 using CaseDev.Exceptions;
-using System = System;
 
 namespace CaseDev.Models.Compute.V1.Environments;
 
@@ -32,12 +32,9 @@ public sealed record class EnvironmentCreateResponse : ModelBase
     /// <summary>
     /// Environment creation timestamp
     /// </summary>
-    public System::DateTimeOffset? CreatedAt
+    public DateTimeOffset? CreatedAt
     {
-        get
-        {
-            return ModelBase.GetNullableStruct<System::DateTimeOffset>(this.RawData, "createdAt");
-        }
+        get { return ModelBase.GetNullableStruct<DateTimeOffset>(this.RawData, "createdAt"); }
         init
         {
             if (value == null)
@@ -195,7 +192,7 @@ sealed class StatusConverter : JsonConverter<Status>
 {
     public override Status Read(
         ref Utf8JsonReader reader,
-        System::Type typeToConvert,
+        Type typeToConvert,
         JsonSerializerOptions options
     )
     {

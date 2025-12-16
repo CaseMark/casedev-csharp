@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -7,7 +8,6 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using CaseDev.Core;
 using CaseDev.Exceptions;
-using System = System;
 
 namespace CaseDev.Models.Compute.V1.Invoke;
 
@@ -129,9 +129,9 @@ public sealed record class InvokeRunParams : ParamsBase
         );
     }
 
-    public override System::Uri Url(ClientOptions options)
+    public override Uri Url(ClientOptions options)
     {
-        return new System::UriBuilder(
+        return new UriBuilder(
             options.BaseUrl.ToString().TrimEnd('/')
                 + string.Format("/compute/v1/invoke/{0}", this.FunctionID)
         )
@@ -171,7 +171,7 @@ sealed class FunctionSuffixConverter : JsonConverter<FunctionSuffix>
 {
     public override FunctionSuffix Read(
         ref Utf8JsonReader reader,
-        System::Type typeToConvert,
+        Type typeToConvert,
         JsonSerializerOptions options
     )
     {
