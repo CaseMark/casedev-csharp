@@ -32,7 +32,7 @@ public sealed record class V1ExecuteParams : ParamsBase
     {
         get
         {
-            return ModelBase.GetNullableStruct<JsonElement>(this.RawBodyData, "callbackHeaders");
+            return JsonModel.GetNullableStruct<JsonElement>(this.RawBodyData, "callbackHeaders");
         }
         init
         {
@@ -41,7 +41,7 @@ public sealed record class V1ExecuteParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "callbackHeaders", value);
+            JsonModel.Set(this._rawBodyData, "callbackHeaders", value);
         }
     }
 
@@ -50,7 +50,7 @@ public sealed record class V1ExecuteParams : ParamsBase
     /// </summary>
     public string? CallbackURL
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawBodyData, "callbackUrl"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "callbackUrl"); }
         init
         {
             if (value == null)
@@ -58,7 +58,7 @@ public sealed record class V1ExecuteParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "callbackUrl", value);
+            JsonModel.Set(this._rawBodyData, "callbackUrl", value);
         }
     }
 
@@ -67,7 +67,7 @@ public sealed record class V1ExecuteParams : ParamsBase
     /// </summary>
     public JsonElement? Input
     {
-        get { return ModelBase.GetNullableStruct<JsonElement>(this.RawBodyData, "input"); }
+        get { return JsonModel.GetNullableStruct<JsonElement>(this.RawBodyData, "input"); }
         init
         {
             if (value == null)
@@ -75,7 +75,7 @@ public sealed record class V1ExecuteParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "input", value);
+            JsonModel.Set(this._rawBodyData, "input", value);
         }
     }
 
@@ -84,7 +84,7 @@ public sealed record class V1ExecuteParams : ParamsBase
     /// </summary>
     public string? Timeout
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawBodyData, "timeout"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "timeout"); }
         init
         {
             if (value == null)
@@ -92,7 +92,7 @@ public sealed record class V1ExecuteParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "timeout", value);
+            JsonModel.Set(this._rawBodyData, "timeout", value);
         }
     }
 
@@ -101,7 +101,7 @@ public sealed record class V1ExecuteParams : ParamsBase
     /// </summary>
     public bool? Wait
     {
-        get { return ModelBase.GetNullableStruct<bool>(this.RawBodyData, "wait"); }
+        get { return JsonModel.GetNullableStruct<bool>(this.RawBodyData, "wait"); }
         init
         {
             if (value == null)
@@ -109,7 +109,7 @@ public sealed record class V1ExecuteParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "wait", value);
+            JsonModel.Set(this._rawBodyData, "wait", value);
         }
     }
 
@@ -146,7 +146,7 @@ public sealed record class V1ExecuteParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="IFromRaw.FromRawUnchecked"/>
+    /// <inheritdoc cref="IFromRawJson.FromRawUnchecked"/>
     public static V1ExecuteParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
@@ -171,9 +171,13 @@ public sealed record class V1ExecuteParams : ParamsBase
         }.Uri;
     }
 
-    internal override StringContent? BodyContent()
+    internal override HttpContent? BodyContent()
     {
-        return new(JsonSerializer.Serialize(this.RawBodyData), Encoding.UTF8, "application/json");
+        return new StringContent(
+            JsonSerializer.Serialize(this.RawBodyData),
+            Encoding.UTF8,
+            "application/json"
+        );
     }
 
     internal override void AddHeadersToRequest(HttpRequestMessage request, ClientOptions options)

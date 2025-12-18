@@ -108,8 +108,8 @@ public class ResultTest : TestBase
             StoredFilename = "stored_filename",
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<Result>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<Result>(element);
         Assert.NotNull(deserialized);
 
         double expectedDurationSeconds = 0;

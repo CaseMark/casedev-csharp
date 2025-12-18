@@ -29,8 +29,8 @@ public sealed record class ChatCreateCompletionParams : ParamsBase
     /// </summary>
     public required IReadOnlyList<Message> Messages
     {
-        get { return ModelBase.GetNotNullClass<List<Message>>(this.RawBodyData, "messages"); }
-        init { ModelBase.Set(this._rawBodyData, "messages", value); }
+        get { return JsonModel.GetNotNullClass<List<Message>>(this.RawBodyData, "messages"); }
+        init { JsonModel.Set(this._rawBodyData, "messages", value); }
     }
 
     /// <summary>
@@ -38,7 +38,7 @@ public sealed record class ChatCreateCompletionParams : ParamsBase
     /// </summary>
     public double? FrequencyPenalty
     {
-        get { return ModelBase.GetNullableStruct<double>(this.RawBodyData, "frequency_penalty"); }
+        get { return JsonModel.GetNullableStruct<double>(this.RawBodyData, "frequency_penalty"); }
         init
         {
             if (value == null)
@@ -46,7 +46,7 @@ public sealed record class ChatCreateCompletionParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "frequency_penalty", value);
+            JsonModel.Set(this._rawBodyData, "frequency_penalty", value);
         }
     }
 
@@ -55,7 +55,7 @@ public sealed record class ChatCreateCompletionParams : ParamsBase
     /// </summary>
     public long? MaxTokens
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawBodyData, "max_tokens"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawBodyData, "max_tokens"); }
         init
         {
             if (value == null)
@@ -63,7 +63,7 @@ public sealed record class ChatCreateCompletionParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "max_tokens", value);
+            JsonModel.Set(this._rawBodyData, "max_tokens", value);
         }
     }
 
@@ -72,7 +72,7 @@ public sealed record class ChatCreateCompletionParams : ParamsBase
     /// </summary>
     public string? Model
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawBodyData, "model"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "model"); }
         init
         {
             if (value == null)
@@ -80,7 +80,7 @@ public sealed record class ChatCreateCompletionParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "model", value);
+            JsonModel.Set(this._rawBodyData, "model", value);
         }
     }
 
@@ -89,7 +89,7 @@ public sealed record class ChatCreateCompletionParams : ParamsBase
     /// </summary>
     public double? PresencePenalty
     {
-        get { return ModelBase.GetNullableStruct<double>(this.RawBodyData, "presence_penalty"); }
+        get { return JsonModel.GetNullableStruct<double>(this.RawBodyData, "presence_penalty"); }
         init
         {
             if (value == null)
@@ -97,7 +97,7 @@ public sealed record class ChatCreateCompletionParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "presence_penalty", value);
+            JsonModel.Set(this._rawBodyData, "presence_penalty", value);
         }
     }
 
@@ -106,7 +106,7 @@ public sealed record class ChatCreateCompletionParams : ParamsBase
     /// </summary>
     public bool? Stream
     {
-        get { return ModelBase.GetNullableStruct<bool>(this.RawBodyData, "stream"); }
+        get { return JsonModel.GetNullableStruct<bool>(this.RawBodyData, "stream"); }
         init
         {
             if (value == null)
@@ -114,7 +114,7 @@ public sealed record class ChatCreateCompletionParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "stream", value);
+            JsonModel.Set(this._rawBodyData, "stream", value);
         }
     }
 
@@ -123,7 +123,7 @@ public sealed record class ChatCreateCompletionParams : ParamsBase
     /// </summary>
     public double? Temperature
     {
-        get { return ModelBase.GetNullableStruct<double>(this.RawBodyData, "temperature"); }
+        get { return JsonModel.GetNullableStruct<double>(this.RawBodyData, "temperature"); }
         init
         {
             if (value == null)
@@ -131,7 +131,7 @@ public sealed record class ChatCreateCompletionParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "temperature", value);
+            JsonModel.Set(this._rawBodyData, "temperature", value);
         }
     }
 
@@ -140,7 +140,7 @@ public sealed record class ChatCreateCompletionParams : ParamsBase
     /// </summary>
     public double? TopP
     {
-        get { return ModelBase.GetNullableStruct<double>(this.RawBodyData, "top_p"); }
+        get { return JsonModel.GetNullableStruct<double>(this.RawBodyData, "top_p"); }
         init
         {
             if (value == null)
@@ -148,7 +148,7 @@ public sealed record class ChatCreateCompletionParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "top_p", value);
+            JsonModel.Set(this._rawBodyData, "top_p", value);
         }
     }
 
@@ -185,7 +185,7 @@ public sealed record class ChatCreateCompletionParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="IFromRaw.FromRawUnchecked"/>
+    /// <inheritdoc cref="IFromRawJson.FromRawUnchecked"/>
     public static ChatCreateCompletionParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
@@ -207,9 +207,13 @@ public sealed record class ChatCreateCompletionParams : ParamsBase
         }.Uri;
     }
 
-    internal override StringContent? BodyContent()
+    internal override HttpContent? BodyContent()
     {
-        return new(JsonSerializer.Serialize(this.RawBodyData), Encoding.UTF8, "application/json");
+        return new StringContent(
+            JsonSerializer.Serialize(this.RawBodyData),
+            Encoding.UTF8,
+            "application/json"
+        );
     }
 
     internal override void AddHeadersToRequest(HttpRequestMessage request, ClientOptions options)
@@ -222,15 +226,15 @@ public sealed record class ChatCreateCompletionParams : ParamsBase
     }
 }
 
-[JsonConverter(typeof(ModelConverter<Message, MessageFromRaw>))]
-public sealed record class Message : ModelBase
+[JsonConverter(typeof(JsonModelConverter<Message, MessageFromRaw>))]
+public sealed record class Message : JsonModel
 {
     /// <summary>
     /// The contents of the message
     /// </summary>
     public string? Content
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "content"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "content"); }
         init
         {
             if (value == null)
@@ -238,7 +242,7 @@ public sealed record class Message : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "content", value);
+            JsonModel.Set(this._rawData, "content", value);
         }
     }
 
@@ -247,7 +251,7 @@ public sealed record class Message : ModelBase
     /// </summary>
     public ApiEnum<string, Role>? Role
     {
-        get { return ModelBase.GetNullableClass<ApiEnum<string, Role>>(this.RawData, "role"); }
+        get { return JsonModel.GetNullableClass<ApiEnum<string, Role>>(this.RawData, "role"); }
         init
         {
             if (value == null)
@@ -255,7 +259,7 @@ public sealed record class Message : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "role", value);
+            JsonModel.Set(this._rawData, "role", value);
         }
     }
 
@@ -291,7 +295,7 @@ public sealed record class Message : ModelBase
     }
 }
 
-class MessageFromRaw : IFromRaw<Message>
+class MessageFromRaw : IFromRawJson<Message>
 {
     /// <inheritdoc/>
     public Message FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>

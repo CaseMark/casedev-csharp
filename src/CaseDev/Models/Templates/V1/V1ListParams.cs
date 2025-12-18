@@ -20,7 +20,7 @@ public sealed record class V1ListParams : ParamsBase
     /// </summary>
     public string? Category
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawQueryData, "category"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawQueryData, "category"); }
         init
         {
             if (value == null)
@@ -28,7 +28,7 @@ public sealed record class V1ListParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawQueryData, "category", value);
+            JsonModel.Set(this._rawQueryData, "category", value);
         }
     }
 
@@ -37,7 +37,7 @@ public sealed record class V1ListParams : ParamsBase
     /// </summary>
     public long? Limit
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawQueryData, "limit"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawQueryData, "limit"); }
         init
         {
             if (value == null)
@@ -45,7 +45,7 @@ public sealed record class V1ListParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawQueryData, "limit", value);
+            JsonModel.Set(this._rawQueryData, "limit", value);
         }
     }
 
@@ -54,7 +54,7 @@ public sealed record class V1ListParams : ParamsBase
     /// </summary>
     public long? Offset
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawQueryData, "offset"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawQueryData, "offset"); }
         init
         {
             if (value == null)
@@ -62,7 +62,7 @@ public sealed record class V1ListParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawQueryData, "offset", value);
+            JsonModel.Set(this._rawQueryData, "offset", value);
         }
     }
 
@@ -71,7 +71,7 @@ public sealed record class V1ListParams : ParamsBase
     /// </summary>
     public bool? Published
     {
-        get { return ModelBase.GetNullableStruct<bool>(this.RawQueryData, "published"); }
+        get { return JsonModel.GetNullableStruct<bool>(this.RawQueryData, "published"); }
         init
         {
             if (value == null)
@@ -79,7 +79,7 @@ public sealed record class V1ListParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawQueryData, "published", value);
+            JsonModel.Set(this._rawQueryData, "published", value);
         }
     }
 
@@ -88,7 +88,7 @@ public sealed record class V1ListParams : ParamsBase
     /// </summary>
     public string? SubCategory
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawQueryData, "sub_category"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawQueryData, "sub_category"); }
         init
         {
             if (value == null)
@@ -96,7 +96,7 @@ public sealed record class V1ListParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawQueryData, "sub_category", value);
+            JsonModel.Set(this._rawQueryData, "sub_category", value);
         }
     }
 
@@ -105,7 +105,7 @@ public sealed record class V1ListParams : ParamsBase
     /// </summary>
     public string? Type
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawQueryData, "type"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawQueryData, "type"); }
         init
         {
             if (value == null)
@@ -113,7 +113,7 @@ public sealed record class V1ListParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawQueryData, "type", value);
+            JsonModel.Set(this._rawQueryData, "type", value);
         }
     }
 
@@ -143,7 +143,7 @@ public sealed record class V1ListParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="IFromRaw.FromRawUnchecked"/>
+    /// <inheritdoc cref="IFromRawJson.FromRawUnchecked"/>
     public static V1ListParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

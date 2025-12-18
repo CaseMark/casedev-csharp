@@ -35,8 +35,8 @@ public class OptionsTest : TestBase
     {
         var model = new Options { Format = OptionsFormat.Json, Model = "model" };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<Options>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<Options>(element);
         Assert.NotNull(deserialized);
 
         ApiEnum<string, OptionsFormat> expectedFormat = OptionsFormat.Json;

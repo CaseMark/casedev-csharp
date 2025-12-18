@@ -76,8 +76,8 @@ public class VaultCreateResponseTest : TestBase
             VectorBucket = "vectorBucket",
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<VaultCreateResponse>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<VaultCreateResponse>(element);
         Assert.NotNull(deserialized);
 
         string expectedID = "id";

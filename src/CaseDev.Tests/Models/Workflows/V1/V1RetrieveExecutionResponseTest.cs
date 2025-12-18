@@ -103,8 +103,8 @@ public class V1RetrieveExecutionResponseTest : TestBase
             WorkflowID = "workflowId",
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<V1RetrieveExecutionResponse>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<V1RetrieveExecutionResponse>(element);
         Assert.NotNull(deserialized);
 
         string expectedID = "id";

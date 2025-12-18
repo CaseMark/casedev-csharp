@@ -9,19 +9,19 @@ using CaseDev.Core;
 namespace CaseDev.Models.Vault.Objects;
 
 [JsonConverter(
-    typeof(ModelConverter<
+    typeof(JsonModelConverter<
         ObjectCreatePresignedURLResponse,
         ObjectCreatePresignedURLResponseFromRaw
     >)
 )]
-public sealed record class ObjectCreatePresignedURLResponse : ModelBase
+public sealed record class ObjectCreatePresignedURLResponse : JsonModel
 {
     /// <summary>
     /// URL expiration timestamp
     /// </summary>
     public DateTimeOffset? ExpiresAt
     {
-        get { return ModelBase.GetNullableStruct<DateTimeOffset>(this.RawData, "expiresAt"); }
+        get { return JsonModel.GetNullableStruct<DateTimeOffset>(this.RawData, "expiresAt"); }
         init
         {
             if (value == null)
@@ -29,7 +29,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "expiresAt", value);
+            JsonModel.Set(this._rawData, "expiresAt", value);
         }
     }
 
@@ -38,7 +38,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
     /// </summary>
     public long? ExpiresIn
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawData, "expiresIn"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawData, "expiresIn"); }
         init
         {
             if (value == null)
@@ -46,7 +46,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "expiresIn", value);
+            JsonModel.Set(this._rawData, "expiresIn", value);
         }
     }
 
@@ -55,7 +55,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
     /// </summary>
     public string? Filename
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "filename"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "filename"); }
         init
         {
             if (value == null)
@@ -63,7 +63,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "filename", value);
+            JsonModel.Set(this._rawData, "filename", value);
         }
     }
 
@@ -72,7 +72,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
     /// </summary>
     public JsonElement? Instructions
     {
-        get { return ModelBase.GetNullableStruct<JsonElement>(this.RawData, "instructions"); }
+        get { return JsonModel.GetNullableStruct<JsonElement>(this.RawData, "instructions"); }
         init
         {
             if (value == null)
@@ -80,13 +80,13 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "instructions", value);
+            JsonModel.Set(this._rawData, "instructions", value);
         }
     }
 
     public Metadata? Metadata
     {
-        get { return ModelBase.GetNullableClass<Metadata>(this.RawData, "metadata"); }
+        get { return JsonModel.GetNullableClass<Metadata>(this.RawData, "metadata"); }
         init
         {
             if (value == null)
@@ -94,7 +94,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "metadata", value);
+            JsonModel.Set(this._rawData, "metadata", value);
         }
     }
 
@@ -103,7 +103,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
     /// </summary>
     public string? ObjectID
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "objectId"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "objectId"); }
         init
         {
             if (value == null)
@@ -111,7 +111,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "objectId", value);
+            JsonModel.Set(this._rawData, "objectId", value);
         }
     }
 
@@ -120,7 +120,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
     /// </summary>
     public string? Operation
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "operation"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "operation"); }
         init
         {
             if (value == null)
@@ -128,7 +128,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "operation", value);
+            JsonModel.Set(this._rawData, "operation", value);
         }
     }
 
@@ -137,7 +137,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
     /// </summary>
     public string? PresignedURL
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "presignedUrl"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "presignedUrl"); }
         init
         {
             if (value == null)
@@ -145,7 +145,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "presignedUrl", value);
+            JsonModel.Set(this._rawData, "presignedUrl", value);
         }
     }
 
@@ -154,7 +154,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
     /// </summary>
     public string? S3Key
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "s3Key"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "s3Key"); }
         init
         {
             if (value == null)
@@ -162,7 +162,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "s3Key", value);
+            JsonModel.Set(this._rawData, "s3Key", value);
         }
     }
 
@@ -171,7 +171,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
     /// </summary>
     public string? VaultID
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "vaultId"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "vaultId"); }
         init
         {
             if (value == null)
@@ -179,7 +179,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "vaultId", value);
+            JsonModel.Set(this._rawData, "vaultId", value);
         }
     }
 
@@ -227,7 +227,7 @@ public sealed record class ObjectCreatePresignedURLResponse : ModelBase
     }
 }
 
-class ObjectCreatePresignedURLResponseFromRaw : IFromRaw<ObjectCreatePresignedURLResponse>
+class ObjectCreatePresignedURLResponseFromRaw : IFromRawJson<ObjectCreatePresignedURLResponse>
 {
     /// <inheritdoc/>
     public ObjectCreatePresignedURLResponse FromRawUnchecked(
@@ -235,12 +235,12 @@ class ObjectCreatePresignedURLResponseFromRaw : IFromRaw<ObjectCreatePresignedUR
     ) => ObjectCreatePresignedURLResponse.FromRawUnchecked(rawData);
 }
 
-[JsonConverter(typeof(ModelConverter<Metadata, MetadataFromRaw>))]
-public sealed record class Metadata : ModelBase
+[JsonConverter(typeof(JsonModelConverter<Metadata, MetadataFromRaw>))]
+public sealed record class Metadata : JsonModel
 {
     public string? Bucket
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "bucket"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "bucket"); }
         init
         {
             if (value == null)
@@ -248,13 +248,13 @@ public sealed record class Metadata : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "bucket", value);
+            JsonModel.Set(this._rawData, "bucket", value);
         }
     }
 
     public string? ContentType
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "contentType"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "contentType"); }
         init
         {
             if (value == null)
@@ -262,13 +262,13 @@ public sealed record class Metadata : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "contentType", value);
+            JsonModel.Set(this._rawData, "contentType", value);
         }
     }
 
     public string? Region
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "region"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "region"); }
         init
         {
             if (value == null)
@@ -276,13 +276,13 @@ public sealed record class Metadata : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "region", value);
+            JsonModel.Set(this._rawData, "region", value);
         }
     }
 
     public long? SizeBytes
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawData, "sizeBytes"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawData, "sizeBytes"); }
         init
         {
             if (value == null)
@@ -290,7 +290,7 @@ public sealed record class Metadata : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "sizeBytes", value);
+            JsonModel.Set(this._rawData, "sizeBytes", value);
         }
     }
 
@@ -328,7 +328,7 @@ public sealed record class Metadata : ModelBase
     }
 }
 
-class MetadataFromRaw : IFromRaw<Metadata>
+class MetadataFromRaw : IFromRawJson<Metadata>
 {
     /// <inheritdoc/>
     public Metadata FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>

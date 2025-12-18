@@ -20,7 +20,7 @@ public sealed record class SecretListParams : ParamsBase
     /// </summary>
     public string? Env
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawQueryData, "env"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawQueryData, "env"); }
         init
         {
             if (value == null)
@@ -28,7 +28,7 @@ public sealed record class SecretListParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawQueryData, "env", value);
+            JsonModel.Set(this._rawQueryData, "env", value);
         }
     }
 
@@ -58,7 +58,7 @@ public sealed record class SecretListParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="IFromRaw.FromRawUnchecked"/>
+    /// <inheritdoc cref="IFromRawJson.FromRawUnchecked"/>
     public static SecretListParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

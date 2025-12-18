@@ -20,7 +20,7 @@ public sealed record class V1ListParams : ParamsBase
     /// </summary>
     public long? Limit
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawQueryData, "limit"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawQueryData, "limit"); }
         init
         {
             if (value == null)
@@ -28,7 +28,7 @@ public sealed record class V1ListParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawQueryData, "limit", value);
+            JsonModel.Set(this._rawQueryData, "limit", value);
         }
     }
 
@@ -37,7 +37,7 @@ public sealed record class V1ListParams : ParamsBase
     /// </summary>
     public long? Offset
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawQueryData, "offset"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawQueryData, "offset"); }
         init
         {
             if (value == null)
@@ -45,7 +45,7 @@ public sealed record class V1ListParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawQueryData, "offset", value);
+            JsonModel.Set(this._rawQueryData, "offset", value);
         }
     }
 
@@ -56,7 +56,7 @@ public sealed record class V1ListParams : ParamsBase
     {
         get
         {
-            return ModelBase.GetNullableClass<ApiEnum<string, V1ListParamsVisibility>>(
+            return JsonModel.GetNullableClass<ApiEnum<string, V1ListParamsVisibility>>(
                 this.RawQueryData,
                 "visibility"
             );
@@ -68,7 +68,7 @@ public sealed record class V1ListParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawQueryData, "visibility", value);
+            JsonModel.Set(this._rawQueryData, "visibility", value);
         }
     }
 
@@ -98,7 +98,7 @@ public sealed record class V1ListParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="IFromRaw.FromRawUnchecked"/>
+    /// <inheritdoc cref="IFromRawJson.FromRawUnchecked"/>
     public static V1ListParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

@@ -8,16 +8,16 @@ using CaseDev.Core;
 namespace CaseDev.Models.Llm.V1.Chat;
 
 [JsonConverter(
-    typeof(ModelConverter<ChatCreateCompletionResponse, ChatCreateCompletionResponseFromRaw>)
+    typeof(JsonModelConverter<ChatCreateCompletionResponse, ChatCreateCompletionResponseFromRaw>)
 )]
-public sealed record class ChatCreateCompletionResponse : ModelBase
+public sealed record class ChatCreateCompletionResponse : JsonModel
 {
     /// <summary>
     /// Unique identifier for the completion
     /// </summary>
     public string? ID
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "id"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "id"); }
         init
         {
             if (value == null)
@@ -25,13 +25,13 @@ public sealed record class ChatCreateCompletionResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "id", value);
+            JsonModel.Set(this._rawData, "id", value);
         }
     }
 
     public IReadOnlyList<Choice>? Choices
     {
-        get { return ModelBase.GetNullableClass<List<Choice>>(this.RawData, "choices"); }
+        get { return JsonModel.GetNullableClass<List<Choice>>(this.RawData, "choices"); }
         init
         {
             if (value == null)
@@ -39,7 +39,7 @@ public sealed record class ChatCreateCompletionResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "choices", value);
+            JsonModel.Set(this._rawData, "choices", value);
         }
     }
 
@@ -48,7 +48,7 @@ public sealed record class ChatCreateCompletionResponse : ModelBase
     /// </summary>
     public long? Created
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawData, "created"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawData, "created"); }
         init
         {
             if (value == null)
@@ -56,7 +56,7 @@ public sealed record class ChatCreateCompletionResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "created", value);
+            JsonModel.Set(this._rawData, "created", value);
         }
     }
 
@@ -65,7 +65,7 @@ public sealed record class ChatCreateCompletionResponse : ModelBase
     /// </summary>
     public string? Model
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "model"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "model"); }
         init
         {
             if (value == null)
@@ -73,13 +73,13 @@ public sealed record class ChatCreateCompletionResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "model", value);
+            JsonModel.Set(this._rawData, "model", value);
         }
     }
 
     public string? Object
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "object"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "object"); }
         init
         {
             if (value == null)
@@ -87,13 +87,13 @@ public sealed record class ChatCreateCompletionResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "object", value);
+            JsonModel.Set(this._rawData, "object", value);
         }
     }
 
     public Usage? Usage
     {
-        get { return ModelBase.GetNullableClass<Usage>(this.RawData, "usage"); }
+        get { return JsonModel.GetNullableClass<Usage>(this.RawData, "usage"); }
         init
         {
             if (value == null)
@@ -101,7 +101,7 @@ public sealed record class ChatCreateCompletionResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "usage", value);
+            JsonModel.Set(this._rawData, "usage", value);
         }
     }
 
@@ -146,7 +146,7 @@ public sealed record class ChatCreateCompletionResponse : ModelBase
     }
 }
 
-class ChatCreateCompletionResponseFromRaw : IFromRaw<ChatCreateCompletionResponse>
+class ChatCreateCompletionResponseFromRaw : IFromRawJson<ChatCreateCompletionResponse>
 {
     /// <inheritdoc/>
     public ChatCreateCompletionResponse FromRawUnchecked(
@@ -154,12 +154,12 @@ class ChatCreateCompletionResponseFromRaw : IFromRaw<ChatCreateCompletionRespons
     ) => ChatCreateCompletionResponse.FromRawUnchecked(rawData);
 }
 
-[JsonConverter(typeof(ModelConverter<Choice, ChoiceFromRaw>))]
-public sealed record class Choice : ModelBase
+[JsonConverter(typeof(JsonModelConverter<Choice, ChoiceFromRaw>))]
+public sealed record class Choice : JsonModel
 {
     public string? FinishReason
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "finish_reason"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "finish_reason"); }
         init
         {
             if (value == null)
@@ -167,13 +167,13 @@ public sealed record class Choice : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "finish_reason", value);
+            JsonModel.Set(this._rawData, "finish_reason", value);
         }
     }
 
     public long? Index
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawData, "index"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawData, "index"); }
         init
         {
             if (value == null)
@@ -181,13 +181,13 @@ public sealed record class Choice : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "index", value);
+            JsonModel.Set(this._rawData, "index", value);
         }
     }
 
     public ChoiceMessage? Message
     {
-        get { return ModelBase.GetNullableClass<ChoiceMessage>(this.RawData, "message"); }
+        get { return JsonModel.GetNullableClass<ChoiceMessage>(this.RawData, "message"); }
         init
         {
             if (value == null)
@@ -195,7 +195,7 @@ public sealed record class Choice : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "message", value);
+            JsonModel.Set(this._rawData, "message", value);
         }
     }
 
@@ -232,19 +232,19 @@ public sealed record class Choice : ModelBase
     }
 }
 
-class ChoiceFromRaw : IFromRaw<Choice>
+class ChoiceFromRaw : IFromRawJson<Choice>
 {
     /// <inheritdoc/>
     public Choice FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         Choice.FromRawUnchecked(rawData);
 }
 
-[JsonConverter(typeof(ModelConverter<ChoiceMessage, ChoiceMessageFromRaw>))]
-public sealed record class ChoiceMessage : ModelBase
+[JsonConverter(typeof(JsonModelConverter<ChoiceMessage, ChoiceMessageFromRaw>))]
+public sealed record class ChoiceMessage : JsonModel
 {
     public string? Content
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "content"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "content"); }
         init
         {
             if (value == null)
@@ -252,13 +252,13 @@ public sealed record class ChoiceMessage : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "content", value);
+            JsonModel.Set(this._rawData, "content", value);
         }
     }
 
     public string? Role
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "role"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "role"); }
         init
         {
             if (value == null)
@@ -266,7 +266,7 @@ public sealed record class ChoiceMessage : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "role", value);
+            JsonModel.Set(this._rawData, "role", value);
         }
     }
 
@@ -302,19 +302,19 @@ public sealed record class ChoiceMessage : ModelBase
     }
 }
 
-class ChoiceMessageFromRaw : IFromRaw<ChoiceMessage>
+class ChoiceMessageFromRaw : IFromRawJson<ChoiceMessage>
 {
     /// <inheritdoc/>
     public ChoiceMessage FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         ChoiceMessage.FromRawUnchecked(rawData);
 }
 
-[JsonConverter(typeof(ModelConverter<Usage, UsageFromRaw>))]
-public sealed record class Usage : ModelBase
+[JsonConverter(typeof(JsonModelConverter<Usage, UsageFromRaw>))]
+public sealed record class Usage : JsonModel
 {
     public long? CompletionTokens
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawData, "completion_tokens"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawData, "completion_tokens"); }
         init
         {
             if (value == null)
@@ -322,7 +322,7 @@ public sealed record class Usage : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "completion_tokens", value);
+            JsonModel.Set(this._rawData, "completion_tokens", value);
         }
     }
 
@@ -331,7 +331,7 @@ public sealed record class Usage : ModelBase
     /// </summary>
     public double? Cost
     {
-        get { return ModelBase.GetNullableStruct<double>(this.RawData, "cost"); }
+        get { return JsonModel.GetNullableStruct<double>(this.RawData, "cost"); }
         init
         {
             if (value == null)
@@ -339,13 +339,13 @@ public sealed record class Usage : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "cost", value);
+            JsonModel.Set(this._rawData, "cost", value);
         }
     }
 
     public long? PromptTokens
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawData, "prompt_tokens"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawData, "prompt_tokens"); }
         init
         {
             if (value == null)
@@ -353,13 +353,13 @@ public sealed record class Usage : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "prompt_tokens", value);
+            JsonModel.Set(this._rawData, "prompt_tokens", value);
         }
     }
 
     public long? TotalTokens
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawData, "total_tokens"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawData, "total_tokens"); }
         init
         {
             if (value == null)
@@ -367,7 +367,7 @@ public sealed record class Usage : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "total_tokens", value);
+            JsonModel.Set(this._rawData, "total_tokens", value);
         }
     }
 
@@ -405,7 +405,7 @@ public sealed record class Usage : ModelBase
     }
 }
 
-class UsageFromRaw : IFromRaw<Usage>
+class UsageFromRaw : IFromRawJson<Usage>
 {
     /// <inheritdoc/>
     public Usage FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>

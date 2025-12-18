@@ -30,8 +30,8 @@ public sealed record class VaultUploadParams : ParamsBase
     /// </summary>
     public required string ContentType
     {
-        get { return ModelBase.GetNotNullClass<string>(this.RawBodyData, "contentType"); }
-        init { ModelBase.Set(this._rawBodyData, "contentType", value); }
+        get { return JsonModel.GetNotNullClass<string>(this.RawBodyData, "contentType"); }
+        init { JsonModel.Set(this._rawBodyData, "contentType", value); }
     }
 
     /// <summary>
@@ -39,8 +39,8 @@ public sealed record class VaultUploadParams : ParamsBase
     /// </summary>
     public required string Filename
     {
-        get { return ModelBase.GetNotNullClass<string>(this.RawBodyData, "filename"); }
-        init { ModelBase.Set(this._rawBodyData, "filename", value); }
+        get { return JsonModel.GetNotNullClass<string>(this.RawBodyData, "filename"); }
+        init { JsonModel.Set(this._rawBodyData, "filename", value); }
     }
 
     /// <summary>
@@ -48,7 +48,7 @@ public sealed record class VaultUploadParams : ParamsBase
     /// </summary>
     public bool? AutoIndex
     {
-        get { return ModelBase.GetNullableStruct<bool>(this.RawBodyData, "auto_index"); }
+        get { return JsonModel.GetNullableStruct<bool>(this.RawBodyData, "auto_index"); }
         init
         {
             if (value == null)
@@ -56,7 +56,7 @@ public sealed record class VaultUploadParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "auto_index", value);
+            JsonModel.Set(this._rawBodyData, "auto_index", value);
         }
     }
 
@@ -65,7 +65,7 @@ public sealed record class VaultUploadParams : ParamsBase
     /// </summary>
     public JsonElement? Metadata
     {
-        get { return ModelBase.GetNullableStruct<JsonElement>(this.RawBodyData, "metadata"); }
+        get { return JsonModel.GetNullableStruct<JsonElement>(this.RawBodyData, "metadata"); }
         init
         {
             if (value == null)
@@ -73,7 +73,7 @@ public sealed record class VaultUploadParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "metadata", value);
+            JsonModel.Set(this._rawBodyData, "metadata", value);
         }
     }
 
@@ -82,7 +82,7 @@ public sealed record class VaultUploadParams : ParamsBase
     /// </summary>
     public double? SizeBytes
     {
-        get { return ModelBase.GetNullableStruct<double>(this.RawBodyData, "sizeBytes"); }
+        get { return JsonModel.GetNullableStruct<double>(this.RawBodyData, "sizeBytes"); }
         init
         {
             if (value == null)
@@ -90,7 +90,7 @@ public sealed record class VaultUploadParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "sizeBytes", value);
+            JsonModel.Set(this._rawBodyData, "sizeBytes", value);
         }
     }
 
@@ -127,7 +127,7 @@ public sealed record class VaultUploadParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="IFromRaw.FromRawUnchecked"/>
+    /// <inheritdoc cref="IFromRawJson.FromRawUnchecked"/>
     public static VaultUploadParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
@@ -151,9 +151,13 @@ public sealed record class VaultUploadParams : ParamsBase
         }.Uri;
     }
 
-    internal override StringContent? BodyContent()
+    internal override HttpContent? BodyContent()
     {
-        return new(JsonSerializer.Serialize(this.RawBodyData), Encoding.UTF8, "application/json");
+        return new StringContent(
+            JsonSerializer.Serialize(this.RawBodyData),
+            Encoding.UTF8,
+            "application/json"
+        );
     }
 
     internal override void AddHeadersToRequest(HttpRequestMessage request, ClientOptions options)

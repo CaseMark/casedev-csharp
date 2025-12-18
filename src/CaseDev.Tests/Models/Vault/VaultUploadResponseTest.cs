@@ -90,8 +90,8 @@ public class VaultUploadResponseTest : TestBase
             UploadURL = "uploadUrl",
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<VaultUploadResponse>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<VaultUploadResponse>(element);
         Assert.NotNull(deserialized);
 
         bool expectedAutoIndex = true;
@@ -353,8 +353,8 @@ public class InstructionsTest : TestBase
             Note = "note",
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<Instructions>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<Instructions>(element);
         Assert.NotNull(deserialized);
 
         JsonElement expectedHeaders = JsonSerializer.Deserialize<JsonElement>("{}");

@@ -29,8 +29,8 @@ public sealed record class V1CreateEmbeddingParams : ParamsBase
     /// </summary>
     public required Input Input
     {
-        get { return ModelBase.GetNotNullClass<Input>(this.RawBodyData, "input"); }
-        init { ModelBase.Set(this._rawBodyData, "input", value); }
+        get { return JsonModel.GetNotNullClass<Input>(this.RawBodyData, "input"); }
+        init { JsonModel.Set(this._rawBodyData, "input", value); }
     }
 
     /// <summary>
@@ -38,8 +38,8 @@ public sealed record class V1CreateEmbeddingParams : ParamsBase
     /// </summary>
     public required string Model
     {
-        get { return ModelBase.GetNotNullClass<string>(this.RawBodyData, "model"); }
-        init { ModelBase.Set(this._rawBodyData, "model", value); }
+        get { return JsonModel.GetNotNullClass<string>(this.RawBodyData, "model"); }
+        init { JsonModel.Set(this._rawBodyData, "model", value); }
     }
 
     /// <summary>
@@ -47,7 +47,7 @@ public sealed record class V1CreateEmbeddingParams : ParamsBase
     /// </summary>
     public long? Dimensions
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawBodyData, "dimensions"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawBodyData, "dimensions"); }
         init
         {
             if (value == null)
@@ -55,7 +55,7 @@ public sealed record class V1CreateEmbeddingParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "dimensions", value);
+            JsonModel.Set(this._rawBodyData, "dimensions", value);
         }
     }
 
@@ -66,7 +66,7 @@ public sealed record class V1CreateEmbeddingParams : ParamsBase
     {
         get
         {
-            return ModelBase.GetNullableClass<ApiEnum<string, EncodingFormat>>(
+            return JsonModel.GetNullableClass<ApiEnum<string, EncodingFormat>>(
                 this.RawBodyData,
                 "encoding_format"
             );
@@ -78,7 +78,7 @@ public sealed record class V1CreateEmbeddingParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "encoding_format", value);
+            JsonModel.Set(this._rawBodyData, "encoding_format", value);
         }
     }
 
@@ -87,7 +87,7 @@ public sealed record class V1CreateEmbeddingParams : ParamsBase
     /// </summary>
     public string? User
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawBodyData, "user"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "user"); }
         init
         {
             if (value == null)
@@ -95,7 +95,7 @@ public sealed record class V1CreateEmbeddingParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "user", value);
+            JsonModel.Set(this._rawBodyData, "user", value);
         }
     }
 
@@ -132,7 +132,7 @@ public sealed record class V1CreateEmbeddingParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="IFromRaw.FromRawUnchecked"/>
+    /// <inheritdoc cref="IFromRawJson.FromRawUnchecked"/>
     public static V1CreateEmbeddingParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
@@ -154,9 +154,13 @@ public sealed record class V1CreateEmbeddingParams : ParamsBase
         }.Uri;
     }
 
-    internal override StringContent? BodyContent()
+    internal override HttpContent? BodyContent()
     {
-        return new(JsonSerializer.Serialize(this.RawBodyData), Encoding.UTF8, "application/json");
+        return new StringContent(
+            JsonSerializer.Serialize(this.RawBodyData),
+            Encoding.UTF8,
+            "application/json"
+        );
     }
 
     internal override void AddHeadersToRequest(HttpRequestMessage request, ClientOptions options)
@@ -177,28 +181,28 @@ public record class Input
 {
     public object? Value { get; } = null;
 
-    JsonElement? _json = null;
+    JsonElement? _element = null;
 
     public JsonElement Json
     {
-        get { return this._json ??= JsonSerializer.SerializeToElement(this.Value); }
+        get { return this._element ??= JsonSerializer.SerializeToElement(this.Value); }
     }
 
-    public Input(string value, JsonElement? json = null)
+    public Input(string value, JsonElement? element = null)
     {
         this.Value = value;
-        this._json = json;
+        this._element = element;
     }
 
-    public Input(IReadOnlyList<string> value, JsonElement? json = null)
+    public Input(IReadOnlyList<string> value, JsonElement? element = null)
     {
         this.Value = ImmutableArray.ToImmutableArray(value);
-        this._json = json;
+        this._element = element;
     }
 
-    public Input(JsonElement json)
+    public Input(JsonElement element)
     {
-        this._json = json;
+        this._element = element;
     }
 
     /// <summary>
@@ -350,13 +354,13 @@ sealed class InputConverter : JsonConverter<Input>
         JsonSerializerOptions options
     )
     {
-        var json = JsonSerializer.Deserialize<JsonElement>(ref reader, options);
+        var element = JsonSerializer.Deserialize<JsonElement>(ref reader, options);
         try
         {
-            var deserialized = JsonSerializer.Deserialize<string>(json, options);
+            var deserialized = JsonSerializer.Deserialize<string>(element, options);
             if (deserialized != null)
             {
-                return new(deserialized, json);
+                return new(deserialized, element);
             }
         }
         catch (Exception e) when (e is JsonException || e is CasedevInvalidDataException)
@@ -366,10 +370,10 @@ sealed class InputConverter : JsonConverter<Input>
 
         try
         {
-            var deserialized = JsonSerializer.Deserialize<List<string>>(json, options);
+            var deserialized = JsonSerializer.Deserialize<List<string>>(element, options);
             if (deserialized != null)
             {
-                return new(deserialized, json);
+                return new(deserialized, element);
             }
         }
         catch (Exception e) when (e is JsonException || e is CasedevInvalidDataException)
@@ -377,7 +381,7 @@ sealed class InputConverter : JsonConverter<Input>
             // ignore
         }
 
-        return new(json);
+        return new(element);
     }
 
     public override void Write(Utf8JsonWriter writer, Input value, JsonSerializerOptions options)

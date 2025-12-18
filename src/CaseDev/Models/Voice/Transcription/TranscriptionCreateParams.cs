@@ -28,8 +28,8 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public required string AudioURL
     {
-        get { return ModelBase.GetNotNullClass<string>(this.RawBodyData, "audio_url"); }
-        init { ModelBase.Set(this._rawBodyData, "audio_url", value); }
+        get { return JsonModel.GetNotNullClass<string>(this.RawBodyData, "audio_url"); }
+        init { JsonModel.Set(this._rawBodyData, "audio_url", value); }
     }
 
     /// <summary>
@@ -37,7 +37,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public bool? AutoHighlights
     {
-        get { return ModelBase.GetNullableStruct<bool>(this.RawBodyData, "auto_highlights"); }
+        get { return JsonModel.GetNullableStruct<bool>(this.RawBodyData, "auto_highlights"); }
         init
         {
             if (value == null)
@@ -45,7 +45,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "auto_highlights", value);
+            JsonModel.Set(this._rawBodyData, "auto_highlights", value);
         }
     }
 
@@ -54,7 +54,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public bool? ContentSafetyLabels
     {
-        get { return ModelBase.GetNullableStruct<bool>(this.RawBodyData, "content_safety_labels"); }
+        get { return JsonModel.GetNullableStruct<bool>(this.RawBodyData, "content_safety_labels"); }
         init
         {
             if (value == null)
@@ -62,7 +62,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "content_safety_labels", value);
+            JsonModel.Set(this._rawBodyData, "content_safety_labels", value);
         }
     }
 
@@ -71,7 +71,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public bool? FormatText
     {
-        get { return ModelBase.GetNullableStruct<bool>(this.RawBodyData, "format_text"); }
+        get { return JsonModel.GetNullableStruct<bool>(this.RawBodyData, "format_text"); }
         init
         {
             if (value == null)
@@ -79,7 +79,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "format_text", value);
+            JsonModel.Set(this._rawBodyData, "format_text", value);
         }
     }
 
@@ -89,7 +89,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public string? LanguageCode
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawBodyData, "language_code"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "language_code"); }
         init
         {
             if (value == null)
@@ -97,7 +97,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "language_code", value);
+            JsonModel.Set(this._rawBodyData, "language_code", value);
         }
     }
 
@@ -106,7 +106,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public bool? LanguageDetection
     {
-        get { return ModelBase.GetNullableStruct<bool>(this.RawBodyData, "language_detection"); }
+        get { return JsonModel.GetNullableStruct<bool>(this.RawBodyData, "language_detection"); }
         init
         {
             if (value == null)
@@ -114,7 +114,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "language_detection", value);
+            JsonModel.Set(this._rawBodyData, "language_detection", value);
         }
     }
 
@@ -123,7 +123,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public bool? Punctuate
     {
-        get { return ModelBase.GetNullableStruct<bool>(this.RawBodyData, "punctuate"); }
+        get { return JsonModel.GetNullableStruct<bool>(this.RawBodyData, "punctuate"); }
         init
         {
             if (value == null)
@@ -131,7 +131,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "punctuate", value);
+            JsonModel.Set(this._rawBodyData, "punctuate", value);
         }
     }
 
@@ -140,7 +140,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public bool? SpeakerLabels
     {
-        get { return ModelBase.GetNullableStruct<bool>(this.RawBodyData, "speaker_labels"); }
+        get { return JsonModel.GetNullableStruct<bool>(this.RawBodyData, "speaker_labels"); }
         init
         {
             if (value == null)
@@ -148,7 +148,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "speaker_labels", value);
+            JsonModel.Set(this._rawBodyData, "speaker_labels", value);
         }
     }
 
@@ -185,7 +185,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="IFromRaw.FromRawUnchecked"/>
+    /// <inheritdoc cref="IFromRawJson.FromRawUnchecked"/>
     public static TranscriptionCreateParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
@@ -207,9 +207,13 @@ public sealed record class TranscriptionCreateParams : ParamsBase
         }.Uri;
     }
 
-    internal override StringContent? BodyContent()
+    internal override HttpContent? BodyContent()
     {
-        return new(JsonSerializer.Serialize(this.RawBodyData), Encoding.UTF8, "application/json");
+        return new StringContent(
+            JsonSerializer.Serialize(this.RawBodyData),
+            Encoding.UTF8,
+            "application/json"
+        );
     }
 
     internal override void AddHeadersToRequest(HttpRequestMessage request, ClientOptions options)

@@ -68,8 +68,8 @@ public class V1ExecuteResponseTest : TestBase
             Status = V1ExecuteResponseStatus.Running,
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<V1ExecuteResponse>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<V1ExecuteResponse>(element);
         Assert.NotNull(deserialized);
 
         long expectedDuration = 0;

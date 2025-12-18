@@ -82,8 +82,8 @@ public class V1ExecuteResponseTest : TestBase
             WorkflowName = "workflow_name",
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<V1ExecuteResponse>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<V1ExecuteResponse>(element);
         Assert.NotNull(deserialized);
 
         JsonElement expectedResult = JsonSerializer.Deserialize<JsonElement>("{}");
@@ -293,8 +293,8 @@ public class UsageTest : TestBase
             TotalTokens = 0,
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<Usage>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<Usage>(element);
         Assert.NotNull(deserialized);
 
         long expectedCompletionTokens = 0;

@@ -101,8 +101,8 @@ public class V1AnswerResponseTest : TestBase
             SearchType = "searchType",
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<V1AnswerResponse>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<V1AnswerResponse>(element);
         Assert.NotNull(deserialized);
 
         string expectedAnswer = "answer";
@@ -273,8 +273,8 @@ public class CitationTest : TestBase
             URL = "url",
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<Citation>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<Citation>(element);
         Assert.NotNull(deserialized);
 
         string expectedID = "id";

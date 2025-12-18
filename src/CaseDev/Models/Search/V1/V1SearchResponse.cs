@@ -8,15 +8,15 @@ using CaseDev.Core;
 
 namespace CaseDev.Models.Search.V1;
 
-[JsonConverter(typeof(ModelConverter<V1SearchResponse, V1SearchResponseFromRaw>))]
-public sealed record class V1SearchResponse : ModelBase
+[JsonConverter(typeof(JsonModelConverter<V1SearchResponse, V1SearchResponseFromRaw>))]
+public sealed record class V1SearchResponse : JsonModel
 {
     /// <summary>
     /// Original search query
     /// </summary>
     public string? Query
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "query"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "query"); }
         init
         {
             if (value == null)
@@ -24,7 +24,7 @@ public sealed record class V1SearchResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "query", value);
+            JsonModel.Set(this._rawData, "query", value);
         }
     }
 
@@ -35,7 +35,7 @@ public sealed record class V1SearchResponse : ModelBase
     {
         get
         {
-            return ModelBase.GetNullableClass<List<V1SearchResponseResult>>(
+            return JsonModel.GetNullableClass<List<V1SearchResponseResult>>(
                 this.RawData,
                 "results"
             );
@@ -47,7 +47,7 @@ public sealed record class V1SearchResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "results", value);
+            JsonModel.Set(this._rawData, "results", value);
         }
     }
 
@@ -56,7 +56,7 @@ public sealed record class V1SearchResponse : ModelBase
     /// </summary>
     public long? TotalResults
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawData, "totalResults"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawData, "totalResults"); }
         init
         {
             if (value == null)
@@ -64,7 +64,7 @@ public sealed record class V1SearchResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "totalResults", value);
+            JsonModel.Set(this._rawData, "totalResults", value);
         }
     }
 
@@ -106,22 +106,22 @@ public sealed record class V1SearchResponse : ModelBase
     }
 }
 
-class V1SearchResponseFromRaw : IFromRaw<V1SearchResponse>
+class V1SearchResponseFromRaw : IFromRawJson<V1SearchResponse>
 {
     /// <inheritdoc/>
     public V1SearchResponse FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         V1SearchResponse.FromRawUnchecked(rawData);
 }
 
-[JsonConverter(typeof(ModelConverter<V1SearchResponseResult, V1SearchResponseResultFromRaw>))]
-public sealed record class V1SearchResponseResult : ModelBase
+[JsonConverter(typeof(JsonModelConverter<V1SearchResponseResult, V1SearchResponseResultFromRaw>))]
+public sealed record class V1SearchResponseResult : JsonModel
 {
     /// <summary>
     /// Domain of the source
     /// </summary>
     public string? Domain
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "domain"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "domain"); }
         init
         {
             if (value == null)
@@ -129,7 +129,7 @@ public sealed record class V1SearchResponseResult : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "domain", value);
+            JsonModel.Set(this._rawData, "domain", value);
         }
     }
 
@@ -138,7 +138,7 @@ public sealed record class V1SearchResponseResult : ModelBase
     /// </summary>
     public DateTimeOffset? PublishedDate
     {
-        get { return ModelBase.GetNullableStruct<DateTimeOffset>(this.RawData, "publishedDate"); }
+        get { return JsonModel.GetNullableStruct<DateTimeOffset>(this.RawData, "publishedDate"); }
         init
         {
             if (value == null)
@@ -146,7 +146,7 @@ public sealed record class V1SearchResponseResult : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "publishedDate", value);
+            JsonModel.Set(this._rawData, "publishedDate", value);
         }
     }
 
@@ -155,7 +155,7 @@ public sealed record class V1SearchResponseResult : ModelBase
     /// </summary>
     public string? Snippet
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "snippet"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "snippet"); }
         init
         {
             if (value == null)
@@ -163,7 +163,7 @@ public sealed record class V1SearchResponseResult : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "snippet", value);
+            JsonModel.Set(this._rawData, "snippet", value);
         }
     }
 
@@ -172,7 +172,7 @@ public sealed record class V1SearchResponseResult : ModelBase
     /// </summary>
     public string? Title
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "title"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "title"); }
         init
         {
             if (value == null)
@@ -180,7 +180,7 @@ public sealed record class V1SearchResponseResult : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "title", value);
+            JsonModel.Set(this._rawData, "title", value);
         }
     }
 
@@ -189,7 +189,7 @@ public sealed record class V1SearchResponseResult : ModelBase
     /// </summary>
     public string? URL
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "url"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "url"); }
         init
         {
             if (value == null)
@@ -197,7 +197,7 @@ public sealed record class V1SearchResponseResult : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "url", value);
+            JsonModel.Set(this._rawData, "url", value);
         }
     }
 
@@ -238,7 +238,7 @@ public sealed record class V1SearchResponseResult : ModelBase
     }
 }
 
-class V1SearchResponseResultFromRaw : IFromRaw<V1SearchResponseResult>
+class V1SearchResponseResultFromRaw : IFromRawJson<V1SearchResponseResult>
 {
     /// <inheritdoc/>
     public V1SearchResponseResult FromRawUnchecked(

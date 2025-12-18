@@ -29,8 +29,8 @@ public sealed record class TemplateCreateParams : ParamsBase
     /// </summary>
     public required string Content
     {
-        get { return ModelBase.GetNotNullClass<string>(this.RawBodyData, "content"); }
-        init { ModelBase.Set(this._rawBodyData, "content", value); }
+        get { return JsonModel.GetNotNullClass<string>(this.RawBodyData, "content"); }
+        init { JsonModel.Set(this._rawBodyData, "content", value); }
     }
 
     /// <summary>
@@ -38,8 +38,8 @@ public sealed record class TemplateCreateParams : ParamsBase
     /// </summary>
     public required string Name
     {
-        get { return ModelBase.GetNotNullClass<string>(this.RawBodyData, "name"); }
-        init { ModelBase.Set(this._rawBodyData, "name", value); }
+        get { return JsonModel.GetNotNullClass<string>(this.RawBodyData, "name"); }
+        init { JsonModel.Set(this._rawBodyData, "name", value); }
     }
 
     /// <summary>
@@ -49,11 +49,11 @@ public sealed record class TemplateCreateParams : ParamsBase
     {
         get
         {
-            return ModelBase.GetNotNullClass<
+            return JsonModel.GetNotNullClass<
                 ApiEnum<string, global::CaseDev.Models.Format.V1.Templates.Type>
             >(this.RawBodyData, "type");
         }
-        init { ModelBase.Set(this._rawBodyData, "type", value); }
+        init { JsonModel.Set(this._rawBodyData, "type", value); }
     }
 
     /// <summary>
@@ -61,7 +61,7 @@ public sealed record class TemplateCreateParams : ParamsBase
     /// </summary>
     public string? Description
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawBodyData, "description"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "description"); }
         init
         {
             if (value == null)
@@ -69,7 +69,7 @@ public sealed record class TemplateCreateParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "description", value);
+            JsonModel.Set(this._rawBodyData, "description", value);
         }
     }
 
@@ -78,7 +78,7 @@ public sealed record class TemplateCreateParams : ParamsBase
     /// </summary>
     public JsonElement? Styles
     {
-        get { return ModelBase.GetNullableStruct<JsonElement>(this.RawBodyData, "styles"); }
+        get { return JsonModel.GetNullableStruct<JsonElement>(this.RawBodyData, "styles"); }
         init
         {
             if (value == null)
@@ -86,7 +86,7 @@ public sealed record class TemplateCreateParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "styles", value);
+            JsonModel.Set(this._rawBodyData, "styles", value);
         }
     }
 
@@ -95,7 +95,7 @@ public sealed record class TemplateCreateParams : ParamsBase
     /// </summary>
     public IReadOnlyList<string>? Tags
     {
-        get { return ModelBase.GetNullableClass<List<string>>(this.RawBodyData, "tags"); }
+        get { return JsonModel.GetNullableClass<List<string>>(this.RawBodyData, "tags"); }
         init
         {
             if (value == null)
@@ -103,7 +103,7 @@ public sealed record class TemplateCreateParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "tags", value);
+            JsonModel.Set(this._rawBodyData, "tags", value);
         }
     }
 
@@ -112,7 +112,7 @@ public sealed record class TemplateCreateParams : ParamsBase
     /// </summary>
     public IReadOnlyList<string>? Variables
     {
-        get { return ModelBase.GetNullableClass<List<string>>(this.RawBodyData, "variables"); }
+        get { return JsonModel.GetNullableClass<List<string>>(this.RawBodyData, "variables"); }
         init
         {
             if (value == null)
@@ -120,7 +120,7 @@ public sealed record class TemplateCreateParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "variables", value);
+            JsonModel.Set(this._rawBodyData, "variables", value);
         }
     }
 
@@ -157,7 +157,7 @@ public sealed record class TemplateCreateParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="IFromRaw.FromRawUnchecked"/>
+    /// <inheritdoc cref="IFromRawJson.FromRawUnchecked"/>
     public static TemplateCreateParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
@@ -181,9 +181,13 @@ public sealed record class TemplateCreateParams : ParamsBase
         }.Uri;
     }
 
-    internal override StringContent? BodyContent()
+    internal override HttpContent? BodyContent()
     {
-        return new(JsonSerializer.Serialize(this.RawBodyData), Encoding.UTF8, "application/json");
+        return new StringContent(
+            JsonSerializer.Serialize(this.RawBodyData),
+            Encoding.UTF8,
+            "application/json"
+        );
     }
 
     internal override void AddHeadersToRequest(HttpRequestMessage request, ClientOptions options)

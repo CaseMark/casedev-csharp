@@ -7,12 +7,12 @@ using CaseDev.Core;
 
 namespace CaseDev.Models.Workflows.V1;
 
-[JsonConverter(typeof(ModelConverter<V1DeployResponse, V1DeployResponseFromRaw>))]
-public sealed record class V1DeployResponse : ModelBase
+[JsonConverter(typeof(JsonModelConverter<V1DeployResponse, V1DeployResponseFromRaw>))]
+public sealed record class V1DeployResponse : JsonModel
 {
     public string? Message
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "message"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "message"); }
         init
         {
             if (value == null)
@@ -20,13 +20,13 @@ public sealed record class V1DeployResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "message", value);
+            JsonModel.Set(this._rawData, "message", value);
         }
     }
 
     public string? StateMachineArn
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "stateMachineArn"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "stateMachineArn"); }
         init
         {
             if (value == null)
@@ -34,13 +34,13 @@ public sealed record class V1DeployResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "stateMachineArn", value);
+            JsonModel.Set(this._rawData, "stateMachineArn", value);
         }
     }
 
     public bool? Success
     {
-        get { return ModelBase.GetNullableStruct<bool>(this.RawData, "success"); }
+        get { return JsonModel.GetNullableStruct<bool>(this.RawData, "success"); }
         init
         {
             if (value == null)
@@ -48,7 +48,7 @@ public sealed record class V1DeployResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "success", value);
+            JsonModel.Set(this._rawData, "success", value);
         }
     }
 
@@ -57,7 +57,7 @@ public sealed record class V1DeployResponse : ModelBase
     /// </summary>
     public string? WebhookSecret
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "webhookSecret"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "webhookSecret"); }
         init
         {
             if (value == null)
@@ -65,13 +65,13 @@ public sealed record class V1DeployResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "webhookSecret", value);
+            JsonModel.Set(this._rawData, "webhookSecret", value);
         }
     }
 
     public string? WebhookURL
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "webhookUrl"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "webhookUrl"); }
         init
         {
             if (value == null)
@@ -79,7 +79,7 @@ public sealed record class V1DeployResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "webhookUrl", value);
+            JsonModel.Set(this._rawData, "webhookUrl", value);
         }
     }
 
@@ -120,7 +120,7 @@ public sealed record class V1DeployResponse : ModelBase
     }
 }
 
-class V1DeployResponseFromRaw : IFromRaw<V1DeployResponse>
+class V1DeployResponseFromRaw : IFromRawJson<V1DeployResponse>
 {
     /// <inheritdoc/>
     public V1DeployResponse FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>

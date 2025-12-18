@@ -26,7 +26,7 @@ public sealed record class V1UpdateParams : ParamsBase
 
     public string? Description
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawBodyData, "description"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "description"); }
         init
         {
             if (value == null)
@@ -34,13 +34,13 @@ public sealed record class V1UpdateParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "description", value);
+            JsonModel.Set(this._rawBodyData, "description", value);
         }
     }
 
     public IReadOnlyList<JsonElement>? Edges
     {
-        get { return ModelBase.GetNullableClass<List<JsonElement>>(this.RawBodyData, "edges"); }
+        get { return JsonModel.GetNullableClass<List<JsonElement>>(this.RawBodyData, "edges"); }
         init
         {
             if (value == null)
@@ -48,13 +48,13 @@ public sealed record class V1UpdateParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "edges", value);
+            JsonModel.Set(this._rawBodyData, "edges", value);
         }
     }
 
     public string? Name
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawBodyData, "name"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "name"); }
         init
         {
             if (value == null)
@@ -62,13 +62,13 @@ public sealed record class V1UpdateParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "name", value);
+            JsonModel.Set(this._rawBodyData, "name", value);
         }
     }
 
     public IReadOnlyList<JsonElement>? Nodes
     {
-        get { return ModelBase.GetNullableClass<List<JsonElement>>(this.RawBodyData, "nodes"); }
+        get { return JsonModel.GetNullableClass<List<JsonElement>>(this.RawBodyData, "nodes"); }
         init
         {
             if (value == null)
@@ -76,13 +76,13 @@ public sealed record class V1UpdateParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "nodes", value);
+            JsonModel.Set(this._rawBodyData, "nodes", value);
         }
     }
 
     public JsonElement? TriggerConfig
     {
-        get { return ModelBase.GetNullableStruct<JsonElement>(this.RawBodyData, "triggerConfig"); }
+        get { return JsonModel.GetNullableStruct<JsonElement>(this.RawBodyData, "triggerConfig"); }
         init
         {
             if (value == null)
@@ -90,7 +90,7 @@ public sealed record class V1UpdateParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "triggerConfig", value);
+            JsonModel.Set(this._rawBodyData, "triggerConfig", value);
         }
     }
 
@@ -98,7 +98,7 @@ public sealed record class V1UpdateParams : ParamsBase
     {
         get
         {
-            return ModelBase.GetNullableClass<ApiEnum<string, V1UpdateParamsTriggerType>>(
+            return JsonModel.GetNullableClass<ApiEnum<string, V1UpdateParamsTriggerType>>(
                 this.RawBodyData,
                 "triggerType"
             );
@@ -110,7 +110,7 @@ public sealed record class V1UpdateParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "triggerType", value);
+            JsonModel.Set(this._rawBodyData, "triggerType", value);
         }
     }
 
@@ -118,7 +118,7 @@ public sealed record class V1UpdateParams : ParamsBase
     {
         get
         {
-            return ModelBase.GetNullableClass<ApiEnum<string, V1UpdateParamsVisibility>>(
+            return JsonModel.GetNullableClass<ApiEnum<string, V1UpdateParamsVisibility>>(
                 this.RawBodyData,
                 "visibility"
             );
@@ -130,7 +130,7 @@ public sealed record class V1UpdateParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "visibility", value);
+            JsonModel.Set(this._rawBodyData, "visibility", value);
         }
     }
 
@@ -167,7 +167,7 @@ public sealed record class V1UpdateParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="IFromRaw.FromRawUnchecked"/>
+    /// <inheritdoc cref="IFromRawJson.FromRawUnchecked"/>
     public static V1UpdateParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
@@ -191,9 +191,13 @@ public sealed record class V1UpdateParams : ParamsBase
         }.Uri;
     }
 
-    internal override StringContent? BodyContent()
+    internal override HttpContent? BodyContent()
     {
-        return new(JsonSerializer.Serialize(this.RawBodyData), Encoding.UTF8, "application/json");
+        return new StringContent(
+            JsonSerializer.Serialize(this.RawBodyData),
+            Encoding.UTF8,
+            "application/json"
+        );
     }
 
     internal override void AddHeadersToRequest(HttpRequestMessage request, ClientOptions options)

@@ -7,12 +7,12 @@ using CaseDev.Core;
 
 namespace CaseDev.Models.Workflows.V1;
 
-[JsonConverter(typeof(ModelConverter<V1RetrieveResponse, V1RetrieveResponseFromRaw>))]
-public sealed record class V1RetrieveResponse : ModelBase
+[JsonConverter(typeof(JsonModelConverter<V1RetrieveResponse, V1RetrieveResponseFromRaw>))]
+public sealed record class V1RetrieveResponse : JsonModel
 {
     public string? ID
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "id"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "id"); }
         init
         {
             if (value == null)
@@ -20,13 +20,13 @@ public sealed record class V1RetrieveResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "id", value);
+            JsonModel.Set(this._rawData, "id", value);
         }
     }
 
     public string? CreatedAt
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "createdAt"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "createdAt"); }
         init
         {
             if (value == null)
@@ -34,13 +34,13 @@ public sealed record class V1RetrieveResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "createdAt", value);
+            JsonModel.Set(this._rawData, "createdAt", value);
         }
     }
 
     public string? DeployedAt
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "deployedAt"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "deployedAt"); }
         init
         {
             if (value == null)
@@ -48,13 +48,13 @@ public sealed record class V1RetrieveResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "deployedAt", value);
+            JsonModel.Set(this._rawData, "deployedAt", value);
         }
     }
 
     public string? DeploymentURL
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "deploymentUrl"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "deploymentUrl"); }
         init
         {
             if (value == null)
@@ -62,13 +62,13 @@ public sealed record class V1RetrieveResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "deploymentUrl", value);
+            JsonModel.Set(this._rawData, "deploymentUrl", value);
         }
     }
 
     public string? Description
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "description"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "description"); }
         init
         {
             if (value == null)
@@ -76,13 +76,13 @@ public sealed record class V1RetrieveResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "description", value);
+            JsonModel.Set(this._rawData, "description", value);
         }
     }
 
     public IReadOnlyList<JsonElement>? Edges
     {
-        get { return ModelBase.GetNullableClass<List<JsonElement>>(this.RawData, "edges"); }
+        get { return JsonModel.GetNullableClass<List<JsonElement>>(this.RawData, "edges"); }
         init
         {
             if (value == null)
@@ -90,13 +90,13 @@ public sealed record class V1RetrieveResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "edges", value);
+            JsonModel.Set(this._rawData, "edges", value);
         }
     }
 
     public string? Name
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "name"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "name"); }
         init
         {
             if (value == null)
@@ -104,13 +104,13 @@ public sealed record class V1RetrieveResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "name", value);
+            JsonModel.Set(this._rawData, "name", value);
         }
     }
 
     public IReadOnlyList<JsonElement>? Nodes
     {
-        get { return ModelBase.GetNullableClass<List<JsonElement>>(this.RawData, "nodes"); }
+        get { return JsonModel.GetNullableClass<List<JsonElement>>(this.RawData, "nodes"); }
         init
         {
             if (value == null)
@@ -118,13 +118,13 @@ public sealed record class V1RetrieveResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "nodes", value);
+            JsonModel.Set(this._rawData, "nodes", value);
         }
     }
 
     public JsonElement? TriggerConfig
     {
-        get { return ModelBase.GetNullableStruct<JsonElement>(this.RawData, "triggerConfig"); }
+        get { return JsonModel.GetNullableStruct<JsonElement>(this.RawData, "triggerConfig"); }
         init
         {
             if (value == null)
@@ -132,13 +132,13 @@ public sealed record class V1RetrieveResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "triggerConfig", value);
+            JsonModel.Set(this._rawData, "triggerConfig", value);
         }
     }
 
     public string? TriggerType
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "triggerType"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "triggerType"); }
         init
         {
             if (value == null)
@@ -146,13 +146,13 @@ public sealed record class V1RetrieveResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "triggerType", value);
+            JsonModel.Set(this._rawData, "triggerType", value);
         }
     }
 
     public string? UpdatedAt
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "updatedAt"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "updatedAt"); }
         init
         {
             if (value == null)
@@ -160,13 +160,13 @@ public sealed record class V1RetrieveResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "updatedAt", value);
+            JsonModel.Set(this._rawData, "updatedAt", value);
         }
     }
 
     public string? Visibility
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "visibility"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "visibility"); }
         init
         {
             if (value == null)
@@ -174,7 +174,7 @@ public sealed record class V1RetrieveResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "visibility", value);
+            JsonModel.Set(this._rawData, "visibility", value);
         }
     }
 
@@ -222,7 +222,7 @@ public sealed record class V1RetrieveResponse : ModelBase
     }
 }
 
-class V1RetrieveResponseFromRaw : IFromRaw<V1RetrieveResponse>
+class V1RetrieveResponseFromRaw : IFromRawJson<V1RetrieveResponse>
 {
     /// <inheritdoc/>
     public V1RetrieveResponse FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>

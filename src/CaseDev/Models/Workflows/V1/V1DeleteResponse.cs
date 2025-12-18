@@ -7,12 +7,12 @@ using CaseDev.Core;
 
 namespace CaseDev.Models.Workflows.V1;
 
-[JsonConverter(typeof(ModelConverter<V1DeleteResponse, V1DeleteResponseFromRaw>))]
-public sealed record class V1DeleteResponse : ModelBase
+[JsonConverter(typeof(JsonModelConverter<V1DeleteResponse, V1DeleteResponseFromRaw>))]
+public sealed record class V1DeleteResponse : JsonModel
 {
     public string? Message
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "message"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "message"); }
         init
         {
             if (value == null)
@@ -20,13 +20,13 @@ public sealed record class V1DeleteResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "message", value);
+            JsonModel.Set(this._rawData, "message", value);
         }
     }
 
     public bool? Success
     {
-        get { return ModelBase.GetNullableStruct<bool>(this.RawData, "success"); }
+        get { return JsonModel.GetNullableStruct<bool>(this.RawData, "success"); }
         init
         {
             if (value == null)
@@ -34,7 +34,7 @@ public sealed record class V1DeleteResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "success", value);
+            JsonModel.Set(this._rawData, "success", value);
         }
     }
 
@@ -72,7 +72,7 @@ public sealed record class V1DeleteResponse : ModelBase
     }
 }
 
-class V1DeleteResponseFromRaw : IFromRaw<V1DeleteResponse>
+class V1DeleteResponseFromRaw : IFromRawJson<V1DeleteResponse>
 {
     /// <inheritdoc/>
     public V1DeleteResponse FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>

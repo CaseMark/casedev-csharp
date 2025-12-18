@@ -7,12 +7,12 @@ using CaseDev.Core;
 
 namespace CaseDev.Models.Workflows.V1;
 
-[JsonConverter(typeof(ModelConverter<V1UpdateResponse, V1UpdateResponseFromRaw>))]
-public sealed record class V1UpdateResponse : ModelBase
+[JsonConverter(typeof(JsonModelConverter<V1UpdateResponse, V1UpdateResponseFromRaw>))]
+public sealed record class V1UpdateResponse : JsonModel
 {
     public string? ID
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "id"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "id"); }
         init
         {
             if (value == null)
@@ -20,13 +20,13 @@ public sealed record class V1UpdateResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "id", value);
+            JsonModel.Set(this._rawData, "id", value);
         }
     }
 
     public string? Name
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "name"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "name"); }
         init
         {
             if (value == null)
@@ -34,13 +34,13 @@ public sealed record class V1UpdateResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "name", value);
+            JsonModel.Set(this._rawData, "name", value);
         }
     }
 
     public string? UpdatedAt
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "updatedAt"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "updatedAt"); }
         init
         {
             if (value == null)
@@ -48,7 +48,7 @@ public sealed record class V1UpdateResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "updatedAt", value);
+            JsonModel.Set(this._rawData, "updatedAt", value);
         }
     }
 
@@ -87,7 +87,7 @@ public sealed record class V1UpdateResponse : ModelBase
     }
 }
 
-class V1UpdateResponseFromRaw : IFromRaw<V1UpdateResponse>
+class V1UpdateResponseFromRaw : IFromRawJson<V1UpdateResponse>
 {
     /// <inheritdoc/>
     public V1UpdateResponse FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>

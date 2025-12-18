@@ -7,19 +7,21 @@ using CaseDev.Core;
 
 namespace CaseDev.Models.Compute.V1.Environments;
 
-[JsonConverter(typeof(ModelConverter<EnvironmentDeleteResponse, EnvironmentDeleteResponseFromRaw>))]
-public sealed record class EnvironmentDeleteResponse : ModelBase
+[JsonConverter(
+    typeof(JsonModelConverter<EnvironmentDeleteResponse, EnvironmentDeleteResponseFromRaw>)
+)]
+public sealed record class EnvironmentDeleteResponse : JsonModel
 {
     public required string Message
     {
-        get { return ModelBase.GetNotNullClass<string>(this.RawData, "message"); }
-        init { ModelBase.Set(this._rawData, "message", value); }
+        get { return JsonModel.GetNotNullClass<string>(this.RawData, "message"); }
+        init { JsonModel.Set(this._rawData, "message", value); }
     }
 
     public required bool Success
     {
-        get { return ModelBase.GetNotNullStruct<bool>(this.RawData, "success"); }
-        init { ModelBase.Set(this._rawData, "success", value); }
+        get { return JsonModel.GetNotNullStruct<bool>(this.RawData, "success"); }
+        init { JsonModel.Set(this._rawData, "success", value); }
     }
 
     /// <inheritdoc/>
@@ -56,7 +58,7 @@ public sealed record class EnvironmentDeleteResponse : ModelBase
     }
 }
 
-class EnvironmentDeleteResponseFromRaw : IFromRaw<EnvironmentDeleteResponse>
+class EnvironmentDeleteResponseFromRaw : IFromRawJson<EnvironmentDeleteResponse>
 {
     /// <inheritdoc/>
     public EnvironmentDeleteResponse FromRawUnchecked(

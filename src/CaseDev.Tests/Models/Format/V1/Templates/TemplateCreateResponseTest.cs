@@ -67,8 +67,8 @@ public class TemplateCreateResponseTest : TestBase
             Variables = ["string"],
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<TemplateCreateResponse>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<TemplateCreateResponse>(element);
         Assert.NotNull(deserialized);
 
         string expectedID = "id";

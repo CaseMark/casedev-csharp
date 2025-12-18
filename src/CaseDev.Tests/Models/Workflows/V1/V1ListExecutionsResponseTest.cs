@@ -90,8 +90,8 @@ public class V1ListExecutionsResponseTest : TestBase
             ],
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<V1ListExecutionsResponse>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<V1ListExecutionsResponse>(element);
         Assert.NotNull(deserialized);
 
         List<Execution> expectedExecutions =
@@ -242,8 +242,8 @@ public class ExecutionTest : TestBase
             TriggerType = "triggerType",
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<Execution>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<Execution>(element);
         Assert.NotNull(deserialized);
 
         string expectedID = "id";

@@ -25,8 +25,8 @@ public class InputTest : TestBase
     public void StringSerializationRoundtripWorks()
     {
         Input value = new("string");
-        string json = JsonSerializer.Serialize(value);
-        var deserialized = JsonSerializer.Deserialize<Input>(json);
+        string element = JsonSerializer.Serialize(value);
+        var deserialized = JsonSerializer.Deserialize<Input>(element);
 
         Assert.Equal(value, deserialized);
     }
@@ -35,8 +35,8 @@ public class InputTest : TestBase
     public void StringsSerializationRoundtripWorks()
     {
         Input value = new(["string"]);
-        string json = JsonSerializer.Serialize(value);
-        var deserialized = JsonSerializer.Deserialize<Input>(json);
+        string element = JsonSerializer.Serialize(value);
+        var deserialized = JsonSerializer.Deserialize<Input>(element);
 
         Assert.Equal(value, deserialized);
     }

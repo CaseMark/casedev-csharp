@@ -50,8 +50,8 @@ public class V1UpdateResponseTest : TestBase
             UpdatedAt = "updatedAt",
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<V1UpdateResponse>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<V1UpdateResponse>(element);
         Assert.NotNull(deserialized);
 
         string expectedID = "id";

@@ -51,8 +51,8 @@ public class V1ResearchResponseTest : TestBase
             Results = JsonSerializer.Deserialize<JsonElement>("{}"),
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<V1ResearchResponse>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<V1ResearchResponse>(element);
         Assert.NotNull(deserialized);
 
         string expectedModel = "model";

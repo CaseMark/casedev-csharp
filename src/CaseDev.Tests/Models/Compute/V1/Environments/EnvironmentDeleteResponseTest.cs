@@ -45,8 +45,8 @@ public class EnvironmentDeleteResponseTest : TestBase
             Success = true,
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<EnvironmentDeleteResponse>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<EnvironmentDeleteResponse>(element);
         Assert.NotNull(deserialized);
 
         string expectedMessage = "Environment 'litigation-processing' deleted";

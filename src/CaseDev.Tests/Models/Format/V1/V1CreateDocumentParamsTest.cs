@@ -200,8 +200,8 @@ public class OptionsTest : TestBase
             ],
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<Options>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<Options>(element);
         Assert.NotNull(deserialized);
 
         List<Component> expectedComponents =
@@ -340,8 +340,8 @@ public class ComponentTest : TestBase
             Variables = JsonSerializer.Deserialize<JsonElement>("{}"),
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<Component>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<Component>(element);
         Assert.NotNull(deserialized);
 
         string expectedContent = "content";

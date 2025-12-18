@@ -56,8 +56,8 @@ public class SecretCreateResponseTest : TestBase
             Name = "name",
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<SecretCreateResponse>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<SecretCreateResponse>(element);
         Assert.NotNull(deserialized);
 
         string expectedID = "id";

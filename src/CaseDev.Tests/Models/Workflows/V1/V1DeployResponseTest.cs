@@ -60,8 +60,8 @@ public class V1DeployResponseTest : TestBase
             WebhookURL = "webhookUrl",
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<V1DeployResponse>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<V1DeployResponse>(element);
         Assert.NotNull(deserialized);
 
         string expectedMessage = "message";

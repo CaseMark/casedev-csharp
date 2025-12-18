@@ -113,8 +113,8 @@ public class V1ListResponseTest : TestBase
             ],
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<V1ListResponse>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<V1ListResponse>(element);
         Assert.NotNull(deserialized);
 
         long expectedLimit = 0;
@@ -306,8 +306,8 @@ public class WorkflowTest : TestBase
             Visibility = "visibility",
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<Workflow>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<Workflow>(element);
         Assert.NotNull(deserialized);
 
         string expectedID = "id";

@@ -33,8 +33,8 @@ public class V1DeleteResponseTest : TestBase
     {
         var model = new V1DeleteResponse { Message = "message", Success = true };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<V1DeleteResponse>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<V1DeleteResponse>(element);
         Assert.NotNull(deserialized);
 
         string expectedMessage = "message";

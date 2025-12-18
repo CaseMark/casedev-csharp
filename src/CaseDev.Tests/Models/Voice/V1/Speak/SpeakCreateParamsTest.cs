@@ -179,8 +179,8 @@ public class VoiceSettingsTest : TestBase
             UseSpeakerBoost = true,
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<VoiceSettings>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<VoiceSettings>(element);
         Assert.NotNull(deserialized);
 
         double expectedSimilarityBoost = 0;

@@ -29,8 +29,8 @@ public sealed record class V1WebhookParams : ParamsBase
     /// </summary>
     public required string JobID
     {
-        get { return ModelBase.GetNotNullClass<string>(this.RawBodyData, "job_id"); }
-        init { ModelBase.Set(this._rawBodyData, "job_id", value); }
+        get { return JsonModel.GetNotNullClass<string>(this.RawBodyData, "job_id"); }
+        init { JsonModel.Set(this._rawBodyData, "job_id", value); }
     }
 
     /// <summary>
@@ -40,9 +40,9 @@ public sealed record class V1WebhookParams : ParamsBase
     {
         get
         {
-            return ModelBase.GetNotNullClass<ApiEnum<string, Status>>(this.RawBodyData, "status");
+            return JsonModel.GetNotNullClass<ApiEnum<string, Status>>(this.RawBodyData, "status");
         }
-        init { ModelBase.Set(this._rawBodyData, "status", value); }
+        init { JsonModel.Set(this._rawBodyData, "status", value); }
     }
 
     /// <summary>
@@ -50,7 +50,7 @@ public sealed record class V1WebhookParams : ParamsBase
     /// </summary>
     public string? Error
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawBodyData, "error"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "error"); }
         init
         {
             if (value == null)
@@ -58,7 +58,7 @@ public sealed record class V1WebhookParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "error", value);
+            JsonModel.Set(this._rawBodyData, "error", value);
         }
     }
 
@@ -67,7 +67,7 @@ public sealed record class V1WebhookParams : ParamsBase
     /// </summary>
     public Result? Result
     {
-        get { return ModelBase.GetNullableClass<Result>(this.RawBodyData, "result"); }
+        get { return JsonModel.GetNullableClass<Result>(this.RawBodyData, "result"); }
         init
         {
             if (value == null)
@@ -75,7 +75,7 @@ public sealed record class V1WebhookParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "result", value);
+            JsonModel.Set(this._rawBodyData, "result", value);
         }
     }
 
@@ -112,7 +112,7 @@ public sealed record class V1WebhookParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="IFromRaw.FromRawUnchecked"/>
+    /// <inheritdoc cref="IFromRawJson.FromRawUnchecked"/>
     public static V1WebhookParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
@@ -134,9 +134,13 @@ public sealed record class V1WebhookParams : ParamsBase
         }.Uri;
     }
 
-    internal override StringContent? BodyContent()
+    internal override HttpContent? BodyContent()
     {
-        return new(JsonSerializer.Serialize(this.RawBodyData), Encoding.UTF8, "application/json");
+        return new StringContent(
+            JsonSerializer.Serialize(this.RawBodyData),
+            Encoding.UTF8,
+            "application/json"
+        );
     }
 
     internal override void AddHeadersToRequest(HttpRequestMessage request, ClientOptions options)
@@ -195,15 +199,15 @@ sealed class StatusConverter : JsonConverter<Status>
 /// <summary>
 /// Result data for completed jobs
 /// </summary>
-[JsonConverter(typeof(ModelConverter<Result, ResultFromRaw>))]
-public sealed record class Result : ModelBase
+[JsonConverter(typeof(JsonModelConverter<Result, ResultFromRaw>))]
+public sealed record class Result : JsonModel
 {
     /// <summary>
     /// Processing duration in seconds
     /// </summary>
     public double? DurationSeconds
     {
-        get { return ModelBase.GetNullableStruct<double>(this.RawData, "duration_seconds"); }
+        get { return JsonModel.GetNullableStruct<double>(this.RawData, "duration_seconds"); }
         init
         {
             if (value == null)
@@ -211,7 +215,7 @@ public sealed record class Result : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "duration_seconds", value);
+            JsonModel.Set(this._rawData, "duration_seconds", value);
         }
     }
 
@@ -220,7 +224,7 @@ public sealed record class Result : ModelBase
     /// </summary>
     public long? FileSizeBytes
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawData, "file_size_bytes"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawData, "file_size_bytes"); }
         init
         {
             if (value == null)
@@ -228,7 +232,7 @@ public sealed record class Result : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "file_size_bytes", value);
+            JsonModel.Set(this._rawData, "file_size_bytes", value);
         }
     }
 
@@ -237,7 +241,7 @@ public sealed record class Result : ModelBase
     /// </summary>
     public string? StoredFilename
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "stored_filename"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "stored_filename"); }
         init
         {
             if (value == null)
@@ -245,7 +249,7 @@ public sealed record class Result : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "stored_filename", value);
+            JsonModel.Set(this._rawData, "stored_filename", value);
         }
     }
 
@@ -282,7 +286,7 @@ public sealed record class Result : ModelBase
     }
 }
 
-class ResultFromRaw : IFromRaw<Result>
+class ResultFromRaw : IFromRawJson<Result>
 {
     /// <inheritdoc/>
     public Result FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>

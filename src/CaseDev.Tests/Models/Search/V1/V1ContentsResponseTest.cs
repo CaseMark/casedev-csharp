@@ -90,8 +90,8 @@ public class V1ContentsResponseTest : TestBase
             ],
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<V1ContentsResponse>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<V1ContentsResponse>(element);
         Assert.NotNull(deserialized);
 
         List<Result> expectedResults =
@@ -248,8 +248,8 @@ public class ResultTest : TestBase
             URL = "url",
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<Result>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<Result>(element);
         Assert.NotNull(deserialized);
 
         List<string> expectedHighlights = ["string"];

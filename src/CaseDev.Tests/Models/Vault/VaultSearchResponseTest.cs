@@ -157,8 +157,8 @@ public class VaultSearchResponseTest : TestBase
             VaultID = "vault_id",
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<VaultSearchResponse>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<VaultSearchResponse>(element);
         Assert.NotNull(deserialized);
 
         List<Chunk> expectedChunks =
@@ -362,8 +362,8 @@ public class ChunkTest : TestBase
             Text = "text",
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<Chunk>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<Chunk>(element);
         Assert.NotNull(deserialized);
 
         double expectedScore = 0;
@@ -512,8 +512,8 @@ public class SourceTest : TestBase
             TextLength = 0,
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<Source>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<Source>(element);
         Assert.NotNull(deserialized);
 
         string expectedID = "id";

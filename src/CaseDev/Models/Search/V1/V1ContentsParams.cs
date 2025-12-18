@@ -27,8 +27,8 @@ public sealed record class V1ContentsParams : ParamsBase
     /// </summary>
     public required IReadOnlyList<string> URLs
     {
-        get { return ModelBase.GetNotNullClass<List<string>>(this.RawBodyData, "urls"); }
-        init { ModelBase.Set(this._rawBodyData, "urls", value); }
+        get { return JsonModel.GetNotNullClass<List<string>>(this.RawBodyData, "urls"); }
+        init { JsonModel.Set(this._rawBodyData, "urls", value); }
     }
 
     /// <summary>
@@ -36,7 +36,7 @@ public sealed record class V1ContentsParams : ParamsBase
     /// </summary>
     public string? Context
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawBodyData, "context"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "context"); }
         init
         {
             if (value == null)
@@ -44,7 +44,7 @@ public sealed record class V1ContentsParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "context", value);
+            JsonModel.Set(this._rawBodyData, "context", value);
         }
     }
 
@@ -53,7 +53,7 @@ public sealed record class V1ContentsParams : ParamsBase
     /// </summary>
     public JsonElement? Extras
     {
-        get { return ModelBase.GetNullableStruct<JsonElement>(this.RawBodyData, "extras"); }
+        get { return JsonModel.GetNullableStruct<JsonElement>(this.RawBodyData, "extras"); }
         init
         {
             if (value == null)
@@ -61,7 +61,7 @@ public sealed record class V1ContentsParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "extras", value);
+            JsonModel.Set(this._rawBodyData, "extras", value);
         }
     }
 
@@ -70,7 +70,7 @@ public sealed record class V1ContentsParams : ParamsBase
     /// </summary>
     public bool? Highlights
     {
-        get { return ModelBase.GetNullableStruct<bool>(this.RawBodyData, "highlights"); }
+        get { return JsonModel.GetNullableStruct<bool>(this.RawBodyData, "highlights"); }
         init
         {
             if (value == null)
@@ -78,7 +78,7 @@ public sealed record class V1ContentsParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "highlights", value);
+            JsonModel.Set(this._rawBodyData, "highlights", value);
         }
     }
 
@@ -87,7 +87,7 @@ public sealed record class V1ContentsParams : ParamsBase
     /// </summary>
     public bool? Livecrawl
     {
-        get { return ModelBase.GetNullableStruct<bool>(this.RawBodyData, "livecrawl"); }
+        get { return JsonModel.GetNullableStruct<bool>(this.RawBodyData, "livecrawl"); }
         init
         {
             if (value == null)
@@ -95,7 +95,7 @@ public sealed record class V1ContentsParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "livecrawl", value);
+            JsonModel.Set(this._rawBodyData, "livecrawl", value);
         }
     }
 
@@ -104,7 +104,7 @@ public sealed record class V1ContentsParams : ParamsBase
     /// </summary>
     public long? LivecrawlTimeout
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawBodyData, "livecrawlTimeout"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawBodyData, "livecrawlTimeout"); }
         init
         {
             if (value == null)
@@ -112,7 +112,7 @@ public sealed record class V1ContentsParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "livecrawlTimeout", value);
+            JsonModel.Set(this._rawBodyData, "livecrawlTimeout", value);
         }
     }
 
@@ -121,7 +121,7 @@ public sealed record class V1ContentsParams : ParamsBase
     /// </summary>
     public bool? Subpages
     {
-        get { return ModelBase.GetNullableStruct<bool>(this.RawBodyData, "subpages"); }
+        get { return JsonModel.GetNullableStruct<bool>(this.RawBodyData, "subpages"); }
         init
         {
             if (value == null)
@@ -129,7 +129,7 @@ public sealed record class V1ContentsParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "subpages", value);
+            JsonModel.Set(this._rawBodyData, "subpages", value);
         }
     }
 
@@ -138,7 +138,7 @@ public sealed record class V1ContentsParams : ParamsBase
     /// </summary>
     public long? SubpageTarget
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawBodyData, "subpageTarget"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawBodyData, "subpageTarget"); }
         init
         {
             if (value == null)
@@ -146,7 +146,7 @@ public sealed record class V1ContentsParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "subpageTarget", value);
+            JsonModel.Set(this._rawBodyData, "subpageTarget", value);
         }
     }
 
@@ -155,7 +155,7 @@ public sealed record class V1ContentsParams : ParamsBase
     /// </summary>
     public bool? Summary
     {
-        get { return ModelBase.GetNullableStruct<bool>(this.RawBodyData, "summary"); }
+        get { return JsonModel.GetNullableStruct<bool>(this.RawBodyData, "summary"); }
         init
         {
             if (value == null)
@@ -163,7 +163,7 @@ public sealed record class V1ContentsParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "summary", value);
+            JsonModel.Set(this._rawBodyData, "summary", value);
         }
     }
 
@@ -172,7 +172,7 @@ public sealed record class V1ContentsParams : ParamsBase
     /// </summary>
     public bool? Text
     {
-        get { return ModelBase.GetNullableStruct<bool>(this.RawBodyData, "text"); }
+        get { return JsonModel.GetNullableStruct<bool>(this.RawBodyData, "text"); }
         init
         {
             if (value == null)
@@ -180,7 +180,7 @@ public sealed record class V1ContentsParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "text", value);
+            JsonModel.Set(this._rawBodyData, "text", value);
         }
     }
 
@@ -217,7 +217,7 @@ public sealed record class V1ContentsParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="IFromRaw.FromRawUnchecked"/>
+    /// <inheritdoc cref="IFromRawJson.FromRawUnchecked"/>
     public static V1ContentsParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
@@ -239,9 +239,13 @@ public sealed record class V1ContentsParams : ParamsBase
         }.Uri;
     }
 
-    internal override StringContent? BodyContent()
+    internal override HttpContent? BodyContent()
     {
-        return new(JsonSerializer.Serialize(this.RawBodyData), Encoding.UTF8, "application/json");
+        return new StringContent(
+            JsonSerializer.Serialize(this.RawBodyData),
+            Encoding.UTF8,
+            "application/json"
+        );
     }
 
     internal override void AddHeadersToRequest(HttpRequestMessage request, ClientOptions options)
