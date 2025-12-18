@@ -96,21 +96,21 @@ public class FiltersTest : TestBase
 public class ObjectIDTest : TestBase
 {
     [Fact]
-    public void stringValidation_Works()
+    public void StringValidationWorks()
     {
         ObjectID value = new("string");
         value.Validate();
     }
 
     [Fact]
-    public void stringsValidation_Works()
+    public void StringsValidationWorks()
     {
         ObjectID value = new(["string"]);
         value.Validate();
     }
 
     [Fact]
-    public void stringSerializationRoundtrip_Works()
+    public void StringSerializationRoundtripWorks()
     {
         ObjectID value = new("string");
         string json = JsonSerializer.Serialize(value);
@@ -120,7 +120,7 @@ public class ObjectIDTest : TestBase
     }
 
     [Fact]
-    public void stringsSerializationRoundtrip_Works()
+    public void StringsSerializationRoundtripWorks()
     {
         ObjectID value = new(["string"]);
         string json = JsonSerializer.Serialize(value);
