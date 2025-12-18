@@ -75,8 +75,8 @@ public class V1ProcessResponseTest : TestBase
             Status = Status.Queued,
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<V1ProcessResponse>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<V1ProcessResponse>(element);
         Assert.NotNull(deserialized);
 
         string expectedID = "id";

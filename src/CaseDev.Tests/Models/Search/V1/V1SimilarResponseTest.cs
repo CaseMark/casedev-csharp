@@ -104,8 +104,8 @@ public class V1SimilarResponseTest : TestBase
             TotalResults = 0,
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<V1SimilarResponse>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<V1SimilarResponse>(element);
         Assert.NotNull(deserialized);
 
         double expectedProcessingTime = 0;
@@ -281,8 +281,8 @@ public class V1SimilarResponseResultTest : TestBase
             URL = "url",
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<V1SimilarResponseResult>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<V1SimilarResponseResult>(element);
         Assert.NotNull(deserialized);
 
         string expectedDomain = "domain";

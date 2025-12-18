@@ -9,12 +9,12 @@ using CaseDev.Exceptions;
 
 namespace CaseDev.Models.Workflows.V1;
 
-[JsonConverter(typeof(ModelConverter<V1ExecuteResponse, V1ExecuteResponseFromRaw>))]
-public sealed record class V1ExecuteResponse : ModelBase
+[JsonConverter(typeof(JsonModelConverter<V1ExecuteResponse, V1ExecuteResponseFromRaw>))]
+public sealed record class V1ExecuteResponse : JsonModel
 {
     public long? Duration
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawData, "duration"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawData, "duration"); }
         init
         {
             if (value == null)
@@ -22,13 +22,13 @@ public sealed record class V1ExecuteResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "duration", value);
+            JsonModel.Set(this._rawData, "duration", value);
         }
     }
 
     public string? ExecutionArn
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "executionArn"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "executionArn"); }
         init
         {
             if (value == null)
@@ -36,13 +36,13 @@ public sealed record class V1ExecuteResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "executionArn", value);
+            JsonModel.Set(this._rawData, "executionArn", value);
         }
     }
 
     public string? ExecutionID
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "executionId"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "executionId"); }
         init
         {
             if (value == null)
@@ -50,13 +50,13 @@ public sealed record class V1ExecuteResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "executionId", value);
+            JsonModel.Set(this._rawData, "executionId", value);
         }
     }
 
     public ApiEnum<string, Mode>? Mode
     {
-        get { return ModelBase.GetNullableClass<ApiEnum<string, Mode>>(this.RawData, "mode"); }
+        get { return JsonModel.GetNullableClass<ApiEnum<string, Mode>>(this.RawData, "mode"); }
         init
         {
             if (value == null)
@@ -64,13 +64,13 @@ public sealed record class V1ExecuteResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "mode", value);
+            JsonModel.Set(this._rawData, "mode", value);
         }
     }
 
     public JsonElement? Output
     {
-        get { return ModelBase.GetNullableStruct<JsonElement>(this.RawData, "output"); }
+        get { return JsonModel.GetNullableStruct<JsonElement>(this.RawData, "output"); }
         init
         {
             if (value == null)
@@ -78,7 +78,7 @@ public sealed record class V1ExecuteResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "output", value);
+            JsonModel.Set(this._rawData, "output", value);
         }
     }
 
@@ -86,7 +86,7 @@ public sealed record class V1ExecuteResponse : ModelBase
     {
         get
         {
-            return ModelBase.GetNullableClass<ApiEnum<string, V1ExecuteResponseStatus>>(
+            return JsonModel.GetNullableClass<ApiEnum<string, V1ExecuteResponseStatus>>(
                 this.RawData,
                 "status"
             );
@@ -98,7 +98,7 @@ public sealed record class V1ExecuteResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "status", value);
+            JsonModel.Set(this._rawData, "status", value);
         }
     }
 
@@ -140,7 +140,7 @@ public sealed record class V1ExecuteResponse : ModelBase
     }
 }
 
-class V1ExecuteResponseFromRaw : IFromRaw<V1ExecuteResponse>
+class V1ExecuteResponseFromRaw : IFromRawJson<V1ExecuteResponse>
 {
     /// <inheritdoc/>
     public V1ExecuteResponse FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>

@@ -20,7 +20,7 @@ public sealed record class V1GetUsageParams : ParamsBase
     /// </summary>
     public long? Month
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawQueryData, "month"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawQueryData, "month"); }
         init
         {
             if (value == null)
@@ -28,7 +28,7 @@ public sealed record class V1GetUsageParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawQueryData, "month", value);
+            JsonModel.Set(this._rawQueryData, "month", value);
         }
     }
 
@@ -37,7 +37,7 @@ public sealed record class V1GetUsageParams : ParamsBase
     /// </summary>
     public long? Year
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawQueryData, "year"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawQueryData, "year"); }
         init
         {
             if (value == null)
@@ -45,7 +45,7 @@ public sealed record class V1GetUsageParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawQueryData, "year", value);
+            JsonModel.Set(this._rawQueryData, "year", value);
         }
     }
 
@@ -75,7 +75,7 @@ public sealed record class V1GetUsageParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="IFromRaw.FromRawUnchecked"/>
+    /// <inheritdoc cref="IFromRawJson.FromRawUnchecked"/>
     public static V1GetUsageParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

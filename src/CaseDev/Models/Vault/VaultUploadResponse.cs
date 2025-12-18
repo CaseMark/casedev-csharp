@@ -7,15 +7,15 @@ using CaseDev.Core;
 
 namespace CaseDev.Models.Vault;
 
-[JsonConverter(typeof(ModelConverter<VaultUploadResponse, VaultUploadResponseFromRaw>))]
-public sealed record class VaultUploadResponse : ModelBase
+[JsonConverter(typeof(JsonModelConverter<VaultUploadResponse, VaultUploadResponseFromRaw>))]
+public sealed record class VaultUploadResponse : JsonModel
 {
     /// <summary>
     /// Whether the file will be automatically indexed
     /// </summary>
     public bool? AutoIndex
     {
-        get { return ModelBase.GetNullableStruct<bool>(this.RawData, "auto_index"); }
+        get { return JsonModel.GetNullableStruct<bool>(this.RawData, "auto_index"); }
         init
         {
             if (value == null)
@@ -23,7 +23,7 @@ public sealed record class VaultUploadResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "auto_index", value);
+            JsonModel.Set(this._rawData, "auto_index", value);
         }
     }
 
@@ -32,7 +32,7 @@ public sealed record class VaultUploadResponse : ModelBase
     /// </summary>
     public double? ExpiresIn
     {
-        get { return ModelBase.GetNullableStruct<double>(this.RawData, "expiresIn"); }
+        get { return JsonModel.GetNullableStruct<double>(this.RawData, "expiresIn"); }
         init
         {
             if (value == null)
@@ -40,13 +40,13 @@ public sealed record class VaultUploadResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "expiresIn", value);
+            JsonModel.Set(this._rawData, "expiresIn", value);
         }
     }
 
     public Instructions? Instructions
     {
-        get { return ModelBase.GetNullableClass<Instructions>(this.RawData, "instructions"); }
+        get { return JsonModel.GetNullableClass<Instructions>(this.RawData, "instructions"); }
         init
         {
             if (value == null)
@@ -54,7 +54,7 @@ public sealed record class VaultUploadResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "instructions", value);
+            JsonModel.Set(this._rawData, "instructions", value);
         }
     }
 
@@ -63,8 +63,8 @@ public sealed record class VaultUploadResponse : ModelBase
     /// </summary>
     public string? NextStep
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "next_step"); }
-        init { ModelBase.Set(this._rawData, "next_step", value); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "next_step"); }
+        init { JsonModel.Set(this._rawData, "next_step", value); }
     }
 
     /// <summary>
@@ -72,7 +72,7 @@ public sealed record class VaultUploadResponse : ModelBase
     /// </summary>
     public string? ObjectID
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "objectId"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "objectId"); }
         init
         {
             if (value == null)
@@ -80,7 +80,7 @@ public sealed record class VaultUploadResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "objectId", value);
+            JsonModel.Set(this._rawData, "objectId", value);
         }
     }
 
@@ -89,7 +89,7 @@ public sealed record class VaultUploadResponse : ModelBase
     /// </summary>
     public string? S3Key
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "s3Key"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "s3Key"); }
         init
         {
             if (value == null)
@@ -97,7 +97,7 @@ public sealed record class VaultUploadResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "s3Key", value);
+            JsonModel.Set(this._rawData, "s3Key", value);
         }
     }
 
@@ -106,7 +106,7 @@ public sealed record class VaultUploadResponse : ModelBase
     /// </summary>
     public string? UploadURL
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "uploadUrl"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "uploadUrl"); }
         init
         {
             if (value == null)
@@ -114,7 +114,7 @@ public sealed record class VaultUploadResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "uploadUrl", value);
+            JsonModel.Set(this._rawData, "uploadUrl", value);
         }
     }
 
@@ -157,19 +157,19 @@ public sealed record class VaultUploadResponse : ModelBase
     }
 }
 
-class VaultUploadResponseFromRaw : IFromRaw<VaultUploadResponse>
+class VaultUploadResponseFromRaw : IFromRawJson<VaultUploadResponse>
 {
     /// <inheritdoc/>
     public VaultUploadResponse FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         VaultUploadResponse.FromRawUnchecked(rawData);
 }
 
-[JsonConverter(typeof(ModelConverter<Instructions, InstructionsFromRaw>))]
-public sealed record class Instructions : ModelBase
+[JsonConverter(typeof(JsonModelConverter<Instructions, InstructionsFromRaw>))]
+public sealed record class Instructions : JsonModel
 {
     public JsonElement? Headers
     {
-        get { return ModelBase.GetNullableStruct<JsonElement>(this.RawData, "headers"); }
+        get { return JsonModel.GetNullableStruct<JsonElement>(this.RawData, "headers"); }
         init
         {
             if (value == null)
@@ -177,13 +177,13 @@ public sealed record class Instructions : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "headers", value);
+            JsonModel.Set(this._rawData, "headers", value);
         }
     }
 
     public string? Method
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "method"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "method"); }
         init
         {
             if (value == null)
@@ -191,13 +191,13 @@ public sealed record class Instructions : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "method", value);
+            JsonModel.Set(this._rawData, "method", value);
         }
     }
 
     public string? Note
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "note"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "note"); }
         init
         {
             if (value == null)
@@ -205,7 +205,7 @@ public sealed record class Instructions : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "note", value);
+            JsonModel.Set(this._rawData, "note", value);
         }
     }
 
@@ -242,7 +242,7 @@ public sealed record class Instructions : ModelBase
     }
 }
 
-class InstructionsFromRaw : IFromRaw<Instructions>
+class InstructionsFromRaw : IFromRawJson<Instructions>
 {
     /// <inheritdoc/>
     public Instructions FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>

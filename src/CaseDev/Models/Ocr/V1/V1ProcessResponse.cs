@@ -9,15 +9,15 @@ using System = System;
 
 namespace CaseDev.Models.Ocr.V1;
 
-[JsonConverter(typeof(ModelConverter<V1ProcessResponse, V1ProcessResponseFromRaw>))]
-public sealed record class V1ProcessResponse : ModelBase
+[JsonConverter(typeof(JsonModelConverter<V1ProcessResponse, V1ProcessResponseFromRaw>))]
+public sealed record class V1ProcessResponse : JsonModel
 {
     /// <summary>
     /// Unique job identifier
     /// </summary>
     public string? ID
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "id"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "id"); }
         init
         {
             if (value == null)
@@ -25,7 +25,7 @@ public sealed record class V1ProcessResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "id", value);
+            JsonModel.Set(this._rawData, "id", value);
         }
     }
 
@@ -36,7 +36,7 @@ public sealed record class V1ProcessResponse : ModelBase
     {
         get
         {
-            return ModelBase.GetNullableStruct<System::DateTimeOffset>(this.RawData, "created_at");
+            return JsonModel.GetNullableStruct<System::DateTimeOffset>(this.RawData, "created_at");
         }
         init
         {
@@ -45,7 +45,7 @@ public sealed record class V1ProcessResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "created_at", value);
+            JsonModel.Set(this._rawData, "created_at", value);
         }
     }
 
@@ -54,7 +54,7 @@ public sealed record class V1ProcessResponse : ModelBase
     /// </summary>
     public string? DocumentID
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "document_id"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "document_id"); }
         init
         {
             if (value == null)
@@ -62,7 +62,7 @@ public sealed record class V1ProcessResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "document_id", value);
+            JsonModel.Set(this._rawData, "document_id", value);
         }
     }
 
@@ -71,7 +71,7 @@ public sealed record class V1ProcessResponse : ModelBase
     /// </summary>
     public string? Engine
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "engine"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "engine"); }
         init
         {
             if (value == null)
@@ -79,7 +79,7 @@ public sealed record class V1ProcessResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "engine", value);
+            JsonModel.Set(this._rawData, "engine", value);
         }
     }
 
@@ -90,7 +90,7 @@ public sealed record class V1ProcessResponse : ModelBase
     {
         get
         {
-            return ModelBase.GetNullableStruct<System::DateTimeOffset>(
+            return JsonModel.GetNullableStruct<System::DateTimeOffset>(
                 this.RawData,
                 "estimated_completion"
             );
@@ -102,7 +102,7 @@ public sealed record class V1ProcessResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "estimated_completion", value);
+            JsonModel.Set(this._rawData, "estimated_completion", value);
         }
     }
 
@@ -111,7 +111,7 @@ public sealed record class V1ProcessResponse : ModelBase
     /// </summary>
     public long? PageCount
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawData, "page_count"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawData, "page_count"); }
         init
         {
             if (value == null)
@@ -119,7 +119,7 @@ public sealed record class V1ProcessResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "page_count", value);
+            JsonModel.Set(this._rawData, "page_count", value);
         }
     }
 
@@ -128,7 +128,7 @@ public sealed record class V1ProcessResponse : ModelBase
     /// </summary>
     public ApiEnum<string, Status>? Status
     {
-        get { return ModelBase.GetNullableClass<ApiEnum<string, Status>>(this.RawData, "status"); }
+        get { return JsonModel.GetNullableClass<ApiEnum<string, Status>>(this.RawData, "status"); }
         init
         {
             if (value == null)
@@ -136,7 +136,7 @@ public sealed record class V1ProcessResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "status", value);
+            JsonModel.Set(this._rawData, "status", value);
         }
     }
 
@@ -179,7 +179,7 @@ public sealed record class V1ProcessResponse : ModelBase
     }
 }
 
-class V1ProcessResponseFromRaw : IFromRaw<V1ProcessResponse>
+class V1ProcessResponseFromRaw : IFromRawJson<V1ProcessResponse>
 {
     /// <inheritdoc/>
     public V1ProcessResponse FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>

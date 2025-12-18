@@ -7,12 +7,12 @@ using CaseDev.Core;
 
 namespace CaseDev.Models.Workflows.V1;
 
-[JsonConverter(typeof(ModelConverter<V1ListResponse, V1ListResponseFromRaw>))]
-public sealed record class V1ListResponse : ModelBase
+[JsonConverter(typeof(JsonModelConverter<V1ListResponse, V1ListResponseFromRaw>))]
+public sealed record class V1ListResponse : JsonModel
 {
     public long? Limit
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawData, "limit"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawData, "limit"); }
         init
         {
             if (value == null)
@@ -20,13 +20,13 @@ public sealed record class V1ListResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "limit", value);
+            JsonModel.Set(this._rawData, "limit", value);
         }
     }
 
     public long? Offset
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawData, "offset"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawData, "offset"); }
         init
         {
             if (value == null)
@@ -34,13 +34,13 @@ public sealed record class V1ListResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "offset", value);
+            JsonModel.Set(this._rawData, "offset", value);
         }
     }
 
     public long? Total
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawData, "total"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawData, "total"); }
         init
         {
             if (value == null)
@@ -48,13 +48,13 @@ public sealed record class V1ListResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "total", value);
+            JsonModel.Set(this._rawData, "total", value);
         }
     }
 
     public IReadOnlyList<Workflow>? Workflows
     {
-        get { return ModelBase.GetNullableClass<List<Workflow>>(this.RawData, "workflows"); }
+        get { return JsonModel.GetNullableClass<List<Workflow>>(this.RawData, "workflows"); }
         init
         {
             if (value == null)
@@ -62,7 +62,7 @@ public sealed record class V1ListResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "workflows", value);
+            JsonModel.Set(this._rawData, "workflows", value);
         }
     }
 
@@ -103,19 +103,19 @@ public sealed record class V1ListResponse : ModelBase
     }
 }
 
-class V1ListResponseFromRaw : IFromRaw<V1ListResponse>
+class V1ListResponseFromRaw : IFromRawJson<V1ListResponse>
 {
     /// <inheritdoc/>
     public V1ListResponse FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         V1ListResponse.FromRawUnchecked(rawData);
 }
 
-[JsonConverter(typeof(ModelConverter<Workflow, WorkflowFromRaw>))]
-public sealed record class Workflow : ModelBase
+[JsonConverter(typeof(JsonModelConverter<Workflow, WorkflowFromRaw>))]
+public sealed record class Workflow : JsonModel
 {
     public string? ID
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "id"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "id"); }
         init
         {
             if (value == null)
@@ -123,13 +123,13 @@ public sealed record class Workflow : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "id", value);
+            JsonModel.Set(this._rawData, "id", value);
         }
     }
 
     public string? CreatedAt
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "createdAt"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "createdAt"); }
         init
         {
             if (value == null)
@@ -137,13 +137,13 @@ public sealed record class Workflow : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "createdAt", value);
+            JsonModel.Set(this._rawData, "createdAt", value);
         }
     }
 
     public string? DeployedAt
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "deployedAt"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "deployedAt"); }
         init
         {
             if (value == null)
@@ -151,13 +151,13 @@ public sealed record class Workflow : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "deployedAt", value);
+            JsonModel.Set(this._rawData, "deployedAt", value);
         }
     }
 
     public string? Description
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "description"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "description"); }
         init
         {
             if (value == null)
@@ -165,13 +165,13 @@ public sealed record class Workflow : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "description", value);
+            JsonModel.Set(this._rawData, "description", value);
         }
     }
 
     public string? Name
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "name"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "name"); }
         init
         {
             if (value == null)
@@ -179,13 +179,13 @@ public sealed record class Workflow : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "name", value);
+            JsonModel.Set(this._rawData, "name", value);
         }
     }
 
     public string? TriggerType
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "triggerType"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "triggerType"); }
         init
         {
             if (value == null)
@@ -193,13 +193,13 @@ public sealed record class Workflow : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "triggerType", value);
+            JsonModel.Set(this._rawData, "triggerType", value);
         }
     }
 
     public string? UpdatedAt
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "updatedAt"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "updatedAt"); }
         init
         {
             if (value == null)
@@ -207,13 +207,13 @@ public sealed record class Workflow : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "updatedAt", value);
+            JsonModel.Set(this._rawData, "updatedAt", value);
         }
     }
 
     public string? Visibility
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "visibility"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "visibility"); }
         init
         {
             if (value == null)
@@ -221,7 +221,7 @@ public sealed record class Workflow : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "visibility", value);
+            JsonModel.Set(this._rawData, "visibility", value);
         }
     }
 
@@ -263,7 +263,7 @@ public sealed record class Workflow : ModelBase
     }
 }
 
-class WorkflowFromRaw : IFromRaw<Workflow>
+class WorkflowFromRaw : IFromRawJson<Workflow>
 {
     /// <inheritdoc/>
     public Workflow FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>

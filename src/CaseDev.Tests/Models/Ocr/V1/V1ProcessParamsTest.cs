@@ -113,8 +113,8 @@ public class FeaturesTest : TestBase
             Text = true,
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<Features>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<Features>(element);
         Assert.NotNull(deserialized);
 
         bool expectedForms = false;

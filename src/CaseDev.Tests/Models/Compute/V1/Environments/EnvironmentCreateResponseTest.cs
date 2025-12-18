@@ -73,8 +73,8 @@ public class EnvironmentCreateResponseTest : TestBase
             Status = Status.Active,
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<EnvironmentCreateResponse>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<EnvironmentCreateResponse>(element);
         Assert.NotNull(deserialized);
 
         string expectedID = "id";

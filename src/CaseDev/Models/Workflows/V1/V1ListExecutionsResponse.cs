@@ -7,12 +7,14 @@ using CaseDev.Core;
 
 namespace CaseDev.Models.Workflows.V1;
 
-[JsonConverter(typeof(ModelConverter<V1ListExecutionsResponse, V1ListExecutionsResponseFromRaw>))]
-public sealed record class V1ListExecutionsResponse : ModelBase
+[JsonConverter(
+    typeof(JsonModelConverter<V1ListExecutionsResponse, V1ListExecutionsResponseFromRaw>)
+)]
+public sealed record class V1ListExecutionsResponse : JsonModel
 {
     public IReadOnlyList<Execution>? Executions
     {
-        get { return ModelBase.GetNullableClass<List<Execution>>(this.RawData, "executions"); }
+        get { return JsonModel.GetNullableClass<List<Execution>>(this.RawData, "executions"); }
         init
         {
             if (value == null)
@@ -20,7 +22,7 @@ public sealed record class V1ListExecutionsResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "executions", value);
+            JsonModel.Set(this._rawData, "executions", value);
         }
     }
 
@@ -60,7 +62,7 @@ public sealed record class V1ListExecutionsResponse : ModelBase
     }
 }
 
-class V1ListExecutionsResponseFromRaw : IFromRaw<V1ListExecutionsResponse>
+class V1ListExecutionsResponseFromRaw : IFromRawJson<V1ListExecutionsResponse>
 {
     /// <inheritdoc/>
     public V1ListExecutionsResponse FromRawUnchecked(
@@ -68,12 +70,12 @@ class V1ListExecutionsResponseFromRaw : IFromRaw<V1ListExecutionsResponse>
     ) => V1ListExecutionsResponse.FromRawUnchecked(rawData);
 }
 
-[JsonConverter(typeof(ModelConverter<Execution, ExecutionFromRaw>))]
-public sealed record class Execution : ModelBase
+[JsonConverter(typeof(JsonModelConverter<Execution, ExecutionFromRaw>))]
+public sealed record class Execution : JsonModel
 {
     public string? ID
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "id"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "id"); }
         init
         {
             if (value == null)
@@ -81,13 +83,13 @@ public sealed record class Execution : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "id", value);
+            JsonModel.Set(this._rawData, "id", value);
         }
     }
 
     public string? CompletedAt
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "completedAt"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "completedAt"); }
         init
         {
             if (value == null)
@@ -95,13 +97,13 @@ public sealed record class Execution : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "completedAt", value);
+            JsonModel.Set(this._rawData, "completedAt", value);
         }
     }
 
     public long? DurationMs
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawData, "durationMs"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawData, "durationMs"); }
         init
         {
             if (value == null)
@@ -109,13 +111,13 @@ public sealed record class Execution : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "durationMs", value);
+            JsonModel.Set(this._rawData, "durationMs", value);
         }
     }
 
     public string? StartedAt
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "startedAt"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "startedAt"); }
         init
         {
             if (value == null)
@@ -123,13 +125,13 @@ public sealed record class Execution : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "startedAt", value);
+            JsonModel.Set(this._rawData, "startedAt", value);
         }
     }
 
     public string? Status
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "status"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "status"); }
         init
         {
             if (value == null)
@@ -137,13 +139,13 @@ public sealed record class Execution : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "status", value);
+            JsonModel.Set(this._rawData, "status", value);
         }
     }
 
     public string? TriggerType
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "triggerType"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "triggerType"); }
         init
         {
             if (value == null)
@@ -151,7 +153,7 @@ public sealed record class Execution : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "triggerType", value);
+            JsonModel.Set(this._rawData, "triggerType", value);
         }
     }
 
@@ -191,7 +193,7 @@ public sealed record class Execution : ModelBase
     }
 }
 
-class ExecutionFromRaw : IFromRaw<Execution>
+class ExecutionFromRaw : IFromRawJson<Execution>
 {
     /// <inheritdoc/>
     public Execution FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>

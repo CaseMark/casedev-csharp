@@ -62,8 +62,8 @@ public class VaultIngestResponseTest : TestBase
             WorkflowID = "workflowId",
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<VaultIngestResponse>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<VaultIngestResponse>(element);
         Assert.NotNull(deserialized);
 
         bool expectedEnableGraphRag = true;

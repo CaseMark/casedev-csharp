@@ -26,8 +26,8 @@ public sealed record class V1SearchParams : ParamsBase
     /// </summary>
     public required string Query
     {
-        get { return ModelBase.GetNotNullClass<string>(this.RawBodyData, "query"); }
-        init { ModelBase.Set(this._rawBodyData, "query", value); }
+        get { return JsonModel.GetNotNullClass<string>(this.RawBodyData, "query"); }
+        init { JsonModel.Set(this._rawBodyData, "query", value); }
     }
 
     /// <summary>
@@ -35,7 +35,7 @@ public sealed record class V1SearchParams : ParamsBase
     /// </summary>
     public string? Category
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawBodyData, "category"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "category"); }
         init
         {
             if (value == null)
@@ -43,7 +43,7 @@ public sealed record class V1SearchParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "category", value);
+            JsonModel.Set(this._rawBodyData, "category", value);
         }
     }
 
@@ -52,7 +52,7 @@ public sealed record class V1SearchParams : ParamsBase
     /// </summary>
     public long? Limit
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawBodyData, "limit"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawBodyData, "limit"); }
         init
         {
             if (value == null)
@@ -60,7 +60,7 @@ public sealed record class V1SearchParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "limit", value);
+            JsonModel.Set(this._rawBodyData, "limit", value);
         }
     }
 
@@ -97,7 +97,7 @@ public sealed record class V1SearchParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="IFromRaw.FromRawUnchecked"/>
+    /// <inheritdoc cref="IFromRawJson.FromRawUnchecked"/>
     public static V1SearchParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
@@ -119,9 +119,13 @@ public sealed record class V1SearchParams : ParamsBase
         }.Uri;
     }
 
-    internal override StringContent? BodyContent()
+    internal override HttpContent? BodyContent()
     {
-        return new(JsonSerializer.Serialize(this.RawBodyData), Encoding.UTF8, "application/json");
+        return new StringContent(
+            JsonSerializer.Serialize(this.RawBodyData),
+            Encoding.UTF8,
+            "application/json"
+        );
     }
 
     internal override void AddHeadersToRequest(HttpRequestMessage request, ClientOptions options)

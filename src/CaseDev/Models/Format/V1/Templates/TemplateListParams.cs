@@ -23,7 +23,7 @@ public sealed record class TemplateListParams : ParamsBase
     /// </summary>
     public string? Type
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawQueryData, "type"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawQueryData, "type"); }
         init
         {
             if (value == null)
@@ -31,7 +31,7 @@ public sealed record class TemplateListParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawQueryData, "type", value);
+            JsonModel.Set(this._rawQueryData, "type", value);
         }
     }
 
@@ -61,7 +61,7 @@ public sealed record class TemplateListParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="IFromRaw.FromRawUnchecked"/>
+    /// <inheritdoc cref="IFromRawJson.FromRawUnchecked"/>
     public static TemplateListParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

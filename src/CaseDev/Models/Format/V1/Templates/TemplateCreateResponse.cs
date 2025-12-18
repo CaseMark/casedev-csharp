@@ -8,15 +8,15 @@ using CaseDev.Core;
 
 namespace CaseDev.Models.Format.V1.Templates;
 
-[JsonConverter(typeof(ModelConverter<TemplateCreateResponse, TemplateCreateResponseFromRaw>))]
-public sealed record class TemplateCreateResponse : ModelBase
+[JsonConverter(typeof(JsonModelConverter<TemplateCreateResponse, TemplateCreateResponseFromRaw>))]
+public sealed record class TemplateCreateResponse : JsonModel
 {
     /// <summary>
     /// Template ID
     /// </summary>
     public string? ID
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "id"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "id"); }
         init
         {
             if (value == null)
@@ -24,7 +24,7 @@ public sealed record class TemplateCreateResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "id", value);
+            JsonModel.Set(this._rawData, "id", value);
         }
     }
 
@@ -33,7 +33,7 @@ public sealed record class TemplateCreateResponse : ModelBase
     /// </summary>
     public DateTimeOffset? CreatedAt
     {
-        get { return ModelBase.GetNullableStruct<DateTimeOffset>(this.RawData, "createdAt"); }
+        get { return JsonModel.GetNullableStruct<DateTimeOffset>(this.RawData, "createdAt"); }
         init
         {
             if (value == null)
@@ -41,7 +41,7 @@ public sealed record class TemplateCreateResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "createdAt", value);
+            JsonModel.Set(this._rawData, "createdAt", value);
         }
     }
 
@@ -50,7 +50,7 @@ public sealed record class TemplateCreateResponse : ModelBase
     /// </summary>
     public string? Name
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "name"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "name"); }
         init
         {
             if (value == null)
@@ -58,7 +58,7 @@ public sealed record class TemplateCreateResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "name", value);
+            JsonModel.Set(this._rawData, "name", value);
         }
     }
 
@@ -67,7 +67,7 @@ public sealed record class TemplateCreateResponse : ModelBase
     /// </summary>
     public string? Type
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "type"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "type"); }
         init
         {
             if (value == null)
@@ -75,7 +75,7 @@ public sealed record class TemplateCreateResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "type", value);
+            JsonModel.Set(this._rawData, "type", value);
         }
     }
 
@@ -84,7 +84,7 @@ public sealed record class TemplateCreateResponse : ModelBase
     /// </summary>
     public IReadOnlyList<string>? Variables
     {
-        get { return ModelBase.GetNullableClass<List<string>>(this.RawData, "variables"); }
+        get { return JsonModel.GetNullableClass<List<string>>(this.RawData, "variables"); }
         init
         {
             if (value == null)
@@ -92,7 +92,7 @@ public sealed record class TemplateCreateResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "variables", value);
+            JsonModel.Set(this._rawData, "variables", value);
         }
     }
 
@@ -133,7 +133,7 @@ public sealed record class TemplateCreateResponse : ModelBase
     }
 }
 
-class TemplateCreateResponseFromRaw : IFromRaw<TemplateCreateResponse>
+class TemplateCreateResponseFromRaw : IFromRawJson<TemplateCreateResponse>
 {
     /// <inheritdoc/>
     public TemplateCreateResponse FromRawUnchecked(

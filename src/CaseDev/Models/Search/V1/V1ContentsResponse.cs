@@ -7,12 +7,12 @@ using CaseDev.Core;
 
 namespace CaseDev.Models.Search.V1;
 
-[JsonConverter(typeof(ModelConverter<V1ContentsResponse, V1ContentsResponseFromRaw>))]
-public sealed record class V1ContentsResponse : ModelBase
+[JsonConverter(typeof(JsonModelConverter<V1ContentsResponse, V1ContentsResponseFromRaw>))]
+public sealed record class V1ContentsResponse : JsonModel
 {
     public IReadOnlyList<Result>? Results
     {
-        get { return ModelBase.GetNullableClass<List<Result>>(this.RawData, "results"); }
+        get { return JsonModel.GetNullableClass<List<Result>>(this.RawData, "results"); }
         init
         {
             if (value == null)
@@ -20,7 +20,7 @@ public sealed record class V1ContentsResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "results", value);
+            JsonModel.Set(this._rawData, "results", value);
         }
     }
 
@@ -60,22 +60,22 @@ public sealed record class V1ContentsResponse : ModelBase
     }
 }
 
-class V1ContentsResponseFromRaw : IFromRaw<V1ContentsResponse>
+class V1ContentsResponseFromRaw : IFromRawJson<V1ContentsResponse>
 {
     /// <inheritdoc/>
     public V1ContentsResponse FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         V1ContentsResponse.FromRawUnchecked(rawData);
 }
 
-[JsonConverter(typeof(ModelConverter<Result, ResultFromRaw>))]
-public sealed record class Result : ModelBase
+[JsonConverter(typeof(JsonModelConverter<Result, ResultFromRaw>))]
+public sealed record class Result : JsonModel
 {
     /// <summary>
     /// Content highlights if requested
     /// </summary>
     public IReadOnlyList<string>? Highlights
     {
-        get { return ModelBase.GetNullableClass<List<string>>(this.RawData, "highlights"); }
+        get { return JsonModel.GetNullableClass<List<string>>(this.RawData, "highlights"); }
         init
         {
             if (value == null)
@@ -83,7 +83,7 @@ public sealed record class Result : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "highlights", value);
+            JsonModel.Set(this._rawData, "highlights", value);
         }
     }
 
@@ -92,7 +92,7 @@ public sealed record class Result : ModelBase
     /// </summary>
     public JsonElement? Metadata
     {
-        get { return ModelBase.GetNullableStruct<JsonElement>(this.RawData, "metadata"); }
+        get { return JsonModel.GetNullableStruct<JsonElement>(this.RawData, "metadata"); }
         init
         {
             if (value == null)
@@ -100,7 +100,7 @@ public sealed record class Result : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "metadata", value);
+            JsonModel.Set(this._rawData, "metadata", value);
         }
     }
 
@@ -109,7 +109,7 @@ public sealed record class Result : ModelBase
     /// </summary>
     public string? Summary
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "summary"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "summary"); }
         init
         {
             if (value == null)
@@ -117,7 +117,7 @@ public sealed record class Result : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "summary", value);
+            JsonModel.Set(this._rawData, "summary", value);
         }
     }
 
@@ -126,7 +126,7 @@ public sealed record class Result : ModelBase
     /// </summary>
     public string? Text
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "text"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "text"); }
         init
         {
             if (value == null)
@@ -134,7 +134,7 @@ public sealed record class Result : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "text", value);
+            JsonModel.Set(this._rawData, "text", value);
         }
     }
 
@@ -143,7 +143,7 @@ public sealed record class Result : ModelBase
     /// </summary>
     public string? Title
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "title"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "title"); }
         init
         {
             if (value == null)
@@ -151,7 +151,7 @@ public sealed record class Result : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "title", value);
+            JsonModel.Set(this._rawData, "title", value);
         }
     }
 
@@ -160,7 +160,7 @@ public sealed record class Result : ModelBase
     /// </summary>
     public string? URL
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "url"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "url"); }
         init
         {
             if (value == null)
@@ -168,7 +168,7 @@ public sealed record class Result : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "url", value);
+            JsonModel.Set(this._rawData, "url", value);
         }
     }
 
@@ -208,7 +208,7 @@ public sealed record class Result : ModelBase
     }
 }
 
-class ResultFromRaw : IFromRaw<Result>
+class ResultFromRaw : IFromRawJson<Result>
 {
     /// <inheritdoc/>
     public Result FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>

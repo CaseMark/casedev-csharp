@@ -30,12 +30,12 @@ public sealed record class SecretUpdateGroupParams : ParamsBase
     {
         get
         {
-            return ModelBase.GetNotNullClass<Dictionary<string, string>>(
+            return JsonModel.GetNotNullClass<Dictionary<string, string>>(
                 this.RawBodyData,
                 "secrets"
             );
         }
-        init { ModelBase.Set(this._rawBodyData, "secrets", value); }
+        init { JsonModel.Set(this._rawBodyData, "secrets", value); }
     }
 
     /// <summary>
@@ -43,7 +43,7 @@ public sealed record class SecretUpdateGroupParams : ParamsBase
     /// </summary>
     public string? Env
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawBodyData, "env"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "env"); }
         init
         {
             if (value == null)
@@ -51,7 +51,7 @@ public sealed record class SecretUpdateGroupParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "env", value);
+            JsonModel.Set(this._rawBodyData, "env", value);
         }
     }
 
@@ -88,7 +88,7 @@ public sealed record class SecretUpdateGroupParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="IFromRaw.FromRawUnchecked"/>
+    /// <inheritdoc cref="IFromRawJson.FromRawUnchecked"/>
     public static SecretUpdateGroupParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
@@ -113,9 +113,13 @@ public sealed record class SecretUpdateGroupParams : ParamsBase
         }.Uri;
     }
 
-    internal override StringContent? BodyContent()
+    internal override HttpContent? BodyContent()
     {
-        return new(JsonSerializer.Serialize(this.RawBodyData), Encoding.UTF8, "application/json");
+        return new StringContent(
+            JsonSerializer.Serialize(this.RawBodyData),
+            Encoding.UTF8,
+            "application/json"
+        );
     }
 
     internal override void AddHeadersToRequest(HttpRequestMessage request, ClientOptions options)

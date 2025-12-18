@@ -22,7 +22,7 @@ public sealed record class V1RetrieveResearchParams : ParamsBase
     /// </summary>
     public string? Events
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawQueryData, "events"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawQueryData, "events"); }
         init
         {
             if (value == null)
@@ -30,7 +30,7 @@ public sealed record class V1RetrieveResearchParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawQueryData, "events", value);
+            JsonModel.Set(this._rawQueryData, "events", value);
         }
     }
 
@@ -39,7 +39,7 @@ public sealed record class V1RetrieveResearchParams : ParamsBase
     /// </summary>
     public bool? Stream
     {
-        get { return ModelBase.GetNullableStruct<bool>(this.RawQueryData, "stream"); }
+        get { return JsonModel.GetNullableStruct<bool>(this.RawQueryData, "stream"); }
         init
         {
             if (value == null)
@@ -47,7 +47,7 @@ public sealed record class V1RetrieveResearchParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawQueryData, "stream", value);
+            JsonModel.Set(this._rawQueryData, "stream", value);
         }
     }
 
@@ -77,7 +77,7 @@ public sealed record class V1RetrieveResearchParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="IFromRaw.FromRawUnchecked"/>
+    /// <inheritdoc cref="IFromRawJson.FromRawUnchecked"/>
     public static V1RetrieveResearchParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

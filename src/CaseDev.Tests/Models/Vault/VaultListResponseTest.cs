@@ -100,8 +100,8 @@ public class VaultListResponseTest : TestBase
             ],
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<VaultListResponse>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<VaultListResponse>(element);
         Assert.NotNull(deserialized);
 
         long expectedTotal = 0;
@@ -268,8 +268,8 @@ public class VaultListResponseVaultTest : TestBase
             TotalObjects = 0,
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<VaultListResponseVault>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<VaultListResponseVault>(element);
         Assert.NotNull(deserialized);
 
         string expectedID = "id";

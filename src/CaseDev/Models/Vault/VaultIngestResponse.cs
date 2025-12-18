@@ -9,16 +9,16 @@ using CaseDev.Exceptions;
 
 namespace CaseDev.Models.Vault;
 
-[JsonConverter(typeof(ModelConverter<VaultIngestResponse, VaultIngestResponseFromRaw>))]
-public sealed record class VaultIngestResponse : ModelBase
+[JsonConverter(typeof(JsonModelConverter<VaultIngestResponse, VaultIngestResponseFromRaw>))]
+public sealed record class VaultIngestResponse : JsonModel
 {
     /// <summary>
     /// Whether GraphRAG is enabled for this vault
     /// </summary>
     public required bool EnableGraphRag
     {
-        get { return ModelBase.GetNotNullStruct<bool>(this.RawData, "enableGraphRAG"); }
-        init { ModelBase.Set(this._rawData, "enableGraphRAG", value); }
+        get { return JsonModel.GetNotNullStruct<bool>(this.RawData, "enableGraphRAG"); }
+        init { JsonModel.Set(this._rawData, "enableGraphRAG", value); }
     }
 
     /// <summary>
@@ -26,8 +26,8 @@ public sealed record class VaultIngestResponse : ModelBase
     /// </summary>
     public required string Message
     {
-        get { return ModelBase.GetNotNullClass<string>(this.RawData, "message"); }
-        init { ModelBase.Set(this._rawData, "message", value); }
+        get { return JsonModel.GetNotNullClass<string>(this.RawData, "message"); }
+        init { JsonModel.Set(this._rawData, "message", value); }
     }
 
     /// <summary>
@@ -35,8 +35,8 @@ public sealed record class VaultIngestResponse : ModelBase
     /// </summary>
     public required string ObjectID
     {
-        get { return ModelBase.GetNotNullClass<string>(this.RawData, "objectId"); }
-        init { ModelBase.Set(this._rawData, "objectId", value); }
+        get { return JsonModel.GetNotNullClass<string>(this.RawData, "objectId"); }
+        init { JsonModel.Set(this._rawData, "objectId", value); }
     }
 
     /// <summary>
@@ -44,8 +44,8 @@ public sealed record class VaultIngestResponse : ModelBase
     /// </summary>
     public required ApiEnum<string, Status> Status
     {
-        get { return ModelBase.GetNotNullClass<ApiEnum<string, Status>>(this.RawData, "status"); }
-        init { ModelBase.Set(this._rawData, "status", value); }
+        get { return JsonModel.GetNotNullClass<ApiEnum<string, Status>>(this.RawData, "status"); }
+        init { JsonModel.Set(this._rawData, "status", value); }
     }
 
     /// <summary>
@@ -53,8 +53,8 @@ public sealed record class VaultIngestResponse : ModelBase
     /// </summary>
     public required string WorkflowID
     {
-        get { return ModelBase.GetNotNullClass<string>(this.RawData, "workflowId"); }
-        init { ModelBase.Set(this._rawData, "workflowId", value); }
+        get { return JsonModel.GetNotNullClass<string>(this.RawData, "workflowId"); }
+        init { JsonModel.Set(this._rawData, "workflowId", value); }
     }
 
     /// <inheritdoc/>
@@ -94,7 +94,7 @@ public sealed record class VaultIngestResponse : ModelBase
     }
 }
 
-class VaultIngestResponseFromRaw : IFromRaw<VaultIngestResponse>
+class VaultIngestResponseFromRaw : IFromRawJson<VaultIngestResponse>
 {
     /// <inheritdoc/>
     public VaultIngestResponse FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>

@@ -27,8 +27,8 @@ public sealed record class V1SimilarParams : ParamsBase
     /// </summary>
     public required string URL
     {
-        get { return ModelBase.GetNotNullClass<string>(this.RawBodyData, "url"); }
-        init { ModelBase.Set(this._rawBodyData, "url", value); }
+        get { return JsonModel.GetNotNullClass<string>(this.RawBodyData, "url"); }
+        init { JsonModel.Set(this._rawBodyData, "url", value); }
     }
 
     /// <summary>
@@ -36,7 +36,7 @@ public sealed record class V1SimilarParams : ParamsBase
     /// </summary>
     public string? Contents
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawBodyData, "contents"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "contents"); }
         init
         {
             if (value == null)
@@ -44,7 +44,7 @@ public sealed record class V1SimilarParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "contents", value);
+            JsonModel.Set(this._rawBodyData, "contents", value);
         }
     }
 
@@ -59,7 +59,7 @@ public sealed record class V1SimilarParams : ParamsBase
 #endif
     ? EndCrawlDate
     {
-        get { return ModelBase.GetNullableStruct<
+        get { return JsonModel.GetNullableStruct<
 #if NET
             DateOnly
 #else
@@ -73,7 +73,7 @@ public sealed record class V1SimilarParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "endCrawlDate", value);
+            JsonModel.Set(this._rawBodyData, "endCrawlDate", value);
         }
     }
 
@@ -88,7 +88,7 @@ public sealed record class V1SimilarParams : ParamsBase
 #endif
     ? EndPublishedDate
     {
-        get { return ModelBase.GetNullableStruct<
+        get { return JsonModel.GetNullableStruct<
 #if NET
             DateOnly
 #else
@@ -102,7 +102,7 @@ public sealed record class V1SimilarParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "endPublishedDate", value);
+            JsonModel.Set(this._rawBodyData, "endPublishedDate", value);
         }
     }
 
@@ -111,7 +111,7 @@ public sealed record class V1SimilarParams : ParamsBase
     /// </summary>
     public IReadOnlyList<string>? ExcludeDomains
     {
-        get { return ModelBase.GetNullableClass<List<string>>(this.RawBodyData, "excludeDomains"); }
+        get { return JsonModel.GetNullableClass<List<string>>(this.RawBodyData, "excludeDomains"); }
         init
         {
             if (value == null)
@@ -119,7 +119,7 @@ public sealed record class V1SimilarParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "excludeDomains", value);
+            JsonModel.Set(this._rawBodyData, "excludeDomains", value);
         }
     }
 
@@ -128,7 +128,7 @@ public sealed record class V1SimilarParams : ParamsBase
     /// </summary>
     public IReadOnlyList<string>? IncludeDomains
     {
-        get { return ModelBase.GetNullableClass<List<string>>(this.RawBodyData, "includeDomains"); }
+        get { return JsonModel.GetNullableClass<List<string>>(this.RawBodyData, "includeDomains"); }
         init
         {
             if (value == null)
@@ -136,7 +136,7 @@ public sealed record class V1SimilarParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "includeDomains", value);
+            JsonModel.Set(this._rawBodyData, "includeDomains", value);
         }
     }
 
@@ -145,7 +145,7 @@ public sealed record class V1SimilarParams : ParamsBase
     /// </summary>
     public bool? IncludeText
     {
-        get { return ModelBase.GetNullableStruct<bool>(this.RawBodyData, "includeText"); }
+        get { return JsonModel.GetNullableStruct<bool>(this.RawBodyData, "includeText"); }
         init
         {
             if (value == null)
@@ -153,7 +153,7 @@ public sealed record class V1SimilarParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "includeText", value);
+            JsonModel.Set(this._rawBodyData, "includeText", value);
         }
     }
 
@@ -162,7 +162,7 @@ public sealed record class V1SimilarParams : ParamsBase
     /// </summary>
     public long? NumResults
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawBodyData, "numResults"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawBodyData, "numResults"); }
         init
         {
             if (value == null)
@@ -170,7 +170,7 @@ public sealed record class V1SimilarParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "numResults", value);
+            JsonModel.Set(this._rawBodyData, "numResults", value);
         }
     }
 
@@ -185,7 +185,7 @@ public sealed record class V1SimilarParams : ParamsBase
 #endif
     ? StartCrawlDate
     {
-        get { return ModelBase.GetNullableStruct<
+        get { return JsonModel.GetNullableStruct<
 #if NET
             DateOnly
 #else
@@ -199,7 +199,7 @@ public sealed record class V1SimilarParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "startCrawlDate", value);
+            JsonModel.Set(this._rawBodyData, "startCrawlDate", value);
         }
     }
 
@@ -216,7 +216,7 @@ public sealed record class V1SimilarParams : ParamsBase
     {
         get
         {
-            return ModelBase.GetNullableStruct<
+            return JsonModel.GetNullableStruct<
 #if NET
             DateOnly
 #else
@@ -231,7 +231,7 @@ public sealed record class V1SimilarParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "startPublishedDate", value);
+            JsonModel.Set(this._rawBodyData, "startPublishedDate", value);
         }
     }
 
@@ -268,7 +268,7 @@ public sealed record class V1SimilarParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="IFromRaw.FromRawUnchecked"/>
+    /// <inheritdoc cref="IFromRawJson.FromRawUnchecked"/>
     public static V1SimilarParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
@@ -290,9 +290,13 @@ public sealed record class V1SimilarParams : ParamsBase
         }.Uri;
     }
 
-    internal override StringContent? BodyContent()
+    internal override HttpContent? BodyContent()
     {
-        return new(JsonSerializer.Serialize(this.RawBodyData), Encoding.UTF8, "application/json");
+        return new StringContent(
+            JsonSerializer.Serialize(this.RawBodyData),
+            Encoding.UTF8,
+            "application/json"
+        );
     }
 
     internal override void AddHeadersToRequest(HttpRequestMessage request, ClientOptions options)

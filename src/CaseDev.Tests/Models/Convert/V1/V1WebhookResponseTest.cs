@@ -33,8 +33,8 @@ public class V1WebhookResponseTest : TestBase
     {
         var model = new V1WebhookResponse { Message = "Webhook received", Success = true };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<V1WebhookResponse>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<V1WebhookResponse>(element);
         Assert.NotNull(deserialized);
 
         string expectedMessage = "Webhook received";

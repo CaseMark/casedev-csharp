@@ -33,8 +33,8 @@ public class V1UndeployResponseTest : TestBase
     {
         var model = new V1UndeployResponse { Message = "message", Success = true };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<V1UndeployResponse>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<V1UndeployResponse>(element);
         Assert.NotNull(deserialized);
 
         string expectedMessage = "message";

@@ -97,8 +97,8 @@ public class V1SearchResponseTest : TestBase
             TotalResults = 0,
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<V1SearchResponse>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<V1SearchResponse>(element);
         Assert.NotNull(deserialized);
 
         string expectedQuery = "query";
@@ -260,8 +260,8 @@ public class V1SearchResponseResultTest : TestBase
             URL = "url",
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<V1SearchResponseResult>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<V1SearchResponseResult>(element);
         Assert.NotNull(deserialized);
 
         string expectedDomain = "domain";

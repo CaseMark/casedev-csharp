@@ -29,8 +29,8 @@ public sealed record class V1ResearchParams : ParamsBase
     /// </summary>
     public required string Instructions
     {
-        get { return ModelBase.GetNotNullClass<string>(this.RawBodyData, "instructions"); }
-        init { ModelBase.Set(this._rawBodyData, "instructions", value); }
+        get { return JsonModel.GetNotNullClass<string>(this.RawBodyData, "instructions"); }
+        init { JsonModel.Set(this._rawBodyData, "instructions", value); }
     }
 
     /// <summary>
@@ -40,7 +40,7 @@ public sealed record class V1ResearchParams : ParamsBase
     {
         get
         {
-            return ModelBase.GetNullableClass<ApiEnum<string, Model>>(this.RawBodyData, "model");
+            return JsonModel.GetNullableClass<ApiEnum<string, Model>>(this.RawBodyData, "model");
         }
         init
         {
@@ -49,7 +49,7 @@ public sealed record class V1ResearchParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "model", value);
+            JsonModel.Set(this._rawBodyData, "model", value);
         }
     }
 
@@ -58,7 +58,7 @@ public sealed record class V1ResearchParams : ParamsBase
     /// </summary>
     public JsonElement? OutputSchema
     {
-        get { return ModelBase.GetNullableStruct<JsonElement>(this.RawBodyData, "outputSchema"); }
+        get { return JsonModel.GetNullableStruct<JsonElement>(this.RawBodyData, "outputSchema"); }
         init
         {
             if (value == null)
@@ -66,7 +66,7 @@ public sealed record class V1ResearchParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "outputSchema", value);
+            JsonModel.Set(this._rawBodyData, "outputSchema", value);
         }
     }
 
@@ -75,7 +75,7 @@ public sealed record class V1ResearchParams : ParamsBase
     /// </summary>
     public string? Query
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawBodyData, "query"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "query"); }
         init
         {
             if (value == null)
@@ -83,7 +83,7 @@ public sealed record class V1ResearchParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "query", value);
+            JsonModel.Set(this._rawBodyData, "query", value);
         }
     }
 
@@ -120,7 +120,7 @@ public sealed record class V1ResearchParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="IFromRaw.FromRawUnchecked"/>
+    /// <inheritdoc cref="IFromRawJson.FromRawUnchecked"/>
     public static V1ResearchParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
@@ -144,9 +144,13 @@ public sealed record class V1ResearchParams : ParamsBase
         }.Uri;
     }
 
-    internal override StringContent? BodyContent()
+    internal override HttpContent? BodyContent()
     {
-        return new(JsonSerializer.Serialize(this.RawBodyData), Encoding.UTF8, "application/json");
+        return new StringContent(
+            JsonSerializer.Serialize(this.RawBodyData),
+            Encoding.UTF8,
+            "application/json"
+        );
     }
 
     internal override void AddHeadersToRequest(HttpRequestMessage request, ClientOptions options)
@@ -162,7 +166,7 @@ public sealed record class V1ResearchParams : ParamsBase
 /// <summary>
 /// Research quality level - fast (quick), normal (balanced), pro (comprehensive)
 /// </summary>
-[JsonConverter(typeof(ModelConverter1))]
+[JsonConverter(typeof(ModelConverter))]
 public enum Model
 {
     Fast,
@@ -170,7 +174,7 @@ public enum Model
     Pro,
 }
 
-sealed class ModelConverter1 : JsonConverter<Model>
+sealed class ModelConverter : JsonConverter<Model>
 {
     public override Model Read(
         ref Utf8JsonReader reader,

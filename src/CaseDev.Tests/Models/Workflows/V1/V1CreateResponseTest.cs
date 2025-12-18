@@ -91,8 +91,8 @@ public class V1CreateResponseTest : TestBase
             Visibility = "visibility",
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<V1CreateResponse>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<V1CreateResponse>(element);
         Assert.NotNull(deserialized);
 
         string expectedID = "id";

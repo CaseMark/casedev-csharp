@@ -8,15 +8,15 @@ using CaseDev.Core;
 
 namespace CaseDev.Models.Vault;
 
-[JsonConverter(typeof(ModelConverter<VaultListResponse, VaultListResponseFromRaw>))]
-public sealed record class VaultListResponse : ModelBase
+[JsonConverter(typeof(JsonModelConverter<VaultListResponse, VaultListResponseFromRaw>))]
+public sealed record class VaultListResponse : JsonModel
 {
     /// <summary>
     /// Total number of vaults
     /// </summary>
     public long? Total
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawData, "total"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawData, "total"); }
         init
         {
             if (value == null)
@@ -24,7 +24,7 @@ public sealed record class VaultListResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "total", value);
+            JsonModel.Set(this._rawData, "total", value);
         }
     }
 
@@ -32,7 +32,7 @@ public sealed record class VaultListResponse : ModelBase
     {
         get
         {
-            return ModelBase.GetNullableClass<List<VaultListResponseVault>>(this.RawData, "vaults");
+            return JsonModel.GetNullableClass<List<VaultListResponseVault>>(this.RawData, "vaults");
         }
         init
         {
@@ -41,7 +41,7 @@ public sealed record class VaultListResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "vaults", value);
+            JsonModel.Set(this._rawData, "vaults", value);
         }
     }
 
@@ -82,22 +82,22 @@ public sealed record class VaultListResponse : ModelBase
     }
 }
 
-class VaultListResponseFromRaw : IFromRaw<VaultListResponse>
+class VaultListResponseFromRaw : IFromRawJson<VaultListResponse>
 {
     /// <inheritdoc/>
     public VaultListResponse FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         VaultListResponse.FromRawUnchecked(rawData);
 }
 
-[JsonConverter(typeof(ModelConverter<VaultListResponseVault, VaultListResponseVaultFromRaw>))]
-public sealed record class VaultListResponseVault : ModelBase
+[JsonConverter(typeof(JsonModelConverter<VaultListResponseVault, VaultListResponseVaultFromRaw>))]
+public sealed record class VaultListResponseVault : JsonModel
 {
     /// <summary>
     /// Vault identifier
     /// </summary>
     public string? ID
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "id"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "id"); }
         init
         {
             if (value == null)
@@ -105,7 +105,7 @@ public sealed record class VaultListResponseVault : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "id", value);
+            JsonModel.Set(this._rawData, "id", value);
         }
     }
 
@@ -114,7 +114,7 @@ public sealed record class VaultListResponseVault : ModelBase
     /// </summary>
     public DateTimeOffset? CreatedAt
     {
-        get { return ModelBase.GetNullableStruct<DateTimeOffset>(this.RawData, "createdAt"); }
+        get { return JsonModel.GetNullableStruct<DateTimeOffset>(this.RawData, "createdAt"); }
         init
         {
             if (value == null)
@@ -122,7 +122,7 @@ public sealed record class VaultListResponseVault : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "createdAt", value);
+            JsonModel.Set(this._rawData, "createdAt", value);
         }
     }
 
@@ -131,7 +131,7 @@ public sealed record class VaultListResponseVault : ModelBase
     /// </summary>
     public string? Description
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "description"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "description"); }
         init
         {
             if (value == null)
@@ -139,7 +139,7 @@ public sealed record class VaultListResponseVault : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "description", value);
+            JsonModel.Set(this._rawData, "description", value);
         }
     }
 
@@ -148,7 +148,7 @@ public sealed record class VaultListResponseVault : ModelBase
     /// </summary>
     public bool? EnableGraph
     {
-        get { return ModelBase.GetNullableStruct<bool>(this.RawData, "enableGraph"); }
+        get { return JsonModel.GetNullableStruct<bool>(this.RawData, "enableGraph"); }
         init
         {
             if (value == null)
@@ -156,7 +156,7 @@ public sealed record class VaultListResponseVault : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "enableGraph", value);
+            JsonModel.Set(this._rawData, "enableGraph", value);
         }
     }
 
@@ -165,7 +165,7 @@ public sealed record class VaultListResponseVault : ModelBase
     /// </summary>
     public string? Name
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "name"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "name"); }
         init
         {
             if (value == null)
@@ -173,7 +173,7 @@ public sealed record class VaultListResponseVault : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "name", value);
+            JsonModel.Set(this._rawData, "name", value);
         }
     }
 
@@ -182,7 +182,7 @@ public sealed record class VaultListResponseVault : ModelBase
     /// </summary>
     public long? TotalBytes
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawData, "totalBytes"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawData, "totalBytes"); }
         init
         {
             if (value == null)
@@ -190,7 +190,7 @@ public sealed record class VaultListResponseVault : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "totalBytes", value);
+            JsonModel.Set(this._rawData, "totalBytes", value);
         }
     }
 
@@ -199,7 +199,7 @@ public sealed record class VaultListResponseVault : ModelBase
     /// </summary>
     public long? TotalObjects
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawData, "totalObjects"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawData, "totalObjects"); }
         init
         {
             if (value == null)
@@ -207,7 +207,7 @@ public sealed record class VaultListResponseVault : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "totalObjects", value);
+            JsonModel.Set(this._rawData, "totalObjects", value);
         }
     }
 
@@ -250,7 +250,7 @@ public sealed record class VaultListResponseVault : ModelBase
     }
 }
 
-class VaultListResponseVaultFromRaw : IFromRaw<VaultListResponseVault>
+class VaultListResponseVaultFromRaw : IFromRawJson<VaultListResponseVault>
 {
     /// <inheritdoc/>
     public VaultListResponseVault FromRawUnchecked(

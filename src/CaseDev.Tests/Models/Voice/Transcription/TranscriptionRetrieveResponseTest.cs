@@ -114,8 +114,8 @@ public class TranscriptionRetrieveResponseTest : TestBase
             ],
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<TranscriptionRetrieveResponse>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<TranscriptionRetrieveResponse>(element);
         Assert.NotNull(deserialized);
 
         string expectedID = "id";
@@ -360,8 +360,8 @@ public class WordTest : TestBase
             Text = "text",
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<Word>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<Word>(element);
         Assert.NotNull(deserialized);
 
         double expectedConfidence = 0;

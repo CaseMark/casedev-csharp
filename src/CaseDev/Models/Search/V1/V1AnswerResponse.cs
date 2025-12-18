@@ -7,15 +7,15 @@ using CaseDev.Core;
 
 namespace CaseDev.Models.Search.V1;
 
-[JsonConverter(typeof(ModelConverter<V1AnswerResponse, V1AnswerResponseFromRaw>))]
-public sealed record class V1AnswerResponse : ModelBase
+[JsonConverter(typeof(JsonModelConverter<V1AnswerResponse, V1AnswerResponseFromRaw>))]
+public sealed record class V1AnswerResponse : JsonModel
 {
     /// <summary>
     /// The generated answer with citations
     /// </summary>
     public string? Answer
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "answer"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "answer"); }
         init
         {
             if (value == null)
@@ -23,7 +23,7 @@ public sealed record class V1AnswerResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "answer", value);
+            JsonModel.Set(this._rawData, "answer", value);
         }
     }
 
@@ -32,7 +32,7 @@ public sealed record class V1AnswerResponse : ModelBase
     /// </summary>
     public IReadOnlyList<Citation>? Citations
     {
-        get { return ModelBase.GetNullableClass<List<Citation>>(this.RawData, "citations"); }
+        get { return JsonModel.GetNullableClass<List<Citation>>(this.RawData, "citations"); }
         init
         {
             if (value == null)
@@ -40,7 +40,7 @@ public sealed record class V1AnswerResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "citations", value);
+            JsonModel.Set(this._rawData, "citations", value);
         }
     }
 
@@ -49,7 +49,7 @@ public sealed record class V1AnswerResponse : ModelBase
     /// </summary>
     public string? Model
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "model"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "model"); }
         init
         {
             if (value == null)
@@ -57,7 +57,7 @@ public sealed record class V1AnswerResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "model", value);
+            JsonModel.Set(this._rawData, "model", value);
         }
     }
 
@@ -66,7 +66,7 @@ public sealed record class V1AnswerResponse : ModelBase
     /// </summary>
     public string? SearchType
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "searchType"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "searchType"); }
         init
         {
             if (value == null)
@@ -74,7 +74,7 @@ public sealed record class V1AnswerResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "searchType", value);
+            JsonModel.Set(this._rawData, "searchType", value);
         }
     }
 
@@ -117,19 +117,19 @@ public sealed record class V1AnswerResponse : ModelBase
     }
 }
 
-class V1AnswerResponseFromRaw : IFromRaw<V1AnswerResponse>
+class V1AnswerResponseFromRaw : IFromRawJson<V1AnswerResponse>
 {
     /// <inheritdoc/>
     public V1AnswerResponse FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         V1AnswerResponse.FromRawUnchecked(rawData);
 }
 
-[JsonConverter(typeof(ModelConverter<Citation, CitationFromRaw>))]
-public sealed record class Citation : ModelBase
+[JsonConverter(typeof(JsonModelConverter<Citation, CitationFromRaw>))]
+public sealed record class Citation : JsonModel
 {
     public string? ID
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "id"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "id"); }
         init
         {
             if (value == null)
@@ -137,13 +137,13 @@ public sealed record class Citation : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "id", value);
+            JsonModel.Set(this._rawData, "id", value);
         }
     }
 
     public string? PublishedDate
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "publishedDate"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "publishedDate"); }
         init
         {
             if (value == null)
@@ -151,13 +151,13 @@ public sealed record class Citation : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "publishedDate", value);
+            JsonModel.Set(this._rawData, "publishedDate", value);
         }
     }
 
     public string? Text
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "text"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "text"); }
         init
         {
             if (value == null)
@@ -165,13 +165,13 @@ public sealed record class Citation : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "text", value);
+            JsonModel.Set(this._rawData, "text", value);
         }
     }
 
     public string? Title
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "title"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "title"); }
         init
         {
             if (value == null)
@@ -179,13 +179,13 @@ public sealed record class Citation : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "title", value);
+            JsonModel.Set(this._rawData, "title", value);
         }
     }
 
     public string? URL
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "url"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "url"); }
         init
         {
             if (value == null)
@@ -193,7 +193,7 @@ public sealed record class Citation : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "url", value);
+            JsonModel.Set(this._rawData, "url", value);
         }
     }
 
@@ -232,7 +232,7 @@ public sealed record class Citation : ModelBase
     }
 }
 
-class CitationFromRaw : IFromRaw<Citation>
+class CitationFromRaw : IFromRawJson<Citation>
 {
     /// <inheritdoc/>
     public Citation FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>

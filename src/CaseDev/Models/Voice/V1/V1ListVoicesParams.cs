@@ -23,7 +23,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
     /// </summary>
     public string? Category
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawQueryData, "category"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawQueryData, "category"); }
         init
         {
             if (value == null)
@@ -31,7 +31,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawQueryData, "category", value);
+            JsonModel.Set(this._rawQueryData, "category", value);
         }
     }
 
@@ -40,7 +40,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
     /// </summary>
     public string? CollectionID
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawQueryData, "collection_id"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawQueryData, "collection_id"); }
         init
         {
             if (value == null)
@@ -48,7 +48,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawQueryData, "collection_id", value);
+            JsonModel.Set(this._rawQueryData, "collection_id", value);
         }
     }
 
@@ -57,7 +57,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
     /// </summary>
     public bool? IncludeTotalCount
     {
-        get { return ModelBase.GetNullableStruct<bool>(this.RawQueryData, "include_total_count"); }
+        get { return JsonModel.GetNullableStruct<bool>(this.RawQueryData, "include_total_count"); }
         init
         {
             if (value == null)
@@ -65,7 +65,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawQueryData, "include_total_count", value);
+            JsonModel.Set(this._rawQueryData, "include_total_count", value);
         }
     }
 
@@ -74,7 +74,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
     /// </summary>
     public string? NextPageToken
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawQueryData, "next_page_token"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawQueryData, "next_page_token"); }
         init
         {
             if (value == null)
@@ -82,7 +82,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawQueryData, "next_page_token", value);
+            JsonModel.Set(this._rawQueryData, "next_page_token", value);
         }
     }
 
@@ -91,7 +91,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
     /// </summary>
     public long? PageSize
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawQueryData, "page_size"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawQueryData, "page_size"); }
         init
         {
             if (value == null)
@@ -99,7 +99,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawQueryData, "page_size", value);
+            JsonModel.Set(this._rawQueryData, "page_size", value);
         }
     }
 
@@ -108,7 +108,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
     /// </summary>
     public string? Search
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawQueryData, "search"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawQueryData, "search"); }
         init
         {
             if (value == null)
@@ -116,7 +116,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawQueryData, "search", value);
+            JsonModel.Set(this._rawQueryData, "search", value);
         }
     }
 
@@ -125,7 +125,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
     /// </summary>
     public ApiEnum<string, Sort>? Sort
     {
-        get { return ModelBase.GetNullableClass<ApiEnum<string, Sort>>(this.RawQueryData, "sort"); }
+        get { return JsonModel.GetNullableClass<ApiEnum<string, Sort>>(this.RawQueryData, "sort"); }
         init
         {
             if (value == null)
@@ -133,7 +133,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawQueryData, "sort", value);
+            JsonModel.Set(this._rawQueryData, "sort", value);
         }
     }
 
@@ -144,7 +144,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
     {
         get
         {
-            return ModelBase.GetNullableClass<ApiEnum<string, SortDirection>>(
+            return JsonModel.GetNullableClass<ApiEnum<string, SortDirection>>(
                 this.RawQueryData,
                 "sort_direction"
             );
@@ -156,7 +156,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawQueryData, "sort_direction", value);
+            JsonModel.Set(this._rawQueryData, "sort_direction", value);
         }
     }
 
@@ -167,7 +167,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
     {
         get
         {
-            return ModelBase.GetNullableClass<ApiEnum<string, VoiceType>>(
+            return JsonModel.GetNullableClass<ApiEnum<string, VoiceType>>(
                 this.RawQueryData,
                 "voice_type"
             );
@@ -179,7 +179,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawQueryData, "voice_type", value);
+            JsonModel.Set(this._rawQueryData, "voice_type", value);
         }
     }
 
@@ -209,7 +209,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="IFromRaw.FromRawUnchecked"/>
+    /// <inheritdoc cref="IFromRawJson.FromRawUnchecked"/>
     public static V1ListVoicesParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

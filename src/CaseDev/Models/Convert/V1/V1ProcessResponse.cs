@@ -9,15 +9,15 @@ using CaseDev.Exceptions;
 
 namespace CaseDev.Models.Convert.V1;
 
-[JsonConverter(typeof(ModelConverter<V1ProcessResponse, V1ProcessResponseFromRaw>))]
-public sealed record class V1ProcessResponse : ModelBase
+[JsonConverter(typeof(JsonModelConverter<V1ProcessResponse, V1ProcessResponseFromRaw>))]
+public sealed record class V1ProcessResponse : JsonModel
 {
     /// <summary>
     /// Unique identifier for the conversion job
     /// </summary>
     public string? JobID
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "job_id"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "job_id"); }
         init
         {
             if (value == null)
@@ -25,7 +25,7 @@ public sealed record class V1ProcessResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "job_id", value);
+            JsonModel.Set(this._rawData, "job_id", value);
         }
     }
 
@@ -34,7 +34,7 @@ public sealed record class V1ProcessResponse : ModelBase
     /// </summary>
     public string? Message
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "message"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "message"); }
         init
         {
             if (value == null)
@@ -42,7 +42,7 @@ public sealed record class V1ProcessResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "message", value);
+            JsonModel.Set(this._rawData, "message", value);
         }
     }
 
@@ -53,7 +53,7 @@ public sealed record class V1ProcessResponse : ModelBase
     {
         get
         {
-            return ModelBase.GetNullableClass<ApiEnum<string, V1ProcessResponseStatus>>(
+            return JsonModel.GetNullableClass<ApiEnum<string, V1ProcessResponseStatus>>(
                 this.RawData,
                 "status"
             );
@@ -65,7 +65,7 @@ public sealed record class V1ProcessResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "status", value);
+            JsonModel.Set(this._rawData, "status", value);
         }
     }
 
@@ -104,7 +104,7 @@ public sealed record class V1ProcessResponse : ModelBase
     }
 }
 
-class V1ProcessResponseFromRaw : IFromRaw<V1ProcessResponse>
+class V1ProcessResponseFromRaw : IFromRawJson<V1ProcessResponse>
 {
     /// <inheritdoc/>
     public V1ProcessResponse FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>

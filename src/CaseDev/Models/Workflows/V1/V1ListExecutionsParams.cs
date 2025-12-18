@@ -19,7 +19,7 @@ public sealed record class V1ListExecutionsParams : ParamsBase
 
     public long? Limit
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawQueryData, "limit"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawQueryData, "limit"); }
         init
         {
             if (value == null)
@@ -27,7 +27,7 @@ public sealed record class V1ListExecutionsParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawQueryData, "limit", value);
+            JsonModel.Set(this._rawQueryData, "limit", value);
         }
     }
 
@@ -35,7 +35,7 @@ public sealed record class V1ListExecutionsParams : ParamsBase
     {
         get
         {
-            return ModelBase.GetNullableClass<ApiEnum<string, Status>>(this.RawQueryData, "status");
+            return JsonModel.GetNullableClass<ApiEnum<string, Status>>(this.RawQueryData, "status");
         }
         init
         {
@@ -44,7 +44,7 @@ public sealed record class V1ListExecutionsParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawQueryData, "status", value);
+            JsonModel.Set(this._rawQueryData, "status", value);
         }
     }
 
@@ -74,7 +74,7 @@ public sealed record class V1ListExecutionsParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="IFromRaw.FromRawUnchecked"/>
+    /// <inheritdoc cref="IFromRawJson.FromRawUnchecked"/>
     public static V1ListExecutionsParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData

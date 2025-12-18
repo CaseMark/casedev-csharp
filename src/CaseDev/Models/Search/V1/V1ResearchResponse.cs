@@ -7,15 +7,15 @@ using CaseDev.Core;
 
 namespace CaseDev.Models.Search.V1;
 
-[JsonConverter(typeof(ModelConverter<V1ResearchResponse, V1ResearchResponseFromRaw>))]
-public sealed record class V1ResearchResponse : ModelBase
+[JsonConverter(typeof(JsonModelConverter<V1ResearchResponse, V1ResearchResponseFromRaw>))]
+public sealed record class V1ResearchResponse : JsonModel
 {
     /// <summary>
     /// Model used for research
     /// </summary>
     public string? Model
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "model"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "model"); }
         init
         {
             if (value == null)
@@ -23,7 +23,7 @@ public sealed record class V1ResearchResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "model", value);
+            JsonModel.Set(this._rawData, "model", value);
         }
     }
 
@@ -32,7 +32,7 @@ public sealed record class V1ResearchResponse : ModelBase
     /// </summary>
     public string? ResearchID
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "researchId"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "researchId"); }
         init
         {
             if (value == null)
@@ -40,7 +40,7 @@ public sealed record class V1ResearchResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "researchId", value);
+            JsonModel.Set(this._rawData, "researchId", value);
         }
     }
 
@@ -49,7 +49,7 @@ public sealed record class V1ResearchResponse : ModelBase
     /// </summary>
     public JsonElement? Results
     {
-        get { return ModelBase.GetNullableStruct<JsonElement>(this.RawData, "results"); }
+        get { return JsonModel.GetNullableStruct<JsonElement>(this.RawData, "results"); }
         init
         {
             if (value == null)
@@ -57,7 +57,7 @@ public sealed record class V1ResearchResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "results", value);
+            JsonModel.Set(this._rawData, "results", value);
         }
     }
 
@@ -96,7 +96,7 @@ public sealed record class V1ResearchResponse : ModelBase
     }
 }
 
-class V1ResearchResponseFromRaw : IFromRaw<V1ResearchResponse>
+class V1ResearchResponseFromRaw : IFromRawJson<V1ResearchResponse>
 {
     /// <inheritdoc/>
     public V1ResearchResponse FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>

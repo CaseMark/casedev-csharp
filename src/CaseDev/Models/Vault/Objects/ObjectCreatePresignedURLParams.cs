@@ -33,7 +33,7 @@ public sealed record class ObjectCreatePresignedURLParams : ParamsBase
     /// </summary>
     public string? ContentType
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawBodyData, "contentType"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "contentType"); }
         init
         {
             if (value == null)
@@ -41,7 +41,7 @@ public sealed record class ObjectCreatePresignedURLParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "contentType", value);
+            JsonModel.Set(this._rawBodyData, "contentType", value);
         }
     }
 
@@ -50,7 +50,7 @@ public sealed record class ObjectCreatePresignedURLParams : ParamsBase
     /// </summary>
     public long? ExpiresIn
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawBodyData, "expiresIn"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawBodyData, "expiresIn"); }
         init
         {
             if (value == null)
@@ -58,7 +58,7 @@ public sealed record class ObjectCreatePresignedURLParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "expiresIn", value);
+            JsonModel.Set(this._rawBodyData, "expiresIn", value);
         }
     }
 
@@ -69,7 +69,7 @@ public sealed record class ObjectCreatePresignedURLParams : ParamsBase
     {
         get
         {
-            return ModelBase.GetNullableClass<ApiEnum<string, Operation>>(
+            return JsonModel.GetNullableClass<ApiEnum<string, Operation>>(
                 this.RawBodyData,
                 "operation"
             );
@@ -81,7 +81,7 @@ public sealed record class ObjectCreatePresignedURLParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "operation", value);
+            JsonModel.Set(this._rawBodyData, "operation", value);
         }
     }
 
@@ -120,7 +120,7 @@ public sealed record class ObjectCreatePresignedURLParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="IFromRaw.FromRawUnchecked"/>
+    /// <inheritdoc cref="IFromRawJson.FromRawUnchecked"/>
     public static ObjectCreatePresignedURLParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
@@ -145,9 +145,13 @@ public sealed record class ObjectCreatePresignedURLParams : ParamsBase
         }.Uri;
     }
 
-    internal override StringContent? BodyContent()
+    internal override HttpContent? BodyContent()
     {
-        return new(JsonSerializer.Serialize(this.RawBodyData), Encoding.UTF8, "application/json");
+        return new StringContent(
+            JsonSerializer.Serialize(this.RawBodyData),
+            Encoding.UTF8,
+            "application/json"
+        );
     }
 
     internal override void AddHeadersToRequest(HttpRequestMessage request, ClientOptions options)

@@ -31,8 +31,8 @@ public sealed record class V1ProcessParams : ParamsBase
     /// </summary>
     public required string InputURL
     {
-        get { return ModelBase.GetNotNullClass<string>(this.RawBodyData, "input_url"); }
-        init { ModelBase.Set(this._rawBodyData, "input_url", value); }
+        get { return JsonModel.GetNotNullClass<string>(this.RawBodyData, "input_url"); }
+        init { JsonModel.Set(this._rawBodyData, "input_url", value); }
     }
 
     /// <summary>
@@ -40,7 +40,7 @@ public sealed record class V1ProcessParams : ParamsBase
     /// </summary>
     public string? CallbackURL
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawBodyData, "callback_url"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "callback_url"); }
         init
         {
             if (value == null)
@@ -48,7 +48,7 @@ public sealed record class V1ProcessParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "callback_url", value);
+            JsonModel.Set(this._rawBodyData, "callback_url", value);
         }
     }
 
@@ -85,7 +85,7 @@ public sealed record class V1ProcessParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="IFromRaw.FromRawUnchecked"/>
+    /// <inheritdoc cref="IFromRawJson.FromRawUnchecked"/>
     public static V1ProcessParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
@@ -107,9 +107,13 @@ public sealed record class V1ProcessParams : ParamsBase
         }.Uri;
     }
 
-    internal override StringContent? BodyContent()
+    internal override HttpContent? BodyContent()
     {
-        return new(JsonSerializer.Serialize(this.RawBodyData), Encoding.UTF8, "application/json");
+        return new StringContent(
+            JsonSerializer.Serialize(this.RawBodyData),
+            Encoding.UTF8,
+            "application/json"
+        );
     }
 
     internal override void AddHeadersToRequest(HttpRequestMessage request, ClientOptions options)

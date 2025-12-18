@@ -35,8 +35,8 @@ public class MessageTest : TestBase
     {
         var model = new Message { Content = "content", Role = Role.System };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<Message>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<Message>(element);
         Assert.NotNull(deserialized);
 
         string expectedContent = "content";

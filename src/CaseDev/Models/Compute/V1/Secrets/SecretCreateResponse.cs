@@ -8,15 +8,15 @@ using CaseDev.Core;
 
 namespace CaseDev.Models.Compute.V1.Secrets;
 
-[JsonConverter(typeof(ModelConverter<SecretCreateResponse, SecretCreateResponseFromRaw>))]
-public sealed record class SecretCreateResponse : ModelBase
+[JsonConverter(typeof(JsonModelConverter<SecretCreateResponse, SecretCreateResponseFromRaw>))]
+public sealed record class SecretCreateResponse : JsonModel
 {
     /// <summary>
     /// Unique identifier for the secret group
     /// </summary>
     public string? ID
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "id"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "id"); }
         init
         {
             if (value == null)
@@ -24,7 +24,7 @@ public sealed record class SecretCreateResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "id", value);
+            JsonModel.Set(this._rawData, "id", value);
         }
     }
 
@@ -33,7 +33,7 @@ public sealed record class SecretCreateResponse : ModelBase
     /// </summary>
     public DateTimeOffset? CreatedAt
     {
-        get { return ModelBase.GetNullableStruct<DateTimeOffset>(this.RawData, "createdAt"); }
+        get { return JsonModel.GetNullableStruct<DateTimeOffset>(this.RawData, "createdAt"); }
         init
         {
             if (value == null)
@@ -41,7 +41,7 @@ public sealed record class SecretCreateResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "createdAt", value);
+            JsonModel.Set(this._rawData, "createdAt", value);
         }
     }
 
@@ -50,7 +50,7 @@ public sealed record class SecretCreateResponse : ModelBase
     /// </summary>
     public string? Description
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "description"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "description"); }
         init
         {
             if (value == null)
@@ -58,7 +58,7 @@ public sealed record class SecretCreateResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "description", value);
+            JsonModel.Set(this._rawData, "description", value);
         }
     }
 
@@ -67,7 +67,7 @@ public sealed record class SecretCreateResponse : ModelBase
     /// </summary>
     public string? Name
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "name"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "name"); }
         init
         {
             if (value == null)
@@ -75,7 +75,7 @@ public sealed record class SecretCreateResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "name", value);
+            JsonModel.Set(this._rawData, "name", value);
         }
     }
 
@@ -115,7 +115,7 @@ public sealed record class SecretCreateResponse : ModelBase
     }
 }
 
-class SecretCreateResponseFromRaw : IFromRaw<SecretCreateResponse>
+class SecretCreateResponseFromRaw : IFromRawJson<SecretCreateResponse>
 {
     /// <inheritdoc/>
     public SecretCreateResponse FromRawUnchecked(

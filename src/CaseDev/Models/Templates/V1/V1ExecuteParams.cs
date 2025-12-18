@@ -35,13 +35,13 @@ public sealed record class V1ExecuteParams : ParamsBase
     /// </summary>
     public required JsonElement Input
     {
-        get { return ModelBase.GetNotNullStruct<JsonElement>(this.RawBodyData, "input"); }
-        init { ModelBase.Set(this._rawBodyData, "input", value); }
+        get { return JsonModel.GetNotNullStruct<JsonElement>(this.RawBodyData, "input"); }
+        init { JsonModel.Set(this._rawBodyData, "input", value); }
     }
 
     public Options? Options
     {
-        get { return ModelBase.GetNullableClass<Options>(this.RawBodyData, "options"); }
+        get { return JsonModel.GetNullableClass<Options>(this.RawBodyData, "options"); }
         init
         {
             if (value == null)
@@ -49,7 +49,7 @@ public sealed record class V1ExecuteParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "options", value);
+            JsonModel.Set(this._rawBodyData, "options", value);
         }
     }
 
@@ -86,7 +86,7 @@ public sealed record class V1ExecuteParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="IFromRaw.FromRawUnchecked"/>
+    /// <inheritdoc cref="IFromRawJson.FromRawUnchecked"/>
     public static V1ExecuteParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
@@ -111,9 +111,13 @@ public sealed record class V1ExecuteParams : ParamsBase
         }.Uri;
     }
 
-    internal override StringContent? BodyContent()
+    internal override HttpContent? BodyContent()
     {
-        return new(JsonSerializer.Serialize(this.RawBodyData), Encoding.UTF8, "application/json");
+        return new StringContent(
+            JsonSerializer.Serialize(this.RawBodyData),
+            Encoding.UTF8,
+            "application/json"
+        );
     }
 
     internal override void AddHeadersToRequest(HttpRequestMessage request, ClientOptions options)
@@ -126,8 +130,8 @@ public sealed record class V1ExecuteParams : ParamsBase
     }
 }
 
-[JsonConverter(typeof(ModelConverter<Options, OptionsFromRaw>))]
-public sealed record class Options : ModelBase
+[JsonConverter(typeof(JsonModelConverter<Options, OptionsFromRaw>))]
+public sealed record class Options : JsonModel
 {
     /// <summary>
     /// Output format preference
@@ -136,7 +140,7 @@ public sealed record class Options : ModelBase
     {
         get
         {
-            return ModelBase.GetNullableClass<ApiEnum<string, OptionsFormat>>(
+            return JsonModel.GetNullableClass<ApiEnum<string, OptionsFormat>>(
                 this.RawData,
                 "format"
             );
@@ -148,7 +152,7 @@ public sealed record class Options : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "format", value);
+            JsonModel.Set(this._rawData, "format", value);
         }
     }
 
@@ -157,7 +161,7 @@ public sealed record class Options : ModelBase
     /// </summary>
     public string? Model
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "model"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "model"); }
         init
         {
             if (value == null)
@@ -165,7 +169,7 @@ public sealed record class Options : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "model", value);
+            JsonModel.Set(this._rawData, "model", value);
         }
     }
 
@@ -201,7 +205,7 @@ public sealed record class Options : ModelBase
     }
 }
 
-class OptionsFromRaw : IFromRaw<Options>
+class OptionsFromRaw : IFromRawJson<Options>
 {
     /// <inheritdoc/>
     public Options FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>

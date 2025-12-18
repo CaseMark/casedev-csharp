@@ -32,8 +32,8 @@ public sealed record class VaultSearchParams : ParamsBase
     /// </summary>
     public required string Query
     {
-        get { return ModelBase.GetNotNullClass<string>(this.RawBodyData, "query"); }
-        init { ModelBase.Set(this._rawBodyData, "query", value); }
+        get { return JsonModel.GetNotNullClass<string>(this.RawBodyData, "query"); }
+        init { JsonModel.Set(this._rawBodyData, "query", value); }
     }
 
     /// <summary>
@@ -41,7 +41,7 @@ public sealed record class VaultSearchParams : ParamsBase
     /// </summary>
     public Filters? Filters
     {
-        get { return ModelBase.GetNullableClass<Filters>(this.RawBodyData, "filters"); }
+        get { return JsonModel.GetNullableClass<Filters>(this.RawBodyData, "filters"); }
         init
         {
             if (value == null)
@@ -49,7 +49,7 @@ public sealed record class VaultSearchParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "filters", value);
+            JsonModel.Set(this._rawBodyData, "filters", value);
         }
     }
 
@@ -61,7 +61,7 @@ public sealed record class VaultSearchParams : ParamsBase
     {
         get
         {
-            return ModelBase.GetNullableClass<ApiEnum<string, Method>>(this.RawBodyData, "method");
+            return JsonModel.GetNullableClass<ApiEnum<string, Method>>(this.RawBodyData, "method");
         }
         init
         {
@@ -70,7 +70,7 @@ public sealed record class VaultSearchParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "method", value);
+            JsonModel.Set(this._rawBodyData, "method", value);
         }
     }
 
@@ -79,7 +79,7 @@ public sealed record class VaultSearchParams : ParamsBase
     /// </summary>
     public long? TopK
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawBodyData, "topK"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawBodyData, "topK"); }
         init
         {
             if (value == null)
@@ -87,7 +87,7 @@ public sealed record class VaultSearchParams : ParamsBase
                 return;
             }
 
-            ModelBase.Set(this._rawBodyData, "topK", value);
+            JsonModel.Set(this._rawBodyData, "topK", value);
         }
     }
 
@@ -124,7 +124,7 @@ public sealed record class VaultSearchParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="IFromRaw.FromRawUnchecked"/>
+    /// <inheritdoc cref="IFromRawJson.FromRawUnchecked"/>
     public static VaultSearchParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
@@ -148,9 +148,13 @@ public sealed record class VaultSearchParams : ParamsBase
         }.Uri;
     }
 
-    internal override StringContent? BodyContent()
+    internal override HttpContent? BodyContent()
     {
-        return new(JsonSerializer.Serialize(this.RawBodyData), Encoding.UTF8, "application/json");
+        return new StringContent(
+            JsonSerializer.Serialize(this.RawBodyData),
+            Encoding.UTF8,
+            "application/json"
+        );
     }
 
     internal override void AddHeadersToRequest(HttpRequestMessage request, ClientOptions options)
@@ -166,8 +170,8 @@ public sealed record class VaultSearchParams : ParamsBase
 /// <summary>
 /// Filters to narrow search results to specific documents
 /// </summary>
-[JsonConverter(typeof(ModelConverter<Filters, FiltersFromRaw>))]
-public sealed record class Filters : ModelBase
+[JsonConverter(typeof(JsonModelConverter<Filters, FiltersFromRaw>))]
+public sealed record class Filters : JsonModel
 {
     /// <summary>
     /// Filter to specific document(s) by object ID. Accepts a single ID or array
@@ -175,7 +179,7 @@ public sealed record class Filters : ModelBase
     /// </summary>
     public ObjectID? ObjectID
     {
-        get { return ModelBase.GetNullableClass<ObjectID>(this.RawData, "object_id"); }
+        get { return JsonModel.GetNullableClass<ObjectID>(this.RawData, "object_id"); }
         init
         {
             if (value == null)
@@ -183,7 +187,7 @@ public sealed record class Filters : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "object_id", value);
+            JsonModel.Set(this._rawData, "object_id", value);
         }
     }
 
@@ -218,7 +222,7 @@ public sealed record class Filters : ModelBase
     }
 }
 
-class FiltersFromRaw : IFromRaw<Filters>
+class FiltersFromRaw : IFromRawJson<Filters>
 {
     /// <inheritdoc/>
     public Filters FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
@@ -233,28 +237,28 @@ public record class ObjectID
 {
     public object? Value { get; } = null;
 
-    JsonElement? _json = null;
+    JsonElement? _element = null;
 
     public JsonElement Json
     {
-        get { return this._json ??= JsonSerializer.SerializeToElement(this.Value); }
+        get { return this._element ??= JsonSerializer.SerializeToElement(this.Value); }
     }
 
-    public ObjectID(string value, JsonElement? json = null)
+    public ObjectID(string value, JsonElement? element = null)
     {
         this.Value = value;
-        this._json = json;
+        this._element = element;
     }
 
-    public ObjectID(IReadOnlyList<string> value, JsonElement? json = null)
+    public ObjectID(IReadOnlyList<string> value, JsonElement? element = null)
     {
         this.Value = ImmutableArray.ToImmutableArray(value);
-        this._json = json;
+        this._element = element;
     }
 
-    public ObjectID(JsonElement json)
+    public ObjectID(JsonElement element)
     {
-        this._json = json;
+        this._element = element;
     }
 
     /// <summary>
@@ -409,13 +413,13 @@ sealed class ObjectIDConverter : JsonConverter<ObjectID>
         JsonSerializerOptions options
     )
     {
-        var json = JsonSerializer.Deserialize<JsonElement>(ref reader, options);
+        var element = JsonSerializer.Deserialize<JsonElement>(ref reader, options);
         try
         {
-            var deserialized = JsonSerializer.Deserialize<string>(json, options);
+            var deserialized = JsonSerializer.Deserialize<string>(element, options);
             if (deserialized != null)
             {
-                return new(deserialized, json);
+                return new(deserialized, element);
             }
         }
         catch (Exception e) when (e is JsonException || e is CasedevInvalidDataException)
@@ -425,10 +429,10 @@ sealed class ObjectIDConverter : JsonConverter<ObjectID>
 
         try
         {
-            var deserialized = JsonSerializer.Deserialize<List<string>>(json, options);
+            var deserialized = JsonSerializer.Deserialize<List<string>>(element, options);
             if (deserialized != null)
             {
-                return new(deserialized, json);
+                return new(deserialized, element);
             }
         }
         catch (Exception e) when (e is JsonException || e is CasedevInvalidDataException)
@@ -436,7 +440,7 @@ sealed class ObjectIDConverter : JsonConverter<ObjectID>
             // ignore
         }
 
-        return new(json);
+        return new(element);
     }
 
     public override void Write(Utf8JsonWriter writer, ObjectID value, JsonSerializerOptions options)

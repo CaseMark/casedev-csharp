@@ -9,15 +9,15 @@ using CaseDev.Exceptions;
 
 namespace CaseDev.Models.Templates.V1;
 
-[JsonConverter(typeof(ModelConverter<V1ExecuteResponse, V1ExecuteResponseFromRaw>))]
-public sealed record class V1ExecuteResponse : ModelBase
+[JsonConverter(typeof(JsonModelConverter<V1ExecuteResponse, V1ExecuteResponseFromRaw>))]
+public sealed record class V1ExecuteResponse : JsonModel
 {
     /// <summary>
     /// Workflow output (structure varies by workflow type)
     /// </summary>
     public JsonElement? Result
     {
-        get { return ModelBase.GetNullableStruct<JsonElement>(this.RawData, "result"); }
+        get { return JsonModel.GetNullableStruct<JsonElement>(this.RawData, "result"); }
         init
         {
             if (value == null)
@@ -25,13 +25,13 @@ public sealed record class V1ExecuteResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "result", value);
+            JsonModel.Set(this._rawData, "result", value);
         }
     }
 
     public ApiEnum<string, Status>? Status
     {
-        get { return ModelBase.GetNullableClass<ApiEnum<string, Status>>(this.RawData, "status"); }
+        get { return JsonModel.GetNullableClass<ApiEnum<string, Status>>(this.RawData, "status"); }
         init
         {
             if (value == null)
@@ -39,13 +39,13 @@ public sealed record class V1ExecuteResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "status", value);
+            JsonModel.Set(this._rawData, "status", value);
         }
     }
 
     public Usage? Usage
     {
-        get { return ModelBase.GetNullableClass<Usage>(this.RawData, "usage"); }
+        get { return JsonModel.GetNullableClass<Usage>(this.RawData, "usage"); }
         init
         {
             if (value == null)
@@ -53,7 +53,7 @@ public sealed record class V1ExecuteResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "usage", value);
+            JsonModel.Set(this._rawData, "usage", value);
         }
     }
 
@@ -62,7 +62,7 @@ public sealed record class V1ExecuteResponse : ModelBase
     /// </summary>
     public string? WorkflowName
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "workflow_name"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "workflow_name"); }
         init
         {
             if (value == null)
@@ -70,7 +70,7 @@ public sealed record class V1ExecuteResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "workflow_name", value);
+            JsonModel.Set(this._rawData, "workflow_name", value);
         }
     }
 
@@ -110,7 +110,7 @@ public sealed record class V1ExecuteResponse : ModelBase
     }
 }
 
-class V1ExecuteResponseFromRaw : IFromRaw<V1ExecuteResponse>
+class V1ExecuteResponseFromRaw : IFromRawJson<V1ExecuteResponse>
 {
     /// <inheritdoc/>
     public V1ExecuteResponse FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
@@ -157,12 +157,12 @@ sealed class StatusConverter : JsonConverter<Status>
     }
 }
 
-[JsonConverter(typeof(ModelConverter<Usage, UsageFromRaw>))]
-public sealed record class Usage : ModelBase
+[JsonConverter(typeof(JsonModelConverter<Usage, UsageFromRaw>))]
+public sealed record class Usage : JsonModel
 {
     public long? CompletionTokens
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawData, "completion_tokens"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawData, "completion_tokens"); }
         init
         {
             if (value == null)
@@ -170,7 +170,7 @@ public sealed record class Usage : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "completion_tokens", value);
+            JsonModel.Set(this._rawData, "completion_tokens", value);
         }
     }
 
@@ -179,7 +179,7 @@ public sealed record class Usage : ModelBase
     /// </summary>
     public double? Cost
     {
-        get { return ModelBase.GetNullableStruct<double>(this.RawData, "cost"); }
+        get { return JsonModel.GetNullableStruct<double>(this.RawData, "cost"); }
         init
         {
             if (value == null)
@@ -187,13 +187,13 @@ public sealed record class Usage : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "cost", value);
+            JsonModel.Set(this._rawData, "cost", value);
         }
     }
 
     public long? PromptTokens
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawData, "prompt_tokens"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawData, "prompt_tokens"); }
         init
         {
             if (value == null)
@@ -201,13 +201,13 @@ public sealed record class Usage : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "prompt_tokens", value);
+            JsonModel.Set(this._rawData, "prompt_tokens", value);
         }
     }
 
     public long? TotalTokens
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawData, "total_tokens"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawData, "total_tokens"); }
         init
         {
             if (value == null)
@@ -215,7 +215,7 @@ public sealed record class Usage : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "total_tokens", value);
+            JsonModel.Set(this._rawData, "total_tokens", value);
         }
     }
 
@@ -253,7 +253,7 @@ public sealed record class Usage : ModelBase
     }
 }
 
-class UsageFromRaw : IFromRaw<Usage>
+class UsageFromRaw : IFromRawJson<Usage>
 {
     /// <inheritdoc/>
     public Usage FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>

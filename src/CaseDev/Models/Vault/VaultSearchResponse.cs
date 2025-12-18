@@ -8,15 +8,15 @@ using CaseDev.Core;
 
 namespace CaseDev.Models.Vault;
 
-[JsonConverter(typeof(ModelConverter<VaultSearchResponse, VaultSearchResponseFromRaw>))]
-public sealed record class VaultSearchResponse : ModelBase
+[JsonConverter(typeof(JsonModelConverter<VaultSearchResponse, VaultSearchResponseFromRaw>))]
+public sealed record class VaultSearchResponse : JsonModel
 {
     /// <summary>
     /// Relevant text chunks with similarity scores
     /// </summary>
     public IReadOnlyList<Chunk>? Chunks
     {
-        get { return ModelBase.GetNullableClass<List<Chunk>>(this.RawData, "chunks"); }
+        get { return JsonModel.GetNullableClass<List<Chunk>>(this.RawData, "chunks"); }
         init
         {
             if (value == null)
@@ -24,7 +24,7 @@ public sealed record class VaultSearchResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "chunks", value);
+            JsonModel.Set(this._rawData, "chunks", value);
         }
     }
 
@@ -33,7 +33,7 @@ public sealed record class VaultSearchResponse : ModelBase
     /// </summary>
     public string? Method
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "method"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "method"); }
         init
         {
             if (value == null)
@@ -41,7 +41,7 @@ public sealed record class VaultSearchResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "method", value);
+            JsonModel.Set(this._rawData, "method", value);
         }
     }
 
@@ -50,7 +50,7 @@ public sealed record class VaultSearchResponse : ModelBase
     /// </summary>
     public string? Query
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "query"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "query"); }
         init
         {
             if (value == null)
@@ -58,7 +58,7 @@ public sealed record class VaultSearchResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "query", value);
+            JsonModel.Set(this._rawData, "query", value);
         }
     }
 
@@ -67,7 +67,7 @@ public sealed record class VaultSearchResponse : ModelBase
     /// </summary>
     public string? Response
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "response"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "response"); }
         init
         {
             if (value == null)
@@ -75,13 +75,13 @@ public sealed record class VaultSearchResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "response", value);
+            JsonModel.Set(this._rawData, "response", value);
         }
     }
 
     public IReadOnlyList<Source>? Sources
     {
-        get { return ModelBase.GetNullableClass<List<Source>>(this.RawData, "sources"); }
+        get { return JsonModel.GetNullableClass<List<Source>>(this.RawData, "sources"); }
         init
         {
             if (value == null)
@@ -89,7 +89,7 @@ public sealed record class VaultSearchResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "sources", value);
+            JsonModel.Set(this._rawData, "sources", value);
         }
     }
 
@@ -98,7 +98,7 @@ public sealed record class VaultSearchResponse : ModelBase
     /// </summary>
     public string? VaultID
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "vault_id"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "vault_id"); }
         init
         {
             if (value == null)
@@ -106,7 +106,7 @@ public sealed record class VaultSearchResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "vault_id", value);
+            JsonModel.Set(this._rawData, "vault_id", value);
         }
     }
 
@@ -154,19 +154,19 @@ public sealed record class VaultSearchResponse : ModelBase
     }
 }
 
-class VaultSearchResponseFromRaw : IFromRaw<VaultSearchResponse>
+class VaultSearchResponseFromRaw : IFromRawJson<VaultSearchResponse>
 {
     /// <inheritdoc/>
     public VaultSearchResponse FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         VaultSearchResponse.FromRawUnchecked(rawData);
 }
 
-[JsonConverter(typeof(ModelConverter<Chunk, ChunkFromRaw>))]
-public sealed record class Chunk : ModelBase
+[JsonConverter(typeof(JsonModelConverter<Chunk, ChunkFromRaw>))]
+public sealed record class Chunk : JsonModel
 {
     public double? Score
     {
-        get { return ModelBase.GetNullableStruct<double>(this.RawData, "score"); }
+        get { return JsonModel.GetNullableStruct<double>(this.RawData, "score"); }
         init
         {
             if (value == null)
@@ -174,13 +174,13 @@ public sealed record class Chunk : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "score", value);
+            JsonModel.Set(this._rawData, "score", value);
         }
     }
 
     public string? Source
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "source"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "source"); }
         init
         {
             if (value == null)
@@ -188,13 +188,13 @@ public sealed record class Chunk : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "source", value);
+            JsonModel.Set(this._rawData, "source", value);
         }
     }
 
     public string? Text
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "text"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "text"); }
         init
         {
             if (value == null)
@@ -202,7 +202,7 @@ public sealed record class Chunk : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "text", value);
+            JsonModel.Set(this._rawData, "text", value);
         }
     }
 
@@ -239,19 +239,19 @@ public sealed record class Chunk : ModelBase
     }
 }
 
-class ChunkFromRaw : IFromRaw<Chunk>
+class ChunkFromRaw : IFromRawJson<Chunk>
 {
     /// <inheritdoc/>
     public Chunk FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         Chunk.FromRawUnchecked(rawData);
 }
 
-[JsonConverter(typeof(ModelConverter<Source, SourceFromRaw>))]
-public sealed record class Source : ModelBase
+[JsonConverter(typeof(JsonModelConverter<Source, SourceFromRaw>))]
+public sealed record class Source : JsonModel
 {
     public string? ID
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "id"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "id"); }
         init
         {
             if (value == null)
@@ -259,13 +259,13 @@ public sealed record class Source : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "id", value);
+            JsonModel.Set(this._rawData, "id", value);
         }
     }
 
     public long? ChunkCount
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawData, "chunkCount"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawData, "chunkCount"); }
         init
         {
             if (value == null)
@@ -273,13 +273,13 @@ public sealed record class Source : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "chunkCount", value);
+            JsonModel.Set(this._rawData, "chunkCount", value);
         }
     }
 
     public DateTimeOffset? CreatedAt
     {
-        get { return ModelBase.GetNullableStruct<DateTimeOffset>(this.RawData, "createdAt"); }
+        get { return JsonModel.GetNullableStruct<DateTimeOffset>(this.RawData, "createdAt"); }
         init
         {
             if (value == null)
@@ -287,13 +287,13 @@ public sealed record class Source : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "createdAt", value);
+            JsonModel.Set(this._rawData, "createdAt", value);
         }
     }
 
     public string? Filename
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "filename"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "filename"); }
         init
         {
             if (value == null)
@@ -301,7 +301,7 @@ public sealed record class Source : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "filename", value);
+            JsonModel.Set(this._rawData, "filename", value);
         }
     }
 
@@ -309,7 +309,7 @@ public sealed record class Source : ModelBase
     {
         get
         {
-            return ModelBase.GetNullableStruct<DateTimeOffset>(
+            return JsonModel.GetNullableStruct<DateTimeOffset>(
                 this.RawData,
                 "ingestionCompletedAt"
             );
@@ -321,13 +321,13 @@ public sealed record class Source : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "ingestionCompletedAt", value);
+            JsonModel.Set(this._rawData, "ingestionCompletedAt", value);
         }
     }
 
     public long? PageCount
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawData, "pageCount"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawData, "pageCount"); }
         init
         {
             if (value == null)
@@ -335,13 +335,13 @@ public sealed record class Source : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "pageCount", value);
+            JsonModel.Set(this._rawData, "pageCount", value);
         }
     }
 
     public long? TextLength
     {
-        get { return ModelBase.GetNullableStruct<long>(this.RawData, "textLength"); }
+        get { return JsonModel.GetNullableStruct<long>(this.RawData, "textLength"); }
         init
         {
             if (value == null)
@@ -349,7 +349,7 @@ public sealed record class Source : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "textLength", value);
+            JsonModel.Set(this._rawData, "textLength", value);
         }
     }
 
@@ -390,7 +390,7 @@ public sealed record class Source : ModelBase
     }
 }
 
-class SourceFromRaw : IFromRaw<Source>
+class SourceFromRaw : IFromRawJson<Source>
 {
     /// <inheritdoc/>
     public Source FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>

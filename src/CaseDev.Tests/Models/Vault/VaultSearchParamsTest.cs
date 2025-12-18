@@ -33,8 +33,8 @@ public class FiltersTest : TestBase
     {
         var model = new Filters { ObjectID = "string" };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<Filters>(json);
+        string element = JsonSerializer.Serialize(model);
+        var deserialized = JsonSerializer.Deserialize<Filters>(element);
         Assert.NotNull(deserialized);
 
         ObjectID expectedObjectID = "string";
@@ -113,8 +113,8 @@ public class ObjectIDTest : TestBase
     public void StringSerializationRoundtripWorks()
     {
         ObjectID value = new("string");
-        string json = JsonSerializer.Serialize(value);
-        var deserialized = JsonSerializer.Deserialize<ObjectID>(json);
+        string element = JsonSerializer.Serialize(value);
+        var deserialized = JsonSerializer.Deserialize<ObjectID>(element);
 
         Assert.Equal(value, deserialized);
     }
@@ -123,8 +123,8 @@ public class ObjectIDTest : TestBase
     public void StringsSerializationRoundtripWorks()
     {
         ObjectID value = new(["string"]);
-        string json = JsonSerializer.Serialize(value);
-        var deserialized = JsonSerializer.Deserialize<ObjectID>(json);
+        string element = JsonSerializer.Serialize(value);
+        var deserialized = JsonSerializer.Deserialize<ObjectID>(element);
 
         Assert.Equal(value, deserialized);
     }

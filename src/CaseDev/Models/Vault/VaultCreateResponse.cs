@@ -8,15 +8,15 @@ using CaseDev.Core;
 
 namespace CaseDev.Models.Vault;
 
-[JsonConverter(typeof(ModelConverter<VaultCreateResponse, VaultCreateResponseFromRaw>))]
-public sealed record class VaultCreateResponse : ModelBase
+[JsonConverter(typeof(JsonModelConverter<VaultCreateResponse, VaultCreateResponseFromRaw>))]
+public sealed record class VaultCreateResponse : JsonModel
 {
     /// <summary>
     /// Unique vault identifier
     /// </summary>
     public string? ID
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "id"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "id"); }
         init
         {
             if (value == null)
@@ -24,7 +24,7 @@ public sealed record class VaultCreateResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "id", value);
+            JsonModel.Set(this._rawData, "id", value);
         }
     }
 
@@ -33,7 +33,7 @@ public sealed record class VaultCreateResponse : ModelBase
     /// </summary>
     public DateTimeOffset? CreatedAt
     {
-        get { return ModelBase.GetNullableStruct<DateTimeOffset>(this.RawData, "createdAt"); }
+        get { return JsonModel.GetNullableStruct<DateTimeOffset>(this.RawData, "createdAt"); }
         init
         {
             if (value == null)
@@ -41,7 +41,7 @@ public sealed record class VaultCreateResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "createdAt", value);
+            JsonModel.Set(this._rawData, "createdAt", value);
         }
     }
 
@@ -50,7 +50,7 @@ public sealed record class VaultCreateResponse : ModelBase
     /// </summary>
     public string? Description
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "description"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "description"); }
         init
         {
             if (value == null)
@@ -58,7 +58,7 @@ public sealed record class VaultCreateResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "description", value);
+            JsonModel.Set(this._rawData, "description", value);
         }
     }
 
@@ -67,7 +67,7 @@ public sealed record class VaultCreateResponse : ModelBase
     /// </summary>
     public string? FilesBucket
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "filesBucket"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "filesBucket"); }
         init
         {
             if (value == null)
@@ -75,7 +75,7 @@ public sealed record class VaultCreateResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "filesBucket", value);
+            JsonModel.Set(this._rawData, "filesBucket", value);
         }
     }
 
@@ -84,7 +84,7 @@ public sealed record class VaultCreateResponse : ModelBase
     /// </summary>
     public string? IndexName
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "indexName"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "indexName"); }
         init
         {
             if (value == null)
@@ -92,7 +92,7 @@ public sealed record class VaultCreateResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "indexName", value);
+            JsonModel.Set(this._rawData, "indexName", value);
         }
     }
 
@@ -101,7 +101,7 @@ public sealed record class VaultCreateResponse : ModelBase
     /// </summary>
     public string? Name
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "name"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "name"); }
         init
         {
             if (value == null)
@@ -109,7 +109,7 @@ public sealed record class VaultCreateResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "name", value);
+            JsonModel.Set(this._rawData, "name", value);
         }
     }
 
@@ -118,7 +118,7 @@ public sealed record class VaultCreateResponse : ModelBase
     /// </summary>
     public string? Region
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "region"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "region"); }
         init
         {
             if (value == null)
@@ -126,7 +126,7 @@ public sealed record class VaultCreateResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "region", value);
+            JsonModel.Set(this._rawData, "region", value);
         }
     }
 
@@ -135,7 +135,7 @@ public sealed record class VaultCreateResponse : ModelBase
     /// </summary>
     public string? VectorBucket
     {
-        get { return ModelBase.GetNullableClass<string>(this.RawData, "vectorBucket"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "vectorBucket"); }
         init
         {
             if (value == null)
@@ -143,7 +143,7 @@ public sealed record class VaultCreateResponse : ModelBase
                 return;
             }
 
-            ModelBase.Set(this._rawData, "vectorBucket", value);
+            JsonModel.Set(this._rawData, "vectorBucket", value);
         }
     }
 
@@ -187,7 +187,7 @@ public sealed record class VaultCreateResponse : ModelBase
     }
 }
 
-class VaultCreateResponseFromRaw : IFromRaw<VaultCreateResponse>
+class VaultCreateResponseFromRaw : IFromRawJson<VaultCreateResponse>
 {
     /// <inheritdoc/>
     public VaultCreateResponse FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
