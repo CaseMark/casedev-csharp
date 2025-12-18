@@ -8,21 +8,21 @@ namespace CaseDev.Tests.Models.Llm.V1;
 public class InputTest : TestBase
 {
     [Fact]
-    public void stringValidation_Works()
+    public void StringValidationWorks()
     {
         Input value = new("string");
         value.Validate();
     }
 
     [Fact]
-    public void stringsValidation_Works()
+    public void StringsValidationWorks()
     {
         Input value = new(["string"]);
         value.Validate();
     }
 
     [Fact]
-    public void stringSerializationRoundtrip_Works()
+    public void StringSerializationRoundtripWorks()
     {
         Input value = new("string");
         string json = JsonSerializer.Serialize(value);
@@ -32,7 +32,7 @@ public class InputTest : TestBase
     }
 
     [Fact]
-    public void stringsSerializationRoundtrip_Works()
+    public void StringsSerializationRoundtripWorks()
     {
         Input value = new(["string"]);
         string json = JsonSerializer.Serialize(value);

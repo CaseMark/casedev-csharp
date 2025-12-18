@@ -337,6 +337,8 @@ public sealed class CasedevClient : ICasedevClient
         return e is IOException || e is CasedevIOException;
     }
 
+    public void Dispose() => this.HttpClient.Dispose();
+
     public CasedevClient()
     {
         _options = new();
