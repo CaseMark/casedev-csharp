@@ -25,6 +25,8 @@ public class SortTest : TestBase
             JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
             ModelBase.SerializerOptions
         );
+
+        Assert.NotNull(value);
         Assert.Throws<CasedevInvalidDataException>(() => value.Validate());
     }
 
@@ -82,6 +84,8 @@ public class SortDirectionTest : TestBase
             JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
             ModelBase.SerializerOptions
         );
+
+        Assert.NotNull(value);
         Assert.Throws<CasedevInvalidDataException>(() => value.Validate());
     }
 
@@ -139,6 +143,8 @@ public class VoiceTypeTest : TestBase
             JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
             ModelBase.SerializerOptions
         );
+
+        Assert.NotNull(value);
         Assert.Throws<CasedevInvalidDataException>(() => value.Validate());
     }
 
