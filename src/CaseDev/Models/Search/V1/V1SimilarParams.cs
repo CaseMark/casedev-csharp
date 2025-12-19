@@ -51,21 +51,9 @@ public sealed record class V1SimilarParams : ParamsBase
     /// <summary>
     /// Only include pages crawled before this date
     /// </summary>
-    public
-#if NET
-    DateOnly
-#else
-    DateTimeOffset
-#endif
-    ? EndCrawlDate
+    public string? EndCrawlDate
     {
-        get { return JsonModel.GetNullableStruct<
-#if NET
-            DateOnly
-#else
-            DateTimeOffset
-#endif
-            >(this.RawBodyData, "endCrawlDate"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "endCrawlDate"); }
         init
         {
             if (value == null)
@@ -80,21 +68,9 @@ public sealed record class V1SimilarParams : ParamsBase
     /// <summary>
     /// Only include pages published before this date
     /// </summary>
-    public
-#if NET
-    DateOnly
-#else
-    DateTimeOffset
-#endif
-    ? EndPublishedDate
+    public string? EndPublishedDate
     {
-        get { return JsonModel.GetNullableStruct<
-#if NET
-            DateOnly
-#else
-            DateTimeOffset
-#endif
-            >(this.RawBodyData, "endPublishedDate"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "endPublishedDate"); }
         init
         {
             if (value == null)
@@ -177,21 +153,9 @@ public sealed record class V1SimilarParams : ParamsBase
     /// <summary>
     /// Only include pages crawled after this date
     /// </summary>
-    public
-#if NET
-    DateOnly
-#else
-    DateTimeOffset
-#endif
-    ? StartCrawlDate
+    public string? StartCrawlDate
     {
-        get { return JsonModel.GetNullableStruct<
-#if NET
-            DateOnly
-#else
-            DateTimeOffset
-#endif
-            >(this.RawBodyData, "startCrawlDate"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "startCrawlDate"); }
         init
         {
             if (value == null)
@@ -206,24 +170,9 @@ public sealed record class V1SimilarParams : ParamsBase
     /// <summary>
     /// Only include pages published after this date
     /// </summary>
-    public
-#if NET
-    DateOnly
-#else
-    DateTimeOffset
-#endif
-    ? StartPublishedDate
+    public string? StartPublishedDate
     {
-        get
-        {
-            return JsonModel.GetNullableStruct<
-#if NET
-            DateOnly
-#else
-            DateTimeOffset
-#endif
-            >(this.RawBodyData, "startPublishedDate");
-        }
+        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "startPublishedDate"); }
         init
         {
             if (value == null)
