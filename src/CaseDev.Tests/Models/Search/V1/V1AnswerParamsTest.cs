@@ -26,6 +26,8 @@ public class SearchTypeTest : TestBase
             JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
             ModelBase.SerializerOptions
         );
+
+        Assert.NotNull(value);
         Assert.Throws<CasedevInvalidDataException>(() => value.Validate());
     }
 

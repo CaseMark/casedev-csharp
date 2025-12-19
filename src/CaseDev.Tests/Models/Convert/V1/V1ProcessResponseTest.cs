@@ -154,6 +154,8 @@ public class V1ProcessResponseStatusTest : TestBase
             JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
             ModelBase.SerializerOptions
         );
+
+        Assert.NotNull(value);
         Assert.Throws<CasedevInvalidDataException>(() => value.Validate());
     }
 

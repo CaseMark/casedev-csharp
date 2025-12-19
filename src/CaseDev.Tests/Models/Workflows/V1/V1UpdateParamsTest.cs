@@ -26,6 +26,8 @@ public class V1UpdateParamsTriggerTypeTest : TestBase
             JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
             ModelBase.SerializerOptions
         );
+
+        Assert.NotNull(value);
         Assert.Throws<CasedevInvalidDataException>(() => value.Validate());
     }
 
@@ -85,6 +87,8 @@ public class V1UpdateParamsVisibilityTest : TestBase
             JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
             ModelBase.SerializerOptions
         );
+
+        Assert.NotNull(value);
         Assert.Throws<CasedevInvalidDataException>(() => value.Validate());
     }
 
