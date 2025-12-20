@@ -5,6 +5,21 @@ using CaseDev.Models.Ocr.V1;
 
 namespace CaseDev.Tests.Models.Ocr.V1;
 
+public class V1DownloadParamsTest : TestBase
+{
+    [Fact]
+    public void FieldRoundtrip_Works()
+    {
+        var parameters = new V1DownloadParams { ID = "id", Type = Type.Text };
+
+        string expectedID = "id";
+        ApiEnum<string, Type> expectedType = Type.Text;
+
+        Assert.Equal(expectedID, parameters.ID);
+        Assert.Equal(expectedType, parameters.Type);
+    }
+}
+
 public class TypeTest : TestBase
 {
     [Theory]

@@ -5,6 +5,66 @@ using CaseDev.Models.Search.V1;
 
 namespace CaseDev.Tests.Models.Search.V1;
 
+public class V1ResearchParamsTest : TestBase
+{
+    [Fact]
+    public void FieldRoundtrip_Works()
+    {
+        var parameters = new V1ResearchParams
+        {
+            Instructions = "instructions",
+            Model = Model.Fast,
+            OutputSchema = JsonSerializer.Deserialize<JsonElement>("{}"),
+            Query = "query",
+        };
+
+        string expectedInstructions = "instructions";
+        ApiEnum<string, Model> expectedModel = Model.Fast;
+        JsonElement expectedOutputSchema = JsonSerializer.Deserialize<JsonElement>("{}");
+        string expectedQuery = "query";
+
+        Assert.Equal(expectedInstructions, parameters.Instructions);
+        Assert.Equal(expectedModel, parameters.Model);
+        Assert.NotNull(parameters.OutputSchema);
+        Assert.True(JsonElement.DeepEquals(expectedOutputSchema, parameters.OutputSchema.Value));
+        Assert.Equal(expectedQuery, parameters.Query);
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsUnsetAreNotSet_Works()
+    {
+        var parameters = new V1ResearchParams { Instructions = "instructions" };
+
+        Assert.Null(parameters.Model);
+        Assert.False(parameters.RawBodyData.ContainsKey("model"));
+        Assert.Null(parameters.OutputSchema);
+        Assert.False(parameters.RawBodyData.ContainsKey("outputSchema"));
+        Assert.Null(parameters.Query);
+        Assert.False(parameters.RawBodyData.ContainsKey("query"));
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsSetToNullAreNotSet_Works()
+    {
+        var parameters = new V1ResearchParams
+        {
+            Instructions = "instructions",
+
+            // Null should be interpreted as omitted for these properties
+            Model = null,
+            OutputSchema = null,
+            Query = null,
+        };
+
+        Assert.Null(parameters.Model);
+        Assert.False(parameters.RawBodyData.ContainsKey("model"));
+        Assert.Null(parameters.OutputSchema);
+        Assert.False(parameters.RawBodyData.ContainsKey("outputSchema"));
+        Assert.Null(parameters.Query);
+        Assert.False(parameters.RawBodyData.ContainsKey("query"));
+    }
+}
+
 public class ModelTest : TestBase
 {
     [Theory]

@@ -5,6 +5,141 @@ using CaseDev.Models.Voice.V1.Speak;
 
 namespace CaseDev.Tests.Models.Voice.V1.Speak;
 
+public class SpeakCreateParamsTest : TestBase
+{
+    [Fact]
+    public void FieldRoundtrip_Works()
+    {
+        var parameters = new SpeakCreateParams
+        {
+            Text = "text",
+            ApplyTextNormalization = true,
+            EnableLogging = true,
+            LanguageCode = "en",
+            ModelID = ModelID.ElevenMultilingualV2,
+            NextText = "next_text",
+            OptimizeStreamingLatency = 0,
+            OutputFormat = OutputFormat.MP3_44100_128,
+            PreviousText = "previous_text",
+            Seed = 0,
+            VoiceID = "voice_id",
+            VoiceSettings = new()
+            {
+                SimilarityBoost = 0,
+                Stability = 0,
+                Style = 0,
+                UseSpeakerBoost = true,
+            },
+        };
+
+        string expectedText = "text";
+        bool expectedApplyTextNormalization = true;
+        bool expectedEnableLogging = true;
+        string expectedLanguageCode = "en";
+        ApiEnum<string, ModelID> expectedModelID = ModelID.ElevenMultilingualV2;
+        string expectedNextText = "next_text";
+        long expectedOptimizeStreamingLatency = 0;
+        ApiEnum<string, OutputFormat> expectedOutputFormat = OutputFormat.MP3_44100_128;
+        string expectedPreviousText = "previous_text";
+        long expectedSeed = 0;
+        string expectedVoiceID = "voice_id";
+        VoiceSettings expectedVoiceSettings = new()
+        {
+            SimilarityBoost = 0,
+            Stability = 0,
+            Style = 0,
+            UseSpeakerBoost = true,
+        };
+
+        Assert.Equal(expectedText, parameters.Text);
+        Assert.Equal(expectedApplyTextNormalization, parameters.ApplyTextNormalization);
+        Assert.Equal(expectedEnableLogging, parameters.EnableLogging);
+        Assert.Equal(expectedLanguageCode, parameters.LanguageCode);
+        Assert.Equal(expectedModelID, parameters.ModelID);
+        Assert.Equal(expectedNextText, parameters.NextText);
+        Assert.Equal(expectedOptimizeStreamingLatency, parameters.OptimizeStreamingLatency);
+        Assert.Equal(expectedOutputFormat, parameters.OutputFormat);
+        Assert.Equal(expectedPreviousText, parameters.PreviousText);
+        Assert.Equal(expectedSeed, parameters.Seed);
+        Assert.Equal(expectedVoiceID, parameters.VoiceID);
+        Assert.Equal(expectedVoiceSettings, parameters.VoiceSettings);
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsUnsetAreNotSet_Works()
+    {
+        var parameters = new SpeakCreateParams { Text = "text" };
+
+        Assert.Null(parameters.ApplyTextNormalization);
+        Assert.False(parameters.RawBodyData.ContainsKey("apply_text_normalization"));
+        Assert.Null(parameters.EnableLogging);
+        Assert.False(parameters.RawBodyData.ContainsKey("enable_logging"));
+        Assert.Null(parameters.LanguageCode);
+        Assert.False(parameters.RawBodyData.ContainsKey("language_code"));
+        Assert.Null(parameters.ModelID);
+        Assert.False(parameters.RawBodyData.ContainsKey("model_id"));
+        Assert.Null(parameters.NextText);
+        Assert.False(parameters.RawBodyData.ContainsKey("next_text"));
+        Assert.Null(parameters.OptimizeStreamingLatency);
+        Assert.False(parameters.RawBodyData.ContainsKey("optimize_streaming_latency"));
+        Assert.Null(parameters.OutputFormat);
+        Assert.False(parameters.RawBodyData.ContainsKey("output_format"));
+        Assert.Null(parameters.PreviousText);
+        Assert.False(parameters.RawBodyData.ContainsKey("previous_text"));
+        Assert.Null(parameters.Seed);
+        Assert.False(parameters.RawBodyData.ContainsKey("seed"));
+        Assert.Null(parameters.VoiceID);
+        Assert.False(parameters.RawBodyData.ContainsKey("voice_id"));
+        Assert.Null(parameters.VoiceSettings);
+        Assert.False(parameters.RawBodyData.ContainsKey("voice_settings"));
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsSetToNullAreNotSet_Works()
+    {
+        var parameters = new SpeakCreateParams
+        {
+            Text = "text",
+
+            // Null should be interpreted as omitted for these properties
+            ApplyTextNormalization = null,
+            EnableLogging = null,
+            LanguageCode = null,
+            ModelID = null,
+            NextText = null,
+            OptimizeStreamingLatency = null,
+            OutputFormat = null,
+            PreviousText = null,
+            Seed = null,
+            VoiceID = null,
+            VoiceSettings = null,
+        };
+
+        Assert.Null(parameters.ApplyTextNormalization);
+        Assert.False(parameters.RawBodyData.ContainsKey("apply_text_normalization"));
+        Assert.Null(parameters.EnableLogging);
+        Assert.False(parameters.RawBodyData.ContainsKey("enable_logging"));
+        Assert.Null(parameters.LanguageCode);
+        Assert.False(parameters.RawBodyData.ContainsKey("language_code"));
+        Assert.Null(parameters.ModelID);
+        Assert.False(parameters.RawBodyData.ContainsKey("model_id"));
+        Assert.Null(parameters.NextText);
+        Assert.False(parameters.RawBodyData.ContainsKey("next_text"));
+        Assert.Null(parameters.OptimizeStreamingLatency);
+        Assert.False(parameters.RawBodyData.ContainsKey("optimize_streaming_latency"));
+        Assert.Null(parameters.OutputFormat);
+        Assert.False(parameters.RawBodyData.ContainsKey("output_format"));
+        Assert.Null(parameters.PreviousText);
+        Assert.False(parameters.RawBodyData.ContainsKey("previous_text"));
+        Assert.Null(parameters.Seed);
+        Assert.False(parameters.RawBodyData.ContainsKey("seed"));
+        Assert.Null(parameters.VoiceID);
+        Assert.False(parameters.RawBodyData.ContainsKey("voice_id"));
+        Assert.Null(parameters.VoiceSettings);
+        Assert.False(parameters.RawBodyData.ContainsKey("voice_settings"));
+    }
+}
+
 public class ModelIDTest : TestBase
 {
     [Theory]

@@ -5,6 +5,69 @@ using CaseDev.Models.Vault;
 
 namespace CaseDev.Tests.Models.Vault;
 
+public class VaultSearchParamsTest : TestBase
+{
+    [Fact]
+    public void FieldRoundtrip_Works()
+    {
+        var parameters = new VaultSearchParams
+        {
+            ID = "id",
+            Query = "query",
+            Filters = new() { ObjectID = "string" },
+            Method = Method.Vector,
+            TopK = 1,
+        };
+
+        string expectedID = "id";
+        string expectedQuery = "query";
+        Filters expectedFilters = new() { ObjectID = "string" };
+        ApiEnum<string, Method> expectedMethod = Method.Vector;
+        long expectedTopK = 1;
+
+        Assert.Equal(expectedID, parameters.ID);
+        Assert.Equal(expectedQuery, parameters.Query);
+        Assert.Equal(expectedFilters, parameters.Filters);
+        Assert.Equal(expectedMethod, parameters.Method);
+        Assert.Equal(expectedTopK, parameters.TopK);
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsUnsetAreNotSet_Works()
+    {
+        var parameters = new VaultSearchParams { ID = "id", Query = "query" };
+
+        Assert.Null(parameters.Filters);
+        Assert.False(parameters.RawBodyData.ContainsKey("filters"));
+        Assert.Null(parameters.Method);
+        Assert.False(parameters.RawBodyData.ContainsKey("method"));
+        Assert.Null(parameters.TopK);
+        Assert.False(parameters.RawBodyData.ContainsKey("topK"));
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsSetToNullAreNotSet_Works()
+    {
+        var parameters = new VaultSearchParams
+        {
+            ID = "id",
+            Query = "query",
+
+            // Null should be interpreted as omitted for these properties
+            Filters = null,
+            Method = null,
+            TopK = null,
+        };
+
+        Assert.Null(parameters.Filters);
+        Assert.False(parameters.RawBodyData.ContainsKey("filters"));
+        Assert.Null(parameters.Method);
+        Assert.False(parameters.RawBodyData.ContainsKey("method"));
+        Assert.Null(parameters.TopK);
+        Assert.False(parameters.RawBodyData.ContainsKey("topK"));
+    }
+}
+
 public class FiltersTest : TestBase
 {
     [Fact]

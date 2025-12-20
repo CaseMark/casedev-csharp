@@ -1,21 +1,16 @@
 using System.Collections.Generic;
-using System.Text.Json;
-using CaseDev.Core;
-using CaseDev.Exceptions;
 using CaseDev.Models.Search.V1;
 
 namespace CaseDev.Tests.Models.Search.V1;
 
-public class V1SearchParamsTest : TestBase
+public class V1SimilarParamsTest : TestBase
 {
     [Fact]
     public void FieldRoundtrip_Works()
     {
-        var parameters = new V1SearchParams
+        var parameters = new V1SimilarParams
         {
-            Query = "query",
-            AdditionalQueries = ["string"],
-            Category = "category",
+            URL = "https://example.com",
             Contents = "contents",
             EndCrawlDate = "2019-12-27",
             EndPublishedDate = "2019-12-27",
@@ -25,13 +20,9 @@ public class V1SearchParamsTest : TestBase
             NumResults = 1,
             StartCrawlDate = "2019-12-27",
             StartPublishedDate = "2019-12-27",
-            Type = Type.Auto,
-            UserLocation = "userLocation",
         };
 
-        string expectedQuery = "query";
-        List<string> expectedAdditionalQueries = ["string"];
-        string expectedCategory = "category";
+        string expectedURL = "https://example.com";
         string expectedContents = "contents";
         string expectedEndCrawlDate = "2019-12-27";
         string expectedEndPublishedDate = "2019-12-27";
@@ -41,17 +32,8 @@ public class V1SearchParamsTest : TestBase
         long expectedNumResults = 1;
         string expectedStartCrawlDate = "2019-12-27";
         string expectedStartPublishedDate = "2019-12-27";
-        ApiEnum<string, Type> expectedType = Type.Auto;
-        string expectedUserLocation = "userLocation";
 
-        Assert.Equal(expectedQuery, parameters.Query);
-        Assert.NotNull(parameters.AdditionalQueries);
-        Assert.Equal(expectedAdditionalQueries.Count, parameters.AdditionalQueries.Count);
-        for (int i = 0; i < expectedAdditionalQueries.Count; i++)
-        {
-            Assert.Equal(expectedAdditionalQueries[i], parameters.AdditionalQueries[i]);
-        }
-        Assert.Equal(expectedCategory, parameters.Category);
+        Assert.Equal(expectedURL, parameters.URL);
         Assert.Equal(expectedContents, parameters.Contents);
         Assert.Equal(expectedEndCrawlDate, parameters.EndCrawlDate);
         Assert.Equal(expectedEndPublishedDate, parameters.EndPublishedDate);
@@ -71,19 +53,13 @@ public class V1SearchParamsTest : TestBase
         Assert.Equal(expectedNumResults, parameters.NumResults);
         Assert.Equal(expectedStartCrawlDate, parameters.StartCrawlDate);
         Assert.Equal(expectedStartPublishedDate, parameters.StartPublishedDate);
-        Assert.Equal(expectedType, parameters.Type);
-        Assert.Equal(expectedUserLocation, parameters.UserLocation);
     }
 
     [Fact]
     public void OptionalNonNullableParamsUnsetAreNotSet_Works()
     {
-        var parameters = new V1SearchParams { Query = "query" };
+        var parameters = new V1SimilarParams { URL = "https://example.com" };
 
-        Assert.Null(parameters.AdditionalQueries);
-        Assert.False(parameters.RawBodyData.ContainsKey("additionalQueries"));
-        Assert.Null(parameters.Category);
-        Assert.False(parameters.RawBodyData.ContainsKey("category"));
         Assert.Null(parameters.Contents);
         Assert.False(parameters.RawBodyData.ContainsKey("contents"));
         Assert.Null(parameters.EndCrawlDate);
@@ -102,22 +78,16 @@ public class V1SearchParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("startCrawlDate"));
         Assert.Null(parameters.StartPublishedDate);
         Assert.False(parameters.RawBodyData.ContainsKey("startPublishedDate"));
-        Assert.Null(parameters.Type);
-        Assert.False(parameters.RawBodyData.ContainsKey("type"));
-        Assert.Null(parameters.UserLocation);
-        Assert.False(parameters.RawBodyData.ContainsKey("userLocation"));
     }
 
     [Fact]
     public void OptionalNonNullableParamsSetToNullAreNotSet_Works()
     {
-        var parameters = new V1SearchParams
+        var parameters = new V1SimilarParams
         {
-            Query = "query",
+            URL = "https://example.com",
 
             // Null should be interpreted as omitted for these properties
-            AdditionalQueries = null,
-            Category = null,
             Contents = null,
             EndCrawlDate = null,
             EndPublishedDate = null,
@@ -127,14 +97,8 @@ public class V1SearchParamsTest : TestBase
             NumResults = null,
             StartCrawlDate = null,
             StartPublishedDate = null,
-            Type = null,
-            UserLocation = null,
         };
 
-        Assert.Null(parameters.AdditionalQueries);
-        Assert.False(parameters.RawBodyData.ContainsKey("additionalQueries"));
-        Assert.Null(parameters.Category);
-        Assert.False(parameters.RawBodyData.ContainsKey("category"));
         Assert.Null(parameters.Contents);
         Assert.False(parameters.RawBodyData.ContainsKey("contents"));
         Assert.Null(parameters.EndCrawlDate);
@@ -153,69 +117,5 @@ public class V1SearchParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("startCrawlDate"));
         Assert.Null(parameters.StartPublishedDate);
         Assert.False(parameters.RawBodyData.ContainsKey("startPublishedDate"));
-        Assert.Null(parameters.Type);
-        Assert.False(parameters.RawBodyData.ContainsKey("type"));
-        Assert.Null(parameters.UserLocation);
-        Assert.False(parameters.RawBodyData.ContainsKey("userLocation"));
-    }
-}
-
-public class TypeTest : TestBase
-{
-    [Theory]
-    [InlineData(Type.Auto)]
-    [InlineData(Type.Search)]
-    [InlineData(Type.News)]
-    public void Validation_Works(Type rawValue)
-    {
-        // force implicit conversion because Theory can't do that for us
-        ApiEnum<string, Type> value = rawValue;
-        value.Validate();
-    }
-
-    [Fact]
-    public void InvalidEnumValidationThrows_Works()
-    {
-        var value = JsonSerializer.Deserialize<ApiEnum<string, Type>>(
-            JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
-            ModelBase.SerializerOptions
-        );
-
-        Assert.NotNull(value);
-        Assert.Throws<CasedevInvalidDataException>(() => value.Validate());
-    }
-
-    [Theory]
-    [InlineData(Type.Auto)]
-    [InlineData(Type.Search)]
-    [InlineData(Type.News)]
-    public void SerializationRoundtrip_Works(Type rawValue)
-    {
-        // force implicit conversion because Theory can't do that for us
-        ApiEnum<string, Type> value = rawValue;
-
-        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Type>>(
-            json,
-            ModelBase.SerializerOptions
-        );
-
-        Assert.Equal(value, deserialized);
-    }
-
-    [Fact]
-    public void InvalidEnumSerializationRoundtrip_Works()
-    {
-        var value = JsonSerializer.Deserialize<ApiEnum<string, Type>>(
-            JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
-            ModelBase.SerializerOptions
-        );
-        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Type>>(
-            json,
-            ModelBase.SerializerOptions
-        );
-
-        Assert.Equal(value, deserialized);
     }
 }

@@ -5,6 +5,101 @@ using CaseDev.Models.Ocr.V1;
 
 namespace CaseDev.Tests.Models.Ocr.V1;
 
+public class V1ProcessParamsTest : TestBase
+{
+    [Fact]
+    public void FieldRoundtrip_Works()
+    {
+        var parameters = new V1ProcessParams
+        {
+            DocumentURL = "https://example.com/contract.pdf",
+            CallbackURL = "https://your-app.com/webhooks/ocr-complete",
+            DocumentID = "contract-2024-001",
+            Engine = Engine.Doctr,
+            Features = new()
+            {
+                Forms = false,
+                Layout = true,
+                Tables = true,
+                Text = true,
+            },
+            ResultBucket = "my-ocr-results",
+            ResultPrefix = "ocr/2024/",
+        };
+
+        string expectedDocumentURL = "https://example.com/contract.pdf";
+        string expectedCallbackURL = "https://your-app.com/webhooks/ocr-complete";
+        string expectedDocumentID = "contract-2024-001";
+        ApiEnum<string, Engine> expectedEngine = Engine.Doctr;
+        Features expectedFeatures = new()
+        {
+            Forms = false,
+            Layout = true,
+            Tables = true,
+            Text = true,
+        };
+        string expectedResultBucket = "my-ocr-results";
+        string expectedResultPrefix = "ocr/2024/";
+
+        Assert.Equal(expectedDocumentURL, parameters.DocumentURL);
+        Assert.Equal(expectedCallbackURL, parameters.CallbackURL);
+        Assert.Equal(expectedDocumentID, parameters.DocumentID);
+        Assert.Equal(expectedEngine, parameters.Engine);
+        Assert.Equal(expectedFeatures, parameters.Features);
+        Assert.Equal(expectedResultBucket, parameters.ResultBucket);
+        Assert.Equal(expectedResultPrefix, parameters.ResultPrefix);
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsUnsetAreNotSet_Works()
+    {
+        var parameters = new V1ProcessParams { DocumentURL = "https://example.com/contract.pdf" };
+
+        Assert.Null(parameters.CallbackURL);
+        Assert.False(parameters.RawBodyData.ContainsKey("callback_url"));
+        Assert.Null(parameters.DocumentID);
+        Assert.False(parameters.RawBodyData.ContainsKey("document_id"));
+        Assert.Null(parameters.Engine);
+        Assert.False(parameters.RawBodyData.ContainsKey("engine"));
+        Assert.Null(parameters.Features);
+        Assert.False(parameters.RawBodyData.ContainsKey("features"));
+        Assert.Null(parameters.ResultBucket);
+        Assert.False(parameters.RawBodyData.ContainsKey("result_bucket"));
+        Assert.Null(parameters.ResultPrefix);
+        Assert.False(parameters.RawBodyData.ContainsKey("result_prefix"));
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsSetToNullAreNotSet_Works()
+    {
+        var parameters = new V1ProcessParams
+        {
+            DocumentURL = "https://example.com/contract.pdf",
+
+            // Null should be interpreted as omitted for these properties
+            CallbackURL = null,
+            DocumentID = null,
+            Engine = null,
+            Features = null,
+            ResultBucket = null,
+            ResultPrefix = null,
+        };
+
+        Assert.Null(parameters.CallbackURL);
+        Assert.False(parameters.RawBodyData.ContainsKey("callback_url"));
+        Assert.Null(parameters.DocumentID);
+        Assert.False(parameters.RawBodyData.ContainsKey("document_id"));
+        Assert.Null(parameters.Engine);
+        Assert.False(parameters.RawBodyData.ContainsKey("engine"));
+        Assert.Null(parameters.Features);
+        Assert.False(parameters.RawBodyData.ContainsKey("features"));
+        Assert.Null(parameters.ResultBucket);
+        Assert.False(parameters.RawBodyData.ContainsKey("result_bucket"));
+        Assert.Null(parameters.ResultPrefix);
+        Assert.False(parameters.RawBodyData.ContainsKey("result_prefix"));
+    }
+}
+
 public class EngineTest : TestBase
 {
     [Theory]

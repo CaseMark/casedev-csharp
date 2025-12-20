@@ -5,6 +5,71 @@ using CaseDev.Models.Convert.V1;
 
 namespace CaseDev.Tests.Models.Convert.V1;
 
+public class V1WebhookParamsTest : TestBase
+{
+    [Fact]
+    public void FieldRoundtrip_Works()
+    {
+        var parameters = new V1WebhookParams
+        {
+            JobID = "job_id",
+            Status = Status.Completed,
+            Error = "error",
+            Result = new()
+            {
+                DurationSeconds = 0,
+                FileSizeBytes = 0,
+                StoredFilename = "stored_filename",
+            },
+        };
+
+        string expectedJobID = "job_id";
+        ApiEnum<string, Status> expectedStatus = Status.Completed;
+        string expectedError = "error";
+        Result expectedResult = new()
+        {
+            DurationSeconds = 0,
+            FileSizeBytes = 0,
+            StoredFilename = "stored_filename",
+        };
+
+        Assert.Equal(expectedJobID, parameters.JobID);
+        Assert.Equal(expectedStatus, parameters.Status);
+        Assert.Equal(expectedError, parameters.Error);
+        Assert.Equal(expectedResult, parameters.Result);
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsUnsetAreNotSet_Works()
+    {
+        var parameters = new V1WebhookParams { JobID = "job_id", Status = Status.Completed };
+
+        Assert.Null(parameters.Error);
+        Assert.False(parameters.RawBodyData.ContainsKey("error"));
+        Assert.Null(parameters.Result);
+        Assert.False(parameters.RawBodyData.ContainsKey("result"));
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsSetToNullAreNotSet_Works()
+    {
+        var parameters = new V1WebhookParams
+        {
+            JobID = "job_id",
+            Status = Status.Completed,
+
+            // Null should be interpreted as omitted for these properties
+            Error = null,
+            Result = null,
+        };
+
+        Assert.Null(parameters.Error);
+        Assert.False(parameters.RawBodyData.ContainsKey("error"));
+        Assert.Null(parameters.Result);
+        Assert.False(parameters.RawBodyData.ContainsKey("result"));
+    }
+}
+
 public class StatusTest : TestBase
 {
     [Theory]

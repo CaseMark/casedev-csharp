@@ -5,6 +5,69 @@ using CaseDev.Models.Llm.V1;
 
 namespace CaseDev.Tests.Models.Llm.V1;
 
+public class V1CreateEmbeddingParamsTest : TestBase
+{
+    [Fact]
+    public void FieldRoundtrip_Works()
+    {
+        var parameters = new V1CreateEmbeddingParams
+        {
+            Input = "string",
+            Model = "model",
+            Dimensions = 0,
+            EncodingFormat = EncodingFormat.Float,
+            User = "user",
+        };
+
+        Input expectedInput = "string";
+        string expectedModel = "model";
+        long expectedDimensions = 0;
+        ApiEnum<string, EncodingFormat> expectedEncodingFormat = EncodingFormat.Float;
+        string expectedUser = "user";
+
+        Assert.Equal(expectedInput, parameters.Input);
+        Assert.Equal(expectedModel, parameters.Model);
+        Assert.Equal(expectedDimensions, parameters.Dimensions);
+        Assert.Equal(expectedEncodingFormat, parameters.EncodingFormat);
+        Assert.Equal(expectedUser, parameters.User);
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsUnsetAreNotSet_Works()
+    {
+        var parameters = new V1CreateEmbeddingParams { Input = "string", Model = "model" };
+
+        Assert.Null(parameters.Dimensions);
+        Assert.False(parameters.RawBodyData.ContainsKey("dimensions"));
+        Assert.Null(parameters.EncodingFormat);
+        Assert.False(parameters.RawBodyData.ContainsKey("encoding_format"));
+        Assert.Null(parameters.User);
+        Assert.False(parameters.RawBodyData.ContainsKey("user"));
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsSetToNullAreNotSet_Works()
+    {
+        var parameters = new V1CreateEmbeddingParams
+        {
+            Input = "string",
+            Model = "model",
+
+            // Null should be interpreted as omitted for these properties
+            Dimensions = null,
+            EncodingFormat = null,
+            User = null,
+        };
+
+        Assert.Null(parameters.Dimensions);
+        Assert.False(parameters.RawBodyData.ContainsKey("dimensions"));
+        Assert.Null(parameters.EncodingFormat);
+        Assert.False(parameters.RawBodyData.ContainsKey("encoding_format"));
+        Assert.Null(parameters.User);
+        Assert.False(parameters.RawBodyData.ContainsKey("user"));
+    }
+}
+
 public class InputTest : TestBase
 {
     [Fact]
