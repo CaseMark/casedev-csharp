@@ -1,0 +1,54 @@
+using CaseDev.Models.Search.V1;
+
+namespace CaseDev.Tests.Models.Search.V1;
+
+public class V1RetrieveResearchParamsTest : TestBase
+{
+    [Fact]
+    public void FieldRoundtrip_Works()
+    {
+        var parameters = new V1RetrieveResearchParams
+        {
+            ID = "id",
+            Events = "events",
+            Stream = true,
+        };
+
+        string expectedID = "id";
+        string expectedEvents = "events";
+        bool expectedStream = true;
+
+        Assert.Equal(expectedID, parameters.ID);
+        Assert.Equal(expectedEvents, parameters.Events);
+        Assert.Equal(expectedStream, parameters.Stream);
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsUnsetAreNotSet_Works()
+    {
+        var parameters = new V1RetrieveResearchParams { ID = "id" };
+
+        Assert.Null(parameters.Events);
+        Assert.False(parameters.RawQueryData.ContainsKey("events"));
+        Assert.Null(parameters.Stream);
+        Assert.False(parameters.RawQueryData.ContainsKey("stream"));
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsSetToNullAreNotSet_Works()
+    {
+        var parameters = new V1RetrieveResearchParams
+        {
+            ID = "id",
+
+            // Null should be interpreted as omitted for these properties
+            Events = null,
+            Stream = null,
+        };
+
+        Assert.Null(parameters.Events);
+        Assert.False(parameters.RawQueryData.ContainsKey("events"));
+        Assert.Null(parameters.Stream);
+        Assert.False(parameters.RawQueryData.ContainsKey("stream"));
+    }
+}

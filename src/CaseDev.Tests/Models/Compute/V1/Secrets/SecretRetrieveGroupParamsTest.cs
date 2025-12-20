@@ -1,0 +1,42 @@
+using CaseDev.Models.Compute.V1.Secrets;
+
+namespace CaseDev.Tests.Models.Compute.V1.Secrets;
+
+public class SecretRetrieveGroupParamsTest : TestBase
+{
+    [Fact]
+    public void FieldRoundtrip_Works()
+    {
+        var parameters = new SecretRetrieveGroupParams { Group = "group", Env = "env" };
+
+        string expectedGroup = "group";
+        string expectedEnv = "env";
+
+        Assert.Equal(expectedGroup, parameters.Group);
+        Assert.Equal(expectedEnv, parameters.Env);
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsUnsetAreNotSet_Works()
+    {
+        var parameters = new SecretRetrieveGroupParams { Group = "group" };
+
+        Assert.Null(parameters.Env);
+        Assert.False(parameters.RawQueryData.ContainsKey("env"));
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsSetToNullAreNotSet_Works()
+    {
+        var parameters = new SecretRetrieveGroupParams
+        {
+            Group = "group",
+
+            // Null should be interpreted as omitted for these properties
+            Env = null,
+        };
+
+        Assert.Null(parameters.Env);
+        Assert.False(parameters.RawQueryData.ContainsKey("env"));
+    }
+}

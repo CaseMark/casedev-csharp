@@ -1,0 +1,16 @@
+using CaseDev.Models.Vault.Objects;
+
+namespace CaseDev.Tests.Models.Vault.Objects;
+
+public class ObjectListParamsTest : TestBase
+{
+    [Fact]
+    public void FieldRoundtrip_Works()
+    {
+        var parameters = new ObjectListParams { ID = "id" };
+
+        string expectedID = "id";
+
+        Assert.Equal(expectedID, parameters.ID);
+    }
+}

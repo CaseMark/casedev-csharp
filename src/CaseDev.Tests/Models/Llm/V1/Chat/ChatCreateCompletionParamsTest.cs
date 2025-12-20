@@ -1,9 +1,108 @@
+using System.Collections.Generic;
 using System.Text.Json;
 using CaseDev.Core;
 using CaseDev.Exceptions;
 using CaseDev.Models.Llm.V1.Chat;
 
 namespace CaseDev.Tests.Models.Llm.V1.Chat;
+
+public class ChatCreateCompletionParamsTest : TestBase
+{
+    [Fact]
+    public void FieldRoundtrip_Works()
+    {
+        var parameters = new ChatCreateCompletionParams
+        {
+            Messages = [new() { Content = "content", Role = Role.System }],
+            FrequencyPenalty = 0,
+            MaxTokens = 1000,
+            Model = "gpt-4o",
+            PresencePenalty = 0,
+            Stream = false,
+            Temperature = 0.7,
+            TopP = 0,
+        };
+
+        List<Message> expectedMessages = [new() { Content = "content", Role = Role.System }];
+        double expectedFrequencyPenalty = 0;
+        long expectedMaxTokens = 1000;
+        string expectedModel = "gpt-4o";
+        double expectedPresencePenalty = 0;
+        bool expectedStream = false;
+        double expectedTemperature = 0.7;
+        double expectedTopP = 0;
+
+        Assert.Equal(expectedMessages.Count, parameters.Messages.Count);
+        for (int i = 0; i < expectedMessages.Count; i++)
+        {
+            Assert.Equal(expectedMessages[i], parameters.Messages[i]);
+        }
+        Assert.Equal(expectedFrequencyPenalty, parameters.FrequencyPenalty);
+        Assert.Equal(expectedMaxTokens, parameters.MaxTokens);
+        Assert.Equal(expectedModel, parameters.Model);
+        Assert.Equal(expectedPresencePenalty, parameters.PresencePenalty);
+        Assert.Equal(expectedStream, parameters.Stream);
+        Assert.Equal(expectedTemperature, parameters.Temperature);
+        Assert.Equal(expectedTopP, parameters.TopP);
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsUnsetAreNotSet_Works()
+    {
+        var parameters = new ChatCreateCompletionParams
+        {
+            Messages = [new() { Content = "content", Role = Role.System }],
+        };
+
+        Assert.Null(parameters.FrequencyPenalty);
+        Assert.False(parameters.RawBodyData.ContainsKey("frequency_penalty"));
+        Assert.Null(parameters.MaxTokens);
+        Assert.False(parameters.RawBodyData.ContainsKey("max_tokens"));
+        Assert.Null(parameters.Model);
+        Assert.False(parameters.RawBodyData.ContainsKey("model"));
+        Assert.Null(parameters.PresencePenalty);
+        Assert.False(parameters.RawBodyData.ContainsKey("presence_penalty"));
+        Assert.Null(parameters.Stream);
+        Assert.False(parameters.RawBodyData.ContainsKey("stream"));
+        Assert.Null(parameters.Temperature);
+        Assert.False(parameters.RawBodyData.ContainsKey("temperature"));
+        Assert.Null(parameters.TopP);
+        Assert.False(parameters.RawBodyData.ContainsKey("top_p"));
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsSetToNullAreNotSet_Works()
+    {
+        var parameters = new ChatCreateCompletionParams
+        {
+            Messages = [new() { Content = "content", Role = Role.System }],
+
+            // Null should be interpreted as omitted for these properties
+            FrequencyPenalty = null,
+            MaxTokens = null,
+            Model = null,
+            PresencePenalty = null,
+            Stream = null,
+            Temperature = null,
+            TopP = null,
+        };
+
+        Assert.Null(parameters.FrequencyPenalty);
+        Assert.False(parameters.RawBodyData.ContainsKey("frequency_penalty"));
+        Assert.Null(parameters.MaxTokens);
+        Assert.False(parameters.RawBodyData.ContainsKey("max_tokens"));
+        Assert.Null(parameters.Model);
+        Assert.False(parameters.RawBodyData.ContainsKey("model"));
+        Assert.Null(parameters.PresencePenalty);
+        Assert.False(parameters.RawBodyData.ContainsKey("presence_penalty"));
+        Assert.Null(parameters.Stream);
+        Assert.False(parameters.RawBodyData.ContainsKey("stream"));
+        Assert.Null(parameters.Temperature);
+        Assert.False(parameters.RawBodyData.ContainsKey("temperature"));
+        Assert.Null(parameters.TopP);
+        Assert.False(parameters.RawBodyData.ContainsKey("top_p"));
+    }
+}
 
 public class MessageTest : TestBase
 {

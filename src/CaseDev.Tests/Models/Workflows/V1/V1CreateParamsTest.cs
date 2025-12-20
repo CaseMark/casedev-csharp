@@ -1,9 +1,104 @@
+using System.Collections.Generic;
 using System.Text.Json;
 using CaseDev.Core;
 using CaseDev.Exceptions;
 using CaseDev.Models.Workflows.V1;
 
 namespace CaseDev.Tests.Models.Workflows.V1;
+
+public class V1CreateParamsTest : TestBase
+{
+    [Fact]
+    public void FieldRoundtrip_Works()
+    {
+        var parameters = new V1CreateParams
+        {
+            Name = "Document Processor",
+            Description = "description",
+            Edges = [JsonSerializer.Deserialize<JsonElement>("{}")],
+            Nodes = [JsonSerializer.Deserialize<JsonElement>("{}")],
+            TriggerConfig = JsonSerializer.Deserialize<JsonElement>("{}"),
+            TriggerType = TriggerType.Manual,
+            Visibility = Visibility.Private,
+        };
+
+        string expectedName = "Document Processor";
+        string expectedDescription = "description";
+        List<JsonElement> expectedEdges = [JsonSerializer.Deserialize<JsonElement>("{}")];
+        List<JsonElement> expectedNodes = [JsonSerializer.Deserialize<JsonElement>("{}")];
+        JsonElement expectedTriggerConfig = JsonSerializer.Deserialize<JsonElement>("{}");
+        ApiEnum<string, TriggerType> expectedTriggerType = TriggerType.Manual;
+        ApiEnum<string, Visibility> expectedVisibility = Visibility.Private;
+
+        Assert.Equal(expectedName, parameters.Name);
+        Assert.Equal(expectedDescription, parameters.Description);
+        Assert.NotNull(parameters.Edges);
+        Assert.Equal(expectedEdges.Count, parameters.Edges.Count);
+        for (int i = 0; i < expectedEdges.Count; i++)
+        {
+            Assert.True(JsonElement.DeepEquals(expectedEdges[i], parameters.Edges[i]));
+        }
+        Assert.NotNull(parameters.Nodes);
+        Assert.Equal(expectedNodes.Count, parameters.Nodes.Count);
+        for (int i = 0; i < expectedNodes.Count; i++)
+        {
+            Assert.True(JsonElement.DeepEquals(expectedNodes[i], parameters.Nodes[i]));
+        }
+        Assert.NotNull(parameters.TriggerConfig);
+        Assert.True(JsonElement.DeepEquals(expectedTriggerConfig, parameters.TriggerConfig.Value));
+        Assert.Equal(expectedTriggerType, parameters.TriggerType);
+        Assert.Equal(expectedVisibility, parameters.Visibility);
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsUnsetAreNotSet_Works()
+    {
+        var parameters = new V1CreateParams { Name = "Document Processor" };
+
+        Assert.Null(parameters.Description);
+        Assert.False(parameters.RawBodyData.ContainsKey("description"));
+        Assert.Null(parameters.Edges);
+        Assert.False(parameters.RawBodyData.ContainsKey("edges"));
+        Assert.Null(parameters.Nodes);
+        Assert.False(parameters.RawBodyData.ContainsKey("nodes"));
+        Assert.Null(parameters.TriggerConfig);
+        Assert.False(parameters.RawBodyData.ContainsKey("triggerConfig"));
+        Assert.Null(parameters.TriggerType);
+        Assert.False(parameters.RawBodyData.ContainsKey("triggerType"));
+        Assert.Null(parameters.Visibility);
+        Assert.False(parameters.RawBodyData.ContainsKey("visibility"));
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsSetToNullAreNotSet_Works()
+    {
+        var parameters = new V1CreateParams
+        {
+            Name = "Document Processor",
+
+            // Null should be interpreted as omitted for these properties
+            Description = null,
+            Edges = null,
+            Nodes = null,
+            TriggerConfig = null,
+            TriggerType = null,
+            Visibility = null,
+        };
+
+        Assert.Null(parameters.Description);
+        Assert.False(parameters.RawBodyData.ContainsKey("description"));
+        Assert.Null(parameters.Edges);
+        Assert.False(parameters.RawBodyData.ContainsKey("edges"));
+        Assert.Null(parameters.Nodes);
+        Assert.False(parameters.RawBodyData.ContainsKey("nodes"));
+        Assert.Null(parameters.TriggerConfig);
+        Assert.False(parameters.RawBodyData.ContainsKey("triggerConfig"));
+        Assert.Null(parameters.TriggerType);
+        Assert.False(parameters.RawBodyData.ContainsKey("triggerType"));
+        Assert.Null(parameters.Visibility);
+        Assert.False(parameters.RawBodyData.ContainsKey("visibility"));
+    }
+}
 
 public class TriggerTypeTest : TestBase
 {

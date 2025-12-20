@@ -1,9 +1,135 @@
+using System.Collections.Generic;
 using System.Text.Json;
 using CaseDev.Core;
 using CaseDev.Exceptions;
 using CaseDev.Models.Search.V1;
 
 namespace CaseDev.Tests.Models.Search.V1;
+
+public class V1AnswerParamsTest : TestBase
+{
+    [Fact]
+    public void FieldRoundtrip_Works()
+    {
+        var parameters = new V1AnswerParams
+        {
+            Query = "query",
+            ExcludeDomains = ["string"],
+            IncludeDomains = ["string"],
+            MaxTokens = 0,
+            Model = "model",
+            NumResults = 1,
+            SearchType = SearchType.Auto,
+            Stream = true,
+            Temperature = 0,
+            Text = true,
+            UseCustomLlm = true,
+        };
+
+        string expectedQuery = "query";
+        List<string> expectedExcludeDomains = ["string"];
+        List<string> expectedIncludeDomains = ["string"];
+        long expectedMaxTokens = 0;
+        string expectedModel = "model";
+        long expectedNumResults = 1;
+        ApiEnum<string, SearchType> expectedSearchType = SearchType.Auto;
+        bool expectedStream = true;
+        double expectedTemperature = 0;
+        bool expectedText = true;
+        bool expectedUseCustomLlm = true;
+
+        Assert.Equal(expectedQuery, parameters.Query);
+        Assert.NotNull(parameters.ExcludeDomains);
+        Assert.Equal(expectedExcludeDomains.Count, parameters.ExcludeDomains.Count);
+        for (int i = 0; i < expectedExcludeDomains.Count; i++)
+        {
+            Assert.Equal(expectedExcludeDomains[i], parameters.ExcludeDomains[i]);
+        }
+        Assert.NotNull(parameters.IncludeDomains);
+        Assert.Equal(expectedIncludeDomains.Count, parameters.IncludeDomains.Count);
+        for (int i = 0; i < expectedIncludeDomains.Count; i++)
+        {
+            Assert.Equal(expectedIncludeDomains[i], parameters.IncludeDomains[i]);
+        }
+        Assert.Equal(expectedMaxTokens, parameters.MaxTokens);
+        Assert.Equal(expectedModel, parameters.Model);
+        Assert.Equal(expectedNumResults, parameters.NumResults);
+        Assert.Equal(expectedSearchType, parameters.SearchType);
+        Assert.Equal(expectedStream, parameters.Stream);
+        Assert.Equal(expectedTemperature, parameters.Temperature);
+        Assert.Equal(expectedText, parameters.Text);
+        Assert.Equal(expectedUseCustomLlm, parameters.UseCustomLlm);
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsUnsetAreNotSet_Works()
+    {
+        var parameters = new V1AnswerParams { Query = "query" };
+
+        Assert.Null(parameters.ExcludeDomains);
+        Assert.False(parameters.RawBodyData.ContainsKey("excludeDomains"));
+        Assert.Null(parameters.IncludeDomains);
+        Assert.False(parameters.RawBodyData.ContainsKey("includeDomains"));
+        Assert.Null(parameters.MaxTokens);
+        Assert.False(parameters.RawBodyData.ContainsKey("maxTokens"));
+        Assert.Null(parameters.Model);
+        Assert.False(parameters.RawBodyData.ContainsKey("model"));
+        Assert.Null(parameters.NumResults);
+        Assert.False(parameters.RawBodyData.ContainsKey("numResults"));
+        Assert.Null(parameters.SearchType);
+        Assert.False(parameters.RawBodyData.ContainsKey("searchType"));
+        Assert.Null(parameters.Stream);
+        Assert.False(parameters.RawBodyData.ContainsKey("stream"));
+        Assert.Null(parameters.Temperature);
+        Assert.False(parameters.RawBodyData.ContainsKey("temperature"));
+        Assert.Null(parameters.Text);
+        Assert.False(parameters.RawBodyData.ContainsKey("text"));
+        Assert.Null(parameters.UseCustomLlm);
+        Assert.False(parameters.RawBodyData.ContainsKey("useCustomLLM"));
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsSetToNullAreNotSet_Works()
+    {
+        var parameters = new V1AnswerParams
+        {
+            Query = "query",
+
+            // Null should be interpreted as omitted for these properties
+            ExcludeDomains = null,
+            IncludeDomains = null,
+            MaxTokens = null,
+            Model = null,
+            NumResults = null,
+            SearchType = null,
+            Stream = null,
+            Temperature = null,
+            Text = null,
+            UseCustomLlm = null,
+        };
+
+        Assert.Null(parameters.ExcludeDomains);
+        Assert.False(parameters.RawBodyData.ContainsKey("excludeDomains"));
+        Assert.Null(parameters.IncludeDomains);
+        Assert.False(parameters.RawBodyData.ContainsKey("includeDomains"));
+        Assert.Null(parameters.MaxTokens);
+        Assert.False(parameters.RawBodyData.ContainsKey("maxTokens"));
+        Assert.Null(parameters.Model);
+        Assert.False(parameters.RawBodyData.ContainsKey("model"));
+        Assert.Null(parameters.NumResults);
+        Assert.False(parameters.RawBodyData.ContainsKey("numResults"));
+        Assert.Null(parameters.SearchType);
+        Assert.False(parameters.RawBodyData.ContainsKey("searchType"));
+        Assert.Null(parameters.Stream);
+        Assert.False(parameters.RawBodyData.ContainsKey("stream"));
+        Assert.Null(parameters.Temperature);
+        Assert.False(parameters.RawBodyData.ContainsKey("temperature"));
+        Assert.Null(parameters.Text);
+        Assert.False(parameters.RawBodyData.ContainsKey("text"));
+        Assert.Null(parameters.UseCustomLlm);
+        Assert.False(parameters.RawBodyData.ContainsKey("useCustomLLM"));
+    }
+}
 
 public class SearchTypeTest : TestBase
 {

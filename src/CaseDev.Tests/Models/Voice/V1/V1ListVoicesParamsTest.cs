@@ -5,6 +5,108 @@ using CaseDev.Models.Voice.V1;
 
 namespace CaseDev.Tests.Models.Voice.V1;
 
+public class V1ListVoicesParamsTest : TestBase
+{
+    [Fact]
+    public void FieldRoundtrip_Works()
+    {
+        var parameters = new V1ListVoicesParams
+        {
+            Category = "category",
+            CollectionID = "collection_id",
+            IncludeTotalCount = true,
+            NextPageToken = "next_page_token",
+            PageSize = 1,
+            Search = "search",
+            Sort = Sort.Name,
+            SortDirection = SortDirection.Asc,
+            VoiceType = VoiceType.Premade,
+        };
+
+        string expectedCategory = "category";
+        string expectedCollectionID = "collection_id";
+        bool expectedIncludeTotalCount = true;
+        string expectedNextPageToken = "next_page_token";
+        long expectedPageSize = 1;
+        string expectedSearch = "search";
+        ApiEnum<string, Sort> expectedSort = Sort.Name;
+        ApiEnum<string, SortDirection> expectedSortDirection = SortDirection.Asc;
+        ApiEnum<string, VoiceType> expectedVoiceType = VoiceType.Premade;
+
+        Assert.Equal(expectedCategory, parameters.Category);
+        Assert.Equal(expectedCollectionID, parameters.CollectionID);
+        Assert.Equal(expectedIncludeTotalCount, parameters.IncludeTotalCount);
+        Assert.Equal(expectedNextPageToken, parameters.NextPageToken);
+        Assert.Equal(expectedPageSize, parameters.PageSize);
+        Assert.Equal(expectedSearch, parameters.Search);
+        Assert.Equal(expectedSort, parameters.Sort);
+        Assert.Equal(expectedSortDirection, parameters.SortDirection);
+        Assert.Equal(expectedVoiceType, parameters.VoiceType);
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsUnsetAreNotSet_Works()
+    {
+        var parameters = new V1ListVoicesParams { };
+
+        Assert.Null(parameters.Category);
+        Assert.False(parameters.RawQueryData.ContainsKey("category"));
+        Assert.Null(parameters.CollectionID);
+        Assert.False(parameters.RawQueryData.ContainsKey("collection_id"));
+        Assert.Null(parameters.IncludeTotalCount);
+        Assert.False(parameters.RawQueryData.ContainsKey("include_total_count"));
+        Assert.Null(parameters.NextPageToken);
+        Assert.False(parameters.RawQueryData.ContainsKey("next_page_token"));
+        Assert.Null(parameters.PageSize);
+        Assert.False(parameters.RawQueryData.ContainsKey("page_size"));
+        Assert.Null(parameters.Search);
+        Assert.False(parameters.RawQueryData.ContainsKey("search"));
+        Assert.Null(parameters.Sort);
+        Assert.False(parameters.RawQueryData.ContainsKey("sort"));
+        Assert.Null(parameters.SortDirection);
+        Assert.False(parameters.RawQueryData.ContainsKey("sort_direction"));
+        Assert.Null(parameters.VoiceType);
+        Assert.False(parameters.RawQueryData.ContainsKey("voice_type"));
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsSetToNullAreNotSet_Works()
+    {
+        var parameters = new V1ListVoicesParams
+        {
+            // Null should be interpreted as omitted for these properties
+            Category = null,
+            CollectionID = null,
+            IncludeTotalCount = null,
+            NextPageToken = null,
+            PageSize = null,
+            Search = null,
+            Sort = null,
+            SortDirection = null,
+            VoiceType = null,
+        };
+
+        Assert.Null(parameters.Category);
+        Assert.False(parameters.RawQueryData.ContainsKey("category"));
+        Assert.Null(parameters.CollectionID);
+        Assert.False(parameters.RawQueryData.ContainsKey("collection_id"));
+        Assert.Null(parameters.IncludeTotalCount);
+        Assert.False(parameters.RawQueryData.ContainsKey("include_total_count"));
+        Assert.Null(parameters.NextPageToken);
+        Assert.False(parameters.RawQueryData.ContainsKey("next_page_token"));
+        Assert.Null(parameters.PageSize);
+        Assert.False(parameters.RawQueryData.ContainsKey("page_size"));
+        Assert.Null(parameters.Search);
+        Assert.False(parameters.RawQueryData.ContainsKey("search"));
+        Assert.Null(parameters.Sort);
+        Assert.False(parameters.RawQueryData.ContainsKey("sort"));
+        Assert.Null(parameters.SortDirection);
+        Assert.False(parameters.RawQueryData.ContainsKey("sort_direction"));
+        Assert.Null(parameters.VoiceType);
+        Assert.False(parameters.RawQueryData.ContainsKey("voice_type"));
+    }
+}
+
 public class SortTest : TestBase
 {
     [Theory]

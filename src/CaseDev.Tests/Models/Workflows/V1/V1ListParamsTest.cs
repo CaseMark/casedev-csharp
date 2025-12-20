@@ -5,6 +5,60 @@ using CaseDev.Models.Workflows.V1;
 
 namespace CaseDev.Tests.Models.Workflows.V1;
 
+public class V1ListParamsTest : TestBase
+{
+    [Fact]
+    public void FieldRoundtrip_Works()
+    {
+        var parameters = new V1ListParams
+        {
+            Limit = 100,
+            Offset = 0,
+            Visibility = V1ListParamsVisibility.Private,
+        };
+
+        long expectedLimit = 100;
+        long expectedOffset = 0;
+        ApiEnum<string, V1ListParamsVisibility> expectedVisibility = V1ListParamsVisibility.Private;
+
+        Assert.Equal(expectedLimit, parameters.Limit);
+        Assert.Equal(expectedOffset, parameters.Offset);
+        Assert.Equal(expectedVisibility, parameters.Visibility);
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsUnsetAreNotSet_Works()
+    {
+        var parameters = new V1ListParams { };
+
+        Assert.Null(parameters.Limit);
+        Assert.False(parameters.RawQueryData.ContainsKey("limit"));
+        Assert.Null(parameters.Offset);
+        Assert.False(parameters.RawQueryData.ContainsKey("offset"));
+        Assert.Null(parameters.Visibility);
+        Assert.False(parameters.RawQueryData.ContainsKey("visibility"));
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsSetToNullAreNotSet_Works()
+    {
+        var parameters = new V1ListParams
+        {
+            // Null should be interpreted as omitted for these properties
+            Limit = null,
+            Offset = null,
+            Visibility = null,
+        };
+
+        Assert.Null(parameters.Limit);
+        Assert.False(parameters.RawQueryData.ContainsKey("limit"));
+        Assert.Null(parameters.Offset);
+        Assert.False(parameters.RawQueryData.ContainsKey("offset"));
+        Assert.Null(parameters.Visibility);
+        Assert.False(parameters.RawQueryData.ContainsKey("visibility"));
+    }
+}
+
 public class V1ListParamsVisibilityTest : TestBase
 {
     [Theory]

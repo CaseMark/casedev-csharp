@@ -5,6 +5,57 @@ using CaseDev.Models.Templates.V1;
 
 namespace CaseDev.Tests.Models.Templates.V1;
 
+public class V1ExecuteParamsTest : TestBase
+{
+    [Fact]
+    public void FieldRoundtrip_Works()
+    {
+        var parameters = new V1ExecuteParams
+        {
+            ID = "id",
+            Input = JsonSerializer.Deserialize<JsonElement>("{}"),
+            Options = new() { Format = OptionsFormat.Json, Model = "model" },
+        };
+
+        string expectedID = "id";
+        JsonElement expectedInput = JsonSerializer.Deserialize<JsonElement>("{}");
+        Options expectedOptions = new() { Format = OptionsFormat.Json, Model = "model" };
+
+        Assert.Equal(expectedID, parameters.ID);
+        Assert.True(JsonElement.DeepEquals(expectedInput, parameters.Input));
+        Assert.Equal(expectedOptions, parameters.Options);
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsUnsetAreNotSet_Works()
+    {
+        var parameters = new V1ExecuteParams
+        {
+            ID = "id",
+            Input = JsonSerializer.Deserialize<JsonElement>("{}"),
+        };
+
+        Assert.Null(parameters.Options);
+        Assert.False(parameters.RawBodyData.ContainsKey("options"));
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsSetToNullAreNotSet_Works()
+    {
+        var parameters = new V1ExecuteParams
+        {
+            ID = "id",
+            Input = JsonSerializer.Deserialize<JsonElement>("{}"),
+
+            // Null should be interpreted as omitted for these properties
+            Options = null,
+        };
+
+        Assert.Null(parameters.Options);
+        Assert.False(parameters.RawBodyData.ContainsKey("options"));
+    }
+}
+
 public class OptionsTest : TestBase
 {
     [Fact]

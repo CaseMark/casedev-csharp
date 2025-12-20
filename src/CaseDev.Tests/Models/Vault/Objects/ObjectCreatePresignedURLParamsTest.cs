@@ -5,6 +5,69 @@ using CaseDev.Models.Vault.Objects;
 
 namespace CaseDev.Tests.Models.Vault.Objects;
 
+public class ObjectCreatePresignedURLParamsTest : TestBase
+{
+    [Fact]
+    public void FieldRoundtrip_Works()
+    {
+        var parameters = new ObjectCreatePresignedURLParams
+        {
+            ID = "id",
+            ObjectID = "objectId",
+            ContentType = "contentType",
+            ExpiresIn = 60,
+            Operation = Operation.Get,
+        };
+
+        string expectedID = "id";
+        string expectedObjectID = "objectId";
+        string expectedContentType = "contentType";
+        long expectedExpiresIn = 60;
+        ApiEnum<string, Operation> expectedOperation = Operation.Get;
+
+        Assert.Equal(expectedID, parameters.ID);
+        Assert.Equal(expectedObjectID, parameters.ObjectID);
+        Assert.Equal(expectedContentType, parameters.ContentType);
+        Assert.Equal(expectedExpiresIn, parameters.ExpiresIn);
+        Assert.Equal(expectedOperation, parameters.Operation);
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsUnsetAreNotSet_Works()
+    {
+        var parameters = new ObjectCreatePresignedURLParams { ID = "id", ObjectID = "objectId" };
+
+        Assert.Null(parameters.ContentType);
+        Assert.False(parameters.RawBodyData.ContainsKey("contentType"));
+        Assert.Null(parameters.ExpiresIn);
+        Assert.False(parameters.RawBodyData.ContainsKey("expiresIn"));
+        Assert.Null(parameters.Operation);
+        Assert.False(parameters.RawBodyData.ContainsKey("operation"));
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsSetToNullAreNotSet_Works()
+    {
+        var parameters = new ObjectCreatePresignedURLParams
+        {
+            ID = "id",
+            ObjectID = "objectId",
+
+            // Null should be interpreted as omitted for these properties
+            ContentType = null,
+            ExpiresIn = null,
+            Operation = null,
+        };
+
+        Assert.Null(parameters.ContentType);
+        Assert.False(parameters.RawBodyData.ContainsKey("contentType"));
+        Assert.Null(parameters.ExpiresIn);
+        Assert.False(parameters.RawBodyData.ContainsKey("expiresIn"));
+        Assert.Null(parameters.Operation);
+        Assert.False(parameters.RawBodyData.ContainsKey("operation"));
+    }
+}
+
 public class OperationTest : TestBase
 {
     [Theory]

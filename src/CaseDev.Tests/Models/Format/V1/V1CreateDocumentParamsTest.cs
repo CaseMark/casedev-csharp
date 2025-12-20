@@ -6,6 +6,89 @@ using CaseDev.Models.Format.V1;
 
 namespace CaseDev.Tests.Models.Format.V1;
 
+public class V1CreateDocumentParamsTest : TestBase
+{
+    [Fact]
+    public void FieldRoundtrip_Works()
+    {
+        var parameters = new V1CreateDocumentParams
+        {
+            Content = "content",
+            OutputFormat = OutputFormat.Pdf,
+            InputFormat = InputFormat.Md,
+            Options = new()
+            {
+                Components =
+                [
+                    new()
+                    {
+                        Content = "content",
+                        Styles = JsonSerializer.Deserialize<JsonElement>("{}"),
+                        TemplateID = "templateId",
+                        Variables = JsonSerializer.Deserialize<JsonElement>("{}"),
+                    },
+                ],
+            },
+        };
+
+        string expectedContent = "content";
+        ApiEnum<string, OutputFormat> expectedOutputFormat = OutputFormat.Pdf;
+        ApiEnum<string, InputFormat> expectedInputFormat = InputFormat.Md;
+        Options expectedOptions = new()
+        {
+            Components =
+            [
+                new()
+                {
+                    Content = "content",
+                    Styles = JsonSerializer.Deserialize<JsonElement>("{}"),
+                    TemplateID = "templateId",
+                    Variables = JsonSerializer.Deserialize<JsonElement>("{}"),
+                },
+            ],
+        };
+
+        Assert.Equal(expectedContent, parameters.Content);
+        Assert.Equal(expectedOutputFormat, parameters.OutputFormat);
+        Assert.Equal(expectedInputFormat, parameters.InputFormat);
+        Assert.Equal(expectedOptions, parameters.Options);
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsUnsetAreNotSet_Works()
+    {
+        var parameters = new V1CreateDocumentParams
+        {
+            Content = "content",
+            OutputFormat = OutputFormat.Pdf,
+        };
+
+        Assert.Null(parameters.InputFormat);
+        Assert.False(parameters.RawBodyData.ContainsKey("input_format"));
+        Assert.Null(parameters.Options);
+        Assert.False(parameters.RawBodyData.ContainsKey("options"));
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsSetToNullAreNotSet_Works()
+    {
+        var parameters = new V1CreateDocumentParams
+        {
+            Content = "content",
+            OutputFormat = OutputFormat.Pdf,
+
+            // Null should be interpreted as omitted for these properties
+            InputFormat = null,
+            Options = null,
+        };
+
+        Assert.Null(parameters.InputFormat);
+        Assert.False(parameters.RawBodyData.ContainsKey("input_format"));
+        Assert.Null(parameters.Options);
+        Assert.False(parameters.RawBodyData.ContainsKey("options"));
+    }
+}
+
 public class OutputFormatTest : TestBase
 {
     [Theory]

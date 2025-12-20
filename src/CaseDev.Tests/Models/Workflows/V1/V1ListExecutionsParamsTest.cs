@@ -5,6 +5,57 @@ using CaseDev.Models.Workflows.V1;
 
 namespace CaseDev.Tests.Models.Workflows.V1;
 
+public class V1ListExecutionsParamsTest : TestBase
+{
+    [Fact]
+    public void FieldRoundtrip_Works()
+    {
+        var parameters = new V1ListExecutionsParams
+        {
+            ID = "id",
+            Limit = 100,
+            Status = Status.Pending,
+        };
+
+        string expectedID = "id";
+        long expectedLimit = 100;
+        ApiEnum<string, Status> expectedStatus = Status.Pending;
+
+        Assert.Equal(expectedID, parameters.ID);
+        Assert.Equal(expectedLimit, parameters.Limit);
+        Assert.Equal(expectedStatus, parameters.Status);
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsUnsetAreNotSet_Works()
+    {
+        var parameters = new V1ListExecutionsParams { ID = "id" };
+
+        Assert.Null(parameters.Limit);
+        Assert.False(parameters.RawQueryData.ContainsKey("limit"));
+        Assert.Null(parameters.Status);
+        Assert.False(parameters.RawQueryData.ContainsKey("status"));
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsSetToNullAreNotSet_Works()
+    {
+        var parameters = new V1ListExecutionsParams
+        {
+            ID = "id",
+
+            // Null should be interpreted as omitted for these properties
+            Limit = null,
+            Status = null,
+        };
+
+        Assert.Null(parameters.Limit);
+        Assert.False(parameters.RawQueryData.ContainsKey("limit"));
+        Assert.Null(parameters.Status);
+        Assert.False(parameters.RawQueryData.ContainsKey("status"));
+    }
+}
+
 public class StatusTest : TestBase
 {
     [Theory]
