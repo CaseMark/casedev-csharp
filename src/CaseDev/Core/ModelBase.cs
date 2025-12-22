@@ -48,6 +48,8 @@ public abstract record class ModelBase
             new ApiEnumConverter<string, Vault::Method>(),
             new ApiEnumConverter<string, Operation>(),
             new ApiEnumConverter<string, Transcription::Status>(),
+            new ApiEnumConverter<string, Transcription::BoostParam>(),
+            new ApiEnumConverter<string, Transcription::TranscriptionCreateParamsFormat>(),
             new ApiEnumConverter<string, Sort>(),
             new ApiEnumConverter<string, SortDirection>(),
             new ApiEnumConverter<string, VoiceType>(),

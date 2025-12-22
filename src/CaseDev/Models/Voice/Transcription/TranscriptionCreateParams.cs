@@ -5,15 +5,21 @@ using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using CaseDev.Core;
+using CaseDev.Exceptions;
 
 namespace CaseDev.Models.Voice.Transcription;
 
 /// <summary>
-/// Creates an asynchronous transcription job for audio files. Supports various audio
-/// formats and advanced features like speaker identification, content moderation,
-/// and automatic highlights. Returns a job ID for checking transcription status and
-/// retrieving results.
+/// Creates an asynchronous transcription job for audio files. Supports two modes:
+///
+/// <para>**Vault-based (recommended)**: Pass `vault_id` and `object_id` to transcribe
+/// audio from your vault. The transcript will automatically be saved back to the
+/// vault when complete.</para>
+///
+/// <para>**Direct URL (legacy)**: Pass `audio_url` for direct transcription without
+/// automatic storage.</para>
 /// </summary>
 public sealed record class TranscriptionCreateParams : ParamsBase
 {
@@ -24,12 +30,20 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     }
 
     /// <summary>
-    /// URL of the audio file to transcribe
+    /// URL of the audio file to transcribe (legacy mode, no auto-storage)
     /// </summary>
-    public required string AudioURL
+    public string? AudioURL
     {
-        get { return JsonModel.GetNotNullClass<string>(this.RawBodyData, "audio_url"); }
-        init { JsonModel.Set(this._rawBodyData, "audio_url", value); }
+        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "audio_url"); }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            JsonModel.Set(this._rawBodyData, "audio_url", value);
+        }
     }
 
     /// <summary>
@@ -50,6 +64,29 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     }
 
     /// <summary>
+    /// How much to boost custom vocabulary
+    /// </summary>
+    public ApiEnum<string, BoostParam>? BoostParam
+    {
+        get
+        {
+            return JsonModel.GetNullableClass<ApiEnum<string, BoostParam>>(
+                this.RawBodyData,
+                "boost_param"
+            );
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            JsonModel.Set(this._rawBodyData, "boost_param", value);
+        }
+    }
+
+    /// <summary>
     /// Enable content moderation and safety labeling
     /// </summary>
     public bool? ContentSafetyLabels
@@ -63,6 +100,29 @@ public sealed record class TranscriptionCreateParams : ParamsBase
             }
 
             JsonModel.Set(this._rawBodyData, "content_safety_labels", value);
+        }
+    }
+
+    /// <summary>
+    /// Output format for the transcript when using vault mode
+    /// </summary>
+    public ApiEnum<string, TranscriptionCreateParamsFormat>? Format
+    {
+        get
+        {
+            return JsonModel.GetNullableClass<ApiEnum<string, TranscriptionCreateParamsFormat>>(
+                this.RawBodyData,
+                "format"
+            );
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            JsonModel.Set(this._rawBodyData, "format", value);
         }
     }
 
@@ -119,6 +179,23 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     }
 
     /// <summary>
+    /// Object ID of the audio file in the vault (use with vault_id)
+    /// </summary>
+    public string? ObjectID
+    {
+        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "object_id"); }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            JsonModel.Set(this._rawBodyData, "object_id", value);
+        }
+    }
+
+    /// <summary>
     /// Add punctuation to the transcript
     /// </summary>
     public bool? Punctuate
@@ -149,6 +226,57 @@ public sealed record class TranscriptionCreateParams : ParamsBase
             }
 
             JsonModel.Set(this._rawBodyData, "speaker_labels", value);
+        }
+    }
+
+    /// <summary>
+    /// Expected number of speakers (improves accuracy when known)
+    /// </summary>
+    public long? SpeakersExpected
+    {
+        get { return JsonModel.GetNullableStruct<long>(this.RawBodyData, "speakers_expected"); }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            JsonModel.Set(this._rawBodyData, "speakers_expected", value);
+        }
+    }
+
+    /// <summary>
+    /// Vault ID containing the audio file (use with object_id)
+    /// </summary>
+    public string? VaultID
+    {
+        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "vault_id"); }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            JsonModel.Set(this._rawBodyData, "vault_id", value);
+        }
+    }
+
+    /// <summary>
+    /// Custom vocabulary words to boost (e.g., legal terms)
+    /// </summary>
+    public IReadOnlyList<string>? WordBoost
+    {
+        get { return JsonModel.GetNullableClass<List<string>>(this.RawBodyData, "word_boost"); }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            JsonModel.Set(this._rawBodyData, "word_boost", value);
         }
     }
 
@@ -223,5 +351,103 @@ public sealed record class TranscriptionCreateParams : ParamsBase
         {
             ParamsBase.AddHeaderElementToRequest(request, item.Key, item.Value);
         }
+    }
+}
+
+/// <summary>
+/// How much to boost custom vocabulary
+/// </summary>
+[JsonConverter(typeof(BoostParamConverter))]
+public enum BoostParam
+{
+    Low,
+    Default,
+    High,
+}
+
+sealed class BoostParamConverter : JsonConverter<BoostParam>
+{
+    public override BoostParam Read(
+        ref Utf8JsonReader reader,
+        Type typeToConvert,
+        JsonSerializerOptions options
+    )
+    {
+        return JsonSerializer.Deserialize<string>(ref reader, options) switch
+        {
+            "low" => BoostParam.Low,
+            "default" => BoostParam.Default,
+            "high" => BoostParam.High,
+            _ => (BoostParam)(-1),
+        };
+    }
+
+    public override void Write(
+        Utf8JsonWriter writer,
+        BoostParam value,
+        JsonSerializerOptions options
+    )
+    {
+        JsonSerializer.Serialize(
+            writer,
+            value switch
+            {
+                BoostParam.Low => "low",
+                BoostParam.Default => "default",
+                BoostParam.High => "high",
+                _ => throw new CasedevInvalidDataException(
+                    string.Format("Invalid value '{0}' in {1}", value, nameof(value))
+                ),
+            },
+            options
+        );
+    }
+}
+
+/// <summary>
+/// Output format for the transcript when using vault mode
+/// </summary>
+[JsonConverter(typeof(TranscriptionCreateParamsFormatConverter))]
+public enum TranscriptionCreateParamsFormat
+{
+    Json,
+    Text,
+}
+
+sealed class TranscriptionCreateParamsFormatConverter
+    : JsonConverter<TranscriptionCreateParamsFormat>
+{
+    public override TranscriptionCreateParamsFormat Read(
+        ref Utf8JsonReader reader,
+        Type typeToConvert,
+        JsonSerializerOptions options
+    )
+    {
+        return JsonSerializer.Deserialize<string>(ref reader, options) switch
+        {
+            "json" => TranscriptionCreateParamsFormat.Json,
+            "text" => TranscriptionCreateParamsFormat.Text,
+            _ => (TranscriptionCreateParamsFormat)(-1),
+        };
+    }
+
+    public override void Write(
+        Utf8JsonWriter writer,
+        TranscriptionCreateParamsFormat value,
+        JsonSerializerOptions options
+    )
+    {
+        JsonSerializer.Serialize(
+            writer,
+            value switch
+            {
+                TranscriptionCreateParamsFormat.Json => "json",
+                TranscriptionCreateParamsFormat.Text => "text",
+                _ => throw new CasedevInvalidDataException(
+                    string.Format("Invalid value '{0}' in {1}", value, nameof(value))
+                ),
+            },
+            options
+        );
     }
 }

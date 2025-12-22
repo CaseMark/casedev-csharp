@@ -50,7 +50,7 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
     }
 
     /// <summary>
-    /// Overall confidence score for the transcription
+    /// Overall confidence score (0-100)
     /// </summary>
     public double? Confidence
     {
@@ -67,7 +67,7 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
     }
 
     /// <summary>
-    /// Error message (only present when status is error)
+    /// Error message (only present when status is failed)
     /// </summary>
     public string? Error
     {
@@ -84,7 +84,41 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
     }
 
     /// <summary>
-    /// Full transcription text (only present when status is completed)
+    /// Result transcript object ID (vault-based jobs, when completed)
+    /// </summary>
+    public string? ResultObjectID
+    {
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "result_object_id"); }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            JsonModel.Set(this._rawData, "result_object_id", value);
+        }
+    }
+
+    /// <summary>
+    /// Source audio object ID (vault-based jobs only)
+    /// </summary>
+    public string? SourceObjectID
+    {
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "source_object_id"); }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            JsonModel.Set(this._rawData, "source_object_id", value);
+        }
+    }
+
+    /// <summary>
+    /// Full transcription text (legacy direct URL jobs only)
     /// </summary>
     public string? Text
     {
@@ -101,11 +135,45 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
     }
 
     /// <summary>
-    /// Word-level timestamps and confidence scores
+    /// Vault ID (vault-based jobs only)
     /// </summary>
-    public IReadOnlyList<Word>? Words
+    public string? VaultID
     {
-        get { return JsonModel.GetNullableClass<List<Word>>(this.RawData, "words"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "vault_id"); }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            JsonModel.Set(this._rawData, "vault_id", value);
+        }
+    }
+
+    /// <summary>
+    /// Number of words in the transcript
+    /// </summary>
+    public long? WordCount
+    {
+        get { return JsonModel.GetNullableStruct<long>(this.RawData, "word_count"); }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            JsonModel.Set(this._rawData, "word_count", value);
+        }
+    }
+
+    /// <summary>
+    /// Word-level timestamps (legacy direct URL jobs only)
+    /// </summary>
+    public IReadOnlyList<JsonElement>? Words
+    {
+        get { return JsonModel.GetNullableClass<List<JsonElement>>(this.RawData, "words"); }
         init
         {
             if (value == null)
@@ -125,11 +193,12 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
         _ = this.AudioDuration;
         _ = this.Confidence;
         _ = this.Error;
+        _ = this.ResultObjectID;
+        _ = this.SourceObjectID;
         _ = this.Text;
-        foreach (var item in this.Words ?? [])
-        {
-            item.Validate();
-        }
+        _ = this.VaultID;
+        _ = this.WordCount;
+        _ = this.Words;
     }
 
     public TranscriptionRetrieveResponse() { }
@@ -178,7 +247,7 @@ public enum Status
     Queued,
     Processing,
     Completed,
-    Error,
+    Failed,
 }
 
 sealed class StatusConverter : JsonConverter<Status>
@@ -194,7 +263,7 @@ sealed class StatusConverter : JsonConverter<Status>
             "queued" => Status.Queued,
             "processing" => Status.Processing,
             "completed" => Status.Completed,
-            "error" => Status.Error,
+            "failed" => Status.Failed,
             _ => (Status)(-1),
         };
     }
@@ -208,7 +277,7 @@ sealed class StatusConverter : JsonConverter<Status>
                 Status.Queued => "queued",
                 Status.Processing => "processing",
                 Status.Completed => "completed",
-                Status.Error => "error",
+                Status.Failed => "failed",
                 _ => throw new CasedevInvalidDataException(
                     string.Format("Invalid value '{0}' in {1}", value, nameof(value))
                 ),
@@ -216,104 +285,4 @@ sealed class StatusConverter : JsonConverter<Status>
             options
         );
     }
-}
-
-[JsonConverter(typeof(JsonModelConverter<Word, WordFromRaw>))]
-public sealed record class Word : JsonModel
-{
-    public double? Confidence
-    {
-        get { return JsonModel.GetNullableStruct<double>(this.RawData, "confidence"); }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            JsonModel.Set(this._rawData, "confidence", value);
-        }
-    }
-
-    public double? End
-    {
-        get { return JsonModel.GetNullableStruct<double>(this.RawData, "end"); }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            JsonModel.Set(this._rawData, "end", value);
-        }
-    }
-
-    public double? Start
-    {
-        get { return JsonModel.GetNullableStruct<double>(this.RawData, "start"); }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            JsonModel.Set(this._rawData, "start", value);
-        }
-    }
-
-    public string? Text
-    {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "text"); }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            JsonModel.Set(this._rawData, "text", value);
-        }
-    }
-
-    /// <inheritdoc/>
-    public override void Validate()
-    {
-        _ = this.Confidence;
-        _ = this.End;
-        _ = this.Start;
-        _ = this.Text;
-    }
-
-    public Word() { }
-
-    public Word(Word word)
-        : base(word) { }
-
-    public Word(IReadOnlyDictionary<string, JsonElement> rawData)
-    {
-        this._rawData = [.. rawData];
-    }
-
-#pragma warning disable CS8618
-    [SetsRequiredMembers]
-    Word(FrozenDictionary<string, JsonElement> rawData)
-    {
-        this._rawData = [.. rawData];
-    }
-#pragma warning restore CS8618
-
-    /// <inheritdoc cref="WordFromRaw.FromRawUnchecked"/>
-    public static Word FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
-    {
-        return new(FrozenDictionary.ToFrozenDictionary(rawData));
-    }
-}
-
-class WordFromRaw : IFromRawJson<Word>
-{
-    /// <inheritdoc/>
-    public Word FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
-        Word.FromRawUnchecked(rawData);
 }

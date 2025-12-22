@@ -26,10 +26,12 @@ public sealed class TranscriptionService : ITranscriptionService
 
     /// <inheritdoc/>
     public async Task Create(
-        TranscriptionCreateParams parameters,
+        TranscriptionCreateParams? parameters = null,
         CancellationToken cancellationToken = default
     )
     {
+        parameters ??= new();
+
         HttpRequest<TranscriptionCreateParams> request = new()
         {
             Method = HttpMethod.Post,
