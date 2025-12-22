@@ -21,19 +21,24 @@ public interface ITranscriptionService
     ITranscriptionService WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Creates an asynchronous transcription job for audio files. Supports various
-    /// audio formats and advanced features like speaker identification, content moderation,
-    /// and automatic highlights. Returns a job ID for checking transcription status
-    /// and retrieving results.
+    /// Creates an asynchronous transcription job for audio files. Supports two modes:
+    ///
+    /// <para>**Vault-based (recommended)**: Pass `vault_id` and `object_id` to transcribe
+    /// audio from your vault. The transcript will automatically be saved back to
+    /// the vault when complete.</para>
+    ///
+    /// <para>**Direct URL (legacy)**: Pass `audio_url` for direct transcription
+    /// without automatic storage.</para>
     /// </summary>
     Task Create(
-        TranscriptionCreateParams parameters,
+        TranscriptionCreateParams? parameters = null,
         CancellationToken cancellationToken = default
     );
 
     /// <summary>
-    /// Retrieve the status and result of an audio transcription job. Returns the
-    /// transcription text when complete, or status information for pending jobs.
+    /// Retrieve the status and result of an audio transcription job. For vault-based
+    /// jobs, returns status and result_object_id when complete. For legacy direct
+    /// URL jobs, returns the full transcription data.
     /// </summary>
     Task<TranscriptionRetrieveResponse> Retrieve(
         TranscriptionRetrieveParams parameters,
