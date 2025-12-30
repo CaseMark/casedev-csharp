@@ -78,6 +78,24 @@ public sealed record class VaultUploadParams : ParamsBase
     }
 
     /// <summary>
+    /// Optional folder path for hierarchy preservation. Allows integrations to maintain
+    /// source folder structure from systems like NetDocs, Clio, or Smokeball. Example: '/Discovery/Depositions/2024'
+    /// </summary>
+    public string? RelativePath
+    {
+        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "relative_path"); }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            JsonModel.Set(this._rawBodyData, "relative_path", value);
+        }
+    }
+
+    /// <summary>
     /// Estimated file size in bytes for cost calculation
     /// </summary>
     public double? SizeBytes
