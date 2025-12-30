@@ -15,6 +15,7 @@ public class VaultUploadParamsTest : TestBase
             Filename = "filename",
             AutoIndex = true,
             Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+            RelativePath = "relative_path",
             SizeBytes = 0,
         };
 
@@ -23,6 +24,7 @@ public class VaultUploadParamsTest : TestBase
         string expectedFilename = "filename";
         bool expectedAutoIndex = true;
         JsonElement expectedMetadata = JsonSerializer.Deserialize<JsonElement>("{}");
+        string expectedRelativePath = "relative_path";
         double expectedSizeBytes = 0;
 
         Assert.Equal(expectedID, parameters.ID);
@@ -31,6 +33,7 @@ public class VaultUploadParamsTest : TestBase
         Assert.Equal(expectedAutoIndex, parameters.AutoIndex);
         Assert.NotNull(parameters.Metadata);
         Assert.True(JsonElement.DeepEquals(expectedMetadata, parameters.Metadata.Value));
+        Assert.Equal(expectedRelativePath, parameters.RelativePath);
         Assert.Equal(expectedSizeBytes, parameters.SizeBytes);
     }
 
@@ -48,6 +51,8 @@ public class VaultUploadParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("auto_index"));
         Assert.Null(parameters.Metadata);
         Assert.False(parameters.RawBodyData.ContainsKey("metadata"));
+        Assert.Null(parameters.RelativePath);
+        Assert.False(parameters.RawBodyData.ContainsKey("relative_path"));
         Assert.Null(parameters.SizeBytes);
         Assert.False(parameters.RawBodyData.ContainsKey("sizeBytes"));
     }
@@ -64,6 +69,7 @@ public class VaultUploadParamsTest : TestBase
             // Null should be interpreted as omitted for these properties
             AutoIndex = null,
             Metadata = null,
+            RelativePath = null,
             SizeBytes = null,
         };
 
@@ -71,6 +77,8 @@ public class VaultUploadParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("auto_index"));
         Assert.Null(parameters.Metadata);
         Assert.False(parameters.RawBodyData.ContainsKey("metadata"));
+        Assert.Null(parameters.RelativePath);
+        Assert.False(parameters.RawBodyData.ContainsKey("relative_path"));
         Assert.Null(parameters.SizeBytes);
         Assert.False(parameters.RawBodyData.ContainsKey("sizeBytes"));
     }
