@@ -1,3 +1,4 @@
+using System.Text.Json;
 using CaseDev.Models.Vault;
 
 namespace CaseDev.Tests.Models.Vault;
@@ -12,15 +13,23 @@ public class VaultCreateParamsTest : TestBase
             Name = "Contract Review Archive",
             Description = "Repository for all client contract reviews and analysis",
             EnableGraph = true,
+            Metadata = JsonSerializer.Deserialize<JsonElement>(
+                "{\"containsPHI\":true,\"hipaaCompliant\":true}"
+            ),
         };
 
         string expectedName = "Contract Review Archive";
         string expectedDescription = "Repository for all client contract reviews and analysis";
         bool expectedEnableGraph = true;
+        JsonElement expectedMetadata = JsonSerializer.Deserialize<JsonElement>(
+            "{\"containsPHI\":true,\"hipaaCompliant\":true}"
+        );
 
         Assert.Equal(expectedName, parameters.Name);
         Assert.Equal(expectedDescription, parameters.Description);
         Assert.Equal(expectedEnableGraph, parameters.EnableGraph);
+        Assert.NotNull(parameters.Metadata);
+        Assert.True(JsonElement.DeepEquals(expectedMetadata, parameters.Metadata.Value));
     }
 
     [Fact]
@@ -32,6 +41,8 @@ public class VaultCreateParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("description"));
         Assert.Null(parameters.EnableGraph);
         Assert.False(parameters.RawBodyData.ContainsKey("enableGraph"));
+        Assert.Null(parameters.Metadata);
+        Assert.False(parameters.RawBodyData.ContainsKey("metadata"));
     }
 
     [Fact]
@@ -44,11 +55,14 @@ public class VaultCreateParamsTest : TestBase
             // Null should be interpreted as omitted for these properties
             Description = null,
             EnableGraph = null,
+            Metadata = null,
         };
 
         Assert.Null(parameters.Description);
         Assert.False(parameters.RawBodyData.ContainsKey("description"));
         Assert.Null(parameters.EnableGraph);
         Assert.False(parameters.RawBodyData.ContainsKey("enableGraph"));
+        Assert.Null(parameters.Metadata);
+        Assert.False(parameters.RawBodyData.ContainsKey("metadata"));
     }
 }

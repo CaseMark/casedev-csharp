@@ -65,6 +65,24 @@ public sealed record class VaultCreateParams : ParamsBase
         }
     }
 
+    /// <summary>
+    /// Optional metadata to attach to the vault (e.g., { containsPHI: true } for
+    /// HIPAA compliance tracking)
+    /// </summary>
+    public JsonElement? Metadata
+    {
+        get { return JsonModel.GetNullableStruct<JsonElement>(this.RawBodyData, "metadata"); }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            JsonModel.Set(this._rawBodyData, "metadata", value);
+        }
+    }
+
     public VaultCreateParams() { }
 
     public VaultCreateParams(VaultCreateParams vaultCreateParams)
