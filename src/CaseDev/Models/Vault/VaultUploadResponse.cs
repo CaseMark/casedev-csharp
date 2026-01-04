@@ -87,10 +87,10 @@ public sealed record class VaultUploadResponse : JsonModel
     /// <summary>
     /// Folder path for hierarchy if provided
     /// </summary>
-    public string? RelativePath
+    public string? Path
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "relative_path"); }
-        init { JsonModel.Set(this._rawData, "relative_path", value); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "path"); }
+        init { JsonModel.Set(this._rawData, "path", value); }
     }
 
     /// <summary>
@@ -135,7 +135,7 @@ public sealed record class VaultUploadResponse : JsonModel
         this.Instructions?.Validate();
         _ = this.NextStep;
         _ = this.ObjectID;
-        _ = this.RelativePath;
+        _ = this.Path;
         _ = this.S3Key;
         _ = this.UploadURL;
     }
