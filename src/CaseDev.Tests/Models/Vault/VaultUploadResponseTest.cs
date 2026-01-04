@@ -20,7 +20,7 @@ public class VaultUploadResponseTest : TestBase
             },
             NextStep = "next_step",
             ObjectID = "objectId",
-            RelativePath = "relative_path",
+            Path = "path",
             S3Key = "s3Key",
             UploadURL = "uploadUrl",
         };
@@ -35,7 +35,7 @@ public class VaultUploadResponseTest : TestBase
         };
         string expectedNextStep = "next_step";
         string expectedObjectID = "objectId";
-        string expectedRelativePath = "relative_path";
+        string expectedPath = "path";
         string expectedS3Key = "s3Key";
         string expectedUploadURL = "uploadUrl";
 
@@ -44,7 +44,7 @@ public class VaultUploadResponseTest : TestBase
         Assert.Equal(expectedInstructions, model.Instructions);
         Assert.Equal(expectedNextStep, model.NextStep);
         Assert.Equal(expectedObjectID, model.ObjectID);
-        Assert.Equal(expectedRelativePath, model.RelativePath);
+        Assert.Equal(expectedPath, model.Path);
         Assert.Equal(expectedS3Key, model.S3Key);
         Assert.Equal(expectedUploadURL, model.UploadURL);
     }
@@ -64,7 +64,7 @@ public class VaultUploadResponseTest : TestBase
             },
             NextStep = "next_step",
             ObjectID = "objectId",
-            RelativePath = "relative_path",
+            Path = "path",
             S3Key = "s3Key",
             UploadURL = "uploadUrl",
         };
@@ -90,7 +90,7 @@ public class VaultUploadResponseTest : TestBase
             },
             NextStep = "next_step",
             ObjectID = "objectId",
-            RelativePath = "relative_path",
+            Path = "path",
             S3Key = "s3Key",
             UploadURL = "uploadUrl",
         };
@@ -109,7 +109,7 @@ public class VaultUploadResponseTest : TestBase
         };
         string expectedNextStep = "next_step";
         string expectedObjectID = "objectId";
-        string expectedRelativePath = "relative_path";
+        string expectedPath = "path";
         string expectedS3Key = "s3Key";
         string expectedUploadURL = "uploadUrl";
 
@@ -118,7 +118,7 @@ public class VaultUploadResponseTest : TestBase
         Assert.Equal(expectedInstructions, deserialized.Instructions);
         Assert.Equal(expectedNextStep, deserialized.NextStep);
         Assert.Equal(expectedObjectID, deserialized.ObjectID);
-        Assert.Equal(expectedRelativePath, deserialized.RelativePath);
+        Assert.Equal(expectedPath, deserialized.Path);
         Assert.Equal(expectedS3Key, deserialized.S3Key);
         Assert.Equal(expectedUploadURL, deserialized.UploadURL);
     }
@@ -138,7 +138,7 @@ public class VaultUploadResponseTest : TestBase
             },
             NextStep = "next_step",
             ObjectID = "objectId",
-            RelativePath = "relative_path",
+            Path = "path",
             S3Key = "s3Key",
             UploadURL = "uploadUrl",
         };
@@ -149,11 +149,7 @@ public class VaultUploadResponseTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetAreNotSet_Works()
     {
-        var model = new VaultUploadResponse
-        {
-            NextStep = "next_step",
-            RelativePath = "relative_path",
-        };
+        var model = new VaultUploadResponse { NextStep = "next_step", Path = "path" };
 
         Assert.Null(model.AutoIndex);
         Assert.False(model.RawData.ContainsKey("auto_index"));
@@ -172,11 +168,7 @@ public class VaultUploadResponseTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetValidation_Works()
     {
-        var model = new VaultUploadResponse
-        {
-            NextStep = "next_step",
-            RelativePath = "relative_path",
-        };
+        var model = new VaultUploadResponse { NextStep = "next_step", Path = "path" };
 
         model.Validate();
     }
@@ -187,7 +179,7 @@ public class VaultUploadResponseTest : TestBase
         var model = new VaultUploadResponse
         {
             NextStep = "next_step",
-            RelativePath = "relative_path",
+            Path = "path",
 
             // Null should be interpreted as omitted for these properties
             AutoIndex = null,
@@ -218,7 +210,7 @@ public class VaultUploadResponseTest : TestBase
         var model = new VaultUploadResponse
         {
             NextStep = "next_step",
-            RelativePath = "relative_path",
+            Path = "path",
 
             // Null should be interpreted as omitted for these properties
             AutoIndex = null,
@@ -252,8 +244,8 @@ public class VaultUploadResponseTest : TestBase
 
         Assert.Null(model.NextStep);
         Assert.False(model.RawData.ContainsKey("next_step"));
-        Assert.Null(model.RelativePath);
-        Assert.False(model.RawData.ContainsKey("relative_path"));
+        Assert.Null(model.Path);
+        Assert.False(model.RawData.ContainsKey("path"));
     }
 
     [Fact]
@@ -295,13 +287,13 @@ public class VaultUploadResponseTest : TestBase
             UploadURL = "uploadUrl",
 
             NextStep = null,
-            RelativePath = null,
+            Path = null,
         };
 
         Assert.Null(model.NextStep);
         Assert.True(model.RawData.ContainsKey("next_step"));
-        Assert.Null(model.RelativePath);
-        Assert.True(model.RawData.ContainsKey("relative_path"));
+        Assert.Null(model.Path);
+        Assert.True(model.RawData.ContainsKey("path"));
     }
 
     [Fact]
@@ -322,7 +314,7 @@ public class VaultUploadResponseTest : TestBase
             UploadURL = "uploadUrl",
 
             NextStep = null,
-            RelativePath = null,
+            Path = null,
         };
 
         model.Validate();
