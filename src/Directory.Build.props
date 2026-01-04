@@ -4,7 +4,7 @@
     <Company>Casedev</Company>
     <PackageTags>sdk;api;http;library</PackageTags>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <Copyright>Copyright 2025 Casedev</Copyright>
+    <Copyright>Copyright 2026 Casedev</Copyright>
     <PackageProjectUrl>https://docs.case.dev</PackageProjectUrl>
     <RepositoryUrl>https://www.github.com/stainless-sdks/router-csharp</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
