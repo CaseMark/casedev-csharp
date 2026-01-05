@@ -13,7 +13,7 @@ namespace CaseDev.Models.Vault;
 public sealed record class VaultIngestResponse : JsonModel
 {
     /// <summary>
-    /// Whether GraphRAG is enabled for this vault
+    /// Always false - GraphRAG must be triggered separately via POST /vault/:id/graphrag/:objectId
     /// </summary>
     public required bool EnableGraphRag
     {
