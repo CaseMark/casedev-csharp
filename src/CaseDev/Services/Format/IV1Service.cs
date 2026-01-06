@@ -27,6 +27,8 @@ public interface IV1Service
     /// Convert Markdown, JSON, or text content to professionally formatted PDF,
     /// DOCX, or HTML documents. Supports template components with variable interpolation
     /// for creating consistent legal documents like contracts, briefs, and reports.
+    ///
+    /// <para>It's the caller's responsibility to dispose the returned response.</para>
     /// </summary>
     Task<HttpResponse> CreateDocument(
         V1CreateDocumentParams parameters,

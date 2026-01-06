@@ -42,9 +42,7 @@ public sealed class V1Service : IV1Service
             Method = HttpMethod.Post,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
         return response;
     }
 }

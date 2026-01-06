@@ -24,6 +24,8 @@ public interface ISpeakService
     /// Convert text to natural-sounding audio using ElevenLabs voices. Ideal for
     /// creating audio summaries of legal documents, client presentations, or accessibility
     /// features. Supports multiple languages and voice customization.
+    ///
+    /// <para>It's the caller's responsibility to dispose the returned response.</para>
     /// </summary>
     Task<HttpResponse> Create(
         SpeakCreateParams parameters,

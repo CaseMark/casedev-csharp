@@ -27,6 +27,8 @@ public interface IV1Service
     /// Download the converted M4A audio file from a completed FTR conversion job.
     /// The file is streamed directly to the client with appropriate headers for
     /// audio playback or download.
+    ///
+    /// <para>It's the caller's responsibility to dispose the returned response.</para>
     /// </summary>
     Task<HttpResponse> Download(
         V1DownloadParams parameters,
