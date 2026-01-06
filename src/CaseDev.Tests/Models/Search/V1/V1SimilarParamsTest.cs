@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CaseDev.Models.Search.V1;
 
@@ -117,5 +118,15 @@ public class V1SimilarParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("startCrawlDate"));
         Assert.Null(parameters.StartPublishedDate);
         Assert.False(parameters.RawBodyData.ContainsKey("startPublishedDate"));
+    }
+
+    [Fact]
+    public void Url_Works()
+    {
+        V1SimilarParams parameters = new() { URL = "https://example.com" };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(new Uri("https://api.case.dev/search/v1/similar"), url);
     }
 }

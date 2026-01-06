@@ -1,3 +1,4 @@
+using System;
 using System.Text.Json;
 using CaseDev.Core;
 using CaseDev.Exceptions;
@@ -104,6 +105,32 @@ public class V1ListVoicesParamsTest : TestBase
         Assert.False(parameters.RawQueryData.ContainsKey("sort_direction"));
         Assert.Null(parameters.VoiceType);
         Assert.False(parameters.RawQueryData.ContainsKey("voice_type"));
+    }
+
+    [Fact]
+    public void Url_Works()
+    {
+        V1ListVoicesParams parameters = new()
+        {
+            Category = "category",
+            CollectionID = "collection_id",
+            IncludeTotalCount = true,
+            NextPageToken = "next_page_token",
+            PageSize = 1,
+            Search = "search",
+            Sort = Sort.Name,
+            SortDirection = SortDirection.Asc,
+            VoiceType = VoiceType.Premade,
+        };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(
+            new Uri(
+                "https://api.case.dev/voice/v1/voices?category=category&collection_id=collection_id&include_total_count=true&next_page_token=next_page_token&page_size=1&search=search&sort=name&sort_direction=asc&voice_type=premade"
+            ),
+            url
+        );
     }
 }
 

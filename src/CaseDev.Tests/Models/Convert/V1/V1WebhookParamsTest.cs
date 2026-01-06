@@ -1,3 +1,4 @@
+using System;
 using System.Text.Json;
 using CaseDev.Core;
 using CaseDev.Exceptions;
@@ -67,6 +68,16 @@ public class V1WebhookParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("error"));
         Assert.Null(parameters.Result);
         Assert.False(parameters.RawBodyData.ContainsKey("result"));
+    }
+
+    [Fact]
+    public void Url_Works()
+    {
+        V1WebhookParams parameters = new() { JobID = "job_id", Status = Status.Completed };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(new Uri("https://api.case.dev/convert/v1/webhook"), url);
     }
 }
 

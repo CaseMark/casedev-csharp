@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using CaseDev.Core;
@@ -151,6 +152,16 @@ public class TranscriptionCreateParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("vault_id"));
         Assert.Null(parameters.WordBoost);
         Assert.False(parameters.RawBodyData.ContainsKey("word_boost"));
+    }
+
+    [Fact]
+    public void Url_Works()
+    {
+        TranscriptionCreateParams parameters = new();
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(new Uri("https://api.case.dev/voice/transcription"), url);
     }
 }
 

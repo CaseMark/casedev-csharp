@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CaseDev.Models.Compute.V1.Secrets;
 
@@ -57,5 +58,19 @@ public class SecretUpdateGroupParamsTest : TestBase
 
         Assert.Null(parameters.Env);
         Assert.False(parameters.RawBodyData.ContainsKey("env"));
+    }
+
+    [Fact]
+    public void Url_Works()
+    {
+        SecretUpdateGroupParams parameters = new()
+        {
+            Group = "litigation-apis",
+            Secrets = new Dictionary<string, string>() { { "foo", "string" } },
+        };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(new Uri("https://api.case.dev/compute/v1/secrets/litigation-apis"), url);
     }
 }

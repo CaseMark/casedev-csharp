@@ -1,3 +1,4 @@
+using System;
 using System.Text.Json;
 using CaseDev.Core;
 using CaseDev.Exceptions;
@@ -97,6 +98,16 @@ public class V1ProcessParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("result_bucket"));
         Assert.Null(parameters.ResultPrefix);
         Assert.False(parameters.RawBodyData.ContainsKey("result_prefix"));
+    }
+
+    [Fact]
+    public void Url_Works()
+    {
+        V1ProcessParams parameters = new() { DocumentURL = "https://example.com/contract.pdf" };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(new Uri("https://api.case.dev/ocr/v1/process"), url);
     }
 }
 

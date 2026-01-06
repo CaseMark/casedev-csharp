@@ -1,3 +1,4 @@
+using System;
 using System.Text.Json;
 using CaseDev.Core;
 using CaseDev.Exceptions;
@@ -65,6 +66,16 @@ public class VaultSearchParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("method"));
         Assert.Null(parameters.TopK);
         Assert.False(parameters.RawBodyData.ContainsKey("topK"));
+    }
+
+    [Fact]
+    public void Url_Works()
+    {
+        VaultSearchParams parameters = new() { ID = "id", Query = "query" };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(new Uri("https://api.case.dev/vault/id/search"), url);
     }
 }
 

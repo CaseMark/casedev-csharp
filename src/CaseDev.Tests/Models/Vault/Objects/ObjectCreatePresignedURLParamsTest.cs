@@ -1,3 +1,4 @@
+using System;
 using System.Text.Json;
 using CaseDev.Core;
 using CaseDev.Exceptions;
@@ -65,6 +66,16 @@ public class ObjectCreatePresignedURLParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("expiresIn"));
         Assert.Null(parameters.Operation);
         Assert.False(parameters.RawBodyData.ContainsKey("operation"));
+    }
+
+    [Fact]
+    public void Url_Works()
+    {
+        ObjectCreatePresignedURLParams parameters = new() { ID = "id", ObjectID = "objectId" };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(new Uri("https://api.case.dev/vault/id/objects/objectId/presigned-url"), url);
     }
 }
 

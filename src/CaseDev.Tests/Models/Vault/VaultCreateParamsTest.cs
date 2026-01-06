@@ -1,3 +1,4 @@
+using System;
 using System.Text.Json;
 using CaseDev.Models.Vault;
 
@@ -64,5 +65,15 @@ public class VaultCreateParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("enableGraph"));
         Assert.Null(parameters.Metadata);
         Assert.False(parameters.RawBodyData.ContainsKey("metadata"));
+    }
+
+    [Fact]
+    public void Url_Works()
+    {
+        VaultCreateParams parameters = new() { Name = "Contract Review Archive" };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(new Uri("https://api.case.dev/vault"), url);
     }
 }

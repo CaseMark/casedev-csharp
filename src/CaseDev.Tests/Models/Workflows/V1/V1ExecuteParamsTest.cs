@@ -1,3 +1,4 @@
+using System;
 using System.Text.Json;
 using CaseDev.Models.Workflows.V1;
 
@@ -79,5 +80,15 @@ public class V1ExecuteParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("timeout"));
         Assert.Null(parameters.Wait);
         Assert.False(parameters.RawBodyData.ContainsKey("wait"));
+    }
+
+    [Fact]
+    public void Url_Works()
+    {
+        V1ExecuteParams parameters = new() { ID = "id" };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(new Uri("https://api.case.dev/workflows/v1/id/execute"), url);
     }
 }

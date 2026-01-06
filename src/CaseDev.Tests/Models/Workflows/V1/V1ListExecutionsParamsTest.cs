@@ -1,3 +1,4 @@
+using System;
 using System.Text.Json;
 using CaseDev.Core;
 using CaseDev.Exceptions;
@@ -53,6 +54,24 @@ public class V1ListExecutionsParamsTest : TestBase
         Assert.False(parameters.RawQueryData.ContainsKey("limit"));
         Assert.Null(parameters.Status);
         Assert.False(parameters.RawQueryData.ContainsKey("status"));
+    }
+
+    [Fact]
+    public void Url_Works()
+    {
+        V1ListExecutionsParams parameters = new()
+        {
+            ID = "id",
+            Limit = 100,
+            Status = Status.Pending,
+        };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(
+            new Uri("https://api.case.dev/workflows/v1/id/executions?limit=100&status=pending"),
+            url
+        );
     }
 }
 

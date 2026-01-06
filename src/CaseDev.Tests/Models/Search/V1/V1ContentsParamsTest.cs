@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using CaseDev.Models.Search.V1;
@@ -113,5 +114,15 @@ public class V1ContentsParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("summary"));
         Assert.Null(parameters.Text);
         Assert.False(parameters.RawBodyData.ContainsKey("text"));
+    }
+
+    [Fact]
+    public void Url_Works()
+    {
+        V1ContentsParams parameters = new() { URLs = ["https://example.com"] };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(new Uri("https://api.case.dev/search/v1/contents"), url);
     }
 }

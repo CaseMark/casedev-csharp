@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using CaseDev.Core;
@@ -107,6 +108,16 @@ public class V1UpdateParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("triggerType"));
         Assert.Null(parameters.Visibility);
         Assert.False(parameters.RawBodyData.ContainsKey("visibility"));
+    }
+
+    [Fact]
+    public void Url_Works()
+    {
+        V1UpdateParams parameters = new() { ID = "id" };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(new Uri("https://api.case.dev/workflows/v1/id"), url);
     }
 }
 

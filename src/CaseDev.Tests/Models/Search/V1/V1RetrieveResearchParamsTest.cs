@@ -1,3 +1,4 @@
+using System;
 using CaseDev.Models.Search.V1;
 
 namespace CaseDev.Tests.Models.Search.V1;
@@ -50,5 +51,23 @@ public class V1RetrieveResearchParamsTest : TestBase
         Assert.False(parameters.RawQueryData.ContainsKey("events"));
         Assert.Null(parameters.Stream);
         Assert.False(parameters.RawQueryData.ContainsKey("stream"));
+    }
+
+    [Fact]
+    public void Url_Works()
+    {
+        V1RetrieveResearchParams parameters = new()
+        {
+            ID = "id",
+            Events = "events",
+            Stream = true,
+        };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(
+            new Uri("https://api.case.dev/search/v1/research/id?events=events&stream=true"),
+            url
+        );
     }
 }

@@ -1,8 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using CaseDev.Core;
 using CaseDev.Exceptions;
-using CaseDev.Models.Format.V1.Templates;
+using Templates = CaseDev.Models.Format.V1.Templates;
 
 namespace CaseDev.Tests.Models.Format.V1.Templates;
 
@@ -11,11 +12,11 @@ public class TemplateCreateParamsTest : TestBase
     [Fact]
     public void FieldRoundtrip_Works()
     {
-        var parameters = new TemplateCreateParams
+        var parameters = new Templates::TemplateCreateParams
         {
             Content = "content",
             Name = "name",
-            Type = Type.Caption,
+            Type = Templates::Type.Caption,
             Description = "description",
             Styles = JsonSerializer.Deserialize<JsonElement>("{}"),
             Tags = ["string"],
@@ -24,7 +25,7 @@ public class TemplateCreateParamsTest : TestBase
 
         string expectedContent = "content";
         string expectedName = "name";
-        ApiEnum<string, Type> expectedType = Type.Caption;
+        ApiEnum<string, Templates::Type> expectedType = Templates::Type.Caption;
         string expectedDescription = "description";
         JsonElement expectedStyles = JsonSerializer.Deserialize<JsonElement>("{}");
         List<string> expectedTags = ["string"];
@@ -53,11 +54,11 @@ public class TemplateCreateParamsTest : TestBase
     [Fact]
     public void OptionalNonNullableParamsUnsetAreNotSet_Works()
     {
-        var parameters = new TemplateCreateParams
+        var parameters = new Templates::TemplateCreateParams
         {
             Content = "content",
             Name = "name",
-            Type = Type.Caption,
+            Type = Templates::Type.Caption,
         };
 
         Assert.Null(parameters.Description);
@@ -73,11 +74,11 @@ public class TemplateCreateParamsTest : TestBase
     [Fact]
     public void OptionalNonNullableParamsSetToNullAreNotSet_Works()
     {
-        var parameters = new TemplateCreateParams
+        var parameters = new Templates::TemplateCreateParams
         {
             Content = "content",
             Name = "name",
-            Type = Type.Caption,
+            Type = Templates::Type.Caption,
 
             // Null should be interpreted as omitted for these properties
             Description = null,
@@ -95,28 +96,43 @@ public class TemplateCreateParamsTest : TestBase
         Assert.Null(parameters.Variables);
         Assert.False(parameters.RawBodyData.ContainsKey("variables"));
     }
+
+    [Fact]
+    public void Url_Works()
+    {
+        Templates::TemplateCreateParams parameters = new()
+        {
+            Content = "content",
+            Name = "name",
+            Type = Templates::Type.Caption,
+        };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(new Uri("https://api.case.dev/format/v1/templates"), url);
+    }
 }
 
 public class TypeTest : TestBase
 {
     [Theory]
-    [InlineData(Type.Caption)]
-    [InlineData(Type.Signature)]
-    [InlineData(Type.Letterhead)]
-    [InlineData(Type.Certificate)]
-    [InlineData(Type.Footer)]
-    [InlineData(Type.Custom)]
-    public void Validation_Works(Type rawValue)
+    [InlineData(Templates::Type.Caption)]
+    [InlineData(Templates::Type.Signature)]
+    [InlineData(Templates::Type.Letterhead)]
+    [InlineData(Templates::Type.Certificate)]
+    [InlineData(Templates::Type.Footer)]
+    [InlineData(Templates::Type.Custom)]
+    public void Validation_Works(Templates::Type rawValue)
     {
         // force implicit conversion because Theory can't do that for us
-        ApiEnum<string, Type> value = rawValue;
+        ApiEnum<string, Templates::Type> value = rawValue;
         value.Validate();
     }
 
     [Fact]
     public void InvalidEnumValidationThrows_Works()
     {
-        var value = JsonSerializer.Deserialize<ApiEnum<string, Type>>(
+        var value = JsonSerializer.Deserialize<ApiEnum<string, Templates::Type>>(
             JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
             ModelBase.SerializerOptions
         );
@@ -126,19 +142,19 @@ public class TypeTest : TestBase
     }
 
     [Theory]
-    [InlineData(Type.Caption)]
-    [InlineData(Type.Signature)]
-    [InlineData(Type.Letterhead)]
-    [InlineData(Type.Certificate)]
-    [InlineData(Type.Footer)]
-    [InlineData(Type.Custom)]
-    public void SerializationRoundtrip_Works(Type rawValue)
+    [InlineData(Templates::Type.Caption)]
+    [InlineData(Templates::Type.Signature)]
+    [InlineData(Templates::Type.Letterhead)]
+    [InlineData(Templates::Type.Certificate)]
+    [InlineData(Templates::Type.Footer)]
+    [InlineData(Templates::Type.Custom)]
+    public void SerializationRoundtrip_Works(Templates::Type rawValue)
     {
         // force implicit conversion because Theory can't do that for us
-        ApiEnum<string, Type> value = rawValue;
+        ApiEnum<string, Templates::Type> value = rawValue;
 
         string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Type>>(
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Templates::Type>>(
             json,
             ModelBase.SerializerOptions
         );
@@ -149,12 +165,12 @@ public class TypeTest : TestBase
     [Fact]
     public void InvalidEnumSerializationRoundtrip_Works()
     {
-        var value = JsonSerializer.Deserialize<ApiEnum<string, Type>>(
+        var value = JsonSerializer.Deserialize<ApiEnum<string, Templates::Type>>(
             JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
             ModelBase.SerializerOptions
         );
         string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Type>>(
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Templates::Type>>(
             json,
             ModelBase.SerializerOptions
         );

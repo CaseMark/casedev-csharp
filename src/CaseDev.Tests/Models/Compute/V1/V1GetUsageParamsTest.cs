@@ -1,3 +1,4 @@
+using System;
 using CaseDev.Models.Compute.V1;
 
 namespace CaseDev.Tests.Models.Compute.V1;
@@ -41,5 +42,15 @@ public class V1GetUsageParamsTest : TestBase
         Assert.False(parameters.RawQueryData.ContainsKey("month"));
         Assert.Null(parameters.Year);
         Assert.False(parameters.RawQueryData.ContainsKey("year"));
+    }
+
+    [Fact]
+    public void Url_Works()
+    {
+        V1GetUsageParams parameters = new() { Month = 3, Year = 2024 };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(new Uri("https://api.case.dev/compute/v1/usage?month=3&year=2024"), url);
     }
 }

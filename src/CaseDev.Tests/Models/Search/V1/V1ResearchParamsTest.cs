@@ -1,3 +1,4 @@
+using System;
 using System.Text.Json;
 using CaseDev.Core;
 using CaseDev.Exceptions;
@@ -62,6 +63,16 @@ public class V1ResearchParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("outputSchema"));
         Assert.Null(parameters.Query);
         Assert.False(parameters.RawBodyData.ContainsKey("query"));
+    }
+
+    [Fact]
+    public void Url_Works()
+    {
+        V1ResearchParams parameters = new() { Instructions = "instructions" };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(new Uri("https://api.case.dev/search/v1/research"), url);
     }
 }
 
