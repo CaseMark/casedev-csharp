@@ -69,7 +69,7 @@ public sealed record class V1DeployResponse : JsonModel
         }
     }
 
-    public string? WebhookURL
+    public string? WebhookUrl
     {
         get { return JsonModel.GetNullableClass<string>(this.RawData, "webhookUrl"); }
         init
@@ -90,7 +90,7 @@ public sealed record class V1DeployResponse : JsonModel
         _ = this.StateMachineArn;
         _ = this.Success;
         _ = this.WebhookSecret;
-        _ = this.WebhookURL;
+        _ = this.WebhookUrl;
     }
 
     public V1DeployResponse() { }

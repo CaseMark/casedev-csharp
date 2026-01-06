@@ -27,7 +27,7 @@ public sealed record class V1ProcessParams : ParamsBase
     /// <summary>
     /// URL or S3 path to the document to process
     /// </summary>
-    public required string DocumentURL
+    public required string DocumentUrl
     {
         get { return JsonModel.GetNotNullClass<string>(this.RawBodyData, "document_url"); }
         init { JsonModel.Set(this._rawBodyData, "document_url", value); }
@@ -36,7 +36,7 @@ public sealed record class V1ProcessParams : ParamsBase
     /// <summary>
     /// URL to receive completion webhook
     /// </summary>
-    public string? CallbackURL
+    public string? CallbackUrl
     {
         get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "callback_url"); }
         init

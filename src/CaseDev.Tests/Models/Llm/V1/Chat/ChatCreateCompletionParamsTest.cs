@@ -112,7 +112,7 @@ public class ChatCreateCompletionParamsTest : TestBase
             Messages = [new() { Content = "content", Role = Role.System }],
         };
 
-        var url = parameters.Url(new() { APIKey = "My API Key" });
+        var url = parameters.Url(new() { ApiKey = "My API Key" });
 
         Assert.Equal(new Uri("https://api.case.dev/llm/v1/chat/completions"), url);
     }

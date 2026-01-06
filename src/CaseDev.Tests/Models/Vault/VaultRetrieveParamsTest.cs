@@ -20,7 +20,7 @@ public class VaultRetrieveParamsTest : TestBase
     {
         VaultRetrieveParams parameters = new() { ID = "vault_abc123" };
 
-        var url = parameters.Url(new() { APIKey = "My API Key" });
+        var url = parameters.Url(new() { ApiKey = "My API Key" });
 
         Assert.Equal(new Uri("https://api.case.dev/vault/vault_abc123"), url);
     }

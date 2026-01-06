@@ -20,7 +20,7 @@ public class EnvironmentSetDefaultParamsTest : TestBase
     {
         EnvironmentSetDefaultParams parameters = new() { Name = "prod-legal-docs" };
 
-        var url = parameters.Url(new() { APIKey = "My API Key" });
+        var url = parameters.Url(new() { ApiKey = "My API Key" });
 
         Assert.Equal(
             new Uri("https://api.case.dev/compute/v1/environments/prod-legal-docs/default"),

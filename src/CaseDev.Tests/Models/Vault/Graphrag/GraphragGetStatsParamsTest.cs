@@ -20,7 +20,7 @@ public class GraphragGetStatsParamsTest : TestBase
     {
         GraphragGetStatsParams parameters = new() { ID = "id" };
 
-        var url = parameters.Url(new() { APIKey = "My API Key" });
+        var url = parameters.Url(new() { ApiKey = "My API Key" });
 
         Assert.Equal(new Uri("https://api.case.dev/vault/id/graphrag/stats"), url);
     }

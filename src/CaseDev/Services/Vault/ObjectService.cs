@@ -89,8 +89,8 @@ public sealed class ObjectService : IObjectService
     }
 
     /// <inheritdoc/>
-    public async Task<ObjectCreatePresignedURLResponse> CreatePresignedURL(
-        ObjectCreatePresignedURLParams parameters,
+    public async Task<ObjectCreatePresignedUrlResponse> CreatePresignedUrl(
+        ObjectCreatePresignedUrlParams parameters,
         CancellationToken cancellationToken = default
     )
     {
@@ -99,7 +99,7 @@ public sealed class ObjectService : IObjectService
             throw new CasedevInvalidDataException("'parameters.ObjectID' cannot be null");
         }
 
-        HttpRequest<ObjectCreatePresignedURLParams> request = new()
+        HttpRequest<ObjectCreatePresignedUrlParams> request = new()
         {
             Method = HttpMethod.Post,
             Params = parameters,
@@ -108,7 +108,7 @@ public sealed class ObjectService : IObjectService
             ._client.Execute(request, cancellationToken)
             .ConfigureAwait(false);
         var deserializedResponse = await response
-            .Deserialize<ObjectCreatePresignedURLResponse>(cancellationToken)
+            .Deserialize<ObjectCreatePresignedUrlResponse>(cancellationToken)
             .ConfigureAwait(false);
         if (this._client.ResponseValidation)
         {
@@ -118,13 +118,13 @@ public sealed class ObjectService : IObjectService
     }
 
     /// <inheritdoc/>
-    public async Task<ObjectCreatePresignedURLResponse> CreatePresignedURL(
+    public async Task<ObjectCreatePresignedUrlResponse> CreatePresignedUrl(
         string objectID,
-        ObjectCreatePresignedURLParams parameters,
+        ObjectCreatePresignedUrlParams parameters,
         CancellationToken cancellationToken = default
     )
     {
-        return await this.CreatePresignedURL(
+        return await this.CreatePresignedUrl(
             parameters with
             {
                 ObjectID = objectID,

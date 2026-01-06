@@ -25,7 +25,7 @@ public class V1DownloadParamsTest : TestBase
     {
         V1::V1DownloadParams parameters = new() { ID = "id", Type = V1::Type.Text };
 
-        var url = parameters.Url(new() { APIKey = "My API Key" });
+        var url = parameters.Url(new() { ApiKey = "My API Key" });
 
         Assert.Equal(new Uri("https://api.case.dev/ocr/v1/id/download/text"), url);
     }

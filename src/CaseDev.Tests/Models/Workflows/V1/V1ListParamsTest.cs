@@ -69,7 +69,7 @@ public class V1ListParamsTest : TestBase
             Visibility = V1ListParamsVisibility.Private,
         };
 
-        var url = parameters.Url(new() { APIKey = "My API Key" });
+        var url = parameters.Url(new() { ApiKey = "My API Key" });
 
         Assert.Equal(
             new Uri("https://api.case.dev/workflows/v1?limit=100&offset=0&visibility=private"),

@@ -20,7 +20,7 @@ public class SpeakCreateParamsTest : TestBase
             ModelID = ModelID.ElevenMultilingualV2,
             NextText = "next_text",
             OptimizeStreamingLatency = 0,
-            OutputFormat = OutputFormat.MP3_44100_128,
+            OutputFormat = OutputFormat.Mp3_44100_128,
             PreviousText = "previous_text",
             Seed = 0,
             VoiceID = "voice_id",
@@ -40,7 +40,7 @@ public class SpeakCreateParamsTest : TestBase
         ApiEnum<string, ModelID> expectedModelID = ModelID.ElevenMultilingualV2;
         string expectedNextText = "next_text";
         long expectedOptimizeStreamingLatency = 0;
-        ApiEnum<string, OutputFormat> expectedOutputFormat = OutputFormat.MP3_44100_128;
+        ApiEnum<string, OutputFormat> expectedOutputFormat = OutputFormat.Mp3_44100_128;
         string expectedPreviousText = "previous_text";
         long expectedSeed = 0;
         string expectedVoiceID = "voice_id";
@@ -145,7 +145,7 @@ public class SpeakCreateParamsTest : TestBase
     {
         SpeakCreateParams parameters = new() { Text = "text" };
 
-        var url = parameters.Url(new() { APIKey = "My API Key" });
+        var url = parameters.Url(new() { ApiKey = "My API Key" });
 
         Assert.Equal(new Uri("https://api.case.dev/voice/v1/speak"), url);
     }
@@ -214,8 +214,8 @@ public class ModelIDTest : TestBase
 public class OutputFormatTest : TestBase
 {
     [Theory]
-    [InlineData(OutputFormat.MP3_44100_128)]
-    [InlineData(OutputFormat.MP3_44100_192)]
+    [InlineData(OutputFormat.Mp3_44100_128)]
+    [InlineData(OutputFormat.Mp3_44100_192)]
     [InlineData(OutputFormat.Pcm16000)]
     [InlineData(OutputFormat.Pcm22050)]
     [InlineData(OutputFormat.Pcm24000)]
@@ -240,8 +240,8 @@ public class OutputFormatTest : TestBase
     }
 
     [Theory]
-    [InlineData(OutputFormat.MP3_44100_128)]
-    [InlineData(OutputFormat.MP3_44100_192)]
+    [InlineData(OutputFormat.Mp3_44100_128)]
+    [InlineData(OutputFormat.Mp3_44100_192)]
     [InlineData(OutputFormat.Pcm16000)]
     [InlineData(OutputFormat.Pcm22050)]
     [InlineData(OutputFormat.Pcm24000)]

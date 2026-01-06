@@ -48,7 +48,7 @@ public sealed record class V1ExecuteParams : ParamsBase
     /// <summary>
     /// URL to POST results when workflow completes (enables callback mode)
     /// </summary>
-    public string? CallbackURL
+    public string? CallbackUrl
     {
         get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "callbackUrl"); }
         init

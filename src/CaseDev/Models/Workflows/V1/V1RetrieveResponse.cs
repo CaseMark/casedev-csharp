@@ -52,7 +52,7 @@ public sealed record class V1RetrieveResponse : JsonModel
         }
     }
 
-    public string? DeploymentURL
+    public string? DeploymentUrl
     {
         get { return JsonModel.GetNullableClass<string>(this.RawData, "deploymentUrl"); }
         init
@@ -184,7 +184,7 @@ public sealed record class V1RetrieveResponse : JsonModel
         _ = this.ID;
         _ = this.CreatedAt;
         _ = this.DeployedAt;
-        _ = this.DeploymentURL;
+        _ = this.DeploymentUrl;
         _ = this.Description;
         _ = this.Edges;
         _ = this.Name;

@@ -10,23 +10,23 @@ public class V1ProcessParamsTest : TestBase
     {
         var parameters = new V1ProcessParams
         {
-            InputURL = "https://example.com",
-            CallbackURL = "https://example.com",
+            InputUrl = "https://example.com",
+            CallbackUrl = "https://example.com",
         };
 
-        string expectedInputURL = "https://example.com";
-        string expectedCallbackURL = "https://example.com";
+        string expectedInputUrl = "https://example.com";
+        string expectedCallbackUrl = "https://example.com";
 
-        Assert.Equal(expectedInputURL, parameters.InputURL);
-        Assert.Equal(expectedCallbackURL, parameters.CallbackURL);
+        Assert.Equal(expectedInputUrl, parameters.InputUrl);
+        Assert.Equal(expectedCallbackUrl, parameters.CallbackUrl);
     }
 
     [Fact]
     public void OptionalNonNullableParamsUnsetAreNotSet_Works()
     {
-        var parameters = new V1ProcessParams { InputURL = "https://example.com" };
+        var parameters = new V1ProcessParams { InputUrl = "https://example.com" };
 
-        Assert.Null(parameters.CallbackURL);
+        Assert.Null(parameters.CallbackUrl);
         Assert.False(parameters.RawBodyData.ContainsKey("callback_url"));
     }
 
@@ -35,22 +35,22 @@ public class V1ProcessParamsTest : TestBase
     {
         var parameters = new V1ProcessParams
         {
-            InputURL = "https://example.com",
+            InputUrl = "https://example.com",
 
             // Null should be interpreted as omitted for these properties
-            CallbackURL = null,
+            CallbackUrl = null,
         };
 
-        Assert.Null(parameters.CallbackURL);
+        Assert.Null(parameters.CallbackUrl);
         Assert.False(parameters.RawBodyData.ContainsKey("callback_url"));
     }
 
     [Fact]
     public void Url_Works()
     {
-        V1ProcessParams parameters = new() { InputURL = "https://example.com" };
+        V1ProcessParams parameters = new() { InputUrl = "https://example.com" };
 
-        var url = parameters.Url(new() { APIKey = "My API Key" });
+        var url = parameters.Url(new() { ApiKey = "My API Key" });
 
         Assert.Equal(new Uri("https://api.case.dev/convert/v1/process"), url);
     }

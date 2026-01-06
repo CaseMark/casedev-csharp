@@ -14,7 +14,7 @@ public class V1RetrieveResponseTest : TestBase
             ID = "id",
             CreatedAt = "createdAt",
             DeployedAt = "deployedAt",
-            DeploymentURL = "deploymentUrl",
+            DeploymentUrl = "deploymentUrl",
             Description = "description",
             Edges = [JsonSerializer.Deserialize<JsonElement>("{}")],
             Name = "name",
@@ -28,7 +28,7 @@ public class V1RetrieveResponseTest : TestBase
         string expectedID = "id";
         string expectedCreatedAt = "createdAt";
         string expectedDeployedAt = "deployedAt";
-        string expectedDeploymentURL = "deploymentUrl";
+        string expectedDeploymentUrl = "deploymentUrl";
         string expectedDescription = "description";
         List<JsonElement> expectedEdges = [JsonSerializer.Deserialize<JsonElement>("{}")];
         string expectedName = "name";
@@ -41,7 +41,7 @@ public class V1RetrieveResponseTest : TestBase
         Assert.Equal(expectedID, model.ID);
         Assert.Equal(expectedCreatedAt, model.CreatedAt);
         Assert.Equal(expectedDeployedAt, model.DeployedAt);
-        Assert.Equal(expectedDeploymentURL, model.DeploymentURL);
+        Assert.Equal(expectedDeploymentUrl, model.DeploymentUrl);
         Assert.Equal(expectedDescription, model.Description);
         Assert.NotNull(model.Edges);
         Assert.Equal(expectedEdges.Count, model.Edges.Count);
@@ -71,7 +71,7 @@ public class V1RetrieveResponseTest : TestBase
             ID = "id",
             CreatedAt = "createdAt",
             DeployedAt = "deployedAt",
-            DeploymentURL = "deploymentUrl",
+            DeploymentUrl = "deploymentUrl",
             Description = "description",
             Edges = [JsonSerializer.Deserialize<JsonElement>("{}")],
             Name = "name",
@@ -96,7 +96,7 @@ public class V1RetrieveResponseTest : TestBase
             ID = "id",
             CreatedAt = "createdAt",
             DeployedAt = "deployedAt",
-            DeploymentURL = "deploymentUrl",
+            DeploymentUrl = "deploymentUrl",
             Description = "description",
             Edges = [JsonSerializer.Deserialize<JsonElement>("{}")],
             Name = "name",
@@ -114,7 +114,7 @@ public class V1RetrieveResponseTest : TestBase
         string expectedID = "id";
         string expectedCreatedAt = "createdAt";
         string expectedDeployedAt = "deployedAt";
-        string expectedDeploymentURL = "deploymentUrl";
+        string expectedDeploymentUrl = "deploymentUrl";
         string expectedDescription = "description";
         List<JsonElement> expectedEdges = [JsonSerializer.Deserialize<JsonElement>("{}")];
         string expectedName = "name";
@@ -127,7 +127,7 @@ public class V1RetrieveResponseTest : TestBase
         Assert.Equal(expectedID, deserialized.ID);
         Assert.Equal(expectedCreatedAt, deserialized.CreatedAt);
         Assert.Equal(expectedDeployedAt, deserialized.DeployedAt);
-        Assert.Equal(expectedDeploymentURL, deserialized.DeploymentURL);
+        Assert.Equal(expectedDeploymentUrl, deserialized.DeploymentUrl);
         Assert.Equal(expectedDescription, deserialized.Description);
         Assert.NotNull(deserialized.Edges);
         Assert.Equal(expectedEdges.Count, deserialized.Edges.Count);
@@ -159,7 +159,7 @@ public class V1RetrieveResponseTest : TestBase
             ID = "id",
             CreatedAt = "createdAt",
             DeployedAt = "deployedAt",
-            DeploymentURL = "deploymentUrl",
+            DeploymentUrl = "deploymentUrl",
             Description = "description",
             Edges = [JsonSerializer.Deserialize<JsonElement>("{}")],
             Name = "name",
@@ -184,7 +184,7 @@ public class V1RetrieveResponseTest : TestBase
         Assert.False(model.RawData.ContainsKey("createdAt"));
         Assert.Null(model.DeployedAt);
         Assert.False(model.RawData.ContainsKey("deployedAt"));
-        Assert.Null(model.DeploymentURL);
+        Assert.Null(model.DeploymentUrl);
         Assert.False(model.RawData.ContainsKey("deploymentUrl"));
         Assert.Null(model.Description);
         Assert.False(model.RawData.ContainsKey("description"));
@@ -221,7 +221,7 @@ public class V1RetrieveResponseTest : TestBase
             ID = null,
             CreatedAt = null,
             DeployedAt = null,
-            DeploymentURL = null,
+            DeploymentUrl = null,
             Description = null,
             Edges = null,
             Name = null,
@@ -238,7 +238,7 @@ public class V1RetrieveResponseTest : TestBase
         Assert.False(model.RawData.ContainsKey("createdAt"));
         Assert.Null(model.DeployedAt);
         Assert.False(model.RawData.ContainsKey("deployedAt"));
-        Assert.Null(model.DeploymentURL);
+        Assert.Null(model.DeploymentUrl);
         Assert.False(model.RawData.ContainsKey("deploymentUrl"));
         Assert.Null(model.Description);
         Assert.False(model.RawData.ContainsKey("description"));
@@ -267,7 +267,7 @@ public class V1RetrieveResponseTest : TestBase
             ID = null,
             CreatedAt = null,
             DeployedAt = null,
-            DeploymentURL = null,
+            DeploymentUrl = null,
             Description = null,
             Edges = null,
             Name = null,

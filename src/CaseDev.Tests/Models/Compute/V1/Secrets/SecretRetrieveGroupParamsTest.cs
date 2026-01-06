@@ -46,7 +46,7 @@ public class SecretRetrieveGroupParamsTest : TestBase
     {
         SecretRetrieveGroupParams parameters = new() { Group = "group", Env = "env" };
 
-        var url = parameters.Url(new() { APIKey = "My API Key" });
+        var url = parameters.Url(new() { ApiKey = "My API Key" });
 
         Assert.Equal(new Uri("https://api.case.dev/compute/v1/secrets/group?env=env"), url);
     }

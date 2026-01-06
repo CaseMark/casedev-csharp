@@ -183,7 +183,7 @@ public sealed record class Citation : JsonModel
         }
     }
 
-    public string? URL
+    public string? Url
     {
         get { return JsonModel.GetNullableClass<string>(this.RawData, "url"); }
         init
@@ -204,7 +204,7 @@ public sealed record class Citation : JsonModel
         _ = this.PublishedDate;
         _ = this.Text;
         _ = this.Title;
-        _ = this.URL;
+        _ = this.Url;
     }
 
     public Citation() { }

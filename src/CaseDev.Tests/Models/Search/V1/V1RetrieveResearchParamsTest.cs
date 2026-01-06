@@ -63,7 +63,7 @@ public class V1RetrieveResearchParamsTest : TestBase
             Stream = true,
         };
 
-        var url = parameters.Url(new() { APIKey = "My API Key" });
+        var url = parameters.Url(new() { ApiKey = "My API Key" });
 
         Assert.Equal(
             new Uri("https://api.case.dev/search/v1/research/id?events=events&stream=true"),

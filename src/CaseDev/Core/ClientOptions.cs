@@ -92,15 +92,15 @@ public struct ClientOptions()
     Lazy<string> _apiKey = new(() =>
         Environment.GetEnvironmentVariable("CASEDEV_API_KEY")
         ?? throw new CasedevInvalidDataException(
-            string.Format("{0} cannot be null", nameof(APIKey)),
-            new ArgumentNullException(nameof(APIKey))
+            string.Format("{0} cannot be null", nameof(ApiKey)),
+            new ArgumentNullException(nameof(ApiKey))
         )
     );
 
     /// <summary>
     /// API key authentication. Use your case.dev API key (e.g., sk_case_your_api_key_here)
     /// </summary>
-    public string APIKey
+    public string ApiKey
     {
         readonly get { return _apiKey.Value; }
         set { _apiKey = new(() => value); }

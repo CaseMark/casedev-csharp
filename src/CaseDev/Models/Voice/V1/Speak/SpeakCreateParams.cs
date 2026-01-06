@@ -370,8 +370,8 @@ sealed class ModelIDConverter : JsonConverter<ModelID>
 [JsonConverter(typeof(OutputFormatConverter))]
 public enum OutputFormat
 {
-    MP3_44100_128,
-    MP3_44100_192,
+    Mp3_44100_128,
+    Mp3_44100_192,
     Pcm16000,
     Pcm22050,
     Pcm24000,
@@ -388,8 +388,8 @@ sealed class OutputFormatConverter : JsonConverter<OutputFormat>
     {
         return JsonSerializer.Deserialize<string>(ref reader, options) switch
         {
-            "mp3_44100_128" => OutputFormat.MP3_44100_128,
-            "mp3_44100_192" => OutputFormat.MP3_44100_192,
+            "mp3_44100_128" => OutputFormat.Mp3_44100_128,
+            "mp3_44100_192" => OutputFormat.Mp3_44100_192,
             "pcm_16000" => OutputFormat.Pcm16000,
             "pcm_22050" => OutputFormat.Pcm22050,
             "pcm_24000" => OutputFormat.Pcm24000,
@@ -408,8 +408,8 @@ sealed class OutputFormatConverter : JsonConverter<OutputFormat>
             writer,
             value switch
             {
-                OutputFormat.MP3_44100_128 => "mp3_44100_128",
-                OutputFormat.MP3_44100_192 => "mp3_44100_192",
+                OutputFormat.Mp3_44100_128 => "mp3_44100_128",
+                OutputFormat.Mp3_44100_192 => "mp3_44100_192",
                 OutputFormat.Pcm16000 => "pcm_16000",
                 OutputFormat.Pcm22050 => "pcm_22050",
                 OutputFormat.Pcm24000 => "pcm_24000",

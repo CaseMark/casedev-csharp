@@ -22,7 +22,7 @@ public class V1SimilarResponseTest : TestBase
                     Snippet = "snippet",
                     Text = "text",
                     Title = "title",
-                    URL = "url",
+                    Url = "url",
                 },
             ],
             TotalResults = 0,
@@ -39,7 +39,7 @@ public class V1SimilarResponseTest : TestBase
                 Snippet = "snippet",
                 Text = "text",
                 Title = "title",
-                URL = "url",
+                Url = "url",
             },
         ];
         long expectedTotalResults = 0;
@@ -70,7 +70,7 @@ public class V1SimilarResponseTest : TestBase
                     Snippet = "snippet",
                     Text = "text",
                     Title = "title",
-                    URL = "url",
+                    Url = "url",
                 },
             ],
             TotalResults = 0,
@@ -98,7 +98,7 @@ public class V1SimilarResponseTest : TestBase
                     Snippet = "snippet",
                     Text = "text",
                     Title = "title",
-                    URL = "url",
+                    Url = "url",
                 },
             ],
             TotalResults = 0,
@@ -119,7 +119,7 @@ public class V1SimilarResponseTest : TestBase
                 Snippet = "snippet",
                 Text = "text",
                 Title = "title",
-                URL = "url",
+                Url = "url",
             },
         ];
         long expectedTotalResults = 0;
@@ -150,7 +150,7 @@ public class V1SimilarResponseTest : TestBase
                     Snippet = "snippet",
                     Text = "text",
                     Title = "title",
-                    URL = "url",
+                    Url = "url",
                 },
             ],
             TotalResults = 0,
@@ -227,7 +227,7 @@ public class V1SimilarResponseResultTest : TestBase
             Snippet = "snippet",
             Text = "text",
             Title = "title",
-            URL = "url",
+            Url = "url",
         };
 
         string expectedDomain = "domain";
@@ -236,7 +236,7 @@ public class V1SimilarResponseResultTest : TestBase
         string expectedSnippet = "snippet";
         string expectedText = "text";
         string expectedTitle = "title";
-        string expectedURL = "url";
+        string expectedUrl = "url";
 
         Assert.Equal(expectedDomain, model.Domain);
         Assert.Equal(expectedPublishedDate, model.PublishedDate);
@@ -244,7 +244,7 @@ public class V1SimilarResponseResultTest : TestBase
         Assert.Equal(expectedSnippet, model.Snippet);
         Assert.Equal(expectedText, model.Text);
         Assert.Equal(expectedTitle, model.Title);
-        Assert.Equal(expectedURL, model.URL);
+        Assert.Equal(expectedUrl, model.Url);
     }
 
     [Fact]
@@ -258,7 +258,7 @@ public class V1SimilarResponseResultTest : TestBase
             Snippet = "snippet",
             Text = "text",
             Title = "title",
-            URL = "url",
+            Url = "url",
         };
 
         string json = JsonSerializer.Serialize(model);
@@ -278,7 +278,7 @@ public class V1SimilarResponseResultTest : TestBase
             Snippet = "snippet",
             Text = "text",
             Title = "title",
-            URL = "url",
+            Url = "url",
         };
 
         string element = JsonSerializer.Serialize(model);
@@ -291,7 +291,7 @@ public class V1SimilarResponseResultTest : TestBase
         string expectedSnippet = "snippet";
         string expectedText = "text";
         string expectedTitle = "title";
-        string expectedURL = "url";
+        string expectedUrl = "url";
 
         Assert.Equal(expectedDomain, deserialized.Domain);
         Assert.Equal(expectedPublishedDate, deserialized.PublishedDate);
@@ -299,7 +299,7 @@ public class V1SimilarResponseResultTest : TestBase
         Assert.Equal(expectedSnippet, deserialized.Snippet);
         Assert.Equal(expectedText, deserialized.Text);
         Assert.Equal(expectedTitle, deserialized.Title);
-        Assert.Equal(expectedURL, deserialized.URL);
+        Assert.Equal(expectedUrl, deserialized.Url);
     }
 
     [Fact]
@@ -313,7 +313,7 @@ public class V1SimilarResponseResultTest : TestBase
             Snippet = "snippet",
             Text = "text",
             Title = "title",
-            URL = "url",
+            Url = "url",
         };
 
         model.Validate();
@@ -336,7 +336,7 @@ public class V1SimilarResponseResultTest : TestBase
         Assert.False(model.RawData.ContainsKey("text"));
         Assert.Null(model.Title);
         Assert.False(model.RawData.ContainsKey("title"));
-        Assert.Null(model.URL);
+        Assert.Null(model.Url);
         Assert.False(model.RawData.ContainsKey("url"));
     }
 
@@ -360,7 +360,7 @@ public class V1SimilarResponseResultTest : TestBase
             Snippet = null,
             Text = null,
             Title = null,
-            URL = null,
+            Url = null,
         };
 
         Assert.Null(model.Domain);
@@ -375,7 +375,7 @@ public class V1SimilarResponseResultTest : TestBase
         Assert.False(model.RawData.ContainsKey("text"));
         Assert.Null(model.Title);
         Assert.False(model.RawData.ContainsKey("title"));
-        Assert.Null(model.URL);
+        Assert.Null(model.Url);
         Assert.False(model.RawData.ContainsKey("url"));
     }
 
@@ -391,7 +391,7 @@ public class V1SimilarResponseResultTest : TestBase
             Snippet = null,
             Text = null,
             Title = null,
-            URL = null,
+            Url = null,
         };
 
         model.Validate();

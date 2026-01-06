@@ -29,7 +29,7 @@ public sealed record class V1ProcessParams : ParamsBase
     /// <summary>
     /// HTTPS URL to the FTR file (must be a valid S3 presigned URL)
     /// </summary>
-    public required string InputURL
+    public required string InputUrl
     {
         get { return JsonModel.GetNotNullClass<string>(this.RawBodyData, "input_url"); }
         init { JsonModel.Set(this._rawBodyData, "input_url", value); }
@@ -38,7 +38,7 @@ public sealed record class V1ProcessParams : ParamsBase
     /// <summary>
     /// Optional webhook URL to receive conversion completion notification
     /// </summary>
-    public string? CallbackURL
+    public string? CallbackUrl
     {
         get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "callback_url"); }
         init

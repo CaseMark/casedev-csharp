@@ -22,7 +22,7 @@ public class VaultUploadResponseTest : TestBase
             ObjectID = "objectId",
             Path = "path",
             S3Key = "s3Key",
-            UploadURL = "uploadUrl",
+            UploadUrl = "uploadUrl",
         };
 
         bool expectedAutoIndex = true;
@@ -37,7 +37,7 @@ public class VaultUploadResponseTest : TestBase
         string expectedObjectID = "objectId";
         string expectedPath = "path";
         string expectedS3Key = "s3Key";
-        string expectedUploadURL = "uploadUrl";
+        string expectedUploadUrl = "uploadUrl";
 
         Assert.Equal(expectedAutoIndex, model.AutoIndex);
         Assert.Equal(expectedExpiresIn, model.ExpiresIn);
@@ -46,7 +46,7 @@ public class VaultUploadResponseTest : TestBase
         Assert.Equal(expectedObjectID, model.ObjectID);
         Assert.Equal(expectedPath, model.Path);
         Assert.Equal(expectedS3Key, model.S3Key);
-        Assert.Equal(expectedUploadURL, model.UploadURL);
+        Assert.Equal(expectedUploadUrl, model.UploadUrl);
     }
 
     [Fact]
@@ -66,7 +66,7 @@ public class VaultUploadResponseTest : TestBase
             ObjectID = "objectId",
             Path = "path",
             S3Key = "s3Key",
-            UploadURL = "uploadUrl",
+            UploadUrl = "uploadUrl",
         };
 
         string json = JsonSerializer.Serialize(model);
@@ -92,7 +92,7 @@ public class VaultUploadResponseTest : TestBase
             ObjectID = "objectId",
             Path = "path",
             S3Key = "s3Key",
-            UploadURL = "uploadUrl",
+            UploadUrl = "uploadUrl",
         };
 
         string element = JsonSerializer.Serialize(model);
@@ -111,7 +111,7 @@ public class VaultUploadResponseTest : TestBase
         string expectedObjectID = "objectId";
         string expectedPath = "path";
         string expectedS3Key = "s3Key";
-        string expectedUploadURL = "uploadUrl";
+        string expectedUploadUrl = "uploadUrl";
 
         Assert.Equal(expectedAutoIndex, deserialized.AutoIndex);
         Assert.Equal(expectedExpiresIn, deserialized.ExpiresIn);
@@ -120,7 +120,7 @@ public class VaultUploadResponseTest : TestBase
         Assert.Equal(expectedObjectID, deserialized.ObjectID);
         Assert.Equal(expectedPath, deserialized.Path);
         Assert.Equal(expectedS3Key, deserialized.S3Key);
-        Assert.Equal(expectedUploadURL, deserialized.UploadURL);
+        Assert.Equal(expectedUploadUrl, deserialized.UploadUrl);
     }
 
     [Fact]
@@ -140,7 +140,7 @@ public class VaultUploadResponseTest : TestBase
             ObjectID = "objectId",
             Path = "path",
             S3Key = "s3Key",
-            UploadURL = "uploadUrl",
+            UploadUrl = "uploadUrl",
         };
 
         model.Validate();
@@ -161,7 +161,7 @@ public class VaultUploadResponseTest : TestBase
         Assert.False(model.RawData.ContainsKey("objectId"));
         Assert.Null(model.S3Key);
         Assert.False(model.RawData.ContainsKey("s3Key"));
-        Assert.Null(model.UploadURL);
+        Assert.Null(model.UploadUrl);
         Assert.False(model.RawData.ContainsKey("uploadUrl"));
     }
 
@@ -187,7 +187,7 @@ public class VaultUploadResponseTest : TestBase
             Instructions = null,
             ObjectID = null,
             S3Key = null,
-            UploadURL = null,
+            UploadUrl = null,
         };
 
         Assert.Null(model.AutoIndex);
@@ -200,7 +200,7 @@ public class VaultUploadResponseTest : TestBase
         Assert.False(model.RawData.ContainsKey("objectId"));
         Assert.Null(model.S3Key);
         Assert.False(model.RawData.ContainsKey("s3Key"));
-        Assert.Null(model.UploadURL);
+        Assert.Null(model.UploadUrl);
         Assert.False(model.RawData.ContainsKey("uploadUrl"));
     }
 
@@ -218,7 +218,7 @@ public class VaultUploadResponseTest : TestBase
             Instructions = null,
             ObjectID = null,
             S3Key = null,
-            UploadURL = null,
+            UploadUrl = null,
         };
 
         model.Validate();
@@ -239,7 +239,7 @@ public class VaultUploadResponseTest : TestBase
             },
             ObjectID = "objectId",
             S3Key = "s3Key",
-            UploadURL = "uploadUrl",
+            UploadUrl = "uploadUrl",
         };
 
         Assert.Null(model.NextStep);
@@ -263,7 +263,7 @@ public class VaultUploadResponseTest : TestBase
             },
             ObjectID = "objectId",
             S3Key = "s3Key",
-            UploadURL = "uploadUrl",
+            UploadUrl = "uploadUrl",
         };
 
         model.Validate();
@@ -284,7 +284,7 @@ public class VaultUploadResponseTest : TestBase
             },
             ObjectID = "objectId",
             S3Key = "s3Key",
-            UploadURL = "uploadUrl",
+            UploadUrl = "uploadUrl",
 
             NextStep = null,
             Path = null,
@@ -311,7 +311,7 @@ public class VaultUploadResponseTest : TestBase
             },
             ObjectID = "objectId",
             S3Key = "s3Key",
-            UploadURL = "uploadUrl",
+            UploadUrl = "uploadUrl",
 
             NextStep = null,
             Path = null,

@@ -21,7 +21,7 @@ public class V1SearchResponseTest : TestBase
                     PublishedDate = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                     Snippet = "snippet",
                     Title = "title",
-                    URL = "url",
+                    Url = "url",
                 },
             ],
             TotalResults = 0,
@@ -36,7 +36,7 @@ public class V1SearchResponseTest : TestBase
                 PublishedDate = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                 Snippet = "snippet",
                 Title = "title",
-                URL = "url",
+                Url = "url",
             },
         ];
         long expectedTotalResults = 0;
@@ -65,7 +65,7 @@ public class V1SearchResponseTest : TestBase
                     PublishedDate = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                     Snippet = "snippet",
                     Title = "title",
-                    URL = "url",
+                    Url = "url",
                 },
             ],
             TotalResults = 0,
@@ -91,7 +91,7 @@ public class V1SearchResponseTest : TestBase
                     PublishedDate = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                     Snippet = "snippet",
                     Title = "title",
-                    URL = "url",
+                    Url = "url",
                 },
             ],
             TotalResults = 0,
@@ -110,7 +110,7 @@ public class V1SearchResponseTest : TestBase
                 PublishedDate = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                 Snippet = "snippet",
                 Title = "title",
-                URL = "url",
+                Url = "url",
             },
         ];
         long expectedTotalResults = 0;
@@ -139,7 +139,7 @@ public class V1SearchResponseTest : TestBase
                     PublishedDate = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                     Snippet = "snippet",
                     Title = "title",
-                    URL = "url",
+                    Url = "url",
                 },
             ],
             TotalResults = 0,
@@ -214,20 +214,20 @@ public class V1SearchResponseResultTest : TestBase
             PublishedDate = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Snippet = "snippet",
             Title = "title",
-            URL = "url",
+            Url = "url",
         };
 
         string expectedDomain = "domain";
         DateTimeOffset expectedPublishedDate = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
         string expectedSnippet = "snippet";
         string expectedTitle = "title";
-        string expectedURL = "url";
+        string expectedUrl = "url";
 
         Assert.Equal(expectedDomain, model.Domain);
         Assert.Equal(expectedPublishedDate, model.PublishedDate);
         Assert.Equal(expectedSnippet, model.Snippet);
         Assert.Equal(expectedTitle, model.Title);
-        Assert.Equal(expectedURL, model.URL);
+        Assert.Equal(expectedUrl, model.Url);
     }
 
     [Fact]
@@ -239,7 +239,7 @@ public class V1SearchResponseResultTest : TestBase
             PublishedDate = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Snippet = "snippet",
             Title = "title",
-            URL = "url",
+            Url = "url",
         };
 
         string json = JsonSerializer.Serialize(model);
@@ -257,7 +257,7 @@ public class V1SearchResponseResultTest : TestBase
             PublishedDate = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Snippet = "snippet",
             Title = "title",
-            URL = "url",
+            Url = "url",
         };
 
         string element = JsonSerializer.Serialize(model);
@@ -268,13 +268,13 @@ public class V1SearchResponseResultTest : TestBase
         DateTimeOffset expectedPublishedDate = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
         string expectedSnippet = "snippet";
         string expectedTitle = "title";
-        string expectedURL = "url";
+        string expectedUrl = "url";
 
         Assert.Equal(expectedDomain, deserialized.Domain);
         Assert.Equal(expectedPublishedDate, deserialized.PublishedDate);
         Assert.Equal(expectedSnippet, deserialized.Snippet);
         Assert.Equal(expectedTitle, deserialized.Title);
-        Assert.Equal(expectedURL, deserialized.URL);
+        Assert.Equal(expectedUrl, deserialized.Url);
     }
 
     [Fact]
@@ -286,7 +286,7 @@ public class V1SearchResponseResultTest : TestBase
             PublishedDate = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Snippet = "snippet",
             Title = "title",
-            URL = "url",
+            Url = "url",
         };
 
         model.Validate();
@@ -305,7 +305,7 @@ public class V1SearchResponseResultTest : TestBase
         Assert.False(model.RawData.ContainsKey("snippet"));
         Assert.Null(model.Title);
         Assert.False(model.RawData.ContainsKey("title"));
-        Assert.Null(model.URL);
+        Assert.Null(model.Url);
         Assert.False(model.RawData.ContainsKey("url"));
     }
 
@@ -327,7 +327,7 @@ public class V1SearchResponseResultTest : TestBase
             PublishedDate = null,
             Snippet = null,
             Title = null,
-            URL = null,
+            Url = null,
         };
 
         Assert.Null(model.Domain);
@@ -338,7 +338,7 @@ public class V1SearchResponseResultTest : TestBase
         Assert.False(model.RawData.ContainsKey("snippet"));
         Assert.Null(model.Title);
         Assert.False(model.RawData.ContainsKey("title"));
-        Assert.Null(model.URL);
+        Assert.Null(model.Url);
         Assert.False(model.RawData.ContainsKey("url"));
     }
 
@@ -352,7 +352,7 @@ public class V1SearchResponseResultTest : TestBase
             PublishedDate = null,
             Snippet = null,
             Title = null,
-            URL = null,
+            Url = null,
         };
 
         model.Validate();

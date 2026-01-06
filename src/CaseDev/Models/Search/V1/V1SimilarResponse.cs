@@ -190,7 +190,7 @@ public sealed record class V1SimilarResponseResult : JsonModel
         }
     }
 
-    public string? URL
+    public string? Url
     {
         get { return JsonModel.GetNullableClass<string>(this.RawData, "url"); }
         init
@@ -213,7 +213,7 @@ public sealed record class V1SimilarResponseResult : JsonModel
         _ = this.Snippet;
         _ = this.Text;
         _ = this.Title;
-        _ = this.URL;
+        _ = this.Url;
     }
 
     public V1SimilarResponseResult() { }

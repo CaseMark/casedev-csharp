@@ -13,7 +13,7 @@ public class V1ExecuteParamsTest : TestBase
         {
             ID = "id",
             CallbackHeaders = JsonSerializer.Deserialize<JsonElement>("{}"),
-            CallbackURL = "callbackUrl",
+            CallbackUrl = "callbackUrl",
             Input = JsonSerializer.Deserialize<JsonElement>("{}"),
             Timeout = "timeout",
             Wait = true,
@@ -21,7 +21,7 @@ public class V1ExecuteParamsTest : TestBase
 
         string expectedID = "id";
         JsonElement expectedCallbackHeaders = JsonSerializer.Deserialize<JsonElement>("{}");
-        string expectedCallbackURL = "callbackUrl";
+        string expectedCallbackUrl = "callbackUrl";
         JsonElement expectedInput = JsonSerializer.Deserialize<JsonElement>("{}");
         string expectedTimeout = "timeout";
         bool expectedWait = true;
@@ -31,7 +31,7 @@ public class V1ExecuteParamsTest : TestBase
         Assert.True(
             JsonElement.DeepEquals(expectedCallbackHeaders, parameters.CallbackHeaders.Value)
         );
-        Assert.Equal(expectedCallbackURL, parameters.CallbackURL);
+        Assert.Equal(expectedCallbackUrl, parameters.CallbackUrl);
         Assert.NotNull(parameters.Input);
         Assert.True(JsonElement.DeepEquals(expectedInput, parameters.Input.Value));
         Assert.Equal(expectedTimeout, parameters.Timeout);
@@ -45,7 +45,7 @@ public class V1ExecuteParamsTest : TestBase
 
         Assert.Null(parameters.CallbackHeaders);
         Assert.False(parameters.RawBodyData.ContainsKey("callbackHeaders"));
-        Assert.Null(parameters.CallbackURL);
+        Assert.Null(parameters.CallbackUrl);
         Assert.False(parameters.RawBodyData.ContainsKey("callbackUrl"));
         Assert.Null(parameters.Input);
         Assert.False(parameters.RawBodyData.ContainsKey("input"));
@@ -64,7 +64,7 @@ public class V1ExecuteParamsTest : TestBase
 
             // Null should be interpreted as omitted for these properties
             CallbackHeaders = null,
-            CallbackURL = null,
+            CallbackUrl = null,
             Input = null,
             Timeout = null,
             Wait = null,
@@ -72,7 +72,7 @@ public class V1ExecuteParamsTest : TestBase
 
         Assert.Null(parameters.CallbackHeaders);
         Assert.False(parameters.RawBodyData.ContainsKey("callbackHeaders"));
-        Assert.Null(parameters.CallbackURL);
+        Assert.Null(parameters.CallbackUrl);
         Assert.False(parameters.RawBodyData.ContainsKey("callbackUrl"));
         Assert.Null(parameters.Input);
         Assert.False(parameters.RawBodyData.ContainsKey("input"));
@@ -87,7 +87,7 @@ public class V1ExecuteParamsTest : TestBase
     {
         V1ExecuteParams parameters = new() { ID = "id" };
 
-        var url = parameters.Url(new() { APIKey = "My API Key" });
+        var url = parameters.Url(new() { ApiKey = "My API Key" });
 
         Assert.Equal(new Uri("https://api.case.dev/workflows/v1/id/execute"), url);
     }

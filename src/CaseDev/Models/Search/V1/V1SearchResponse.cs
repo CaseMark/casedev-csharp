@@ -187,7 +187,7 @@ public sealed record class V1SearchResponseResult : JsonModel
     /// <summary>
     /// URL of the search result
     /// </summary>
-    public string? URL
+    public string? Url
     {
         get { return JsonModel.GetNullableClass<string>(this.RawData, "url"); }
         init
@@ -208,7 +208,7 @@ public sealed record class V1SearchResponseResult : JsonModel
         _ = this.PublishedDate;
         _ = this.Snippet;
         _ = this.Title;
-        _ = this.URL;
+        _ = this.Url;
     }
 
     public V1SearchResponseResult() { }

@@ -25,7 +25,7 @@ public sealed record class V1SimilarParams : ParamsBase
     /// <summary>
     /// The URL to find similar content for
     /// </summary>
-    public required string URL
+    public required string UrlValue
     {
         get { return JsonModel.GetNotNullClass<string>(this.RawBodyData, "url"); }
         init { JsonModel.Set(this._rawBodyData, "url", value); }

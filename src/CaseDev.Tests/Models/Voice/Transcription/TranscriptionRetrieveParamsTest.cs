@@ -20,7 +20,7 @@ public class TranscriptionRetrieveParamsTest : TestBase
     {
         TranscriptionRetrieveParams parameters = new() { ID = "tr_abc123def456" };
 
-        var url = parameters.Url(new() { APIKey = "My API Key" });
+        var url = parameters.Url(new() { ApiKey = "My API Key" });
 
         Assert.Equal(new Uri("https://api.case.dev/voice/transcription/tr_abc123def456"), url);
     }

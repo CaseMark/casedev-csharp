@@ -53,15 +53,15 @@ public interface IObjectService
     /// proxying through the API. Essential for large document uploads/downloads in
     /// legal workflows.
     /// </summary>
-    Task<ObjectCreatePresignedURLResponse> CreatePresignedURL(
-        ObjectCreatePresignedURLParams parameters,
+    Task<ObjectCreatePresignedUrlResponse> CreatePresignedUrl(
+        ObjectCreatePresignedUrlParams parameters,
         CancellationToken cancellationToken = default
     );
 
-    /// <inheritdoc cref="CreatePresignedURL(ObjectCreatePresignedURLParams, CancellationToken)"/>
-    Task<ObjectCreatePresignedURLResponse> CreatePresignedURL(
+    /// <inheritdoc cref="CreatePresignedUrl(ObjectCreatePresignedUrlParams, CancellationToken)"/>
+    Task<ObjectCreatePresignedUrlResponse> CreatePresignedUrl(
         string objectID,
-        ObjectCreatePresignedURLParams parameters,
+        ObjectCreatePresignedUrlParams parameters,
         CancellationToken cancellationToken = default
     );
 

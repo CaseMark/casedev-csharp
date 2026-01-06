@@ -10,11 +10,11 @@ namespace CaseDev.Models.Vault.Objects;
 
 [JsonConverter(
     typeof(JsonModelConverter<
-        ObjectCreatePresignedURLResponse,
-        ObjectCreatePresignedURLResponseFromRaw
+        ObjectCreatePresignedUrlResponse,
+        ObjectCreatePresignedUrlResponseFromRaw
     >)
 )]
-public sealed record class ObjectCreatePresignedURLResponse : JsonModel
+public sealed record class ObjectCreatePresignedUrlResponse : JsonModel
 {
     /// <summary>
     /// URL expiration timestamp
@@ -135,7 +135,7 @@ public sealed record class ObjectCreatePresignedURLResponse : JsonModel
     /// <summary>
     /// The presigned URL for direct S3 access
     /// </summary>
-    public string? PresignedURL
+    public string? PresignedUrl
     {
         get { return JsonModel.GetNullableClass<string>(this.RawData, "presignedUrl"); }
         init
@@ -193,33 +193,33 @@ public sealed record class ObjectCreatePresignedURLResponse : JsonModel
         this.Metadata?.Validate();
         _ = this.ObjectID;
         _ = this.Operation;
-        _ = this.PresignedURL;
+        _ = this.PresignedUrl;
         _ = this.S3Key;
         _ = this.VaultID;
     }
 
-    public ObjectCreatePresignedURLResponse() { }
+    public ObjectCreatePresignedUrlResponse() { }
 
-    public ObjectCreatePresignedURLResponse(
-        ObjectCreatePresignedURLResponse objectCreatePresignedURLResponse
+    public ObjectCreatePresignedUrlResponse(
+        ObjectCreatePresignedUrlResponse objectCreatePresignedUrlResponse
     )
-        : base(objectCreatePresignedURLResponse) { }
+        : base(objectCreatePresignedUrlResponse) { }
 
-    public ObjectCreatePresignedURLResponse(IReadOnlyDictionary<string, JsonElement> rawData)
+    public ObjectCreatePresignedUrlResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];
     }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    ObjectCreatePresignedURLResponse(FrozenDictionary<string, JsonElement> rawData)
+    ObjectCreatePresignedUrlResponse(FrozenDictionary<string, JsonElement> rawData)
     {
         this._rawData = [.. rawData];
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="ObjectCreatePresignedURLResponseFromRaw.FromRawUnchecked"/>
-    public static ObjectCreatePresignedURLResponse FromRawUnchecked(
+    /// <inheritdoc cref="ObjectCreatePresignedUrlResponseFromRaw.FromRawUnchecked"/>
+    public static ObjectCreatePresignedUrlResponse FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawData
     )
     {
@@ -227,12 +227,12 @@ public sealed record class ObjectCreatePresignedURLResponse : JsonModel
     }
 }
 
-class ObjectCreatePresignedURLResponseFromRaw : IFromRawJson<ObjectCreatePresignedURLResponse>
+class ObjectCreatePresignedUrlResponseFromRaw : IFromRawJson<ObjectCreatePresignedUrlResponse>
 {
     /// <inheritdoc/>
-    public ObjectCreatePresignedURLResponse FromRawUnchecked(
+    public ObjectCreatePresignedUrlResponse FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawData
-    ) => ObjectCreatePresignedURLResponse.FromRawUnchecked(rawData);
+    ) => ObjectCreatePresignedUrlResponse.FromRawUnchecked(rawData);
 }
 
 [JsonConverter(typeof(JsonModelConverter<Metadata, MetadataFromRaw>))]

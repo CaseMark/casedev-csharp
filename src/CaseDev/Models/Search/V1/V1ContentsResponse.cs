@@ -158,7 +158,7 @@ public sealed record class Result : JsonModel
     /// <summary>
     /// Source URL
     /// </summary>
-    public string? URL
+    public string? Url
     {
         get { return JsonModel.GetNullableClass<string>(this.RawData, "url"); }
         init
@@ -180,7 +180,7 @@ public sealed record class Result : JsonModel
         _ = this.Summary;
         _ = this.Text;
         _ = this.Title;
-        _ = this.URL;
+        _ = this.Url;
     }
 
     public Result() { }
