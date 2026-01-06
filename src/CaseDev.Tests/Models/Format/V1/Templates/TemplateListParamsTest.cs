@@ -1,3 +1,4 @@
+using System;
 using CaseDev.Models.Format.V1.Templates;
 
 namespace CaseDev.Tests.Models.Format.V1.Templates;
@@ -34,5 +35,15 @@ public class TemplateListParamsTest : TestBase
 
         Assert.Null(parameters.Type);
         Assert.False(parameters.RawQueryData.ContainsKey("type"));
+    }
+
+    [Fact]
+    public void Url_Works()
+    {
+        TemplateListParams parameters = new() { Type = "type" };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(new Uri("https://api.case.dev/format/v1/templates?type=type"), url);
     }
 }

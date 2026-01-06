@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using CaseDev.Core;
@@ -128,6 +129,16 @@ public class V1AnswerParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("text"));
         Assert.Null(parameters.UseCustomLlm);
         Assert.False(parameters.RawBodyData.ContainsKey("useCustomLLM"));
+    }
+
+    [Fact]
+    public void Url_Works()
+    {
+        V1AnswerParams parameters = new() { Query = "query" };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(new Uri("https://api.case.dev/search/v1/answer"), url);
     }
 }
 

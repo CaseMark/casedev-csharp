@@ -1,3 +1,4 @@
+using System;
 using CaseDev.Models.Convert.V1;
 
 namespace CaseDev.Tests.Models.Convert.V1;
@@ -42,5 +43,15 @@ public class V1ProcessParamsTest : TestBase
 
         Assert.Null(parameters.CallbackURL);
         Assert.False(parameters.RawBodyData.ContainsKey("callback_url"));
+    }
+
+    [Fact]
+    public void Url_Works()
+    {
+        V1ProcessParams parameters = new() { InputURL = "https://example.com" };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(new Uri("https://api.case.dev/convert/v1/process"), url);
     }
 }

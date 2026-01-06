@@ -1,3 +1,4 @@
+using System;
 using CaseDev.Models.Compute.V1.Secrets;
 
 namespace CaseDev.Tests.Models.Compute.V1.Secrets;
@@ -34,5 +35,15 @@ public class SecretListParamsTest : TestBase
 
         Assert.Null(parameters.Env);
         Assert.False(parameters.RawQueryData.ContainsKey("env"));
+    }
+
+    [Fact]
+    public void Url_Works()
+    {
+        SecretListParams parameters = new() { Env = "env" };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(new Uri("https://api.case.dev/compute/v1/secrets?env=env"), url);
     }
 }

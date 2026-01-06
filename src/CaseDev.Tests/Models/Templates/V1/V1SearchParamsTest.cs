@@ -1,3 +1,4 @@
+using System;
 using CaseDev.Models.Templates.V1;
 
 namespace CaseDev.Tests.Models.Templates.V1;
@@ -50,5 +51,15 @@ public class V1SearchParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("category"));
         Assert.Null(parameters.Limit);
         Assert.False(parameters.RawBodyData.ContainsKey("limit"));
+    }
+
+    [Fact]
+    public void Url_Works()
+    {
+        V1SearchParams parameters = new() { Query = "query" };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(new Uri("https://api.case.dev/templates/v1/search"), url);
     }
 }

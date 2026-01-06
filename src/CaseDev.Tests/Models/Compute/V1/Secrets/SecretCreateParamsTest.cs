@@ -1,3 +1,4 @@
+using System;
 using CaseDev.Models.Compute.V1.Secrets;
 
 namespace CaseDev.Tests.Models.Compute.V1.Secrets;
@@ -50,5 +51,15 @@ public class SecretCreateParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("description"));
         Assert.Null(parameters.Env);
         Assert.False(parameters.RawBodyData.ContainsKey("env"));
+    }
+
+    [Fact]
+    public void Url_Works()
+    {
+        SecretCreateParams parameters = new() { Name = "name" };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(new Uri("https://api.case.dev/compute/v1/secrets"), url);
     }
 }

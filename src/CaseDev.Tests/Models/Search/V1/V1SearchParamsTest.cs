@@ -1,8 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using CaseDev.Core;
 using CaseDev.Exceptions;
-using CaseDev.Models.Search.V1;
+using V1 = CaseDev.Models.Search.V1;
 
 namespace CaseDev.Tests.Models.Search.V1;
 
@@ -11,7 +12,7 @@ public class V1SearchParamsTest : TestBase
     [Fact]
     public void FieldRoundtrip_Works()
     {
-        var parameters = new V1SearchParams
+        var parameters = new V1::V1SearchParams
         {
             Query = "query",
             AdditionalQueries = ["string"],
@@ -25,7 +26,7 @@ public class V1SearchParamsTest : TestBase
             NumResults = 1,
             StartCrawlDate = "2019-12-27",
             StartPublishedDate = "2019-12-27",
-            Type = Type.Auto,
+            Type = V1::Type.Auto,
             UserLocation = "userLocation",
         };
 
@@ -41,7 +42,7 @@ public class V1SearchParamsTest : TestBase
         long expectedNumResults = 1;
         string expectedStartCrawlDate = "2019-12-27";
         string expectedStartPublishedDate = "2019-12-27";
-        ApiEnum<string, Type> expectedType = Type.Auto;
+        ApiEnum<string, V1::Type> expectedType = V1::Type.Auto;
         string expectedUserLocation = "userLocation";
 
         Assert.Equal(expectedQuery, parameters.Query);
@@ -78,7 +79,7 @@ public class V1SearchParamsTest : TestBase
     [Fact]
     public void OptionalNonNullableParamsUnsetAreNotSet_Works()
     {
-        var parameters = new V1SearchParams { Query = "query" };
+        var parameters = new V1::V1SearchParams { Query = "query" };
 
         Assert.Null(parameters.AdditionalQueries);
         Assert.False(parameters.RawBodyData.ContainsKey("additionalQueries"));
@@ -111,7 +112,7 @@ public class V1SearchParamsTest : TestBase
     [Fact]
     public void OptionalNonNullableParamsSetToNullAreNotSet_Works()
     {
-        var parameters = new V1SearchParams
+        var parameters = new V1::V1SearchParams
         {
             Query = "query",
 
@@ -158,25 +159,35 @@ public class V1SearchParamsTest : TestBase
         Assert.Null(parameters.UserLocation);
         Assert.False(parameters.RawBodyData.ContainsKey("userLocation"));
     }
+
+    [Fact]
+    public void Url_Works()
+    {
+        V1::V1SearchParams parameters = new() { Query = "query" };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(new Uri("https://api.case.dev/search/v1/search"), url);
+    }
 }
 
 public class TypeTest : TestBase
 {
     [Theory]
-    [InlineData(Type.Auto)]
-    [InlineData(Type.Search)]
-    [InlineData(Type.News)]
-    public void Validation_Works(Type rawValue)
+    [InlineData(V1::Type.Auto)]
+    [InlineData(V1::Type.Search)]
+    [InlineData(V1::Type.News)]
+    public void Validation_Works(V1::Type rawValue)
     {
         // force implicit conversion because Theory can't do that for us
-        ApiEnum<string, Type> value = rawValue;
+        ApiEnum<string, V1::Type> value = rawValue;
         value.Validate();
     }
 
     [Fact]
     public void InvalidEnumValidationThrows_Works()
     {
-        var value = JsonSerializer.Deserialize<ApiEnum<string, Type>>(
+        var value = JsonSerializer.Deserialize<ApiEnum<string, V1::Type>>(
             JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
             ModelBase.SerializerOptions
         );
@@ -186,16 +197,16 @@ public class TypeTest : TestBase
     }
 
     [Theory]
-    [InlineData(Type.Auto)]
-    [InlineData(Type.Search)]
-    [InlineData(Type.News)]
-    public void SerializationRoundtrip_Works(Type rawValue)
+    [InlineData(V1::Type.Auto)]
+    [InlineData(V1::Type.Search)]
+    [InlineData(V1::Type.News)]
+    public void SerializationRoundtrip_Works(V1::Type rawValue)
     {
         // force implicit conversion because Theory can't do that for us
-        ApiEnum<string, Type> value = rawValue;
+        ApiEnum<string, V1::Type> value = rawValue;
 
         string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Type>>(
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, V1::Type>>(
             json,
             ModelBase.SerializerOptions
         );
@@ -206,12 +217,12 @@ public class TypeTest : TestBase
     [Fact]
     public void InvalidEnumSerializationRoundtrip_Works()
     {
-        var value = JsonSerializer.Deserialize<ApiEnum<string, Type>>(
+        var value = JsonSerializer.Deserialize<ApiEnum<string, V1::Type>>(
             JsonSerializer.Deserialize<JsonElement>("\"invalid value\""),
             ModelBase.SerializerOptions
         );
         string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Type>>(
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, V1::Type>>(
             json,
             ModelBase.SerializerOptions
         );

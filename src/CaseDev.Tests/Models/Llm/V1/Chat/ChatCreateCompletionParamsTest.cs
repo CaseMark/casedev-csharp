@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using CaseDev.Core;
@@ -101,6 +102,19 @@ public class ChatCreateCompletionParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("temperature"));
         Assert.Null(parameters.TopP);
         Assert.False(parameters.RawBodyData.ContainsKey("top_p"));
+    }
+
+    [Fact]
+    public void Url_Works()
+    {
+        ChatCreateCompletionParams parameters = new()
+        {
+            Messages = [new() { Content = "content", Role = Role.System }],
+        };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(new Uri("https://api.case.dev/llm/v1/chat/completions"), url);
     }
 }
 

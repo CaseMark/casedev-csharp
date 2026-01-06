@@ -1,3 +1,4 @@
+using System;
 using System.Text.Json;
 using CaseDev.Core;
 using CaseDev.Exceptions;
@@ -65,6 +66,16 @@ public class V1CreateEmbeddingParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("encoding_format"));
         Assert.Null(parameters.User);
         Assert.False(parameters.RawBodyData.ContainsKey("user"));
+    }
+
+    [Fact]
+    public void Url_Works()
+    {
+        V1CreateEmbeddingParams parameters = new() { Input = "string", Model = "model" };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(new Uri("https://api.case.dev/llm/v1/embeddings"), url);
     }
 }
 

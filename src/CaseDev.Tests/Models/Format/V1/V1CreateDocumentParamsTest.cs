@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using CaseDev.Core;
@@ -86,6 +87,20 @@ public class V1CreateDocumentParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("input_format"));
         Assert.Null(parameters.Options);
         Assert.False(parameters.RawBodyData.ContainsKey("options"));
+    }
+
+    [Fact]
+    public void Url_Works()
+    {
+        V1CreateDocumentParams parameters = new()
+        {
+            Content = "content",
+            OutputFormat = OutputFormat.Pdf,
+        };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(new Uri("https://api.case.dev/format/v1/document"), url);
     }
 }
 

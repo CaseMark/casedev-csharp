@@ -1,3 +1,4 @@
+using System;
 using CaseDev.Models.Compute.V1.Environments;
 
 namespace CaseDev.Tests.Models.Compute.V1.Environments;
@@ -12,5 +13,15 @@ public class EnvironmentCreateParamsTest : TestBase
         string expectedName = "document-review-prod";
 
         Assert.Equal(expectedName, parameters.Name);
+    }
+
+    [Fact]
+    public void Url_Works()
+    {
+        EnvironmentCreateParams parameters = new() { Name = "document-review-prod" };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(new Uri("https://api.case.dev/compute/v1/environments"), url);
     }
 }

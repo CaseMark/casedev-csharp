@@ -1,3 +1,4 @@
+using System;
 using System.Text.Json;
 using CaseDev.Core;
 using CaseDev.Exceptions;
@@ -137,6 +138,16 @@ public class SpeakCreateParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("voice_id"));
         Assert.Null(parameters.VoiceSettings);
         Assert.False(parameters.RawBodyData.ContainsKey("voice_settings"));
+    }
+
+    [Fact]
+    public void Url_Works()
+    {
+        SpeakCreateParams parameters = new() { Text = "text" };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(new Uri("https://api.case.dev/voice/v1/speak"), url);
     }
 }
 

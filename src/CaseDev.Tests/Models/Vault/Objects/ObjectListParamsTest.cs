@@ -1,3 +1,4 @@
+using System;
 using CaseDev.Models.Vault.Objects;
 
 namespace CaseDev.Tests.Models.Vault.Objects;
@@ -12,5 +13,15 @@ public class ObjectListParamsTest : TestBase
         string expectedID = "id";
 
         Assert.Equal(expectedID, parameters.ID);
+    }
+
+    [Fact]
+    public void Url_Works()
+    {
+        ObjectListParams parameters = new() { ID = "id" };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(new Uri("https://api.case.dev/vault/id/objects"), url);
     }
 }

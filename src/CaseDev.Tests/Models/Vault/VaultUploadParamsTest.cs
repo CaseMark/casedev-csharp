@@ -1,3 +1,4 @@
+using System;
 using System.Text.Json;
 using CaseDev.Models.Vault;
 
@@ -81,5 +82,20 @@ public class VaultUploadParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("path"));
         Assert.Null(parameters.SizeBytes);
         Assert.False(parameters.RawBodyData.ContainsKey("sizeBytes"));
+    }
+
+    [Fact]
+    public void Url_Works()
+    {
+        VaultUploadParams parameters = new()
+        {
+            ID = "id",
+            ContentType = "contentType",
+            Filename = "filename",
+        };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(new Uri("https://api.case.dev/vault/id/upload"), url);
     }
 }

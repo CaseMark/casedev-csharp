@@ -1,3 +1,4 @@
+using System;
 using System.Text.Json;
 using CaseDev.Core;
 using CaseDev.Exceptions;
@@ -53,6 +54,20 @@ public class V1ExecuteParamsTest : TestBase
 
         Assert.Null(parameters.Options);
         Assert.False(parameters.RawBodyData.ContainsKey("options"));
+    }
+
+    [Fact]
+    public void Url_Works()
+    {
+        V1ExecuteParams parameters = new()
+        {
+            ID = "id",
+            Input = JsonSerializer.Deserialize<JsonElement>("{}"),
+        };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(new Uri("https://api.case.dev/templates/v1/id/execute"), url);
     }
 }
 

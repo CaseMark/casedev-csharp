@@ -1,3 +1,4 @@
+using System;
 using CaseDev.Models.Compute.V1.Secrets;
 
 namespace CaseDev.Tests.Models.Compute.V1.Secrets;
@@ -50,5 +51,20 @@ public class SecretDeleteGroupParamsTest : TestBase
         Assert.False(parameters.RawQueryData.ContainsKey("env"));
         Assert.Null(parameters.Key);
         Assert.False(parameters.RawQueryData.ContainsKey("key"));
+    }
+
+    [Fact]
+    public void Url_Works()
+    {
+        SecretDeleteGroupParams parameters = new()
+        {
+            Group = "group",
+            Env = "env",
+            Key = "key",
+        };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(new Uri("https://api.case.dev/compute/v1/secrets/group?env=env&key=key"), url);
     }
 }

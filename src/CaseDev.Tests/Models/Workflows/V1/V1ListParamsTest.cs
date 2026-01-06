@@ -1,3 +1,4 @@
+using System;
 using System.Text.Json;
 using CaseDev.Core;
 using CaseDev.Exceptions;
@@ -56,6 +57,24 @@ public class V1ListParamsTest : TestBase
         Assert.False(parameters.RawQueryData.ContainsKey("offset"));
         Assert.Null(parameters.Visibility);
         Assert.False(parameters.RawQueryData.ContainsKey("visibility"));
+    }
+
+    [Fact]
+    public void Url_Works()
+    {
+        V1ListParams parameters = new()
+        {
+            Limit = 100,
+            Offset = 0,
+            Visibility = V1ListParamsVisibility.Private,
+        };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(
+            new Uri("https://api.case.dev/workflows/v1?limit=100&offset=0&visibility=private"),
+            url
+        );
     }
 }
 

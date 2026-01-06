@@ -1,3 +1,4 @@
+using System;
 using CaseDev.Models.Vault.Objects;
 
 namespace CaseDev.Tests.Models.Vault.Objects;
@@ -14,5 +15,15 @@ public class ObjectDownloadParamsTest : TestBase
 
         Assert.Equal(expectedID, parameters.ID);
         Assert.Equal(expectedObjectID, parameters.ObjectID);
+    }
+
+    [Fact]
+    public void Url_Works()
+    {
+        ObjectDownloadParams parameters = new() { ID = "id", ObjectID = "objectId" };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(new Uri("https://api.case.dev/vault/id/objects/objectId/download"), url);
     }
 }

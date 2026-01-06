@@ -1,3 +1,4 @@
+using System;
 using CaseDev.Models.Vault.Graphrag;
 
 namespace CaseDev.Tests.Models.Vault.Graphrag;
@@ -12,5 +13,15 @@ public class GraphragGetStatsParamsTest : TestBase
         string expectedID = "id";
 
         Assert.Equal(expectedID, parameters.ID);
+    }
+
+    [Fact]
+    public void Url_Works()
+    {
+        GraphragGetStatsParams parameters = new() { ID = "id" };
+
+        var url = parameters.Url(new() { APIKey = "My API Key" });
+
+        Assert.Equal(new Uri("https://api.case.dev/vault/id/graphrag/stats"), url);
     }
 }
