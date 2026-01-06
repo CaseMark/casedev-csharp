@@ -14,20 +14,20 @@ public class V1DeployResponseTest : TestBase
             StateMachineArn = "stateMachineArn",
             Success = true,
             WebhookSecret = "webhookSecret",
-            WebhookURL = "webhookUrl",
+            WebhookUrl = "webhookUrl",
         };
 
         string expectedMessage = "message";
         string expectedStateMachineArn = "stateMachineArn";
         bool expectedSuccess = true;
         string expectedWebhookSecret = "webhookSecret";
-        string expectedWebhookURL = "webhookUrl";
+        string expectedWebhookUrl = "webhookUrl";
 
         Assert.Equal(expectedMessage, model.Message);
         Assert.Equal(expectedStateMachineArn, model.StateMachineArn);
         Assert.Equal(expectedSuccess, model.Success);
         Assert.Equal(expectedWebhookSecret, model.WebhookSecret);
-        Assert.Equal(expectedWebhookURL, model.WebhookURL);
+        Assert.Equal(expectedWebhookUrl, model.WebhookUrl);
     }
 
     [Fact]
@@ -39,7 +39,7 @@ public class V1DeployResponseTest : TestBase
             StateMachineArn = "stateMachineArn",
             Success = true,
             WebhookSecret = "webhookSecret",
-            WebhookURL = "webhookUrl",
+            WebhookUrl = "webhookUrl",
         };
 
         string json = JsonSerializer.Serialize(model);
@@ -57,7 +57,7 @@ public class V1DeployResponseTest : TestBase
             StateMachineArn = "stateMachineArn",
             Success = true,
             WebhookSecret = "webhookSecret",
-            WebhookURL = "webhookUrl",
+            WebhookUrl = "webhookUrl",
         };
 
         string element = JsonSerializer.Serialize(model);
@@ -68,13 +68,13 @@ public class V1DeployResponseTest : TestBase
         string expectedStateMachineArn = "stateMachineArn";
         bool expectedSuccess = true;
         string expectedWebhookSecret = "webhookSecret";
-        string expectedWebhookURL = "webhookUrl";
+        string expectedWebhookUrl = "webhookUrl";
 
         Assert.Equal(expectedMessage, deserialized.Message);
         Assert.Equal(expectedStateMachineArn, deserialized.StateMachineArn);
         Assert.Equal(expectedSuccess, deserialized.Success);
         Assert.Equal(expectedWebhookSecret, deserialized.WebhookSecret);
-        Assert.Equal(expectedWebhookURL, deserialized.WebhookURL);
+        Assert.Equal(expectedWebhookUrl, deserialized.WebhookUrl);
     }
 
     [Fact]
@@ -86,7 +86,7 @@ public class V1DeployResponseTest : TestBase
             StateMachineArn = "stateMachineArn",
             Success = true,
             WebhookSecret = "webhookSecret",
-            WebhookURL = "webhookUrl",
+            WebhookUrl = "webhookUrl",
         };
 
         model.Validate();
@@ -105,7 +105,7 @@ public class V1DeployResponseTest : TestBase
         Assert.False(model.RawData.ContainsKey("success"));
         Assert.Null(model.WebhookSecret);
         Assert.False(model.RawData.ContainsKey("webhookSecret"));
-        Assert.Null(model.WebhookURL);
+        Assert.Null(model.WebhookUrl);
         Assert.False(model.RawData.ContainsKey("webhookUrl"));
     }
 
@@ -127,7 +127,7 @@ public class V1DeployResponseTest : TestBase
             StateMachineArn = null,
             Success = null,
             WebhookSecret = null,
-            WebhookURL = null,
+            WebhookUrl = null,
         };
 
         Assert.Null(model.Message);
@@ -138,7 +138,7 @@ public class V1DeployResponseTest : TestBase
         Assert.False(model.RawData.ContainsKey("success"));
         Assert.Null(model.WebhookSecret);
         Assert.False(model.RawData.ContainsKey("webhookSecret"));
-        Assert.Null(model.WebhookURL);
+        Assert.Null(model.WebhookUrl);
         Assert.False(model.RawData.ContainsKey("webhookUrl"));
     }
 
@@ -152,7 +152,7 @@ public class V1DeployResponseTest : TestBase
             StateMachineArn = null,
             Success = null,
             WebhookSecret = null,
-            WebhookURL = null,
+            WebhookUrl = null,
         };
 
         model.Validate();

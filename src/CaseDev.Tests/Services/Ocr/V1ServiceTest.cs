@@ -25,7 +25,7 @@ public class V1ServiceTest : TestBase
     public async Task Process_Works()
     {
         var response = await this.client.Ocr.V1.Process(
-            new() { DocumentURL = "https://example.com/contract.pdf" },
+            new() { DocumentUrl = "https://example.com/contract.pdf" },
             TestContext.Current.CancellationToken
         );
         response.Validate();

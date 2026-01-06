@@ -20,7 +20,7 @@ public class V1ContentsResponseTest : TestBase
                     Summary = "summary",
                     Text = "text",
                     Title = "title",
-                    URL = "url",
+                    Url = "url",
                 },
             ],
         };
@@ -34,7 +34,7 @@ public class V1ContentsResponseTest : TestBase
                 Summary = "summary",
                 Text = "text",
                 Title = "title",
-                URL = "url",
+                Url = "url",
             },
         ];
 
@@ -60,7 +60,7 @@ public class V1ContentsResponseTest : TestBase
                     Summary = "summary",
                     Text = "text",
                     Title = "title",
-                    URL = "url",
+                    Url = "url",
                 },
             ],
         };
@@ -85,7 +85,7 @@ public class V1ContentsResponseTest : TestBase
                     Summary = "summary",
                     Text = "text",
                     Title = "title",
-                    URL = "url",
+                    Url = "url",
                 },
             ],
         };
@@ -103,7 +103,7 @@ public class V1ContentsResponseTest : TestBase
                 Summary = "summary",
                 Text = "text",
                 Title = "title",
-                URL = "url",
+                Url = "url",
             },
         ];
 
@@ -129,7 +129,7 @@ public class V1ContentsResponseTest : TestBase
                     Summary = "summary",
                     Text = "text",
                     Title = "title",
-                    URL = "url",
+                    Url = "url",
                 },
             ],
         };
@@ -192,7 +192,7 @@ public class ResultTest : TestBase
             Summary = "summary",
             Text = "text",
             Title = "title",
-            URL = "url",
+            Url = "url",
         };
 
         List<string> expectedHighlights = ["string"];
@@ -200,7 +200,7 @@ public class ResultTest : TestBase
         string expectedSummary = "summary";
         string expectedText = "text";
         string expectedTitle = "title";
-        string expectedURL = "url";
+        string expectedUrl = "url";
 
         Assert.NotNull(model.Highlights);
         Assert.Equal(expectedHighlights.Count, model.Highlights.Count);
@@ -213,7 +213,7 @@ public class ResultTest : TestBase
         Assert.Equal(expectedSummary, model.Summary);
         Assert.Equal(expectedText, model.Text);
         Assert.Equal(expectedTitle, model.Title);
-        Assert.Equal(expectedURL, model.URL);
+        Assert.Equal(expectedUrl, model.Url);
     }
 
     [Fact]
@@ -226,7 +226,7 @@ public class ResultTest : TestBase
             Summary = "summary",
             Text = "text",
             Title = "title",
-            URL = "url",
+            Url = "url",
         };
 
         string json = JsonSerializer.Serialize(model);
@@ -245,7 +245,7 @@ public class ResultTest : TestBase
             Summary = "summary",
             Text = "text",
             Title = "title",
-            URL = "url",
+            Url = "url",
         };
 
         string element = JsonSerializer.Serialize(model);
@@ -257,7 +257,7 @@ public class ResultTest : TestBase
         string expectedSummary = "summary";
         string expectedText = "text";
         string expectedTitle = "title";
-        string expectedURL = "url";
+        string expectedUrl = "url";
 
         Assert.NotNull(deserialized.Highlights);
         Assert.Equal(expectedHighlights.Count, deserialized.Highlights.Count);
@@ -270,7 +270,7 @@ public class ResultTest : TestBase
         Assert.Equal(expectedSummary, deserialized.Summary);
         Assert.Equal(expectedText, deserialized.Text);
         Assert.Equal(expectedTitle, deserialized.Title);
-        Assert.Equal(expectedURL, deserialized.URL);
+        Assert.Equal(expectedUrl, deserialized.Url);
     }
 
     [Fact]
@@ -283,7 +283,7 @@ public class ResultTest : TestBase
             Summary = "summary",
             Text = "text",
             Title = "title",
-            URL = "url",
+            Url = "url",
         };
 
         model.Validate();
@@ -304,7 +304,7 @@ public class ResultTest : TestBase
         Assert.False(model.RawData.ContainsKey("text"));
         Assert.Null(model.Title);
         Assert.False(model.RawData.ContainsKey("title"));
-        Assert.Null(model.URL);
+        Assert.Null(model.Url);
         Assert.False(model.RawData.ContainsKey("url"));
     }
 
@@ -327,7 +327,7 @@ public class ResultTest : TestBase
             Summary = null,
             Text = null,
             Title = null,
-            URL = null,
+            Url = null,
         };
 
         Assert.Null(model.Highlights);
@@ -340,7 +340,7 @@ public class ResultTest : TestBase
         Assert.False(model.RawData.ContainsKey("text"));
         Assert.Null(model.Title);
         Assert.False(model.RawData.ContainsKey("title"));
-        Assert.Null(model.URL);
+        Assert.Null(model.Url);
         Assert.False(model.RawData.ContainsKey("url"));
     }
 
@@ -355,7 +355,7 @@ public class ResultTest : TestBase
             Summary = null,
             Text = null,
             Title = null,
-            URL = null,
+            Url = null,
         };
 
         model.Validate();

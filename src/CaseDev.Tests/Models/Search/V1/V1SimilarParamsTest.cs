@@ -11,7 +11,7 @@ public class V1SimilarParamsTest : TestBase
     {
         var parameters = new V1SimilarParams
         {
-            URL = "https://example.com",
+            UrlValue = "https://example.com",
             Contents = "contents",
             EndCrawlDate = "2019-12-27",
             EndPublishedDate = "2019-12-27",
@@ -23,7 +23,7 @@ public class V1SimilarParamsTest : TestBase
             StartPublishedDate = "2019-12-27",
         };
 
-        string expectedURL = "https://example.com";
+        string expectedUrlValue = "https://example.com";
         string expectedContents = "contents";
         string expectedEndCrawlDate = "2019-12-27";
         string expectedEndPublishedDate = "2019-12-27";
@@ -34,7 +34,7 @@ public class V1SimilarParamsTest : TestBase
         string expectedStartCrawlDate = "2019-12-27";
         string expectedStartPublishedDate = "2019-12-27";
 
-        Assert.Equal(expectedURL, parameters.URL);
+        Assert.Equal(expectedUrlValue, parameters.UrlValue);
         Assert.Equal(expectedContents, parameters.Contents);
         Assert.Equal(expectedEndCrawlDate, parameters.EndCrawlDate);
         Assert.Equal(expectedEndPublishedDate, parameters.EndPublishedDate);
@@ -59,7 +59,7 @@ public class V1SimilarParamsTest : TestBase
     [Fact]
     public void OptionalNonNullableParamsUnsetAreNotSet_Works()
     {
-        var parameters = new V1SimilarParams { URL = "https://example.com" };
+        var parameters = new V1SimilarParams { UrlValue = "https://example.com" };
 
         Assert.Null(parameters.Contents);
         Assert.False(parameters.RawBodyData.ContainsKey("contents"));
@@ -86,7 +86,7 @@ public class V1SimilarParamsTest : TestBase
     {
         var parameters = new V1SimilarParams
         {
-            URL = "https://example.com",
+            UrlValue = "https://example.com",
 
             // Null should be interpreted as omitted for these properties
             Contents = null,
@@ -123,9 +123,9 @@ public class V1SimilarParamsTest : TestBase
     [Fact]
     public void Url_Works()
     {
-        V1SimilarParams parameters = new() { URL = "https://example.com" };
+        V1SimilarParams parameters = new() { UrlValue = "https://example.com" };
 
-        var url = parameters.Url(new() { APIKey = "My API Key" });
+        var url = parameters.Url(new() { ApiKey = "My API Key" });
 
         Assert.Equal(new Uri("https://api.case.dev/search/v1/similar"), url);
     }

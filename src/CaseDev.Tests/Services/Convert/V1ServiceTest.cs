@@ -15,7 +15,7 @@ public class V1ServiceTest : TestBase
     public async Task Process_Works()
     {
         var response = await this.client.Convert.V1.Process(
-            new() { InputURL = "https://example.com" },
+            new() { InputUrl = "https://example.com" },
             TestContext.Current.CancellationToken
         );
         response.Validate();

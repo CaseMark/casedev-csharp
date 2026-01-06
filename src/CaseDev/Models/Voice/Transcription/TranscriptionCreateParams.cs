@@ -32,7 +32,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// <summary>
     /// URL of the audio file to transcribe (legacy mode, no auto-storage)
     /// </summary>
-    public string? AudioURL
+    public string? AudioUrl
     {
         get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "audio_url"); }
         init

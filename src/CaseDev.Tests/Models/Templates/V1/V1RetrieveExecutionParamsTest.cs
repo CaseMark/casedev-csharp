@@ -20,7 +20,7 @@ public class V1RetrieveExecutionParamsTest : TestBase
     {
         V1RetrieveExecutionParams parameters = new() { ID = "exec_abc123def456" };
 
-        var url = parameters.Url(new() { APIKey = "My API Key" });
+        var url = parameters.Url(new() { ApiKey = "My API Key" });
 
         Assert.Equal(
             new Uri("https://api.case.dev/templates/v1/executions/exec_abc123def456"),

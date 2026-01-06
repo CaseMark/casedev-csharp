@@ -83,7 +83,7 @@ public interface ICasedevClient : IDisposable
     /// <summary>
     /// API key authentication. Use your case.dev API key (e.g., sk_case_your_api_key_here)
     /// </summary>
-    string APIKey { get; init; }
+    string ApiKey { get; init; }
 
     /// <summary>
     /// Returns a view of this service with the given option modifications applied.

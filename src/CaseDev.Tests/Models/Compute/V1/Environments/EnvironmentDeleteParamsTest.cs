@@ -20,7 +20,7 @@ public class EnvironmentDeleteParamsTest : TestBase
     {
         EnvironmentDeleteParams parameters = new() { Name = "litigation-processing" };
 
-        var url = parameters.Url(new() { APIKey = "My API Key" });
+        var url = parameters.Url(new() { ApiKey = "My API Key" });
 
         Assert.Equal(
             new Uri("https://api.case.dev/compute/v1/environments/litigation-processing"),

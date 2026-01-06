@@ -4,12 +4,12 @@ using CaseDev.Models.Vault.Objects;
 
 namespace CaseDev.Tests.Models.Vault.Objects;
 
-public class ObjectCreatePresignedURLResponseTest : TestBase
+public class ObjectCreatePresignedUrlResponseTest : TestBase
 {
     [Fact]
     public void FieldRoundtrip_Works()
     {
-        var model = new ObjectCreatePresignedURLResponse
+        var model = new ObjectCreatePresignedUrlResponse
         {
             ExpiresAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             ExpiresIn = 0,
@@ -24,7 +24,7 @@ public class ObjectCreatePresignedURLResponseTest : TestBase
             },
             ObjectID = "objectId",
             Operation = "operation",
-            PresignedURL = "presignedUrl",
+            PresignedUrl = "presignedUrl",
             S3Key = "s3Key",
             VaultID = "vaultId",
         };
@@ -42,7 +42,7 @@ public class ObjectCreatePresignedURLResponseTest : TestBase
         };
         string expectedObjectID = "objectId";
         string expectedOperation = "operation";
-        string expectedPresignedURL = "presignedUrl";
+        string expectedPresignedUrl = "presignedUrl";
         string expectedS3Key = "s3Key";
         string expectedVaultID = "vaultId";
 
@@ -54,7 +54,7 @@ public class ObjectCreatePresignedURLResponseTest : TestBase
         Assert.Equal(expectedMetadata, model.Metadata);
         Assert.Equal(expectedObjectID, model.ObjectID);
         Assert.Equal(expectedOperation, model.Operation);
-        Assert.Equal(expectedPresignedURL, model.PresignedURL);
+        Assert.Equal(expectedPresignedUrl, model.PresignedUrl);
         Assert.Equal(expectedS3Key, model.S3Key);
         Assert.Equal(expectedVaultID, model.VaultID);
     }
@@ -62,7 +62,7 @@ public class ObjectCreatePresignedURLResponseTest : TestBase
     [Fact]
     public void SerializationRoundtrip_Works()
     {
-        var model = new ObjectCreatePresignedURLResponse
+        var model = new ObjectCreatePresignedUrlResponse
         {
             ExpiresAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             ExpiresIn = 0,
@@ -77,13 +77,13 @@ public class ObjectCreatePresignedURLResponseTest : TestBase
             },
             ObjectID = "objectId",
             Operation = "operation",
-            PresignedURL = "presignedUrl",
+            PresignedUrl = "presignedUrl",
             S3Key = "s3Key",
             VaultID = "vaultId",
         };
 
         string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<ObjectCreatePresignedURLResponse>(json);
+        var deserialized = JsonSerializer.Deserialize<ObjectCreatePresignedUrlResponse>(json);
 
         Assert.Equal(model, deserialized);
     }
@@ -91,7 +91,7 @@ public class ObjectCreatePresignedURLResponseTest : TestBase
     [Fact]
     public void FieldRoundtripThroughSerialization_Works()
     {
-        var model = new ObjectCreatePresignedURLResponse
+        var model = new ObjectCreatePresignedUrlResponse
         {
             ExpiresAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             ExpiresIn = 0,
@@ -106,13 +106,13 @@ public class ObjectCreatePresignedURLResponseTest : TestBase
             },
             ObjectID = "objectId",
             Operation = "operation",
-            PresignedURL = "presignedUrl",
+            PresignedUrl = "presignedUrl",
             S3Key = "s3Key",
             VaultID = "vaultId",
         };
 
         string element = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<ObjectCreatePresignedURLResponse>(element);
+        var deserialized = JsonSerializer.Deserialize<ObjectCreatePresignedUrlResponse>(element);
         Assert.NotNull(deserialized);
 
         DateTimeOffset expectedExpiresAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
@@ -128,7 +128,7 @@ public class ObjectCreatePresignedURLResponseTest : TestBase
         };
         string expectedObjectID = "objectId";
         string expectedOperation = "operation";
-        string expectedPresignedURL = "presignedUrl";
+        string expectedPresignedUrl = "presignedUrl";
         string expectedS3Key = "s3Key";
         string expectedVaultID = "vaultId";
 
@@ -140,7 +140,7 @@ public class ObjectCreatePresignedURLResponseTest : TestBase
         Assert.Equal(expectedMetadata, deserialized.Metadata);
         Assert.Equal(expectedObjectID, deserialized.ObjectID);
         Assert.Equal(expectedOperation, deserialized.Operation);
-        Assert.Equal(expectedPresignedURL, deserialized.PresignedURL);
+        Assert.Equal(expectedPresignedUrl, deserialized.PresignedUrl);
         Assert.Equal(expectedS3Key, deserialized.S3Key);
         Assert.Equal(expectedVaultID, deserialized.VaultID);
     }
@@ -148,7 +148,7 @@ public class ObjectCreatePresignedURLResponseTest : TestBase
     [Fact]
     public void Validation_Works()
     {
-        var model = new ObjectCreatePresignedURLResponse
+        var model = new ObjectCreatePresignedUrlResponse
         {
             ExpiresAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             ExpiresIn = 0,
@@ -163,7 +163,7 @@ public class ObjectCreatePresignedURLResponseTest : TestBase
             },
             ObjectID = "objectId",
             Operation = "operation",
-            PresignedURL = "presignedUrl",
+            PresignedUrl = "presignedUrl",
             S3Key = "s3Key",
             VaultID = "vaultId",
         };
@@ -174,7 +174,7 @@ public class ObjectCreatePresignedURLResponseTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetAreNotSet_Works()
     {
-        var model = new ObjectCreatePresignedURLResponse { };
+        var model = new ObjectCreatePresignedUrlResponse { };
 
         Assert.Null(model.ExpiresAt);
         Assert.False(model.RawData.ContainsKey("expiresAt"));
@@ -190,7 +190,7 @@ public class ObjectCreatePresignedURLResponseTest : TestBase
         Assert.False(model.RawData.ContainsKey("objectId"));
         Assert.Null(model.Operation);
         Assert.False(model.RawData.ContainsKey("operation"));
-        Assert.Null(model.PresignedURL);
+        Assert.Null(model.PresignedUrl);
         Assert.False(model.RawData.ContainsKey("presignedUrl"));
         Assert.Null(model.S3Key);
         Assert.False(model.RawData.ContainsKey("s3Key"));
@@ -201,7 +201,7 @@ public class ObjectCreatePresignedURLResponseTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetValidation_Works()
     {
-        var model = new ObjectCreatePresignedURLResponse { };
+        var model = new ObjectCreatePresignedUrlResponse { };
 
         model.Validate();
     }
@@ -209,7 +209,7 @@ public class ObjectCreatePresignedURLResponseTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesSetToNullAreNotSet_Works()
     {
-        var model = new ObjectCreatePresignedURLResponse
+        var model = new ObjectCreatePresignedUrlResponse
         {
             // Null should be interpreted as omitted for these properties
             ExpiresAt = null,
@@ -219,7 +219,7 @@ public class ObjectCreatePresignedURLResponseTest : TestBase
             Metadata = null,
             ObjectID = null,
             Operation = null,
-            PresignedURL = null,
+            PresignedUrl = null,
             S3Key = null,
             VaultID = null,
         };
@@ -238,7 +238,7 @@ public class ObjectCreatePresignedURLResponseTest : TestBase
         Assert.False(model.RawData.ContainsKey("objectId"));
         Assert.Null(model.Operation);
         Assert.False(model.RawData.ContainsKey("operation"));
-        Assert.Null(model.PresignedURL);
+        Assert.Null(model.PresignedUrl);
         Assert.False(model.RawData.ContainsKey("presignedUrl"));
         Assert.Null(model.S3Key);
         Assert.False(model.RawData.ContainsKey("s3Key"));
@@ -249,7 +249,7 @@ public class ObjectCreatePresignedURLResponseTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesSetToNullValidation_Works()
     {
-        var model = new ObjectCreatePresignedURLResponse
+        var model = new ObjectCreatePresignedUrlResponse
         {
             // Null should be interpreted as omitted for these properties
             ExpiresAt = null,
@@ -259,7 +259,7 @@ public class ObjectCreatePresignedURLResponseTest : TestBase
             Metadata = null,
             ObjectID = null,
             Operation = null,
-            PresignedURL = null,
+            PresignedUrl = null,
             S3Key = null,
             VaultID = null,
         };

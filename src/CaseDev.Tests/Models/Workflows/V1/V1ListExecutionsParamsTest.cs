@@ -66,7 +66,7 @@ public class V1ListExecutionsParamsTest : TestBase
             Status = Status.Pending,
         };
 
-        var url = parameters.Url(new() { APIKey = "My API Key" });
+        var url = parameters.Url(new() { ApiKey = "My API Key" });
 
         Assert.Equal(
             new Uri("https://api.case.dev/workflows/v1/id/executions?limit=100&status=pending"),

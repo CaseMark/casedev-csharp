@@ -105,7 +105,7 @@ public class V1CreateParamsTest : TestBase
     {
         V1CreateParams parameters = new() { Name = "Document Processor" };
 
-        var url = parameters.Url(new() { APIKey = "My API Key" });
+        var url = parameters.Url(new() { ApiKey = "My API Key" });
 
         Assert.Equal(new Uri("https://api.case.dev/workflows/v1"), url);
     }

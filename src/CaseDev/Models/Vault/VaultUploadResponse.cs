@@ -113,7 +113,7 @@ public sealed record class VaultUploadResponse : JsonModel
     /// <summary>
     /// Presigned URL for uploading the file
     /// </summary>
-    public string? UploadURL
+    public string? UploadUrl
     {
         get { return JsonModel.GetNullableClass<string>(this.RawData, "uploadUrl"); }
         init
@@ -137,7 +137,7 @@ public sealed record class VaultUploadResponse : JsonModel
         _ = this.ObjectID;
         _ = this.Path;
         _ = this.S3Key;
-        _ = this.UploadURL;
+        _ = this.UploadUrl;
     }
 
     public VaultUploadResponse() { }

@@ -12,7 +12,7 @@ public class V1ContentsParamsTest : TestBase
     {
         var parameters = new V1ContentsParams
         {
-            URLs = ["https://example.com"],
+            Urls = ["https://example.com"],
             Context = "context",
             Extras = JsonSerializer.Deserialize<JsonElement>("{}"),
             Highlights = true,
@@ -24,7 +24,7 @@ public class V1ContentsParamsTest : TestBase
             Text = true,
         };
 
-        List<string> expectedURLs = ["https://example.com"];
+        List<string> expectedUrls = ["https://example.com"];
         string expectedContext = "context";
         JsonElement expectedExtras = JsonSerializer.Deserialize<JsonElement>("{}");
         bool expectedHighlights = true;
@@ -35,10 +35,10 @@ public class V1ContentsParamsTest : TestBase
         bool expectedSummary = true;
         bool expectedText = true;
 
-        Assert.Equal(expectedURLs.Count, parameters.URLs.Count);
-        for (int i = 0; i < expectedURLs.Count; i++)
+        Assert.Equal(expectedUrls.Count, parameters.Urls.Count);
+        for (int i = 0; i < expectedUrls.Count; i++)
         {
-            Assert.Equal(expectedURLs[i], parameters.URLs[i]);
+            Assert.Equal(expectedUrls[i], parameters.Urls[i]);
         }
         Assert.Equal(expectedContext, parameters.Context);
         Assert.NotNull(parameters.Extras);
@@ -55,7 +55,7 @@ public class V1ContentsParamsTest : TestBase
     [Fact]
     public void OptionalNonNullableParamsUnsetAreNotSet_Works()
     {
-        var parameters = new V1ContentsParams { URLs = ["https://example.com"] };
+        var parameters = new V1ContentsParams { Urls = ["https://example.com"] };
 
         Assert.Null(parameters.Context);
         Assert.False(parameters.RawBodyData.ContainsKey("context"));
@@ -82,7 +82,7 @@ public class V1ContentsParamsTest : TestBase
     {
         var parameters = new V1ContentsParams
         {
-            URLs = ["https://example.com"],
+            Urls = ["https://example.com"],
 
             // Null should be interpreted as omitted for these properties
             Context = null,
@@ -119,9 +119,9 @@ public class V1ContentsParamsTest : TestBase
     [Fact]
     public void Url_Works()
     {
-        V1ContentsParams parameters = new() { URLs = ["https://example.com"] };
+        V1ContentsParams parameters = new() { Urls = ["https://example.com"] };
 
-        var url = parameters.Url(new() { APIKey = "My API Key" });
+        var url = parameters.Url(new() { ApiKey = "My API Key" });
 
         Assert.Equal(new Uri("https://api.case.dev/search/v1/contents"), url);
     }

@@ -18,7 +18,7 @@ public class V1ServiceTest : TestBase
     public async Task Contents_Works()
     {
         var response = await this.client.Search.V1.Contents(
-            new() { URLs = ["https://example.com"] },
+            new() { Urls = ["https://example.com"] },
             TestContext.Current.CancellationToken
         );
         response.Validate();
@@ -58,7 +58,7 @@ public class V1ServiceTest : TestBase
     public async Task Similar_Works()
     {
         var response = await this.client.Search.V1.Similar(
-            new() { URL = "https://example.com" },
+            new() { UrlValue = "https://example.com" },
             TestContext.Current.CancellationToken
         );
         response.Validate();

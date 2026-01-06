@@ -30,8 +30,8 @@ public interface IStreamingService
     ///
     /// <para>**Pricing:** $0.30 per minute ($18.00 per hour)</para>
     /// </summary>
-    Task GetURL(
-        StreamingGetURLParams? parameters = null,
+    Task GetUrl(
+        StreamingGetUrlParams? parameters = null,
         CancellationToken cancellationToken = default
     );
 }

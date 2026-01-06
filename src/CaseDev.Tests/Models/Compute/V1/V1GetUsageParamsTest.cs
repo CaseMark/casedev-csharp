@@ -49,7 +49,7 @@ public class V1GetUsageParamsTest : TestBase
     {
         V1GetUsageParams parameters = new() { Month = 3, Year = 2024 };
 
-        var url = parameters.Url(new() { APIKey = "My API Key" });
+        var url = parameters.Url(new() { ApiKey = "My API Key" });
 
         Assert.Equal(new Uri("https://api.case.dev/compute/v1/usage?month=3&year=2024"), url);
     }

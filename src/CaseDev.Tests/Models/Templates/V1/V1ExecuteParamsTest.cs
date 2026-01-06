@@ -65,7 +65,7 @@ public class V1ExecuteParamsTest : TestBase
             Input = JsonSerializer.Deserialize<JsonElement>("{}"),
         };
 
-        var url = parameters.Url(new() { APIKey = "My API Key" });
+        var url = parameters.Url(new() { ApiKey = "My API Key" });
 
         Assert.Equal(new Uri("https://api.case.dev/templates/v1/id/execute"), url);
     }

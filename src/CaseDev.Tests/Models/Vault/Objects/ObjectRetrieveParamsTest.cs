@@ -22,7 +22,7 @@ public class ObjectRetrieveParamsTest : TestBase
     {
         ObjectRetrieveParams parameters = new() { ID = "id", ObjectID = "objectId" };
 
-        var url = parameters.Url(new() { APIKey = "My API Key" });
+        var url = parameters.Url(new() { ApiKey = "My API Key" });
 
         Assert.Equal(new Uri("https://api.case.dev/vault/id/objects/objectId"), url);
     }

@@ -24,14 +24,14 @@ public sealed class StreamingService : IStreamingService
     }
 
     /// <inheritdoc/>
-    public async Task GetURL(
-        StreamingGetURLParams? parameters = null,
+    public async Task GetUrl(
+        StreamingGetUrlParams? parameters = null,
         CancellationToken cancellationToken = default
     )
     {
         parameters ??= new();
 
-        HttpRequest<StreamingGetURLParams> request = new()
+        HttpRequest<StreamingGetUrlParams> request = new()
         {
             Method = HttpMethod.Get,
             Params = parameters,

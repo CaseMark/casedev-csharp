@@ -14,7 +14,7 @@ public class TranscriptionCreateParamsTest : TestBase
     {
         var parameters = new TranscriptionCreateParams
         {
-            AudioURL = "audio_url",
+            AudioUrl = "audio_url",
             AutoHighlights = true,
             BoostParam = BoostParam.Low,
             ContentSafetyLabels = true,
@@ -30,7 +30,7 @@ public class TranscriptionCreateParamsTest : TestBase
             WordBoost = ["string"],
         };
 
-        string expectedAudioURL = "audio_url";
+        string expectedAudioUrl = "audio_url";
         bool expectedAutoHighlights = true;
         ApiEnum<string, BoostParam> expectedBoostParam = BoostParam.Low;
         bool expectedContentSafetyLabels = true;
@@ -46,7 +46,7 @@ public class TranscriptionCreateParamsTest : TestBase
         string expectedVaultID = "vault_id";
         List<string> expectedWordBoost = ["string"];
 
-        Assert.Equal(expectedAudioURL, parameters.AudioURL);
+        Assert.Equal(expectedAudioUrl, parameters.AudioUrl);
         Assert.Equal(expectedAutoHighlights, parameters.AutoHighlights);
         Assert.Equal(expectedBoostParam, parameters.BoostParam);
         Assert.Equal(expectedContentSafetyLabels, parameters.ContentSafetyLabels);
@@ -72,7 +72,7 @@ public class TranscriptionCreateParamsTest : TestBase
     {
         var parameters = new TranscriptionCreateParams { };
 
-        Assert.Null(parameters.AudioURL);
+        Assert.Null(parameters.AudioUrl);
         Assert.False(parameters.RawBodyData.ContainsKey("audio_url"));
         Assert.Null(parameters.AutoHighlights);
         Assert.False(parameters.RawBodyData.ContainsKey("auto_highlights"));
@@ -108,7 +108,7 @@ public class TranscriptionCreateParamsTest : TestBase
         var parameters = new TranscriptionCreateParams
         {
             // Null should be interpreted as omitted for these properties
-            AudioURL = null,
+            AudioUrl = null,
             AutoHighlights = null,
             BoostParam = null,
             ContentSafetyLabels = null,
@@ -124,7 +124,7 @@ public class TranscriptionCreateParamsTest : TestBase
             WordBoost = null,
         };
 
-        Assert.Null(parameters.AudioURL);
+        Assert.Null(parameters.AudioUrl);
         Assert.False(parameters.RawBodyData.ContainsKey("audio_url"));
         Assert.Null(parameters.AutoHighlights);
         Assert.False(parameters.RawBodyData.ContainsKey("auto_highlights"));
@@ -159,7 +159,7 @@ public class TranscriptionCreateParamsTest : TestBase
     {
         TranscriptionCreateParams parameters = new();
 
-        var url = parameters.Url(new() { APIKey = "My API Key" });
+        var url = parameters.Url(new() { ApiKey = "My API Key" });
 
         Assert.Equal(new Uri("https://api.case.dev/voice/transcription"), url);
     }

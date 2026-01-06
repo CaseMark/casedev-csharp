@@ -68,7 +68,7 @@ Or manually:
 ```csharp
 using CaseDev;
 
-CasedevClient client = new() { APIKey = "My API Key" };
+CasedevClient client = new() { ApiKey = "My API Key" };
 ```
 
 Or using a combination of the two approaches.
@@ -77,7 +77,7 @@ See this table for the available options:
 
 | Property  | Environment variable | Required | Default value            |
 | --------- | -------------------- | -------- | ------------------------ |
-| `APIKey`  | `CASEDEV_API_KEY`    | true     | -                        |
+| `ApiKey`  | `CASEDEV_API_KEY`    | true     | -                        |
 | `BaseUrl` | `CASEDEV_BASE_URL`   | true     | `"https://api.case.dev"` |
 
 ### Modifying configuration

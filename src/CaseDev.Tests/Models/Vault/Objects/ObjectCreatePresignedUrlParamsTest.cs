@@ -6,12 +6,12 @@ using CaseDev.Models.Vault.Objects;
 
 namespace CaseDev.Tests.Models.Vault.Objects;
 
-public class ObjectCreatePresignedURLParamsTest : TestBase
+public class ObjectCreatePresignedUrlParamsTest : TestBase
 {
     [Fact]
     public void FieldRoundtrip_Works()
     {
-        var parameters = new ObjectCreatePresignedURLParams
+        var parameters = new ObjectCreatePresignedUrlParams
         {
             ID = "id",
             ObjectID = "objectId",
@@ -36,7 +36,7 @@ public class ObjectCreatePresignedURLParamsTest : TestBase
     [Fact]
     public void OptionalNonNullableParamsUnsetAreNotSet_Works()
     {
-        var parameters = new ObjectCreatePresignedURLParams { ID = "id", ObjectID = "objectId" };
+        var parameters = new ObjectCreatePresignedUrlParams { ID = "id", ObjectID = "objectId" };
 
         Assert.Null(parameters.ContentType);
         Assert.False(parameters.RawBodyData.ContainsKey("contentType"));
@@ -49,7 +49,7 @@ public class ObjectCreatePresignedURLParamsTest : TestBase
     [Fact]
     public void OptionalNonNullableParamsSetToNullAreNotSet_Works()
     {
-        var parameters = new ObjectCreatePresignedURLParams
+        var parameters = new ObjectCreatePresignedUrlParams
         {
             ID = "id",
             ObjectID = "objectId",
@@ -71,9 +71,9 @@ public class ObjectCreatePresignedURLParamsTest : TestBase
     [Fact]
     public void Url_Works()
     {
-        ObjectCreatePresignedURLParams parameters = new() { ID = "id", ObjectID = "objectId" };
+        ObjectCreatePresignedUrlParams parameters = new() { ID = "id", ObjectID = "objectId" };
 
-        var url = parameters.Url(new() { APIKey = "My API Key" });
+        var url = parameters.Url(new() { ApiKey = "My API Key" });
 
         Assert.Equal(new Uri("https://api.case.dev/vault/id/objects/objectId/presigned-url"), url);
     }

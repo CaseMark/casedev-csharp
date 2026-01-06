@@ -21,9 +21,9 @@ public class ObjectServiceTest : TestBase
     }
 
     [Fact(Skip = "Prism tests are disabled")]
-    public async Task CreatePresignedURL_Works()
+    public async Task CreatePresignedUrl_Works()
     {
-        var response = await this.client.Vault.Objects.CreatePresignedURL(
+        var response = await this.client.Vault.Objects.CreatePresignedUrl(
             "objectId",
             new() { ID = "id" },
             TestContext.Current.CancellationToken

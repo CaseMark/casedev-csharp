@@ -20,7 +20,7 @@ public class V1AnswerResponseTest : TestBase
                     PublishedDate = "publishedDate",
                     Text = "text",
                     Title = "title",
-                    URL = "url",
+                    Url = "url",
                 },
             ],
             Model = "model",
@@ -36,7 +36,7 @@ public class V1AnswerResponseTest : TestBase
                 PublishedDate = "publishedDate",
                 Text = "text",
                 Title = "title",
-                URL = "url",
+                Url = "url",
             },
         ];
         string expectedModel = "model";
@@ -67,7 +67,7 @@ public class V1AnswerResponseTest : TestBase
                     PublishedDate = "publishedDate",
                     Text = "text",
                     Title = "title",
-                    URL = "url",
+                    Url = "url",
                 },
             ],
             Model = "model",
@@ -94,7 +94,7 @@ public class V1AnswerResponseTest : TestBase
                     PublishedDate = "publishedDate",
                     Text = "text",
                     Title = "title",
-                    URL = "url",
+                    Url = "url",
                 },
             ],
             Model = "model",
@@ -114,7 +114,7 @@ public class V1AnswerResponseTest : TestBase
                 PublishedDate = "publishedDate",
                 Text = "text",
                 Title = "title",
-                URL = "url",
+                Url = "url",
             },
         ];
         string expectedModel = "model";
@@ -145,7 +145,7 @@ public class V1AnswerResponseTest : TestBase
                     PublishedDate = "publishedDate",
                     Text = "text",
                     Title = "title",
-                    URL = "url",
+                    Url = "url",
                 },
             ],
             Model = "model",
@@ -227,20 +227,20 @@ public class CitationTest : TestBase
             PublishedDate = "publishedDate",
             Text = "text",
             Title = "title",
-            URL = "url",
+            Url = "url",
         };
 
         string expectedID = "id";
         string expectedPublishedDate = "publishedDate";
         string expectedText = "text";
         string expectedTitle = "title";
-        string expectedURL = "url";
+        string expectedUrl = "url";
 
         Assert.Equal(expectedID, model.ID);
         Assert.Equal(expectedPublishedDate, model.PublishedDate);
         Assert.Equal(expectedText, model.Text);
         Assert.Equal(expectedTitle, model.Title);
-        Assert.Equal(expectedURL, model.URL);
+        Assert.Equal(expectedUrl, model.Url);
     }
 
     [Fact]
@@ -252,7 +252,7 @@ public class CitationTest : TestBase
             PublishedDate = "publishedDate",
             Text = "text",
             Title = "title",
-            URL = "url",
+            Url = "url",
         };
 
         string json = JsonSerializer.Serialize(model);
@@ -270,7 +270,7 @@ public class CitationTest : TestBase
             PublishedDate = "publishedDate",
             Text = "text",
             Title = "title",
-            URL = "url",
+            Url = "url",
         };
 
         string element = JsonSerializer.Serialize(model);
@@ -281,13 +281,13 @@ public class CitationTest : TestBase
         string expectedPublishedDate = "publishedDate";
         string expectedText = "text";
         string expectedTitle = "title";
-        string expectedURL = "url";
+        string expectedUrl = "url";
 
         Assert.Equal(expectedID, deserialized.ID);
         Assert.Equal(expectedPublishedDate, deserialized.PublishedDate);
         Assert.Equal(expectedText, deserialized.Text);
         Assert.Equal(expectedTitle, deserialized.Title);
-        Assert.Equal(expectedURL, deserialized.URL);
+        Assert.Equal(expectedUrl, deserialized.Url);
     }
 
     [Fact]
@@ -299,7 +299,7 @@ public class CitationTest : TestBase
             PublishedDate = "publishedDate",
             Text = "text",
             Title = "title",
-            URL = "url",
+            Url = "url",
         };
 
         model.Validate();
@@ -318,7 +318,7 @@ public class CitationTest : TestBase
         Assert.False(model.RawData.ContainsKey("text"));
         Assert.Null(model.Title);
         Assert.False(model.RawData.ContainsKey("title"));
-        Assert.Null(model.URL);
+        Assert.Null(model.Url);
         Assert.False(model.RawData.ContainsKey("url"));
     }
 
@@ -340,7 +340,7 @@ public class CitationTest : TestBase
             PublishedDate = null,
             Text = null,
             Title = null,
-            URL = null,
+            Url = null,
         };
 
         Assert.Null(model.ID);
@@ -351,7 +351,7 @@ public class CitationTest : TestBase
         Assert.False(model.RawData.ContainsKey("text"));
         Assert.Null(model.Title);
         Assert.False(model.RawData.ContainsKey("title"));
-        Assert.Null(model.URL);
+        Assert.Null(model.Url);
         Assert.False(model.RawData.ContainsKey("url"));
     }
 
@@ -365,7 +365,7 @@ public class CitationTest : TestBase
             PublishedDate = null,
             Text = null,
             Title = null,
-            URL = null,
+            Url = null,
         };
 
         model.Validate();

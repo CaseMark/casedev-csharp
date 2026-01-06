@@ -16,7 +16,7 @@ namespace CaseDev.Models.Vault.Objects;
 /// vault objects. This allows secure, time-limited access to files without proxying
 /// through the API. Essential for large document uploads/downloads in legal workflows.
 /// </summary>
-public sealed record class ObjectCreatePresignedURLParams : ParamsBase
+public sealed record class ObjectCreatePresignedUrlParams : ParamsBase
 {
     readonly FreezableDictionary<string, JsonElement> _rawBodyData = [];
     public IReadOnlyDictionary<string, JsonElement> RawBodyData
@@ -85,17 +85,17 @@ public sealed record class ObjectCreatePresignedURLParams : ParamsBase
         }
     }
 
-    public ObjectCreatePresignedURLParams() { }
+    public ObjectCreatePresignedUrlParams() { }
 
-    public ObjectCreatePresignedURLParams(
-        ObjectCreatePresignedURLParams objectCreatePresignedURLParams
+    public ObjectCreatePresignedUrlParams(
+        ObjectCreatePresignedUrlParams objectCreatePresignedUrlParams
     )
-        : base(objectCreatePresignedURLParams)
+        : base(objectCreatePresignedUrlParams)
     {
-        this._rawBodyData = [.. objectCreatePresignedURLParams._rawBodyData];
+        this._rawBodyData = [.. objectCreatePresignedUrlParams._rawBodyData];
     }
 
-    public ObjectCreatePresignedURLParams(
+    public ObjectCreatePresignedUrlParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
         IReadOnlyDictionary<string, JsonElement> rawBodyData
@@ -108,7 +108,7 @@ public sealed record class ObjectCreatePresignedURLParams : ParamsBase
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    ObjectCreatePresignedURLParams(
+    ObjectCreatePresignedUrlParams(
         FrozenDictionary<string, JsonElement> rawHeaderData,
         FrozenDictionary<string, JsonElement> rawQueryData,
         FrozenDictionary<string, JsonElement> rawBodyData
@@ -121,7 +121,7 @@ public sealed record class ObjectCreatePresignedURLParams : ParamsBase
 #pragma warning restore CS8618
 
     /// <inheritdoc cref="IFromRawJson.FromRawUnchecked"/>
-    public static ObjectCreatePresignedURLParams FromRawUnchecked(
+    public static ObjectCreatePresignedUrlParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
         IReadOnlyDictionary<string, JsonElement> rawBodyData

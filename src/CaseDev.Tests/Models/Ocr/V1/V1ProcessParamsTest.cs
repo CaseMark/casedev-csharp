@@ -13,8 +13,8 @@ public class V1ProcessParamsTest : TestBase
     {
         var parameters = new V1ProcessParams
         {
-            DocumentURL = "https://example.com/contract.pdf",
-            CallbackURL = "https://your-app.com/webhooks/ocr-complete",
+            DocumentUrl = "https://example.com/contract.pdf",
+            CallbackUrl = "https://your-app.com/webhooks/ocr-complete",
             DocumentID = "contract-2024-001",
             Engine = Engine.Doctr,
             Features = new()
@@ -28,8 +28,8 @@ public class V1ProcessParamsTest : TestBase
             ResultPrefix = "ocr/2024/",
         };
 
-        string expectedDocumentURL = "https://example.com/contract.pdf";
-        string expectedCallbackURL = "https://your-app.com/webhooks/ocr-complete";
+        string expectedDocumentUrl = "https://example.com/contract.pdf";
+        string expectedCallbackUrl = "https://your-app.com/webhooks/ocr-complete";
         string expectedDocumentID = "contract-2024-001";
         ApiEnum<string, Engine> expectedEngine = Engine.Doctr;
         Features expectedFeatures = new()
@@ -42,8 +42,8 @@ public class V1ProcessParamsTest : TestBase
         string expectedResultBucket = "my-ocr-results";
         string expectedResultPrefix = "ocr/2024/";
 
-        Assert.Equal(expectedDocumentURL, parameters.DocumentURL);
-        Assert.Equal(expectedCallbackURL, parameters.CallbackURL);
+        Assert.Equal(expectedDocumentUrl, parameters.DocumentUrl);
+        Assert.Equal(expectedCallbackUrl, parameters.CallbackUrl);
         Assert.Equal(expectedDocumentID, parameters.DocumentID);
         Assert.Equal(expectedEngine, parameters.Engine);
         Assert.Equal(expectedFeatures, parameters.Features);
@@ -54,9 +54,9 @@ public class V1ProcessParamsTest : TestBase
     [Fact]
     public void OptionalNonNullableParamsUnsetAreNotSet_Works()
     {
-        var parameters = new V1ProcessParams { DocumentURL = "https://example.com/contract.pdf" };
+        var parameters = new V1ProcessParams { DocumentUrl = "https://example.com/contract.pdf" };
 
-        Assert.Null(parameters.CallbackURL);
+        Assert.Null(parameters.CallbackUrl);
         Assert.False(parameters.RawBodyData.ContainsKey("callback_url"));
         Assert.Null(parameters.DocumentID);
         Assert.False(parameters.RawBodyData.ContainsKey("document_id"));
@@ -75,10 +75,10 @@ public class V1ProcessParamsTest : TestBase
     {
         var parameters = new V1ProcessParams
         {
-            DocumentURL = "https://example.com/contract.pdf",
+            DocumentUrl = "https://example.com/contract.pdf",
 
             // Null should be interpreted as omitted for these properties
-            CallbackURL = null,
+            CallbackUrl = null,
             DocumentID = null,
             Engine = null,
             Features = null,
@@ -86,7 +86,7 @@ public class V1ProcessParamsTest : TestBase
             ResultPrefix = null,
         };
 
-        Assert.Null(parameters.CallbackURL);
+        Assert.Null(parameters.CallbackUrl);
         Assert.False(parameters.RawBodyData.ContainsKey("callback_url"));
         Assert.Null(parameters.DocumentID);
         Assert.False(parameters.RawBodyData.ContainsKey("document_id"));
@@ -103,9 +103,9 @@ public class V1ProcessParamsTest : TestBase
     [Fact]
     public void Url_Works()
     {
-        V1ProcessParams parameters = new() { DocumentURL = "https://example.com/contract.pdf" };
+        V1ProcessParams parameters = new() { DocumentUrl = "https://example.com/contract.pdf" };
 
-        var url = parameters.Url(new() { APIKey = "My API Key" });
+        var url = parameters.Url(new() { ApiKey = "My API Key" });
 
         Assert.Equal(new Uri("https://api.case.dev/ocr/v1/process"), url);
     }

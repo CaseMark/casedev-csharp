@@ -18,14 +18,14 @@ namespace CaseDev.Models.Voice.Streaming;
 ///
 /// <para>**Pricing:** $0.30 per minute ($18.00 per hour)</para>
 /// </summary>
-public sealed record class StreamingGetURLParams : ParamsBase
+public sealed record class StreamingGetUrlParams : ParamsBase
 {
-    public StreamingGetURLParams() { }
+    public StreamingGetUrlParams() { }
 
-    public StreamingGetURLParams(StreamingGetURLParams streamingGetURLParams)
-        : base(streamingGetURLParams) { }
+    public StreamingGetUrlParams(StreamingGetUrlParams streamingGetUrlParams)
+        : base(streamingGetUrlParams) { }
 
-    public StreamingGetURLParams(
+    public StreamingGetUrlParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData
     )
@@ -36,7 +36,7 @@ public sealed record class StreamingGetURLParams : ParamsBase
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    StreamingGetURLParams(
+    StreamingGetUrlParams(
         FrozenDictionary<string, JsonElement> rawHeaderData,
         FrozenDictionary<string, JsonElement> rawQueryData
     )
@@ -47,7 +47,7 @@ public sealed record class StreamingGetURLParams : ParamsBase
 #pragma warning restore CS8618
 
     /// <inheritdoc cref="IFromRawJson.FromRawUnchecked"/>
-    public static StreamingGetURLParams FromRawUnchecked(
+    public static StreamingGetUrlParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData
     )

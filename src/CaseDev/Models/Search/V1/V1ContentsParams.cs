@@ -25,7 +25,7 @@ public sealed record class V1ContentsParams : ParamsBase
     /// <summary>
     /// Array of URLs to scrape and extract content from
     /// </summary>
-    public required IReadOnlyList<string> URLs
+    public required IReadOnlyList<string> Urls
     {
         get { return JsonModel.GetNotNullClass<List<string>>(this.RawBodyData, "urls"); }
         init { JsonModel.Set(this._rawBodyData, "urls", value); }

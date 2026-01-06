@@ -98,7 +98,7 @@ public class V1CreateDocumentParamsTest : TestBase
             OutputFormat = OutputFormat.Pdf,
         };
 
-        var url = parameters.Url(new() { APIKey = "My API Key" });
+        var url = parameters.Url(new() { ApiKey = "My API Key" });
 
         Assert.Equal(new Uri("https://api.case.dev/format/v1/document"), url);
     }
@@ -109,7 +109,7 @@ public class OutputFormatTest : TestBase
     [Theory]
     [InlineData(OutputFormat.Pdf)]
     [InlineData(OutputFormat.Docx)]
-    [InlineData(OutputFormat.HTMLPreview)]
+    [InlineData(OutputFormat.HtmlPreview)]
     public void Validation_Works(OutputFormat rawValue)
     {
         // force implicit conversion because Theory can't do that for us
@@ -132,7 +132,7 @@ public class OutputFormatTest : TestBase
     [Theory]
     [InlineData(OutputFormat.Pdf)]
     [InlineData(OutputFormat.Docx)]
-    [InlineData(OutputFormat.HTMLPreview)]
+    [InlineData(OutputFormat.HtmlPreview)]
     public void SerializationRoundtrip_Works(OutputFormat rawValue)
     {
         // force implicit conversion because Theory can't do that for us

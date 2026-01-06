@@ -167,7 +167,7 @@ public enum OutputFormat
 {
     Pdf,
     Docx,
-    HTMLPreview,
+    HtmlPreview,
 }
 
 sealed class OutputFormatConverter : JsonConverter<OutputFormat>
@@ -182,7 +182,7 @@ sealed class OutputFormatConverter : JsonConverter<OutputFormat>
         {
             "pdf" => OutputFormat.Pdf,
             "docx" => OutputFormat.Docx,
-            "html_preview" => OutputFormat.HTMLPreview,
+            "html_preview" => OutputFormat.HtmlPreview,
             _ => (OutputFormat)(-1),
         };
     }
@@ -199,7 +199,7 @@ sealed class OutputFormatConverter : JsonConverter<OutputFormat>
             {
                 OutputFormat.Pdf => "pdf",
                 OutputFormat.Docx => "docx",
-                OutputFormat.HTMLPreview => "html_preview",
+                OutputFormat.HtmlPreview => "html_preview",
                 _ => throw new CasedevInvalidDataException(
                     string.Format("Invalid value '{0}' in {1}", value, nameof(value))
                 ),
