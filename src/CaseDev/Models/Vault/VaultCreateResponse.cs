@@ -63,6 +63,23 @@ public sealed record class VaultCreateResponse : JsonModel
     }
 
     /// <summary>
+    /// Whether vector indexing is enabled for this vault
+    /// </summary>
+    public bool? EnableIndexing
+    {
+        get { return JsonModel.GetNullableStruct<bool>(this.RawData, "enableIndexing"); }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            JsonModel.Set(this._rawData, "enableIndexing", value);
+        }
+    }
+
+    /// <summary>
     /// S3 bucket name for document storage
     /// </summary>
     public string? FilesBucket
@@ -80,20 +97,12 @@ public sealed record class VaultCreateResponse : JsonModel
     }
 
     /// <summary>
-    /// Vector search index name
+    /// Vector search index name. Null for storage-only vaults.
     /// </summary>
     public string? IndexName
     {
         get { return JsonModel.GetNullableClass<string>(this.RawData, "indexName"); }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            JsonModel.Set(this._rawData, "indexName", value);
-        }
+        init { JsonModel.Set(this._rawData, "indexName", value); }
     }
 
     /// <summary>
@@ -131,20 +140,12 @@ public sealed record class VaultCreateResponse : JsonModel
     }
 
     /// <summary>
-    /// S3 bucket name for vector embeddings
+    /// S3 bucket name for vector embeddings. Null for storage-only vaults.
     /// </summary>
     public string? VectorBucket
     {
         get { return JsonModel.GetNullableClass<string>(this.RawData, "vectorBucket"); }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            JsonModel.Set(this._rawData, "vectorBucket", value);
-        }
+        init { JsonModel.Set(this._rawData, "vectorBucket", value); }
     }
 
     /// <inheritdoc/>
@@ -153,6 +154,7 @@ public sealed record class VaultCreateResponse : JsonModel
         _ = this.ID;
         _ = this.CreatedAt;
         _ = this.Description;
+        _ = this.EnableIndexing;
         _ = this.FilesBucket;
         _ = this.IndexName;
         _ = this.Name;

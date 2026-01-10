@@ -14,6 +14,7 @@ public class VaultCreateParamsTest : TestBase
             Name = "Contract Review Archive",
             Description = "Repository for all client contract reviews and analysis",
             EnableGraph = true,
+            EnableIndexing = true,
             Metadata = JsonSerializer.Deserialize<JsonElement>(
                 "{\"containsPHI\":true,\"hipaaCompliant\":true}"
             ),
@@ -22,6 +23,7 @@ public class VaultCreateParamsTest : TestBase
         string expectedName = "Contract Review Archive";
         string expectedDescription = "Repository for all client contract reviews and analysis";
         bool expectedEnableGraph = true;
+        bool expectedEnableIndexing = true;
         JsonElement expectedMetadata = JsonSerializer.Deserialize<JsonElement>(
             "{\"containsPHI\":true,\"hipaaCompliant\":true}"
         );
@@ -29,6 +31,7 @@ public class VaultCreateParamsTest : TestBase
         Assert.Equal(expectedName, parameters.Name);
         Assert.Equal(expectedDescription, parameters.Description);
         Assert.Equal(expectedEnableGraph, parameters.EnableGraph);
+        Assert.Equal(expectedEnableIndexing, parameters.EnableIndexing);
         Assert.NotNull(parameters.Metadata);
         Assert.True(JsonElement.DeepEquals(expectedMetadata, parameters.Metadata.Value));
     }
@@ -42,6 +45,8 @@ public class VaultCreateParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("description"));
         Assert.Null(parameters.EnableGraph);
         Assert.False(parameters.RawBodyData.ContainsKey("enableGraph"));
+        Assert.Null(parameters.EnableIndexing);
+        Assert.False(parameters.RawBodyData.ContainsKey("enableIndexing"));
         Assert.Null(parameters.Metadata);
         Assert.False(parameters.RawBodyData.ContainsKey("metadata"));
     }
@@ -56,6 +61,7 @@ public class VaultCreateParamsTest : TestBase
             // Null should be interpreted as omitted for these properties
             Description = null,
             EnableGraph = null,
+            EnableIndexing = null,
             Metadata = null,
         };
 
@@ -63,6 +69,8 @@ public class VaultCreateParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("description"));
         Assert.Null(parameters.EnableGraph);
         Assert.False(parameters.RawBodyData.ContainsKey("enableGraph"));
+        Assert.Null(parameters.EnableIndexing);
+        Assert.False(parameters.RawBodyData.ContainsKey("enableIndexing"));
         Assert.Null(parameters.Metadata);
         Assert.False(parameters.RawBodyData.ContainsKey("metadata"));
     }
