@@ -14,6 +14,12 @@ namespace CaseDev.Services.Voice;
 public interface IStreamingService
 {
     /// <summary>
+    /// Returns a view of this service that provides access to raw HTTP responses
+    /// for each method.
+    /// </summary>
+    IStreamingServiceWithRawResponse WithRawResponse { get; }
+
+    /// <summary>
     /// Returns a view of this service with the given option modifications applied.
     ///
     /// <para>The original service is not modified.</para>
@@ -31,6 +37,29 @@ public interface IStreamingService
     /// <para>**Pricing:** $0.30 per minute ($18.00 per hour)</para>
     /// </summary>
     Task GetUrl(
+        StreamingGetUrlParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+}
+
+/// <summary>
+/// A view of <see cref="IStreamingService"/> that provides access to raw
+/// HTTP responses for each method.
+/// </summary>
+public interface IStreamingServiceWithRawResponse
+{
+    /// <summary>
+    /// Returns a view of this service with the given option modifications applied.
+    ///
+    /// <para>The original service is not modified.</para>
+    /// </summary>
+    IStreamingServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
+
+    /// <summary>
+    /// Returns a raw HTTP response for `get /voice/streaming/url`, but is otherwise the
+    /// same as <see cref="IStreamingService.GetUrl(StreamingGetUrlParams?, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> GetUrl(
         StreamingGetUrlParams? parameters = null,
         CancellationToken cancellationToken = default
     );

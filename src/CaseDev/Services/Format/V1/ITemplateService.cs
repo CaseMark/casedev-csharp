@@ -14,6 +14,12 @@ namespace CaseDev.Services.Format.V1;
 public interface ITemplateService
 {
     /// <summary>
+    /// Returns a view of this service that provides access to raw HTTP responses
+    /// for each method.
+    /// </summary>
+    global::CaseDev.Services.Format.V1.ITemplateServiceWithRawResponse WithRawResponse { get; }
+
+    /// <summary>
     /// Returns a view of this service with the given option modifications applied.
     ///
     /// <para>The original service is not modified.</para>
@@ -55,4 +61,54 @@ public interface ITemplateService
     /// pleadings, or correspondence.</para>
     /// </summary>
     Task List(TemplateListParams? parameters = null, CancellationToken cancellationToken = default);
+}
+
+/// <summary>
+/// A view of <see cref="global::CaseDev.Services.Format.V1.ITemplateService"/> that provides access to raw
+/// HTTP responses for each method.
+/// </summary>
+public interface ITemplateServiceWithRawResponse
+{
+    /// <summary>
+    /// Returns a view of this service with the given option modifications applied.
+    ///
+    /// <para>The original service is not modified.</para>
+    /// </summary>
+    global::CaseDev.Services.Format.V1.ITemplateServiceWithRawResponse WithOptions(
+        Func<ClientOptions, ClientOptions> modifier
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `post /format/v1/templates`, but is otherwise the
+    /// same as <see cref="global::CaseDev.Services.Format.V1.ITemplateService.Create(TemplateCreateParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<TemplateCreateResponse>> Create(
+        TemplateCreateParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `get /format/v1/templates/{id}`, but is otherwise the
+    /// same as <see cref="global::CaseDev.Services.Format.V1.ITemplateService.Retrieve(TemplateRetrieveParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> Retrieve(
+        TemplateRetrieveParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="Retrieve(TemplateRetrieveParams, CancellationToken)"/>
+    Task<HttpResponse> Retrieve(
+        string id,
+        TemplateRetrieveParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `get /format/v1/templates`, but is otherwise the
+    /// same as <see cref="global::CaseDev.Services.Format.V1.ITemplateService.List(TemplateListParams?, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> List(
+        TemplateListParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
 }

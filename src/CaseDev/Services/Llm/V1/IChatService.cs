@@ -14,6 +14,12 @@ namespace CaseDev.Services.Llm.V1;
 public interface IChatService
 {
     /// <summary>
+    /// Returns a view of this service that provides access to raw HTTP responses
+    /// for each method.
+    /// </summary>
+    IChatServiceWithRawResponse WithRawResponse { get; }
+
+    /// <summary>
     /// Returns a view of this service with the given option modifications applied.
     ///
     /// <para>The original service is not modified.</para>
@@ -27,6 +33,29 @@ public interface IChatService
     /// and usage tracking.
     /// </summary>
     Task<ChatCreateCompletionResponse> CreateCompletion(
+        ChatCreateCompletionParams parameters,
+        CancellationToken cancellationToken = default
+    );
+}
+
+/// <summary>
+/// A view of <see cref="IChatService"/> that provides access to raw
+/// HTTP responses for each method.
+/// </summary>
+public interface IChatServiceWithRawResponse
+{
+    /// <summary>
+    /// Returns a view of this service with the given option modifications applied.
+    ///
+    /// <para>The original service is not modified.</para>
+    /// </summary>
+    IChatServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
+
+    /// <summary>
+    /// Returns a raw HTTP response for `post /llm/v1/chat/completions`, but is otherwise the
+    /// same as <see cref="IChatService.CreateCompletion(ChatCreateCompletionParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<ChatCreateCompletionResponse>> CreateCompletion(
         ChatCreateCompletionParams parameters,
         CancellationToken cancellationToken = default
     );

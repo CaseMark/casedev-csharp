@@ -14,6 +14,12 @@ namespace CaseDev.Services.Search;
 public interface IV1Service
 {
     /// <summary>
+    /// Returns a view of this service that provides access to raw HTTP responses
+    /// for each method.
+    /// </summary>
+    IV1ServiceWithRawResponse WithRawResponse { get; }
+
+    /// <summary>
     /// Returns a view of this service with the given option modifications applied.
     ///
     /// <para>The original service is not modified.</para>
@@ -85,6 +91,81 @@ public interface IV1Service
     /// themes or content structure.
     /// </summary>
     Task<V1SimilarResponse> Similar(
+        V1SimilarParams parameters,
+        CancellationToken cancellationToken = default
+    );
+}
+
+/// <summary>
+/// A view of <see cref="IV1Service"/> that provides access to raw
+/// HTTP responses for each method.
+/// </summary>
+public interface IV1ServiceWithRawResponse
+{
+    /// <summary>
+    /// Returns a view of this service with the given option modifications applied.
+    ///
+    /// <para>The original service is not modified.</para>
+    /// </summary>
+    IV1ServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
+
+    /// <summary>
+    /// Returns a raw HTTP response for `post /search/v1/answer`, but is otherwise the
+    /// same as <see cref="IV1Service.Answer(V1AnswerParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<V1AnswerResponse>> Answer(
+        V1AnswerParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `post /search/v1/contents`, but is otherwise the
+    /// same as <see cref="IV1Service.Contents(V1ContentsParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<V1ContentsResponse>> Contents(
+        V1ContentsParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `post /search/v1/research`, but is otherwise the
+    /// same as <see cref="IV1Service.Research(V1ResearchParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<V1ResearchResponse>> Research(
+        V1ResearchParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `get /search/v1/research/{id}`, but is otherwise the
+    /// same as <see cref="IV1Service.RetrieveResearch(V1RetrieveResearchParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> RetrieveResearch(
+        V1RetrieveResearchParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="RetrieveResearch(V1RetrieveResearchParams, CancellationToken)"/>
+    Task<HttpResponse> RetrieveResearch(
+        string id,
+        V1RetrieveResearchParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `post /search/v1/search`, but is otherwise the
+    /// same as <see cref="IV1Service.Search(V1SearchParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<V1SearchResponse>> Search(
+        V1SearchParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `post /search/v1/similar`, but is otherwise the
+    /// same as <see cref="IV1Service.Similar(V1SimilarParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<V1SimilarResponse>> Similar(
         V1SimilarParams parameters,
         CancellationToken cancellationToken = default
     );

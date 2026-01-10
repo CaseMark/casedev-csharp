@@ -11,21 +11,264 @@ namespace CaseDev.Services.Workflows;
 /// <inheritdoc/>
 public sealed class V1Service : IV1Service
 {
+    readonly Lazy<IV1ServiceWithRawResponse> _withRawResponse;
+
+    /// <inheritdoc/>
+    public IV1ServiceWithRawResponse WithRawResponse
+    {
+        get { return _withRawResponse.Value; }
+    }
+
+    readonly ICasedevClient _client;
+
     /// <inheritdoc/>
     public IV1Service WithOptions(Func<ClientOptions, ClientOptions> modifier)
     {
         return new V1Service(this._client.WithOptions(modifier));
     }
 
-    readonly ICasedevClient _client;
-
     public V1Service(ICasedevClient client)
+    {
+        _client = client;
+
+        _withRawResponse = new(() => new V1ServiceWithRawResponse(client.WithRawResponse));
+    }
+
+    /// <inheritdoc/>
+    public async Task<V1CreateResponse> Create(
+        V1CreateParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.Create(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public async Task<V1RetrieveResponse> Retrieve(
+        V1RetrieveParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.Retrieve(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public Task<V1RetrieveResponse> Retrieve(
+        string id,
+        V1RetrieveParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        return this.Retrieve(parameters with { ID = id }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async Task<V1UpdateResponse> Update(
+        V1UpdateParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.Update(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public Task<V1UpdateResponse> Update(
+        string id,
+        V1UpdateParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        return this.Update(parameters with { ID = id }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async Task<V1ListResponse> List(
+        V1ListParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.List(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public async Task<V1DeleteResponse> Delete(
+        V1DeleteParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.Delete(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public Task<V1DeleteResponse> Delete(
+        string id,
+        V1DeleteParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        return this.Delete(parameters with { ID = id }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async Task<V1DeployResponse> Deploy(
+        V1DeployParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.Deploy(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public Task<V1DeployResponse> Deploy(
+        string id,
+        V1DeployParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        return this.Deploy(parameters with { ID = id }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async Task<V1ExecuteResponse> Execute(
+        V1ExecuteParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.Execute(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public Task<V1ExecuteResponse> Execute(
+        string id,
+        V1ExecuteParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        return this.Execute(parameters with { ID = id }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async Task<V1ListExecutionsResponse> ListExecutions(
+        V1ListExecutionsParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.ListExecutions(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public Task<V1ListExecutionsResponse> ListExecutions(
+        string id,
+        V1ListExecutionsParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        return this.ListExecutions(parameters with { ID = id }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async Task<V1RetrieveExecutionResponse> RetrieveExecution(
+        V1RetrieveExecutionParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.RetrieveExecution(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public Task<V1RetrieveExecutionResponse> RetrieveExecution(
+        string id,
+        V1RetrieveExecutionParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        return this.RetrieveExecution(parameters with { ID = id }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async Task<V1UndeployResponse> Undeploy(
+        V1UndeployParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.Undeploy(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public Task<V1UndeployResponse> Undeploy(
+        string id,
+        V1UndeployParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        return this.Undeploy(parameters with { ID = id }, cancellationToken);
+    }
+}
+
+/// <inheritdoc/>
+public sealed class V1ServiceWithRawResponse : IV1ServiceWithRawResponse
+{
+    readonly ICasedevClientWithRawResponse _client;
+
+    /// <inheritdoc/>
+    public IV1ServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier)
+    {
+        return new V1ServiceWithRawResponse(this._client.WithOptions(modifier));
+    }
+
+    public V1ServiceWithRawResponse(ICasedevClientWithRawResponse client)
     {
         _client = client;
     }
 
     /// <inheritdoc/>
-    public async Task<V1CreateResponse> Create(
+    public async Task<HttpResponse<V1CreateResponse>> Create(
         V1CreateParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -35,21 +278,23 @@ public sealed class V1Service : IV1Service
             Method = HttpMethod.Post,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
-        var v1 = await response
-            .Deserialize<V1CreateResponse>(cancellationToken)
-            .ConfigureAwait(false);
-        if (this._client.ResponseValidation)
-        {
-            v1.Validate();
-        }
-        return v1;
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var v1 = await response.Deserialize<V1CreateResponse>(token).ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    v1.Validate();
+                }
+                return v1;
+            }
+        );
     }
 
     /// <inheritdoc/>
-    public async Task<V1RetrieveResponse> Retrieve(
+    public async Task<HttpResponse<V1RetrieveResponse>> Retrieve(
         V1RetrieveParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -64,21 +309,25 @@ public sealed class V1Service : IV1Service
             Method = HttpMethod.Get,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
-        var v1 = await response
-            .Deserialize<V1RetrieveResponse>(cancellationToken)
-            .ConfigureAwait(false);
-        if (this._client.ResponseValidation)
-        {
-            v1.Validate();
-        }
-        return v1;
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var v1 = await response
+                    .Deserialize<V1RetrieveResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    v1.Validate();
+                }
+                return v1;
+            }
+        );
     }
 
     /// <inheritdoc/>
-    public async Task<V1RetrieveResponse> Retrieve(
+    public Task<HttpResponse<V1RetrieveResponse>> Retrieve(
         string id,
         V1RetrieveParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -86,11 +335,11 @@ public sealed class V1Service : IV1Service
     {
         parameters ??= new();
 
-        return await this.Retrieve(parameters with { ID = id }, cancellationToken);
+        return this.Retrieve(parameters with { ID = id }, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public async Task<V1UpdateResponse> Update(
+    public async Task<HttpResponse<V1UpdateResponse>> Update(
         V1UpdateParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -105,21 +354,23 @@ public sealed class V1Service : IV1Service
             Method = CasedevClient.PatchMethod,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
-        var v1 = await response
-            .Deserialize<V1UpdateResponse>(cancellationToken)
-            .ConfigureAwait(false);
-        if (this._client.ResponseValidation)
-        {
-            v1.Validate();
-        }
-        return v1;
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var v1 = await response.Deserialize<V1UpdateResponse>(token).ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    v1.Validate();
+                }
+                return v1;
+            }
+        );
     }
 
     /// <inheritdoc/>
-    public async Task<V1UpdateResponse> Update(
+    public Task<HttpResponse<V1UpdateResponse>> Update(
         string id,
         V1UpdateParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -127,11 +378,11 @@ public sealed class V1Service : IV1Service
     {
         parameters ??= new();
 
-        return await this.Update(parameters with { ID = id }, cancellationToken);
+        return this.Update(parameters with { ID = id }, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public async Task<V1ListResponse> List(
+    public async Task<HttpResponse<V1ListResponse>> List(
         V1ListParams? parameters = null,
         CancellationToken cancellationToken = default
     )
@@ -139,21 +390,23 @@ public sealed class V1Service : IV1Service
         parameters ??= new();
 
         HttpRequest<V1ListParams> request = new() { Method = HttpMethod.Get, Params = parameters };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
-        var v1s = await response
-            .Deserialize<V1ListResponse>(cancellationToken)
-            .ConfigureAwait(false);
-        if (this._client.ResponseValidation)
-        {
-            v1s.Validate();
-        }
-        return v1s;
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var v1s = await response.Deserialize<V1ListResponse>(token).ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    v1s.Validate();
+                }
+                return v1s;
+            }
+        );
     }
 
     /// <inheritdoc/>
-    public async Task<V1DeleteResponse> Delete(
+    public async Task<HttpResponse<V1DeleteResponse>> Delete(
         V1DeleteParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -168,21 +421,23 @@ public sealed class V1Service : IV1Service
             Method = HttpMethod.Delete,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
-        var v1 = await response
-            .Deserialize<V1DeleteResponse>(cancellationToken)
-            .ConfigureAwait(false);
-        if (this._client.ResponseValidation)
-        {
-            v1.Validate();
-        }
-        return v1;
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var v1 = await response.Deserialize<V1DeleteResponse>(token).ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    v1.Validate();
+                }
+                return v1;
+            }
+        );
     }
 
     /// <inheritdoc/>
-    public async Task<V1DeleteResponse> Delete(
+    public Task<HttpResponse<V1DeleteResponse>> Delete(
         string id,
         V1DeleteParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -190,11 +445,11 @@ public sealed class V1Service : IV1Service
     {
         parameters ??= new();
 
-        return await this.Delete(parameters with { ID = id }, cancellationToken);
+        return this.Delete(parameters with { ID = id }, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public async Task<V1DeployResponse> Deploy(
+    public async Task<HttpResponse<V1DeployResponse>> Deploy(
         V1DeployParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -209,21 +464,25 @@ public sealed class V1Service : IV1Service
             Method = HttpMethod.Post,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
-        var deserializedResponse = await response
-            .Deserialize<V1DeployResponse>(cancellationToken)
-            .ConfigureAwait(false);
-        if (this._client.ResponseValidation)
-        {
-            deserializedResponse.Validate();
-        }
-        return deserializedResponse;
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var deserializedResponse = await response
+                    .Deserialize<V1DeployResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    deserializedResponse.Validate();
+                }
+                return deserializedResponse;
+            }
+        );
     }
 
     /// <inheritdoc/>
-    public async Task<V1DeployResponse> Deploy(
+    public Task<HttpResponse<V1DeployResponse>> Deploy(
         string id,
         V1DeployParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -231,11 +490,11 @@ public sealed class V1Service : IV1Service
     {
         parameters ??= new();
 
-        return await this.Deploy(parameters with { ID = id }, cancellationToken);
+        return this.Deploy(parameters with { ID = id }, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public async Task<V1ExecuteResponse> Execute(
+    public async Task<HttpResponse<V1ExecuteResponse>> Execute(
         V1ExecuteParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -250,21 +509,25 @@ public sealed class V1Service : IV1Service
             Method = HttpMethod.Post,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
-        var deserializedResponse = await response
-            .Deserialize<V1ExecuteResponse>(cancellationToken)
-            .ConfigureAwait(false);
-        if (this._client.ResponseValidation)
-        {
-            deserializedResponse.Validate();
-        }
-        return deserializedResponse;
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var deserializedResponse = await response
+                    .Deserialize<V1ExecuteResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    deserializedResponse.Validate();
+                }
+                return deserializedResponse;
+            }
+        );
     }
 
     /// <inheritdoc/>
-    public async Task<V1ExecuteResponse> Execute(
+    public Task<HttpResponse<V1ExecuteResponse>> Execute(
         string id,
         V1ExecuteParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -272,11 +535,11 @@ public sealed class V1Service : IV1Service
     {
         parameters ??= new();
 
-        return await this.Execute(parameters with { ID = id }, cancellationToken);
+        return this.Execute(parameters with { ID = id }, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public async Task<V1ListExecutionsResponse> ListExecutions(
+    public async Task<HttpResponse<V1ListExecutionsResponse>> ListExecutions(
         V1ListExecutionsParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -291,21 +554,25 @@ public sealed class V1Service : IV1Service
             Method = HttpMethod.Get,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
-        var deserializedResponse = await response
-            .Deserialize<V1ListExecutionsResponse>(cancellationToken)
-            .ConfigureAwait(false);
-        if (this._client.ResponseValidation)
-        {
-            deserializedResponse.Validate();
-        }
-        return deserializedResponse;
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var deserializedResponse = await response
+                    .Deserialize<V1ListExecutionsResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    deserializedResponse.Validate();
+                }
+                return deserializedResponse;
+            }
+        );
     }
 
     /// <inheritdoc/>
-    public async Task<V1ListExecutionsResponse> ListExecutions(
+    public Task<HttpResponse<V1ListExecutionsResponse>> ListExecutions(
         string id,
         V1ListExecutionsParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -313,11 +580,11 @@ public sealed class V1Service : IV1Service
     {
         parameters ??= new();
 
-        return await this.ListExecutions(parameters with { ID = id }, cancellationToken);
+        return this.ListExecutions(parameters with { ID = id }, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public async Task<V1RetrieveExecutionResponse> RetrieveExecution(
+    public async Task<HttpResponse<V1RetrieveExecutionResponse>> RetrieveExecution(
         V1RetrieveExecutionParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -332,21 +599,25 @@ public sealed class V1Service : IV1Service
             Method = HttpMethod.Get,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
-        var deserializedResponse = await response
-            .Deserialize<V1RetrieveExecutionResponse>(cancellationToken)
-            .ConfigureAwait(false);
-        if (this._client.ResponseValidation)
-        {
-            deserializedResponse.Validate();
-        }
-        return deserializedResponse;
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var deserializedResponse = await response
+                    .Deserialize<V1RetrieveExecutionResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    deserializedResponse.Validate();
+                }
+                return deserializedResponse;
+            }
+        );
     }
 
     /// <inheritdoc/>
-    public async Task<V1RetrieveExecutionResponse> RetrieveExecution(
+    public Task<HttpResponse<V1RetrieveExecutionResponse>> RetrieveExecution(
         string id,
         V1RetrieveExecutionParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -354,11 +625,11 @@ public sealed class V1Service : IV1Service
     {
         parameters ??= new();
 
-        return await this.RetrieveExecution(parameters with { ID = id }, cancellationToken);
+        return this.RetrieveExecution(parameters with { ID = id }, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public async Task<V1UndeployResponse> Undeploy(
+    public async Task<HttpResponse<V1UndeployResponse>> Undeploy(
         V1UndeployParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -373,21 +644,25 @@ public sealed class V1Service : IV1Service
             Method = HttpMethod.Delete,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
-        var deserializedResponse = await response
-            .Deserialize<V1UndeployResponse>(cancellationToken)
-            .ConfigureAwait(false);
-        if (this._client.ResponseValidation)
-        {
-            deserializedResponse.Validate();
-        }
-        return deserializedResponse;
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var deserializedResponse = await response
+                    .Deserialize<V1UndeployResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    deserializedResponse.Validate();
+                }
+                return deserializedResponse;
+            }
+        );
     }
 
     /// <inheritdoc/>
-    public async Task<V1UndeployResponse> Undeploy(
+    public Task<HttpResponse<V1UndeployResponse>> Undeploy(
         string id,
         V1UndeployParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -395,6 +670,6 @@ public sealed class V1Service : IV1Service
     {
         parameters ??= new();
 
-        return await this.Undeploy(parameters with { ID = id }, cancellationToken);
+        return this.Undeploy(parameters with { ID = id }, cancellationToken);
     }
 }

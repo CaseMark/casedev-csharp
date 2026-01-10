@@ -12,6 +12,12 @@ namespace CaseDev.Services;
 public interface IConvertService
 {
     /// <summary>
+    /// Returns a view of this service that provides access to raw HTTP responses
+    /// for each method.
+    /// </summary>
+    IConvertServiceWithRawResponse WithRawResponse { get; }
+
+    /// <summary>
     /// Returns a view of this service with the given option modifications applied.
     ///
     /// <para>The original service is not modified.</para>
@@ -19,4 +25,20 @@ public interface IConvertService
     IConvertService WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     IV1Service V1 { get; }
+}
+
+/// <summary>
+/// A view of <see cref="IConvertService"/> that provides access to raw
+/// HTTP responses for each method.
+/// </summary>
+public interface IConvertServiceWithRawResponse
+{
+    /// <summary>
+    /// Returns a view of this service with the given option modifications applied.
+    ///
+    /// <para>The original service is not modified.</para>
+    /// </summary>
+    IConvertServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
+
+    IV1ServiceWithRawResponse V1 { get; }
 }

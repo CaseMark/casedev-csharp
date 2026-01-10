@@ -14,6 +14,12 @@ namespace CaseDev.Services.Templates;
 public interface IV1Service
 {
     /// <summary>
+    /// Returns a view of this service that provides access to raw HTTP responses
+    /// for each method.
+    /// </summary>
+    IV1ServiceWithRawResponse WithRawResponse { get; }
+
+    /// <summary>
     /// Returns a view of this service with the given option modifications applied.
     ///
     /// <para>The original service is not modified.</para>
@@ -83,4 +89,84 @@ public interface IV1Service
     /// pre-built document processing pipelines for your legal use case.
     /// </summary>
     Task Search(V1SearchParams parameters, CancellationToken cancellationToken = default);
+}
+
+/// <summary>
+/// A view of <see cref="IV1Service"/> that provides access to raw
+/// HTTP responses for each method.
+/// </summary>
+public interface IV1ServiceWithRawResponse
+{
+    /// <summary>
+    /// Returns a view of this service with the given option modifications applied.
+    ///
+    /// <para>The original service is not modified.</para>
+    /// </summary>
+    IV1ServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
+
+    /// <summary>
+    /// Returns a raw HTTP response for `get /templates/v1/{id}`, but is otherwise the
+    /// same as <see cref="IV1Service.Retrieve(V1RetrieveParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> Retrieve(
+        V1RetrieveParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="Retrieve(V1RetrieveParams, CancellationToken)"/>
+    Task<HttpResponse> Retrieve(
+        string id,
+        V1RetrieveParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `get /templates/v1`, but is otherwise the
+    /// same as <see cref="IV1Service.List(V1ListParams?, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> List(
+        V1ListParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `post /templates/v1/{id}/execute`, but is otherwise the
+    /// same as <see cref="IV1Service.Execute(V1ExecuteParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<V1ExecuteResponse>> Execute(
+        V1ExecuteParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="Execute(V1ExecuteParams, CancellationToken)"/>
+    Task<HttpResponse<V1ExecuteResponse>> Execute(
+        string id,
+        V1ExecuteParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `get /templates/v1/executions/{id}`, but is otherwise the
+    /// same as <see cref="IV1Service.RetrieveExecution(V1RetrieveExecutionParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> RetrieveExecution(
+        V1RetrieveExecutionParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="RetrieveExecution(V1RetrieveExecutionParams, CancellationToken)"/>
+    Task<HttpResponse> RetrieveExecution(
+        string id,
+        V1RetrieveExecutionParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `post /templates/v1/search`, but is otherwise the
+    /// same as <see cref="IV1Service.Search(V1SearchParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> Search(
+        V1SearchParams parameters,
+        CancellationToken cancellationToken = default
+    );
 }

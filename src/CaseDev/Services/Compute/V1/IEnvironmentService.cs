@@ -14,6 +14,12 @@ namespace CaseDev.Services.Compute.V1;
 public interface IEnvironmentService
 {
     /// <summary>
+    /// Returns a view of this service that provides access to raw HTTP responses
+    /// for each method.
+    /// </summary>
+    IEnvironmentServiceWithRawResponse WithRawResponse { get; }
+
+    /// <summary>
     /// Returns a view of this service with the given option modifications applied.
     ///
     /// <para>The original service is not modified.</para>
@@ -85,6 +91,86 @@ public interface IEnvironmentService
 
     /// <inheritdoc cref="SetDefault(EnvironmentSetDefaultParams, CancellationToken)"/>
     Task SetDefault(
+        string name,
+        EnvironmentSetDefaultParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+}
+
+/// <summary>
+/// A view of <see cref="IEnvironmentService"/> that provides access to raw
+/// HTTP responses for each method.
+/// </summary>
+public interface IEnvironmentServiceWithRawResponse
+{
+    /// <summary>
+    /// Returns a view of this service with the given option modifications applied.
+    ///
+    /// <para>The original service is not modified.</para>
+    /// </summary>
+    IEnvironmentServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
+
+    /// <summary>
+    /// Returns a raw HTTP response for `post /compute/v1/environments`, but is otherwise the
+    /// same as <see cref="IEnvironmentService.Create(EnvironmentCreateParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<EnvironmentCreateResponse>> Create(
+        EnvironmentCreateParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `get /compute/v1/environments/{name}`, but is otherwise the
+    /// same as <see cref="IEnvironmentService.Retrieve(EnvironmentRetrieveParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> Retrieve(
+        EnvironmentRetrieveParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="Retrieve(EnvironmentRetrieveParams, CancellationToken)"/>
+    Task<HttpResponse> Retrieve(
+        string name,
+        EnvironmentRetrieveParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `get /compute/v1/environments`, but is otherwise the
+    /// same as <see cref="IEnvironmentService.List(EnvironmentListParams?, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> List(
+        EnvironmentListParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `delete /compute/v1/environments/{name}`, but is otherwise the
+    /// same as <see cref="IEnvironmentService.Delete(EnvironmentDeleteParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<EnvironmentDeleteResponse>> Delete(
+        EnvironmentDeleteParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="Delete(EnvironmentDeleteParams, CancellationToken)"/>
+    Task<HttpResponse<EnvironmentDeleteResponse>> Delete(
+        string name,
+        EnvironmentDeleteParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `post /compute/v1/environments/{name}/default`, but is otherwise the
+    /// same as <see cref="IEnvironmentService.SetDefault(EnvironmentSetDefaultParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> SetDefault(
+        EnvironmentSetDefaultParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="SetDefault(EnvironmentSetDefaultParams, CancellationToken)"/>
+    Task<HttpResponse> SetDefault(
         string name,
         EnvironmentSetDefaultParams? parameters = null,
         CancellationToken cancellationToken = default

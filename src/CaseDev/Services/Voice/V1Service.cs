@@ -11,17 +11,27 @@ namespace CaseDev.Services.Voice;
 /// <inheritdoc/>
 public sealed class V1Service : IV1Service
 {
+    readonly Lazy<IV1ServiceWithRawResponse> _withRawResponse;
+
+    /// <inheritdoc/>
+    public IV1ServiceWithRawResponse WithRawResponse
+    {
+        get { return _withRawResponse.Value; }
+    }
+
+    readonly ICasedevClient _client;
+
     /// <inheritdoc/>
     public IV1Service WithOptions(Func<ClientOptions, ClientOptions> modifier)
     {
         return new V1Service(this._client.WithOptions(modifier));
     }
 
-    readonly ICasedevClient _client;
-
     public V1Service(ICasedevClient client)
     {
         _client = client;
+
+        _withRawResponse = new(() => new V1ServiceWithRawResponse(client.WithRawResponse));
         _speak = new(() => new SpeakService(client));
     }
 
@@ -37,6 +47,43 @@ public sealed class V1Service : IV1Service
         CancellationToken cancellationToken = default
     )
     {
+        using var response = await this
+            .WithRawResponse.ListVoices(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+}
+
+/// <inheritdoc/>
+public sealed class V1ServiceWithRawResponse : IV1ServiceWithRawResponse
+{
+    readonly ICasedevClientWithRawResponse _client;
+
+    /// <inheritdoc/>
+    public IV1ServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier)
+    {
+        return new V1ServiceWithRawResponse(this._client.WithOptions(modifier));
+    }
+
+    public V1ServiceWithRawResponse(ICasedevClientWithRawResponse client)
+    {
+        _client = client;
+
+        _speak = new(() => new SpeakServiceWithRawResponse(client));
+    }
+
+    readonly Lazy<ISpeakServiceWithRawResponse> _speak;
+    public ISpeakServiceWithRawResponse Speak
+    {
+        get { return _speak.Value; }
+    }
+
+    /// <inheritdoc/>
+    public Task<HttpResponse> ListVoices(
+        V1ListVoicesParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
         parameters ??= new();
 
         HttpRequest<V1ListVoicesParams> request = new()
@@ -44,8 +91,6 @@ public sealed class V1Service : IV1Service
             Method = HttpMethod.Get,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
+        return this._client.Execute(request, cancellationToken);
     }
 }

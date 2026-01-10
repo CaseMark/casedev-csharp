@@ -11,17 +11,27 @@ namespace CaseDev.Services.Compute;
 /// <inheritdoc/>
 public sealed class V1Service : IV1Service
 {
+    readonly Lazy<IV1ServiceWithRawResponse> _withRawResponse;
+
+    /// <inheritdoc/>
+    public IV1ServiceWithRawResponse WithRawResponse
+    {
+        get { return _withRawResponse.Value; }
+    }
+
+    readonly ICasedevClient _client;
+
     /// <inheritdoc/>
     public IV1Service WithOptions(Func<ClientOptions, ClientOptions> modifier)
     {
         return new V1Service(this._client.WithOptions(modifier));
     }
 
-    readonly ICasedevClient _client;
-
     public V1Service(ICasedevClient client)
     {
         _client = client;
+
+        _withRawResponse = new(() => new V1ServiceWithRawResponse(client.WithRawResponse));
         _environments = new(() => new EnvironmentService(client));
         _functions = new(() => new FunctionService(client));
         _invoke = new(() => new InvokeService(client));
@@ -65,6 +75,83 @@ public sealed class V1Service : IV1Service
         CancellationToken cancellationToken = default
     )
     {
+        using var response = await this
+            .WithRawResponse.GetPricing(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public async Task GetUsage(
+        V1GetUsageParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.GetUsage(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+}
+
+/// <inheritdoc/>
+public sealed class V1ServiceWithRawResponse : IV1ServiceWithRawResponse
+{
+    readonly ICasedevClientWithRawResponse _client;
+
+    /// <inheritdoc/>
+    public IV1ServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier)
+    {
+        return new V1ServiceWithRawResponse(this._client.WithOptions(modifier));
+    }
+
+    public V1ServiceWithRawResponse(ICasedevClientWithRawResponse client)
+    {
+        _client = client;
+
+        _environments = new(() => new EnvironmentServiceWithRawResponse(client));
+        _functions = new(() => new FunctionServiceWithRawResponse(client));
+        _invoke = new(() => new InvokeServiceWithRawResponse(client));
+        _runs = new(() => new RunServiceWithRawResponse(client));
+        _secrets = new(() => new SecretServiceWithRawResponse(client));
+    }
+
+    readonly Lazy<IEnvironmentServiceWithRawResponse> _environments;
+    public IEnvironmentServiceWithRawResponse Environments
+    {
+        get { return _environments.Value; }
+    }
+
+    readonly Lazy<IFunctionServiceWithRawResponse> _functions;
+    public IFunctionServiceWithRawResponse Functions
+    {
+        get { return _functions.Value; }
+    }
+
+    readonly Lazy<IInvokeServiceWithRawResponse> _invoke;
+    public IInvokeServiceWithRawResponse Invoke
+    {
+        get { return _invoke.Value; }
+    }
+
+    readonly Lazy<IRunServiceWithRawResponse> _runs;
+    public IRunServiceWithRawResponse Runs
+    {
+        get { return _runs.Value; }
+    }
+
+    readonly Lazy<ISecretServiceWithRawResponse> _secrets;
+    public ISecretServiceWithRawResponse Secrets
+    {
+        get { return _secrets.Value; }
+    }
+
+    /// <inheritdoc/>
+    public Task<HttpResponse> GetPricing(
+        V1GetPricingParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
         parameters ??= new();
 
         HttpRequest<V1GetPricingParams> request = new()
@@ -72,13 +159,11 @@ public sealed class V1Service : IV1Service
             Method = HttpMethod.Get,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
+        return this._client.Execute(request, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public async Task GetUsage(
+    public Task<HttpResponse> GetUsage(
         V1GetUsageParams? parameters = null,
         CancellationToken cancellationToken = default
     )
@@ -90,8 +175,6 @@ public sealed class V1Service : IV1Service
             Method = HttpMethod.Get,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
+        return this._client.Execute(request, cancellationToken);
     }
 }

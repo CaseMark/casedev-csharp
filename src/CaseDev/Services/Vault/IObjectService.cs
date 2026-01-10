@@ -14,6 +14,12 @@ namespace CaseDev.Services.Vault;
 public interface IObjectService
 {
     /// <summary>
+    /// Returns a view of this service that provides access to raw HTTP responses
+    /// for each method.
+    /// </summary>
+    IObjectServiceWithRawResponse WithRawResponse { get; }
+
+    /// <summary>
     /// Returns a view of this service with the given option modifications applied.
     ///
     /// <para>The original service is not modified.</para>
@@ -88,6 +94,100 @@ public interface IObjectService
 
     /// <inheritdoc cref="GetText(ObjectGetTextParams, CancellationToken)"/>
     Task GetText(
+        string objectID,
+        ObjectGetTextParams parameters,
+        CancellationToken cancellationToken = default
+    );
+}
+
+/// <summary>
+/// A view of <see cref="IObjectService"/> that provides access to raw
+/// HTTP responses for each method.
+/// </summary>
+public interface IObjectServiceWithRawResponse
+{
+    /// <summary>
+    /// Returns a view of this service with the given option modifications applied.
+    ///
+    /// <para>The original service is not modified.</para>
+    /// </summary>
+    IObjectServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
+
+    /// <summary>
+    /// Returns a raw HTTP response for `get /vault/{id}/objects/{objectId}`, but is otherwise the
+    /// same as <see cref="IObjectService.Retrieve(ObjectRetrieveParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> Retrieve(
+        ObjectRetrieveParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="Retrieve(ObjectRetrieveParams, CancellationToken)"/>
+    Task<HttpResponse> Retrieve(
+        string objectID,
+        ObjectRetrieveParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `get /vault/{id}/objects`, but is otherwise the
+    /// same as <see cref="IObjectService.List(ObjectListParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> List(
+        ObjectListParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="List(ObjectListParams, CancellationToken)"/>
+    Task<HttpResponse> List(
+        string id,
+        ObjectListParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `post /vault/{id}/objects/{objectId}/presigned-url`, but is otherwise the
+    /// same as <see cref="IObjectService.CreatePresignedUrl(ObjectCreatePresignedUrlParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<ObjectCreatePresignedUrlResponse>> CreatePresignedUrl(
+        ObjectCreatePresignedUrlParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="CreatePresignedUrl(ObjectCreatePresignedUrlParams, CancellationToken)"/>
+    Task<HttpResponse<ObjectCreatePresignedUrlResponse>> CreatePresignedUrl(
+        string objectID,
+        ObjectCreatePresignedUrlParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `get /vault/{id}/objects/{objectId}/download`, but is otherwise the
+    /// same as <see cref="IObjectService.Download(ObjectDownloadParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> Download(
+        ObjectDownloadParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="Download(ObjectDownloadParams, CancellationToken)"/>
+    Task<HttpResponse> Download(
+        string objectID,
+        ObjectDownloadParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `get /vault/{id}/objects/{objectId}/text`, but is otherwise the
+    /// same as <see cref="IObjectService.GetText(ObjectGetTextParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> GetText(
+        ObjectGetTextParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="GetText(ObjectGetTextParams, CancellationToken)"/>
+    Task<HttpResponse> GetText(
         string objectID,
         ObjectGetTextParams parameters,
         CancellationToken cancellationToken = default

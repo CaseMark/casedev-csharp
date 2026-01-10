@@ -12,6 +12,12 @@ namespace CaseDev.Services;
 public interface IWebhookService
 {
     /// <summary>
+    /// Returns a view of this service that provides access to raw HTTP responses
+    /// for each method.
+    /// </summary>
+    IWebhookServiceWithRawResponse WithRawResponse { get; }
+
+    /// <summary>
     /// Returns a view of this service with the given option modifications applied.
     ///
     /// <para>The original service is not modified.</para>
@@ -19,4 +25,20 @@ public interface IWebhookService
     IWebhookService WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     IV1Service V1 { get; }
+}
+
+/// <summary>
+/// A view of <see cref="IWebhookService"/> that provides access to raw
+/// HTTP responses for each method.
+/// </summary>
+public interface IWebhookServiceWithRawResponse
+{
+    /// <summary>
+    /// Returns a view of this service with the given option modifications applied.
+    ///
+    /// <para>The original service is not modified.</para>
+    /// </summary>
+    IWebhookServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
+
+    IV1ServiceWithRawResponse V1 { get; }
 }

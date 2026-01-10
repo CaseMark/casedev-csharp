@@ -15,6 +15,12 @@ namespace CaseDev.Services.Compute;
 public interface IV1Service
 {
     /// <summary>
+    /// Returns a view of this service that provides access to raw HTTP responses
+    /// for each method.
+    /// </summary>
+    IV1ServiceWithRawResponse WithRawResponse { get; }
+
+    /// <summary>
     /// Returns a view of this service with the given option modifications applied.
     ///
     /// <para>The original service is not modified.</para>
@@ -48,6 +54,48 @@ public interface IV1Service
     /// and month.
     /// </summary>
     Task GetUsage(
+        V1GetUsageParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+}
+
+/// <summary>
+/// A view of <see cref="IV1Service"/> that provides access to raw
+/// HTTP responses for each method.
+/// </summary>
+public interface IV1ServiceWithRawResponse
+{
+    /// <summary>
+    /// Returns a view of this service with the given option modifications applied.
+    ///
+    /// <para>The original service is not modified.</para>
+    /// </summary>
+    IV1ServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
+
+    IEnvironmentServiceWithRawResponse Environments { get; }
+
+    IFunctionServiceWithRawResponse Functions { get; }
+
+    IInvokeServiceWithRawResponse Invoke { get; }
+
+    IRunServiceWithRawResponse Runs { get; }
+
+    ISecretServiceWithRawResponse Secrets { get; }
+
+    /// <summary>
+    /// Returns a raw HTTP response for `get /compute/v1/pricing`, but is otherwise the
+    /// same as <see cref="IV1Service.GetPricing(V1GetPricingParams?, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> GetPricing(
+        V1GetPricingParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `get /compute/v1/usage`, but is otherwise the
+    /// same as <see cref="IV1Service.GetUsage(V1GetUsageParams?, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> GetUsage(
         V1GetUsageParams? parameters = null,
         CancellationToken cancellationToken = default
     );

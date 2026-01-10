@@ -11,21 +11,88 @@ namespace CaseDev.Services.Voice;
 /// <inheritdoc/>
 public sealed class TranscriptionService : ITranscriptionService
 {
+    readonly Lazy<ITranscriptionServiceWithRawResponse> _withRawResponse;
+
+    /// <inheritdoc/>
+    public ITranscriptionServiceWithRawResponse WithRawResponse
+    {
+        get { return _withRawResponse.Value; }
+    }
+
+    readonly ICasedevClient _client;
+
     /// <inheritdoc/>
     public ITranscriptionService WithOptions(Func<ClientOptions, ClientOptions> modifier)
     {
         return new TranscriptionService(this._client.WithOptions(modifier));
     }
 
-    readonly ICasedevClient _client;
-
     public TranscriptionService(ICasedevClient client)
+    {
+        _client = client;
+
+        _withRawResponse = new(() =>
+            new TranscriptionServiceWithRawResponse(client.WithRawResponse)
+        );
+    }
+
+    /// <inheritdoc/>
+    public async Task Create(
+        TranscriptionCreateParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.Create(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public async Task<TranscriptionRetrieveResponse> Retrieve(
+        TranscriptionRetrieveParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.Retrieve(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public Task<TranscriptionRetrieveResponse> Retrieve(
+        string id,
+        TranscriptionRetrieveParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        return this.Retrieve(parameters with { ID = id }, cancellationToken);
+    }
+}
+
+/// <inheritdoc/>
+public sealed class TranscriptionServiceWithRawResponse : ITranscriptionServiceWithRawResponse
+{
+    readonly ICasedevClientWithRawResponse _client;
+
+    /// <inheritdoc/>
+    public ITranscriptionServiceWithRawResponse WithOptions(
+        Func<ClientOptions, ClientOptions> modifier
+    )
+    {
+        return new TranscriptionServiceWithRawResponse(this._client.WithOptions(modifier));
+    }
+
+    public TranscriptionServiceWithRawResponse(ICasedevClientWithRawResponse client)
     {
         _client = client;
     }
 
     /// <inheritdoc/>
-    public async Task Create(
+    public Task<HttpResponse> Create(
         TranscriptionCreateParams? parameters = null,
         CancellationToken cancellationToken = default
     )
@@ -37,13 +104,11 @@ public sealed class TranscriptionService : ITranscriptionService
             Method = HttpMethod.Post,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
+        return this._client.Execute(request, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public async Task<TranscriptionRetrieveResponse> Retrieve(
+    public async Task<HttpResponse<TranscriptionRetrieveResponse>> Retrieve(
         TranscriptionRetrieveParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -58,21 +123,25 @@ public sealed class TranscriptionService : ITranscriptionService
             Method = HttpMethod.Get,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
-        var transcription = await response
-            .Deserialize<TranscriptionRetrieveResponse>(cancellationToken)
-            .ConfigureAwait(false);
-        if (this._client.ResponseValidation)
-        {
-            transcription.Validate();
-        }
-        return transcription;
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var transcription = await response
+                    .Deserialize<TranscriptionRetrieveResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    transcription.Validate();
+                }
+                return transcription;
+            }
+        );
     }
 
     /// <inheritdoc/>
-    public async Task<TranscriptionRetrieveResponse> Retrieve(
+    public Task<HttpResponse<TranscriptionRetrieveResponse>> Retrieve(
         string id,
         TranscriptionRetrieveParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -80,6 +149,6 @@ public sealed class TranscriptionService : ITranscriptionService
     {
         parameters ??= new();
 
-        return await this.Retrieve(parameters with { ID = id }, cancellationToken);
+        return this.Retrieve(parameters with { ID = id }, cancellationToken);
     }
 }

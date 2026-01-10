@@ -15,6 +15,12 @@ namespace CaseDev.Services.Voice;
 public interface IV1Service
 {
     /// <summary>
+    /// Returns a view of this service that provides access to raw HTTP responses
+    /// for each method.
+    /// </summary>
+    IV1ServiceWithRawResponse WithRawResponse { get; }
+
+    /// <summary>
     /// Returns a view of this service with the given option modifications applied.
     ///
     /// <para>The original service is not modified.</para>
@@ -30,6 +36,31 @@ public interface IV1Service
     /// and accessibility purposes.
     /// </summary>
     Task ListVoices(
+        V1ListVoicesParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+}
+
+/// <summary>
+/// A view of <see cref="IV1Service"/> that provides access to raw
+/// HTTP responses for each method.
+/// </summary>
+public interface IV1ServiceWithRawResponse
+{
+    /// <summary>
+    /// Returns a view of this service with the given option modifications applied.
+    ///
+    /// <para>The original service is not modified.</para>
+    /// </summary>
+    IV1ServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
+
+    ISpeakServiceWithRawResponse Speak { get; }
+
+    /// <summary>
+    /// Returns a raw HTTP response for `get /voice/v1/voices`, but is otherwise the
+    /// same as <see cref="IV1Service.ListVoices(V1ListVoicesParams?, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> ListVoices(
         V1ListVoicesParams? parameters = null,
         CancellationToken cancellationToken = default
     );

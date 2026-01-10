@@ -11,21 +11,133 @@ namespace CaseDev.Services.Search;
 /// <inheritdoc/>
 public sealed class V1Service : IV1Service
 {
+    readonly Lazy<IV1ServiceWithRawResponse> _withRawResponse;
+
+    /// <inheritdoc/>
+    public IV1ServiceWithRawResponse WithRawResponse
+    {
+        get { return _withRawResponse.Value; }
+    }
+
+    readonly ICasedevClient _client;
+
     /// <inheritdoc/>
     public IV1Service WithOptions(Func<ClientOptions, ClientOptions> modifier)
     {
         return new V1Service(this._client.WithOptions(modifier));
     }
 
-    readonly ICasedevClient _client;
-
     public V1Service(ICasedevClient client)
+    {
+        _client = client;
+
+        _withRawResponse = new(() => new V1ServiceWithRawResponse(client.WithRawResponse));
+    }
+
+    /// <inheritdoc/>
+    public async Task<V1AnswerResponse> Answer(
+        V1AnswerParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.Answer(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public async Task<V1ContentsResponse> Contents(
+        V1ContentsParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.Contents(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public async Task<V1ResearchResponse> Research(
+        V1ResearchParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.Research(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public async Task RetrieveResearch(
+        V1RetrieveResearchParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.RetrieveResearch(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public async Task RetrieveResearch(
+        string id,
+        V1RetrieveResearchParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        await this.RetrieveResearch(parameters with { ID = id }, cancellationToken)
+            .ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public async Task<V1SearchResponse> Search(
+        V1SearchParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.Search(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public async Task<V1SimilarResponse> Similar(
+        V1SimilarParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.Similar(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+}
+
+/// <inheritdoc/>
+public sealed class V1ServiceWithRawResponse : IV1ServiceWithRawResponse
+{
+    readonly ICasedevClientWithRawResponse _client;
+
+    /// <inheritdoc/>
+    public IV1ServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier)
+    {
+        return new V1ServiceWithRawResponse(this._client.WithOptions(modifier));
+    }
+
+    public V1ServiceWithRawResponse(ICasedevClientWithRawResponse client)
     {
         _client = client;
     }
 
     /// <inheritdoc/>
-    public async Task<V1AnswerResponse> Answer(
+    public async Task<HttpResponse<V1AnswerResponse>> Answer(
         V1AnswerParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -35,21 +147,25 @@ public sealed class V1Service : IV1Service
             Method = HttpMethod.Post,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
-        var deserializedResponse = await response
-            .Deserialize<V1AnswerResponse>(cancellationToken)
-            .ConfigureAwait(false);
-        if (this._client.ResponseValidation)
-        {
-            deserializedResponse.Validate();
-        }
-        return deserializedResponse;
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var deserializedResponse = await response
+                    .Deserialize<V1AnswerResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    deserializedResponse.Validate();
+                }
+                return deserializedResponse;
+            }
+        );
     }
 
     /// <inheritdoc/>
-    public async Task<V1ContentsResponse> Contents(
+    public async Task<HttpResponse<V1ContentsResponse>> Contents(
         V1ContentsParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -59,21 +175,25 @@ public sealed class V1Service : IV1Service
             Method = HttpMethod.Post,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
-        var deserializedResponse = await response
-            .Deserialize<V1ContentsResponse>(cancellationToken)
-            .ConfigureAwait(false);
-        if (this._client.ResponseValidation)
-        {
-            deserializedResponse.Validate();
-        }
-        return deserializedResponse;
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var deserializedResponse = await response
+                    .Deserialize<V1ContentsResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    deserializedResponse.Validate();
+                }
+                return deserializedResponse;
+            }
+        );
     }
 
     /// <inheritdoc/>
-    public async Task<V1ResearchResponse> Research(
+    public async Task<HttpResponse<V1ResearchResponse>> Research(
         V1ResearchParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -83,21 +203,25 @@ public sealed class V1Service : IV1Service
             Method = HttpMethod.Post,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
-        var deserializedResponse = await response
-            .Deserialize<V1ResearchResponse>(cancellationToken)
-            .ConfigureAwait(false);
-        if (this._client.ResponseValidation)
-        {
-            deserializedResponse.Validate();
-        }
-        return deserializedResponse;
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var deserializedResponse = await response
+                    .Deserialize<V1ResearchResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    deserializedResponse.Validate();
+                }
+                return deserializedResponse;
+            }
+        );
     }
 
     /// <inheritdoc/>
-    public async Task RetrieveResearch(
+    public Task<HttpResponse> RetrieveResearch(
         V1RetrieveResearchParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -112,13 +236,11 @@ public sealed class V1Service : IV1Service
             Method = HttpMethod.Get,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
+        return this._client.Execute(request, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public async Task RetrieveResearch(
+    public Task<HttpResponse> RetrieveResearch(
         string id,
         V1RetrieveResearchParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -126,11 +248,11 @@ public sealed class V1Service : IV1Service
     {
         parameters ??= new();
 
-        await this.RetrieveResearch(parameters with { ID = id }, cancellationToken);
+        return this.RetrieveResearch(parameters with { ID = id }, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public async Task<V1SearchResponse> Search(
+    public async Task<HttpResponse<V1SearchResponse>> Search(
         V1SearchParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -140,21 +262,25 @@ public sealed class V1Service : IV1Service
             Method = HttpMethod.Post,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
-        var deserializedResponse = await response
-            .Deserialize<V1SearchResponse>(cancellationToken)
-            .ConfigureAwait(false);
-        if (this._client.ResponseValidation)
-        {
-            deserializedResponse.Validate();
-        }
-        return deserializedResponse;
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var deserializedResponse = await response
+                    .Deserialize<V1SearchResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    deserializedResponse.Validate();
+                }
+                return deserializedResponse;
+            }
+        );
     }
 
     /// <inheritdoc/>
-    public async Task<V1SimilarResponse> Similar(
+    public async Task<HttpResponse<V1SimilarResponse>> Similar(
         V1SimilarParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -164,16 +290,20 @@ public sealed class V1Service : IV1Service
             Method = HttpMethod.Post,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
-        var deserializedResponse = await response
-            .Deserialize<V1SimilarResponse>(cancellationToken)
-            .ConfigureAwait(false);
-        if (this._client.ResponseValidation)
-        {
-            deserializedResponse.Validate();
-        }
-        return deserializedResponse;
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var deserializedResponse = await response
+                    .Deserialize<V1SimilarResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    deserializedResponse.Validate();
+                }
+                return deserializedResponse;
+            }
+        );
     }
 }

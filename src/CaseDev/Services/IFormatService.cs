@@ -12,6 +12,12 @@ namespace CaseDev.Services;
 public interface IFormatService
 {
     /// <summary>
+    /// Returns a view of this service that provides access to raw HTTP responses
+    /// for each method.
+    /// </summary>
+    IFormatServiceWithRawResponse WithRawResponse { get; }
+
+    /// <summary>
     /// Returns a view of this service with the given option modifications applied.
     ///
     /// <para>The original service is not modified.</para>
@@ -19,4 +25,20 @@ public interface IFormatService
     IFormatService WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     IV1Service V1 { get; }
+}
+
+/// <summary>
+/// A view of <see cref="IFormatService"/> that provides access to raw
+/// HTTP responses for each method.
+/// </summary>
+public interface IFormatServiceWithRawResponse
+{
+    /// <summary>
+    /// Returns a view of this service with the given option modifications applied.
+    ///
+    /// <para>The original service is not modified.</para>
+    /// </summary>
+    IFormatServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
+
+    IV1ServiceWithRawResponse V1 { get; }
 }

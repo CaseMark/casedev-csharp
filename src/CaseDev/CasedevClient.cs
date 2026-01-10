@@ -14,17 +14,6 @@ namespace CaseDev;
 /// <inheritdoc/>
 public sealed class CasedevClient : ICasedevClient
 {
-#if NET
-    static readonly Random Random = Random.Shared;
-#else
-    static readonly ThreadLocal<Random> _threadLocalRandom = new(() => new Random());
-
-    static Random Random
-    {
-        get { return _threadLocalRandom.Value!; }
-    }
-#endif
-
     readonly ClientOptions _options;
 
     /// <inheritdoc/>
@@ -69,7 +58,13 @@ public sealed class CasedevClient : ICasedevClient
         init { this._options.ApiKey = value; }
     }
 
-    internal static HttpMethod PatchMethod = new("PATCH");
+    readonly Lazy<ICasedevClientWithRawResponse> _withRawResponse;
+
+    /// <inheritdoc/>
+    public ICasedevClientWithRawResponse WithRawResponse
+    {
+        get { return _withRawResponse.Value; }
+    }
 
     /// <inheritdoc/>
     public ICasedevClient WithOptions(Func<ClientOptions, ClientOptions> modifier)
@@ -145,6 +140,172 @@ public sealed class CasedevClient : ICasedevClient
 
     readonly Lazy<IWorkflowService> _workflows;
     public IWorkflowService Workflows
+    {
+        get { return _workflows.Value; }
+    }
+
+    public void Dispose() => this.HttpClient.Dispose();
+
+    public CasedevClient()
+    {
+        _options = new();
+
+        _withRawResponse = new(() => new CasedevClientWithRawResponse(this._options));
+        _actions = new(() => new ActionService(this));
+        _compute = new(() => new ComputeService(this));
+        _convert = new(() => new ConvertService(this));
+        _format = new(() => new FormatService(this));
+        _llm = new(() => new LlmService(this));
+        _ocr = new(() => new OcrService(this));
+        _search = new(() => new SearchService(this));
+        _vault = new(() => new VaultService(this));
+        _voice = new(() => new VoiceService(this));
+        _webhooks = new(() => new WebhookService(this));
+        _templates = new(() => new TemplateService(this));
+        _workflows = new(() => new WorkflowService(this));
+    }
+
+    public CasedevClient(ClientOptions options)
+        : this()
+    {
+        _options = options;
+    }
+}
+
+/// <inheritdoc/>
+public sealed class CasedevClientWithRawResponse : ICasedevClientWithRawResponse
+{
+#if NET
+    static readonly Random Random = Random.Shared;
+#else
+    static readonly ThreadLocal<Random> _threadLocalRandom = new(() => new Random());
+
+    static Random Random
+    {
+        get { return _threadLocalRandom.Value!; }
+    }
+#endif
+
+    internal static HttpMethod PatchMethod = new("PATCH");
+
+    readonly ClientOptions _options;
+
+    /// <inheritdoc/>
+    public HttpClient HttpClient
+    {
+        get { return this._options.HttpClient; }
+        init { this._options.HttpClient = value; }
+    }
+
+    /// <inheritdoc/>
+    public string BaseUrl
+    {
+        get { return this._options.BaseUrl; }
+        init { this._options.BaseUrl = value; }
+    }
+
+    /// <inheritdoc/>
+    public bool ResponseValidation
+    {
+        get { return this._options.ResponseValidation; }
+        init { this._options.ResponseValidation = value; }
+    }
+
+    /// <inheritdoc/>
+    public int? MaxRetries
+    {
+        get { return this._options.MaxRetries; }
+        init { this._options.MaxRetries = value; }
+    }
+
+    /// <inheritdoc/>
+    public TimeSpan? Timeout
+    {
+        get { return this._options.Timeout; }
+        init { this._options.Timeout = value; }
+    }
+
+    /// <inheritdoc/>
+    public string ApiKey
+    {
+        get { return this._options.ApiKey; }
+        init { this._options.ApiKey = value; }
+    }
+
+    /// <inheritdoc/>
+    public ICasedevClientWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier)
+    {
+        return new CasedevClientWithRawResponse(modifier(this._options));
+    }
+
+    readonly Lazy<IActionServiceWithRawResponse> _actions;
+    public IActionServiceWithRawResponse Actions
+    {
+        get { return _actions.Value; }
+    }
+
+    readonly Lazy<IComputeServiceWithRawResponse> _compute;
+    public IComputeServiceWithRawResponse Compute
+    {
+        get { return _compute.Value; }
+    }
+
+    readonly Lazy<IConvertServiceWithRawResponse> _convert;
+    public IConvertServiceWithRawResponse Convert
+    {
+        get { return _convert.Value; }
+    }
+
+    readonly Lazy<IFormatServiceWithRawResponse> _format;
+    public IFormatServiceWithRawResponse Format
+    {
+        get { return _format.Value; }
+    }
+
+    readonly Lazy<ILlmServiceWithRawResponse> _llm;
+    public ILlmServiceWithRawResponse Llm
+    {
+        get { return _llm.Value; }
+    }
+
+    readonly Lazy<IOcrServiceWithRawResponse> _ocr;
+    public IOcrServiceWithRawResponse Ocr
+    {
+        get { return _ocr.Value; }
+    }
+
+    readonly Lazy<ISearchServiceWithRawResponse> _search;
+    public ISearchServiceWithRawResponse Search
+    {
+        get { return _search.Value; }
+    }
+
+    readonly Lazy<IVaultServiceWithRawResponse> _vault;
+    public IVaultServiceWithRawResponse Vault
+    {
+        get { return _vault.Value; }
+    }
+
+    readonly Lazy<IVoiceServiceWithRawResponse> _voice;
+    public IVoiceServiceWithRawResponse Voice
+    {
+        get { return _voice.Value; }
+    }
+
+    readonly Lazy<IWebhookServiceWithRawResponse> _webhooks;
+    public IWebhookServiceWithRawResponse Webhooks
+    {
+        get { return _webhooks.Value; }
+    }
+
+    readonly Lazy<ITemplateServiceWithRawResponse> _templates;
+    public ITemplateServiceWithRawResponse Templates
+    {
+        get { return _templates.Value; }
+    }
+
+    readonly Lazy<IWorkflowServiceWithRawResponse> _workflows;
+    public IWorkflowServiceWithRawResponse Workflows
     {
         get { return _workflows.Value; }
     }
@@ -339,25 +500,25 @@ public sealed class CasedevClient : ICasedevClient
 
     public void Dispose() => this.HttpClient.Dispose();
 
-    public CasedevClient()
+    public CasedevClientWithRawResponse()
     {
         _options = new();
 
-        _actions = new(() => new ActionService(this));
-        _compute = new(() => new ComputeService(this));
-        _convert = new(() => new ConvertService(this));
-        _format = new(() => new FormatService(this));
-        _llm = new(() => new LlmService(this));
-        _ocr = new(() => new OcrService(this));
-        _search = new(() => new SearchService(this));
-        _vault = new(() => new VaultService(this));
-        _voice = new(() => new VoiceService(this));
-        _webhooks = new(() => new WebhookService(this));
-        _templates = new(() => new TemplateService(this));
-        _workflows = new(() => new WorkflowService(this));
+        _actions = new(() => new ActionServiceWithRawResponse(this));
+        _compute = new(() => new ComputeServiceWithRawResponse(this));
+        _convert = new(() => new ConvertServiceWithRawResponse(this));
+        _format = new(() => new FormatServiceWithRawResponse(this));
+        _llm = new(() => new LlmServiceWithRawResponse(this));
+        _ocr = new(() => new OcrServiceWithRawResponse(this));
+        _search = new(() => new SearchServiceWithRawResponse(this));
+        _vault = new(() => new VaultServiceWithRawResponse(this));
+        _voice = new(() => new VoiceServiceWithRawResponse(this));
+        _webhooks = new(() => new WebhookServiceWithRawResponse(this));
+        _templates = new(() => new TemplateServiceWithRawResponse(this));
+        _workflows = new(() => new WorkflowServiceWithRawResponse(this));
     }
 
-    public CasedevClient(ClientOptions options)
+    public CasedevClientWithRawResponse(ClientOptions options)
         : this()
     {
         _options = options;

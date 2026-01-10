@@ -12,6 +12,12 @@ namespace CaseDev.Services;
 public interface IActionService
 {
     /// <summary>
+    /// Returns a view of this service that provides access to raw HTTP responses
+    /// for each method.
+    /// </summary>
+    IActionServiceWithRawResponse WithRawResponse { get; }
+
+    /// <summary>
     /// Returns a view of this service with the given option modifications applied.
     ///
     /// <para>The original service is not modified.</para>
@@ -19,4 +25,20 @@ public interface IActionService
     IActionService WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     IV1Service V1 { get; }
+}
+
+/// <summary>
+/// A view of <see cref="IActionService"/> that provides access to raw
+/// HTTP responses for each method.
+/// </summary>
+public interface IActionServiceWithRawResponse
+{
+    /// <summary>
+    /// Returns a view of this service with the given option modifications applied.
+    ///
+    /// <para>The original service is not modified.</para>
+    /// </summary>
+    IActionServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
+
+    IV1ServiceWithRawResponse V1 { get; }
 }

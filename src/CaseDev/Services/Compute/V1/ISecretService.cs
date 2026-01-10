@@ -14,6 +14,12 @@ namespace CaseDev.Services.Compute.V1;
 public interface ISecretService
 {
     /// <summary>
+    /// Returns a view of this service that provides access to raw HTTP responses
+    /// for each method.
+    /// </summary>
+    ISecretServiceWithRawResponse WithRawResponse { get; }
+
+    /// <summary>
     /// Returns a view of this service with the given option modifications applied.
     ///
     /// <para>The original service is not modified.</para>
@@ -87,6 +93,86 @@ public interface ISecretService
 
     /// <inheritdoc cref="UpdateGroup(SecretUpdateGroupParams, CancellationToken)"/>
     Task UpdateGroup(
+        string group,
+        SecretUpdateGroupParams parameters,
+        CancellationToken cancellationToken = default
+    );
+}
+
+/// <summary>
+/// A view of <see cref="ISecretService"/> that provides access to raw
+/// HTTP responses for each method.
+/// </summary>
+public interface ISecretServiceWithRawResponse
+{
+    /// <summary>
+    /// Returns a view of this service with the given option modifications applied.
+    ///
+    /// <para>The original service is not modified.</para>
+    /// </summary>
+    ISecretServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
+
+    /// <summary>
+    /// Returns a raw HTTP response for `post /compute/v1/secrets`, but is otherwise the
+    /// same as <see cref="ISecretService.Create(SecretCreateParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<SecretCreateResponse>> Create(
+        SecretCreateParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `get /compute/v1/secrets`, but is otherwise the
+    /// same as <see cref="ISecretService.List(SecretListParams?, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> List(
+        SecretListParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `delete /compute/v1/secrets/{group}`, but is otherwise the
+    /// same as <see cref="ISecretService.DeleteGroup(SecretDeleteGroupParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> DeleteGroup(
+        SecretDeleteGroupParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="DeleteGroup(SecretDeleteGroupParams, CancellationToken)"/>
+    Task<HttpResponse> DeleteGroup(
+        string group,
+        SecretDeleteGroupParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `get /compute/v1/secrets/{group}`, but is otherwise the
+    /// same as <see cref="ISecretService.RetrieveGroup(SecretRetrieveGroupParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> RetrieveGroup(
+        SecretRetrieveGroupParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="RetrieveGroup(SecretRetrieveGroupParams, CancellationToken)"/>
+    Task<HttpResponse> RetrieveGroup(
+        string group,
+        SecretRetrieveGroupParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `put /compute/v1/secrets/{group}`, but is otherwise the
+    /// same as <see cref="ISecretService.UpdateGroup(SecretUpdateGroupParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> UpdateGroup(
+        SecretUpdateGroupParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="UpdateGroup(SecretUpdateGroupParams, CancellationToken)"/>
+    Task<HttpResponse> UpdateGroup(
         string group,
         SecretUpdateGroupParams parameters,
         CancellationToken cancellationToken = default

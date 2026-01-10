@@ -15,6 +15,12 @@ namespace CaseDev.Services.Llm;
 public interface IV1Service
 {
     /// <summary>
+    /// Returns a view of this service that provides access to raw HTTP responses
+    /// for each method.
+    /// </summary>
+    IV1ServiceWithRawResponse WithRawResponse { get; }
+
+    /// <summary>
     /// Returns a view of this service with the given option modifications applied.
     ///
     /// <para>The original service is not modified.</para>
@@ -41,6 +47,40 @@ public interface IV1Service
     /// it easy to integrate with existing applications.</para>
     /// </summary>
     Task ListModels(
+        V1ListModelsParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+}
+
+/// <summary>
+/// A view of <see cref="IV1Service"/> that provides access to raw
+/// HTTP responses for each method.
+/// </summary>
+public interface IV1ServiceWithRawResponse
+{
+    /// <summary>
+    /// Returns a view of this service with the given option modifications applied.
+    ///
+    /// <para>The original service is not modified.</para>
+    /// </summary>
+    IV1ServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
+
+    IChatServiceWithRawResponse Chat { get; }
+
+    /// <summary>
+    /// Returns a raw HTTP response for `post /llm/v1/embeddings`, but is otherwise the
+    /// same as <see cref="IV1Service.CreateEmbedding(V1CreateEmbeddingParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> CreateEmbedding(
+        V1CreateEmbeddingParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `get /llm/v1/models`, but is otherwise the
+    /// same as <see cref="IV1Service.ListModels(V1ListModelsParams?, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> ListModels(
         V1ListModelsParams? parameters = null,
         CancellationToken cancellationToken = default
     );
