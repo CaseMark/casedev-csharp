@@ -233,7 +233,7 @@ class FiltersFromRaw : IFromRawJson<Filters>
 /// Filter to specific document(s) by object ID. Accepts a single ID or array of IDs.
 /// </summary>
 [JsonConverter(typeof(ObjectIDConverter))]
-public record class ObjectID
+public record class ObjectID : ModelBase
 {
     public object? Value { get; } = null;
 
@@ -386,7 +386,7 @@ public record class ObjectID
     /// Thrown when the instance does not pass validation.
     /// </exception>
     /// </summary>
-    public void Validate()
+    public override void Validate()
     {
         if (this.Value == null)
         {
