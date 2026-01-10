@@ -177,7 +177,7 @@ public sealed record class V1CreateEmbeddingParams : ParamsBase
 /// Text or array of texts to create embeddings for
 /// </summary>
 [JsonConverter(typeof(InputConverter))]
-public record class Input
+public record class Input : ModelBase
 {
     public object? Value { get; } = null;
 
@@ -327,7 +327,7 @@ public record class Input
     /// Thrown when the instance does not pass validation.
     /// </exception>
     /// </summary>
-    public void Validate()
+    public override void Validate()
     {
         if (this.Value == null)
         {
