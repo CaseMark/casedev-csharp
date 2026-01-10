@@ -274,7 +274,7 @@ public record class Input : ModelBase
             case string value:
                 @string(value);
                 break;
-            case List<string> value:
+            case IReadOnlyList<string> value:
                 strings(value);
                 break;
             default:
