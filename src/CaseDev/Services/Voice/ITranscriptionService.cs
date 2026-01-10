@@ -14,6 +14,12 @@ namespace CaseDev.Services.Voice;
 public interface ITranscriptionService
 {
     /// <summary>
+    /// Returns a view of this service that provides access to raw HTTP responses
+    /// for each method.
+    /// </summary>
+    ITranscriptionServiceWithRawResponse WithRawResponse { get; }
+
+    /// <summary>
     /// Returns a view of this service with the given option modifications applied.
     ///
     /// <para>The original service is not modified.</para>
@@ -47,6 +53,45 @@ public interface ITranscriptionService
 
     /// <inheritdoc cref="Retrieve(TranscriptionRetrieveParams, CancellationToken)"/>
     Task<TranscriptionRetrieveResponse> Retrieve(
+        string id,
+        TranscriptionRetrieveParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+}
+
+/// <summary>
+/// A view of <see cref="ITranscriptionService"/> that provides access to raw
+/// HTTP responses for each method.
+/// </summary>
+public interface ITranscriptionServiceWithRawResponse
+{
+    /// <summary>
+    /// Returns a view of this service with the given option modifications applied.
+    ///
+    /// <para>The original service is not modified.</para>
+    /// </summary>
+    ITranscriptionServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
+
+    /// <summary>
+    /// Returns a raw HTTP response for `post /voice/transcription`, but is otherwise the
+    /// same as <see cref="ITranscriptionService.Create(TranscriptionCreateParams?, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> Create(
+        TranscriptionCreateParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `get /voice/transcription/{id}`, but is otherwise the
+    /// same as <see cref="ITranscriptionService.Retrieve(TranscriptionRetrieveParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<TranscriptionRetrieveResponse>> Retrieve(
+        TranscriptionRetrieveParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="Retrieve(TranscriptionRetrieveParams, CancellationToken)"/>
+    Task<HttpResponse<TranscriptionRetrieveResponse>> Retrieve(
         string id,
         TranscriptionRetrieveParams? parameters = null,
         CancellationToken cancellationToken = default

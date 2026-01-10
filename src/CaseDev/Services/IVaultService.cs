@@ -15,6 +15,12 @@ namespace CaseDev.Services;
 public interface IVaultService
 {
     /// <summary>
+    /// Returns a view of this service that provides access to raw HTTP responses
+    /// for each method.
+    /// </summary>
+    IVaultServiceWithRawResponse WithRawResponse { get; }
+
+    /// <summary>
     /// Returns a view of this service with the given option modifications applied.
     ///
     /// <para>The original service is not modified.</para>
@@ -107,6 +113,106 @@ public interface IVaultService
 
     /// <inheritdoc cref="Upload(VaultUploadParams, CancellationToken)"/>
     Task<VaultUploadResponse> Upload(
+        string id,
+        VaultUploadParams parameters,
+        CancellationToken cancellationToken = default
+    );
+}
+
+/// <summary>
+/// A view of <see cref="IVaultService"/> that provides access to raw
+/// HTTP responses for each method.
+/// </summary>
+public interface IVaultServiceWithRawResponse
+{
+    /// <summary>
+    /// Returns a view of this service with the given option modifications applied.
+    ///
+    /// <para>The original service is not modified.</para>
+    /// </summary>
+    IVaultServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
+
+    IGraphragServiceWithRawResponse Graphrag { get; }
+
+    IObjectServiceWithRawResponse Objects { get; }
+
+    /// <summary>
+    /// Returns a raw HTTP response for `post /vault`, but is otherwise the
+    /// same as <see cref="IVaultService.Create(VaultCreateParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<VaultCreateResponse>> Create(
+        VaultCreateParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `get /vault/{id}`, but is otherwise the
+    /// same as <see cref="IVaultService.Retrieve(VaultRetrieveParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> Retrieve(
+        VaultRetrieveParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="Retrieve(VaultRetrieveParams, CancellationToken)"/>
+    Task<HttpResponse> Retrieve(
+        string id,
+        VaultRetrieveParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `get /vault`, but is otherwise the
+    /// same as <see cref="IVaultService.List(VaultListParams?, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<VaultListResponse>> List(
+        VaultListParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `post /vault/{id}/ingest/{objectId}`, but is otherwise the
+    /// same as <see cref="IVaultService.Ingest(VaultIngestParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<VaultIngestResponse>> Ingest(
+        VaultIngestParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="Ingest(VaultIngestParams, CancellationToken)"/>
+    Task<HttpResponse<VaultIngestResponse>> Ingest(
+        string objectID,
+        VaultIngestParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `post /vault/{id}/search`, but is otherwise the
+    /// same as <see cref="IVaultService.Search(VaultSearchParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<VaultSearchResponse>> Search(
+        VaultSearchParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="Search(VaultSearchParams, CancellationToken)"/>
+    Task<HttpResponse<VaultSearchResponse>> Search(
+        string id,
+        VaultSearchParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `post /vault/{id}/upload`, but is otherwise the
+    /// same as <see cref="IVaultService.Upload(VaultUploadParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<VaultUploadResponse>> Upload(
+        VaultUploadParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="Upload(VaultUploadParams, CancellationToken)"/>
+    Task<HttpResponse<VaultUploadResponse>> Upload(
         string id,
         VaultUploadParams parameters,
         CancellationToken cancellationToken = default

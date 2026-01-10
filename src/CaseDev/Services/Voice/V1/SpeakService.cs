@@ -10,21 +10,57 @@ namespace CaseDev.Services.Voice.V1;
 /// <inheritdoc/>
 public sealed class SpeakService : ISpeakService
 {
+    readonly Lazy<ISpeakServiceWithRawResponse> _withRawResponse;
+
+    /// <inheritdoc/>
+    public ISpeakServiceWithRawResponse WithRawResponse
+    {
+        get { return _withRawResponse.Value; }
+    }
+
+    readonly ICasedevClient _client;
+
     /// <inheritdoc/>
     public ISpeakService WithOptions(Func<ClientOptions, ClientOptions> modifier)
     {
         return new SpeakService(this._client.WithOptions(modifier));
     }
 
-    readonly ICasedevClient _client;
-
     public SpeakService(ICasedevClient client)
+    {
+        _client = client;
+
+        _withRawResponse = new(() => new SpeakServiceWithRawResponse(client.WithRawResponse));
+    }
+
+    /// <inheritdoc/>
+    public Task<HttpResponse> Create(
+        SpeakCreateParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return this.WithRawResponse.Create(parameters, cancellationToken);
+    }
+}
+
+/// <inheritdoc/>
+public sealed class SpeakServiceWithRawResponse : ISpeakServiceWithRawResponse
+{
+    readonly ICasedevClientWithRawResponse _client;
+
+    /// <inheritdoc/>
+    public ISpeakServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier)
+    {
+        return new SpeakServiceWithRawResponse(this._client.WithOptions(modifier));
+    }
+
+    public SpeakServiceWithRawResponse(ICasedevClientWithRawResponse client)
     {
         _client = client;
     }
 
     /// <inheritdoc/>
-    public async Task<HttpResponse> Create(
+    public Task<HttpResponse> Create(
         SpeakCreateParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -34,7 +70,6 @@ public sealed class SpeakService : ISpeakService
             Method = HttpMethod.Post,
             Params = parameters,
         };
-        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
-        return response;
+        return this._client.Execute(request, cancellationToken);
     }
 }

@@ -11,17 +11,27 @@ namespace CaseDev.Services.Llm;
 /// <inheritdoc/>
 public sealed class V1Service : IV1Service
 {
+    readonly Lazy<IV1ServiceWithRawResponse> _withRawResponse;
+
+    /// <inheritdoc/>
+    public IV1ServiceWithRawResponse WithRawResponse
+    {
+        get { return _withRawResponse.Value; }
+    }
+
+    readonly ICasedevClient _client;
+
     /// <inheritdoc/>
     public IV1Service WithOptions(Func<ClientOptions, ClientOptions> modifier)
     {
         return new V1Service(this._client.WithOptions(modifier));
     }
 
-    readonly ICasedevClient _client;
-
     public V1Service(ICasedevClient client)
     {
         _client = client;
+
+        _withRawResponse = new(() => new V1ServiceWithRawResponse(client.WithRawResponse));
         _chat = new(() => new ChatService(client));
     }
 
@@ -37,18 +47,65 @@ public sealed class V1Service : IV1Service
         CancellationToken cancellationToken = default
     )
     {
+        using var response = await this
+            .WithRawResponse.CreateEmbedding(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public async Task ListModels(
+        V1ListModelsParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.ListModels(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+}
+
+/// <inheritdoc/>
+public sealed class V1ServiceWithRawResponse : IV1ServiceWithRawResponse
+{
+    readonly ICasedevClientWithRawResponse _client;
+
+    /// <inheritdoc/>
+    public IV1ServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier)
+    {
+        return new V1ServiceWithRawResponse(this._client.WithOptions(modifier));
+    }
+
+    public V1ServiceWithRawResponse(ICasedevClientWithRawResponse client)
+    {
+        _client = client;
+
+        _chat = new(() => new ChatServiceWithRawResponse(client));
+    }
+
+    readonly Lazy<IChatServiceWithRawResponse> _chat;
+    public IChatServiceWithRawResponse Chat
+    {
+        get { return _chat.Value; }
+    }
+
+    /// <inheritdoc/>
+    public Task<HttpResponse> CreateEmbedding(
+        V1CreateEmbeddingParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
         HttpRequest<V1CreateEmbeddingParams> request = new()
         {
             Method = HttpMethod.Post,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
+        return this._client.Execute(request, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public async Task ListModels(
+    public Task<HttpResponse> ListModels(
         V1ListModelsParams? parameters = null,
         CancellationToken cancellationToken = default
     )
@@ -60,8 +117,6 @@ public sealed class V1Service : IV1Service
             Method = HttpMethod.Get,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
+        return this._client.Execute(request, cancellationToken);
     }
 }

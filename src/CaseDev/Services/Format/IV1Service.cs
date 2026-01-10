@@ -15,6 +15,12 @@ namespace CaseDev.Services.Format;
 public interface IV1Service
 {
     /// <summary>
+    /// Returns a view of this service that provides access to raw HTTP responses
+    /// for each method.
+    /// </summary>
+    IV1ServiceWithRawResponse WithRawResponse { get; }
+
+    /// <summary>
     /// Returns a view of this service with the given option modifications applied.
     ///
     /// <para>The original service is not modified.</para>
@@ -29,6 +35,31 @@ public interface IV1Service
     /// for creating consistent legal documents like contracts, briefs, and reports.
     ///
     /// <para>It's the caller's responsibility to dispose the returned response.</para>
+    /// </summary>
+    Task<HttpResponse> CreateDocument(
+        V1CreateDocumentParams parameters,
+        CancellationToken cancellationToken = default
+    );
+}
+
+/// <summary>
+/// A view of <see cref="IV1Service"/> that provides access to raw
+/// HTTP responses for each method.
+/// </summary>
+public interface IV1ServiceWithRawResponse
+{
+    /// <summary>
+    /// Returns a view of this service with the given option modifications applied.
+    ///
+    /// <para>The original service is not modified.</para>
+    /// </summary>
+    IV1ServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
+
+    V1::ITemplateServiceWithRawResponse Templates { get; }
+
+    /// <summary>
+    /// Returns a raw HTTP response for `post /format/v1/document`, but is otherwise the
+    /// same as <see cref="IV1Service.CreateDocument(V1CreateDocumentParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> CreateDocument(
         V1CreateDocumentParams parameters,

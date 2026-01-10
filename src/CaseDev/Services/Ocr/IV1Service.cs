@@ -14,6 +14,12 @@ namespace CaseDev.Services.Ocr;
 public interface IV1Service
 {
     /// <summary>
+    /// Returns a view of this service that provides access to raw HTTP responses
+    /// for each method.
+    /// </summary>
+    IV1ServiceWithRawResponse WithRawResponse { get; }
+
+    /// <summary>
     /// Returns a view of this service with the given option modifications applied.
     ///
     /// <para>The original service is not modified.</para>
@@ -53,6 +59,61 @@ public interface IV1Service
     /// a job ID that can be used to track processing status.
     /// </summary>
     Task<V1::V1ProcessResponse> Process(
+        V1::V1ProcessParams parameters,
+        CancellationToken cancellationToken = default
+    );
+}
+
+/// <summary>
+/// A view of <see cref="IV1Service"/> that provides access to raw
+/// HTTP responses for each method.
+/// </summary>
+public interface IV1ServiceWithRawResponse
+{
+    /// <summary>
+    /// Returns a view of this service with the given option modifications applied.
+    ///
+    /// <para>The original service is not modified.</para>
+    /// </summary>
+    IV1ServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
+
+    /// <summary>
+    /// Returns a raw HTTP response for `get /ocr/v1/{id}`, but is otherwise the
+    /// same as <see cref="IV1Service.Retrieve(V1::V1RetrieveParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> Retrieve(
+        V1::V1RetrieveParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="Retrieve(V1::V1RetrieveParams, CancellationToken)"/>
+    Task<HttpResponse> Retrieve(
+        string id,
+        V1::V1RetrieveParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `get /ocr/v1/{id}/download/{type}`, but is otherwise the
+    /// same as <see cref="IV1Service.Download(V1::V1DownloadParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> Download(
+        V1::V1DownloadParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="Download(V1::V1DownloadParams, CancellationToken)"/>
+    Task<HttpResponse> Download(
+        ApiEnum<string, V1::Type> type,
+        V1::V1DownloadParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `post /ocr/v1/process`, but is otherwise the
+    /// same as <see cref="IV1Service.Process(V1::V1ProcessParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<V1::V1ProcessResponse>> Process(
         V1::V1ProcessParams parameters,
         CancellationToken cancellationToken = default
     );

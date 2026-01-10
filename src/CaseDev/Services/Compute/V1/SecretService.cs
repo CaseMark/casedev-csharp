@@ -11,21 +11,145 @@ namespace CaseDev.Services.Compute.V1;
 /// <inheritdoc/>
 public sealed class SecretService : ISecretService
 {
+    readonly Lazy<ISecretServiceWithRawResponse> _withRawResponse;
+
+    /// <inheritdoc/>
+    public ISecretServiceWithRawResponse WithRawResponse
+    {
+        get { return _withRawResponse.Value; }
+    }
+
+    readonly ICasedevClient _client;
+
     /// <inheritdoc/>
     public ISecretService WithOptions(Func<ClientOptions, ClientOptions> modifier)
     {
         return new SecretService(this._client.WithOptions(modifier));
     }
 
-    readonly ICasedevClient _client;
-
     public SecretService(ICasedevClient client)
+    {
+        _client = client;
+
+        _withRawResponse = new(() => new SecretServiceWithRawResponse(client.WithRawResponse));
+    }
+
+    /// <inheritdoc/>
+    public async Task<SecretCreateResponse> Create(
+        SecretCreateParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.Create(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public async Task List(
+        SecretListParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.List(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public async Task DeleteGroup(
+        SecretDeleteGroupParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.DeleteGroup(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public async Task DeleteGroup(
+        string group,
+        SecretDeleteGroupParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        await this.DeleteGroup(parameters with { Group = group }, cancellationToken)
+            .ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public async Task RetrieveGroup(
+        SecretRetrieveGroupParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.RetrieveGroup(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public async Task RetrieveGroup(
+        string group,
+        SecretRetrieveGroupParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        await this.RetrieveGroup(parameters with { Group = group }, cancellationToken)
+            .ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public async Task UpdateGroup(
+        SecretUpdateGroupParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.UpdateGroup(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public async Task UpdateGroup(
+        string group,
+        SecretUpdateGroupParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        await this.UpdateGroup(parameters with { Group = group }, cancellationToken)
+            .ConfigureAwait(false);
+    }
+}
+
+/// <inheritdoc/>
+public sealed class SecretServiceWithRawResponse : ISecretServiceWithRawResponse
+{
+    readonly ICasedevClientWithRawResponse _client;
+
+    /// <inheritdoc/>
+    public ISecretServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier)
+    {
+        return new SecretServiceWithRawResponse(this._client.WithOptions(modifier));
+    }
+
+    public SecretServiceWithRawResponse(ICasedevClientWithRawResponse client)
     {
         _client = client;
     }
 
     /// <inheritdoc/>
-    public async Task<SecretCreateResponse> Create(
+    public async Task<HttpResponse<SecretCreateResponse>> Create(
         SecretCreateParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -35,21 +159,25 @@ public sealed class SecretService : ISecretService
             Method = HttpMethod.Post,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
-        var secret = await response
-            .Deserialize<SecretCreateResponse>(cancellationToken)
-            .ConfigureAwait(false);
-        if (this._client.ResponseValidation)
-        {
-            secret.Validate();
-        }
-        return secret;
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var secret = await response
+                    .Deserialize<SecretCreateResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    secret.Validate();
+                }
+                return secret;
+            }
+        );
     }
 
     /// <inheritdoc/>
-    public async Task List(
+    public Task<HttpResponse> List(
         SecretListParams? parameters = null,
         CancellationToken cancellationToken = default
     )
@@ -61,13 +189,11 @@ public sealed class SecretService : ISecretService
             Method = HttpMethod.Get,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
+        return this._client.Execute(request, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public async Task DeleteGroup(
+    public Task<HttpResponse> DeleteGroup(
         SecretDeleteGroupParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -82,13 +208,11 @@ public sealed class SecretService : ISecretService
             Method = HttpMethod.Delete,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
+        return this._client.Execute(request, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public async Task DeleteGroup(
+    public Task<HttpResponse> DeleteGroup(
         string group,
         SecretDeleteGroupParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -96,11 +220,11 @@ public sealed class SecretService : ISecretService
     {
         parameters ??= new();
 
-        await this.DeleteGroup(parameters with { Group = group }, cancellationToken);
+        return this.DeleteGroup(parameters with { Group = group }, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public async Task RetrieveGroup(
+    public Task<HttpResponse> RetrieveGroup(
         SecretRetrieveGroupParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -115,13 +239,11 @@ public sealed class SecretService : ISecretService
             Method = HttpMethod.Get,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
+        return this._client.Execute(request, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public async Task RetrieveGroup(
+    public Task<HttpResponse> RetrieveGroup(
         string group,
         SecretRetrieveGroupParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -129,11 +251,11 @@ public sealed class SecretService : ISecretService
     {
         parameters ??= new();
 
-        await this.RetrieveGroup(parameters with { Group = group }, cancellationToken);
+        return this.RetrieveGroup(parameters with { Group = group }, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public async Task UpdateGroup(
+    public Task<HttpResponse> UpdateGroup(
         SecretUpdateGroupParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -148,18 +270,16 @@ public sealed class SecretService : ISecretService
             Method = HttpMethod.Put,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
+        return this._client.Execute(request, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public async Task UpdateGroup(
+    public Task<HttpResponse> UpdateGroup(
         string group,
         SecretUpdateGroupParams parameters,
         CancellationToken cancellationToken = default
     )
     {
-        await this.UpdateGroup(parameters with { Group = group }, cancellationToken);
+        return this.UpdateGroup(parameters with { Group = group }, cancellationToken);
     }
 }

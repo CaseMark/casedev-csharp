@@ -11,21 +11,96 @@ namespace CaseDev.Services.Convert.V1;
 /// <inheritdoc/>
 public sealed class JobService : IJobService
 {
+    readonly Lazy<IJobServiceWithRawResponse> _withRawResponse;
+
+    /// <inheritdoc/>
+    public IJobServiceWithRawResponse WithRawResponse
+    {
+        get { return _withRawResponse.Value; }
+    }
+
+    readonly ICasedevClient _client;
+
     /// <inheritdoc/>
     public IJobService WithOptions(Func<ClientOptions, ClientOptions> modifier)
     {
         return new JobService(this._client.WithOptions(modifier));
     }
 
-    readonly ICasedevClient _client;
-
     public JobService(ICasedevClient client)
+    {
+        _client = client;
+
+        _withRawResponse = new(() => new JobServiceWithRawResponse(client.WithRawResponse));
+    }
+
+    /// <inheritdoc/>
+    public async Task Retrieve(
+        JobRetrieveParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.Retrieve(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public async Task Retrieve(
+        string id,
+        JobRetrieveParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        await this.Retrieve(parameters with { ID = id }, cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public async Task Delete(
+        JobDeleteParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.Delete(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public async Task Delete(
+        string id,
+        JobDeleteParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        await this.Delete(parameters with { ID = id }, cancellationToken).ConfigureAwait(false);
+    }
+}
+
+/// <inheritdoc/>
+public sealed class JobServiceWithRawResponse : IJobServiceWithRawResponse
+{
+    readonly ICasedevClientWithRawResponse _client;
+
+    /// <inheritdoc/>
+    public IJobServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier)
+    {
+        return new JobServiceWithRawResponse(this._client.WithOptions(modifier));
+    }
+
+    public JobServiceWithRawResponse(ICasedevClientWithRawResponse client)
     {
         _client = client;
     }
 
     /// <inheritdoc/>
-    public async Task Retrieve(
+    public Task<HttpResponse> Retrieve(
         JobRetrieveParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -40,13 +115,11 @@ public sealed class JobService : IJobService
             Method = HttpMethod.Get,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
+        return this._client.Execute(request, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public async Task Retrieve(
+    public Task<HttpResponse> Retrieve(
         string id,
         JobRetrieveParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -54,11 +127,11 @@ public sealed class JobService : IJobService
     {
         parameters ??= new();
 
-        await this.Retrieve(parameters with { ID = id }, cancellationToken);
+        return this.Retrieve(parameters with { ID = id }, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public async Task Delete(
+    public Task<HttpResponse> Delete(
         JobDeleteParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -73,13 +146,11 @@ public sealed class JobService : IJobService
             Method = HttpMethod.Delete,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
+        return this._client.Execute(request, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public async Task Delete(
+    public Task<HttpResponse> Delete(
         string id,
         JobDeleteParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -87,6 +158,6 @@ public sealed class JobService : IJobService
     {
         parameters ??= new();
 
-        await this.Delete(parameters with { ID = id }, cancellationToken);
+        return this.Delete(parameters with { ID = id }, cancellationToken);
     }
 }

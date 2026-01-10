@@ -11,9 +11,29 @@ namespace CaseDev.Services.Compute.V1;
 public interface IFunctionService
 {
     /// <summary>
+    /// Returns a view of this service that provides access to raw HTTP responses
+    /// for each method.
+    /// </summary>
+    IFunctionServiceWithRawResponse WithRawResponse { get; }
+
+    /// <summary>
     /// Returns a view of this service with the given option modifications applied.
     ///
     /// <para>The original service is not modified.</para>
     /// </summary>
     IFunctionService WithOptions(Func<ClientOptions, ClientOptions> modifier);
+}
+
+/// <summary>
+/// A view of <see cref="IFunctionService"/> that provides access to raw
+/// HTTP responses for each method.
+/// </summary>
+public interface IFunctionServiceWithRawResponse
+{
+    /// <summary>
+    /// Returns a view of this service with the given option modifications applied.
+    ///
+    /// <para>The original service is not modified.</para>
+    /// </summary>
+    IFunctionServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 }

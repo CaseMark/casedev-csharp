@@ -12,6 +12,12 @@ namespace CaseDev.Services;
 public interface IVoiceService
 {
     /// <summary>
+    /// Returns a view of this service that provides access to raw HTTP responses
+    /// for each method.
+    /// </summary>
+    IVoiceServiceWithRawResponse WithRawResponse { get; }
+
+    /// <summary>
     /// Returns a view of this service with the given option modifications applied.
     ///
     /// <para>The original service is not modified.</para>
@@ -23,4 +29,24 @@ public interface IVoiceService
     ITranscriptionService Transcription { get; }
 
     IV1Service V1 { get; }
+}
+
+/// <summary>
+/// A view of <see cref="IVoiceService"/> that provides access to raw
+/// HTTP responses for each method.
+/// </summary>
+public interface IVoiceServiceWithRawResponse
+{
+    /// <summary>
+    /// Returns a view of this service with the given option modifications applied.
+    ///
+    /// <para>The original service is not modified.</para>
+    /// </summary>
+    IVoiceServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
+
+    IStreamingServiceWithRawResponse Streaming { get; }
+
+    ITranscriptionServiceWithRawResponse Transcription { get; }
+
+    IV1ServiceWithRawResponse V1 { get; }
 }

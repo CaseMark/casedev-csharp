@@ -14,6 +14,12 @@ namespace CaseDev.Services.Convert.V1;
 public interface IJobService
 {
     /// <summary>
+    /// Returns a view of this service that provides access to raw HTTP responses
+    /// for each method.
+    /// </summary>
+    IJobServiceWithRawResponse WithRawResponse { get; }
+
+    /// <summary>
     /// Returns a view of this service with the given option modifications applied.
     ///
     /// <para>The original service is not modified.</para>
@@ -42,6 +48,52 @@ public interface IJobService
 
     /// <inheritdoc cref="Delete(JobDeleteParams, CancellationToken)"/>
     Task Delete(
+        string id,
+        JobDeleteParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+}
+
+/// <summary>
+/// A view of <see cref="IJobService"/> that provides access to raw
+/// HTTP responses for each method.
+/// </summary>
+public interface IJobServiceWithRawResponse
+{
+    /// <summary>
+    /// Returns a view of this service with the given option modifications applied.
+    ///
+    /// <para>The original service is not modified.</para>
+    /// </summary>
+    IJobServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
+
+    /// <summary>
+    /// Returns a raw HTTP response for `get /convert/v1/jobs/{id}`, but is otherwise the
+    /// same as <see cref="IJobService.Retrieve(JobRetrieveParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> Retrieve(
+        JobRetrieveParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="Retrieve(JobRetrieveParams, CancellationToken)"/>
+    Task<HttpResponse> Retrieve(
+        string id,
+        JobRetrieveParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `delete /convert/v1/jobs/{id}`, but is otherwise the
+    /// same as <see cref="IJobService.Delete(JobDeleteParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> Delete(
+        JobDeleteParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="Delete(JobDeleteParams, CancellationToken)"/>
+    Task<HttpResponse> Delete(
         string id,
         JobDeleteParams? parameters = null,
         CancellationToken cancellationToken = default

@@ -12,17 +12,27 @@ namespace CaseDev.Services;
 /// <inheritdoc/>
 public sealed class VaultService : IVaultService
 {
+    readonly Lazy<IVaultServiceWithRawResponse> _withRawResponse;
+
+    /// <inheritdoc/>
+    public IVaultServiceWithRawResponse WithRawResponse
+    {
+        get { return _withRawResponse.Value; }
+    }
+
+    readonly ICasedevClient _client;
+
     /// <inheritdoc/>
     public IVaultService WithOptions(Func<ClientOptions, ClientOptions> modifier)
     {
         return new VaultService(this._client.WithOptions(modifier));
     }
 
-    readonly ICasedevClient _client;
-
     public VaultService(ICasedevClient client)
     {
         _client = client;
+
+        _withRawResponse = new(() => new VaultServiceWithRawResponse(client.WithRawResponse));
         _graphrag = new(() => new GraphragService(client));
         _objects = new(() => new ObjectService(client));
     }
@@ -45,26 +55,176 @@ public sealed class VaultService : IVaultService
         CancellationToken cancellationToken = default
     )
     {
+        using var response = await this
+            .WithRawResponse.Create(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public async Task Retrieve(
+        VaultRetrieveParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.Retrieve(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public async Task Retrieve(
+        string id,
+        VaultRetrieveParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        await this.Retrieve(parameters with { ID = id }, cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public async Task<VaultListResponse> List(
+        VaultListParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.List(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public async Task<VaultIngestResponse> Ingest(
+        VaultIngestParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.Ingest(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public Task<VaultIngestResponse> Ingest(
+        string objectID,
+        VaultIngestParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return this.Ingest(parameters with { ObjectID = objectID }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async Task<VaultSearchResponse> Search(
+        VaultSearchParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.Search(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public Task<VaultSearchResponse> Search(
+        string id,
+        VaultSearchParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return this.Search(parameters with { ID = id }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async Task<VaultUploadResponse> Upload(
+        VaultUploadParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.Upload(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public Task<VaultUploadResponse> Upload(
+        string id,
+        VaultUploadParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return this.Upload(parameters with { ID = id }, cancellationToken);
+    }
+}
+
+/// <inheritdoc/>
+public sealed class VaultServiceWithRawResponse : IVaultServiceWithRawResponse
+{
+    readonly ICasedevClientWithRawResponse _client;
+
+    /// <inheritdoc/>
+    public IVaultServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier)
+    {
+        return new VaultServiceWithRawResponse(this._client.WithOptions(modifier));
+    }
+
+    public VaultServiceWithRawResponse(ICasedevClientWithRawResponse client)
+    {
+        _client = client;
+
+        _graphrag = new(() => new GraphragServiceWithRawResponse(client));
+        _objects = new(() => new ObjectServiceWithRawResponse(client));
+    }
+
+    readonly Lazy<IGraphragServiceWithRawResponse> _graphrag;
+    public IGraphragServiceWithRawResponse Graphrag
+    {
+        get { return _graphrag.Value; }
+    }
+
+    readonly Lazy<IObjectServiceWithRawResponse> _objects;
+    public IObjectServiceWithRawResponse Objects
+    {
+        get { return _objects.Value; }
+    }
+
+    /// <inheritdoc/>
+    public async Task<HttpResponse<VaultCreateResponse>> Create(
+        VaultCreateParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
         HttpRequest<VaultCreateParams> request = new()
         {
             Method = HttpMethod.Post,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
-        var vault = await response
-            .Deserialize<VaultCreateResponse>(cancellationToken)
-            .ConfigureAwait(false);
-        if (this._client.ResponseValidation)
-        {
-            vault.Validate();
-        }
-        return vault;
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var vault = await response
+                    .Deserialize<VaultCreateResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    vault.Validate();
+                }
+                return vault;
+            }
+        );
     }
 
     /// <inheritdoc/>
-    public async Task Retrieve(
+    public Task<HttpResponse> Retrieve(
         VaultRetrieveParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -79,13 +239,11 @@ public sealed class VaultService : IVaultService
             Method = HttpMethod.Get,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
+        return this._client.Execute(request, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public async Task Retrieve(
+    public Task<HttpResponse> Retrieve(
         string id,
         VaultRetrieveParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -93,11 +251,11 @@ public sealed class VaultService : IVaultService
     {
         parameters ??= new();
 
-        await this.Retrieve(parameters with { ID = id }, cancellationToken);
+        return this.Retrieve(parameters with { ID = id }, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public async Task<VaultListResponse> List(
+    public async Task<HttpResponse<VaultListResponse>> List(
         VaultListParams? parameters = null,
         CancellationToken cancellationToken = default
     )
@@ -109,21 +267,25 @@ public sealed class VaultService : IVaultService
             Method = HttpMethod.Get,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
-        var vaults = await response
-            .Deserialize<VaultListResponse>(cancellationToken)
-            .ConfigureAwait(false);
-        if (this._client.ResponseValidation)
-        {
-            vaults.Validate();
-        }
-        return vaults;
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var vaults = await response
+                    .Deserialize<VaultListResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    vaults.Validate();
+                }
+                return vaults;
+            }
+        );
     }
 
     /// <inheritdoc/>
-    public async Task<VaultIngestResponse> Ingest(
+    public async Task<HttpResponse<VaultIngestResponse>> Ingest(
         VaultIngestParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -138,31 +300,35 @@ public sealed class VaultService : IVaultService
             Method = HttpMethod.Post,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
-        var deserializedResponse = await response
-            .Deserialize<VaultIngestResponse>(cancellationToken)
-            .ConfigureAwait(false);
-        if (this._client.ResponseValidation)
-        {
-            deserializedResponse.Validate();
-        }
-        return deserializedResponse;
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var deserializedResponse = await response
+                    .Deserialize<VaultIngestResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    deserializedResponse.Validate();
+                }
+                return deserializedResponse;
+            }
+        );
     }
 
     /// <inheritdoc/>
-    public async Task<VaultIngestResponse> Ingest(
+    public Task<HttpResponse<VaultIngestResponse>> Ingest(
         string objectID,
         VaultIngestParams parameters,
         CancellationToken cancellationToken = default
     )
     {
-        return await this.Ingest(parameters with { ObjectID = objectID }, cancellationToken);
+        return this.Ingest(parameters with { ObjectID = objectID }, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public async Task<VaultSearchResponse> Search(
+    public async Task<HttpResponse<VaultSearchResponse>> Search(
         VaultSearchParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -177,31 +343,35 @@ public sealed class VaultService : IVaultService
             Method = HttpMethod.Post,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
-        var deserializedResponse = await response
-            .Deserialize<VaultSearchResponse>(cancellationToken)
-            .ConfigureAwait(false);
-        if (this._client.ResponseValidation)
-        {
-            deserializedResponse.Validate();
-        }
-        return deserializedResponse;
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var deserializedResponse = await response
+                    .Deserialize<VaultSearchResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    deserializedResponse.Validate();
+                }
+                return deserializedResponse;
+            }
+        );
     }
 
     /// <inheritdoc/>
-    public async Task<VaultSearchResponse> Search(
+    public Task<HttpResponse<VaultSearchResponse>> Search(
         string id,
         VaultSearchParams parameters,
         CancellationToken cancellationToken = default
     )
     {
-        return await this.Search(parameters with { ID = id }, cancellationToken);
+        return this.Search(parameters with { ID = id }, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public async Task<VaultUploadResponse> Upload(
+    public async Task<HttpResponse<VaultUploadResponse>> Upload(
         VaultUploadParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -216,26 +386,30 @@ public sealed class VaultService : IVaultService
             Method = HttpMethod.Post,
             Params = parameters,
         };
-        using var response = await this
-            ._client.Execute(request, cancellationToken)
-            .ConfigureAwait(false);
-        var deserializedResponse = await response
-            .Deserialize<VaultUploadResponse>(cancellationToken)
-            .ConfigureAwait(false);
-        if (this._client.ResponseValidation)
-        {
-            deserializedResponse.Validate();
-        }
-        return deserializedResponse;
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var deserializedResponse = await response
+                    .Deserialize<VaultUploadResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    deserializedResponse.Validate();
+                }
+                return deserializedResponse;
+            }
+        );
     }
 
     /// <inheritdoc/>
-    public async Task<VaultUploadResponse> Upload(
+    public Task<HttpResponse<VaultUploadResponse>> Upload(
         string id,
         VaultUploadParams parameters,
         CancellationToken cancellationToken = default
     )
     {
-        return await this.Upload(parameters with { ID = id }, cancellationToken);
+        return this.Upload(parameters with { ID = id }, cancellationToken);
     }
 }
