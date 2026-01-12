@@ -17,16 +17,14 @@ public interface ITemplateService
     /// Returns a view of this service that provides access to raw HTTP responses
     /// for each method.
     /// </summary>
-    global::CaseDev.Services.Format.V1.ITemplateServiceWithRawResponse WithRawResponse { get; }
+    ITemplateServiceWithRawResponse WithRawResponse { get; }
 
     /// <summary>
     /// Returns a view of this service with the given option modifications applied.
     ///
     /// <para>The original service is not modified.</para>
     /// </summary>
-    global::CaseDev.Services.Format.V1.ITemplateService WithOptions(
-        Func<ClientOptions, ClientOptions> modifier
-    );
+    ITemplateService WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
     /// Create a new format template for document formatting. Templates support variables
@@ -64,7 +62,7 @@ public interface ITemplateService
 }
 
 /// <summary>
-/// A view of <see cref="global::CaseDev.Services.Format.V1.ITemplateService"/> that provides access to raw
+/// A view of <see cref="ITemplateService"/> that provides access to raw
 /// HTTP responses for each method.
 /// </summary>
 public interface ITemplateServiceWithRawResponse
@@ -74,13 +72,11 @@ public interface ITemplateServiceWithRawResponse
     ///
     /// <para>The original service is not modified.</para>
     /// </summary>
-    global::CaseDev.Services.Format.V1.ITemplateServiceWithRawResponse WithOptions(
-        Func<ClientOptions, ClientOptions> modifier
-    );
+    ITemplateServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
     /// Returns a raw HTTP response for `post /format/v1/templates`, but is otherwise the
-    /// same as <see cref="global::CaseDev.Services.Format.V1.ITemplateService.Create(TemplateCreateParams, CancellationToken)"/>.
+    /// same as <see cref="ITemplateService.Create(TemplateCreateParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<TemplateCreateResponse>> Create(
         TemplateCreateParams parameters,
@@ -89,7 +85,7 @@ public interface ITemplateServiceWithRawResponse
 
     /// <summary>
     /// Returns a raw HTTP response for `get /format/v1/templates/{id}`, but is otherwise the
-    /// same as <see cref="global::CaseDev.Services.Format.V1.ITemplateService.Retrieve(TemplateRetrieveParams, CancellationToken)"/>.
+    /// same as <see cref="ITemplateService.Retrieve(TemplateRetrieveParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> Retrieve(
         TemplateRetrieveParams parameters,
@@ -105,7 +101,7 @@ public interface ITemplateServiceWithRawResponse
 
     /// <summary>
     /// Returns a raw HTTP response for `get /format/v1/templates`, but is otherwise the
-    /// same as <see cref="global::CaseDev.Services.Format.V1.ITemplateService.List(TemplateListParams?, CancellationToken)"/>.
+    /// same as <see cref="ITemplateService.List(TemplateListParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> List(
         TemplateListParams? parameters = null,
