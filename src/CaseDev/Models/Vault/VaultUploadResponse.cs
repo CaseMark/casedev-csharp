@@ -28,6 +28,23 @@ public sealed record class VaultUploadResponse : JsonModel
     }
 
     /// <summary>
+    /// Whether the vault supports indexing. False for storage-only vaults.
+    /// </summary>
+    public bool? EnableIndexing
+    {
+        get { return JsonModel.GetNullableStruct<bool>(this.RawData, "enableIndexing"); }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            JsonModel.Set(this._rawData, "enableIndexing", value);
+        }
+    }
+
+    /// <summary>
     /// URL expiration time in seconds
     /// </summary>
     public double? ExpiresIn
@@ -131,6 +148,7 @@ public sealed record class VaultUploadResponse : JsonModel
     public override void Validate()
     {
         _ = this.AutoIndex;
+        _ = this.EnableIndexing;
         _ = this.ExpiresIn;
         this.Instructions?.Validate();
         _ = this.NextStep;
