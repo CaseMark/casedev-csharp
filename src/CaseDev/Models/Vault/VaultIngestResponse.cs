@@ -40,7 +40,8 @@ public sealed record class VaultIngestResponse : JsonModel
     }
 
     /// <summary>
-    /// Current ingestion status
+    /// Current ingestion status. 'stored' for file types without text extraction
+    /// (no chunks/vectors created).
     /// </summary>
     public required ApiEnum<string, Status> Status
     {
@@ -49,11 +50,11 @@ public sealed record class VaultIngestResponse : JsonModel
     }
 
     /// <summary>
-    /// Workflow run ID for tracking progress
+    /// Workflow run ID for tracking progress. Null for file types that skip processing.
     /// </summary>
-    public required string WorkflowID
+    public required string? WorkflowID
     {
-        get { return JsonModel.GetNotNullClass<string>(this.RawData, "workflowId"); }
+        get { return JsonModel.GetNullableClass<string>(this.RawData, "workflowId"); }
         init { JsonModel.Set(this._rawData, "workflowId", value); }
     }
 
@@ -102,12 +103,14 @@ class VaultIngestResponseFromRaw : IFromRawJson<VaultIngestResponse>
 }
 
 /// <summary>
-/// Current ingestion status
+/// Current ingestion status. 'stored' for file types without text extraction (no
+/// chunks/vectors created).
 /// </summary>
 [JsonConverter(typeof(StatusConverter))]
 public enum Status
 {
     Processing,
+    Stored,
 }
 
 sealed class StatusConverter : JsonConverter<Status>
@@ -121,6 +124,7 @@ sealed class StatusConverter : JsonConverter<Status>
         return JsonSerializer.Deserialize<string>(ref reader, options) switch
         {
             "processing" => Status.Processing,
+            "stored" => Status.Stored,
             _ => (Status)(-1),
         };
     }
@@ -132,6 +136,7 @@ sealed class StatusConverter : JsonConverter<Status>
             value switch
             {
                 Status.Processing => "processing",
+                Status.Stored => "stored",
                 _ => throw new CasedevInvalidDataException(
                     string.Format("Invalid value '{0}' in {1}", value, nameof(value))
                 ),
