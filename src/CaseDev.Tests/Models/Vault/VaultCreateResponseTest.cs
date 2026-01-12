@@ -14,7 +14,6 @@ public class VaultCreateResponseTest : TestBase
             ID = "id",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Description = "description",
-            EnableIndexing = true,
             FilesBucket = "filesBucket",
             IndexName = "indexName",
             Name = "name",
@@ -25,7 +24,6 @@ public class VaultCreateResponseTest : TestBase
         string expectedID = "id";
         DateTimeOffset expectedCreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
         string expectedDescription = "description";
-        bool expectedEnableIndexing = true;
         string expectedFilesBucket = "filesBucket";
         string expectedIndexName = "indexName";
         string expectedName = "name";
@@ -35,7 +33,6 @@ public class VaultCreateResponseTest : TestBase
         Assert.Equal(expectedID, model.ID);
         Assert.Equal(expectedCreatedAt, model.CreatedAt);
         Assert.Equal(expectedDescription, model.Description);
-        Assert.Equal(expectedEnableIndexing, model.EnableIndexing);
         Assert.Equal(expectedFilesBucket, model.FilesBucket);
         Assert.Equal(expectedIndexName, model.IndexName);
         Assert.Equal(expectedName, model.Name);
@@ -51,7 +48,6 @@ public class VaultCreateResponseTest : TestBase
             ID = "id",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Description = "description",
-            EnableIndexing = true,
             FilesBucket = "filesBucket",
             IndexName = "indexName",
             Name = "name",
@@ -73,7 +69,6 @@ public class VaultCreateResponseTest : TestBase
             ID = "id",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Description = "description",
-            EnableIndexing = true,
             FilesBucket = "filesBucket",
             IndexName = "indexName",
             Name = "name",
@@ -88,7 +83,6 @@ public class VaultCreateResponseTest : TestBase
         string expectedID = "id";
         DateTimeOffset expectedCreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
         string expectedDescription = "description";
-        bool expectedEnableIndexing = true;
         string expectedFilesBucket = "filesBucket";
         string expectedIndexName = "indexName";
         string expectedName = "name";
@@ -98,7 +92,6 @@ public class VaultCreateResponseTest : TestBase
         Assert.Equal(expectedID, deserialized.ID);
         Assert.Equal(expectedCreatedAt, deserialized.CreatedAt);
         Assert.Equal(expectedDescription, deserialized.Description);
-        Assert.Equal(expectedEnableIndexing, deserialized.EnableIndexing);
         Assert.Equal(expectedFilesBucket, deserialized.FilesBucket);
         Assert.Equal(expectedIndexName, deserialized.IndexName);
         Assert.Equal(expectedName, deserialized.Name);
@@ -114,7 +107,6 @@ public class VaultCreateResponseTest : TestBase
             ID = "id",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Description = "description",
-            EnableIndexing = true,
             FilesBucket = "filesBucket",
             IndexName = "indexName",
             Name = "name",
@@ -128,11 +120,7 @@ public class VaultCreateResponseTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetAreNotSet_Works()
     {
-        var model = new VaultCreateResponse
-        {
-            IndexName = "indexName",
-            VectorBucket = "vectorBucket",
-        };
+        var model = new VaultCreateResponse { };
 
         Assert.Null(model.ID);
         Assert.False(model.RawData.ContainsKey("id"));
@@ -140,24 +128,22 @@ public class VaultCreateResponseTest : TestBase
         Assert.False(model.RawData.ContainsKey("createdAt"));
         Assert.Null(model.Description);
         Assert.False(model.RawData.ContainsKey("description"));
-        Assert.Null(model.EnableIndexing);
-        Assert.False(model.RawData.ContainsKey("enableIndexing"));
         Assert.Null(model.FilesBucket);
         Assert.False(model.RawData.ContainsKey("filesBucket"));
+        Assert.Null(model.IndexName);
+        Assert.False(model.RawData.ContainsKey("indexName"));
         Assert.Null(model.Name);
         Assert.False(model.RawData.ContainsKey("name"));
         Assert.Null(model.Region);
         Assert.False(model.RawData.ContainsKey("region"));
+        Assert.Null(model.VectorBucket);
+        Assert.False(model.RawData.ContainsKey("vectorBucket"));
     }
 
     [Fact]
     public void OptionalNonNullablePropertiesUnsetValidation_Works()
     {
-        var model = new VaultCreateResponse
-        {
-            IndexName = "indexName",
-            VectorBucket = "vectorBucket",
-        };
+        var model = new VaultCreateResponse { };
 
         model.Validate();
     }
@@ -167,17 +153,15 @@ public class VaultCreateResponseTest : TestBase
     {
         var model = new VaultCreateResponse
         {
-            IndexName = "indexName",
-            VectorBucket = "vectorBucket",
-
             // Null should be interpreted as omitted for these properties
             ID = null,
             CreatedAt = null,
             Description = null,
-            EnableIndexing = null,
             FilesBucket = null,
+            IndexName = null,
             Name = null,
             Region = null,
+            VectorBucket = null,
         };
 
         Assert.Null(model.ID);
@@ -186,14 +170,16 @@ public class VaultCreateResponseTest : TestBase
         Assert.False(model.RawData.ContainsKey("createdAt"));
         Assert.Null(model.Description);
         Assert.False(model.RawData.ContainsKey("description"));
-        Assert.Null(model.EnableIndexing);
-        Assert.False(model.RawData.ContainsKey("enableIndexing"));
         Assert.Null(model.FilesBucket);
         Assert.False(model.RawData.ContainsKey("filesBucket"));
+        Assert.Null(model.IndexName);
+        Assert.False(model.RawData.ContainsKey("indexName"));
         Assert.Null(model.Name);
         Assert.False(model.RawData.ContainsKey("name"));
         Assert.Null(model.Region);
         Assert.False(model.RawData.ContainsKey("region"));
+        Assert.Null(model.VectorBucket);
+        Assert.False(model.RawData.ContainsKey("vectorBucket"));
     }
 
     [Fact]
@@ -201,96 +187,14 @@ public class VaultCreateResponseTest : TestBase
     {
         var model = new VaultCreateResponse
         {
-            IndexName = "indexName",
-            VectorBucket = "vectorBucket",
-
             // Null should be interpreted as omitted for these properties
             ID = null,
             CreatedAt = null,
             Description = null,
-            EnableIndexing = null,
             FilesBucket = null,
+            IndexName = null,
             Name = null,
             Region = null,
-        };
-
-        model.Validate();
-    }
-
-    [Fact]
-    public void OptionalNullablePropertiesUnsetAreNotSet_Works()
-    {
-        var model = new VaultCreateResponse
-        {
-            ID = "id",
-            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
-            Description = "description",
-            EnableIndexing = true,
-            FilesBucket = "filesBucket",
-            Name = "name",
-            Region = "region",
-        };
-
-        Assert.Null(model.IndexName);
-        Assert.False(model.RawData.ContainsKey("indexName"));
-        Assert.Null(model.VectorBucket);
-        Assert.False(model.RawData.ContainsKey("vectorBucket"));
-    }
-
-    [Fact]
-    public void OptionalNullablePropertiesUnsetValidation_Works()
-    {
-        var model = new VaultCreateResponse
-        {
-            ID = "id",
-            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
-            Description = "description",
-            EnableIndexing = true,
-            FilesBucket = "filesBucket",
-            Name = "name",
-            Region = "region",
-        };
-
-        model.Validate();
-    }
-
-    [Fact]
-    public void OptionalNullablePropertiesSetToNullAreSetToNull_Works()
-    {
-        var model = new VaultCreateResponse
-        {
-            ID = "id",
-            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
-            Description = "description",
-            EnableIndexing = true,
-            FilesBucket = "filesBucket",
-            Name = "name",
-            Region = "region",
-
-            IndexName = null,
-            VectorBucket = null,
-        };
-
-        Assert.Null(model.IndexName);
-        Assert.True(model.RawData.ContainsKey("indexName"));
-        Assert.Null(model.VectorBucket);
-        Assert.True(model.RawData.ContainsKey("vectorBucket"));
-    }
-
-    [Fact]
-    public void OptionalNullablePropertiesSetToNullValidation_Works()
-    {
-        var model = new VaultCreateResponse
-        {
-            ID = "id",
-            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
-            Description = "description",
-            EnableIndexing = true,
-            FilesBucket = "filesBucket",
-            Name = "name",
-            Region = "region",
-
-            IndexName = null,
             VectorBucket = null,
         };
 

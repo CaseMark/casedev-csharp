@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using CaseDev.Core;
 using CaseDev.Models.Format.V1;
-using V1 = CaseDev.Services.Format.V1;
+using CaseDev.Services.Format.V1;
 
 namespace CaseDev.Services.Format;
 
@@ -27,7 +27,7 @@ public interface IV1Service
     /// </summary>
     IV1Service WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
-    V1::ITemplateService Templates { get; }
+    ITemplateService Templates { get; }
 
     /// <summary>
     /// Convert Markdown, JSON, or text content to professionally formatted PDF,
@@ -55,7 +55,7 @@ public interface IV1ServiceWithRawResponse
     /// </summary>
     IV1ServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
-    V1::ITemplateServiceWithRawResponse Templates { get; }
+    ITemplateServiceWithRawResponse Templates { get; }
 
     /// <summary>
     /// Returns a raw HTTP response for `post /format/v1/document`, but is otherwise the

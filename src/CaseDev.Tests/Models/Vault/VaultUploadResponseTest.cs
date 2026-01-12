@@ -11,7 +11,6 @@ public class VaultUploadResponseTest : TestBase
         var model = new VaultUploadResponse
         {
             AutoIndex = true,
-            EnableIndexing = true,
             ExpiresIn = 0,
             Instructions = new()
             {
@@ -27,7 +26,6 @@ public class VaultUploadResponseTest : TestBase
         };
 
         bool expectedAutoIndex = true;
-        bool expectedEnableIndexing = true;
         double expectedExpiresIn = 0;
         Instructions expectedInstructions = new()
         {
@@ -42,7 +40,6 @@ public class VaultUploadResponseTest : TestBase
         string expectedUploadUrl = "uploadUrl";
 
         Assert.Equal(expectedAutoIndex, model.AutoIndex);
-        Assert.Equal(expectedEnableIndexing, model.EnableIndexing);
         Assert.Equal(expectedExpiresIn, model.ExpiresIn);
         Assert.Equal(expectedInstructions, model.Instructions);
         Assert.Equal(expectedNextStep, model.NextStep);
@@ -58,7 +55,6 @@ public class VaultUploadResponseTest : TestBase
         var model = new VaultUploadResponse
         {
             AutoIndex = true,
-            EnableIndexing = true,
             ExpiresIn = 0,
             Instructions = new()
             {
@@ -85,7 +81,6 @@ public class VaultUploadResponseTest : TestBase
         var model = new VaultUploadResponse
         {
             AutoIndex = true,
-            EnableIndexing = true,
             ExpiresIn = 0,
             Instructions = new()
             {
@@ -105,7 +100,6 @@ public class VaultUploadResponseTest : TestBase
         Assert.NotNull(deserialized);
 
         bool expectedAutoIndex = true;
-        bool expectedEnableIndexing = true;
         double expectedExpiresIn = 0;
         Instructions expectedInstructions = new()
         {
@@ -120,7 +114,6 @@ public class VaultUploadResponseTest : TestBase
         string expectedUploadUrl = "uploadUrl";
 
         Assert.Equal(expectedAutoIndex, deserialized.AutoIndex);
-        Assert.Equal(expectedEnableIndexing, deserialized.EnableIndexing);
         Assert.Equal(expectedExpiresIn, deserialized.ExpiresIn);
         Assert.Equal(expectedInstructions, deserialized.Instructions);
         Assert.Equal(expectedNextStep, deserialized.NextStep);
@@ -136,7 +129,6 @@ public class VaultUploadResponseTest : TestBase
         var model = new VaultUploadResponse
         {
             AutoIndex = true,
-            EnableIndexing = true,
             ExpiresIn = 0,
             Instructions = new()
             {
@@ -161,8 +153,6 @@ public class VaultUploadResponseTest : TestBase
 
         Assert.Null(model.AutoIndex);
         Assert.False(model.RawData.ContainsKey("auto_index"));
-        Assert.Null(model.EnableIndexing);
-        Assert.False(model.RawData.ContainsKey("enableIndexing"));
         Assert.Null(model.ExpiresIn);
         Assert.False(model.RawData.ContainsKey("expiresIn"));
         Assert.Null(model.Instructions);
@@ -193,7 +183,6 @@ public class VaultUploadResponseTest : TestBase
 
             // Null should be interpreted as omitted for these properties
             AutoIndex = null,
-            EnableIndexing = null,
             ExpiresIn = null,
             Instructions = null,
             ObjectID = null,
@@ -203,8 +192,6 @@ public class VaultUploadResponseTest : TestBase
 
         Assert.Null(model.AutoIndex);
         Assert.False(model.RawData.ContainsKey("auto_index"));
-        Assert.Null(model.EnableIndexing);
-        Assert.False(model.RawData.ContainsKey("enableIndexing"));
         Assert.Null(model.ExpiresIn);
         Assert.False(model.RawData.ContainsKey("expiresIn"));
         Assert.Null(model.Instructions);
@@ -227,7 +214,6 @@ public class VaultUploadResponseTest : TestBase
 
             // Null should be interpreted as omitted for these properties
             AutoIndex = null,
-            EnableIndexing = null,
             ExpiresIn = null,
             Instructions = null,
             ObjectID = null,
@@ -244,7 +230,6 @@ public class VaultUploadResponseTest : TestBase
         var model = new VaultUploadResponse
         {
             AutoIndex = true,
-            EnableIndexing = true,
             ExpiresIn = 0,
             Instructions = new()
             {
@@ -269,7 +254,6 @@ public class VaultUploadResponseTest : TestBase
         var model = new VaultUploadResponse
         {
             AutoIndex = true,
-            EnableIndexing = true,
             ExpiresIn = 0,
             Instructions = new()
             {
@@ -291,7 +275,6 @@ public class VaultUploadResponseTest : TestBase
         var model = new VaultUploadResponse
         {
             AutoIndex = true,
-            EnableIndexing = true,
             ExpiresIn = 0,
             Instructions = new()
             {
@@ -319,7 +302,6 @@ public class VaultUploadResponseTest : TestBase
         var model = new VaultUploadResponse
         {
             AutoIndex = true,
-            EnableIndexing = true,
             ExpiresIn = 0,
             Instructions = new()
             {

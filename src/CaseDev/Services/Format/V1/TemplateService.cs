@@ -9,12 +9,12 @@ using CaseDev.Models.Format.V1.Templates;
 namespace CaseDev.Services.Format.V1;
 
 /// <inheritdoc/>
-public sealed class TemplateService : global::CaseDev.Services.Format.V1.ITemplateService
+public sealed class TemplateService : ITemplateService
 {
-    readonly Lazy<global::CaseDev.Services.Format.V1.ITemplateServiceWithRawResponse> _withRawResponse;
+    readonly Lazy<ITemplateServiceWithRawResponse> _withRawResponse;
 
     /// <inheritdoc/>
-    public global::CaseDev.Services.Format.V1.ITemplateServiceWithRawResponse WithRawResponse
+    public ITemplateServiceWithRawResponse WithRawResponse
     {
         get { return _withRawResponse.Value; }
     }
@@ -22,24 +22,16 @@ public sealed class TemplateService : global::CaseDev.Services.Format.V1.ITempla
     readonly ICasedevClient _client;
 
     /// <inheritdoc/>
-    public global::CaseDev.Services.Format.V1.ITemplateService WithOptions(
-        Func<ClientOptions, ClientOptions> modifier
-    )
+    public ITemplateService WithOptions(Func<ClientOptions, ClientOptions> modifier)
     {
-        return new global::CaseDev.Services.Format.V1.TemplateService(
-            this._client.WithOptions(modifier)
-        );
+        return new TemplateService(this._client.WithOptions(modifier));
     }
 
     public TemplateService(ICasedevClient client)
     {
         _client = client;
 
-        _withRawResponse = new(() =>
-            new global::CaseDev.Services.Format.V1.TemplateServiceWithRawResponse(
-                client.WithRawResponse
-            )
-        );
+        _withRawResponse = new(() => new TemplateServiceWithRawResponse(client.WithRawResponse));
     }
 
     /// <inheritdoc/>
@@ -92,19 +84,14 @@ public sealed class TemplateService : global::CaseDev.Services.Format.V1.ITempla
 }
 
 /// <inheritdoc/>
-public sealed class TemplateServiceWithRawResponse
-    : global::CaseDev.Services.Format.V1.ITemplateServiceWithRawResponse
+public sealed class TemplateServiceWithRawResponse : ITemplateServiceWithRawResponse
 {
     readonly ICasedevClientWithRawResponse _client;
 
     /// <inheritdoc/>
-    public global::CaseDev.Services.Format.V1.ITemplateServiceWithRawResponse WithOptions(
-        Func<ClientOptions, ClientOptions> modifier
-    )
+    public ITemplateServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier)
     {
-        return new global::CaseDev.Services.Format.V1.TemplateServiceWithRawResponse(
-            this._client.WithOptions(modifier)
-        );
+        return new TemplateServiceWithRawResponse(this._client.WithOptions(modifier));
     }
 
     public TemplateServiceWithRawResponse(ICasedevClientWithRawResponse client)

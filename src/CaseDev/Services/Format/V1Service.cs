@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using CaseDev.Core;
 using CaseDev.Models.Format.V1;
-using V1 = CaseDev.Services.Format.V1;
+using CaseDev.Services.Format.V1;
 
 namespace CaseDev.Services.Format;
 
@@ -32,11 +32,11 @@ public sealed class V1Service : IV1Service
         _client = client;
 
         _withRawResponse = new(() => new V1ServiceWithRawResponse(client.WithRawResponse));
-        _templates = new(() => new V1::TemplateService(client));
+        _templates = new(() => new TemplateService(client));
     }
 
-    readonly Lazy<V1::ITemplateService> _templates;
-    public V1::ITemplateService Templates
+    readonly Lazy<ITemplateService> _templates;
+    public ITemplateService Templates
     {
         get { return _templates.Value; }
     }
@@ -66,11 +66,11 @@ public sealed class V1ServiceWithRawResponse : IV1ServiceWithRawResponse
     {
         _client = client;
 
-        _templates = new(() => new V1::TemplateServiceWithRawResponse(client));
+        _templates = new(() => new TemplateServiceWithRawResponse(client));
     }
 
-    readonly Lazy<V1::ITemplateServiceWithRawResponse> _templates;
-    public V1::ITemplateServiceWithRawResponse Templates
+    readonly Lazy<ITemplateServiceWithRawResponse> _templates;
+    public ITemplateServiceWithRawResponse Templates
     {
         get { return _templates.Value; }
     }

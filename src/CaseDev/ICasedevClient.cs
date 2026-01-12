@@ -54,11 +54,7 @@ public interface ICasedevClient : IDisposable
     /// </summary>
     ICasedevClient WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
-    IActionService Actions { get; }
-
     IComputeService Compute { get; }
-
-    IConvertService Convert { get; }
 
     IFormatService Format { get; }
 
@@ -73,10 +69,6 @@ public interface ICasedevClient : IDisposable
     IVoiceService Voice { get; }
 
     IWebhookService Webhooks { get; }
-
-    ITemplateService Templates { get; }
-
-    IWorkflowService Workflows { get; }
 }
 
 /// <summary>
@@ -111,11 +103,7 @@ public interface ICasedevClientWithRawResponse : IDisposable
     /// </summary>
     ICasedevClientWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
-    IActionServiceWithRawResponse Actions { get; }
-
     IComputeServiceWithRawResponse Compute { get; }
-
-    IConvertServiceWithRawResponse Convert { get; }
 
     IFormatServiceWithRawResponse Format { get; }
 
@@ -130,10 +118,6 @@ public interface ICasedevClientWithRawResponse : IDisposable
     IVoiceServiceWithRawResponse Voice { get; }
 
     IWebhookServiceWithRawResponse Webhooks { get; }
-
-    ITemplateServiceWithRawResponse Templates { get; }
-
-    IWorkflowServiceWithRawResponse Workflows { get; }
 
     /// <summary>
     /// Sends a request to the Casedev REST API.

@@ -49,8 +49,7 @@ public sealed record class VaultCreateParams : ParamsBase
     }
 
     /// <summary>
-    /// Enable knowledge graph for entity relationship mapping. Only applies when
-    /// enableIndexing is true.
+    /// Enable knowledge graph for entity relationship mapping
     /// </summary>
     public bool? EnableGraph
     {
@@ -63,23 +62,6 @@ public sealed record class VaultCreateParams : ParamsBase
             }
 
             JsonModel.Set(this._rawBodyData, "enableGraph", value);
-        }
-    }
-
-    /// <summary>
-    /// Enable vector indexing and search capabilities. Set to false for storage-only vaults.
-    /// </summary>
-    public bool? EnableIndexing
-    {
-        get { return JsonModel.GetNullableStruct<bool>(this.RawBodyData, "enableIndexing"); }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            JsonModel.Set(this._rawBodyData, "enableIndexing", value);
         }
     }
 
