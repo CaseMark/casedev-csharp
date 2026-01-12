@@ -9,10 +9,11 @@ using CaseDev.Core;
 namespace CaseDev.Models.Vault;
 
 /// <summary>
-/// Triggers OCR ingestion workflow for a vault object to extract text, generate
-/// chunks, and create embeddings. Processing happens asynchronously. GraphRAG indexing
-/// must be triggered separately via POST /vault/:id/graphrag/:objectId. Returns immediately
-/// with workflow tracking information.
+/// Triggers ingestion workflow for a vault object to extract text, generate chunks,
+/// and create embeddings. For supported file types (PDF, DOCX, TXT, RTF, XML, audio,
+/// video), processing happens asynchronously. For unsupported types (images, archives,
+/// etc.), the file is marked as completed immediately without text extraction. GraphRAG
+/// indexing must be triggered separately via POST /vault/:id/graphrag/:objectId.
 /// </summary>
 public sealed record class VaultIngestParams : ParamsBase
 {
