@@ -20,7 +20,10 @@ public sealed record class VaultRetrieveParams : ParamsBase
     public VaultRetrieveParams() { }
 
     public VaultRetrieveParams(VaultRetrieveParams vaultRetrieveParams)
-        : base(vaultRetrieveParams) { }
+        : base(vaultRetrieveParams)
+    {
+        this.ID = vaultRetrieveParams.ID;
+    }
 
     public VaultRetrieveParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,

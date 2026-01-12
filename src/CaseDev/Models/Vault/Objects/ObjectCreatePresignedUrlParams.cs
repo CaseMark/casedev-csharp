@@ -92,6 +92,9 @@ public sealed record class ObjectCreatePresignedUrlParams : ParamsBase
     )
         : base(objectCreatePresignedUrlParams)
     {
+        this.ID = objectCreatePresignedUrlParams.ID;
+        this.ObjectID = objectCreatePresignedUrlParams.ObjectID;
+
         this._rawBodyData = [.. objectCreatePresignedUrlParams._rawBodyData];
     }
 

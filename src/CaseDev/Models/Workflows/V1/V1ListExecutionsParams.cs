@@ -51,7 +51,10 @@ public sealed record class V1ListExecutionsParams : ParamsBase
     public V1ListExecutionsParams() { }
 
     public V1ListExecutionsParams(V1ListExecutionsParams v1ListExecutionsParams)
-        : base(v1ListExecutionsParams) { }
+        : base(v1ListExecutionsParams)
+    {
+        this.ID = v1ListExecutionsParams.ID;
+    }
 
     public V1ListExecutionsParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,

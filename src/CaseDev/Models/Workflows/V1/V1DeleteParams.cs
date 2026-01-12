@@ -18,7 +18,10 @@ public sealed record class V1DeleteParams : ParamsBase
     public V1DeleteParams() { }
 
     public V1DeleteParams(V1DeleteParams v1DeleteParams)
-        : base(v1DeleteParams) { }
+        : base(v1DeleteParams)
+    {
+        this.ID = v1DeleteParams.ID;
+    }
 
     public V1DeleteParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,

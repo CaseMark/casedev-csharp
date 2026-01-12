@@ -60,6 +60,8 @@ public sealed record class SecretUpdateGroupParams : ParamsBase
     public SecretUpdateGroupParams(SecretUpdateGroupParams secretUpdateGroupParams)
         : base(secretUpdateGroupParams)
     {
+        this.Group = secretUpdateGroupParams.Group;
+
         this._rawBodyData = [.. secretUpdateGroupParams._rawBodyData];
     }
 

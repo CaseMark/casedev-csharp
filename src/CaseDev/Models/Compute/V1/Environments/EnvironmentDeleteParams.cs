@@ -20,7 +20,10 @@ public sealed record class EnvironmentDeleteParams : ParamsBase
     public EnvironmentDeleteParams() { }
 
     public EnvironmentDeleteParams(EnvironmentDeleteParams environmentDeleteParams)
-        : base(environmentDeleteParams) { }
+        : base(environmentDeleteParams)
+    {
+        this.Name = environmentDeleteParams.Name;
+    }
 
     public EnvironmentDeleteParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,

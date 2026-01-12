@@ -22,7 +22,11 @@ public sealed record class ObjectDownloadParams : ParamsBase
     public ObjectDownloadParams() { }
 
     public ObjectDownloadParams(ObjectDownloadParams objectDownloadParams)
-        : base(objectDownloadParams) { }
+        : base(objectDownloadParams)
+    {
+        this.ID = objectDownloadParams.ID;
+        this.ObjectID = objectDownloadParams.ObjectID;
+    }
 
     public ObjectDownloadParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,

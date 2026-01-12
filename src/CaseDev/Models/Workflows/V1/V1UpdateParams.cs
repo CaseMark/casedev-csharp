@@ -139,6 +139,8 @@ public sealed record class V1UpdateParams : ParamsBase
     public V1UpdateParams(V1UpdateParams v1UpdateParams)
         : base(v1UpdateParams)
     {
+        this.ID = v1UpdateParams.ID;
+
         this._rawBodyData = [.. v1UpdateParams._rawBodyData];
     }
 

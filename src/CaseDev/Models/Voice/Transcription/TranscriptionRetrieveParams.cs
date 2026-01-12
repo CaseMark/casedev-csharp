@@ -20,7 +20,10 @@ public sealed record class TranscriptionRetrieveParams : ParamsBase
     public TranscriptionRetrieveParams() { }
 
     public TranscriptionRetrieveParams(TranscriptionRetrieveParams transcriptionRetrieveParams)
-        : base(transcriptionRetrieveParams) { }
+        : base(transcriptionRetrieveParams)
+    {
+        this.ID = transcriptionRetrieveParams.ID;
+    }
 
     public TranscriptionRetrieveParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,

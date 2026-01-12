@@ -22,7 +22,11 @@ public sealed record class ObjectGetTextParams : ParamsBase
     public ObjectGetTextParams() { }
 
     public ObjectGetTextParams(ObjectGetTextParams objectGetTextParams)
-        : base(objectGetTextParams) { }
+        : base(objectGetTextParams)
+    {
+        this.ID = objectGetTextParams.ID;
+        this.ObjectID = objectGetTextParams.ObjectID;
+    }
 
     public ObjectGetTextParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,

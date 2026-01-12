@@ -19,7 +19,10 @@ public sealed record class EnvironmentRetrieveParams : ParamsBase
     public EnvironmentRetrieveParams() { }
 
     public EnvironmentRetrieveParams(EnvironmentRetrieveParams environmentRetrieveParams)
-        : base(environmentRetrieveParams) { }
+        : base(environmentRetrieveParams)
+    {
+        this.Name = environmentRetrieveParams.Name;
+    }
 
     public EnvironmentRetrieveParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,

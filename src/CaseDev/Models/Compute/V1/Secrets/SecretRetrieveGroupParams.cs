@@ -36,7 +36,10 @@ public sealed record class SecretRetrieveGroupParams : ParamsBase
     public SecretRetrieveGroupParams() { }
 
     public SecretRetrieveGroupParams(SecretRetrieveGroupParams secretRetrieveGroupParams)
-        : base(secretRetrieveGroupParams) { }
+        : base(secretRetrieveGroupParams)
+    {
+        this.Group = secretRetrieveGroupParams.Group;
+    }
 
     public SecretRetrieveGroupParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,

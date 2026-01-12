@@ -96,6 +96,8 @@ public sealed record class VaultSearchParams : ParamsBase
     public VaultSearchParams(VaultSearchParams vaultSearchParams)
         : base(vaultSearchParams)
     {
+        this.ID = vaultSearchParams.ID;
+
         this._rawBodyData = [.. vaultSearchParams._rawBodyData];
     }
 
