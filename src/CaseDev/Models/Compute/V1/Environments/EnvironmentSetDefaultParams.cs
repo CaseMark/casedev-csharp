@@ -20,7 +20,10 @@ public sealed record class EnvironmentSetDefaultParams : ParamsBase
     public EnvironmentSetDefaultParams() { }
 
     public EnvironmentSetDefaultParams(EnvironmentSetDefaultParams environmentSetDefaultParams)
-        : base(environmentSetDefaultParams) { }
+        : base(environmentSetDefaultParams)
+    {
+        this.Name = environmentSetDefaultParams.Name;
+    }
 
     public EnvironmentSetDefaultParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,

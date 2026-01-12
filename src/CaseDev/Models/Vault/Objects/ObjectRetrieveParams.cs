@@ -22,7 +22,11 @@ public sealed record class ObjectRetrieveParams : ParamsBase
     public ObjectRetrieveParams() { }
 
     public ObjectRetrieveParams(ObjectRetrieveParams objectRetrieveParams)
-        : base(objectRetrieveParams) { }
+        : base(objectRetrieveParams)
+    {
+        this.ID = objectRetrieveParams.ID;
+        this.ObjectID = objectRetrieveParams.ObjectID;
+    }
 
     public ObjectRetrieveParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,

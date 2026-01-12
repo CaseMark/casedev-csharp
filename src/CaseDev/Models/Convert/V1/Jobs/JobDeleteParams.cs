@@ -19,7 +19,10 @@ public sealed record class JobDeleteParams : ParamsBase
     public JobDeleteParams() { }
 
     public JobDeleteParams(JobDeleteParams jobDeleteParams)
-        : base(jobDeleteParams) { }
+        : base(jobDeleteParams)
+    {
+        this.ID = jobDeleteParams.ID;
+    }
 
     public JobDeleteParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,

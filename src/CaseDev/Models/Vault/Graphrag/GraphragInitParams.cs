@@ -20,7 +20,10 @@ public sealed record class GraphragInitParams : ParamsBase
     public GraphragInitParams() { }
 
     public GraphragInitParams(GraphragInitParams graphragInitParams)
-        : base(graphragInitParams) { }
+        : base(graphragInitParams)
+    {
+        this.ID = graphragInitParams.ID;
+    }
 
     public GraphragInitParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,

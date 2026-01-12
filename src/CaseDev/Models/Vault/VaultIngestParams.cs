@@ -23,7 +23,11 @@ public sealed record class VaultIngestParams : ParamsBase
     public VaultIngestParams() { }
 
     public VaultIngestParams(VaultIngestParams vaultIngestParams)
-        : base(vaultIngestParams) { }
+        : base(vaultIngestParams)
+    {
+        this.ID = vaultIngestParams.ID;
+        this.ObjectID = vaultIngestParams.ObjectID;
+    }
 
     public VaultIngestParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,

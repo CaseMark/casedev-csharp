@@ -118,6 +118,8 @@ public sealed record class V1ExecuteParams : ParamsBase
     public V1ExecuteParams(V1ExecuteParams v1ExecuteParams)
         : base(v1ExecuteParams)
     {
+        this.ID = v1ExecuteParams.ID;
+
         this._rawBodyData = [.. v1ExecuteParams._rawBodyData];
     }
 

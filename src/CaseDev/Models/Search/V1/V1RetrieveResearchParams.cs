@@ -54,7 +54,10 @@ public sealed record class V1RetrieveResearchParams : ParamsBase
     public V1RetrieveResearchParams() { }
 
     public V1RetrieveResearchParams(V1RetrieveResearchParams v1RetrieveResearchParams)
-        : base(v1RetrieveResearchParams) { }
+        : base(v1RetrieveResearchParams)
+    {
+        this.ID = v1RetrieveResearchParams.ID;
+    }
 
     public V1RetrieveResearchParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,

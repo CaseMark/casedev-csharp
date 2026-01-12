@@ -117,6 +117,8 @@ public sealed record class VaultUploadParams : ParamsBase
     public VaultUploadParams(VaultUploadParams vaultUploadParams)
         : base(vaultUploadParams)
     {
+        this.ID = vaultUploadParams.ID;
+
         this._rawBodyData = [.. vaultUploadParams._rawBodyData];
     }
 

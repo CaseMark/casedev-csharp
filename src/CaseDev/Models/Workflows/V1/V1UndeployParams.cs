@@ -18,7 +18,10 @@ public sealed record class V1UndeployParams : ParamsBase
     public V1UndeployParams() { }
 
     public V1UndeployParams(V1UndeployParams v1UndeployParams)
-        : base(v1UndeployParams) { }
+        : base(v1UndeployParams)
+    {
+        this.ID = v1UndeployParams.ID;
+    }
 
     public V1UndeployParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,

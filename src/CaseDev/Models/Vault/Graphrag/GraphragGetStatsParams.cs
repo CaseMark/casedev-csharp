@@ -20,7 +20,10 @@ public sealed record class GraphragGetStatsParams : ParamsBase
     public GraphragGetStatsParams() { }
 
     public GraphragGetStatsParams(GraphragGetStatsParams graphragGetStatsParams)
-        : base(graphragGetStatsParams) { }
+        : base(graphragGetStatsParams)
+    {
+        this.ID = graphragGetStatsParams.ID;
+    }
 
     public GraphragGetStatsParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,

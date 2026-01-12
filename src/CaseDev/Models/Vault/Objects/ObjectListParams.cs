@@ -19,7 +19,10 @@ public sealed record class ObjectListParams : ParamsBase
     public ObjectListParams() { }
 
     public ObjectListParams(ObjectListParams objectListParams)
-        : base(objectListParams) { }
+        : base(objectListParams)
+    {
+        this.ID = objectListParams.ID;
+    }
 
     public ObjectListParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
