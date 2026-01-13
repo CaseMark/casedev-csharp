@@ -28,7 +28,11 @@ public sealed record class V1ContentsParams : ParamsBase
     /// </summary>
     public required IReadOnlyList<string> Urls
     {
-        get { return this._rawBodyData.GetNotNullStruct<ImmutableArray<string>>("urls"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNotNullStruct<ImmutableArray<string>>("urls");
+        }
         init
         {
             this._rawBodyData.Set<ImmutableArray<string>>(
@@ -43,7 +47,11 @@ public sealed record class V1ContentsParams : ParamsBase
     /// </summary>
     public string? Context
     {
-        get { return this._rawBodyData.GetNullableClass<string>("context"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("context");
+        }
         init
         {
             if (value == null)
@@ -60,7 +68,11 @@ public sealed record class V1ContentsParams : ParamsBase
     /// </summary>
     public JsonElement? Extras
     {
-        get { return this._rawBodyData.GetNullableStruct<JsonElement>("extras"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<JsonElement>("extras");
+        }
         init
         {
             if (value == null)
@@ -77,7 +89,11 @@ public sealed record class V1ContentsParams : ParamsBase
     /// </summary>
     public bool? Highlights
     {
-        get { return this._rawBodyData.GetNullableStruct<bool>("highlights"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<bool>("highlights");
+        }
         init
         {
             if (value == null)
@@ -94,7 +110,11 @@ public sealed record class V1ContentsParams : ParamsBase
     /// </summary>
     public bool? Livecrawl
     {
-        get { return this._rawBodyData.GetNullableStruct<bool>("livecrawl"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<bool>("livecrawl");
+        }
         init
         {
             if (value == null)
@@ -111,7 +131,11 @@ public sealed record class V1ContentsParams : ParamsBase
     /// </summary>
     public long? LivecrawlTimeout
     {
-        get { return this._rawBodyData.GetNullableStruct<long>("livecrawlTimeout"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<long>("livecrawlTimeout");
+        }
         init
         {
             if (value == null)
@@ -128,7 +152,11 @@ public sealed record class V1ContentsParams : ParamsBase
     /// </summary>
     public bool? Subpages
     {
-        get { return this._rawBodyData.GetNullableStruct<bool>("subpages"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<bool>("subpages");
+        }
         init
         {
             if (value == null)
@@ -145,7 +173,11 @@ public sealed record class V1ContentsParams : ParamsBase
     /// </summary>
     public long? SubpageTarget
     {
-        get { return this._rawBodyData.GetNullableStruct<long>("subpageTarget"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<long>("subpageTarget");
+        }
         init
         {
             if (value == null)
@@ -162,7 +194,11 @@ public sealed record class V1ContentsParams : ParamsBase
     /// </summary>
     public bool? Summary
     {
-        get { return this._rawBodyData.GetNullableStruct<bool>("summary"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<bool>("summary");
+        }
         init
         {
             if (value == null)
@@ -179,7 +215,11 @@ public sealed record class V1ContentsParams : ParamsBase
     /// </summary>
     public bool? Text
     {
-        get { return this._rawBodyData.GetNullableStruct<bool>("text"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<bool>("text");
+        }
         init
         {
             if (value == null)

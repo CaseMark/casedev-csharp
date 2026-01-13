@@ -13,7 +13,11 @@ public sealed record class V1SimilarResponse : JsonModel
 {
     public double? ProcessingTime
     {
-        get { return this._rawData.GetNullableStruct<double>("processingTime"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<double>("processingTime");
+        }
         init
         {
             if (value == null)
@@ -29,6 +33,7 @@ public sealed record class V1SimilarResponse : JsonModel
     {
         get
         {
+            this._rawData.Freeze();
             return this._rawData.GetNullableStruct<ImmutableArray<V1SimilarResponseResult>>(
                 "results"
             );
@@ -49,7 +54,11 @@ public sealed record class V1SimilarResponse : JsonModel
 
     public long? TotalResults
     {
-        get { return this._rawData.GetNullableStruct<long>("totalResults"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("totalResults");
+        }
         init
         {
             if (value == null)
@@ -111,7 +120,11 @@ public sealed record class V1SimilarResponseResult : JsonModel
 {
     public string? Domain
     {
-        get { return this._rawData.GetNullableClass<string>("domain"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("domain");
+        }
         init
         {
             if (value == null)
@@ -125,7 +138,11 @@ public sealed record class V1SimilarResponseResult : JsonModel
 
     public string? PublishedDate
     {
-        get { return this._rawData.GetNullableClass<string>("publishedDate"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("publishedDate");
+        }
         init
         {
             if (value == null)
@@ -139,7 +156,11 @@ public sealed record class V1SimilarResponseResult : JsonModel
 
     public double? SimilarityScore
     {
-        get { return this._rawData.GetNullableStruct<double>("similarityScore"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<double>("similarityScore");
+        }
         init
         {
             if (value == null)
@@ -153,7 +174,11 @@ public sealed record class V1SimilarResponseResult : JsonModel
 
     public string? Snippet
     {
-        get { return this._rawData.GetNullableClass<string>("snippet"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("snippet");
+        }
         init
         {
             if (value == null)
@@ -167,7 +192,11 @@ public sealed record class V1SimilarResponseResult : JsonModel
 
     public string? Text
     {
-        get { return this._rawData.GetNullableClass<string>("text"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("text");
+        }
         init
         {
             if (value == null)
@@ -181,7 +210,11 @@ public sealed record class V1SimilarResponseResult : JsonModel
 
     public string? Title
     {
-        get { return this._rawData.GetNullableClass<string>("title"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("title");
+        }
         init
         {
             if (value == null)
@@ -195,7 +228,11 @@ public sealed record class V1SimilarResponseResult : JsonModel
 
     public string? Url
     {
-        get { return this._rawData.GetNullableClass<string>("url"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("url");
+        }
         init
         {
             if (value == null)

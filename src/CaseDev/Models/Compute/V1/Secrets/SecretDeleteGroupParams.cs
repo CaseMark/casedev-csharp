@@ -22,7 +22,11 @@ public sealed record class SecretDeleteGroupParams : ParamsBase
     /// </summary>
     public string? Env
     {
-        get { return this._rawQueryData.GetNullableClass<string>("env"); }
+        get
+        {
+            this._rawQueryData.Freeze();
+            return this._rawQueryData.GetNullableClass<string>("env");
+        }
         init
         {
             if (value == null)
@@ -40,7 +44,11 @@ public sealed record class SecretDeleteGroupParams : ParamsBase
     /// </summary>
     public string? Key
     {
-        get { return this._rawQueryData.GetNullableClass<string>("key"); }
+        get
+        {
+            this._rawQueryData.Freeze();
+            return this._rawQueryData.GetNullableClass<string>("key");
+        }
         init
         {
             if (value == null)

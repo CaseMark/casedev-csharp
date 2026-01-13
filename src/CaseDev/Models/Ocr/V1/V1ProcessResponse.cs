@@ -17,7 +17,11 @@ public sealed record class V1ProcessResponse : JsonModel
     /// </summary>
     public string? ID
     {
-        get { return this._rawData.GetNullableClass<string>("id"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("id");
+        }
         init
         {
             if (value == null)
@@ -34,7 +38,11 @@ public sealed record class V1ProcessResponse : JsonModel
     /// </summary>
     public System::DateTimeOffset? CreatedAt
     {
-        get { return this._rawData.GetNullableStruct<System::DateTimeOffset>("created_at"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<System::DateTimeOffset>("created_at");
+        }
         init
         {
             if (value == null)
@@ -51,7 +59,11 @@ public sealed record class V1ProcessResponse : JsonModel
     /// </summary>
     public string? DocumentID
     {
-        get { return this._rawData.GetNullableClass<string>("document_id"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("document_id");
+        }
         init
         {
             if (value == null)
@@ -68,7 +80,11 @@ public sealed record class V1ProcessResponse : JsonModel
     /// </summary>
     public string? Engine
     {
-        get { return this._rawData.GetNullableClass<string>("engine"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("engine");
+        }
         init
         {
             if (value == null)
@@ -87,6 +103,7 @@ public sealed record class V1ProcessResponse : JsonModel
     {
         get
         {
+            this._rawData.Freeze();
             return this._rawData.GetNullableStruct<System::DateTimeOffset>("estimated_completion");
         }
         init
@@ -105,7 +122,11 @@ public sealed record class V1ProcessResponse : JsonModel
     /// </summary>
     public long? PageCount
     {
-        get { return this._rawData.GetNullableStruct<long>("page_count"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("page_count");
+        }
         init
         {
             if (value == null)
@@ -122,7 +143,11 @@ public sealed record class V1ProcessResponse : JsonModel
     /// </summary>
     public ApiEnum<string, Status>? Status
     {
-        get { return this._rawData.GetNullableClass<ApiEnum<string, Status>>("status"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<ApiEnum<string, Status>>("status");
+        }
         init
         {
             if (value == null)

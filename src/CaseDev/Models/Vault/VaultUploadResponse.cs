@@ -15,7 +15,11 @@ public sealed record class VaultUploadResponse : JsonModel
     /// </summary>
     public bool? AutoIndex
     {
-        get { return this._rawData.GetNullableStruct<bool>("auto_index"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<bool>("auto_index");
+        }
         init
         {
             if (value == null)
@@ -32,7 +36,11 @@ public sealed record class VaultUploadResponse : JsonModel
     /// </summary>
     public bool? EnableIndexing
     {
-        get { return this._rawData.GetNullableStruct<bool>("enableIndexing"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<bool>("enableIndexing");
+        }
         init
         {
             if (value == null)
@@ -49,7 +57,11 @@ public sealed record class VaultUploadResponse : JsonModel
     /// </summary>
     public double? ExpiresIn
     {
-        get { return this._rawData.GetNullableStruct<double>("expiresIn"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<double>("expiresIn");
+        }
         init
         {
             if (value == null)
@@ -63,7 +75,11 @@ public sealed record class VaultUploadResponse : JsonModel
 
     public Instructions? Instructions
     {
-        get { return this._rawData.GetNullableClass<Instructions>("instructions"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<Instructions>("instructions");
+        }
         init
         {
             if (value == null)
@@ -80,7 +96,11 @@ public sealed record class VaultUploadResponse : JsonModel
     /// </summary>
     public string? NextStep
     {
-        get { return this._rawData.GetNullableClass<string>("next_step"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("next_step");
+        }
         init { this._rawData.Set("next_step", value); }
     }
 
@@ -89,7 +109,11 @@ public sealed record class VaultUploadResponse : JsonModel
     /// </summary>
     public string? ObjectID
     {
-        get { return this._rawData.GetNullableClass<string>("objectId"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("objectId");
+        }
         init
         {
             if (value == null)
@@ -106,7 +130,11 @@ public sealed record class VaultUploadResponse : JsonModel
     /// </summary>
     public string? Path
     {
-        get { return this._rawData.GetNullableClass<string>("path"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("path");
+        }
         init { this._rawData.Set("path", value); }
     }
 
@@ -115,7 +143,11 @@ public sealed record class VaultUploadResponse : JsonModel
     /// </summary>
     public string? S3Key
     {
-        get { return this._rawData.GetNullableClass<string>("s3Key"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("s3Key");
+        }
         init
         {
             if (value == null)
@@ -132,7 +164,11 @@ public sealed record class VaultUploadResponse : JsonModel
     /// </summary>
     public string? UploadUrl
     {
-        get { return this._rawData.GetNullableClass<string>("uploadUrl"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("uploadUrl");
+        }
         init
         {
             if (value == null)
@@ -197,7 +233,11 @@ public sealed record class Instructions : JsonModel
 {
     public JsonElement? Headers
     {
-        get { return this._rawData.GetNullableStruct<JsonElement>("headers"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<JsonElement>("headers");
+        }
         init
         {
             if (value == null)
@@ -211,7 +251,11 @@ public sealed record class Instructions : JsonModel
 
     public string? Method
     {
-        get { return this._rawData.GetNullableClass<string>("method"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("method");
+        }
         init
         {
             if (value == null)
@@ -225,7 +269,11 @@ public sealed record class Instructions : JsonModel
 
     public string? Note
     {
-        get { return this._rawData.GetNullableClass<string>("note"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("note");
+        }
         init
         {
             if (value == null)

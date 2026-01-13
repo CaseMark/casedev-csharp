@@ -30,7 +30,11 @@ public sealed record class VaultUploadParams : ParamsBase
     /// </summary>
     public required string ContentType
     {
-        get { return this._rawBodyData.GetNotNullClass<string>("contentType"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNotNullClass<string>("contentType");
+        }
         init { this._rawBodyData.Set("contentType", value); }
     }
 
@@ -39,7 +43,11 @@ public sealed record class VaultUploadParams : ParamsBase
     /// </summary>
     public required string Filename
     {
-        get { return this._rawBodyData.GetNotNullClass<string>("filename"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNotNullClass<string>("filename");
+        }
         init { this._rawBodyData.Set("filename", value); }
     }
 
@@ -48,7 +56,11 @@ public sealed record class VaultUploadParams : ParamsBase
     /// </summary>
     public bool? AutoIndex
     {
-        get { return this._rawBodyData.GetNullableStruct<bool>("auto_index"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<bool>("auto_index");
+        }
         init
         {
             if (value == null)
@@ -65,7 +77,11 @@ public sealed record class VaultUploadParams : ParamsBase
     /// </summary>
     public JsonElement? Metadata
     {
-        get { return this._rawBodyData.GetNullableStruct<JsonElement>("metadata"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<JsonElement>("metadata");
+        }
         init
         {
             if (value == null)
@@ -83,7 +99,11 @@ public sealed record class VaultUploadParams : ParamsBase
     /// </summary>
     public string? Path
     {
-        get { return this._rawBodyData.GetNullableClass<string>("path"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("path");
+        }
         init
         {
             if (value == null)
@@ -100,7 +120,11 @@ public sealed record class VaultUploadParams : ParamsBase
     /// </summary>
     public double? SizeBytes
     {
-        get { return this._rawBodyData.GetNullableStruct<double>("sizeBytes"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<double>("sizeBytes");
+        }
         init
         {
             if (value == null)

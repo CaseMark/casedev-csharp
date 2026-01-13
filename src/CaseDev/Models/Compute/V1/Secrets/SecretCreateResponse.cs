@@ -16,7 +16,11 @@ public sealed record class SecretCreateResponse : JsonModel
     /// </summary>
     public string? ID
     {
-        get { return this._rawData.GetNullableClass<string>("id"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("id");
+        }
         init
         {
             if (value == null)
@@ -33,7 +37,11 @@ public sealed record class SecretCreateResponse : JsonModel
     /// </summary>
     public DateTimeOffset? CreatedAt
     {
-        get { return this._rawData.GetNullableStruct<DateTimeOffset>("createdAt"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<DateTimeOffset>("createdAt");
+        }
         init
         {
             if (value == null)
@@ -50,7 +58,11 @@ public sealed record class SecretCreateResponse : JsonModel
     /// </summary>
     public string? Description
     {
-        get { return this._rawData.GetNullableClass<string>("description"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("description");
+        }
         init
         {
             if (value == null)
@@ -67,7 +79,11 @@ public sealed record class SecretCreateResponse : JsonModel
     /// </summary>
     public string? Name
     {
-        get { return this._rawData.GetNullableClass<string>("name"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("name");
+        }
         init
         {
             if (value == null)

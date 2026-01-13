@@ -22,7 +22,11 @@ public sealed record class V1RetrieveResearchParams : ParamsBase
     /// </summary>
     public string? Events
     {
-        get { return this._rawQueryData.GetNullableClass<string>("events"); }
+        get
+        {
+            this._rawQueryData.Freeze();
+            return this._rawQueryData.GetNullableClass<string>("events");
+        }
         init
         {
             if (value == null)
@@ -39,7 +43,11 @@ public sealed record class V1RetrieveResearchParams : ParamsBase
     /// </summary>
     public bool? Stream
     {
-        get { return this._rawQueryData.GetNullableStruct<bool>("stream"); }
+        get
+        {
+            this._rawQueryData.Freeze();
+            return this._rawQueryData.GetNullableStruct<bool>("stream");
+        }
         init
         {
             if (value == null)

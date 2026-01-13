@@ -21,7 +21,11 @@ public sealed record class ObjectCreatePresignedUrlResponse : JsonModel
     /// </summary>
     public DateTimeOffset? ExpiresAt
     {
-        get { return this._rawData.GetNullableStruct<DateTimeOffset>("expiresAt"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<DateTimeOffset>("expiresAt");
+        }
         init
         {
             if (value == null)
@@ -38,7 +42,11 @@ public sealed record class ObjectCreatePresignedUrlResponse : JsonModel
     /// </summary>
     public long? ExpiresIn
     {
-        get { return this._rawData.GetNullableStruct<long>("expiresIn"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("expiresIn");
+        }
         init
         {
             if (value == null)
@@ -55,7 +63,11 @@ public sealed record class ObjectCreatePresignedUrlResponse : JsonModel
     /// </summary>
     public string? Filename
     {
-        get { return this._rawData.GetNullableClass<string>("filename"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("filename");
+        }
         init
         {
             if (value == null)
@@ -72,7 +84,11 @@ public sealed record class ObjectCreatePresignedUrlResponse : JsonModel
     /// </summary>
     public JsonElement? Instructions
     {
-        get { return this._rawData.GetNullableStruct<JsonElement>("instructions"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<JsonElement>("instructions");
+        }
         init
         {
             if (value == null)
@@ -86,7 +102,11 @@ public sealed record class ObjectCreatePresignedUrlResponse : JsonModel
 
     public Metadata? Metadata
     {
-        get { return this._rawData.GetNullableClass<Metadata>("metadata"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<Metadata>("metadata");
+        }
         init
         {
             if (value == null)
@@ -103,7 +123,11 @@ public sealed record class ObjectCreatePresignedUrlResponse : JsonModel
     /// </summary>
     public string? ObjectID
     {
-        get { return this._rawData.GetNullableClass<string>("objectId"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("objectId");
+        }
         init
         {
             if (value == null)
@@ -120,7 +144,11 @@ public sealed record class ObjectCreatePresignedUrlResponse : JsonModel
     /// </summary>
     public string? Operation
     {
-        get { return this._rawData.GetNullableClass<string>("operation"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("operation");
+        }
         init
         {
             if (value == null)
@@ -137,7 +165,11 @@ public sealed record class ObjectCreatePresignedUrlResponse : JsonModel
     /// </summary>
     public string? PresignedUrl
     {
-        get { return this._rawData.GetNullableClass<string>("presignedUrl"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("presignedUrl");
+        }
         init
         {
             if (value == null)
@@ -154,7 +186,11 @@ public sealed record class ObjectCreatePresignedUrlResponse : JsonModel
     /// </summary>
     public string? S3Key
     {
-        get { return this._rawData.GetNullableClass<string>("s3Key"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("s3Key");
+        }
         init
         {
             if (value == null)
@@ -171,7 +207,11 @@ public sealed record class ObjectCreatePresignedUrlResponse : JsonModel
     /// </summary>
     public string? VaultID
     {
-        get { return this._rawData.GetNullableClass<string>("vaultId"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("vaultId");
+        }
         init
         {
             if (value == null)
@@ -240,7 +280,11 @@ public sealed record class Metadata : JsonModel
 {
     public string? Bucket
     {
-        get { return this._rawData.GetNullableClass<string>("bucket"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("bucket");
+        }
         init
         {
             if (value == null)
@@ -254,7 +298,11 @@ public sealed record class Metadata : JsonModel
 
     public string? ContentType
     {
-        get { return this._rawData.GetNullableClass<string>("contentType"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("contentType");
+        }
         init
         {
             if (value == null)
@@ -268,7 +316,11 @@ public sealed record class Metadata : JsonModel
 
     public string? Region
     {
-        get { return this._rawData.GetNullableClass<string>("region"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("region");
+        }
         init
         {
             if (value == null)
@@ -282,7 +334,11 @@ public sealed record class Metadata : JsonModel
 
     public long? SizeBytes
     {
-        get { return this._rawData.GetNullableStruct<long>("sizeBytes"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("sizeBytes");
+        }
         init
         {
             if (value == null)

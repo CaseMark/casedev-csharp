@@ -29,7 +29,11 @@ public sealed record class SpeakCreateParams : ParamsBase
     /// </summary>
     public required string Text
     {
-        get { return this._rawBodyData.GetNotNullClass<string>("text"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNotNullClass<string>("text");
+        }
         init { this._rawBodyData.Set("text", value); }
     }
 
@@ -38,7 +42,11 @@ public sealed record class SpeakCreateParams : ParamsBase
     /// </summary>
     public bool? ApplyTextNormalization
     {
-        get { return this._rawBodyData.GetNullableStruct<bool>("apply_text_normalization"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<bool>("apply_text_normalization");
+        }
         init
         {
             if (value == null)
@@ -55,7 +63,11 @@ public sealed record class SpeakCreateParams : ParamsBase
     /// </summary>
     public bool? EnableLogging
     {
-        get { return this._rawBodyData.GetNullableStruct<bool>("enable_logging"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<bool>("enable_logging");
+        }
         init
         {
             if (value == null)
@@ -72,7 +84,11 @@ public sealed record class SpeakCreateParams : ParamsBase
     /// </summary>
     public string? LanguageCode
     {
-        get { return this._rawBodyData.GetNullableClass<string>("language_code"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("language_code");
+        }
         init
         {
             if (value == null)
@@ -89,7 +105,11 @@ public sealed record class SpeakCreateParams : ParamsBase
     /// </summary>
     public ApiEnum<string, ModelID>? ModelID
     {
-        get { return this._rawBodyData.GetNullableClass<ApiEnum<string, ModelID>>("model_id"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<ApiEnum<string, ModelID>>("model_id");
+        }
         init
         {
             if (value == null)
@@ -106,7 +126,11 @@ public sealed record class SpeakCreateParams : ParamsBase
     /// </summary>
     public string? NextText
     {
-        get { return this._rawBodyData.GetNullableClass<string>("next_text"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("next_text");
+        }
         init
         {
             if (value == null)
@@ -123,7 +147,11 @@ public sealed record class SpeakCreateParams : ParamsBase
     /// </summary>
     public long? OptimizeStreamingLatency
     {
-        get { return this._rawBodyData.GetNullableStruct<long>("optimize_streaming_latency"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<long>("optimize_streaming_latency");
+        }
         init
         {
             if (value == null)
@@ -142,6 +170,7 @@ public sealed record class SpeakCreateParams : ParamsBase
     {
         get
         {
+            this._rawBodyData.Freeze();
             return this._rawBodyData.GetNullableClass<ApiEnum<string, OutputFormat>>(
                 "output_format"
             );
@@ -162,7 +191,11 @@ public sealed record class SpeakCreateParams : ParamsBase
     /// </summary>
     public string? PreviousText
     {
-        get { return this._rawBodyData.GetNullableClass<string>("previous_text"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("previous_text");
+        }
         init
         {
             if (value == null)
@@ -179,7 +212,11 @@ public sealed record class SpeakCreateParams : ParamsBase
     /// </summary>
     public long? Seed
     {
-        get { return this._rawBodyData.GetNullableStruct<long>("seed"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<long>("seed");
+        }
         init
         {
             if (value == null)
@@ -196,7 +233,11 @@ public sealed record class SpeakCreateParams : ParamsBase
     /// </summary>
     public string? VoiceID
     {
-        get { return this._rawBodyData.GetNullableClass<string>("voice_id"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("voice_id");
+        }
         init
         {
             if (value == null)
@@ -213,7 +254,11 @@ public sealed record class SpeakCreateParams : ParamsBase
     /// </summary>
     public VoiceSettings? VoiceSettings
     {
-        get { return this._rawBodyData.GetNullableClass<VoiceSettings>("voice_settings"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<VoiceSettings>("voice_settings");
+        }
         init
         {
             if (value == null)
@@ -415,7 +460,11 @@ public sealed record class VoiceSettings : JsonModel
     /// </summary>
     public double? SimilarityBoost
     {
-        get { return this._rawData.GetNullableStruct<double>("similarity_boost"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<double>("similarity_boost");
+        }
         init
         {
             if (value == null)
@@ -432,7 +481,11 @@ public sealed record class VoiceSettings : JsonModel
     /// </summary>
     public double? Stability
     {
-        get { return this._rawData.GetNullableStruct<double>("stability"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<double>("stability");
+        }
         init
         {
             if (value == null)
@@ -449,7 +502,11 @@ public sealed record class VoiceSettings : JsonModel
     /// </summary>
     public double? Style
     {
-        get { return this._rawData.GetNullableStruct<double>("style"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<double>("style");
+        }
         init
         {
             if (value == null)
@@ -466,7 +523,11 @@ public sealed record class VoiceSettings : JsonModel
     /// </summary>
     public bool? UseSpeakerBoost
     {
-        get { return this._rawData.GetNullableStruct<bool>("use_speaker_boost"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<bool>("use_speaker_boost");
+        }
         init
         {
             if (value == null)

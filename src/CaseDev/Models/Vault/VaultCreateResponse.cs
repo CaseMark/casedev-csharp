@@ -16,7 +16,11 @@ public sealed record class VaultCreateResponse : JsonModel
     /// </summary>
     public string? ID
     {
-        get { return this._rawData.GetNullableClass<string>("id"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("id");
+        }
         init
         {
             if (value == null)
@@ -33,7 +37,11 @@ public sealed record class VaultCreateResponse : JsonModel
     /// </summary>
     public DateTimeOffset? CreatedAt
     {
-        get { return this._rawData.GetNullableStruct<DateTimeOffset>("createdAt"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<DateTimeOffset>("createdAt");
+        }
         init
         {
             if (value == null)
@@ -50,7 +58,11 @@ public sealed record class VaultCreateResponse : JsonModel
     /// </summary>
     public string? Description
     {
-        get { return this._rawData.GetNullableClass<string>("description"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("description");
+        }
         init
         {
             if (value == null)
@@ -67,7 +79,11 @@ public sealed record class VaultCreateResponse : JsonModel
     /// </summary>
     public bool? EnableIndexing
     {
-        get { return this._rawData.GetNullableStruct<bool>("enableIndexing"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<bool>("enableIndexing");
+        }
         init
         {
             if (value == null)
@@ -84,7 +100,11 @@ public sealed record class VaultCreateResponse : JsonModel
     /// </summary>
     public string? FilesBucket
     {
-        get { return this._rawData.GetNullableClass<string>("filesBucket"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("filesBucket");
+        }
         init
         {
             if (value == null)
@@ -101,7 +121,11 @@ public sealed record class VaultCreateResponse : JsonModel
     /// </summary>
     public string? IndexName
     {
-        get { return this._rawData.GetNullableClass<string>("indexName"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("indexName");
+        }
         init { this._rawData.Set("indexName", value); }
     }
 
@@ -110,7 +134,11 @@ public sealed record class VaultCreateResponse : JsonModel
     /// </summary>
     public string? Name
     {
-        get { return this._rawData.GetNullableClass<string>("name"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("name");
+        }
         init
         {
             if (value == null)
@@ -127,7 +155,11 @@ public sealed record class VaultCreateResponse : JsonModel
     /// </summary>
     public string? Region
     {
-        get { return this._rawData.GetNullableClass<string>("region"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("region");
+        }
         init
         {
             if (value == null)
@@ -144,7 +176,11 @@ public sealed record class VaultCreateResponse : JsonModel
     /// </summary>
     public string? VectorBucket
     {
-        get { return this._rawData.GetNullableClass<string>("vectorBucket"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("vectorBucket");
+        }
         init { this._rawData.Set("vectorBucket", value); }
     }
 

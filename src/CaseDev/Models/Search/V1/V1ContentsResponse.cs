@@ -13,7 +13,11 @@ public sealed record class V1ContentsResponse : JsonModel
 {
     public IReadOnlyList<Result>? Results
     {
-        get { return this._rawData.GetNullableStruct<ImmutableArray<Result>>("results"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<ImmutableArray<Result>>("results");
+        }
         init
         {
             if (value == null)
@@ -79,7 +83,11 @@ public sealed record class Result : JsonModel
     /// </summary>
     public IReadOnlyList<string>? Highlights
     {
-        get { return this._rawData.GetNullableStruct<ImmutableArray<string>>("highlights"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<ImmutableArray<string>>("highlights");
+        }
         init
         {
             if (value == null)
@@ -99,7 +107,11 @@ public sealed record class Result : JsonModel
     /// </summary>
     public JsonElement? Metadata
     {
-        get { return this._rawData.GetNullableStruct<JsonElement>("metadata"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<JsonElement>("metadata");
+        }
         init
         {
             if (value == null)
@@ -116,7 +128,11 @@ public sealed record class Result : JsonModel
     /// </summary>
     public string? Summary
     {
-        get { return this._rawData.GetNullableClass<string>("summary"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("summary");
+        }
         init
         {
             if (value == null)
@@ -133,7 +149,11 @@ public sealed record class Result : JsonModel
     /// </summary>
     public string? Text
     {
-        get { return this._rawData.GetNullableClass<string>("text"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("text");
+        }
         init
         {
             if (value == null)
@@ -150,7 +170,11 @@ public sealed record class Result : JsonModel
     /// </summary>
     public string? Title
     {
-        get { return this._rawData.GetNullableClass<string>("title"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("title");
+        }
         init
         {
             if (value == null)
@@ -167,7 +191,11 @@ public sealed record class Result : JsonModel
     /// </summary>
     public string? Url
     {
-        get { return this._rawData.GetNullableClass<string>("url"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("url");
+        }
         init
         {
             if (value == null)

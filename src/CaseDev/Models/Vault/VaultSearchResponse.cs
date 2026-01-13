@@ -17,7 +17,11 @@ public sealed record class VaultSearchResponse : JsonModel
     /// </summary>
     public IReadOnlyList<Chunk>? Chunks
     {
-        get { return this._rawData.GetNullableStruct<ImmutableArray<Chunk>>("chunks"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<ImmutableArray<Chunk>>("chunks");
+        }
         init
         {
             if (value == null)
@@ -37,7 +41,11 @@ public sealed record class VaultSearchResponse : JsonModel
     /// </summary>
     public string? Method
     {
-        get { return this._rawData.GetNullableClass<string>("method"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("method");
+        }
         init
         {
             if (value == null)
@@ -54,7 +62,11 @@ public sealed record class VaultSearchResponse : JsonModel
     /// </summary>
     public string? Query
     {
-        get { return this._rawData.GetNullableClass<string>("query"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("query");
+        }
         init
         {
             if (value == null)
@@ -71,7 +83,11 @@ public sealed record class VaultSearchResponse : JsonModel
     /// </summary>
     public string? Response
     {
-        get { return this._rawData.GetNullableClass<string>("response"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("response");
+        }
         init
         {
             if (value == null)
@@ -85,7 +101,11 @@ public sealed record class VaultSearchResponse : JsonModel
 
     public IReadOnlyList<Source>? Sources
     {
-        get { return this._rawData.GetNullableStruct<ImmutableArray<Source>>("sources"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<ImmutableArray<Source>>("sources");
+        }
         init
         {
             if (value == null)
@@ -105,7 +125,11 @@ public sealed record class VaultSearchResponse : JsonModel
     /// </summary>
     public string? VaultID
     {
-        get { return this._rawData.GetNullableClass<string>("vault_id"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("vault_id");
+        }
         init
         {
             if (value == null)
@@ -173,7 +197,11 @@ public sealed record class Chunk : JsonModel
 {
     public double? Score
     {
-        get { return this._rawData.GetNullableStruct<double>("score"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<double>("score");
+        }
         init
         {
             if (value == null)
@@ -187,7 +215,11 @@ public sealed record class Chunk : JsonModel
 
     public string? Source
     {
-        get { return this._rawData.GetNullableClass<string>("source"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("source");
+        }
         init
         {
             if (value == null)
@@ -201,7 +233,11 @@ public sealed record class Chunk : JsonModel
 
     public string? Text
     {
-        get { return this._rawData.GetNullableClass<string>("text"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("text");
+        }
         init
         {
             if (value == null)
@@ -258,7 +294,11 @@ public sealed record class Source : JsonModel
 {
     public string? ID
     {
-        get { return this._rawData.GetNullableClass<string>("id"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("id");
+        }
         init
         {
             if (value == null)
@@ -272,7 +312,11 @@ public sealed record class Source : JsonModel
 
     public long? ChunkCount
     {
-        get { return this._rawData.GetNullableStruct<long>("chunkCount"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("chunkCount");
+        }
         init
         {
             if (value == null)
@@ -286,7 +330,11 @@ public sealed record class Source : JsonModel
 
     public DateTimeOffset? CreatedAt
     {
-        get { return this._rawData.GetNullableStruct<DateTimeOffset>("createdAt"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<DateTimeOffset>("createdAt");
+        }
         init
         {
             if (value == null)
@@ -300,7 +348,11 @@ public sealed record class Source : JsonModel
 
     public string? Filename
     {
-        get { return this._rawData.GetNullableClass<string>("filename"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("filename");
+        }
         init
         {
             if (value == null)
@@ -314,7 +366,11 @@ public sealed record class Source : JsonModel
 
     public DateTimeOffset? IngestionCompletedAt
     {
-        get { return this._rawData.GetNullableStruct<DateTimeOffset>("ingestionCompletedAt"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<DateTimeOffset>("ingestionCompletedAt");
+        }
         init
         {
             if (value == null)
@@ -328,7 +384,11 @@ public sealed record class Source : JsonModel
 
     public long? PageCount
     {
-        get { return this._rawData.GetNullableStruct<long>("pageCount"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("pageCount");
+        }
         init
         {
             if (value == null)
@@ -342,7 +402,11 @@ public sealed record class Source : JsonModel
 
     public long? TextLength
     {
-        get { return this._rawData.GetNullableStruct<long>("textLength"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("textLength");
+        }
         init
         {
             if (value == null)

@@ -32,7 +32,11 @@ public sealed record class SecretCreateParams : ParamsBase
     /// </summary>
     public required string Name
     {
-        get { return this._rawBodyData.GetNotNullClass<string>("name"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNotNullClass<string>("name");
+        }
         init { this._rawBodyData.Set("name", value); }
     }
 
@@ -41,7 +45,11 @@ public sealed record class SecretCreateParams : ParamsBase
     /// </summary>
     public string? Description
     {
-        get { return this._rawBodyData.GetNullableClass<string>("description"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("description");
+        }
         init
         {
             if (value == null)
@@ -59,7 +67,11 @@ public sealed record class SecretCreateParams : ParamsBase
     /// </summary>
     public string? Env
     {
-        get { return this._rawBodyData.GetNullableClass<string>("env"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("env");
+        }
         init
         {
             if (value == null)

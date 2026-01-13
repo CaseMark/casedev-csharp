@@ -32,7 +32,11 @@ public sealed record class VaultSearchParams : ParamsBase
     /// </summary>
     public required string Query
     {
-        get { return this._rawBodyData.GetNotNullClass<string>("query"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNotNullClass<string>("query");
+        }
         init { this._rawBodyData.Set("query", value); }
     }
 
@@ -41,7 +45,11 @@ public sealed record class VaultSearchParams : ParamsBase
     /// </summary>
     public Filters? Filters
     {
-        get { return this._rawBodyData.GetNullableClass<Filters>("filters"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<Filters>("filters");
+        }
         init
         {
             if (value == null)
@@ -59,7 +67,11 @@ public sealed record class VaultSearchParams : ParamsBase
     /// </summary>
     public ApiEnum<string, Method>? Method
     {
-        get { return this._rawBodyData.GetNullableClass<ApiEnum<string, Method>>("method"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<ApiEnum<string, Method>>("method");
+        }
         init
         {
             if (value == null)
@@ -76,7 +88,11 @@ public sealed record class VaultSearchParams : ParamsBase
     /// </summary>
     public long? TopK
     {
-        get { return this._rawBodyData.GetNullableStruct<long>("topK"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<long>("topK");
+        }
         init
         {
             if (value == null)
@@ -178,7 +194,11 @@ public sealed record class Filters : JsonModel
     /// </summary>
     public ObjectID? ObjectID
     {
-        get { return this._rawData.GetNullableClass<ObjectID>("object_id"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<ObjectID>("object_id");
+        }
         init
         {
             if (value == null)

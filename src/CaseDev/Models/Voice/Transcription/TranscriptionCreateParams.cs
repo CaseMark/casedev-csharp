@@ -35,7 +35,11 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public string? AudioUrl
     {
-        get { return this._rawBodyData.GetNullableClass<string>("audio_url"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("audio_url");
+        }
         init
         {
             if (value == null)
@@ -52,7 +56,11 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public bool? AutoHighlights
     {
-        get { return this._rawBodyData.GetNullableStruct<bool>("auto_highlights"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<bool>("auto_highlights");
+        }
         init
         {
             if (value == null)
@@ -71,6 +79,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     {
         get
         {
+            this._rawBodyData.Freeze();
             return this._rawBodyData.GetNullableClass<ApiEnum<string, BoostParam>>("boost_param");
         }
         init
@@ -89,7 +98,11 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public bool? ContentSafetyLabels
     {
-        get { return this._rawBodyData.GetNullableStruct<bool>("content_safety_labels"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<bool>("content_safety_labels");
+        }
         init
         {
             if (value == null)
@@ -108,6 +121,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     {
         get
         {
+            this._rawBodyData.Freeze();
             return this._rawBodyData.GetNullableClass<
                 ApiEnum<string, TranscriptionCreateParamsFormat>
             >("format");
@@ -128,7 +142,11 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public bool? FormatText
     {
-        get { return this._rawBodyData.GetNullableStruct<bool>("format_text"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<bool>("format_text");
+        }
         init
         {
             if (value == null)
@@ -146,7 +164,11 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public string? LanguageCode
     {
-        get { return this._rawBodyData.GetNullableClass<string>("language_code"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("language_code");
+        }
         init
         {
             if (value == null)
@@ -163,7 +185,11 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public bool? LanguageDetection
     {
-        get { return this._rawBodyData.GetNullableStruct<bool>("language_detection"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<bool>("language_detection");
+        }
         init
         {
             if (value == null)
@@ -180,7 +206,11 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public string? ObjectID
     {
-        get { return this._rawBodyData.GetNullableClass<string>("object_id"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("object_id");
+        }
         init
         {
             if (value == null)
@@ -197,7 +227,11 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public bool? Punctuate
     {
-        get { return this._rawBodyData.GetNullableStruct<bool>("punctuate"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<bool>("punctuate");
+        }
         init
         {
             if (value == null)
@@ -214,7 +248,11 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public bool? SpeakerLabels
     {
-        get { return this._rawBodyData.GetNullableStruct<bool>("speaker_labels"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<bool>("speaker_labels");
+        }
         init
         {
             if (value == null)
@@ -231,7 +269,11 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public long? SpeakersExpected
     {
-        get { return this._rawBodyData.GetNullableStruct<long>("speakers_expected"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<long>("speakers_expected");
+        }
         init
         {
             if (value == null)
@@ -248,7 +290,11 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public string? VaultID
     {
-        get { return this._rawBodyData.GetNullableClass<string>("vault_id"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("vault_id");
+        }
         init
         {
             if (value == null)
@@ -265,7 +311,11 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public IReadOnlyList<string>? WordBoost
     {
-        get { return this._rawBodyData.GetNullableStruct<ImmutableArray<string>>("word_boost"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<ImmutableArray<string>>("word_boost");
+        }
         init
         {
             if (value == null)

@@ -29,7 +29,11 @@ public sealed record class V1ProcessParams : ParamsBase
     /// </summary>
     public required string DocumentUrl
     {
-        get { return this._rawBodyData.GetNotNullClass<string>("document_url"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNotNullClass<string>("document_url");
+        }
         init { this._rawBodyData.Set("document_url", value); }
     }
 
@@ -38,7 +42,11 @@ public sealed record class V1ProcessParams : ParamsBase
     /// </summary>
     public string? CallbackUrl
     {
-        get { return this._rawBodyData.GetNullableClass<string>("callback_url"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("callback_url");
+        }
         init
         {
             if (value == null)
@@ -55,7 +63,11 @@ public sealed record class V1ProcessParams : ParamsBase
     /// </summary>
     public string? DocumentID
     {
-        get { return this._rawBodyData.GetNullableClass<string>("document_id"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("document_id");
+        }
         init
         {
             if (value == null)
@@ -72,7 +84,11 @@ public sealed record class V1ProcessParams : ParamsBase
     /// </summary>
     public ApiEnum<string, Engine>? Engine
     {
-        get { return this._rawBodyData.GetNullableClass<ApiEnum<string, Engine>>("engine"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<ApiEnum<string, Engine>>("engine");
+        }
         init
         {
             if (value == null)
@@ -89,7 +105,11 @@ public sealed record class V1ProcessParams : ParamsBase
     /// </summary>
     public Features? Features
     {
-        get { return this._rawBodyData.GetNullableClass<Features>("features"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<Features>("features");
+        }
         init
         {
             if (value == null)
@@ -106,7 +126,11 @@ public sealed record class V1ProcessParams : ParamsBase
     /// </summary>
     public string? ResultBucket
     {
-        get { return this._rawBodyData.GetNullableClass<string>("result_bucket"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("result_bucket");
+        }
         init
         {
             if (value == null)
@@ -123,7 +147,11 @@ public sealed record class V1ProcessParams : ParamsBase
     /// </summary>
     public string? ResultPrefix
     {
-        get { return this._rawBodyData.GetNullableClass<string>("result_prefix"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("result_prefix");
+        }
         init
         {
             if (value == null)
@@ -263,7 +291,11 @@ public sealed record class Features : JsonModel
     /// </summary>
     public bool? Forms
     {
-        get { return this._rawData.GetNullableStruct<bool>("forms"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<bool>("forms");
+        }
         init
         {
             if (value == null)
@@ -280,7 +312,11 @@ public sealed record class Features : JsonModel
     /// </summary>
     public bool? Layout
     {
-        get { return this._rawData.GetNullableStruct<bool>("layout"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<bool>("layout");
+        }
         init
         {
             if (value == null)
@@ -297,7 +333,11 @@ public sealed record class Features : JsonModel
     /// </summary>
     public bool? Tables
     {
-        get { return this._rawData.GetNullableStruct<bool>("tables"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<bool>("tables");
+        }
         init
         {
             if (value == null)
@@ -314,7 +354,11 @@ public sealed record class Features : JsonModel
     /// </summary>
     public bool? Text
     {
-        get { return this._rawData.GetNullableStruct<bool>("text"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<bool>("text");
+        }
         init
         {
             if (value == null)

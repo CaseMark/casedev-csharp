@@ -20,7 +20,11 @@ public sealed record class V1GetUsageParams : ParamsBase
     /// </summary>
     public long? Month
     {
-        get { return this._rawQueryData.GetNullableStruct<long>("month"); }
+        get
+        {
+            this._rawQueryData.Freeze();
+            return this._rawQueryData.GetNullableStruct<long>("month");
+        }
         init
         {
             if (value == null)
@@ -37,7 +41,11 @@ public sealed record class V1GetUsageParams : ParamsBase
     /// </summary>
     public long? Year
     {
-        get { return this._rawQueryData.GetNullableStruct<long>("year"); }
+        get
+        {
+            this._rawQueryData.Freeze();
+            return this._rawQueryData.GetNullableStruct<long>("year");
+        }
         init
         {
             if (value == null)

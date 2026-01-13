@@ -30,7 +30,11 @@ public sealed record class TemplateCreateParams : ParamsBase
     /// </summary>
     public required string Content
     {
-        get { return this._rawBodyData.GetNotNullClass<string>("content"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNotNullClass<string>("content");
+        }
         init { this._rawBodyData.Set("content", value); }
     }
 
@@ -39,7 +43,11 @@ public sealed record class TemplateCreateParams : ParamsBase
     /// </summary>
     public required string Name
     {
-        get { return this._rawBodyData.GetNotNullClass<string>("name"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNotNullClass<string>("name");
+        }
         init { this._rawBodyData.Set("name", value); }
     }
 
@@ -50,6 +58,7 @@ public sealed record class TemplateCreateParams : ParamsBase
     {
         get
         {
+            this._rawBodyData.Freeze();
             return this._rawBodyData.GetNotNullClass<
                 ApiEnum<string, global::CaseDev.Models.Format.V1.Templates.Type>
             >("type");
@@ -62,7 +71,11 @@ public sealed record class TemplateCreateParams : ParamsBase
     /// </summary>
     public string? Description
     {
-        get { return this._rawBodyData.GetNullableClass<string>("description"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("description");
+        }
         init
         {
             if (value == null)
@@ -79,7 +92,11 @@ public sealed record class TemplateCreateParams : ParamsBase
     /// </summary>
     public JsonElement? Styles
     {
-        get { return this._rawBodyData.GetNullableStruct<JsonElement>("styles"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<JsonElement>("styles");
+        }
         init
         {
             if (value == null)
@@ -96,7 +113,11 @@ public sealed record class TemplateCreateParams : ParamsBase
     /// </summary>
     public IReadOnlyList<string>? Tags
     {
-        get { return this._rawBodyData.GetNullableStruct<ImmutableArray<string>>("tags"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<ImmutableArray<string>>("tags");
+        }
         init
         {
             if (value == null)
@@ -116,7 +137,11 @@ public sealed record class TemplateCreateParams : ParamsBase
     /// </summary>
     public IReadOnlyList<string>? Variables
     {
-        get { return this._rawBodyData.GetNullableStruct<ImmutableArray<string>>("variables"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<ImmutableArray<string>>("variables");
+        }
         init
         {
             if (value == null)
