@@ -7,6 +7,7 @@ using CaseDev.Models.Llm.V1;
 using CaseDev.Models.Llm.V1.Chat;
 using CaseDev.Models.Vault.Objects;
 using CaseDev.Models.Voice.V1;
+using SearchV1 = CaseDev.Models.Search.V1;
 using Speak = CaseDev.Models.Voice.V1.Speak;
 using Transcription = CaseDev.Models.Voice.Transcription;
 using V1 = CaseDev.Models.Ocr.V1;
@@ -39,9 +40,9 @@ public abstract record class ModelBase
             new ApiEnumConverter<string, V1::Status>(),
             new ApiEnumConverter<string, V1::Type>(),
             new ApiEnumConverter<string, V1::Engine>(),
-            new ApiEnumConverter<string, global::CaseDev.Models.Search.V1.SearchType>(),
-            new ApiEnumConverter<string, global::CaseDev.Models.Search.V1.Model>(),
-            new ApiEnumConverter<string, global::CaseDev.Models.Search.V1.Type>(),
+            new ApiEnumConverter<string, SearchV1::SearchType>(),
+            new ApiEnumConverter<string, SearchV1::Model>(),
+            new ApiEnumConverter<string, SearchV1::Type>(),
             new ApiEnumConverter<string, Vault::Status>(),
             new ApiEnumConverter<string, Vault::Method>(),
             new ApiEnumConverter<string, Operation>(),
