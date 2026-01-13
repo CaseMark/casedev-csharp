@@ -20,7 +20,7 @@ public sealed record class V1GetUsageParams : ParamsBase
     /// </summary>
     public long? Month
     {
-        get { return JsonModel.GetNullableStruct<long>(this.RawQueryData, "month"); }
+        get { return this._rawQueryData.GetNullableStruct<long>("month"); }
         init
         {
             if (value == null)
@@ -28,7 +28,7 @@ public sealed record class V1GetUsageParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawQueryData, "month", value);
+            this._rawQueryData.Set("month", value);
         }
     }
 
@@ -37,7 +37,7 @@ public sealed record class V1GetUsageParams : ParamsBase
     /// </summary>
     public long? Year
     {
-        get { return JsonModel.GetNullableStruct<long>(this.RawQueryData, "year"); }
+        get { return this._rawQueryData.GetNullableStruct<long>("year"); }
         init
         {
             if (value == null)
@@ -45,7 +45,7 @@ public sealed record class V1GetUsageParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawQueryData, "year", value);
+            this._rawQueryData.Set("year", value);
         }
     }
 
@@ -59,8 +59,8 @@ public sealed record class V1GetUsageParams : ParamsBase
         IReadOnlyDictionary<string, JsonElement> rawQueryData
     )
     {
-        this._rawHeaderData = [.. rawHeaderData];
-        this._rawQueryData = [.. rawQueryData];
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
     }
 
 #pragma warning disable CS8618
@@ -70,8 +70,8 @@ public sealed record class V1GetUsageParams : ParamsBase
         FrozenDictionary<string, JsonElement> rawQueryData
     )
     {
-        this._rawHeaderData = [.. rawHeaderData];
-        this._rawQueryData = [.. rawQueryData];
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
     }
 #pragma warning restore CS8618
 

@@ -18,7 +18,7 @@ namespace CaseDev.Models.Ocr.V1;
 /// </summary>
 public sealed record class V1ProcessParams : ParamsBase
 {
-    readonly FreezableDictionary<string, JsonElement> _rawBodyData = [];
+    readonly JsonDictionary _rawBodyData = new();
     public IReadOnlyDictionary<string, JsonElement> RawBodyData
     {
         get { return this._rawBodyData.Freeze(); }
@@ -29,8 +29,8 @@ public sealed record class V1ProcessParams : ParamsBase
     /// </summary>
     public required string DocumentUrl
     {
-        get { return JsonModel.GetNotNullClass<string>(this.RawBodyData, "document_url"); }
-        init { JsonModel.Set(this._rawBodyData, "document_url", value); }
+        get { return this._rawBodyData.GetNotNullClass<string>("document_url"); }
+        init { this._rawBodyData.Set("document_url", value); }
     }
 
     /// <summary>
@@ -38,7 +38,7 @@ public sealed record class V1ProcessParams : ParamsBase
     /// </summary>
     public string? CallbackUrl
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "callback_url"); }
+        get { return this._rawBodyData.GetNullableClass<string>("callback_url"); }
         init
         {
             if (value == null)
@@ -46,7 +46,7 @@ public sealed record class V1ProcessParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "callback_url", value);
+            this._rawBodyData.Set("callback_url", value);
         }
     }
 
@@ -55,7 +55,7 @@ public sealed record class V1ProcessParams : ParamsBase
     /// </summary>
     public string? DocumentID
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "document_id"); }
+        get { return this._rawBodyData.GetNullableClass<string>("document_id"); }
         init
         {
             if (value == null)
@@ -63,7 +63,7 @@ public sealed record class V1ProcessParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "document_id", value);
+            this._rawBodyData.Set("document_id", value);
         }
     }
 
@@ -72,10 +72,7 @@ public sealed record class V1ProcessParams : ParamsBase
     /// </summary>
     public ApiEnum<string, Engine>? Engine
     {
-        get
-        {
-            return JsonModel.GetNullableClass<ApiEnum<string, Engine>>(this.RawBodyData, "engine");
-        }
+        get { return this._rawBodyData.GetNullableClass<ApiEnum<string, Engine>>("engine"); }
         init
         {
             if (value == null)
@@ -83,7 +80,7 @@ public sealed record class V1ProcessParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "engine", value);
+            this._rawBodyData.Set("engine", value);
         }
     }
 
@@ -92,7 +89,7 @@ public sealed record class V1ProcessParams : ParamsBase
     /// </summary>
     public Features? Features
     {
-        get { return JsonModel.GetNullableClass<Features>(this.RawBodyData, "features"); }
+        get { return this._rawBodyData.GetNullableClass<Features>("features"); }
         init
         {
             if (value == null)
@@ -100,7 +97,7 @@ public sealed record class V1ProcessParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "features", value);
+            this._rawBodyData.Set("features", value);
         }
     }
 
@@ -109,7 +106,7 @@ public sealed record class V1ProcessParams : ParamsBase
     /// </summary>
     public string? ResultBucket
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "result_bucket"); }
+        get { return this._rawBodyData.GetNullableClass<string>("result_bucket"); }
         init
         {
             if (value == null)
@@ -117,7 +114,7 @@ public sealed record class V1ProcessParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "result_bucket", value);
+            this._rawBodyData.Set("result_bucket", value);
         }
     }
 
@@ -126,7 +123,7 @@ public sealed record class V1ProcessParams : ParamsBase
     /// </summary>
     public string? ResultPrefix
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "result_prefix"); }
+        get { return this._rawBodyData.GetNullableClass<string>("result_prefix"); }
         init
         {
             if (value == null)
@@ -134,7 +131,7 @@ public sealed record class V1ProcessParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "result_prefix", value);
+            this._rawBodyData.Set("result_prefix", value);
         }
     }
 
@@ -143,7 +140,7 @@ public sealed record class V1ProcessParams : ParamsBase
     public V1ProcessParams(V1ProcessParams v1ProcessParams)
         : base(v1ProcessParams)
     {
-        this._rawBodyData = [.. v1ProcessParams._rawBodyData];
+        this._rawBodyData = new(v1ProcessParams._rawBodyData);
     }
 
     public V1ProcessParams(
@@ -152,9 +149,9 @@ public sealed record class V1ProcessParams : ParamsBase
         IReadOnlyDictionary<string, JsonElement> rawBodyData
     )
     {
-        this._rawHeaderData = [.. rawHeaderData];
-        this._rawQueryData = [.. rawQueryData];
-        this._rawBodyData = [.. rawBodyData];
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
+        this._rawBodyData = new(rawBodyData);
     }
 
 #pragma warning disable CS8618
@@ -165,9 +162,9 @@ public sealed record class V1ProcessParams : ParamsBase
         FrozenDictionary<string, JsonElement> rawBodyData
     )
     {
-        this._rawHeaderData = [.. rawHeaderData];
-        this._rawQueryData = [.. rawQueryData];
-        this._rawBodyData = [.. rawBodyData];
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
+        this._rawBodyData = new(rawBodyData);
     }
 #pragma warning restore CS8618
 
@@ -266,7 +263,7 @@ public sealed record class Features : JsonModel
     /// </summary>
     public bool? Forms
     {
-        get { return JsonModel.GetNullableStruct<bool>(this.RawData, "forms"); }
+        get { return this._rawData.GetNullableStruct<bool>("forms"); }
         init
         {
             if (value == null)
@@ -274,7 +271,7 @@ public sealed record class Features : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "forms", value);
+            this._rawData.Set("forms", value);
         }
     }
 
@@ -283,7 +280,7 @@ public sealed record class Features : JsonModel
     /// </summary>
     public bool? Layout
     {
-        get { return JsonModel.GetNullableStruct<bool>(this.RawData, "layout"); }
+        get { return this._rawData.GetNullableStruct<bool>("layout"); }
         init
         {
             if (value == null)
@@ -291,7 +288,7 @@ public sealed record class Features : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "layout", value);
+            this._rawData.Set("layout", value);
         }
     }
 
@@ -300,7 +297,7 @@ public sealed record class Features : JsonModel
     /// </summary>
     public bool? Tables
     {
-        get { return JsonModel.GetNullableStruct<bool>(this.RawData, "tables"); }
+        get { return this._rawData.GetNullableStruct<bool>("tables"); }
         init
         {
             if (value == null)
@@ -308,7 +305,7 @@ public sealed record class Features : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "tables", value);
+            this._rawData.Set("tables", value);
         }
     }
 
@@ -317,7 +314,7 @@ public sealed record class Features : JsonModel
     /// </summary>
     public bool? Text
     {
-        get { return JsonModel.GetNullableStruct<bool>(this.RawData, "text"); }
+        get { return this._rawData.GetNullableStruct<bool>("text"); }
         init
         {
             if (value == null)
@@ -325,7 +322,7 @@ public sealed record class Features : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "text", value);
+            this._rawData.Set("text", value);
         }
     }
 
@@ -345,14 +342,14 @@ public sealed record class Features : JsonModel
 
     public Features(IReadOnlyDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
     Features(FrozenDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 #pragma warning restore CS8618
 

@@ -18,7 +18,7 @@ namespace CaseDev.Models.Llm.V1;
 /// </summary>
 public sealed record class V1CreateEmbeddingParams : ParamsBase
 {
-    readonly FreezableDictionary<string, JsonElement> _rawBodyData = [];
+    readonly JsonDictionary _rawBodyData = new();
     public IReadOnlyDictionary<string, JsonElement> RawBodyData
     {
         get { return this._rawBodyData.Freeze(); }
@@ -29,8 +29,8 @@ public sealed record class V1CreateEmbeddingParams : ParamsBase
     /// </summary>
     public required Input Input
     {
-        get { return JsonModel.GetNotNullClass<Input>(this.RawBodyData, "input"); }
-        init { JsonModel.Set(this._rawBodyData, "input", value); }
+        get { return this._rawBodyData.GetNotNullClass<Input>("input"); }
+        init { this._rawBodyData.Set("input", value); }
     }
 
     /// <summary>
@@ -38,8 +38,8 @@ public sealed record class V1CreateEmbeddingParams : ParamsBase
     /// </summary>
     public required string Model
     {
-        get { return JsonModel.GetNotNullClass<string>(this.RawBodyData, "model"); }
-        init { JsonModel.Set(this._rawBodyData, "model", value); }
+        get { return this._rawBodyData.GetNotNullClass<string>("model"); }
+        init { this._rawBodyData.Set("model", value); }
     }
 
     /// <summary>
@@ -47,7 +47,7 @@ public sealed record class V1CreateEmbeddingParams : ParamsBase
     /// </summary>
     public long? Dimensions
     {
-        get { return JsonModel.GetNullableStruct<long>(this.RawBodyData, "dimensions"); }
+        get { return this._rawBodyData.GetNullableStruct<long>("dimensions"); }
         init
         {
             if (value == null)
@@ -55,7 +55,7 @@ public sealed record class V1CreateEmbeddingParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "dimensions", value);
+            this._rawBodyData.Set("dimensions", value);
         }
     }
 
@@ -66,8 +66,7 @@ public sealed record class V1CreateEmbeddingParams : ParamsBase
     {
         get
         {
-            return JsonModel.GetNullableClass<ApiEnum<string, EncodingFormat>>(
-                this.RawBodyData,
+            return this._rawBodyData.GetNullableClass<ApiEnum<string, EncodingFormat>>(
                 "encoding_format"
             );
         }
@@ -78,7 +77,7 @@ public sealed record class V1CreateEmbeddingParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "encoding_format", value);
+            this._rawBodyData.Set("encoding_format", value);
         }
     }
 
@@ -87,7 +86,7 @@ public sealed record class V1CreateEmbeddingParams : ParamsBase
     /// </summary>
     public string? User
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "user"); }
+        get { return this._rawBodyData.GetNullableClass<string>("user"); }
         init
         {
             if (value == null)
@@ -95,7 +94,7 @@ public sealed record class V1CreateEmbeddingParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "user", value);
+            this._rawBodyData.Set("user", value);
         }
     }
 
@@ -104,7 +103,7 @@ public sealed record class V1CreateEmbeddingParams : ParamsBase
     public V1CreateEmbeddingParams(V1CreateEmbeddingParams v1CreateEmbeddingParams)
         : base(v1CreateEmbeddingParams)
     {
-        this._rawBodyData = [.. v1CreateEmbeddingParams._rawBodyData];
+        this._rawBodyData = new(v1CreateEmbeddingParams._rawBodyData);
     }
 
     public V1CreateEmbeddingParams(
@@ -113,9 +112,9 @@ public sealed record class V1CreateEmbeddingParams : ParamsBase
         IReadOnlyDictionary<string, JsonElement> rawBodyData
     )
     {
-        this._rawHeaderData = [.. rawHeaderData];
-        this._rawQueryData = [.. rawQueryData];
-        this._rawBodyData = [.. rawBodyData];
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
+        this._rawBodyData = new(rawBodyData);
     }
 
 #pragma warning disable CS8618
@@ -126,9 +125,9 @@ public sealed record class V1CreateEmbeddingParams : ParamsBase
         FrozenDictionary<string, JsonElement> rawBodyData
     )
     {
-        this._rawHeaderData = [.. rawHeaderData];
-        this._rawQueryData = [.. rawQueryData];
-        this._rawBodyData = [.. rawBodyData];
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
+        this._rawBodyData = new(rawBodyData);
     }
 #pragma warning restore CS8618
 
@@ -373,7 +372,7 @@ sealed class InputConverter : JsonConverter<Input>
 
         try
         {
-            var deserialized = JsonSerializer.Deserialize<List<string>>(element, options);
+            var deserialized = JsonSerializer.Deserialize<ImmutableArray<string>>(element, options);
             if (deserialized != null)
             {
                 return new(deserialized, element);

@@ -18,7 +18,7 @@ namespace CaseDev.Models.Vault.Objects;
 /// </summary>
 public sealed record class ObjectCreatePresignedUrlParams : ParamsBase
 {
-    readonly FreezableDictionary<string, JsonElement> _rawBodyData = [];
+    readonly JsonDictionary _rawBodyData = new();
     public IReadOnlyDictionary<string, JsonElement> RawBodyData
     {
         get { return this._rawBodyData.Freeze(); }
@@ -33,7 +33,7 @@ public sealed record class ObjectCreatePresignedUrlParams : ParamsBase
     /// </summary>
     public string? ContentType
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "contentType"); }
+        get { return this._rawBodyData.GetNullableClass<string>("contentType"); }
         init
         {
             if (value == null)
@@ -41,7 +41,7 @@ public sealed record class ObjectCreatePresignedUrlParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "contentType", value);
+            this._rawBodyData.Set("contentType", value);
         }
     }
 
@@ -50,7 +50,7 @@ public sealed record class ObjectCreatePresignedUrlParams : ParamsBase
     /// </summary>
     public long? ExpiresIn
     {
-        get { return JsonModel.GetNullableStruct<long>(this.RawBodyData, "expiresIn"); }
+        get { return this._rawBodyData.GetNullableStruct<long>("expiresIn"); }
         init
         {
             if (value == null)
@@ -58,7 +58,7 @@ public sealed record class ObjectCreatePresignedUrlParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "expiresIn", value);
+            this._rawBodyData.Set("expiresIn", value);
         }
     }
 
@@ -67,13 +67,7 @@ public sealed record class ObjectCreatePresignedUrlParams : ParamsBase
     /// </summary>
     public ApiEnum<string, Operation>? Operation
     {
-        get
-        {
-            return JsonModel.GetNullableClass<ApiEnum<string, Operation>>(
-                this.RawBodyData,
-                "operation"
-            );
-        }
+        get { return this._rawBodyData.GetNullableClass<ApiEnum<string, Operation>>("operation"); }
         init
         {
             if (value == null)
@@ -81,7 +75,7 @@ public sealed record class ObjectCreatePresignedUrlParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "operation", value);
+            this._rawBodyData.Set("operation", value);
         }
     }
 
@@ -95,7 +89,7 @@ public sealed record class ObjectCreatePresignedUrlParams : ParamsBase
         this.ID = objectCreatePresignedUrlParams.ID;
         this.ObjectID = objectCreatePresignedUrlParams.ObjectID;
 
-        this._rawBodyData = [.. objectCreatePresignedUrlParams._rawBodyData];
+        this._rawBodyData = new(objectCreatePresignedUrlParams._rawBodyData);
     }
 
     public ObjectCreatePresignedUrlParams(
@@ -104,9 +98,9 @@ public sealed record class ObjectCreatePresignedUrlParams : ParamsBase
         IReadOnlyDictionary<string, JsonElement> rawBodyData
     )
     {
-        this._rawHeaderData = [.. rawHeaderData];
-        this._rawQueryData = [.. rawQueryData];
-        this._rawBodyData = [.. rawBodyData];
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
+        this._rawBodyData = new(rawBodyData);
     }
 
 #pragma warning disable CS8618
@@ -117,9 +111,9 @@ public sealed record class ObjectCreatePresignedUrlParams : ParamsBase
         FrozenDictionary<string, JsonElement> rawBodyData
     )
     {
-        this._rawHeaderData = [.. rawHeaderData];
-        this._rawQueryData = [.. rawQueryData];
-        this._rawBodyData = [.. rawBodyData];
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
+        this._rawBodyData = new(rawBodyData);
     }
 #pragma warning restore CS8618
 

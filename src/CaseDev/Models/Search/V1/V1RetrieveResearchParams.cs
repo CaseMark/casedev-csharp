@@ -22,7 +22,7 @@ public sealed record class V1RetrieveResearchParams : ParamsBase
     /// </summary>
     public string? Events
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawQueryData, "events"); }
+        get { return this._rawQueryData.GetNullableClass<string>("events"); }
         init
         {
             if (value == null)
@@ -30,7 +30,7 @@ public sealed record class V1RetrieveResearchParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawQueryData, "events", value);
+            this._rawQueryData.Set("events", value);
         }
     }
 
@@ -39,7 +39,7 @@ public sealed record class V1RetrieveResearchParams : ParamsBase
     /// </summary>
     public bool? Stream
     {
-        get { return JsonModel.GetNullableStruct<bool>(this.RawQueryData, "stream"); }
+        get { return this._rawQueryData.GetNullableStruct<bool>("stream"); }
         init
         {
             if (value == null)
@@ -47,7 +47,7 @@ public sealed record class V1RetrieveResearchParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawQueryData, "stream", value);
+            this._rawQueryData.Set("stream", value);
         }
     }
 
@@ -64,8 +64,8 @@ public sealed record class V1RetrieveResearchParams : ParamsBase
         IReadOnlyDictionary<string, JsonElement> rawQueryData
     )
     {
-        this._rawHeaderData = [.. rawHeaderData];
-        this._rawQueryData = [.. rawQueryData];
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
     }
 
 #pragma warning disable CS8618
@@ -75,8 +75,8 @@ public sealed record class V1RetrieveResearchParams : ParamsBase
         FrozenDictionary<string, JsonElement> rawQueryData
     )
     {
-        this._rawHeaderData = [.. rawHeaderData];
-        this._rawQueryData = [.. rawQueryData];
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
     }
 #pragma warning restore CS8618
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Text;
@@ -23,7 +24,7 @@ namespace CaseDev.Models.Voice.Transcription;
 /// </summary>
 public sealed record class TranscriptionCreateParams : ParamsBase
 {
-    readonly FreezableDictionary<string, JsonElement> _rawBodyData = [];
+    readonly JsonDictionary _rawBodyData = new();
     public IReadOnlyDictionary<string, JsonElement> RawBodyData
     {
         get { return this._rawBodyData.Freeze(); }
@@ -34,7 +35,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public string? AudioUrl
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "audio_url"); }
+        get { return this._rawBodyData.GetNullableClass<string>("audio_url"); }
         init
         {
             if (value == null)
@@ -42,7 +43,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "audio_url", value);
+            this._rawBodyData.Set("audio_url", value);
         }
     }
 
@@ -51,7 +52,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public bool? AutoHighlights
     {
-        get { return JsonModel.GetNullableStruct<bool>(this.RawBodyData, "auto_highlights"); }
+        get { return this._rawBodyData.GetNullableStruct<bool>("auto_highlights"); }
         init
         {
             if (value == null)
@@ -59,7 +60,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "auto_highlights", value);
+            this._rawBodyData.Set("auto_highlights", value);
         }
     }
 
@@ -70,10 +71,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     {
         get
         {
-            return JsonModel.GetNullableClass<ApiEnum<string, BoostParam>>(
-                this.RawBodyData,
-                "boost_param"
-            );
+            return this._rawBodyData.GetNullableClass<ApiEnum<string, BoostParam>>("boost_param");
         }
         init
         {
@@ -82,7 +80,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "boost_param", value);
+            this._rawBodyData.Set("boost_param", value);
         }
     }
 
@@ -91,7 +89,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public bool? ContentSafetyLabels
     {
-        get { return JsonModel.GetNullableStruct<bool>(this.RawBodyData, "content_safety_labels"); }
+        get { return this._rawBodyData.GetNullableStruct<bool>("content_safety_labels"); }
         init
         {
             if (value == null)
@@ -99,7 +97,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "content_safety_labels", value);
+            this._rawBodyData.Set("content_safety_labels", value);
         }
     }
 
@@ -110,10 +108,9 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     {
         get
         {
-            return JsonModel.GetNullableClass<ApiEnum<string, TranscriptionCreateParamsFormat>>(
-                this.RawBodyData,
-                "format"
-            );
+            return this._rawBodyData.GetNullableClass<
+                ApiEnum<string, TranscriptionCreateParamsFormat>
+            >("format");
         }
         init
         {
@@ -122,7 +119,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "format", value);
+            this._rawBodyData.Set("format", value);
         }
     }
 
@@ -131,7 +128,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public bool? FormatText
     {
-        get { return JsonModel.GetNullableStruct<bool>(this.RawBodyData, "format_text"); }
+        get { return this._rawBodyData.GetNullableStruct<bool>("format_text"); }
         init
         {
             if (value == null)
@@ -139,7 +136,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "format_text", value);
+            this._rawBodyData.Set("format_text", value);
         }
     }
 
@@ -149,7 +146,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public string? LanguageCode
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "language_code"); }
+        get { return this._rawBodyData.GetNullableClass<string>("language_code"); }
         init
         {
             if (value == null)
@@ -157,7 +154,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "language_code", value);
+            this._rawBodyData.Set("language_code", value);
         }
     }
 
@@ -166,7 +163,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public bool? LanguageDetection
     {
-        get { return JsonModel.GetNullableStruct<bool>(this.RawBodyData, "language_detection"); }
+        get { return this._rawBodyData.GetNullableStruct<bool>("language_detection"); }
         init
         {
             if (value == null)
@@ -174,7 +171,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "language_detection", value);
+            this._rawBodyData.Set("language_detection", value);
         }
     }
 
@@ -183,7 +180,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public string? ObjectID
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "object_id"); }
+        get { return this._rawBodyData.GetNullableClass<string>("object_id"); }
         init
         {
             if (value == null)
@@ -191,7 +188,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "object_id", value);
+            this._rawBodyData.Set("object_id", value);
         }
     }
 
@@ -200,7 +197,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public bool? Punctuate
     {
-        get { return JsonModel.GetNullableStruct<bool>(this.RawBodyData, "punctuate"); }
+        get { return this._rawBodyData.GetNullableStruct<bool>("punctuate"); }
         init
         {
             if (value == null)
@@ -208,7 +205,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "punctuate", value);
+            this._rawBodyData.Set("punctuate", value);
         }
     }
 
@@ -217,7 +214,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public bool? SpeakerLabels
     {
-        get { return JsonModel.GetNullableStruct<bool>(this.RawBodyData, "speaker_labels"); }
+        get { return this._rawBodyData.GetNullableStruct<bool>("speaker_labels"); }
         init
         {
             if (value == null)
@@ -225,7 +222,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "speaker_labels", value);
+            this._rawBodyData.Set("speaker_labels", value);
         }
     }
 
@@ -234,7 +231,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public long? SpeakersExpected
     {
-        get { return JsonModel.GetNullableStruct<long>(this.RawBodyData, "speakers_expected"); }
+        get { return this._rawBodyData.GetNullableStruct<long>("speakers_expected"); }
         init
         {
             if (value == null)
@@ -242,7 +239,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "speakers_expected", value);
+            this._rawBodyData.Set("speakers_expected", value);
         }
     }
 
@@ -251,7 +248,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public string? VaultID
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "vault_id"); }
+        get { return this._rawBodyData.GetNullableClass<string>("vault_id"); }
         init
         {
             if (value == null)
@@ -259,7 +256,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "vault_id", value);
+            this._rawBodyData.Set("vault_id", value);
         }
     }
 
@@ -268,7 +265,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     /// </summary>
     public IReadOnlyList<string>? WordBoost
     {
-        get { return JsonModel.GetNullableClass<List<string>>(this.RawBodyData, "word_boost"); }
+        get { return this._rawBodyData.GetNullableStruct<ImmutableArray<string>>("word_boost"); }
         init
         {
             if (value == null)
@@ -276,7 +273,10 @@ public sealed record class TranscriptionCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "word_boost", value);
+            this._rawBodyData.Set<ImmutableArray<string>?>(
+                "word_boost",
+                value == null ? null : ImmutableArray.ToImmutableArray(value)
+            );
         }
     }
 
@@ -285,7 +285,7 @@ public sealed record class TranscriptionCreateParams : ParamsBase
     public TranscriptionCreateParams(TranscriptionCreateParams transcriptionCreateParams)
         : base(transcriptionCreateParams)
     {
-        this._rawBodyData = [.. transcriptionCreateParams._rawBodyData];
+        this._rawBodyData = new(transcriptionCreateParams._rawBodyData);
     }
 
     public TranscriptionCreateParams(
@@ -294,9 +294,9 @@ public sealed record class TranscriptionCreateParams : ParamsBase
         IReadOnlyDictionary<string, JsonElement> rawBodyData
     )
     {
-        this._rawHeaderData = [.. rawHeaderData];
-        this._rawQueryData = [.. rawQueryData];
-        this._rawBodyData = [.. rawBodyData];
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
+        this._rawBodyData = new(rawBodyData);
     }
 
 #pragma warning disable CS8618
@@ -307,9 +307,9 @@ public sealed record class TranscriptionCreateParams : ParamsBase
         FrozenDictionary<string, JsonElement> rawBodyData
     )
     {
-        this._rawHeaderData = [.. rawHeaderData];
-        this._rawQueryData = [.. rawQueryData];
-        this._rawBodyData = [.. rawBodyData];
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
+        this._rawBodyData = new(rawBodyData);
     }
 #pragma warning restore CS8618
 

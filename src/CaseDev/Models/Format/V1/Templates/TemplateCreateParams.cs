@@ -1,5 +1,6 @@
 using System.Collections.Frozen;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Text;
@@ -18,7 +19,7 @@ namespace CaseDev.Models.Format.V1.Templates;
 /// </summary>
 public sealed record class TemplateCreateParams : ParamsBase
 {
-    readonly FreezableDictionary<string, JsonElement> _rawBodyData = [];
+    readonly JsonDictionary _rawBodyData = new();
     public IReadOnlyDictionary<string, JsonElement> RawBodyData
     {
         get { return this._rawBodyData.Freeze(); }
@@ -29,8 +30,8 @@ public sealed record class TemplateCreateParams : ParamsBase
     /// </summary>
     public required string Content
     {
-        get { return JsonModel.GetNotNullClass<string>(this.RawBodyData, "content"); }
-        init { JsonModel.Set(this._rawBodyData, "content", value); }
+        get { return this._rawBodyData.GetNotNullClass<string>("content"); }
+        init { this._rawBodyData.Set("content", value); }
     }
 
     /// <summary>
@@ -38,8 +39,8 @@ public sealed record class TemplateCreateParams : ParamsBase
     /// </summary>
     public required string Name
     {
-        get { return JsonModel.GetNotNullClass<string>(this.RawBodyData, "name"); }
-        init { JsonModel.Set(this._rawBodyData, "name", value); }
+        get { return this._rawBodyData.GetNotNullClass<string>("name"); }
+        init { this._rawBodyData.Set("name", value); }
     }
 
     /// <summary>
@@ -49,11 +50,11 @@ public sealed record class TemplateCreateParams : ParamsBase
     {
         get
         {
-            return JsonModel.GetNotNullClass<
+            return this._rawBodyData.GetNotNullClass<
                 ApiEnum<string, global::CaseDev.Models.Format.V1.Templates.Type>
-            >(this.RawBodyData, "type");
+            >("type");
         }
-        init { JsonModel.Set(this._rawBodyData, "type", value); }
+        init { this._rawBodyData.Set("type", value); }
     }
 
     /// <summary>
@@ -61,7 +62,7 @@ public sealed record class TemplateCreateParams : ParamsBase
     /// </summary>
     public string? Description
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "description"); }
+        get { return this._rawBodyData.GetNullableClass<string>("description"); }
         init
         {
             if (value == null)
@@ -69,7 +70,7 @@ public sealed record class TemplateCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "description", value);
+            this._rawBodyData.Set("description", value);
         }
     }
 
@@ -78,7 +79,7 @@ public sealed record class TemplateCreateParams : ParamsBase
     /// </summary>
     public JsonElement? Styles
     {
-        get { return JsonModel.GetNullableStruct<JsonElement>(this.RawBodyData, "styles"); }
+        get { return this._rawBodyData.GetNullableStruct<JsonElement>("styles"); }
         init
         {
             if (value == null)
@@ -86,7 +87,7 @@ public sealed record class TemplateCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "styles", value);
+            this._rawBodyData.Set("styles", value);
         }
     }
 
@@ -95,7 +96,7 @@ public sealed record class TemplateCreateParams : ParamsBase
     /// </summary>
     public IReadOnlyList<string>? Tags
     {
-        get { return JsonModel.GetNullableClass<List<string>>(this.RawBodyData, "tags"); }
+        get { return this._rawBodyData.GetNullableStruct<ImmutableArray<string>>("tags"); }
         init
         {
             if (value == null)
@@ -103,7 +104,10 @@ public sealed record class TemplateCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "tags", value);
+            this._rawBodyData.Set<ImmutableArray<string>?>(
+                "tags",
+                value == null ? null : ImmutableArray.ToImmutableArray(value)
+            );
         }
     }
 
@@ -112,7 +116,7 @@ public sealed record class TemplateCreateParams : ParamsBase
     /// </summary>
     public IReadOnlyList<string>? Variables
     {
-        get { return JsonModel.GetNullableClass<List<string>>(this.RawBodyData, "variables"); }
+        get { return this._rawBodyData.GetNullableStruct<ImmutableArray<string>>("variables"); }
         init
         {
             if (value == null)
@@ -120,7 +124,10 @@ public sealed record class TemplateCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "variables", value);
+            this._rawBodyData.Set<ImmutableArray<string>?>(
+                "variables",
+                value == null ? null : ImmutableArray.ToImmutableArray(value)
+            );
         }
     }
 
@@ -129,7 +136,7 @@ public sealed record class TemplateCreateParams : ParamsBase
     public TemplateCreateParams(TemplateCreateParams templateCreateParams)
         : base(templateCreateParams)
     {
-        this._rawBodyData = [.. templateCreateParams._rawBodyData];
+        this._rawBodyData = new(templateCreateParams._rawBodyData);
     }
 
     public TemplateCreateParams(
@@ -138,9 +145,9 @@ public sealed record class TemplateCreateParams : ParamsBase
         IReadOnlyDictionary<string, JsonElement> rawBodyData
     )
     {
-        this._rawHeaderData = [.. rawHeaderData];
-        this._rawQueryData = [.. rawQueryData];
-        this._rawBodyData = [.. rawBodyData];
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
+        this._rawBodyData = new(rawBodyData);
     }
 
 #pragma warning disable CS8618
@@ -151,9 +158,9 @@ public sealed record class TemplateCreateParams : ParamsBase
         FrozenDictionary<string, JsonElement> rawBodyData
     )
     {
-        this._rawHeaderData = [.. rawHeaderData];
-        this._rawQueryData = [.. rawQueryData];
-        this._rawBodyData = [.. rawBodyData];
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
+        this._rawBodyData = new(rawBodyData);
     }
 #pragma warning restore CS8618
 

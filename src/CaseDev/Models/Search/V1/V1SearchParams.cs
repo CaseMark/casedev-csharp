@@ -1,5 +1,6 @@
 using System.Collections.Frozen;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Text;
@@ -18,7 +19,7 @@ namespace CaseDev.Models.Search.V1;
 /// </summary>
 public sealed record class V1SearchParams : ParamsBase
 {
-    readonly FreezableDictionary<string, JsonElement> _rawBodyData = [];
+    readonly JsonDictionary _rawBodyData = new();
     public IReadOnlyDictionary<string, JsonElement> RawBodyData
     {
         get { return this._rawBodyData.Freeze(); }
@@ -29,8 +30,8 @@ public sealed record class V1SearchParams : ParamsBase
     /// </summary>
     public required string Query
     {
-        get { return JsonModel.GetNotNullClass<string>(this.RawBodyData, "query"); }
-        init { JsonModel.Set(this._rawBodyData, "query", value); }
+        get { return this._rawBodyData.GetNotNullClass<string>("query"); }
+        init { this._rawBodyData.Set("query", value); }
     }
 
     /// <summary>
@@ -40,7 +41,7 @@ public sealed record class V1SearchParams : ParamsBase
     {
         get
         {
-            return JsonModel.GetNullableClass<List<string>>(this.RawBodyData, "additionalQueries");
+            return this._rawBodyData.GetNullableStruct<ImmutableArray<string>>("additionalQueries");
         }
         init
         {
@@ -49,7 +50,10 @@ public sealed record class V1SearchParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "additionalQueries", value);
+            this._rawBodyData.Set<ImmutableArray<string>?>(
+                "additionalQueries",
+                value == null ? null : ImmutableArray.ToImmutableArray(value)
+            );
         }
     }
 
@@ -58,7 +62,7 @@ public sealed record class V1SearchParams : ParamsBase
     /// </summary>
     public string? Category
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "category"); }
+        get { return this._rawBodyData.GetNullableClass<string>("category"); }
         init
         {
             if (value == null)
@@ -66,7 +70,7 @@ public sealed record class V1SearchParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "category", value);
+            this._rawBodyData.Set("category", value);
         }
     }
 
@@ -75,7 +79,7 @@ public sealed record class V1SearchParams : ParamsBase
     /// </summary>
     public string? Contents
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "contents"); }
+        get { return this._rawBodyData.GetNullableClass<string>("contents"); }
         init
         {
             if (value == null)
@@ -83,7 +87,7 @@ public sealed record class V1SearchParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "contents", value);
+            this._rawBodyData.Set("contents", value);
         }
     }
 
@@ -92,7 +96,7 @@ public sealed record class V1SearchParams : ParamsBase
     /// </summary>
     public string? EndCrawlDate
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "endCrawlDate"); }
+        get { return this._rawBodyData.GetNullableClass<string>("endCrawlDate"); }
         init
         {
             if (value == null)
@@ -100,7 +104,7 @@ public sealed record class V1SearchParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "endCrawlDate", value);
+            this._rawBodyData.Set("endCrawlDate", value);
         }
     }
 
@@ -109,7 +113,7 @@ public sealed record class V1SearchParams : ParamsBase
     /// </summary>
     public string? EndPublishedDate
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "endPublishedDate"); }
+        get { return this._rawBodyData.GetNullableClass<string>("endPublishedDate"); }
         init
         {
             if (value == null)
@@ -117,7 +121,7 @@ public sealed record class V1SearchParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "endPublishedDate", value);
+            this._rawBodyData.Set("endPublishedDate", value);
         }
     }
 
@@ -126,7 +130,10 @@ public sealed record class V1SearchParams : ParamsBase
     /// </summary>
     public IReadOnlyList<string>? ExcludeDomains
     {
-        get { return JsonModel.GetNullableClass<List<string>>(this.RawBodyData, "excludeDomains"); }
+        get
+        {
+            return this._rawBodyData.GetNullableStruct<ImmutableArray<string>>("excludeDomains");
+        }
         init
         {
             if (value == null)
@@ -134,7 +141,10 @@ public sealed record class V1SearchParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "excludeDomains", value);
+            this._rawBodyData.Set<ImmutableArray<string>?>(
+                "excludeDomains",
+                value == null ? null : ImmutableArray.ToImmutableArray(value)
+            );
         }
     }
 
@@ -143,7 +153,10 @@ public sealed record class V1SearchParams : ParamsBase
     /// </summary>
     public IReadOnlyList<string>? IncludeDomains
     {
-        get { return JsonModel.GetNullableClass<List<string>>(this.RawBodyData, "includeDomains"); }
+        get
+        {
+            return this._rawBodyData.GetNullableStruct<ImmutableArray<string>>("includeDomains");
+        }
         init
         {
             if (value == null)
@@ -151,7 +164,10 @@ public sealed record class V1SearchParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "includeDomains", value);
+            this._rawBodyData.Set<ImmutableArray<string>?>(
+                "includeDomains",
+                value == null ? null : ImmutableArray.ToImmutableArray(value)
+            );
         }
     }
 
@@ -160,7 +176,7 @@ public sealed record class V1SearchParams : ParamsBase
     /// </summary>
     public bool? IncludeText
     {
-        get { return JsonModel.GetNullableStruct<bool>(this.RawBodyData, "includeText"); }
+        get { return this._rawBodyData.GetNullableStruct<bool>("includeText"); }
         init
         {
             if (value == null)
@@ -168,7 +184,7 @@ public sealed record class V1SearchParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "includeText", value);
+            this._rawBodyData.Set("includeText", value);
         }
     }
 
@@ -177,7 +193,7 @@ public sealed record class V1SearchParams : ParamsBase
     /// </summary>
     public long? NumResults
     {
-        get { return JsonModel.GetNullableStruct<long>(this.RawBodyData, "numResults"); }
+        get { return this._rawBodyData.GetNullableStruct<long>("numResults"); }
         init
         {
             if (value == null)
@@ -185,7 +201,7 @@ public sealed record class V1SearchParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "numResults", value);
+            this._rawBodyData.Set("numResults", value);
         }
     }
 
@@ -194,7 +210,7 @@ public sealed record class V1SearchParams : ParamsBase
     /// </summary>
     public string? StartCrawlDate
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "startCrawlDate"); }
+        get { return this._rawBodyData.GetNullableClass<string>("startCrawlDate"); }
         init
         {
             if (value == null)
@@ -202,7 +218,7 @@ public sealed record class V1SearchParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "startCrawlDate", value);
+            this._rawBodyData.Set("startCrawlDate", value);
         }
     }
 
@@ -211,7 +227,7 @@ public sealed record class V1SearchParams : ParamsBase
     /// </summary>
     public string? StartPublishedDate
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "startPublishedDate"); }
+        get { return this._rawBodyData.GetNullableClass<string>("startPublishedDate"); }
         init
         {
             if (value == null)
@@ -219,7 +235,7 @@ public sealed record class V1SearchParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "startPublishedDate", value);
+            this._rawBodyData.Set("startPublishedDate", value);
         }
     }
 
@@ -230,9 +246,9 @@ public sealed record class V1SearchParams : ParamsBase
     {
         get
         {
-            return JsonModel.GetNullableClass<
+            return this._rawBodyData.GetNullableClass<
                 ApiEnum<string, global::CaseDev.Models.Search.V1.Type>
-            >(this.RawBodyData, "type");
+            >("type");
         }
         init
         {
@@ -241,7 +257,7 @@ public sealed record class V1SearchParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "type", value);
+            this._rawBodyData.Set("type", value);
         }
     }
 
@@ -250,7 +266,7 @@ public sealed record class V1SearchParams : ParamsBase
     /// </summary>
     public string? UserLocation
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "userLocation"); }
+        get { return this._rawBodyData.GetNullableClass<string>("userLocation"); }
         init
         {
             if (value == null)
@@ -258,7 +274,7 @@ public sealed record class V1SearchParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "userLocation", value);
+            this._rawBodyData.Set("userLocation", value);
         }
     }
 
@@ -267,7 +283,7 @@ public sealed record class V1SearchParams : ParamsBase
     public V1SearchParams(V1SearchParams v1SearchParams)
         : base(v1SearchParams)
     {
-        this._rawBodyData = [.. v1SearchParams._rawBodyData];
+        this._rawBodyData = new(v1SearchParams._rawBodyData);
     }
 
     public V1SearchParams(
@@ -276,9 +292,9 @@ public sealed record class V1SearchParams : ParamsBase
         IReadOnlyDictionary<string, JsonElement> rawBodyData
     )
     {
-        this._rawHeaderData = [.. rawHeaderData];
-        this._rawQueryData = [.. rawQueryData];
-        this._rawBodyData = [.. rawBodyData];
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
+        this._rawBodyData = new(rawBodyData);
     }
 
 #pragma warning disable CS8618
@@ -289,9 +305,9 @@ public sealed record class V1SearchParams : ParamsBase
         FrozenDictionary<string, JsonElement> rawBodyData
     )
     {
-        this._rawHeaderData = [.. rawHeaderData];
-        this._rawQueryData = [.. rawQueryData];
-        this._rawBodyData = [.. rawBodyData];
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
+        this._rawBodyData = new(rawBodyData);
     }
 #pragma warning restore CS8618
 

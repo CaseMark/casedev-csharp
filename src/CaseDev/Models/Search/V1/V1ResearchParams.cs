@@ -18,7 +18,7 @@ namespace CaseDev.Models.Search.V1;
 /// </summary>
 public sealed record class V1ResearchParams : ParamsBase
 {
-    readonly FreezableDictionary<string, JsonElement> _rawBodyData = [];
+    readonly JsonDictionary _rawBodyData = new();
     public IReadOnlyDictionary<string, JsonElement> RawBodyData
     {
         get { return this._rawBodyData.Freeze(); }
@@ -29,8 +29,8 @@ public sealed record class V1ResearchParams : ParamsBase
     /// </summary>
     public required string Instructions
     {
-        get { return JsonModel.GetNotNullClass<string>(this.RawBodyData, "instructions"); }
-        init { JsonModel.Set(this._rawBodyData, "instructions", value); }
+        get { return this._rawBodyData.GetNotNullClass<string>("instructions"); }
+        init { this._rawBodyData.Set("instructions", value); }
     }
 
     /// <summary>
@@ -38,10 +38,7 @@ public sealed record class V1ResearchParams : ParamsBase
     /// </summary>
     public ApiEnum<string, Model>? Model
     {
-        get
-        {
-            return JsonModel.GetNullableClass<ApiEnum<string, Model>>(this.RawBodyData, "model");
-        }
+        get { return this._rawBodyData.GetNullableClass<ApiEnum<string, Model>>("model"); }
         init
         {
             if (value == null)
@@ -49,7 +46,7 @@ public sealed record class V1ResearchParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "model", value);
+            this._rawBodyData.Set("model", value);
         }
     }
 
@@ -58,7 +55,7 @@ public sealed record class V1ResearchParams : ParamsBase
     /// </summary>
     public JsonElement? OutputSchema
     {
-        get { return JsonModel.GetNullableStruct<JsonElement>(this.RawBodyData, "outputSchema"); }
+        get { return this._rawBodyData.GetNullableStruct<JsonElement>("outputSchema"); }
         init
         {
             if (value == null)
@@ -66,7 +63,7 @@ public sealed record class V1ResearchParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "outputSchema", value);
+            this._rawBodyData.Set("outputSchema", value);
         }
     }
 
@@ -75,7 +72,7 @@ public sealed record class V1ResearchParams : ParamsBase
     /// </summary>
     public string? Query
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "query"); }
+        get { return this._rawBodyData.GetNullableClass<string>("query"); }
         init
         {
             if (value == null)
@@ -83,7 +80,7 @@ public sealed record class V1ResearchParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "query", value);
+            this._rawBodyData.Set("query", value);
         }
     }
 
@@ -92,7 +89,7 @@ public sealed record class V1ResearchParams : ParamsBase
     public V1ResearchParams(V1ResearchParams v1ResearchParams)
         : base(v1ResearchParams)
     {
-        this._rawBodyData = [.. v1ResearchParams._rawBodyData];
+        this._rawBodyData = new(v1ResearchParams._rawBodyData);
     }
 
     public V1ResearchParams(
@@ -101,9 +98,9 @@ public sealed record class V1ResearchParams : ParamsBase
         IReadOnlyDictionary<string, JsonElement> rawBodyData
     )
     {
-        this._rawHeaderData = [.. rawHeaderData];
-        this._rawQueryData = [.. rawQueryData];
-        this._rawBodyData = [.. rawBodyData];
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
+        this._rawBodyData = new(rawBodyData);
     }
 
 #pragma warning disable CS8618
@@ -114,9 +111,9 @@ public sealed record class V1ResearchParams : ParamsBase
         FrozenDictionary<string, JsonElement> rawBodyData
     )
     {
-        this._rawHeaderData = [.. rawHeaderData];
-        this._rawQueryData = [.. rawQueryData];
-        this._rawBodyData = [.. rawBodyData];
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
+        this._rawBodyData = new(rawBodyData);
     }
 #pragma warning restore CS8618
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -16,7 +17,7 @@ public sealed record class TemplateCreateResponse : JsonModel
     /// </summary>
     public string? ID
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "id"); }
+        get { return this._rawData.GetNullableClass<string>("id"); }
         init
         {
             if (value == null)
@@ -24,7 +25,7 @@ public sealed record class TemplateCreateResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "id", value);
+            this._rawData.Set("id", value);
         }
     }
 
@@ -33,7 +34,7 @@ public sealed record class TemplateCreateResponse : JsonModel
     /// </summary>
     public DateTimeOffset? CreatedAt
     {
-        get { return JsonModel.GetNullableStruct<DateTimeOffset>(this.RawData, "createdAt"); }
+        get { return this._rawData.GetNullableStruct<DateTimeOffset>("createdAt"); }
         init
         {
             if (value == null)
@@ -41,7 +42,7 @@ public sealed record class TemplateCreateResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "createdAt", value);
+            this._rawData.Set("createdAt", value);
         }
     }
 
@@ -50,7 +51,7 @@ public sealed record class TemplateCreateResponse : JsonModel
     /// </summary>
     public string? Name
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "name"); }
+        get { return this._rawData.GetNullableClass<string>("name"); }
         init
         {
             if (value == null)
@@ -58,7 +59,7 @@ public sealed record class TemplateCreateResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "name", value);
+            this._rawData.Set("name", value);
         }
     }
 
@@ -67,7 +68,7 @@ public sealed record class TemplateCreateResponse : JsonModel
     /// </summary>
     public string? Type
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "type"); }
+        get { return this._rawData.GetNullableClass<string>("type"); }
         init
         {
             if (value == null)
@@ -75,7 +76,7 @@ public sealed record class TemplateCreateResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "type", value);
+            this._rawData.Set("type", value);
         }
     }
 
@@ -84,7 +85,7 @@ public sealed record class TemplateCreateResponse : JsonModel
     /// </summary>
     public IReadOnlyList<string>? Variables
     {
-        get { return JsonModel.GetNullableClass<List<string>>(this.RawData, "variables"); }
+        get { return this._rawData.GetNullableStruct<ImmutableArray<string>>("variables"); }
         init
         {
             if (value == null)
@@ -92,7 +93,10 @@ public sealed record class TemplateCreateResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "variables", value);
+            this._rawData.Set<ImmutableArray<string>?>(
+                "variables",
+                value == null ? null : ImmutableArray.ToImmutableArray(value)
+            );
         }
     }
 
@@ -113,14 +117,14 @@ public sealed record class TemplateCreateResponse : JsonModel
 
     public TemplateCreateResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
     TemplateCreateResponse(FrozenDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 #pragma warning restore CS8618
 

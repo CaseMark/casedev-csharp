@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -16,7 +17,7 @@ public sealed record class VaultListResponse : JsonModel
     /// </summary>
     public long? Total
     {
-        get { return JsonModel.GetNullableStruct<long>(this.RawData, "total"); }
+        get { return this._rawData.GetNullableStruct<long>("total"); }
         init
         {
             if (value == null)
@@ -24,7 +25,7 @@ public sealed record class VaultListResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "total", value);
+            this._rawData.Set("total", value);
         }
     }
 
@@ -32,7 +33,9 @@ public sealed record class VaultListResponse : JsonModel
     {
         get
         {
-            return JsonModel.GetNullableClass<List<VaultListResponseVault>>(this.RawData, "vaults");
+            return this._rawData.GetNullableStruct<ImmutableArray<VaultListResponseVault>>(
+                "vaults"
+            );
         }
         init
         {
@@ -41,7 +44,10 @@ public sealed record class VaultListResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "vaults", value);
+            this._rawData.Set<ImmutableArray<VaultListResponseVault>?>(
+                "vaults",
+                value == null ? null : ImmutableArray.ToImmutableArray(value)
+            );
         }
     }
 
@@ -62,14 +68,14 @@ public sealed record class VaultListResponse : JsonModel
 
     public VaultListResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
     VaultListResponse(FrozenDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 #pragma warning restore CS8618
 
@@ -97,7 +103,7 @@ public sealed record class VaultListResponseVault : JsonModel
     /// </summary>
     public string? ID
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "id"); }
+        get { return this._rawData.GetNullableClass<string>("id"); }
         init
         {
             if (value == null)
@@ -105,7 +111,7 @@ public sealed record class VaultListResponseVault : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "id", value);
+            this._rawData.Set("id", value);
         }
     }
 
@@ -114,7 +120,7 @@ public sealed record class VaultListResponseVault : JsonModel
     /// </summary>
     public DateTimeOffset? CreatedAt
     {
-        get { return JsonModel.GetNullableStruct<DateTimeOffset>(this.RawData, "createdAt"); }
+        get { return this._rawData.GetNullableStruct<DateTimeOffset>("createdAt"); }
         init
         {
             if (value == null)
@@ -122,7 +128,7 @@ public sealed record class VaultListResponseVault : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "createdAt", value);
+            this._rawData.Set("createdAt", value);
         }
     }
 
@@ -131,7 +137,7 @@ public sealed record class VaultListResponseVault : JsonModel
     /// </summary>
     public string? Description
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "description"); }
+        get { return this._rawData.GetNullableClass<string>("description"); }
         init
         {
             if (value == null)
@@ -139,7 +145,7 @@ public sealed record class VaultListResponseVault : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "description", value);
+            this._rawData.Set("description", value);
         }
     }
 
@@ -148,7 +154,7 @@ public sealed record class VaultListResponseVault : JsonModel
     /// </summary>
     public bool? EnableGraph
     {
-        get { return JsonModel.GetNullableStruct<bool>(this.RawData, "enableGraph"); }
+        get { return this._rawData.GetNullableStruct<bool>("enableGraph"); }
         init
         {
             if (value == null)
@@ -156,7 +162,7 @@ public sealed record class VaultListResponseVault : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "enableGraph", value);
+            this._rawData.Set("enableGraph", value);
         }
     }
 
@@ -165,7 +171,7 @@ public sealed record class VaultListResponseVault : JsonModel
     /// </summary>
     public string? Name
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "name"); }
+        get { return this._rawData.GetNullableClass<string>("name"); }
         init
         {
             if (value == null)
@@ -173,7 +179,7 @@ public sealed record class VaultListResponseVault : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "name", value);
+            this._rawData.Set("name", value);
         }
     }
 
@@ -182,7 +188,7 @@ public sealed record class VaultListResponseVault : JsonModel
     /// </summary>
     public long? TotalBytes
     {
-        get { return JsonModel.GetNullableStruct<long>(this.RawData, "totalBytes"); }
+        get { return this._rawData.GetNullableStruct<long>("totalBytes"); }
         init
         {
             if (value == null)
@@ -190,7 +196,7 @@ public sealed record class VaultListResponseVault : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "totalBytes", value);
+            this._rawData.Set("totalBytes", value);
         }
     }
 
@@ -199,7 +205,7 @@ public sealed record class VaultListResponseVault : JsonModel
     /// </summary>
     public long? TotalObjects
     {
-        get { return JsonModel.GetNullableStruct<long>(this.RawData, "totalObjects"); }
+        get { return this._rawData.GetNullableStruct<long>("totalObjects"); }
         init
         {
             if (value == null)
@@ -207,7 +213,7 @@ public sealed record class VaultListResponseVault : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "totalObjects", value);
+            this._rawData.Set("totalObjects", value);
         }
     }
 
@@ -230,14 +236,14 @@ public sealed record class VaultListResponseVault : JsonModel
 
     public VaultListResponseVault(IReadOnlyDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
     VaultListResponseVault(FrozenDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 #pragma warning restore CS8618
 
