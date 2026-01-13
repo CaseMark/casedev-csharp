@@ -84,7 +84,7 @@ public class InputTest : TestBase
     [Fact]
     public void StringValidationWorks()
     {
-        Input value = new("string");
+        Input value = "string";
         value.Validate();
     }
 
@@ -98,7 +98,7 @@ public class InputTest : TestBase
     [Fact]
     public void StringSerializationRoundtripWorks()
     {
-        Input value = new("string");
+        Input value = "string";
         string element = JsonSerializer.Serialize(value);
         var deserialized = JsonSerializer.Deserialize<Input>(element);
 

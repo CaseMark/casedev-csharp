@@ -172,7 +172,7 @@ public class ObjectIDTest : TestBase
     [Fact]
     public void StringValidationWorks()
     {
-        ObjectID value = new("string");
+        ObjectID value = "string";
         value.Validate();
     }
 
@@ -186,7 +186,7 @@ public class ObjectIDTest : TestBase
     [Fact]
     public void StringSerializationRoundtripWorks()
     {
-        ObjectID value = new("string");
+        ObjectID value = "string";
         string element = JsonSerializer.Serialize(value);
         var deserialized = JsonSerializer.Deserialize<ObjectID>(element);
 
