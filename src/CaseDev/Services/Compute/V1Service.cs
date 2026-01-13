@@ -70,27 +70,21 @@ public sealed class V1Service : IV1Service
     }
 
     /// <inheritdoc/>
-    public async Task GetPricing(
+    public Task GetPricing(
         V1GetPricingParams? parameters = null,
         CancellationToken cancellationToken = default
     )
     {
-        using var response = await this
-            .WithRawResponse.GetPricing(parameters, cancellationToken)
-            .ConfigureAwait(false);
-        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+        return this.WithRawResponse.GetPricing(parameters, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public async Task GetUsage(
+    public Task GetUsage(
         V1GetUsageParams? parameters = null,
         CancellationToken cancellationToken = default
     )
     {
-        using var response = await this
-            .WithRawResponse.GetUsage(parameters, cancellationToken)
-            .ConfigureAwait(false);
-        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+        return this.WithRawResponse.GetUsage(parameters, cancellationToken);
     }
 }
 

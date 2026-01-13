@@ -42,27 +42,21 @@ public sealed class V1Service : IV1Service
     }
 
     /// <inheritdoc/>
-    public async Task CreateEmbedding(
+    public Task CreateEmbedding(
         V1CreateEmbeddingParams parameters,
         CancellationToken cancellationToken = default
     )
     {
-        using var response = await this
-            .WithRawResponse.CreateEmbedding(parameters, cancellationToken)
-            .ConfigureAwait(false);
-        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+        return this.WithRawResponse.CreateEmbedding(parameters, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public async Task ListModels(
+    public Task ListModels(
         V1ListModelsParams? parameters = null,
         CancellationToken cancellationToken = default
     )
     {
-        using var response = await this
-            .WithRawResponse.ListModels(parameters, cancellationToken)
-            .ConfigureAwait(false);
-        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+        return this.WithRawResponse.ListModels(parameters, cancellationToken);
     }
 }
 

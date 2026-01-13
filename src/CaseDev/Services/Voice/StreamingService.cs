@@ -34,15 +34,12 @@ public sealed class StreamingService : IStreamingService
     }
 
     /// <inheritdoc/>
-    public async Task GetUrl(
+    public Task GetUrl(
         StreamingGetUrlParams? parameters = null,
         CancellationToken cancellationToken = default
     )
     {
-        using var response = await this
-            .WithRawResponse.GetUrl(parameters, cancellationToken)
-            .ConfigureAwait(false);
-        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+        return this.WithRawResponse.GetUrl(parameters, cancellationToken);
     }
 }
 

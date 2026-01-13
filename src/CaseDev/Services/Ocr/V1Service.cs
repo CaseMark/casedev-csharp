@@ -35,15 +35,12 @@ public sealed class V1Service : IV1Service
     }
 
     /// <inheritdoc/>
-    public async Task Retrieve(
+    public Task Retrieve(
         V1::V1RetrieveParams parameters,
         CancellationToken cancellationToken = default
     )
     {
-        using var response = await this
-            .WithRawResponse.Retrieve(parameters, cancellationToken)
-            .ConfigureAwait(false);
-        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+        return this.WithRawResponse.Retrieve(parameters, cancellationToken);
     }
 
     /// <inheritdoc/>
@@ -59,15 +56,12 @@ public sealed class V1Service : IV1Service
     }
 
     /// <inheritdoc/>
-    public async Task Download(
+    public Task Download(
         V1::V1DownloadParams parameters,
         CancellationToken cancellationToken = default
     )
     {
-        using var response = await this
-            .WithRawResponse.Download(parameters, cancellationToken)
-            .ConfigureAwait(false);
-        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+        return this.WithRawResponse.Download(parameters, cancellationToken);
     }
 
     /// <inheritdoc/>

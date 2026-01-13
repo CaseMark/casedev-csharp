@@ -42,15 +42,12 @@ public sealed class LlmService : ILlmService
     }
 
     /// <inheritdoc/>
-    public async Task GetConfig(
+    public Task GetConfig(
         LlmGetConfigParams? parameters = null,
         CancellationToken cancellationToken = default
     )
     {
-        using var response = await this
-            .WithRawResponse.GetConfig(parameters, cancellationToken)
-            .ConfigureAwait(false);
-        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+        return this.WithRawResponse.GetConfig(parameters, cancellationToken);
     }
 }
 

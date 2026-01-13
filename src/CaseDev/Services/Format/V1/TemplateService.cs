@@ -47,15 +47,12 @@ public sealed class TemplateService : ITemplateService
     }
 
     /// <inheritdoc/>
-    public async Task Retrieve(
+    public Task Retrieve(
         TemplateRetrieveParams parameters,
         CancellationToken cancellationToken = default
     )
     {
-        using var response = await this
-            .WithRawResponse.Retrieve(parameters, cancellationToken)
-            .ConfigureAwait(false);
-        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+        return this.WithRawResponse.Retrieve(parameters, cancellationToken);
     }
 
     /// <inheritdoc/>
@@ -71,15 +68,12 @@ public sealed class TemplateService : ITemplateService
     }
 
     /// <inheritdoc/>
-    public async Task List(
+    public Task List(
         TemplateListParams? parameters = null,
         CancellationToken cancellationToken = default
     )
     {
-        using var response = await this
-            .WithRawResponse.List(parameters, cancellationToken)
-            .ConfigureAwait(false);
-        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+        return this.WithRawResponse.List(parameters, cancellationToken);
     }
 }
 

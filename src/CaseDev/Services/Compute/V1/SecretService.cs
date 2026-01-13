@@ -47,27 +47,21 @@ public sealed class SecretService : ISecretService
     }
 
     /// <inheritdoc/>
-    public async Task List(
+    public Task List(
         SecretListParams? parameters = null,
         CancellationToken cancellationToken = default
     )
     {
-        using var response = await this
-            .WithRawResponse.List(parameters, cancellationToken)
-            .ConfigureAwait(false);
-        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+        return this.WithRawResponse.List(parameters, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public async Task DeleteGroup(
+    public Task DeleteGroup(
         SecretDeleteGroupParams parameters,
         CancellationToken cancellationToken = default
     )
     {
-        using var response = await this
-            .WithRawResponse.DeleteGroup(parameters, cancellationToken)
-            .ConfigureAwait(false);
-        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+        return this.WithRawResponse.DeleteGroup(parameters, cancellationToken);
     }
 
     /// <inheritdoc/>
@@ -84,15 +78,12 @@ public sealed class SecretService : ISecretService
     }
 
     /// <inheritdoc/>
-    public async Task RetrieveGroup(
+    public Task RetrieveGroup(
         SecretRetrieveGroupParams parameters,
         CancellationToken cancellationToken = default
     )
     {
-        using var response = await this
-            .WithRawResponse.RetrieveGroup(parameters, cancellationToken)
-            .ConfigureAwait(false);
-        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+        return this.WithRawResponse.RetrieveGroup(parameters, cancellationToken);
     }
 
     /// <inheritdoc/>
@@ -109,15 +100,12 @@ public sealed class SecretService : ISecretService
     }
 
     /// <inheritdoc/>
-    public async Task UpdateGroup(
+    public Task UpdateGroup(
         SecretUpdateGroupParams parameters,
         CancellationToken cancellationToken = default
     )
     {
-        using var response = await this
-            .WithRawResponse.UpdateGroup(parameters, cancellationToken)
-            .ConfigureAwait(false);
-        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+        return this.WithRawResponse.UpdateGroup(parameters, cancellationToken);
     }
 
     /// <inheritdoc/>

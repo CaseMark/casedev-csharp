@@ -35,15 +35,12 @@ public sealed class GraphragService : IGraphragService
     }
 
     /// <inheritdoc/>
-    public async Task GetStats(
+    public Task GetStats(
         GraphragGetStatsParams parameters,
         CancellationToken cancellationToken = default
     )
     {
-        using var response = await this
-            .WithRawResponse.GetStats(parameters, cancellationToken)
-            .ConfigureAwait(false);
-        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+        return this.WithRawResponse.GetStats(parameters, cancellationToken);
     }
 
     /// <inheritdoc/>
@@ -59,15 +56,9 @@ public sealed class GraphragService : IGraphragService
     }
 
     /// <inheritdoc/>
-    public async Task Init(
-        GraphragInitParams parameters,
-        CancellationToken cancellationToken = default
-    )
+    public Task Init(GraphragInitParams parameters, CancellationToken cancellationToken = default)
     {
-        using var response = await this
-            .WithRawResponse.Init(parameters, cancellationToken)
-            .ConfigureAwait(false);
-        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+        return this.WithRawResponse.Init(parameters, cancellationToken);
     }
 
     /// <inheritdoc/>
