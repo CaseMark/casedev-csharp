@@ -29,7 +29,11 @@ public sealed record class V1CreateEmbeddingParams : ParamsBase
     /// </summary>
     public required Input Input
     {
-        get { return this._rawBodyData.GetNotNullClass<Input>("input"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNotNullClass<Input>("input");
+        }
         init { this._rawBodyData.Set("input", value); }
     }
 
@@ -38,7 +42,11 @@ public sealed record class V1CreateEmbeddingParams : ParamsBase
     /// </summary>
     public required string Model
     {
-        get { return this._rawBodyData.GetNotNullClass<string>("model"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNotNullClass<string>("model");
+        }
         init { this._rawBodyData.Set("model", value); }
     }
 
@@ -47,7 +55,11 @@ public sealed record class V1CreateEmbeddingParams : ParamsBase
     /// </summary>
     public long? Dimensions
     {
-        get { return this._rawBodyData.GetNullableStruct<long>("dimensions"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<long>("dimensions");
+        }
         init
         {
             if (value == null)
@@ -66,6 +78,7 @@ public sealed record class V1CreateEmbeddingParams : ParamsBase
     {
         get
         {
+            this._rawBodyData.Freeze();
             return this._rawBodyData.GetNullableClass<ApiEnum<string, EncodingFormat>>(
                 "encoding_format"
             );
@@ -86,7 +99,11 @@ public sealed record class V1CreateEmbeddingParams : ParamsBase
     /// </summary>
     public string? User
     {
-        get { return this._rawBodyData.GetNullableClass<string>("user"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("user");
+        }
         init
         {
             if (value == null)

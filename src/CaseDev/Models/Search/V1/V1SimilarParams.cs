@@ -28,7 +28,11 @@ public sealed record class V1SimilarParams : ParamsBase
     /// </summary>
     public required string UrlValue
     {
-        get { return this._rawBodyData.GetNotNullClass<string>("url"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNotNullClass<string>("url");
+        }
         init { this._rawBodyData.Set("url", value); }
     }
 
@@ -37,7 +41,11 @@ public sealed record class V1SimilarParams : ParamsBase
     /// </summary>
     public string? Contents
     {
-        get { return this._rawBodyData.GetNullableClass<string>("contents"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("contents");
+        }
         init
         {
             if (value == null)
@@ -54,7 +62,11 @@ public sealed record class V1SimilarParams : ParamsBase
     /// </summary>
     public string? EndCrawlDate
     {
-        get { return this._rawBodyData.GetNullableClass<string>("endCrawlDate"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("endCrawlDate");
+        }
         init
         {
             if (value == null)
@@ -71,7 +83,11 @@ public sealed record class V1SimilarParams : ParamsBase
     /// </summary>
     public string? EndPublishedDate
     {
-        get { return this._rawBodyData.GetNullableClass<string>("endPublishedDate"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("endPublishedDate");
+        }
         init
         {
             if (value == null)
@@ -90,6 +106,7 @@ public sealed record class V1SimilarParams : ParamsBase
     {
         get
         {
+            this._rawBodyData.Freeze();
             return this._rawBodyData.GetNullableStruct<ImmutableArray<string>>("excludeDomains");
         }
         init
@@ -113,6 +130,7 @@ public sealed record class V1SimilarParams : ParamsBase
     {
         get
         {
+            this._rawBodyData.Freeze();
             return this._rawBodyData.GetNullableStruct<ImmutableArray<string>>("includeDomains");
         }
         init
@@ -134,7 +152,11 @@ public sealed record class V1SimilarParams : ParamsBase
     /// </summary>
     public bool? IncludeText
     {
-        get { return this._rawBodyData.GetNullableStruct<bool>("includeText"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<bool>("includeText");
+        }
         init
         {
             if (value == null)
@@ -151,7 +173,11 @@ public sealed record class V1SimilarParams : ParamsBase
     /// </summary>
     public long? NumResults
     {
-        get { return this._rawBodyData.GetNullableStruct<long>("numResults"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<long>("numResults");
+        }
         init
         {
             if (value == null)
@@ -168,7 +194,11 @@ public sealed record class V1SimilarParams : ParamsBase
     /// </summary>
     public string? StartCrawlDate
     {
-        get { return this._rawBodyData.GetNullableClass<string>("startCrawlDate"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("startCrawlDate");
+        }
         init
         {
             if (value == null)
@@ -185,7 +215,11 @@ public sealed record class V1SimilarParams : ParamsBase
     /// </summary>
     public string? StartPublishedDate
     {
-        get { return this._rawBodyData.GetNullableClass<string>("startPublishedDate"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("startPublishedDate");
+        }
         init
         {
             if (value == null)

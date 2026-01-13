@@ -17,7 +17,11 @@ public sealed record class VaultIngestResponse : JsonModel
     /// </summary>
     public required bool EnableGraphRag
     {
-        get { return this._rawData.GetNotNullStruct<bool>("enableGraphRAG"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullStruct<bool>("enableGraphRAG");
+        }
         init { this._rawData.Set("enableGraphRAG", value); }
     }
 
@@ -26,7 +30,11 @@ public sealed record class VaultIngestResponse : JsonModel
     /// </summary>
     public required string Message
     {
-        get { return this._rawData.GetNotNullClass<string>("message"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullClass<string>("message");
+        }
         init { this._rawData.Set("message", value); }
     }
 
@@ -35,7 +43,11 @@ public sealed record class VaultIngestResponse : JsonModel
     /// </summary>
     public required string ObjectID
     {
-        get { return this._rawData.GetNotNullClass<string>("objectId"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullClass<string>("objectId");
+        }
         init { this._rawData.Set("objectId", value); }
     }
 
@@ -45,7 +57,11 @@ public sealed record class VaultIngestResponse : JsonModel
     /// </summary>
     public required ApiEnum<string, Status> Status
     {
-        get { return this._rawData.GetNotNullClass<ApiEnum<string, Status>>("status"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullClass<ApiEnum<string, Status>>("status");
+        }
         init { this._rawData.Set("status", value); }
     }
 
@@ -54,7 +70,11 @@ public sealed record class VaultIngestResponse : JsonModel
     /// </summary>
     public required string? WorkflowID
     {
-        get { return this._rawData.GetNullableClass<string>("workflowId"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("workflowId");
+        }
         init { this._rawData.Set("workflowId", value); }
     }
 

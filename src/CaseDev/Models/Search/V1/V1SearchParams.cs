@@ -30,7 +30,11 @@ public sealed record class V1SearchParams : ParamsBase
     /// </summary>
     public required string Query
     {
-        get { return this._rawBodyData.GetNotNullClass<string>("query"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNotNullClass<string>("query");
+        }
         init { this._rawBodyData.Set("query", value); }
     }
 
@@ -41,6 +45,7 @@ public sealed record class V1SearchParams : ParamsBase
     {
         get
         {
+            this._rawBodyData.Freeze();
             return this._rawBodyData.GetNullableStruct<ImmutableArray<string>>("additionalQueries");
         }
         init
@@ -62,7 +67,11 @@ public sealed record class V1SearchParams : ParamsBase
     /// </summary>
     public string? Category
     {
-        get { return this._rawBodyData.GetNullableClass<string>("category"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("category");
+        }
         init
         {
             if (value == null)
@@ -79,7 +88,11 @@ public sealed record class V1SearchParams : ParamsBase
     /// </summary>
     public string? Contents
     {
-        get { return this._rawBodyData.GetNullableClass<string>("contents"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("contents");
+        }
         init
         {
             if (value == null)
@@ -96,7 +109,11 @@ public sealed record class V1SearchParams : ParamsBase
     /// </summary>
     public string? EndCrawlDate
     {
-        get { return this._rawBodyData.GetNullableClass<string>("endCrawlDate"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("endCrawlDate");
+        }
         init
         {
             if (value == null)
@@ -113,7 +130,11 @@ public sealed record class V1SearchParams : ParamsBase
     /// </summary>
     public string? EndPublishedDate
     {
-        get { return this._rawBodyData.GetNullableClass<string>("endPublishedDate"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("endPublishedDate");
+        }
         init
         {
             if (value == null)
@@ -132,6 +153,7 @@ public sealed record class V1SearchParams : ParamsBase
     {
         get
         {
+            this._rawBodyData.Freeze();
             return this._rawBodyData.GetNullableStruct<ImmutableArray<string>>("excludeDomains");
         }
         init
@@ -155,6 +177,7 @@ public sealed record class V1SearchParams : ParamsBase
     {
         get
         {
+            this._rawBodyData.Freeze();
             return this._rawBodyData.GetNullableStruct<ImmutableArray<string>>("includeDomains");
         }
         init
@@ -176,7 +199,11 @@ public sealed record class V1SearchParams : ParamsBase
     /// </summary>
     public bool? IncludeText
     {
-        get { return this._rawBodyData.GetNullableStruct<bool>("includeText"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<bool>("includeText");
+        }
         init
         {
             if (value == null)
@@ -193,7 +220,11 @@ public sealed record class V1SearchParams : ParamsBase
     /// </summary>
     public long? NumResults
     {
-        get { return this._rawBodyData.GetNullableStruct<long>("numResults"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<long>("numResults");
+        }
         init
         {
             if (value == null)
@@ -210,7 +241,11 @@ public sealed record class V1SearchParams : ParamsBase
     /// </summary>
     public string? StartCrawlDate
     {
-        get { return this._rawBodyData.GetNullableClass<string>("startCrawlDate"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("startCrawlDate");
+        }
         init
         {
             if (value == null)
@@ -227,7 +262,11 @@ public sealed record class V1SearchParams : ParamsBase
     /// </summary>
     public string? StartPublishedDate
     {
-        get { return this._rawBodyData.GetNullableClass<string>("startPublishedDate"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("startPublishedDate");
+        }
         init
         {
             if (value == null)
@@ -246,6 +285,7 @@ public sealed record class V1SearchParams : ParamsBase
     {
         get
         {
+            this._rawBodyData.Freeze();
             return this._rawBodyData.GetNullableClass<
                 ApiEnum<string, global::CaseDev.Models.Search.V1.Type>
             >("type");
@@ -266,7 +306,11 @@ public sealed record class V1SearchParams : ParamsBase
     /// </summary>
     public string? UserLocation
     {
-        get { return this._rawBodyData.GetNullableClass<string>("userLocation"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("userLocation");
+        }
         init
         {
             if (value == null)

@@ -23,7 +23,11 @@ public sealed record class TemplateListParams : ParamsBase
     /// </summary>
     public string? Type
     {
-        get { return this._rawQueryData.GetNullableClass<string>("type"); }
+        get
+        {
+            this._rawQueryData.Freeze();
+            return this._rawQueryData.GetNullableClass<string>("type");
+        }
         init
         {
             if (value == null)

@@ -17,7 +17,11 @@ public sealed record class V1SearchResponse : JsonModel
     /// </summary>
     public string? Query
     {
-        get { return this._rawData.GetNullableClass<string>("query"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("query");
+        }
         init
         {
             if (value == null)
@@ -36,6 +40,7 @@ public sealed record class V1SearchResponse : JsonModel
     {
         get
         {
+            this._rawData.Freeze();
             return this._rawData.GetNullableStruct<ImmutableArray<V1SearchResponseResult>>(
                 "results"
             );
@@ -59,7 +64,11 @@ public sealed record class V1SearchResponse : JsonModel
     /// </summary>
     public long? TotalResults
     {
-        get { return this._rawData.GetNullableStruct<long>("totalResults"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("totalResults");
+        }
         init
         {
             if (value == null)
@@ -124,7 +133,11 @@ public sealed record class V1SearchResponseResult : JsonModel
     /// </summary>
     public string? Domain
     {
-        get { return this._rawData.GetNullableClass<string>("domain"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("domain");
+        }
         init
         {
             if (value == null)
@@ -141,7 +154,11 @@ public sealed record class V1SearchResponseResult : JsonModel
     /// </summary>
     public DateTimeOffset? PublishedDate
     {
-        get { return this._rawData.GetNullableStruct<DateTimeOffset>("publishedDate"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<DateTimeOffset>("publishedDate");
+        }
         init
         {
             if (value == null)
@@ -158,7 +175,11 @@ public sealed record class V1SearchResponseResult : JsonModel
     /// </summary>
     public string? Snippet
     {
-        get { return this._rawData.GetNullableClass<string>("snippet"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("snippet");
+        }
         init
         {
             if (value == null)
@@ -175,7 +196,11 @@ public sealed record class V1SearchResponseResult : JsonModel
     /// </summary>
     public string? Title
     {
-        get { return this._rawData.GetNullableClass<string>("title"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("title");
+        }
         init
         {
             if (value == null)
@@ -192,7 +217,11 @@ public sealed record class V1SearchResponseResult : JsonModel
     /// </summary>
     public string? Url
     {
-        get { return this._rawData.GetNullableClass<string>("url"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("url");
+        }
         init
         {
             if (value == null)

@@ -19,7 +19,11 @@ public sealed record class EnvironmentCreateResponse : JsonModel
     /// </summary>
     public string? ID
     {
-        get { return this._rawData.GetNullableClass<string>("id"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("id");
+        }
         init
         {
             if (value == null)
@@ -36,7 +40,11 @@ public sealed record class EnvironmentCreateResponse : JsonModel
     /// </summary>
     public DateTimeOffset? CreatedAt
     {
-        get { return this._rawData.GetNullableStruct<DateTimeOffset>("createdAt"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<DateTimeOffset>("createdAt");
+        }
         init
         {
             if (value == null)
@@ -53,7 +61,11 @@ public sealed record class EnvironmentCreateResponse : JsonModel
     /// </summary>
     public string? Domain
     {
-        get { return this._rawData.GetNullableClass<string>("domain"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("domain");
+        }
         init
         {
             if (value == null)
@@ -70,7 +82,11 @@ public sealed record class EnvironmentCreateResponse : JsonModel
     /// </summary>
     public bool? IsDefault
     {
-        get { return this._rawData.GetNullableStruct<bool>("isDefault"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<bool>("isDefault");
+        }
         init
         {
             if (value == null)
@@ -87,7 +103,11 @@ public sealed record class EnvironmentCreateResponse : JsonModel
     /// </summary>
     public string? Name
     {
-        get { return this._rawData.GetNullableClass<string>("name"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("name");
+        }
         init
         {
             if (value == null)
@@ -104,7 +124,11 @@ public sealed record class EnvironmentCreateResponse : JsonModel
     /// </summary>
     public string? Slug
     {
-        get { return this._rawData.GetNullableClass<string>("slug"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("slug");
+        }
         init
         {
             if (value == null)
@@ -121,7 +145,11 @@ public sealed record class EnvironmentCreateResponse : JsonModel
     /// </summary>
     public ApiEnum<string, Status>? Status
     {
-        get { return this._rawData.GetNullableClass<ApiEnum<string, Status>>("status"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<ApiEnum<string, Status>>("status");
+        }
         init
         {
             if (value == null)

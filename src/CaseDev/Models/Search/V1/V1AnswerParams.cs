@@ -31,7 +31,11 @@ public sealed record class V1AnswerParams : ParamsBase
     /// </summary>
     public required string Query
     {
-        get { return this._rawBodyData.GetNotNullClass<string>("query"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNotNullClass<string>("query");
+        }
         init { this._rawBodyData.Set("query", value); }
     }
 
@@ -42,6 +46,7 @@ public sealed record class V1AnswerParams : ParamsBase
     {
         get
         {
+            this._rawBodyData.Freeze();
             return this._rawBodyData.GetNullableStruct<ImmutableArray<string>>("excludeDomains");
         }
         init
@@ -65,6 +70,7 @@ public sealed record class V1AnswerParams : ParamsBase
     {
         get
         {
+            this._rawBodyData.Freeze();
             return this._rawBodyData.GetNullableStruct<ImmutableArray<string>>("includeDomains");
         }
         init
@@ -86,7 +92,11 @@ public sealed record class V1AnswerParams : ParamsBase
     /// </summary>
     public long? MaxTokens
     {
-        get { return this._rawBodyData.GetNullableStruct<long>("maxTokens"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<long>("maxTokens");
+        }
         init
         {
             if (value == null)
@@ -103,7 +113,11 @@ public sealed record class V1AnswerParams : ParamsBase
     /// </summary>
     public string? Model
     {
-        get { return this._rawBodyData.GetNullableClass<string>("model"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("model");
+        }
         init
         {
             if (value == null)
@@ -120,7 +134,11 @@ public sealed record class V1AnswerParams : ParamsBase
     /// </summary>
     public long? NumResults
     {
-        get { return this._rawBodyData.GetNullableStruct<long>("numResults"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<long>("numResults");
+        }
         init
         {
             if (value == null)
@@ -139,6 +157,7 @@ public sealed record class V1AnswerParams : ParamsBase
     {
         get
         {
+            this._rawBodyData.Freeze();
             return this._rawBodyData.GetNullableClass<ApiEnum<string, SearchType>>("searchType");
         }
         init
@@ -157,7 +176,11 @@ public sealed record class V1AnswerParams : ParamsBase
     /// </summary>
     public bool? Stream
     {
-        get { return this._rawBodyData.GetNullableStruct<bool>("stream"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<bool>("stream");
+        }
         init
         {
             if (value == null)
@@ -174,7 +197,11 @@ public sealed record class V1AnswerParams : ParamsBase
     /// </summary>
     public double? Temperature
     {
-        get { return this._rawBodyData.GetNullableStruct<double>("temperature"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<double>("temperature");
+        }
         init
         {
             if (value == null)
@@ -191,7 +218,11 @@ public sealed record class V1AnswerParams : ParamsBase
     /// </summary>
     public bool? Text
     {
-        get { return this._rawBodyData.GetNullableStruct<bool>("text"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<bool>("text");
+        }
         init
         {
             if (value == null)
@@ -208,7 +239,11 @@ public sealed record class V1AnswerParams : ParamsBase
     /// </summary>
     public bool? UseCustomLlm
     {
-        get { return this._rawBodyData.GetNullableStruct<bool>("useCustomLLM"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<bool>("useCustomLLM");
+        }
         init
         {
             if (value == null)

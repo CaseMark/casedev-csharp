@@ -21,7 +21,11 @@ public sealed record class SecretRetrieveGroupParams : ParamsBase
     /// </summary>
     public string? Env
     {
-        get { return this._rawQueryData.GetNullableClass<string>("env"); }
+        get
+        {
+            this._rawQueryData.Freeze();
+            return this._rawQueryData.GetNullableClass<string>("env");
+        }
         init
         {
             if (value == null)

@@ -20,7 +20,11 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
     /// </summary>
     public required string ID
     {
-        get { return this._rawData.GetNotNullClass<string>("id"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullClass<string>("id");
+        }
         init { this._rawData.Set("id", value); }
     }
 
@@ -29,7 +33,11 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
     /// </summary>
     public required ApiEnum<string, Status> Status
     {
-        get { return this._rawData.GetNotNullClass<ApiEnum<string, Status>>("status"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullClass<ApiEnum<string, Status>>("status");
+        }
         init { this._rawData.Set("status", value); }
     }
 
@@ -38,7 +46,11 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
     /// </summary>
     public double? AudioDuration
     {
-        get { return this._rawData.GetNullableStruct<double>("audio_duration"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<double>("audio_duration");
+        }
         init
         {
             if (value == null)
@@ -55,7 +67,11 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
     /// </summary>
     public double? Confidence
     {
-        get { return this._rawData.GetNullableStruct<double>("confidence"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<double>("confidence");
+        }
         init
         {
             if (value == null)
@@ -72,7 +88,11 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
     /// </summary>
     public string? Error
     {
-        get { return this._rawData.GetNullableClass<string>("error"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("error");
+        }
         init
         {
             if (value == null)
@@ -89,7 +109,11 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
     /// </summary>
     public string? ResultObjectID
     {
-        get { return this._rawData.GetNullableClass<string>("result_object_id"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("result_object_id");
+        }
         init
         {
             if (value == null)
@@ -106,7 +130,11 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
     /// </summary>
     public string? SourceObjectID
     {
-        get { return this._rawData.GetNullableClass<string>("source_object_id"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("source_object_id");
+        }
         init
         {
             if (value == null)
@@ -123,7 +151,11 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
     /// </summary>
     public string? Text
     {
-        get { return this._rawData.GetNullableClass<string>("text"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("text");
+        }
         init
         {
             if (value == null)
@@ -140,7 +172,11 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
     /// </summary>
     public string? VaultID
     {
-        get { return this._rawData.GetNullableClass<string>("vault_id"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("vault_id");
+        }
         init
         {
             if (value == null)
@@ -157,7 +193,11 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
     /// </summary>
     public long? WordCount
     {
-        get { return this._rawData.GetNullableStruct<long>("word_count"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("word_count");
+        }
         init
         {
             if (value == null)
@@ -174,7 +214,11 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
     /// </summary>
     public IReadOnlyList<JsonElement>? Words
     {
-        get { return this._rawData.GetNullableStruct<ImmutableArray<JsonElement>>("words"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<ImmutableArray<JsonElement>>("words");
+        }
         init
         {
             if (value == null)

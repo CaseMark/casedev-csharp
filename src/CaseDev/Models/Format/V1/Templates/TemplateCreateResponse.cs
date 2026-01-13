@@ -17,7 +17,11 @@ public sealed record class TemplateCreateResponse : JsonModel
     /// </summary>
     public string? ID
     {
-        get { return this._rawData.GetNullableClass<string>("id"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("id");
+        }
         init
         {
             if (value == null)
@@ -34,7 +38,11 @@ public sealed record class TemplateCreateResponse : JsonModel
     /// </summary>
     public DateTimeOffset? CreatedAt
     {
-        get { return this._rawData.GetNullableStruct<DateTimeOffset>("createdAt"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<DateTimeOffset>("createdAt");
+        }
         init
         {
             if (value == null)
@@ -51,7 +59,11 @@ public sealed record class TemplateCreateResponse : JsonModel
     /// </summary>
     public string? Name
     {
-        get { return this._rawData.GetNullableClass<string>("name"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("name");
+        }
         init
         {
             if (value == null)
@@ -68,7 +80,11 @@ public sealed record class TemplateCreateResponse : JsonModel
     /// </summary>
     public string? Type
     {
-        get { return this._rawData.GetNullableClass<string>("type"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("type");
+        }
         init
         {
             if (value == null)
@@ -85,7 +101,11 @@ public sealed record class TemplateCreateResponse : JsonModel
     /// </summary>
     public IReadOnlyList<string>? Variables
     {
-        get { return this._rawData.GetNullableStruct<ImmutableArray<string>>("variables"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<ImmutableArray<string>>("variables");
+        }
         init
         {
             if (value == null)

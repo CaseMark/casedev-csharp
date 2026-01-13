@@ -18,7 +18,11 @@ public sealed record class ChatCreateCompletionResponse : JsonModel
     /// </summary>
     public string? ID
     {
-        get { return this._rawData.GetNullableClass<string>("id"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("id");
+        }
         init
         {
             if (value == null)
@@ -32,7 +36,11 @@ public sealed record class ChatCreateCompletionResponse : JsonModel
 
     public IReadOnlyList<Choice>? Choices
     {
-        get { return this._rawData.GetNullableStruct<ImmutableArray<Choice>>("choices"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<ImmutableArray<Choice>>("choices");
+        }
         init
         {
             if (value == null)
@@ -52,7 +60,11 @@ public sealed record class ChatCreateCompletionResponse : JsonModel
     /// </summary>
     public long? Created
     {
-        get { return this._rawData.GetNullableStruct<long>("created"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("created");
+        }
         init
         {
             if (value == null)
@@ -69,7 +81,11 @@ public sealed record class ChatCreateCompletionResponse : JsonModel
     /// </summary>
     public string? Model
     {
-        get { return this._rawData.GetNullableClass<string>("model"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("model");
+        }
         init
         {
             if (value == null)
@@ -83,7 +99,11 @@ public sealed record class ChatCreateCompletionResponse : JsonModel
 
     public string? Object
     {
-        get { return this._rawData.GetNullableClass<string>("object"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("object");
+        }
         init
         {
             if (value == null)
@@ -97,7 +117,11 @@ public sealed record class ChatCreateCompletionResponse : JsonModel
 
     public Usage? Usage
     {
-        get { return this._rawData.GetNullableClass<Usage>("usage"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<Usage>("usage");
+        }
         init
         {
             if (value == null)
@@ -163,7 +187,11 @@ public sealed record class Choice : JsonModel
 {
     public string? FinishReason
     {
-        get { return this._rawData.GetNullableClass<string>("finish_reason"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("finish_reason");
+        }
         init
         {
             if (value == null)
@@ -177,7 +205,11 @@ public sealed record class Choice : JsonModel
 
     public long? Index
     {
-        get { return this._rawData.GetNullableStruct<long>("index"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("index");
+        }
         init
         {
             if (value == null)
@@ -191,7 +223,11 @@ public sealed record class Choice : JsonModel
 
     public ChoiceMessage? Message
     {
-        get { return this._rawData.GetNullableClass<ChoiceMessage>("message"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<ChoiceMessage>("message");
+        }
         init
         {
             if (value == null)
@@ -248,7 +284,11 @@ public sealed record class ChoiceMessage : JsonModel
 {
     public string? Content
     {
-        get { return this._rawData.GetNullableClass<string>("content"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("content");
+        }
         init
         {
             if (value == null)
@@ -262,7 +302,11 @@ public sealed record class ChoiceMessage : JsonModel
 
     public string? Role
     {
-        get { return this._rawData.GetNullableClass<string>("role"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("role");
+        }
         init
         {
             if (value == null)
@@ -318,7 +362,11 @@ public sealed record class Usage : JsonModel
 {
     public long? CompletionTokens
     {
-        get { return this._rawData.GetNullableStruct<long>("completion_tokens"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("completion_tokens");
+        }
         init
         {
             if (value == null)
@@ -335,7 +383,11 @@ public sealed record class Usage : JsonModel
     /// </summary>
     public double? Cost
     {
-        get { return this._rawData.GetNullableStruct<double>("cost"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<double>("cost");
+        }
         init
         {
             if (value == null)
@@ -349,7 +401,11 @@ public sealed record class Usage : JsonModel
 
     public long? PromptTokens
     {
-        get { return this._rawData.GetNullableStruct<long>("prompt_tokens"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("prompt_tokens");
+        }
         init
         {
             if (value == null)
@@ -363,7 +419,11 @@ public sealed record class Usage : JsonModel
 
     public long? TotalTokens
     {
-        get { return this._rawData.GetNullableStruct<long>("total_tokens"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("total_tokens");
+        }
         init
         {
             if (value == null)

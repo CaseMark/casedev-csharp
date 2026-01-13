@@ -23,7 +23,11 @@ public sealed record class V1ListVoicesParams : ParamsBase
     /// </summary>
     public string? Category
     {
-        get { return this._rawQueryData.GetNullableClass<string>("category"); }
+        get
+        {
+            this._rawQueryData.Freeze();
+            return this._rawQueryData.GetNullableClass<string>("category");
+        }
         init
         {
             if (value == null)
@@ -40,7 +44,11 @@ public sealed record class V1ListVoicesParams : ParamsBase
     /// </summary>
     public string? CollectionID
     {
-        get { return this._rawQueryData.GetNullableClass<string>("collection_id"); }
+        get
+        {
+            this._rawQueryData.Freeze();
+            return this._rawQueryData.GetNullableClass<string>("collection_id");
+        }
         init
         {
             if (value == null)
@@ -57,7 +65,11 @@ public sealed record class V1ListVoicesParams : ParamsBase
     /// </summary>
     public bool? IncludeTotalCount
     {
-        get { return this._rawQueryData.GetNullableStruct<bool>("include_total_count"); }
+        get
+        {
+            this._rawQueryData.Freeze();
+            return this._rawQueryData.GetNullableStruct<bool>("include_total_count");
+        }
         init
         {
             if (value == null)
@@ -74,7 +86,11 @@ public sealed record class V1ListVoicesParams : ParamsBase
     /// </summary>
     public string? NextPageToken
     {
-        get { return this._rawQueryData.GetNullableClass<string>("next_page_token"); }
+        get
+        {
+            this._rawQueryData.Freeze();
+            return this._rawQueryData.GetNullableClass<string>("next_page_token");
+        }
         init
         {
             if (value == null)
@@ -91,7 +107,11 @@ public sealed record class V1ListVoicesParams : ParamsBase
     /// </summary>
     public long? PageSize
     {
-        get { return this._rawQueryData.GetNullableStruct<long>("page_size"); }
+        get
+        {
+            this._rawQueryData.Freeze();
+            return this._rawQueryData.GetNullableStruct<long>("page_size");
+        }
         init
         {
             if (value == null)
@@ -108,7 +128,11 @@ public sealed record class V1ListVoicesParams : ParamsBase
     /// </summary>
     public string? Search
     {
-        get { return this._rawQueryData.GetNullableClass<string>("search"); }
+        get
+        {
+            this._rawQueryData.Freeze();
+            return this._rawQueryData.GetNullableClass<string>("search");
+        }
         init
         {
             if (value == null)
@@ -125,7 +149,11 @@ public sealed record class V1ListVoicesParams : ParamsBase
     /// </summary>
     public ApiEnum<string, Sort>? Sort
     {
-        get { return this._rawQueryData.GetNullableClass<ApiEnum<string, Sort>>("sort"); }
+        get
+        {
+            this._rawQueryData.Freeze();
+            return this._rawQueryData.GetNullableClass<ApiEnum<string, Sort>>("sort");
+        }
         init
         {
             if (value == null)
@@ -144,6 +172,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
     {
         get
         {
+            this._rawQueryData.Freeze();
             return this._rawQueryData.GetNullableClass<ApiEnum<string, SortDirection>>(
                 "sort_direction"
             );
@@ -166,6 +195,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
     {
         get
         {
+            this._rawQueryData.Freeze();
             return this._rawQueryData.GetNullableClass<ApiEnum<string, VoiceType>>("voice_type");
         }
         init

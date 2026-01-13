@@ -30,7 +30,11 @@ public sealed record class V1CreateDocumentParams : ParamsBase
     /// </summary>
     public required string Content
     {
-        get { return this._rawBodyData.GetNotNullClass<string>("content"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNotNullClass<string>("content");
+        }
         init { this._rawBodyData.Set("content", value); }
     }
 
@@ -41,6 +45,7 @@ public sealed record class V1CreateDocumentParams : ParamsBase
     {
         get
         {
+            this._rawBodyData.Freeze();
             return this._rawBodyData.GetNotNullClass<ApiEnum<string, OutputFormat>>(
                 "output_format"
             );
@@ -55,6 +60,7 @@ public sealed record class V1CreateDocumentParams : ParamsBase
     {
         get
         {
+            this._rawBodyData.Freeze();
             return this._rawBodyData.GetNullableClass<ApiEnum<string, InputFormat>>("input_format");
         }
         init
@@ -70,7 +76,11 @@ public sealed record class V1CreateDocumentParams : ParamsBase
 
     public Options? Options
     {
-        get { return this._rawBodyData.GetNullableClass<Options>("options"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<Options>("options");
+        }
         init
         {
             if (value == null)
@@ -264,7 +274,11 @@ public sealed record class Options : JsonModel
     /// </summary>
     public IReadOnlyList<Component>? Components
     {
-        get { return this._rawData.GetNullableStruct<ImmutableArray<Component>>("components"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<ImmutableArray<Component>>("components");
+        }
         init
         {
             if (value == null)
@@ -328,7 +342,11 @@ public sealed record class Component : JsonModel
     /// </summary>
     public string? Content
     {
-        get { return this._rawData.GetNullableClass<string>("content"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("content");
+        }
         init
         {
             if (value == null)
@@ -345,7 +363,11 @@ public sealed record class Component : JsonModel
     /// </summary>
     public JsonElement? Styles
     {
-        get { return this._rawData.GetNullableStruct<JsonElement>("styles"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<JsonElement>("styles");
+        }
         init
         {
             if (value == null)
@@ -362,7 +384,11 @@ public sealed record class Component : JsonModel
     /// </summary>
     public string? TemplateID
     {
-        get { return this._rawData.GetNullableClass<string>("templateId"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("templateId");
+        }
         init
         {
             if (value == null)
@@ -379,7 +405,11 @@ public sealed record class Component : JsonModel
     /// </summary>
     public JsonElement? Variables
     {
-        get { return this._rawData.GetNullableStruct<JsonElement>("variables"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<JsonElement>("variables");
+        }
         init
         {
             if (value == null)

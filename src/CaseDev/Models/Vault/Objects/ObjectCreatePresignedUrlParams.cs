@@ -33,7 +33,11 @@ public sealed record class ObjectCreatePresignedUrlParams : ParamsBase
     /// </summary>
     public string? ContentType
     {
-        get { return this._rawBodyData.GetNullableClass<string>("contentType"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("contentType");
+        }
         init
         {
             if (value == null)
@@ -50,7 +54,11 @@ public sealed record class ObjectCreatePresignedUrlParams : ParamsBase
     /// </summary>
     public long? ExpiresIn
     {
-        get { return this._rawBodyData.GetNullableStruct<long>("expiresIn"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<long>("expiresIn");
+        }
         init
         {
             if (value == null)
@@ -67,7 +75,11 @@ public sealed record class ObjectCreatePresignedUrlParams : ParamsBase
     /// </summary>
     public ApiEnum<string, Operation>? Operation
     {
-        get { return this._rawBodyData.GetNullableClass<ApiEnum<string, Operation>>("operation"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<ApiEnum<string, Operation>>("operation");
+        }
         init
         {
             if (value == null)

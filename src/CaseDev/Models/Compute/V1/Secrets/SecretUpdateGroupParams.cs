@@ -30,6 +30,7 @@ public sealed record class SecretUpdateGroupParams : ParamsBase
     {
         get
         {
+            this._rawBodyData.Freeze();
             return this._rawBodyData.GetNotNullClass<FrozenDictionary<string, string>>("secrets");
         }
         init
@@ -46,7 +47,11 @@ public sealed record class SecretUpdateGroupParams : ParamsBase
     /// </summary>
     public string? Env
     {
-        get { return this._rawBodyData.GetNullableClass<string>("env"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("env");
+        }
         init
         {
             if (value == null)

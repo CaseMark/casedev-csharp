@@ -29,7 +29,11 @@ public sealed record class V1ResearchParams : ParamsBase
     /// </summary>
     public required string Instructions
     {
-        get { return this._rawBodyData.GetNotNullClass<string>("instructions"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNotNullClass<string>("instructions");
+        }
         init { this._rawBodyData.Set("instructions", value); }
     }
 
@@ -38,7 +42,11 @@ public sealed record class V1ResearchParams : ParamsBase
     /// </summary>
     public ApiEnum<string, Model>? Model
     {
-        get { return this._rawBodyData.GetNullableClass<ApiEnum<string, Model>>("model"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<ApiEnum<string, Model>>("model");
+        }
         init
         {
             if (value == null)
@@ -55,7 +63,11 @@ public sealed record class V1ResearchParams : ParamsBase
     /// </summary>
     public JsonElement? OutputSchema
     {
-        get { return this._rawBodyData.GetNullableStruct<JsonElement>("outputSchema"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<JsonElement>("outputSchema");
+        }
         init
         {
             if (value == null)
@@ -72,7 +84,11 @@ public sealed record class V1ResearchParams : ParamsBase
     /// </summary>
     public string? Query
     {
-        get { return this._rawBodyData.GetNullableClass<string>("query"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("query");
+        }
         init
         {
             if (value == null)

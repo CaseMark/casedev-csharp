@@ -15,7 +15,11 @@ public sealed record class V1ResearchResponse : JsonModel
     /// </summary>
     public string? Model
     {
-        get { return this._rawData.GetNullableClass<string>("model"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("model");
+        }
         init
         {
             if (value == null)
@@ -32,7 +36,11 @@ public sealed record class V1ResearchResponse : JsonModel
     /// </summary>
     public string? ResearchID
     {
-        get { return this._rawData.GetNullableClass<string>("researchId"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("researchId");
+        }
         init
         {
             if (value == null)
@@ -49,7 +57,11 @@ public sealed record class V1ResearchResponse : JsonModel
     /// </summary>
     public JsonElement? Results
     {
-        get { return this._rawData.GetNullableStruct<JsonElement>("results"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<JsonElement>("results");
+        }
         init
         {
             if (value == null)

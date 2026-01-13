@@ -17,7 +17,11 @@ public sealed record class VaultListResponse : JsonModel
     /// </summary>
     public long? Total
     {
-        get { return this._rawData.GetNullableStruct<long>("total"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("total");
+        }
         init
         {
             if (value == null)
@@ -33,6 +37,7 @@ public sealed record class VaultListResponse : JsonModel
     {
         get
         {
+            this._rawData.Freeze();
             return this._rawData.GetNullableStruct<ImmutableArray<VaultListResponseVault>>(
                 "vaults"
             );
@@ -103,7 +108,11 @@ public sealed record class VaultListResponseVault : JsonModel
     /// </summary>
     public string? ID
     {
-        get { return this._rawData.GetNullableClass<string>("id"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("id");
+        }
         init
         {
             if (value == null)
@@ -120,7 +129,11 @@ public sealed record class VaultListResponseVault : JsonModel
     /// </summary>
     public DateTimeOffset? CreatedAt
     {
-        get { return this._rawData.GetNullableStruct<DateTimeOffset>("createdAt"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<DateTimeOffset>("createdAt");
+        }
         init
         {
             if (value == null)
@@ -137,7 +150,11 @@ public sealed record class VaultListResponseVault : JsonModel
     /// </summary>
     public string? Description
     {
-        get { return this._rawData.GetNullableClass<string>("description"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("description");
+        }
         init
         {
             if (value == null)
@@ -154,7 +171,11 @@ public sealed record class VaultListResponseVault : JsonModel
     /// </summary>
     public bool? EnableGraph
     {
-        get { return this._rawData.GetNullableStruct<bool>("enableGraph"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<bool>("enableGraph");
+        }
         init
         {
             if (value == null)
@@ -171,7 +192,11 @@ public sealed record class VaultListResponseVault : JsonModel
     /// </summary>
     public string? Name
     {
-        get { return this._rawData.GetNullableClass<string>("name"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("name");
+        }
         init
         {
             if (value == null)
@@ -188,7 +213,11 @@ public sealed record class VaultListResponseVault : JsonModel
     /// </summary>
     public long? TotalBytes
     {
-        get { return this._rawData.GetNullableStruct<long>("totalBytes"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("totalBytes");
+        }
         init
         {
             if (value == null)
@@ -205,7 +234,11 @@ public sealed record class VaultListResponseVault : JsonModel
     /// </summary>
     public long? TotalObjects
     {
-        get { return this._rawData.GetNullableStruct<long>("totalObjects"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("totalObjects");
+        }
         init
         {
             if (value == null)

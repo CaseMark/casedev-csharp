@@ -30,7 +30,11 @@ public sealed record class ChatCreateCompletionParams : ParamsBase
     /// </summary>
     public required IReadOnlyList<Message> Messages
     {
-        get { return this._rawBodyData.GetNotNullStruct<ImmutableArray<Message>>("messages"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNotNullStruct<ImmutableArray<Message>>("messages");
+        }
         init
         {
             this._rawBodyData.Set<ImmutableArray<Message>>(
@@ -45,7 +49,11 @@ public sealed record class ChatCreateCompletionParams : ParamsBase
     /// </summary>
     public double? FrequencyPenalty
     {
-        get { return this._rawBodyData.GetNullableStruct<double>("frequency_penalty"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<double>("frequency_penalty");
+        }
         init
         {
             if (value == null)
@@ -62,7 +70,11 @@ public sealed record class ChatCreateCompletionParams : ParamsBase
     /// </summary>
     public long? MaxTokens
     {
-        get { return this._rawBodyData.GetNullableStruct<long>("max_tokens"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<long>("max_tokens");
+        }
         init
         {
             if (value == null)
@@ -79,7 +91,11 @@ public sealed record class ChatCreateCompletionParams : ParamsBase
     /// </summary>
     public string? Model
     {
-        get { return this._rawBodyData.GetNullableClass<string>("model"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("model");
+        }
         init
         {
             if (value == null)
@@ -96,7 +112,11 @@ public sealed record class ChatCreateCompletionParams : ParamsBase
     /// </summary>
     public double? PresencePenalty
     {
-        get { return this._rawBodyData.GetNullableStruct<double>("presence_penalty"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<double>("presence_penalty");
+        }
         init
         {
             if (value == null)
@@ -113,7 +133,11 @@ public sealed record class ChatCreateCompletionParams : ParamsBase
     /// </summary>
     public bool? Stream
     {
-        get { return this._rawBodyData.GetNullableStruct<bool>("stream"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<bool>("stream");
+        }
         init
         {
             if (value == null)
@@ -130,7 +154,11 @@ public sealed record class ChatCreateCompletionParams : ParamsBase
     /// </summary>
     public double? Temperature
     {
-        get { return this._rawBodyData.GetNullableStruct<double>("temperature"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<double>("temperature");
+        }
         init
         {
             if (value == null)
@@ -147,7 +175,11 @@ public sealed record class ChatCreateCompletionParams : ParamsBase
     /// </summary>
     public double? TopP
     {
-        get { return this._rawBodyData.GetNullableStruct<double>("top_p"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<double>("top_p");
+        }
         init
         {
             if (value == null)
@@ -241,7 +273,11 @@ public sealed record class Message : JsonModel
     /// </summary>
     public string? Content
     {
-        get { return this._rawData.GetNullableClass<string>("content"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("content");
+        }
         init
         {
             if (value == null)
@@ -258,7 +294,11 @@ public sealed record class Message : JsonModel
     /// </summary>
     public ApiEnum<string, Role>? Role
     {
-        get { return this._rawData.GetNullableClass<ApiEnum<string, Role>>("role"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<ApiEnum<string, Role>>("role");
+        }
         init
         {
             if (value == null)

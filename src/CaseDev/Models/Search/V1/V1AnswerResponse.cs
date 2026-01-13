@@ -16,7 +16,11 @@ public sealed record class V1AnswerResponse : JsonModel
     /// </summary>
     public string? Answer
     {
-        get { return this._rawData.GetNullableClass<string>("answer"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("answer");
+        }
         init
         {
             if (value == null)
@@ -33,7 +37,11 @@ public sealed record class V1AnswerResponse : JsonModel
     /// </summary>
     public IReadOnlyList<Citation>? Citations
     {
-        get { return this._rawData.GetNullableStruct<ImmutableArray<Citation>>("citations"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<ImmutableArray<Citation>>("citations");
+        }
         init
         {
             if (value == null)
@@ -53,7 +61,11 @@ public sealed record class V1AnswerResponse : JsonModel
     /// </summary>
     public string? Model
     {
-        get { return this._rawData.GetNullableClass<string>("model"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("model");
+        }
         init
         {
             if (value == null)
@@ -70,7 +82,11 @@ public sealed record class V1AnswerResponse : JsonModel
     /// </summary>
     public string? SearchType
     {
-        get { return this._rawData.GetNullableClass<string>("searchType"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("searchType");
+        }
         init
         {
             if (value == null)
@@ -133,7 +149,11 @@ public sealed record class Citation : JsonModel
 {
     public string? ID
     {
-        get { return this._rawData.GetNullableClass<string>("id"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("id");
+        }
         init
         {
             if (value == null)
@@ -147,7 +167,11 @@ public sealed record class Citation : JsonModel
 
     public string? PublishedDate
     {
-        get { return this._rawData.GetNullableClass<string>("publishedDate"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("publishedDate");
+        }
         init
         {
             if (value == null)
@@ -161,7 +185,11 @@ public sealed record class Citation : JsonModel
 
     public string? Text
     {
-        get { return this._rawData.GetNullableClass<string>("text"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("text");
+        }
         init
         {
             if (value == null)
@@ -175,7 +203,11 @@ public sealed record class Citation : JsonModel
 
     public string? Title
     {
-        get { return this._rawData.GetNullableClass<string>("title"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("title");
+        }
         init
         {
             if (value == null)
@@ -189,7 +221,11 @@ public sealed record class Citation : JsonModel
 
     public string? Url
     {
-        get { return this._rawData.GetNullableClass<string>("url"); }
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("url");
+        }
         init
         {
             if (value == null)

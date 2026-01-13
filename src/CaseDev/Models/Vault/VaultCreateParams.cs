@@ -27,7 +27,11 @@ public sealed record class VaultCreateParams : ParamsBase
     /// </summary>
     public required string Name
     {
-        get { return this._rawBodyData.GetNotNullClass<string>("name"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNotNullClass<string>("name");
+        }
         init { this._rawBodyData.Set("name", value); }
     }
 
@@ -36,7 +40,11 @@ public sealed record class VaultCreateParams : ParamsBase
     /// </summary>
     public string? Description
     {
-        get { return this._rawBodyData.GetNullableClass<string>("description"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("description");
+        }
         init
         {
             if (value == null)
@@ -54,7 +62,11 @@ public sealed record class VaultCreateParams : ParamsBase
     /// </summary>
     public bool? EnableGraph
     {
-        get { return this._rawBodyData.GetNullableStruct<bool>("enableGraph"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<bool>("enableGraph");
+        }
         init
         {
             if (value == null)
@@ -71,7 +83,11 @@ public sealed record class VaultCreateParams : ParamsBase
     /// </summary>
     public bool? EnableIndexing
     {
-        get { return this._rawBodyData.GetNullableStruct<bool>("enableIndexing"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<bool>("enableIndexing");
+        }
         init
         {
             if (value == null)
@@ -89,7 +105,11 @@ public sealed record class VaultCreateParams : ParamsBase
     /// </summary>
     public JsonElement? Metadata
     {
-        get { return this._rawBodyData.GetNullableStruct<JsonElement>("metadata"); }
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<JsonElement>("metadata");
+        }
         init
         {
             if (value == null)
