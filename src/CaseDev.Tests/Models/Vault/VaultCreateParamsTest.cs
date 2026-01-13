@@ -16,7 +16,12 @@ public class VaultCreateParamsTest : TestBase
             EnableGraph = true,
             EnableIndexing = true,
             Metadata = JsonSerializer.Deserialize<JsonElement>(
-                "{\"containsPHI\":true,\"hipaaCompliant\":true}"
+                """
+                {
+                  "containsPHI": true,
+                  "hipaaCompliant": true
+                }
+                """
             ),
         };
 
@@ -25,7 +30,12 @@ public class VaultCreateParamsTest : TestBase
         bool expectedEnableGraph = true;
         bool expectedEnableIndexing = true;
         JsonElement expectedMetadata = JsonSerializer.Deserialize<JsonElement>(
-            "{\"containsPHI\":true,\"hipaaCompliant\":true}"
+            """
+            {
+              "containsPHI": true,
+              "hipaaCompliant": true
+            }
+            """
         );
 
         Assert.Equal(expectedName, parameters.Name);
