@@ -20,7 +20,7 @@ public sealed record class SecretListParams : ParamsBase
     /// </summary>
     public string? Env
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawQueryData, "env"); }
+        get { return this._rawQueryData.GetNullableClass<string>("env"); }
         init
         {
             if (value == null)
@@ -28,7 +28,7 @@ public sealed record class SecretListParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawQueryData, "env", value);
+            this._rawQueryData.Set("env", value);
         }
     }
 
@@ -42,8 +42,8 @@ public sealed record class SecretListParams : ParamsBase
         IReadOnlyDictionary<string, JsonElement> rawQueryData
     )
     {
-        this._rawHeaderData = [.. rawHeaderData];
-        this._rawQueryData = [.. rawQueryData];
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
     }
 
 #pragma warning disable CS8618
@@ -53,8 +53,8 @@ public sealed record class SecretListParams : ParamsBase
         FrozenDictionary<string, JsonElement> rawQueryData
     )
     {
-        this._rawHeaderData = [.. rawHeaderData];
-        this._rawQueryData = [.. rawQueryData];
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
     }
 #pragma warning restore CS8618
 

@@ -19,7 +19,7 @@ namespace CaseDev.Models.Vault;
 /// </summary>
 public sealed record class VaultSearchParams : ParamsBase
 {
-    readonly FreezableDictionary<string, JsonElement> _rawBodyData = [];
+    readonly JsonDictionary _rawBodyData = new();
     public IReadOnlyDictionary<string, JsonElement> RawBodyData
     {
         get { return this._rawBodyData.Freeze(); }
@@ -32,8 +32,8 @@ public sealed record class VaultSearchParams : ParamsBase
     /// </summary>
     public required string Query
     {
-        get { return JsonModel.GetNotNullClass<string>(this.RawBodyData, "query"); }
-        init { JsonModel.Set(this._rawBodyData, "query", value); }
+        get { return this._rawBodyData.GetNotNullClass<string>("query"); }
+        init { this._rawBodyData.Set("query", value); }
     }
 
     /// <summary>
@@ -41,7 +41,7 @@ public sealed record class VaultSearchParams : ParamsBase
     /// </summary>
     public Filters? Filters
     {
-        get { return JsonModel.GetNullableClass<Filters>(this.RawBodyData, "filters"); }
+        get { return this._rawBodyData.GetNullableClass<Filters>("filters"); }
         init
         {
             if (value == null)
@@ -49,7 +49,7 @@ public sealed record class VaultSearchParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "filters", value);
+            this._rawBodyData.Set("filters", value);
         }
     }
 
@@ -59,10 +59,7 @@ public sealed record class VaultSearchParams : ParamsBase
     /// </summary>
     public ApiEnum<string, Method>? Method
     {
-        get
-        {
-            return JsonModel.GetNullableClass<ApiEnum<string, Method>>(this.RawBodyData, "method");
-        }
+        get { return this._rawBodyData.GetNullableClass<ApiEnum<string, Method>>("method"); }
         init
         {
             if (value == null)
@@ -70,7 +67,7 @@ public sealed record class VaultSearchParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "method", value);
+            this._rawBodyData.Set("method", value);
         }
     }
 
@@ -79,7 +76,7 @@ public sealed record class VaultSearchParams : ParamsBase
     /// </summary>
     public long? TopK
     {
-        get { return JsonModel.GetNullableStruct<long>(this.RawBodyData, "topK"); }
+        get { return this._rawBodyData.GetNullableStruct<long>("topK"); }
         init
         {
             if (value == null)
@@ -87,7 +84,7 @@ public sealed record class VaultSearchParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "topK", value);
+            this._rawBodyData.Set("topK", value);
         }
     }
 
@@ -98,7 +95,7 @@ public sealed record class VaultSearchParams : ParamsBase
     {
         this.ID = vaultSearchParams.ID;
 
-        this._rawBodyData = [.. vaultSearchParams._rawBodyData];
+        this._rawBodyData = new(vaultSearchParams._rawBodyData);
     }
 
     public VaultSearchParams(
@@ -107,9 +104,9 @@ public sealed record class VaultSearchParams : ParamsBase
         IReadOnlyDictionary<string, JsonElement> rawBodyData
     )
     {
-        this._rawHeaderData = [.. rawHeaderData];
-        this._rawQueryData = [.. rawQueryData];
-        this._rawBodyData = [.. rawBodyData];
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
+        this._rawBodyData = new(rawBodyData);
     }
 
 #pragma warning disable CS8618
@@ -120,9 +117,9 @@ public sealed record class VaultSearchParams : ParamsBase
         FrozenDictionary<string, JsonElement> rawBodyData
     )
     {
-        this._rawHeaderData = [.. rawHeaderData];
-        this._rawQueryData = [.. rawQueryData];
-        this._rawBodyData = [.. rawBodyData];
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
+        this._rawBodyData = new(rawBodyData);
     }
 #pragma warning restore CS8618
 
@@ -181,7 +178,7 @@ public sealed record class Filters : JsonModel
     /// </summary>
     public ObjectID? ObjectID
     {
-        get { return JsonModel.GetNullableClass<ObjectID>(this.RawData, "object_id"); }
+        get { return this._rawData.GetNullableClass<ObjectID>("object_id"); }
         init
         {
             if (value == null)
@@ -189,7 +186,7 @@ public sealed record class Filters : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "object_id", value);
+            this._rawData.Set("object_id", value);
         }
     }
 
@@ -206,14 +203,14 @@ public sealed record class Filters : JsonModel
 
     public Filters(IReadOnlyDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
     Filters(FrozenDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 #pragma warning restore CS8618
 
@@ -434,7 +431,7 @@ sealed class ObjectIDConverter : JsonConverter<ObjectID>
 
         try
         {
-            var deserialized = JsonSerializer.Deserialize<List<string>>(element, options);
+            var deserialized = JsonSerializer.Deserialize<ImmutableArray<string>>(element, options);
             if (deserialized != null)
             {
                 return new(deserialized, element);

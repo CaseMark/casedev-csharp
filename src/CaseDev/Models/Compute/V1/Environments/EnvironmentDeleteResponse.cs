@@ -14,14 +14,14 @@ public sealed record class EnvironmentDeleteResponse : JsonModel
 {
     public required string Message
     {
-        get { return JsonModel.GetNotNullClass<string>(this.RawData, "message"); }
-        init { JsonModel.Set(this._rawData, "message", value); }
+        get { return this._rawData.GetNotNullClass<string>("message"); }
+        init { this._rawData.Set("message", value); }
     }
 
     public required bool Success
     {
-        get { return JsonModel.GetNotNullStruct<bool>(this.RawData, "success"); }
-        init { JsonModel.Set(this._rawData, "success", value); }
+        get { return this._rawData.GetNotNullStruct<bool>("success"); }
+        init { this._rawData.Set("success", value); }
     }
 
     /// <inheritdoc/>
@@ -38,14 +38,14 @@ public sealed record class EnvironmentDeleteResponse : JsonModel
 
     public EnvironmentDeleteResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
     EnvironmentDeleteResponse(FrozenDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 #pragma warning restore CS8618
 

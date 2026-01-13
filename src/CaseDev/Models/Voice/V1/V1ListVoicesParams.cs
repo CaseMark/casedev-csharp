@@ -23,7 +23,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
     /// </summary>
     public string? Category
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawQueryData, "category"); }
+        get { return this._rawQueryData.GetNullableClass<string>("category"); }
         init
         {
             if (value == null)
@@ -31,7 +31,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawQueryData, "category", value);
+            this._rawQueryData.Set("category", value);
         }
     }
 
@@ -40,7 +40,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
     /// </summary>
     public string? CollectionID
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawQueryData, "collection_id"); }
+        get { return this._rawQueryData.GetNullableClass<string>("collection_id"); }
         init
         {
             if (value == null)
@@ -48,7 +48,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawQueryData, "collection_id", value);
+            this._rawQueryData.Set("collection_id", value);
         }
     }
 
@@ -57,7 +57,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
     /// </summary>
     public bool? IncludeTotalCount
     {
-        get { return JsonModel.GetNullableStruct<bool>(this.RawQueryData, "include_total_count"); }
+        get { return this._rawQueryData.GetNullableStruct<bool>("include_total_count"); }
         init
         {
             if (value == null)
@@ -65,7 +65,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawQueryData, "include_total_count", value);
+            this._rawQueryData.Set("include_total_count", value);
         }
     }
 
@@ -74,7 +74,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
     /// </summary>
     public string? NextPageToken
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawQueryData, "next_page_token"); }
+        get { return this._rawQueryData.GetNullableClass<string>("next_page_token"); }
         init
         {
             if (value == null)
@@ -82,7 +82,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawQueryData, "next_page_token", value);
+            this._rawQueryData.Set("next_page_token", value);
         }
     }
 
@@ -91,7 +91,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
     /// </summary>
     public long? PageSize
     {
-        get { return JsonModel.GetNullableStruct<long>(this.RawQueryData, "page_size"); }
+        get { return this._rawQueryData.GetNullableStruct<long>("page_size"); }
         init
         {
             if (value == null)
@@ -99,7 +99,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawQueryData, "page_size", value);
+            this._rawQueryData.Set("page_size", value);
         }
     }
 
@@ -108,7 +108,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
     /// </summary>
     public string? Search
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawQueryData, "search"); }
+        get { return this._rawQueryData.GetNullableClass<string>("search"); }
         init
         {
             if (value == null)
@@ -116,7 +116,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawQueryData, "search", value);
+            this._rawQueryData.Set("search", value);
         }
     }
 
@@ -125,7 +125,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
     /// </summary>
     public ApiEnum<string, Sort>? Sort
     {
-        get { return JsonModel.GetNullableClass<ApiEnum<string, Sort>>(this.RawQueryData, "sort"); }
+        get { return this._rawQueryData.GetNullableClass<ApiEnum<string, Sort>>("sort"); }
         init
         {
             if (value == null)
@@ -133,7 +133,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawQueryData, "sort", value);
+            this._rawQueryData.Set("sort", value);
         }
     }
 
@@ -144,8 +144,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
     {
         get
         {
-            return JsonModel.GetNullableClass<ApiEnum<string, SortDirection>>(
-                this.RawQueryData,
+            return this._rawQueryData.GetNullableClass<ApiEnum<string, SortDirection>>(
                 "sort_direction"
             );
         }
@@ -156,7 +155,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawQueryData, "sort_direction", value);
+            this._rawQueryData.Set("sort_direction", value);
         }
     }
 
@@ -167,10 +166,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
     {
         get
         {
-            return JsonModel.GetNullableClass<ApiEnum<string, VoiceType>>(
-                this.RawQueryData,
-                "voice_type"
-            );
+            return this._rawQueryData.GetNullableClass<ApiEnum<string, VoiceType>>("voice_type");
         }
         init
         {
@@ -179,7 +175,7 @@ public sealed record class V1ListVoicesParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawQueryData, "voice_type", value);
+            this._rawQueryData.Set("voice_type", value);
         }
     }
 
@@ -193,8 +189,8 @@ public sealed record class V1ListVoicesParams : ParamsBase
         IReadOnlyDictionary<string, JsonElement> rawQueryData
     )
     {
-        this._rawHeaderData = [.. rawHeaderData];
-        this._rawQueryData = [.. rawQueryData];
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
     }
 
 #pragma warning disable CS8618
@@ -204,8 +200,8 @@ public sealed record class V1ListVoicesParams : ParamsBase
         FrozenDictionary<string, JsonElement> rawQueryData
     )
     {
-        this._rawHeaderData = [.. rawHeaderData];
-        this._rawQueryData = [.. rawQueryData];
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
     }
 #pragma warning restore CS8618
 

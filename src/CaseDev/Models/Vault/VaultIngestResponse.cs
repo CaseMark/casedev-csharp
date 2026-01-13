@@ -17,8 +17,8 @@ public sealed record class VaultIngestResponse : JsonModel
     /// </summary>
     public required bool EnableGraphRag
     {
-        get { return JsonModel.GetNotNullStruct<bool>(this.RawData, "enableGraphRAG"); }
-        init { JsonModel.Set(this._rawData, "enableGraphRAG", value); }
+        get { return this._rawData.GetNotNullStruct<bool>("enableGraphRAG"); }
+        init { this._rawData.Set("enableGraphRAG", value); }
     }
 
     /// <summary>
@@ -26,8 +26,8 @@ public sealed record class VaultIngestResponse : JsonModel
     /// </summary>
     public required string Message
     {
-        get { return JsonModel.GetNotNullClass<string>(this.RawData, "message"); }
-        init { JsonModel.Set(this._rawData, "message", value); }
+        get { return this._rawData.GetNotNullClass<string>("message"); }
+        init { this._rawData.Set("message", value); }
     }
 
     /// <summary>
@@ -35,8 +35,8 @@ public sealed record class VaultIngestResponse : JsonModel
     /// </summary>
     public required string ObjectID
     {
-        get { return JsonModel.GetNotNullClass<string>(this.RawData, "objectId"); }
-        init { JsonModel.Set(this._rawData, "objectId", value); }
+        get { return this._rawData.GetNotNullClass<string>("objectId"); }
+        init { this._rawData.Set("objectId", value); }
     }
 
     /// <summary>
@@ -45,8 +45,8 @@ public sealed record class VaultIngestResponse : JsonModel
     /// </summary>
     public required ApiEnum<string, Status> Status
     {
-        get { return JsonModel.GetNotNullClass<ApiEnum<string, Status>>(this.RawData, "status"); }
-        init { JsonModel.Set(this._rawData, "status", value); }
+        get { return this._rawData.GetNotNullClass<ApiEnum<string, Status>>("status"); }
+        init { this._rawData.Set("status", value); }
     }
 
     /// <summary>
@@ -54,8 +54,8 @@ public sealed record class VaultIngestResponse : JsonModel
     /// </summary>
     public required string? WorkflowID
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "workflowId"); }
-        init { JsonModel.Set(this._rawData, "workflowId", value); }
+        get { return this._rawData.GetNullableClass<string>("workflowId"); }
+        init { this._rawData.Set("workflowId", value); }
     }
 
     /// <inheritdoc/>
@@ -75,14 +75,14 @@ public sealed record class VaultIngestResponse : JsonModel
 
     public VaultIngestResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
     VaultIngestResponse(FrozenDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 #pragma warning restore CS8618
 

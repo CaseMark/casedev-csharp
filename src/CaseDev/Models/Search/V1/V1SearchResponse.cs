@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -16,7 +17,7 @@ public sealed record class V1SearchResponse : JsonModel
     /// </summary>
     public string? Query
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "query"); }
+        get { return this._rawData.GetNullableClass<string>("query"); }
         init
         {
             if (value == null)
@@ -24,7 +25,7 @@ public sealed record class V1SearchResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "query", value);
+            this._rawData.Set("query", value);
         }
     }
 
@@ -35,8 +36,7 @@ public sealed record class V1SearchResponse : JsonModel
     {
         get
         {
-            return JsonModel.GetNullableClass<List<V1SearchResponseResult>>(
-                this.RawData,
+            return this._rawData.GetNullableStruct<ImmutableArray<V1SearchResponseResult>>(
                 "results"
             );
         }
@@ -47,7 +47,10 @@ public sealed record class V1SearchResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "results", value);
+            this._rawData.Set<ImmutableArray<V1SearchResponseResult>?>(
+                "results",
+                value == null ? null : ImmutableArray.ToImmutableArray(value)
+            );
         }
     }
 
@@ -56,7 +59,7 @@ public sealed record class V1SearchResponse : JsonModel
     /// </summary>
     public long? TotalResults
     {
-        get { return JsonModel.GetNullableStruct<long>(this.RawData, "totalResults"); }
+        get { return this._rawData.GetNullableStruct<long>("totalResults"); }
         init
         {
             if (value == null)
@@ -64,7 +67,7 @@ public sealed record class V1SearchResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "totalResults", value);
+            this._rawData.Set("totalResults", value);
         }
     }
 
@@ -86,14 +89,14 @@ public sealed record class V1SearchResponse : JsonModel
 
     public V1SearchResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
     V1SearchResponse(FrozenDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 #pragma warning restore CS8618
 
@@ -121,7 +124,7 @@ public sealed record class V1SearchResponseResult : JsonModel
     /// </summary>
     public string? Domain
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "domain"); }
+        get { return this._rawData.GetNullableClass<string>("domain"); }
         init
         {
             if (value == null)
@@ -129,7 +132,7 @@ public sealed record class V1SearchResponseResult : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "domain", value);
+            this._rawData.Set("domain", value);
         }
     }
 
@@ -138,7 +141,7 @@ public sealed record class V1SearchResponseResult : JsonModel
     /// </summary>
     public DateTimeOffset? PublishedDate
     {
-        get { return JsonModel.GetNullableStruct<DateTimeOffset>(this.RawData, "publishedDate"); }
+        get { return this._rawData.GetNullableStruct<DateTimeOffset>("publishedDate"); }
         init
         {
             if (value == null)
@@ -146,7 +149,7 @@ public sealed record class V1SearchResponseResult : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "publishedDate", value);
+            this._rawData.Set("publishedDate", value);
         }
     }
 
@@ -155,7 +158,7 @@ public sealed record class V1SearchResponseResult : JsonModel
     /// </summary>
     public string? Snippet
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "snippet"); }
+        get { return this._rawData.GetNullableClass<string>("snippet"); }
         init
         {
             if (value == null)
@@ -163,7 +166,7 @@ public sealed record class V1SearchResponseResult : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "snippet", value);
+            this._rawData.Set("snippet", value);
         }
     }
 
@@ -172,7 +175,7 @@ public sealed record class V1SearchResponseResult : JsonModel
     /// </summary>
     public string? Title
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "title"); }
+        get { return this._rawData.GetNullableClass<string>("title"); }
         init
         {
             if (value == null)
@@ -180,7 +183,7 @@ public sealed record class V1SearchResponseResult : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "title", value);
+            this._rawData.Set("title", value);
         }
     }
 
@@ -189,7 +192,7 @@ public sealed record class V1SearchResponseResult : JsonModel
     /// </summary>
     public string? Url
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "url"); }
+        get { return this._rawData.GetNullableClass<string>("url"); }
         init
         {
             if (value == null)
@@ -197,7 +200,7 @@ public sealed record class V1SearchResponseResult : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "url", value);
+            this._rawData.Set("url", value);
         }
     }
 
@@ -218,14 +221,14 @@ public sealed record class V1SearchResponseResult : JsonModel
 
     public V1SearchResponseResult(IReadOnlyDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
     V1SearchResponseResult(FrozenDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 #pragma warning restore CS8618
 

@@ -15,7 +15,7 @@ public sealed record class V1ResearchResponse : JsonModel
     /// </summary>
     public string? Model
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "model"); }
+        get { return this._rawData.GetNullableClass<string>("model"); }
         init
         {
             if (value == null)
@@ -23,7 +23,7 @@ public sealed record class V1ResearchResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "model", value);
+            this._rawData.Set("model", value);
         }
     }
 
@@ -32,7 +32,7 @@ public sealed record class V1ResearchResponse : JsonModel
     /// </summary>
     public string? ResearchID
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "researchId"); }
+        get { return this._rawData.GetNullableClass<string>("researchId"); }
         init
         {
             if (value == null)
@@ -40,7 +40,7 @@ public sealed record class V1ResearchResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "researchId", value);
+            this._rawData.Set("researchId", value);
         }
     }
 
@@ -49,7 +49,7 @@ public sealed record class V1ResearchResponse : JsonModel
     /// </summary>
     public JsonElement? Results
     {
-        get { return JsonModel.GetNullableStruct<JsonElement>(this.RawData, "results"); }
+        get { return this._rawData.GetNullableStruct<JsonElement>("results"); }
         init
         {
             if (value == null)
@@ -57,7 +57,7 @@ public sealed record class V1ResearchResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "results", value);
+            this._rawData.Set("results", value);
         }
     }
 
@@ -76,14 +76,14 @@ public sealed record class V1ResearchResponse : JsonModel
 
     public V1ResearchResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
     V1ResearchResponse(FrozenDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 #pragma warning restore CS8618
 

@@ -19,7 +19,7 @@ public sealed record class EnvironmentCreateResponse : JsonModel
     /// </summary>
     public string? ID
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "id"); }
+        get { return this._rawData.GetNullableClass<string>("id"); }
         init
         {
             if (value == null)
@@ -27,7 +27,7 @@ public sealed record class EnvironmentCreateResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "id", value);
+            this._rawData.Set("id", value);
         }
     }
 
@@ -36,7 +36,7 @@ public sealed record class EnvironmentCreateResponse : JsonModel
     /// </summary>
     public DateTimeOffset? CreatedAt
     {
-        get { return JsonModel.GetNullableStruct<DateTimeOffset>(this.RawData, "createdAt"); }
+        get { return this._rawData.GetNullableStruct<DateTimeOffset>("createdAt"); }
         init
         {
             if (value == null)
@@ -44,7 +44,7 @@ public sealed record class EnvironmentCreateResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "createdAt", value);
+            this._rawData.Set("createdAt", value);
         }
     }
 
@@ -53,7 +53,7 @@ public sealed record class EnvironmentCreateResponse : JsonModel
     /// </summary>
     public string? Domain
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "domain"); }
+        get { return this._rawData.GetNullableClass<string>("domain"); }
         init
         {
             if (value == null)
@@ -61,7 +61,7 @@ public sealed record class EnvironmentCreateResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "domain", value);
+            this._rawData.Set("domain", value);
         }
     }
 
@@ -70,7 +70,7 @@ public sealed record class EnvironmentCreateResponse : JsonModel
     /// </summary>
     public bool? IsDefault
     {
-        get { return JsonModel.GetNullableStruct<bool>(this.RawData, "isDefault"); }
+        get { return this._rawData.GetNullableStruct<bool>("isDefault"); }
         init
         {
             if (value == null)
@@ -78,7 +78,7 @@ public sealed record class EnvironmentCreateResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "isDefault", value);
+            this._rawData.Set("isDefault", value);
         }
     }
 
@@ -87,7 +87,7 @@ public sealed record class EnvironmentCreateResponse : JsonModel
     /// </summary>
     public string? Name
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "name"); }
+        get { return this._rawData.GetNullableClass<string>("name"); }
         init
         {
             if (value == null)
@@ -95,7 +95,7 @@ public sealed record class EnvironmentCreateResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "name", value);
+            this._rawData.Set("name", value);
         }
     }
 
@@ -104,7 +104,7 @@ public sealed record class EnvironmentCreateResponse : JsonModel
     /// </summary>
     public string? Slug
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "slug"); }
+        get { return this._rawData.GetNullableClass<string>("slug"); }
         init
         {
             if (value == null)
@@ -112,7 +112,7 @@ public sealed record class EnvironmentCreateResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "slug", value);
+            this._rawData.Set("slug", value);
         }
     }
 
@@ -121,7 +121,7 @@ public sealed record class EnvironmentCreateResponse : JsonModel
     /// </summary>
     public ApiEnum<string, Status>? Status
     {
-        get { return JsonModel.GetNullableClass<ApiEnum<string, Status>>(this.RawData, "status"); }
+        get { return this._rawData.GetNullableClass<ApiEnum<string, Status>>("status"); }
         init
         {
             if (value == null)
@@ -129,7 +129,7 @@ public sealed record class EnvironmentCreateResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "status", value);
+            this._rawData.Set("status", value);
         }
     }
 
@@ -152,14 +152,14 @@ public sealed record class EnvironmentCreateResponse : JsonModel
 
     public EnvironmentCreateResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
     EnvironmentCreateResponse(FrozenDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 #pragma warning restore CS8618
 

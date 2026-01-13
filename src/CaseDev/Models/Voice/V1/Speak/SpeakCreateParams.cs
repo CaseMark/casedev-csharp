@@ -18,7 +18,7 @@ namespace CaseDev.Models.Voice.V1.Speak;
 /// </summary>
 public sealed record class SpeakCreateParams : ParamsBase
 {
-    readonly FreezableDictionary<string, JsonElement> _rawBodyData = [];
+    readonly JsonDictionary _rawBodyData = new();
     public IReadOnlyDictionary<string, JsonElement> RawBodyData
     {
         get { return this._rawBodyData.Freeze(); }
@@ -29,8 +29,8 @@ public sealed record class SpeakCreateParams : ParamsBase
     /// </summary>
     public required string Text
     {
-        get { return JsonModel.GetNotNullClass<string>(this.RawBodyData, "text"); }
-        init { JsonModel.Set(this._rawBodyData, "text", value); }
+        get { return this._rawBodyData.GetNotNullClass<string>("text"); }
+        init { this._rawBodyData.Set("text", value); }
     }
 
     /// <summary>
@@ -38,10 +38,7 @@ public sealed record class SpeakCreateParams : ParamsBase
     /// </summary>
     public bool? ApplyTextNormalization
     {
-        get
-        {
-            return JsonModel.GetNullableStruct<bool>(this.RawBodyData, "apply_text_normalization");
-        }
+        get { return this._rawBodyData.GetNullableStruct<bool>("apply_text_normalization"); }
         init
         {
             if (value == null)
@@ -49,7 +46,7 @@ public sealed record class SpeakCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "apply_text_normalization", value);
+            this._rawBodyData.Set("apply_text_normalization", value);
         }
     }
 
@@ -58,7 +55,7 @@ public sealed record class SpeakCreateParams : ParamsBase
     /// </summary>
     public bool? EnableLogging
     {
-        get { return JsonModel.GetNullableStruct<bool>(this.RawBodyData, "enable_logging"); }
+        get { return this._rawBodyData.GetNullableStruct<bool>("enable_logging"); }
         init
         {
             if (value == null)
@@ -66,7 +63,7 @@ public sealed record class SpeakCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "enable_logging", value);
+            this._rawBodyData.Set("enable_logging", value);
         }
     }
 
@@ -75,7 +72,7 @@ public sealed record class SpeakCreateParams : ParamsBase
     /// </summary>
     public string? LanguageCode
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "language_code"); }
+        get { return this._rawBodyData.GetNullableClass<string>("language_code"); }
         init
         {
             if (value == null)
@@ -83,7 +80,7 @@ public sealed record class SpeakCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "language_code", value);
+            this._rawBodyData.Set("language_code", value);
         }
     }
 
@@ -92,13 +89,7 @@ public sealed record class SpeakCreateParams : ParamsBase
     /// </summary>
     public ApiEnum<string, ModelID>? ModelID
     {
-        get
-        {
-            return JsonModel.GetNullableClass<ApiEnum<string, ModelID>>(
-                this.RawBodyData,
-                "model_id"
-            );
-        }
+        get { return this._rawBodyData.GetNullableClass<ApiEnum<string, ModelID>>("model_id"); }
         init
         {
             if (value == null)
@@ -106,7 +97,7 @@ public sealed record class SpeakCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "model_id", value);
+            this._rawBodyData.Set("model_id", value);
         }
     }
 
@@ -115,7 +106,7 @@ public sealed record class SpeakCreateParams : ParamsBase
     /// </summary>
     public string? NextText
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "next_text"); }
+        get { return this._rawBodyData.GetNullableClass<string>("next_text"); }
         init
         {
             if (value == null)
@@ -123,7 +114,7 @@ public sealed record class SpeakCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "next_text", value);
+            this._rawBodyData.Set("next_text", value);
         }
     }
 
@@ -132,13 +123,7 @@ public sealed record class SpeakCreateParams : ParamsBase
     /// </summary>
     public long? OptimizeStreamingLatency
     {
-        get
-        {
-            return JsonModel.GetNullableStruct<long>(
-                this.RawBodyData,
-                "optimize_streaming_latency"
-            );
-        }
+        get { return this._rawBodyData.GetNullableStruct<long>("optimize_streaming_latency"); }
         init
         {
             if (value == null)
@@ -146,7 +131,7 @@ public sealed record class SpeakCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "optimize_streaming_latency", value);
+            this._rawBodyData.Set("optimize_streaming_latency", value);
         }
     }
 
@@ -157,8 +142,7 @@ public sealed record class SpeakCreateParams : ParamsBase
     {
         get
         {
-            return JsonModel.GetNullableClass<ApiEnum<string, OutputFormat>>(
-                this.RawBodyData,
+            return this._rawBodyData.GetNullableClass<ApiEnum<string, OutputFormat>>(
                 "output_format"
             );
         }
@@ -169,7 +153,7 @@ public sealed record class SpeakCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "output_format", value);
+            this._rawBodyData.Set("output_format", value);
         }
     }
 
@@ -178,7 +162,7 @@ public sealed record class SpeakCreateParams : ParamsBase
     /// </summary>
     public string? PreviousText
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "previous_text"); }
+        get { return this._rawBodyData.GetNullableClass<string>("previous_text"); }
         init
         {
             if (value == null)
@@ -186,7 +170,7 @@ public sealed record class SpeakCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "previous_text", value);
+            this._rawBodyData.Set("previous_text", value);
         }
     }
 
@@ -195,7 +179,7 @@ public sealed record class SpeakCreateParams : ParamsBase
     /// </summary>
     public long? Seed
     {
-        get { return JsonModel.GetNullableStruct<long>(this.RawBodyData, "seed"); }
+        get { return this._rawBodyData.GetNullableStruct<long>("seed"); }
         init
         {
             if (value == null)
@@ -203,7 +187,7 @@ public sealed record class SpeakCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "seed", value);
+            this._rawBodyData.Set("seed", value);
         }
     }
 
@@ -212,7 +196,7 @@ public sealed record class SpeakCreateParams : ParamsBase
     /// </summary>
     public string? VoiceID
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "voice_id"); }
+        get { return this._rawBodyData.GetNullableClass<string>("voice_id"); }
         init
         {
             if (value == null)
@@ -220,7 +204,7 @@ public sealed record class SpeakCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "voice_id", value);
+            this._rawBodyData.Set("voice_id", value);
         }
     }
 
@@ -229,10 +213,7 @@ public sealed record class SpeakCreateParams : ParamsBase
     /// </summary>
     public VoiceSettings? VoiceSettings
     {
-        get
-        {
-            return JsonModel.GetNullableClass<VoiceSettings>(this.RawBodyData, "voice_settings");
-        }
+        get { return this._rawBodyData.GetNullableClass<VoiceSettings>("voice_settings"); }
         init
         {
             if (value == null)
@@ -240,7 +221,7 @@ public sealed record class SpeakCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "voice_settings", value);
+            this._rawBodyData.Set("voice_settings", value);
         }
     }
 
@@ -249,7 +230,7 @@ public sealed record class SpeakCreateParams : ParamsBase
     public SpeakCreateParams(SpeakCreateParams speakCreateParams)
         : base(speakCreateParams)
     {
-        this._rawBodyData = [.. speakCreateParams._rawBodyData];
+        this._rawBodyData = new(speakCreateParams._rawBodyData);
     }
 
     public SpeakCreateParams(
@@ -258,9 +239,9 @@ public sealed record class SpeakCreateParams : ParamsBase
         IReadOnlyDictionary<string, JsonElement> rawBodyData
     )
     {
-        this._rawHeaderData = [.. rawHeaderData];
-        this._rawQueryData = [.. rawQueryData];
-        this._rawBodyData = [.. rawBodyData];
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
+        this._rawBodyData = new(rawBodyData);
     }
 
 #pragma warning disable CS8618
@@ -271,9 +252,9 @@ public sealed record class SpeakCreateParams : ParamsBase
         FrozenDictionary<string, JsonElement> rawBodyData
     )
     {
-        this._rawHeaderData = [.. rawHeaderData];
-        this._rawQueryData = [.. rawQueryData];
-        this._rawBodyData = [.. rawBodyData];
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
+        this._rawBodyData = new(rawBodyData);
     }
 #pragma warning restore CS8618
 
@@ -434,7 +415,7 @@ public sealed record class VoiceSettings : JsonModel
     /// </summary>
     public double? SimilarityBoost
     {
-        get { return JsonModel.GetNullableStruct<double>(this.RawData, "similarity_boost"); }
+        get { return this._rawData.GetNullableStruct<double>("similarity_boost"); }
         init
         {
             if (value == null)
@@ -442,7 +423,7 @@ public sealed record class VoiceSettings : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "similarity_boost", value);
+            this._rawData.Set("similarity_boost", value);
         }
     }
 
@@ -451,7 +432,7 @@ public sealed record class VoiceSettings : JsonModel
     /// </summary>
     public double? Stability
     {
-        get { return JsonModel.GetNullableStruct<double>(this.RawData, "stability"); }
+        get { return this._rawData.GetNullableStruct<double>("stability"); }
         init
         {
             if (value == null)
@@ -459,7 +440,7 @@ public sealed record class VoiceSettings : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "stability", value);
+            this._rawData.Set("stability", value);
         }
     }
 
@@ -468,7 +449,7 @@ public sealed record class VoiceSettings : JsonModel
     /// </summary>
     public double? Style
     {
-        get { return JsonModel.GetNullableStruct<double>(this.RawData, "style"); }
+        get { return this._rawData.GetNullableStruct<double>("style"); }
         init
         {
             if (value == null)
@@ -476,7 +457,7 @@ public sealed record class VoiceSettings : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "style", value);
+            this._rawData.Set("style", value);
         }
     }
 
@@ -485,7 +466,7 @@ public sealed record class VoiceSettings : JsonModel
     /// </summary>
     public bool? UseSpeakerBoost
     {
-        get { return JsonModel.GetNullableStruct<bool>(this.RawData, "use_speaker_boost"); }
+        get { return this._rawData.GetNullableStruct<bool>("use_speaker_boost"); }
         init
         {
             if (value == null)
@@ -493,7 +474,7 @@ public sealed record class VoiceSettings : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "use_speaker_boost", value);
+            this._rawData.Set("use_speaker_boost", value);
         }
     }
 
@@ -513,14 +494,14 @@ public sealed record class VoiceSettings : JsonModel
 
     public VoiceSettings(IReadOnlyDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
     VoiceSettings(FrozenDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 #pragma warning restore CS8618
 

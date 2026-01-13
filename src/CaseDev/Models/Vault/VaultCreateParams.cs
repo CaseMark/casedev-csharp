@@ -16,7 +16,7 @@ namespace CaseDev.Models.Vault;
 /// </summary>
 public sealed record class VaultCreateParams : ParamsBase
 {
-    readonly FreezableDictionary<string, JsonElement> _rawBodyData = [];
+    readonly JsonDictionary _rawBodyData = new();
     public IReadOnlyDictionary<string, JsonElement> RawBodyData
     {
         get { return this._rawBodyData.Freeze(); }
@@ -27,8 +27,8 @@ public sealed record class VaultCreateParams : ParamsBase
     /// </summary>
     public required string Name
     {
-        get { return JsonModel.GetNotNullClass<string>(this.RawBodyData, "name"); }
-        init { JsonModel.Set(this._rawBodyData, "name", value); }
+        get { return this._rawBodyData.GetNotNullClass<string>("name"); }
+        init { this._rawBodyData.Set("name", value); }
     }
 
     /// <summary>
@@ -36,7 +36,7 @@ public sealed record class VaultCreateParams : ParamsBase
     /// </summary>
     public string? Description
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "description"); }
+        get { return this._rawBodyData.GetNullableClass<string>("description"); }
         init
         {
             if (value == null)
@@ -44,7 +44,7 @@ public sealed record class VaultCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "description", value);
+            this._rawBodyData.Set("description", value);
         }
     }
 
@@ -54,7 +54,7 @@ public sealed record class VaultCreateParams : ParamsBase
     /// </summary>
     public bool? EnableGraph
     {
-        get { return JsonModel.GetNullableStruct<bool>(this.RawBodyData, "enableGraph"); }
+        get { return this._rawBodyData.GetNullableStruct<bool>("enableGraph"); }
         init
         {
             if (value == null)
@@ -62,7 +62,7 @@ public sealed record class VaultCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "enableGraph", value);
+            this._rawBodyData.Set("enableGraph", value);
         }
     }
 
@@ -71,7 +71,7 @@ public sealed record class VaultCreateParams : ParamsBase
     /// </summary>
     public bool? EnableIndexing
     {
-        get { return JsonModel.GetNullableStruct<bool>(this.RawBodyData, "enableIndexing"); }
+        get { return this._rawBodyData.GetNullableStruct<bool>("enableIndexing"); }
         init
         {
             if (value == null)
@@ -79,7 +79,7 @@ public sealed record class VaultCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "enableIndexing", value);
+            this._rawBodyData.Set("enableIndexing", value);
         }
     }
 
@@ -89,7 +89,7 @@ public sealed record class VaultCreateParams : ParamsBase
     /// </summary>
     public JsonElement? Metadata
     {
-        get { return JsonModel.GetNullableStruct<JsonElement>(this.RawBodyData, "metadata"); }
+        get { return this._rawBodyData.GetNullableStruct<JsonElement>("metadata"); }
         init
         {
             if (value == null)
@@ -97,7 +97,7 @@ public sealed record class VaultCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "metadata", value);
+            this._rawBodyData.Set("metadata", value);
         }
     }
 
@@ -106,7 +106,7 @@ public sealed record class VaultCreateParams : ParamsBase
     public VaultCreateParams(VaultCreateParams vaultCreateParams)
         : base(vaultCreateParams)
     {
-        this._rawBodyData = [.. vaultCreateParams._rawBodyData];
+        this._rawBodyData = new(vaultCreateParams._rawBodyData);
     }
 
     public VaultCreateParams(
@@ -115,9 +115,9 @@ public sealed record class VaultCreateParams : ParamsBase
         IReadOnlyDictionary<string, JsonElement> rawBodyData
     )
     {
-        this._rawHeaderData = [.. rawHeaderData];
-        this._rawQueryData = [.. rawQueryData];
-        this._rawBodyData = [.. rawBodyData];
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
+        this._rawBodyData = new(rawBodyData);
     }
 
 #pragma warning disable CS8618
@@ -128,9 +128,9 @@ public sealed record class VaultCreateParams : ParamsBase
         FrozenDictionary<string, JsonElement> rawBodyData
     )
     {
-        this._rawHeaderData = [.. rawHeaderData];
-        this._rawQueryData = [.. rawQueryData];
-        this._rawBodyData = [.. rawBodyData];
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
+        this._rawBodyData = new(rawBodyData);
     }
 #pragma warning restore CS8618
 

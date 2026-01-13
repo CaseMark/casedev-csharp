@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Text;
@@ -18,7 +19,7 @@ namespace CaseDev.Models.Format.V1;
 /// </summary>
 public sealed record class V1CreateDocumentParams : ParamsBase
 {
-    readonly FreezableDictionary<string, JsonElement> _rawBodyData = [];
+    readonly JsonDictionary _rawBodyData = new();
     public IReadOnlyDictionary<string, JsonElement> RawBodyData
     {
         get { return this._rawBodyData.Freeze(); }
@@ -29,8 +30,8 @@ public sealed record class V1CreateDocumentParams : ParamsBase
     /// </summary>
     public required string Content
     {
-        get { return JsonModel.GetNotNullClass<string>(this.RawBodyData, "content"); }
-        init { JsonModel.Set(this._rawBodyData, "content", value); }
+        get { return this._rawBodyData.GetNotNullClass<string>("content"); }
+        init { this._rawBodyData.Set("content", value); }
     }
 
     /// <summary>
@@ -40,12 +41,11 @@ public sealed record class V1CreateDocumentParams : ParamsBase
     {
         get
         {
-            return JsonModel.GetNotNullClass<ApiEnum<string, OutputFormat>>(
-                this.RawBodyData,
+            return this._rawBodyData.GetNotNullClass<ApiEnum<string, OutputFormat>>(
                 "output_format"
             );
         }
-        init { JsonModel.Set(this._rawBodyData, "output_format", value); }
+        init { this._rawBodyData.Set("output_format", value); }
     }
 
     /// <summary>
@@ -55,10 +55,7 @@ public sealed record class V1CreateDocumentParams : ParamsBase
     {
         get
         {
-            return JsonModel.GetNullableClass<ApiEnum<string, InputFormat>>(
-                this.RawBodyData,
-                "input_format"
-            );
+            return this._rawBodyData.GetNullableClass<ApiEnum<string, InputFormat>>("input_format");
         }
         init
         {
@@ -67,13 +64,13 @@ public sealed record class V1CreateDocumentParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "input_format", value);
+            this._rawBodyData.Set("input_format", value);
         }
     }
 
     public Options? Options
     {
-        get { return JsonModel.GetNullableClass<Options>(this.RawBodyData, "options"); }
+        get { return this._rawBodyData.GetNullableClass<Options>("options"); }
         init
         {
             if (value == null)
@@ -81,7 +78,7 @@ public sealed record class V1CreateDocumentParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "options", value);
+            this._rawBodyData.Set("options", value);
         }
     }
 
@@ -90,7 +87,7 @@ public sealed record class V1CreateDocumentParams : ParamsBase
     public V1CreateDocumentParams(V1CreateDocumentParams v1CreateDocumentParams)
         : base(v1CreateDocumentParams)
     {
-        this._rawBodyData = [.. v1CreateDocumentParams._rawBodyData];
+        this._rawBodyData = new(v1CreateDocumentParams._rawBodyData);
     }
 
     public V1CreateDocumentParams(
@@ -99,9 +96,9 @@ public sealed record class V1CreateDocumentParams : ParamsBase
         IReadOnlyDictionary<string, JsonElement> rawBodyData
     )
     {
-        this._rawHeaderData = [.. rawHeaderData];
-        this._rawQueryData = [.. rawQueryData];
-        this._rawBodyData = [.. rawBodyData];
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
+        this._rawBodyData = new(rawBodyData);
     }
 
 #pragma warning disable CS8618
@@ -112,9 +109,9 @@ public sealed record class V1CreateDocumentParams : ParamsBase
         FrozenDictionary<string, JsonElement> rawBodyData
     )
     {
-        this._rawHeaderData = [.. rawHeaderData];
-        this._rawQueryData = [.. rawQueryData];
-        this._rawBodyData = [.. rawBodyData];
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
+        this._rawBodyData = new(rawBodyData);
     }
 #pragma warning restore CS8618
 
@@ -267,7 +264,7 @@ public sealed record class Options : JsonModel
     /// </summary>
     public IReadOnlyList<Component>? Components
     {
-        get { return JsonModel.GetNullableClass<List<Component>>(this.RawData, "components"); }
+        get { return this._rawData.GetNullableStruct<ImmutableArray<Component>>("components"); }
         init
         {
             if (value == null)
@@ -275,7 +272,10 @@ public sealed record class Options : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "components", value);
+            this._rawData.Set<ImmutableArray<Component>?>(
+                "components",
+                value == null ? null : ImmutableArray.ToImmutableArray(value)
+            );
         }
     }
 
@@ -295,14 +295,14 @@ public sealed record class Options : JsonModel
 
     public Options(IReadOnlyDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
     Options(FrozenDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 #pragma warning restore CS8618
 
@@ -328,7 +328,7 @@ public sealed record class Component : JsonModel
     /// </summary>
     public string? Content
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "content"); }
+        get { return this._rawData.GetNullableClass<string>("content"); }
         init
         {
             if (value == null)
@@ -336,7 +336,7 @@ public sealed record class Component : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "content", value);
+            this._rawData.Set("content", value);
         }
     }
 
@@ -345,7 +345,7 @@ public sealed record class Component : JsonModel
     /// </summary>
     public JsonElement? Styles
     {
-        get { return JsonModel.GetNullableStruct<JsonElement>(this.RawData, "styles"); }
+        get { return this._rawData.GetNullableStruct<JsonElement>("styles"); }
         init
         {
             if (value == null)
@@ -353,7 +353,7 @@ public sealed record class Component : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "styles", value);
+            this._rawData.Set("styles", value);
         }
     }
 
@@ -362,7 +362,7 @@ public sealed record class Component : JsonModel
     /// </summary>
     public string? TemplateID
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "templateId"); }
+        get { return this._rawData.GetNullableClass<string>("templateId"); }
         init
         {
             if (value == null)
@@ -370,7 +370,7 @@ public sealed record class Component : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "templateId", value);
+            this._rawData.Set("templateId", value);
         }
     }
 
@@ -379,7 +379,7 @@ public sealed record class Component : JsonModel
     /// </summary>
     public JsonElement? Variables
     {
-        get { return JsonModel.GetNullableStruct<JsonElement>(this.RawData, "variables"); }
+        get { return this._rawData.GetNullableStruct<JsonElement>("variables"); }
         init
         {
             if (value == null)
@@ -387,7 +387,7 @@ public sealed record class Component : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "variables", value);
+            this._rawData.Set("variables", value);
         }
     }
 
@@ -407,14 +407,14 @@ public sealed record class Component : JsonModel
 
     public Component(IReadOnlyDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
     Component(FrozenDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 #pragma warning restore CS8618
 

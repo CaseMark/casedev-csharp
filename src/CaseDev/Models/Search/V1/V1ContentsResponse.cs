@@ -1,5 +1,6 @@
 using System.Collections.Frozen;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -12,7 +13,7 @@ public sealed record class V1ContentsResponse : JsonModel
 {
     public IReadOnlyList<Result>? Results
     {
-        get { return JsonModel.GetNullableClass<List<Result>>(this.RawData, "results"); }
+        get { return this._rawData.GetNullableStruct<ImmutableArray<Result>>("results"); }
         init
         {
             if (value == null)
@@ -20,7 +21,10 @@ public sealed record class V1ContentsResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "results", value);
+            this._rawData.Set<ImmutableArray<Result>?>(
+                "results",
+                value == null ? null : ImmutableArray.ToImmutableArray(value)
+            );
         }
     }
 
@@ -40,14 +44,14 @@ public sealed record class V1ContentsResponse : JsonModel
 
     public V1ContentsResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
     V1ContentsResponse(FrozenDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 #pragma warning restore CS8618
 
@@ -75,7 +79,7 @@ public sealed record class Result : JsonModel
     /// </summary>
     public IReadOnlyList<string>? Highlights
     {
-        get { return JsonModel.GetNullableClass<List<string>>(this.RawData, "highlights"); }
+        get { return this._rawData.GetNullableStruct<ImmutableArray<string>>("highlights"); }
         init
         {
             if (value == null)
@@ -83,7 +87,10 @@ public sealed record class Result : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "highlights", value);
+            this._rawData.Set<ImmutableArray<string>?>(
+                "highlights",
+                value == null ? null : ImmutableArray.ToImmutableArray(value)
+            );
         }
     }
 
@@ -92,7 +99,7 @@ public sealed record class Result : JsonModel
     /// </summary>
     public JsonElement? Metadata
     {
-        get { return JsonModel.GetNullableStruct<JsonElement>(this.RawData, "metadata"); }
+        get { return this._rawData.GetNullableStruct<JsonElement>("metadata"); }
         init
         {
             if (value == null)
@@ -100,7 +107,7 @@ public sealed record class Result : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "metadata", value);
+            this._rawData.Set("metadata", value);
         }
     }
 
@@ -109,7 +116,7 @@ public sealed record class Result : JsonModel
     /// </summary>
     public string? Summary
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "summary"); }
+        get { return this._rawData.GetNullableClass<string>("summary"); }
         init
         {
             if (value == null)
@@ -117,7 +124,7 @@ public sealed record class Result : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "summary", value);
+            this._rawData.Set("summary", value);
         }
     }
 
@@ -126,7 +133,7 @@ public sealed record class Result : JsonModel
     /// </summary>
     public string? Text
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "text"); }
+        get { return this._rawData.GetNullableClass<string>("text"); }
         init
         {
             if (value == null)
@@ -134,7 +141,7 @@ public sealed record class Result : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "text", value);
+            this._rawData.Set("text", value);
         }
     }
 
@@ -143,7 +150,7 @@ public sealed record class Result : JsonModel
     /// </summary>
     public string? Title
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "title"); }
+        get { return this._rawData.GetNullableClass<string>("title"); }
         init
         {
             if (value == null)
@@ -151,7 +158,7 @@ public sealed record class Result : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "title", value);
+            this._rawData.Set("title", value);
         }
     }
 
@@ -160,7 +167,7 @@ public sealed record class Result : JsonModel
     /// </summary>
     public string? Url
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "url"); }
+        get { return this._rawData.GetNullableClass<string>("url"); }
         init
         {
             if (value == null)
@@ -168,7 +175,7 @@ public sealed record class Result : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "url", value);
+            this._rawData.Set("url", value);
         }
     }
 
@@ -190,14 +197,14 @@ public sealed record class Result : JsonModel
 
     public Result(IReadOnlyDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
     Result(FrozenDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 #pragma warning restore CS8618
 

@@ -23,7 +23,7 @@ public sealed record class TemplateListParams : ParamsBase
     /// </summary>
     public string? Type
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawQueryData, "type"); }
+        get { return this._rawQueryData.GetNullableClass<string>("type"); }
         init
         {
             if (value == null)
@@ -31,7 +31,7 @@ public sealed record class TemplateListParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawQueryData, "type", value);
+            this._rawQueryData.Set("type", value);
         }
     }
 
@@ -45,8 +45,8 @@ public sealed record class TemplateListParams : ParamsBase
         IReadOnlyDictionary<string, JsonElement> rawQueryData
     )
     {
-        this._rawHeaderData = [.. rawHeaderData];
-        this._rawQueryData = [.. rawQueryData];
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
     }
 
 #pragma warning disable CS8618
@@ -56,8 +56,8 @@ public sealed record class TemplateListParams : ParamsBase
         FrozenDictionary<string, JsonElement> rawQueryData
     )
     {
-        this._rawHeaderData = [.. rawHeaderData];
-        this._rawQueryData = [.. rawQueryData];
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
     }
 #pragma warning restore CS8618
 

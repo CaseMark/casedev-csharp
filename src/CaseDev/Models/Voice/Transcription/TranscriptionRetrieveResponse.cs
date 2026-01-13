@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -19,8 +20,8 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
     /// </summary>
     public required string ID
     {
-        get { return JsonModel.GetNotNullClass<string>(this.RawData, "id"); }
-        init { JsonModel.Set(this._rawData, "id", value); }
+        get { return this._rawData.GetNotNullClass<string>("id"); }
+        init { this._rawData.Set("id", value); }
     }
 
     /// <summary>
@@ -28,8 +29,8 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
     /// </summary>
     public required ApiEnum<string, Status> Status
     {
-        get { return JsonModel.GetNotNullClass<ApiEnum<string, Status>>(this.RawData, "status"); }
-        init { JsonModel.Set(this._rawData, "status", value); }
+        get { return this._rawData.GetNotNullClass<ApiEnum<string, Status>>("status"); }
+        init { this._rawData.Set("status", value); }
     }
 
     /// <summary>
@@ -37,7 +38,7 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
     /// </summary>
     public double? AudioDuration
     {
-        get { return JsonModel.GetNullableStruct<double>(this.RawData, "audio_duration"); }
+        get { return this._rawData.GetNullableStruct<double>("audio_duration"); }
         init
         {
             if (value == null)
@@ -45,7 +46,7 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "audio_duration", value);
+            this._rawData.Set("audio_duration", value);
         }
     }
 
@@ -54,7 +55,7 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
     /// </summary>
     public double? Confidence
     {
-        get { return JsonModel.GetNullableStruct<double>(this.RawData, "confidence"); }
+        get { return this._rawData.GetNullableStruct<double>("confidence"); }
         init
         {
             if (value == null)
@@ -62,7 +63,7 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "confidence", value);
+            this._rawData.Set("confidence", value);
         }
     }
 
@@ -71,7 +72,7 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
     /// </summary>
     public string? Error
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "error"); }
+        get { return this._rawData.GetNullableClass<string>("error"); }
         init
         {
             if (value == null)
@@ -79,7 +80,7 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "error", value);
+            this._rawData.Set("error", value);
         }
     }
 
@@ -88,7 +89,7 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
     /// </summary>
     public string? ResultObjectID
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "result_object_id"); }
+        get { return this._rawData.GetNullableClass<string>("result_object_id"); }
         init
         {
             if (value == null)
@@ -96,7 +97,7 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "result_object_id", value);
+            this._rawData.Set("result_object_id", value);
         }
     }
 
@@ -105,7 +106,7 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
     /// </summary>
     public string? SourceObjectID
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "source_object_id"); }
+        get { return this._rawData.GetNullableClass<string>("source_object_id"); }
         init
         {
             if (value == null)
@@ -113,7 +114,7 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "source_object_id", value);
+            this._rawData.Set("source_object_id", value);
         }
     }
 
@@ -122,7 +123,7 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
     /// </summary>
     public string? Text
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "text"); }
+        get { return this._rawData.GetNullableClass<string>("text"); }
         init
         {
             if (value == null)
@@ -130,7 +131,7 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "text", value);
+            this._rawData.Set("text", value);
         }
     }
 
@@ -139,7 +140,7 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
     /// </summary>
     public string? VaultID
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "vault_id"); }
+        get { return this._rawData.GetNullableClass<string>("vault_id"); }
         init
         {
             if (value == null)
@@ -147,7 +148,7 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "vault_id", value);
+            this._rawData.Set("vault_id", value);
         }
     }
 
@@ -156,7 +157,7 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
     /// </summary>
     public long? WordCount
     {
-        get { return JsonModel.GetNullableStruct<long>(this.RawData, "word_count"); }
+        get { return this._rawData.GetNullableStruct<long>("word_count"); }
         init
         {
             if (value == null)
@@ -164,7 +165,7 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "word_count", value);
+            this._rawData.Set("word_count", value);
         }
     }
 
@@ -173,7 +174,7 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
     /// </summary>
     public IReadOnlyList<JsonElement>? Words
     {
-        get { return JsonModel.GetNullableClass<List<JsonElement>>(this.RawData, "words"); }
+        get { return this._rawData.GetNullableStruct<ImmutableArray<JsonElement>>("words"); }
         init
         {
             if (value == null)
@@ -181,7 +182,10 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "words", value);
+            this._rawData.Set<ImmutableArray<JsonElement>?>(
+                "words",
+                value == null ? null : ImmutableArray.ToImmutableArray(value)
+            );
         }
     }
 
@@ -210,14 +214,14 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
 
     public TranscriptionRetrieveResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
     TranscriptionRetrieveResponse(FrozenDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 #pragma warning restore CS8618
 

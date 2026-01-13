@@ -1,5 +1,6 @@
 using System.Collections.Frozen;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -12,7 +13,7 @@ public sealed record class V1SimilarResponse : JsonModel
 {
     public double? ProcessingTime
     {
-        get { return JsonModel.GetNullableStruct<double>(this.RawData, "processingTime"); }
+        get { return this._rawData.GetNullableStruct<double>("processingTime"); }
         init
         {
             if (value == null)
@@ -20,7 +21,7 @@ public sealed record class V1SimilarResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "processingTime", value);
+            this._rawData.Set("processingTime", value);
         }
     }
 
@@ -28,8 +29,7 @@ public sealed record class V1SimilarResponse : JsonModel
     {
         get
         {
-            return JsonModel.GetNullableClass<List<V1SimilarResponseResult>>(
-                this.RawData,
+            return this._rawData.GetNullableStruct<ImmutableArray<V1SimilarResponseResult>>(
                 "results"
             );
         }
@@ -40,13 +40,16 @@ public sealed record class V1SimilarResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "results", value);
+            this._rawData.Set<ImmutableArray<V1SimilarResponseResult>?>(
+                "results",
+                value == null ? null : ImmutableArray.ToImmutableArray(value)
+            );
         }
     }
 
     public long? TotalResults
     {
-        get { return JsonModel.GetNullableStruct<long>(this.RawData, "totalResults"); }
+        get { return this._rawData.GetNullableStruct<long>("totalResults"); }
         init
         {
             if (value == null)
@@ -54,7 +57,7 @@ public sealed record class V1SimilarResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "totalResults", value);
+            this._rawData.Set("totalResults", value);
         }
     }
 
@@ -76,14 +79,14 @@ public sealed record class V1SimilarResponse : JsonModel
 
     public V1SimilarResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
     V1SimilarResponse(FrozenDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 #pragma warning restore CS8618
 
@@ -108,7 +111,7 @@ public sealed record class V1SimilarResponseResult : JsonModel
 {
     public string? Domain
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "domain"); }
+        get { return this._rawData.GetNullableClass<string>("domain"); }
         init
         {
             if (value == null)
@@ -116,13 +119,13 @@ public sealed record class V1SimilarResponseResult : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "domain", value);
+            this._rawData.Set("domain", value);
         }
     }
 
     public string? PublishedDate
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "publishedDate"); }
+        get { return this._rawData.GetNullableClass<string>("publishedDate"); }
         init
         {
             if (value == null)
@@ -130,13 +133,13 @@ public sealed record class V1SimilarResponseResult : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "publishedDate", value);
+            this._rawData.Set("publishedDate", value);
         }
     }
 
     public double? SimilarityScore
     {
-        get { return JsonModel.GetNullableStruct<double>(this.RawData, "similarityScore"); }
+        get { return this._rawData.GetNullableStruct<double>("similarityScore"); }
         init
         {
             if (value == null)
@@ -144,13 +147,13 @@ public sealed record class V1SimilarResponseResult : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "similarityScore", value);
+            this._rawData.Set("similarityScore", value);
         }
     }
 
     public string? Snippet
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "snippet"); }
+        get { return this._rawData.GetNullableClass<string>("snippet"); }
         init
         {
             if (value == null)
@@ -158,13 +161,13 @@ public sealed record class V1SimilarResponseResult : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "snippet", value);
+            this._rawData.Set("snippet", value);
         }
     }
 
     public string? Text
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "text"); }
+        get { return this._rawData.GetNullableClass<string>("text"); }
         init
         {
             if (value == null)
@@ -172,13 +175,13 @@ public sealed record class V1SimilarResponseResult : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "text", value);
+            this._rawData.Set("text", value);
         }
     }
 
     public string? Title
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "title"); }
+        get { return this._rawData.GetNullableClass<string>("title"); }
         init
         {
             if (value == null)
@@ -186,13 +189,13 @@ public sealed record class V1SimilarResponseResult : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "title", value);
+            this._rawData.Set("title", value);
         }
     }
 
     public string? Url
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "url"); }
+        get { return this._rawData.GetNullableClass<string>("url"); }
         init
         {
             if (value == null)
@@ -200,7 +203,7 @@ public sealed record class V1SimilarResponseResult : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "url", value);
+            this._rawData.Set("url", value);
         }
     }
 
@@ -223,14 +226,14 @@ public sealed record class V1SimilarResponseResult : JsonModel
 
     public V1SimilarResponseResult(IReadOnlyDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
     V1SimilarResponseResult(FrozenDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 #pragma warning restore CS8618
 

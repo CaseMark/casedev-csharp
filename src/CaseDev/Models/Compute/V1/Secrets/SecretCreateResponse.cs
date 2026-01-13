@@ -16,7 +16,7 @@ public sealed record class SecretCreateResponse : JsonModel
     /// </summary>
     public string? ID
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "id"); }
+        get { return this._rawData.GetNullableClass<string>("id"); }
         init
         {
             if (value == null)
@@ -24,7 +24,7 @@ public sealed record class SecretCreateResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "id", value);
+            this._rawData.Set("id", value);
         }
     }
 
@@ -33,7 +33,7 @@ public sealed record class SecretCreateResponse : JsonModel
     /// </summary>
     public DateTimeOffset? CreatedAt
     {
-        get { return JsonModel.GetNullableStruct<DateTimeOffset>(this.RawData, "createdAt"); }
+        get { return this._rawData.GetNullableStruct<DateTimeOffset>("createdAt"); }
         init
         {
             if (value == null)
@@ -41,7 +41,7 @@ public sealed record class SecretCreateResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "createdAt", value);
+            this._rawData.Set("createdAt", value);
         }
     }
 
@@ -50,7 +50,7 @@ public sealed record class SecretCreateResponse : JsonModel
     /// </summary>
     public string? Description
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "description"); }
+        get { return this._rawData.GetNullableClass<string>("description"); }
         init
         {
             if (value == null)
@@ -58,7 +58,7 @@ public sealed record class SecretCreateResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "description", value);
+            this._rawData.Set("description", value);
         }
     }
 
@@ -67,7 +67,7 @@ public sealed record class SecretCreateResponse : JsonModel
     /// </summary>
     public string? Name
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "name"); }
+        get { return this._rawData.GetNullableClass<string>("name"); }
         init
         {
             if (value == null)
@@ -75,7 +75,7 @@ public sealed record class SecretCreateResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "name", value);
+            this._rawData.Set("name", value);
         }
     }
 
@@ -95,14 +95,14 @@ public sealed record class SecretCreateResponse : JsonModel
 
     public SecretCreateResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
     SecretCreateResponse(FrozenDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 #pragma warning restore CS8618
 

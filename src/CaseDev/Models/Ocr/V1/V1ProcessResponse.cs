@@ -17,7 +17,7 @@ public sealed record class V1ProcessResponse : JsonModel
     /// </summary>
     public string? ID
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "id"); }
+        get { return this._rawData.GetNullableClass<string>("id"); }
         init
         {
             if (value == null)
@@ -25,7 +25,7 @@ public sealed record class V1ProcessResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "id", value);
+            this._rawData.Set("id", value);
         }
     }
 
@@ -34,10 +34,7 @@ public sealed record class V1ProcessResponse : JsonModel
     /// </summary>
     public System::DateTimeOffset? CreatedAt
     {
-        get
-        {
-            return JsonModel.GetNullableStruct<System::DateTimeOffset>(this.RawData, "created_at");
-        }
+        get { return this._rawData.GetNullableStruct<System::DateTimeOffset>("created_at"); }
         init
         {
             if (value == null)
@@ -45,7 +42,7 @@ public sealed record class V1ProcessResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "created_at", value);
+            this._rawData.Set("created_at", value);
         }
     }
 
@@ -54,7 +51,7 @@ public sealed record class V1ProcessResponse : JsonModel
     /// </summary>
     public string? DocumentID
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "document_id"); }
+        get { return this._rawData.GetNullableClass<string>("document_id"); }
         init
         {
             if (value == null)
@@ -62,7 +59,7 @@ public sealed record class V1ProcessResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "document_id", value);
+            this._rawData.Set("document_id", value);
         }
     }
 
@@ -71,7 +68,7 @@ public sealed record class V1ProcessResponse : JsonModel
     /// </summary>
     public string? Engine
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawData, "engine"); }
+        get { return this._rawData.GetNullableClass<string>("engine"); }
         init
         {
             if (value == null)
@@ -79,7 +76,7 @@ public sealed record class V1ProcessResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "engine", value);
+            this._rawData.Set("engine", value);
         }
     }
 
@@ -90,10 +87,7 @@ public sealed record class V1ProcessResponse : JsonModel
     {
         get
         {
-            return JsonModel.GetNullableStruct<System::DateTimeOffset>(
-                this.RawData,
-                "estimated_completion"
-            );
+            return this._rawData.GetNullableStruct<System::DateTimeOffset>("estimated_completion");
         }
         init
         {
@@ -102,7 +96,7 @@ public sealed record class V1ProcessResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "estimated_completion", value);
+            this._rawData.Set("estimated_completion", value);
         }
     }
 
@@ -111,7 +105,7 @@ public sealed record class V1ProcessResponse : JsonModel
     /// </summary>
     public long? PageCount
     {
-        get { return JsonModel.GetNullableStruct<long>(this.RawData, "page_count"); }
+        get { return this._rawData.GetNullableStruct<long>("page_count"); }
         init
         {
             if (value == null)
@@ -119,7 +113,7 @@ public sealed record class V1ProcessResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "page_count", value);
+            this._rawData.Set("page_count", value);
         }
     }
 
@@ -128,7 +122,7 @@ public sealed record class V1ProcessResponse : JsonModel
     /// </summary>
     public ApiEnum<string, Status>? Status
     {
-        get { return JsonModel.GetNullableClass<ApiEnum<string, Status>>(this.RawData, "status"); }
+        get { return this._rawData.GetNullableClass<ApiEnum<string, Status>>("status"); }
         init
         {
             if (value == null)
@@ -136,7 +130,7 @@ public sealed record class V1ProcessResponse : JsonModel
                 return;
             }
 
-            JsonModel.Set(this._rawData, "status", value);
+            this._rawData.Set("status", value);
         }
     }
 
@@ -159,14 +153,14 @@ public sealed record class V1ProcessResponse : JsonModel
 
     public V1ProcessResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
     V1ProcessResponse(FrozenDictionary<string, JsonElement> rawData)
     {
-        this._rawData = [.. rawData];
+        this._rawData = new(rawData);
     }
 #pragma warning restore CS8618
 

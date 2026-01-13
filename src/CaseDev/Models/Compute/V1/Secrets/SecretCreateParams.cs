@@ -20,7 +20,7 @@ namespace CaseDev.Models.Compute.V1.Secrets;
 /// </summary>
 public sealed record class SecretCreateParams : ParamsBase
 {
-    readonly FreezableDictionary<string, JsonElement> _rawBodyData = [];
+    readonly JsonDictionary _rawBodyData = new();
     public IReadOnlyDictionary<string, JsonElement> RawBodyData
     {
         get { return this._rawBodyData.Freeze(); }
@@ -32,8 +32,8 @@ public sealed record class SecretCreateParams : ParamsBase
     /// </summary>
     public required string Name
     {
-        get { return JsonModel.GetNotNullClass<string>(this.RawBodyData, "name"); }
-        init { JsonModel.Set(this._rawBodyData, "name", value); }
+        get { return this._rawBodyData.GetNotNullClass<string>("name"); }
+        init { this._rawBodyData.Set("name", value); }
     }
 
     /// <summary>
@@ -41,7 +41,7 @@ public sealed record class SecretCreateParams : ParamsBase
     /// </summary>
     public string? Description
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "description"); }
+        get { return this._rawBodyData.GetNullableClass<string>("description"); }
         init
         {
             if (value == null)
@@ -49,7 +49,7 @@ public sealed record class SecretCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "description", value);
+            this._rawBodyData.Set("description", value);
         }
     }
 
@@ -59,7 +59,7 @@ public sealed record class SecretCreateParams : ParamsBase
     /// </summary>
     public string? Env
     {
-        get { return JsonModel.GetNullableClass<string>(this.RawBodyData, "env"); }
+        get { return this._rawBodyData.GetNullableClass<string>("env"); }
         init
         {
             if (value == null)
@@ -67,7 +67,7 @@ public sealed record class SecretCreateParams : ParamsBase
                 return;
             }
 
-            JsonModel.Set(this._rawBodyData, "env", value);
+            this._rawBodyData.Set("env", value);
         }
     }
 
@@ -76,7 +76,7 @@ public sealed record class SecretCreateParams : ParamsBase
     public SecretCreateParams(SecretCreateParams secretCreateParams)
         : base(secretCreateParams)
     {
-        this._rawBodyData = [.. secretCreateParams._rawBodyData];
+        this._rawBodyData = new(secretCreateParams._rawBodyData);
     }
 
     public SecretCreateParams(
@@ -85,9 +85,9 @@ public sealed record class SecretCreateParams : ParamsBase
         IReadOnlyDictionary<string, JsonElement> rawBodyData
     )
     {
-        this._rawHeaderData = [.. rawHeaderData];
-        this._rawQueryData = [.. rawQueryData];
-        this._rawBodyData = [.. rawBodyData];
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
+        this._rawBodyData = new(rawBodyData);
     }
 
 #pragma warning disable CS8618
@@ -98,9 +98,9 @@ public sealed record class SecretCreateParams : ParamsBase
         FrozenDictionary<string, JsonElement> rawBodyData
     )
     {
-        this._rawHeaderData = [.. rawHeaderData];
-        this._rawQueryData = [.. rawQueryData];
-        this._rawBodyData = [.. rawBodyData];
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
+        this._rawBodyData = new(rawBodyData);
     }
 #pragma warning restore CS8618
 
