@@ -71,15 +71,12 @@ public sealed class V1Service : IV1Service
     }
 
     /// <inheritdoc/>
-    public async Task RetrieveResearch(
+    public Task RetrieveResearch(
         V1RetrieveResearchParams parameters,
         CancellationToken cancellationToken = default
     )
     {
-        using var response = await this
-            .WithRawResponse.RetrieveResearch(parameters, cancellationToken)
-            .ConfigureAwait(false);
-        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+        return this.WithRawResponse.RetrieveResearch(parameters, cancellationToken);
     }
 
     /// <inheritdoc/>

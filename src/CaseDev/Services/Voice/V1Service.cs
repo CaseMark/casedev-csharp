@@ -42,15 +42,12 @@ public sealed class V1Service : IV1Service
     }
 
     /// <inheritdoc/>
-    public async Task ListVoices(
+    public Task ListVoices(
         V1ListVoicesParams? parameters = null,
         CancellationToken cancellationToken = default
     )
     {
-        using var response = await this
-            .WithRawResponse.ListVoices(parameters, cancellationToken)
-            .ConfigureAwait(false);
-        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+        return this.WithRawResponse.ListVoices(parameters, cancellationToken);
     }
 }
 

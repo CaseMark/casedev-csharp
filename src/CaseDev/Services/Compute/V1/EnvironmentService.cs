@@ -47,15 +47,12 @@ public sealed class EnvironmentService : IEnvironmentService
     }
 
     /// <inheritdoc/>
-    public async Task Retrieve(
+    public Task Retrieve(
         EnvironmentRetrieveParams parameters,
         CancellationToken cancellationToken = default
     )
     {
-        using var response = await this
-            .WithRawResponse.Retrieve(parameters, cancellationToken)
-            .ConfigureAwait(false);
-        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+        return this.WithRawResponse.Retrieve(parameters, cancellationToken);
     }
 
     /// <inheritdoc/>
@@ -72,15 +69,12 @@ public sealed class EnvironmentService : IEnvironmentService
     }
 
     /// <inheritdoc/>
-    public async Task List(
+    public Task List(
         EnvironmentListParams? parameters = null,
         CancellationToken cancellationToken = default
     )
     {
-        using var response = await this
-            .WithRawResponse.List(parameters, cancellationToken)
-            .ConfigureAwait(false);
-        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+        return this.WithRawResponse.List(parameters, cancellationToken);
     }
 
     /// <inheritdoc/>
@@ -108,15 +102,12 @@ public sealed class EnvironmentService : IEnvironmentService
     }
 
     /// <inheritdoc/>
-    public async Task SetDefault(
+    public Task SetDefault(
         EnvironmentSetDefaultParams parameters,
         CancellationToken cancellationToken = default
     )
     {
-        using var response = await this
-            .WithRawResponse.SetDefault(parameters, cancellationToken)
-            .ConfigureAwait(false);
-        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+        return this.WithRawResponse.SetDefault(parameters, cancellationToken);
     }
 
     /// <inheritdoc/>

@@ -35,15 +35,12 @@ public sealed class ObjectService : IObjectService
     }
 
     /// <inheritdoc/>
-    public async Task Retrieve(
+    public Task Retrieve(
         ObjectRetrieveParams parameters,
         CancellationToken cancellationToken = default
     )
     {
-        using var response = await this
-            .WithRawResponse.Retrieve(parameters, cancellationToken)
-            .ConfigureAwait(false);
-        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+        return this.WithRawResponse.Retrieve(parameters, cancellationToken);
     }
 
     /// <inheritdoc/>
@@ -58,15 +55,9 @@ public sealed class ObjectService : IObjectService
     }
 
     /// <inheritdoc/>
-    public async Task List(
-        ObjectListParams parameters,
-        CancellationToken cancellationToken = default
-    )
+    public Task List(ObjectListParams parameters, CancellationToken cancellationToken = default)
     {
-        using var response = await this
-            .WithRawResponse.List(parameters, cancellationToken)
-            .ConfigureAwait(false);
-        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+        return this.WithRawResponse.List(parameters, cancellationToken);
     }
 
     /// <inheritdoc/>
@@ -104,15 +95,12 @@ public sealed class ObjectService : IObjectService
     }
 
     /// <inheritdoc/>
-    public async Task Download(
+    public Task Download(
         ObjectDownloadParams parameters,
         CancellationToken cancellationToken = default
     )
     {
-        using var response = await this
-            .WithRawResponse.Download(parameters, cancellationToken)
-            .ConfigureAwait(false);
-        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+        return this.WithRawResponse.Download(parameters, cancellationToken);
     }
 
     /// <inheritdoc/>
@@ -127,15 +115,12 @@ public sealed class ObjectService : IObjectService
     }
 
     /// <inheritdoc/>
-    public async Task GetText(
+    public Task GetText(
         ObjectGetTextParams parameters,
         CancellationToken cancellationToken = default
     )
     {
-        using var response = await this
-            .WithRawResponse.GetText(parameters, cancellationToken)
-            .ConfigureAwait(false);
-        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+        return this.WithRawResponse.GetText(parameters, cancellationToken);
     }
 
     /// <inheritdoc/>

@@ -37,15 +37,12 @@ public sealed class TranscriptionService : ITranscriptionService
     }
 
     /// <inheritdoc/>
-    public async Task Create(
+    public Task Create(
         TranscriptionCreateParams? parameters = null,
         CancellationToken cancellationToken = default
     )
     {
-        using var response = await this
-            .WithRawResponse.Create(parameters, cancellationToken)
-            .ConfigureAwait(false);
-        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+        return this.WithRawResponse.Create(parameters, cancellationToken);
     }
 
     /// <inheritdoc/>
