@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Text.Json;
+using CaseDev.Core;
 using CaseDev.Models.Llm.V1.Chat;
 
 namespace CaseDev.Tests.Models.Llm.V1.Chat;
@@ -94,8 +95,11 @@ public class ChatCreateCompletionResponseTest : TestBase
             },
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<ChatCreateCompletionResponse>(json);
+        string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ChatCreateCompletionResponse>(
+            json,
+            ModelBase.SerializerOptions
+        );
 
         Assert.Equal(model, deserialized);
     }
@@ -127,8 +131,11 @@ public class ChatCreateCompletionResponseTest : TestBase
             },
         };
 
-        string element = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<ChatCreateCompletionResponse>(element);
+        string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ChatCreateCompletionResponse>(
+            element,
+            ModelBase.SerializerOptions
+        );
         Assert.NotNull(deserialized);
 
         string expectedID = "id";
@@ -299,8 +306,8 @@ public class ChoiceTest : TestBase
             Message = new() { Content = "content", Role = "role" },
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<Choice>(json);
+        string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<Choice>(json, ModelBase.SerializerOptions);
 
         Assert.Equal(model, deserialized);
     }
@@ -315,8 +322,8 @@ public class ChoiceTest : TestBase
             Message = new() { Content = "content", Role = "role" },
         };
 
-        string element = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<Choice>(element);
+        string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<Choice>(element, ModelBase.SerializerOptions);
         Assert.NotNull(deserialized);
 
         string expectedFinishReason = "finish_reason";
@@ -415,8 +422,11 @@ public class ChoiceMessageTest : TestBase
     {
         var model = new ChoiceMessage { Content = "content", Role = "role" };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<ChoiceMessage>(json);
+        string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ChoiceMessage>(
+            json,
+            ModelBase.SerializerOptions
+        );
 
         Assert.Equal(model, deserialized);
     }
@@ -426,8 +436,11 @@ public class ChoiceMessageTest : TestBase
     {
         var model = new ChoiceMessage { Content = "content", Role = "role" };
 
-        string element = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<ChoiceMessage>(element);
+        string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ChoiceMessage>(
+            element,
+            ModelBase.SerializerOptions
+        );
         Assert.NotNull(deserialized);
 
         string expectedContent = "content";
@@ -529,8 +542,8 @@ public class UsageTest : TestBase
             TotalTokens = 0,
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<Usage>(json);
+        string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<Usage>(json, ModelBase.SerializerOptions);
 
         Assert.Equal(model, deserialized);
     }
@@ -546,8 +559,8 @@ public class UsageTest : TestBase
             TotalTokens = 0,
         };
 
-        string element = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<Usage>(element);
+        string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<Usage>(element, ModelBase.SerializerOptions);
         Assert.NotNull(deserialized);
 
         long expectedCompletionTokens = 0;

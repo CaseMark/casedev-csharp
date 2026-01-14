@@ -1,4 +1,5 @@
 using System.Text.Json;
+using CaseDev.Core;
 using CaseDev.Models.Search.V1;
 
 namespace CaseDev.Tests.Models.Search.V1;
@@ -35,8 +36,11 @@ public class V1ResearchResponseTest : TestBase
             Results = JsonSerializer.Deserialize<JsonElement>("{}"),
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<V1ResearchResponse>(json);
+        string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<V1ResearchResponse>(
+            json,
+            ModelBase.SerializerOptions
+        );
 
         Assert.Equal(model, deserialized);
     }
@@ -51,8 +55,11 @@ public class V1ResearchResponseTest : TestBase
             Results = JsonSerializer.Deserialize<JsonElement>("{}"),
         };
 
-        string element = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<V1ResearchResponse>(element);
+        string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<V1ResearchResponse>(
+            element,
+            ModelBase.SerializerOptions
+        );
         Assert.NotNull(deserialized);
 
         string expectedModel = "model";

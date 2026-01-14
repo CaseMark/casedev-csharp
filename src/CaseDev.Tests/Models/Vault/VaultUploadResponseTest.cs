@@ -1,4 +1,5 @@
 using System.Text.Json;
+using CaseDev.Core;
 using CaseDev.Models.Vault;
 
 namespace CaseDev.Tests.Models.Vault;
@@ -73,8 +74,11 @@ public class VaultUploadResponseTest : TestBase
             UploadUrl = "uploadUrl",
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<VaultUploadResponse>(json);
+        string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<VaultUploadResponse>(
+            json,
+            ModelBase.SerializerOptions
+        );
 
         Assert.Equal(model, deserialized);
     }
@@ -100,8 +104,11 @@ public class VaultUploadResponseTest : TestBase
             UploadUrl = "uploadUrl",
         };
 
-        string element = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<VaultUploadResponse>(element);
+        string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<VaultUploadResponse>(
+            element,
+            ModelBase.SerializerOptions
+        );
         Assert.NotNull(deserialized);
 
         bool expectedAutoIndex = true;
@@ -371,8 +378,11 @@ public class InstructionsTest : TestBase
             Note = "note",
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<Instructions>(json);
+        string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<Instructions>(
+            json,
+            ModelBase.SerializerOptions
+        );
 
         Assert.Equal(model, deserialized);
     }
@@ -387,8 +397,11 @@ public class InstructionsTest : TestBase
             Note = "note",
         };
 
-        string element = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<Instructions>(element);
+        string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<Instructions>(
+            element,
+            ModelBase.SerializerOptions
+        );
         Assert.NotNull(deserialized);
 
         JsonElement expectedHeaders = JsonSerializer.Deserialize<JsonElement>("{}");

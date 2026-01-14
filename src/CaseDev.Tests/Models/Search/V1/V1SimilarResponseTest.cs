@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Text.Json;
+using CaseDev.Core;
 using CaseDev.Models.Search.V1;
 
 namespace CaseDev.Tests.Models.Search.V1;
@@ -76,8 +77,11 @@ public class V1SimilarResponseTest : TestBase
             TotalResults = 0,
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<V1SimilarResponse>(json);
+        string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<V1SimilarResponse>(
+            json,
+            ModelBase.SerializerOptions
+        );
 
         Assert.Equal(model, deserialized);
     }
@@ -104,8 +108,11 @@ public class V1SimilarResponseTest : TestBase
             TotalResults = 0,
         };
 
-        string element = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<V1SimilarResponse>(element);
+        string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<V1SimilarResponse>(
+            element,
+            ModelBase.SerializerOptions
+        );
         Assert.NotNull(deserialized);
 
         double expectedProcessingTime = 0;
@@ -261,8 +268,11 @@ public class V1SimilarResponseResultTest : TestBase
             Url = "url",
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<V1SimilarResponseResult>(json);
+        string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<V1SimilarResponseResult>(
+            json,
+            ModelBase.SerializerOptions
+        );
 
         Assert.Equal(model, deserialized);
     }
@@ -281,8 +291,11 @@ public class V1SimilarResponseResultTest : TestBase
             Url = "url",
         };
 
-        string element = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<V1SimilarResponseResult>(element);
+        string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<V1SimilarResponseResult>(
+            element,
+            ModelBase.SerializerOptions
+        );
         Assert.NotNull(deserialized);
 
         string expectedDomain = "domain";
