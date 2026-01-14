@@ -1,5 +1,6 @@
 using System;
 using System.Text.Json;
+using CaseDev.Core;
 using CaseDev.Models.Compute.V1.Secrets;
 
 namespace CaseDev.Tests.Models.Compute.V1.Secrets;
@@ -39,8 +40,11 @@ public class SecretCreateResponseTest : TestBase
             Name = "name",
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<SecretCreateResponse>(json);
+        string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<SecretCreateResponse>(
+            json,
+            ModelBase.SerializerOptions
+        );
 
         Assert.Equal(model, deserialized);
     }
@@ -56,8 +60,11 @@ public class SecretCreateResponseTest : TestBase
             Name = "name",
         };
 
-        string element = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<SecretCreateResponse>(element);
+        string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<SecretCreateResponse>(
+            element,
+            ModelBase.SerializerOptions
+        );
         Assert.NotNull(deserialized);
 
         string expectedID = "id";

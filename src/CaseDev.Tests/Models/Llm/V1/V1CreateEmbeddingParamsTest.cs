@@ -99,8 +99,8 @@ public class InputTest : TestBase
     public void StringSerializationRoundtripWorks()
     {
         Input value = "string";
-        string element = JsonSerializer.Serialize(value);
-        var deserialized = JsonSerializer.Deserialize<Input>(element);
+        string element = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<Input>(element, ModelBase.SerializerOptions);
 
         Assert.Equal(value, deserialized);
     }
@@ -109,8 +109,8 @@ public class InputTest : TestBase
     public void StringsSerializationRoundtripWorks()
     {
         Input value = new(["string"]);
-        string element = JsonSerializer.Serialize(value);
-        var deserialized = JsonSerializer.Deserialize<Input>(element);
+        string element = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<Input>(element, ModelBase.SerializerOptions);
 
         Assert.Equal(value, deserialized);
     }

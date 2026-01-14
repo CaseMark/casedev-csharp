@@ -96,8 +96,8 @@ public class FiltersTest : TestBase
     {
         var model = new Filters { ObjectID = "string" };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<Filters>(json);
+        string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<Filters>(json, ModelBase.SerializerOptions);
 
         Assert.Equal(model, deserialized);
     }
@@ -107,8 +107,11 @@ public class FiltersTest : TestBase
     {
         var model = new Filters { ObjectID = "string" };
 
-        string element = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<Filters>(element);
+        string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<Filters>(
+            element,
+            ModelBase.SerializerOptions
+        );
         Assert.NotNull(deserialized);
 
         ObjectID expectedObjectID = "string";
@@ -187,8 +190,11 @@ public class ObjectIDTest : TestBase
     public void StringSerializationRoundtripWorks()
     {
         ObjectID value = "string";
-        string element = JsonSerializer.Serialize(value);
-        var deserialized = JsonSerializer.Deserialize<ObjectID>(element);
+        string element = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ObjectID>(
+            element,
+            ModelBase.SerializerOptions
+        );
 
         Assert.Equal(value, deserialized);
     }
@@ -197,8 +203,11 @@ public class ObjectIDTest : TestBase
     public void StringsSerializationRoundtripWorks()
     {
         ObjectID value = new(["string"]);
-        string element = JsonSerializer.Serialize(value);
-        var deserialized = JsonSerializer.Deserialize<ObjectID>(element);
+        string element = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ObjectID>(
+            element,
+            ModelBase.SerializerOptions
+        );
 
         Assert.Equal(value, deserialized);
     }

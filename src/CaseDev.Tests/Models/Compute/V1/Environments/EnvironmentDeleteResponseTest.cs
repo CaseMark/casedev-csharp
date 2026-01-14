@@ -1,4 +1,5 @@
 using System.Text.Json;
+using CaseDev.Core;
 using CaseDev.Models.Compute.V1.Environments;
 
 namespace CaseDev.Tests.Models.Compute.V1.Environments;
@@ -30,8 +31,11 @@ public class EnvironmentDeleteResponseTest : TestBase
             Success = true,
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<EnvironmentDeleteResponse>(json);
+        string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<EnvironmentDeleteResponse>(
+            json,
+            ModelBase.SerializerOptions
+        );
 
         Assert.Equal(model, deserialized);
     }
@@ -45,8 +49,11 @@ public class EnvironmentDeleteResponseTest : TestBase
             Success = true,
         };
 
-        string element = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<EnvironmentDeleteResponse>(element);
+        string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<EnvironmentDeleteResponse>(
+            element,
+            ModelBase.SerializerOptions
+        );
         Assert.NotNull(deserialized);
 
         string expectedMessage = "Environment 'litigation-processing' deleted";

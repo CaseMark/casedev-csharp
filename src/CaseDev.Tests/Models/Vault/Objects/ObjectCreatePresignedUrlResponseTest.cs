@@ -1,5 +1,6 @@
 using System;
 using System.Text.Json;
+using CaseDev.Core;
 using CaseDev.Models.Vault.Objects;
 
 namespace CaseDev.Tests.Models.Vault.Objects;
@@ -82,8 +83,11 @@ public class ObjectCreatePresignedUrlResponseTest : TestBase
             VaultID = "vaultId",
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<ObjectCreatePresignedUrlResponse>(json);
+        string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ObjectCreatePresignedUrlResponse>(
+            json,
+            ModelBase.SerializerOptions
+        );
 
         Assert.Equal(model, deserialized);
     }
@@ -111,8 +115,11 @@ public class ObjectCreatePresignedUrlResponseTest : TestBase
             VaultID = "vaultId",
         };
 
-        string element = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<ObjectCreatePresignedUrlResponse>(element);
+        string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ObjectCreatePresignedUrlResponse>(
+            element,
+            ModelBase.SerializerOptions
+        );
         Assert.NotNull(deserialized);
 
         DateTimeOffset expectedExpiresAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
@@ -303,8 +310,8 @@ public class MetadataTest : TestBase
             SizeBytes = 0,
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<Metadata>(json);
+        string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<Metadata>(json, ModelBase.SerializerOptions);
 
         Assert.Equal(model, deserialized);
     }
@@ -320,8 +327,11 @@ public class MetadataTest : TestBase
             SizeBytes = 0,
         };
 
-        string element = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<Metadata>(element);
+        string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<Metadata>(
+            element,
+            ModelBase.SerializerOptions
+        );
         Assert.NotNull(deserialized);
 
         string expectedBucket = "bucket";

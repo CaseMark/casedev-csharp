@@ -1,5 +1,6 @@
 using System;
 using System.Text.Json;
+using CaseDev.Core;
 using CaseDev.Models.Vault;
 
 namespace CaseDev.Tests.Models.Vault;
@@ -59,8 +60,11 @@ public class VaultCreateResponseTest : TestBase
             VectorBucket = "vectorBucket",
         };
 
-        string json = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<VaultCreateResponse>(json);
+        string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<VaultCreateResponse>(
+            json,
+            ModelBase.SerializerOptions
+        );
 
         Assert.Equal(model, deserialized);
     }
@@ -81,8 +85,11 @@ public class VaultCreateResponseTest : TestBase
             VectorBucket = "vectorBucket",
         };
 
-        string element = JsonSerializer.Serialize(model);
-        var deserialized = JsonSerializer.Deserialize<VaultCreateResponse>(element);
+        string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<VaultCreateResponse>(
+            element,
+            ModelBase.SerializerOptions
+        );
         Assert.NotNull(deserialized);
 
         string expectedID = "id";
