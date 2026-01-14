@@ -67,7 +67,7 @@ public sealed record class V1DownloadParams : ParamsBase
     {
         return new System::UriBuilder(
             options.BaseUrl.ToString().TrimEnd('/')
-                + string.Format("/ocr/v1/{0}/download/{1}", this.ID, this.Type)
+                + string.Format("/ocr/v1/{0}/download/{1}", this.ID, this.Type?.Raw())
         )
         {
             Query = this.QueryString(options),
