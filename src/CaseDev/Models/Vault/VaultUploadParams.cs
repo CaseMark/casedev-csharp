@@ -14,8 +14,12 @@ namespace CaseDev.Models.Vault;
 /// This endpoint creates a temporary upload URL that allows secure file uploads without
 /// exposing credentials. Files can be automatically indexed for semantic search
 /// or stored for manual processing.
+///
+/// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
+/// breaking changes in non-major versions. We may add new methods in the future that
+/// cause existing derived classes to break.</para>
 /// </summary>
-public sealed record class VaultUploadParams : ParamsBase
+public record class VaultUploadParams : ParamsBase
 {
     readonly JsonDictionary _rawBodyData = new();
     public IReadOnlyDictionary<string, JsonElement> RawBodyData
@@ -138,6 +142,8 @@ public sealed record class VaultUploadParams : ParamsBase
 
     public VaultUploadParams() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public VaultUploadParams(VaultUploadParams vaultUploadParams)
         : base(vaultUploadParams)
     {
@@ -145,6 +151,7 @@ public sealed record class VaultUploadParams : ParamsBase
 
         this._rawBodyData = new(vaultUploadParams._rawBodyData);
     }
+#pragma warning restore CS8618
 
     public VaultUploadParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
@@ -185,6 +192,30 @@ public sealed record class VaultUploadParams : ParamsBase
         );
     }
 
+    public override string ToString() =>
+        JsonSerializer.Serialize(
+            new Dictionary<string, object?>()
+            {
+                ["ID"] = this.ID,
+                ["HeaderData"] = this._rawHeaderData.Freeze(),
+                ["QueryData"] = this._rawQueryData.Freeze(),
+                ["BodyData"] = this._rawBodyData.Freeze(),
+            },
+            ModelBase.ToStringSerializerOptions
+        );
+
+    public virtual bool Equals(VaultUploadParams? other)
+    {
+        if (other == null)
+        {
+            return false;
+        }
+        return (this.ID?.Equals(other.ID) ?? other.ID == null)
+            && this._rawHeaderData.Equals(other._rawHeaderData)
+            && this._rawQueryData.Equals(other._rawQueryData)
+            && this._rawBodyData.Equals(other._rawBodyData);
+    }
+
     public override Uri Url(ClientOptions options)
     {
         return new UriBuilder(
@@ -211,5 +242,10 @@ public sealed record class VaultUploadParams : ParamsBase
         {
             ParamsBase.AddHeaderElementToRequest(request, item.Key, item.Value);
         }
+    }
+
+    public override int GetHashCode()
+    {
+        return 0;
     }
 }

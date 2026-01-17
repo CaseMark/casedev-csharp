@@ -14,8 +14,12 @@ namespace CaseDev.Models.Search.V1;
 /// Find web pages and documents similar to a given URL. Useful for legal research
 /// to discover related case law, statutes, or legal commentary that shares similar
 /// themes or content structure.
+///
+/// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
+/// breaking changes in non-major versions. We may add new methods in the future that
+/// cause existing derived classes to break.</para>
 /// </summary>
-public sealed record class V1SimilarParams : ParamsBase
+public record class V1SimilarParams : ParamsBase
 {
     readonly JsonDictionary _rawBodyData = new();
     public IReadOnlyDictionary<string, JsonElement> RawBodyData
@@ -233,11 +237,14 @@ public sealed record class V1SimilarParams : ParamsBase
 
     public V1SimilarParams() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public V1SimilarParams(V1SimilarParams v1SimilarParams)
         : base(v1SimilarParams)
     {
         this._rawBodyData = new(v1SimilarParams._rawBodyData);
     }
+#pragma warning restore CS8618
 
     public V1SimilarParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
@@ -278,6 +285,28 @@ public sealed record class V1SimilarParams : ParamsBase
         );
     }
 
+    public override string ToString() =>
+        JsonSerializer.Serialize(
+            new Dictionary<string, object?>()
+            {
+                ["HeaderData"] = this._rawHeaderData.Freeze(),
+                ["QueryData"] = this._rawQueryData.Freeze(),
+                ["BodyData"] = this._rawBodyData.Freeze(),
+            },
+            ModelBase.ToStringSerializerOptions
+        );
+
+    public virtual bool Equals(V1SimilarParams? other)
+    {
+        if (other == null)
+        {
+            return false;
+        }
+        return this._rawHeaderData.Equals(other._rawHeaderData)
+            && this._rawQueryData.Equals(other._rawQueryData)
+            && this._rawBodyData.Equals(other._rawBodyData);
+    }
+
     public override Uri Url(ClientOptions options)
     {
         return new UriBuilder(options.BaseUrl.ToString().TrimEnd('/') + "/search/v1/similar")
@@ -302,5 +331,10 @@ public sealed record class V1SimilarParams : ParamsBase
         {
             ParamsBase.AddHeaderElementToRequest(request, item.Key, item.Value);
         }
+    }
+
+    public override int GetHashCode()
+    {
+        return 0;
     }
 }

@@ -11,8 +11,12 @@ namespace CaseDev.Models.Compute.V1.Secrets;
 /// <summary>
 /// Retrieve the keys (names) of secrets in a specified group within a compute environment.
 /// For security reasons, actual secret values are not returned - only the keys and metadata.
+///
+/// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
+/// breaking changes in non-major versions. We may add new methods in the future that
+/// cause existing derived classes to break.</para>
 /// </summary>
-public sealed record class SecretRetrieveGroupParams : ParamsBase
+public record class SecretRetrieveGroupParams : ParamsBase
 {
     public string? Group { get; init; }
 
@@ -39,11 +43,14 @@ public sealed record class SecretRetrieveGroupParams : ParamsBase
 
     public SecretRetrieveGroupParams() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public SecretRetrieveGroupParams(SecretRetrieveGroupParams secretRetrieveGroupParams)
         : base(secretRetrieveGroupParams)
     {
         this.Group = secretRetrieveGroupParams.Group;
     }
+#pragma warning restore CS8618
 
     public SecretRetrieveGroupParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
@@ -78,6 +85,28 @@ public sealed record class SecretRetrieveGroupParams : ParamsBase
         );
     }
 
+    public override string ToString() =>
+        JsonSerializer.Serialize(
+            new Dictionary<string, object?>()
+            {
+                ["Group"] = this.Group,
+                ["HeaderData"] = this._rawHeaderData.Freeze(),
+                ["QueryData"] = this._rawQueryData.Freeze(),
+            },
+            ModelBase.ToStringSerializerOptions
+        );
+
+    public virtual bool Equals(SecretRetrieveGroupParams? other)
+    {
+        if (other == null)
+        {
+            return false;
+        }
+        return (this.Group?.Equals(other.Group) ?? other.Group == null)
+            && this._rawHeaderData.Equals(other._rawHeaderData)
+            && this._rawQueryData.Equals(other._rawQueryData);
+    }
+
     public override Uri Url(ClientOptions options)
     {
         return new UriBuilder(
@@ -96,5 +125,10 @@ public sealed record class SecretRetrieveGroupParams : ParamsBase
         {
             ParamsBase.AddHeaderElementToRequest(request, item.Key, item.Value);
         }
+    }
+
+    public override int GetHashCode()
+    {
+        return 0;
     }
 }

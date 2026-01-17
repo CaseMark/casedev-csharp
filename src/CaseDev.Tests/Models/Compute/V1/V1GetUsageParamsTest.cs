@@ -53,4 +53,14 @@ public class V1GetUsageParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/compute/v1/usage?month=3&year=2024"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new V1GetUsageParams { Month = 3, Year = 2024 };
+
+        V1GetUsageParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }

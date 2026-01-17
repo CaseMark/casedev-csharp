@@ -116,6 +116,26 @@ public class ChatCreateCompletionParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/llm/v1/chat/completions"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new ChatCreateCompletionParams
+        {
+            Messages = [new() { Content = "content", Role = Role.System }],
+            FrequencyPenalty = 0,
+            MaxTokens = 1000,
+            Model = "gpt-4o",
+            PresencePenalty = 0,
+            Stream = false,
+            Temperature = 0.7,
+            TopP = 0,
+        };
+
+        ChatCreateCompletionParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }
 
 public class MessageTest : TestBase

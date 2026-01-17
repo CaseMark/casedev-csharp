@@ -74,6 +74,22 @@ public class V1ResearchParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/search/v1/research"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new V1ResearchParams
+        {
+            Instructions = "instructions",
+            Model = Model.Fast,
+            OutputSchema = JsonSerializer.Deserialize<JsonElement>("{}"),
+            Query = "query",
+        };
+
+        V1ResearchParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }
 
 public class ModelTest : TestBase

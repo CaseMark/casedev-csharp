@@ -12,8 +12,12 @@ namespace CaseDev.Models.Vault.Objects;
 /// Retrieves the full extracted text content from a processed vault object. Returns
 /// the concatenated text from all chunks, useful for document review, analysis, or
 /// export. The object must have completed processing before text can be retrieved.
+///
+/// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
+/// breaking changes in non-major versions. We may add new methods in the future that
+/// cause existing derived classes to break.</para>
 /// </summary>
-public sealed record class ObjectGetTextParams : ParamsBase
+public record class ObjectGetTextParams : ParamsBase
 {
     public required string ID { get; init; }
 
@@ -21,12 +25,15 @@ public sealed record class ObjectGetTextParams : ParamsBase
 
     public ObjectGetTextParams() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public ObjectGetTextParams(ObjectGetTextParams objectGetTextParams)
         : base(objectGetTextParams)
     {
         this.ID = objectGetTextParams.ID;
         this.ObjectID = objectGetTextParams.ObjectID;
     }
+#pragma warning restore CS8618
 
     public ObjectGetTextParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
@@ -61,6 +68,30 @@ public sealed record class ObjectGetTextParams : ParamsBase
         );
     }
 
+    public override string ToString() =>
+        JsonSerializer.Serialize(
+            new Dictionary<string, object?>()
+            {
+                ["ID"] = this.ID,
+                ["ObjectID"] = this.ObjectID,
+                ["HeaderData"] = this._rawHeaderData.Freeze(),
+                ["QueryData"] = this._rawQueryData.Freeze(),
+            },
+            ModelBase.ToStringSerializerOptions
+        );
+
+    public virtual bool Equals(ObjectGetTextParams? other)
+    {
+        if (other == null)
+        {
+            return false;
+        }
+        return this.ID.Equals(other.ID)
+            && (this.ObjectID?.Equals(other.ObjectID) ?? other.ObjectID == null)
+            && this._rawHeaderData.Equals(other._rawHeaderData)
+            && this._rawQueryData.Equals(other._rawQueryData);
+    }
+
     public override Uri Url(ClientOptions options)
     {
         return new UriBuilder(
@@ -79,5 +110,10 @@ public sealed record class ObjectGetTextParams : ParamsBase
         {
             ParamsBase.AddHeaderElementToRequest(request, item.Key, item.Value);
         }
+    }
+
+    public override int GetHashCode()
+    {
+        return 0;
     }
 }

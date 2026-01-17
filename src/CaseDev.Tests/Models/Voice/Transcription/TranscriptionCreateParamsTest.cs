@@ -163,6 +163,32 @@ public class TranscriptionCreateParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/voice/transcription"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new TranscriptionCreateParams
+        {
+            AudioUrl = "audio_url",
+            AutoHighlights = true,
+            BoostParam = BoostParam.Low,
+            ContentSafetyLabels = true,
+            Format = TranscriptionCreateParamsFormat.Json,
+            FormatText = true,
+            LanguageCode = "language_code",
+            LanguageDetection = true,
+            ObjectID = "object_id",
+            Punctuate = true,
+            SpeakerLabels = true,
+            SpeakersExpected = 0,
+            VaultID = "vault_id",
+            WordBoost = ["string"],
+        };
+
+        TranscriptionCreateParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }
 
 public class BoostParamTest : TestBase

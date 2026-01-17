@@ -46,4 +46,14 @@ public class SecretListParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/compute/v1/secrets?env=env"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new SecretListParams { Env = "env" };
+
+        SecretListParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }

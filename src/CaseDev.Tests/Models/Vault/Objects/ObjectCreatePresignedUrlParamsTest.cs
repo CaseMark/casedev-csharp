@@ -77,6 +77,23 @@ public class ObjectCreatePresignedUrlParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/vault/id/objects/objectId/presigned-url"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new ObjectCreatePresignedUrlParams
+        {
+            ID = "id",
+            ObjectID = "objectId",
+            ContentType = "contentType",
+            ExpiresIn = 60,
+            Operation = Operation.Get,
+        };
+
+        ObjectCreatePresignedUrlParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }
 
 public class OperationTest : TestBase

@@ -125,4 +125,26 @@ public class V1ContentsParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/search/v1/contents"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new V1ContentsParams
+        {
+            Urls = ["https://example.com"],
+            Context = "context",
+            Extras = JsonSerializer.Deserialize<JsonElement>("{}"),
+            Highlights = true,
+            Livecrawl = true,
+            LivecrawlTimeout = 0,
+            Subpages = true,
+            SubpageTarget = 0,
+            Summary = true,
+            Text = true,
+        };
+
+        V1ContentsParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }

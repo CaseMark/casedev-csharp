@@ -27,4 +27,14 @@ public class EnvironmentDeleteParamsTest : TestBase
             url
         );
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new EnvironmentDeleteParams { Name = "litigation-processing" };
+
+        EnvironmentDeleteParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }

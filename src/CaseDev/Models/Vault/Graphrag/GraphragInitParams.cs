@@ -12,18 +12,25 @@ namespace CaseDev.Models.Vault.Graphrag;
 /// Initialize a GraphRAG workspace for a vault to enable advanced knowledge graph
 /// and retrieval-augmented generation capabilities. This creates the necessary infrastructure
 /// for semantic document analysis and graph-based querying within the vault.
+///
+/// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
+/// breaking changes in non-major versions. We may add new methods in the future that
+/// cause existing derived classes to break.</para>
 /// </summary>
-public sealed record class GraphragInitParams : ParamsBase
+public record class GraphragInitParams : ParamsBase
 {
     public string? ID { get; init; }
 
     public GraphragInitParams() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public GraphragInitParams(GraphragInitParams graphragInitParams)
         : base(graphragInitParams)
     {
         this.ID = graphragInitParams.ID;
     }
+#pragma warning restore CS8618
 
     public GraphragInitParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
@@ -58,6 +65,28 @@ public sealed record class GraphragInitParams : ParamsBase
         );
     }
 
+    public override string ToString() =>
+        JsonSerializer.Serialize(
+            new Dictionary<string, object?>()
+            {
+                ["ID"] = this.ID,
+                ["HeaderData"] = this._rawHeaderData.Freeze(),
+                ["QueryData"] = this._rawQueryData.Freeze(),
+            },
+            ModelBase.ToStringSerializerOptions
+        );
+
+    public virtual bool Equals(GraphragInitParams? other)
+    {
+        if (other == null)
+        {
+            return false;
+        }
+        return (this.ID?.Equals(other.ID) ?? other.ID == null)
+            && this._rawHeaderData.Equals(other._rawHeaderData)
+            && this._rawQueryData.Equals(other._rawQueryData);
+    }
+
     public override Uri Url(ClientOptions options)
     {
         return new UriBuilder(
@@ -76,5 +105,10 @@ public sealed record class GraphragInitParams : ParamsBase
         {
             ParamsBase.AddHeaderElementToRequest(request, item.Key, item.Value);
         }
+    }
+
+    public override int GetHashCode()
+    {
+        return 0;
     }
 }

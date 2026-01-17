@@ -67,4 +67,19 @@ public class SecretDeleteGroupParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/compute/v1/secrets/group?env=env&key=key"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new SecretDeleteGroupParams
+        {
+            Group = "group",
+            Env = "env",
+            Key = "key",
+        };
+
+        SecretDeleteGroupParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }

@@ -15,8 +15,12 @@ namespace CaseDev.Models.Llm.V1;
 /// <summary>
 /// Create vector embeddings from text using OpenAI-compatible models. Perfect for
 /// semantic search, document similarity, and building RAG systems for legal documents.
+///
+/// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
+/// breaking changes in non-major versions. We may add new methods in the future that
+/// cause existing derived classes to break.</para>
 /// </summary>
-public sealed record class V1CreateEmbeddingParams : ParamsBase
+public record class V1CreateEmbeddingParams : ParamsBase
 {
     readonly JsonDictionary _rawBodyData = new();
     public IReadOnlyDictionary<string, JsonElement> RawBodyData
@@ -117,11 +121,14 @@ public sealed record class V1CreateEmbeddingParams : ParamsBase
 
     public V1CreateEmbeddingParams() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public V1CreateEmbeddingParams(V1CreateEmbeddingParams v1CreateEmbeddingParams)
         : base(v1CreateEmbeddingParams)
     {
         this._rawBodyData = new(v1CreateEmbeddingParams._rawBodyData);
     }
+#pragma warning restore CS8618
 
     public V1CreateEmbeddingParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
@@ -162,6 +169,28 @@ public sealed record class V1CreateEmbeddingParams : ParamsBase
         );
     }
 
+    public override string ToString() =>
+        JsonSerializer.Serialize(
+            new Dictionary<string, object?>()
+            {
+                ["HeaderData"] = this._rawHeaderData.Freeze(),
+                ["QueryData"] = this._rawQueryData.Freeze(),
+                ["BodyData"] = this._rawBodyData.Freeze(),
+            },
+            ModelBase.ToStringSerializerOptions
+        );
+
+    public virtual bool Equals(V1CreateEmbeddingParams? other)
+    {
+        if (other == null)
+        {
+            return false;
+        }
+        return this._rawHeaderData.Equals(other._rawHeaderData)
+            && this._rawQueryData.Equals(other._rawQueryData)
+            && this._rawBodyData.Equals(other._rawBodyData);
+    }
+
     public override Uri Url(ClientOptions options)
     {
         return new UriBuilder(options.BaseUrl.ToString().TrimEnd('/') + "/llm/v1/embeddings")
@@ -186,6 +215,11 @@ public sealed record class V1CreateEmbeddingParams : ParamsBase
         {
             ParamsBase.AddHeaderElementToRequest(request, item.Key, item.Value);
         }
+    }
+
+    public override int GetHashCode()
+    {
+        return 0;
     }
 }
 

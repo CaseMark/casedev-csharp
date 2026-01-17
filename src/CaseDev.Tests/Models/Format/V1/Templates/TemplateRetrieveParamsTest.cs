@@ -24,4 +24,14 @@ public class TemplateRetrieveParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/format/v1/templates/id"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new TemplateRetrieveParams { ID = "id" };
+
+        TemplateRetrieveParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }

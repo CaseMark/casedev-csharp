@@ -77,6 +77,23 @@ public class V1CreateEmbeddingParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/llm/v1/embeddings"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new V1CreateEmbeddingParams
+        {
+            Input = "string",
+            Model = "model",
+            Dimensions = 0,
+            EncodingFormat = EncodingFormat.Float,
+            User = "user",
+        };
+
+        V1CreateEmbeddingParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }
 
 public class InputTest : TestBase

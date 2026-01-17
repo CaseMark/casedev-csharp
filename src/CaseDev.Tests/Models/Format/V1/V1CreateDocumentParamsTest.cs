@@ -102,6 +102,34 @@ public class V1CreateDocumentParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/format/v1/document"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new V1CreateDocumentParams
+        {
+            Content = "content",
+            OutputFormat = OutputFormat.Pdf,
+            InputFormat = InputFormat.Md,
+            Options = new()
+            {
+                Components =
+                [
+                    new()
+                    {
+                        Content = "content",
+                        Styles = JsonSerializer.Deserialize<JsonElement>("{}"),
+                        TemplateID = "templateId",
+                        Variables = JsonSerializer.Deserialize<JsonElement>("{}"),
+                    },
+                ],
+            },
+        };
+
+        V1CreateDocumentParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }
 
 public class OutputFormatTest : TestBase

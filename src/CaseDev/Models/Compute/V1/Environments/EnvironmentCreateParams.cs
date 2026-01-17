@@ -13,8 +13,12 @@ namespace CaseDev.Models.Compute.V1.Environments;
 /// Creates a new compute environment for running serverless workloads. Each environment
 /// gets its own isolated namespace with a unique domain for hosting applications
 /// and APIs. The first environment created becomes the default environment for the organization.
+///
+/// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
+/// breaking changes in non-major versions. We may add new methods in the future that
+/// cause existing derived classes to break.</para>
 /// </summary>
-public sealed record class EnvironmentCreateParams : ParamsBase
+public record class EnvironmentCreateParams : ParamsBase
 {
     readonly JsonDictionary _rawBodyData = new();
     public IReadOnlyDictionary<string, JsonElement> RawBodyData
@@ -37,11 +41,14 @@ public sealed record class EnvironmentCreateParams : ParamsBase
 
     public EnvironmentCreateParams() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public EnvironmentCreateParams(EnvironmentCreateParams environmentCreateParams)
         : base(environmentCreateParams)
     {
         this._rawBodyData = new(environmentCreateParams._rawBodyData);
     }
+#pragma warning restore CS8618
 
     public EnvironmentCreateParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
@@ -82,6 +89,28 @@ public sealed record class EnvironmentCreateParams : ParamsBase
         );
     }
 
+    public override string ToString() =>
+        JsonSerializer.Serialize(
+            new Dictionary<string, object?>()
+            {
+                ["HeaderData"] = this._rawHeaderData.Freeze(),
+                ["QueryData"] = this._rawQueryData.Freeze(),
+                ["BodyData"] = this._rawBodyData.Freeze(),
+            },
+            ModelBase.ToStringSerializerOptions
+        );
+
+    public virtual bool Equals(EnvironmentCreateParams? other)
+    {
+        if (other == null)
+        {
+            return false;
+        }
+        return this._rawHeaderData.Equals(other._rawHeaderData)
+            && this._rawQueryData.Equals(other._rawQueryData)
+            && this._rawBodyData.Equals(other._rawBodyData);
+    }
+
     public override Uri Url(ClientOptions options)
     {
         return new UriBuilder(options.BaseUrl.ToString().TrimEnd('/') + "/compute/v1/environments")
@@ -106,5 +135,10 @@ public sealed record class EnvironmentCreateParams : ParamsBase
         {
             ParamsBase.AddHeaderElementToRequest(request, item.Key, item.Value);
         }
+    }
+
+    public override int GetHashCode()
+    {
+        return 0;
     }
 }

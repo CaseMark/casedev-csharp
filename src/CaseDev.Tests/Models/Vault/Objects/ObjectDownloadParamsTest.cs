@@ -26,4 +26,14 @@ public class ObjectDownloadParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/vault/id/objects/objectId/download"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new ObjectDownloadParams { ID = "id", ObjectID = "objectId" };
+
+        ObjectDownloadParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }

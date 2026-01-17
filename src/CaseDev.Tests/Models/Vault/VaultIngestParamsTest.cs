@@ -26,4 +26,14 @@ public class VaultIngestParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/vault/id/ingest/objectId"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new VaultIngestParams { ID = "id", ObjectID = "objectId" };
+
+        VaultIngestParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }

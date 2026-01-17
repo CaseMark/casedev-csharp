@@ -73,4 +73,19 @@ public class SecretUpdateGroupParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/compute/v1/secrets/litigation-apis"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new SecretUpdateGroupParams
+        {
+            Group = "litigation-apis",
+            Secrets = new Dictionary<string, string>() { { "foo", "string" } },
+            Env = "env",
+        };
+
+        SecretUpdateGroupParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }

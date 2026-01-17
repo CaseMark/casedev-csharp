@@ -16,8 +16,12 @@ namespace CaseDev.Models.Llm.V1.Chat;
 /// Create a completion for the provided prompt and parameters. Compatible with OpenAI's
 /// chat completions API. Supports 40+ models including GPT-4, Claude, Gemini, and
 /// CaseMark legal AI models. Includes streaming support, token counting, and usage tracking.
+///
+/// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
+/// breaking changes in non-major versions. We may add new methods in the future that
+/// cause existing derived classes to break.</para>
 /// </summary>
-public sealed record class ChatCreateCompletionParams : ParamsBase
+public record class ChatCreateCompletionParams : ParamsBase
 {
     readonly JsonDictionary _rawBodyData = new();
     public IReadOnlyDictionary<string, JsonElement> RawBodyData
@@ -193,11 +197,14 @@ public sealed record class ChatCreateCompletionParams : ParamsBase
 
     public ChatCreateCompletionParams() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public ChatCreateCompletionParams(ChatCreateCompletionParams chatCreateCompletionParams)
         : base(chatCreateCompletionParams)
     {
         this._rawBodyData = new(chatCreateCompletionParams._rawBodyData);
     }
+#pragma warning restore CS8618
 
     public ChatCreateCompletionParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
@@ -238,6 +245,28 @@ public sealed record class ChatCreateCompletionParams : ParamsBase
         );
     }
 
+    public override string ToString() =>
+        JsonSerializer.Serialize(
+            new Dictionary<string, object?>()
+            {
+                ["HeaderData"] = this._rawHeaderData.Freeze(),
+                ["QueryData"] = this._rawQueryData.Freeze(),
+                ["BodyData"] = this._rawBodyData.Freeze(),
+            },
+            ModelBase.ToStringSerializerOptions
+        );
+
+    public virtual bool Equals(ChatCreateCompletionParams? other)
+    {
+        if (other == null)
+        {
+            return false;
+        }
+        return this._rawHeaderData.Equals(other._rawHeaderData)
+            && this._rawQueryData.Equals(other._rawQueryData)
+            && this._rawBodyData.Equals(other._rawBodyData);
+    }
+
     public override Uri Url(ClientOptions options)
     {
         return new UriBuilder(options.BaseUrl.ToString().TrimEnd('/') + "/llm/v1/chat/completions")
@@ -262,6 +291,11 @@ public sealed record class ChatCreateCompletionParams : ParamsBase
         {
             ParamsBase.AddHeaderElementToRequest(request, item.Key, item.Value);
         }
+    }
+
+    public override int GetHashCode()
+    {
+        return 0;
     }
 }
 

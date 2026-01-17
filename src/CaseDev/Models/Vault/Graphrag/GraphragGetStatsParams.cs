@@ -12,18 +12,25 @@ namespace CaseDev.Models.Vault.Graphrag;
 /// Retrieve GraphRAG (Graph Retrieval-Augmented Generation) statistics for a specific
 /// vault. This includes metrics about the knowledge graph structure, entity relationships,
 /// and processing status that enable advanced semantic search and AI-powered document analysis.
+///
+/// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
+/// breaking changes in non-major versions. We may add new methods in the future that
+/// cause existing derived classes to break.</para>
 /// </summary>
-public sealed record class GraphragGetStatsParams : ParamsBase
+public record class GraphragGetStatsParams : ParamsBase
 {
     public string? ID { get; init; }
 
     public GraphragGetStatsParams() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public GraphragGetStatsParams(GraphragGetStatsParams graphragGetStatsParams)
         : base(graphragGetStatsParams)
     {
         this.ID = graphragGetStatsParams.ID;
     }
+#pragma warning restore CS8618
 
     public GraphragGetStatsParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
@@ -58,6 +65,28 @@ public sealed record class GraphragGetStatsParams : ParamsBase
         );
     }
 
+    public override string ToString() =>
+        JsonSerializer.Serialize(
+            new Dictionary<string, object?>()
+            {
+                ["ID"] = this.ID,
+                ["HeaderData"] = this._rawHeaderData.Freeze(),
+                ["QueryData"] = this._rawQueryData.Freeze(),
+            },
+            ModelBase.ToStringSerializerOptions
+        );
+
+    public virtual bool Equals(GraphragGetStatsParams? other)
+    {
+        if (other == null)
+        {
+            return false;
+        }
+        return (this.ID?.Equals(other.ID) ?? other.ID == null)
+            && this._rawHeaderData.Equals(other._rawHeaderData)
+            && this._rawQueryData.Equals(other._rawQueryData);
+    }
+
     public override Uri Url(ClientOptions options)
     {
         return new UriBuilder(
@@ -76,5 +105,10 @@ public sealed record class GraphragGetStatsParams : ParamsBase
         {
             ParamsBase.AddHeaderElementToRequest(request, item.Key, item.Value);
         }
+    }
+
+    public override int GetHashCode()
+    {
+        return 0;
     }
 }

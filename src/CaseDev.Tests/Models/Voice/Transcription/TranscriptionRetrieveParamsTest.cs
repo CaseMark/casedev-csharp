@@ -24,4 +24,14 @@ public class TranscriptionRetrieveParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/voice/transcription/tr_abc123def456"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new TranscriptionRetrieveParams { ID = "tr_abc123def456" };
+
+        TranscriptionRetrieveParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }

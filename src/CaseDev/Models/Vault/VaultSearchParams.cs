@@ -16,8 +16,12 @@ namespace CaseDev.Models.Vault;
 /// Search across vault documents using multiple methods including hybrid vector
 /// + graph search, GraphRAG global search, entity-based search, and fast similarity
 /// search. Returns relevant documents and contextual answers based on the search method.
+///
+/// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
+/// breaking changes in non-major versions. We may add new methods in the future that
+/// cause existing derived classes to break.</para>
 /// </summary>
-public sealed record class VaultSearchParams : ParamsBase
+public record class VaultSearchParams : ParamsBase
 {
     readonly JsonDictionary _rawBodyData = new();
     public IReadOnlyDictionary<string, JsonElement> RawBodyData
@@ -106,6 +110,8 @@ public sealed record class VaultSearchParams : ParamsBase
 
     public VaultSearchParams() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public VaultSearchParams(VaultSearchParams vaultSearchParams)
         : base(vaultSearchParams)
     {
@@ -113,6 +119,7 @@ public sealed record class VaultSearchParams : ParamsBase
 
         this._rawBodyData = new(vaultSearchParams._rawBodyData);
     }
+#pragma warning restore CS8618
 
     public VaultSearchParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
@@ -153,6 +160,30 @@ public sealed record class VaultSearchParams : ParamsBase
         );
     }
 
+    public override string ToString() =>
+        JsonSerializer.Serialize(
+            new Dictionary<string, object?>()
+            {
+                ["ID"] = this.ID,
+                ["HeaderData"] = this._rawHeaderData.Freeze(),
+                ["QueryData"] = this._rawQueryData.Freeze(),
+                ["BodyData"] = this._rawBodyData.Freeze(),
+            },
+            ModelBase.ToStringSerializerOptions
+        );
+
+    public virtual bool Equals(VaultSearchParams? other)
+    {
+        if (other == null)
+        {
+            return false;
+        }
+        return (this.ID?.Equals(other.ID) ?? other.ID == null)
+            && this._rawHeaderData.Equals(other._rawHeaderData)
+            && this._rawQueryData.Equals(other._rawQueryData)
+            && this._rawBodyData.Equals(other._rawBodyData);
+    }
+
     public override Uri Url(ClientOptions options)
     {
         return new UriBuilder(
@@ -179,6 +210,11 @@ public sealed record class VaultSearchParams : ParamsBase
         {
             ParamsBase.AddHeaderElementToRequest(request, item.Key, item.Value);
         }
+    }
+
+    public override int GetHashCode()
+    {
+        return 0;
     }
 }
 

@@ -149,6 +149,36 @@ public class SpeakCreateParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/voice/v1/speak"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new SpeakCreateParams
+        {
+            Text = "text",
+            ApplyTextNormalization = true,
+            EnableLogging = true,
+            LanguageCode = "en",
+            ModelID = ModelID.ElevenMultilingualV2,
+            NextText = "next_text",
+            OptimizeStreamingLatency = 0,
+            OutputFormat = OutputFormat.Mp3_44100_128,
+            PreviousText = "previous_text",
+            Seed = 0,
+            VoiceID = "voice_id",
+            VoiceSettings = new()
+            {
+                SimilarityBoost = 0,
+                Stability = 0,
+                Style = 0,
+                UseSpeakerBoost = true,
+            },
+        };
+
+        SpeakCreateParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }
 
 public class ModelIDTest : TestBase

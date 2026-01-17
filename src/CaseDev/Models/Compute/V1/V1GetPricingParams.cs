@@ -12,13 +12,20 @@ namespace CaseDev.Models.Compute.V1;
 /// Returns current pricing for GPU instances. Prices are fetched in real-time and
 /// include a 20% platform fee. For detailed instance types and availability, use
 /// GET /compute/v1/instance-types.
+///
+/// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
+/// breaking changes in non-major versions. We may add new methods in the future that
+/// cause existing derived classes to break.</para>
 /// </summary>
-public sealed record class V1GetPricingParams : ParamsBase
+public record class V1GetPricingParams : ParamsBase
 {
     public V1GetPricingParams() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public V1GetPricingParams(V1GetPricingParams v1GetPricingParams)
         : base(v1GetPricingParams) { }
+#pragma warning restore CS8618
 
     public V1GetPricingParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
@@ -53,6 +60,26 @@ public sealed record class V1GetPricingParams : ParamsBase
         );
     }
 
+    public override string ToString() =>
+        JsonSerializer.Serialize(
+            new Dictionary<string, object?>()
+            {
+                ["HeaderData"] = this._rawHeaderData.Freeze(),
+                ["QueryData"] = this._rawQueryData.Freeze(),
+            },
+            ModelBase.ToStringSerializerOptions
+        );
+
+    public virtual bool Equals(V1GetPricingParams? other)
+    {
+        if (other == null)
+        {
+            return false;
+        }
+        return this._rawHeaderData.Equals(other._rawHeaderData)
+            && this._rawQueryData.Equals(other._rawQueryData);
+    }
+
     public override Uri Url(ClientOptions options)
     {
         return new UriBuilder(options.BaseUrl.ToString().TrimEnd('/') + "/compute/v1/pricing")
@@ -68,5 +95,10 @@ public sealed record class V1GetPricingParams : ParamsBase
         {
             ParamsBase.AddHeaderElementToRequest(request, item.Key, item.Value);
         }
+    }
+
+    public override int GetHashCode()
+    {
+        return 0;
     }
 }

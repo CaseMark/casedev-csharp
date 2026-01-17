@@ -77,6 +77,23 @@ public class VaultSearchParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/vault/id/search"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new VaultSearchParams
+        {
+            ID = "id",
+            Query = "query",
+            Filters = new() { ObjectID = "string" },
+            Method = Method.Vector,
+            TopK = 1,
+        };
+
+        VaultSearchParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }
 
 public class FiltersTest : TestBase

@@ -62,4 +62,19 @@ public class SecretCreateParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/compute/v1/secrets"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new SecretCreateParams
+        {
+            Name = "name",
+            Description = "description",
+            Env = "env",
+        };
+
+        SecretCreateParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }
