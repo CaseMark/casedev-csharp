@@ -12,8 +12,12 @@ namespace CaseDev.Models.Vault.Objects;
 /// Retrieves metadata for a specific document in a vault and generates a temporary
 /// download URL. The download URL expires after 1 hour for security. This endpoint
 /// also updates the file size if it wasn't previously calculated.
+///
+/// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
+/// breaking changes in non-major versions. We may add new methods in the future that
+/// cause existing derived classes to break.</para>
 /// </summary>
-public sealed record class ObjectRetrieveParams : ParamsBase
+public record class ObjectRetrieveParams : ParamsBase
 {
     public required string ID { get; init; }
 
@@ -21,12 +25,15 @@ public sealed record class ObjectRetrieveParams : ParamsBase
 
     public ObjectRetrieveParams() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public ObjectRetrieveParams(ObjectRetrieveParams objectRetrieveParams)
         : base(objectRetrieveParams)
     {
         this.ID = objectRetrieveParams.ID;
         this.ObjectID = objectRetrieveParams.ObjectID;
     }
+#pragma warning restore CS8618
 
     public ObjectRetrieveParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
@@ -61,6 +68,30 @@ public sealed record class ObjectRetrieveParams : ParamsBase
         );
     }
 
+    public override string ToString() =>
+        JsonSerializer.Serialize(
+            new Dictionary<string, object?>()
+            {
+                ["ID"] = this.ID,
+                ["ObjectID"] = this.ObjectID,
+                ["HeaderData"] = this._rawHeaderData.Freeze(),
+                ["QueryData"] = this._rawQueryData.Freeze(),
+            },
+            ModelBase.ToStringSerializerOptions
+        );
+
+    public virtual bool Equals(ObjectRetrieveParams? other)
+    {
+        if (other == null)
+        {
+            return false;
+        }
+        return this.ID.Equals(other.ID)
+            && (this.ObjectID?.Equals(other.ObjectID) ?? other.ObjectID == null)
+            && this._rawHeaderData.Equals(other._rawHeaderData)
+            && this._rawQueryData.Equals(other._rawQueryData);
+    }
+
     public override Uri Url(ClientOptions options)
     {
         return new UriBuilder(
@@ -79,5 +110,10 @@ public sealed record class ObjectRetrieveParams : ParamsBase
         {
             ParamsBase.AddHeaderElementToRequest(request, item.Key, item.Value);
         }
+    }
+
+    public override int GetHashCode()
+    {
+        return 0;
     }
 }

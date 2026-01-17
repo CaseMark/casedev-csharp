@@ -24,4 +24,14 @@ public class GraphragGetStatsParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/vault/id/graphrag/stats"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new GraphragGetStatsParams { ID = "id" };
+
+        GraphragGetStatsParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }

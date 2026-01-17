@@ -12,18 +12,25 @@ namespace CaseDev.Models.Voice.Transcription;
 /// Retrieve the status and result of an audio transcription job. For vault-based
 /// jobs, returns status and result_object_id when complete. For legacy direct URL
 /// jobs, returns the full transcription data.
+///
+/// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
+/// breaking changes in non-major versions. We may add new methods in the future that
+/// cause existing derived classes to break.</para>
 /// </summary>
-public sealed record class TranscriptionRetrieveParams : ParamsBase
+public record class TranscriptionRetrieveParams : ParamsBase
 {
     public string? ID { get; init; }
 
     public TranscriptionRetrieveParams() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public TranscriptionRetrieveParams(TranscriptionRetrieveParams transcriptionRetrieveParams)
         : base(transcriptionRetrieveParams)
     {
         this.ID = transcriptionRetrieveParams.ID;
     }
+#pragma warning restore CS8618
 
     public TranscriptionRetrieveParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
@@ -58,6 +65,28 @@ public sealed record class TranscriptionRetrieveParams : ParamsBase
         );
     }
 
+    public override string ToString() =>
+        JsonSerializer.Serialize(
+            new Dictionary<string, object?>()
+            {
+                ["ID"] = this.ID,
+                ["HeaderData"] = this._rawHeaderData.Freeze(),
+                ["QueryData"] = this._rawQueryData.Freeze(),
+            },
+            ModelBase.ToStringSerializerOptions
+        );
+
+    public virtual bool Equals(TranscriptionRetrieveParams? other)
+    {
+        if (other == null)
+        {
+            return false;
+        }
+        return (this.ID?.Equals(other.ID) ?? other.ID == null)
+            && this._rawHeaderData.Equals(other._rawHeaderData)
+            && this._rawQueryData.Equals(other._rawQueryData);
+    }
+
     public override Uri Url(ClientOptions options)
     {
         return new UriBuilder(
@@ -76,5 +105,10 @@ public sealed record class TranscriptionRetrieveParams : ParamsBase
         {
             ParamsBase.AddHeaderElementToRequest(request, item.Key, item.Value);
         }
+    }
+
+    public override int GetHashCode()
+    {
+        return 0;
     }
 }

@@ -169,6 +169,32 @@ public class V1SearchParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/search/v1/search"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new V1::V1SearchParams
+        {
+            Query = "query",
+            AdditionalQueries = ["string"],
+            Category = "category",
+            Contents = "contents",
+            EndCrawlDate = "2019-12-27",
+            EndPublishedDate = "2019-12-27",
+            ExcludeDomains = ["string"],
+            IncludeDomains = ["string"],
+            IncludeText = true,
+            NumResults = 1,
+            StartCrawlDate = "2019-12-27",
+            StartPublishedDate = "2019-12-27",
+            Type = V1::Type.Auto,
+            UserLocation = "userLocation",
+        };
+
+        V1::V1SearchParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }
 
 public class TypeTest : TestBase

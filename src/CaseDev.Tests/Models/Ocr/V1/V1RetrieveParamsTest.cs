@@ -24,4 +24,14 @@ public class V1RetrieveParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/ocr/v1/id"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new V1RetrieveParams { ID = "id" };
+
+        V1RetrieveParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }

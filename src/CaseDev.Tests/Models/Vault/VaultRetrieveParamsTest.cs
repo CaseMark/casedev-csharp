@@ -24,4 +24,14 @@ public class VaultRetrieveParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/vault/vault_abc123"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new VaultRetrieveParams { ID = "vault_abc123" };
+
+        VaultRetrieveParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }

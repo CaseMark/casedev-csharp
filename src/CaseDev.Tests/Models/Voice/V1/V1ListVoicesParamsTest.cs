@@ -132,6 +132,27 @@ public class V1ListVoicesParamsTest : TestBase
             url
         );
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new V1ListVoicesParams
+        {
+            Category = "category",
+            CollectionID = "collection_id",
+            IncludeTotalCount = true,
+            NextPageToken = "next_page_token",
+            PageSize = 1,
+            Search = "search",
+            Sort = Sort.Name,
+            SortDirection = SortDirection.Asc,
+            VoiceType = VoiceType.Premade,
+        };
+
+        V1ListVoicesParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }
 
 public class SortTest : TestBase

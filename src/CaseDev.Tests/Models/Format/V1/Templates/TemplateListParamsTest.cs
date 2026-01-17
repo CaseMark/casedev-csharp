@@ -46,4 +46,14 @@ public class TemplateListParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/format/v1/templates?type=type"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new TemplateListParams { Type = "type" };
+
+        TemplateListParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }

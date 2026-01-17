@@ -14,8 +14,12 @@ namespace CaseDev.Models.Ocr.V1;
 /// Download OCR processing results in various formats. Returns the processed document
 /// as text extraction, structured JSON with coordinates, searchable PDF with text
 /// layer, or the original uploaded document.
+///
+/// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
+/// breaking changes in non-major versions. We may add new methods in the future that
+/// cause existing derived classes to break.</para>
 /// </summary>
-public sealed record class V1DownloadParams : ParamsBase
+public record class V1DownloadParams : ParamsBase
 {
     public required string ID { get; init; }
 
@@ -23,12 +27,15 @@ public sealed record class V1DownloadParams : ParamsBase
 
     public V1DownloadParams() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public V1DownloadParams(V1DownloadParams v1DownloadParams)
         : base(v1DownloadParams)
     {
         this.ID = v1DownloadParams.ID;
         this.Type = v1DownloadParams.Type;
     }
+#pragma warning restore CS8618
 
     public V1DownloadParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
@@ -63,6 +70,30 @@ public sealed record class V1DownloadParams : ParamsBase
         );
     }
 
+    public override string ToString() =>
+        JsonSerializer.Serialize(
+            new Dictionary<string, object?>()
+            {
+                ["ID"] = this.ID,
+                ["Type"] = this.Type,
+                ["HeaderData"] = this._rawHeaderData.Freeze(),
+                ["QueryData"] = this._rawQueryData.Freeze(),
+            },
+            ModelBase.ToStringSerializerOptions
+        );
+
+    public virtual bool Equals(V1DownloadParams? other)
+    {
+        if (other == null)
+        {
+            return false;
+        }
+        return this.ID.Equals(other.ID)
+            && (this.Type?.Equals(other.Type) ?? other.Type == null)
+            && this._rawHeaderData.Equals(other._rawHeaderData)
+            && this._rawQueryData.Equals(other._rawQueryData);
+    }
+
     public override System::Uri Url(ClientOptions options)
     {
         return new System::UriBuilder(
@@ -81,6 +112,11 @@ public sealed record class V1DownloadParams : ParamsBase
         {
             ParamsBase.AddHeaderElementToRequest(request, item.Key, item.Value);
         }
+    }
+
+    public override int GetHashCode()
+    {
+        return 0;
     }
 }
 

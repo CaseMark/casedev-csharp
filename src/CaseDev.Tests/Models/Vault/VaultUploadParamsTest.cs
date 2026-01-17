@@ -98,4 +98,23 @@ public class VaultUploadParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/vault/id/upload"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new VaultUploadParams
+        {
+            ID = "id",
+            ContentType = "contentType",
+            Filename = "filename",
+            AutoIndex = true,
+            Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+            Path = "path",
+            SizeBytes = 0,
+        };
+
+        VaultUploadParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }

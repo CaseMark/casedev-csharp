@@ -140,6 +140,29 @@ public class V1AnswerParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/search/v1/answer"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new V1AnswerParams
+        {
+            Query = "query",
+            ExcludeDomains = ["string"],
+            IncludeDomains = ["string"],
+            MaxTokens = 0,
+            Model = "model",
+            NumResults = 1,
+            SearchType = SearchType.Auto,
+            Stream = true,
+            Temperature = 0,
+            Text = true,
+            UseCustomLlm = true,
+        };
+
+        V1AnswerParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }
 
 public class SearchTypeTest : TestBase

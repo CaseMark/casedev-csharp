@@ -15,13 +15,20 @@ namespace CaseDev.Models.Llm.V1;
 ///
 /// <para>This endpoint is compatible with OpenAI's models API format, making it easy
 /// to integrate with existing applications.</para>
+///
+/// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
+/// breaking changes in non-major versions. We may add new methods in the future that
+/// cause existing derived classes to break.</para>
 /// </summary>
-public sealed record class V1ListModelsParams : ParamsBase
+public record class V1ListModelsParams : ParamsBase
 {
     public V1ListModelsParams() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public V1ListModelsParams(V1ListModelsParams v1ListModelsParams)
         : base(v1ListModelsParams) { }
+#pragma warning restore CS8618
 
     public V1ListModelsParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
@@ -56,6 +63,26 @@ public sealed record class V1ListModelsParams : ParamsBase
         );
     }
 
+    public override string ToString() =>
+        JsonSerializer.Serialize(
+            new Dictionary<string, object?>()
+            {
+                ["HeaderData"] = this._rawHeaderData.Freeze(),
+                ["QueryData"] = this._rawQueryData.Freeze(),
+            },
+            ModelBase.ToStringSerializerOptions
+        );
+
+    public virtual bool Equals(V1ListModelsParams? other)
+    {
+        if (other == null)
+        {
+            return false;
+        }
+        return this._rawHeaderData.Equals(other._rawHeaderData)
+            && this._rawQueryData.Equals(other._rawQueryData);
+    }
+
     public override Uri Url(ClientOptions options)
     {
         return new UriBuilder(options.BaseUrl.ToString().TrimEnd('/') + "/llm/v1/models")
@@ -71,5 +98,10 @@ public sealed record class V1ListModelsParams : ParamsBase
         {
             ParamsBase.AddHeaderElementToRequest(request, item.Key, item.Value);
         }
+    }
+
+    public override int GetHashCode()
+    {
+        return 0;
     }
 }

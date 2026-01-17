@@ -70,4 +70,19 @@ public class V1RetrieveResearchParamsTest : TestBase
             url
         );
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new V1RetrieveResearchParams
+        {
+            ID = "id",
+            Events = "events",
+            Stream = true,
+        };
+
+        V1RetrieveResearchParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }

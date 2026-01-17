@@ -12,8 +12,12 @@ namespace CaseDev.Models.Compute.V1.Secrets;
 /// <summary>
 /// Set or update secrets in a compute secret group. Secrets are encrypted with AES-256-GCM.
 /// Use this to manage environment variables and API keys for your compute workloads.
+///
+/// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
+/// breaking changes in non-major versions. We may add new methods in the future that
+/// cause existing derived classes to break.</para>
 /// </summary>
-public sealed record class SecretUpdateGroupParams : ParamsBase
+public record class SecretUpdateGroupParams : ParamsBase
 {
     readonly JsonDictionary _rawBodyData = new();
     public IReadOnlyDictionary<string, JsonElement> RawBodyData
@@ -65,6 +69,8 @@ public sealed record class SecretUpdateGroupParams : ParamsBase
 
     public SecretUpdateGroupParams() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public SecretUpdateGroupParams(SecretUpdateGroupParams secretUpdateGroupParams)
         : base(secretUpdateGroupParams)
     {
@@ -72,6 +78,7 @@ public sealed record class SecretUpdateGroupParams : ParamsBase
 
         this._rawBodyData = new(secretUpdateGroupParams._rawBodyData);
     }
+#pragma warning restore CS8618
 
     public SecretUpdateGroupParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
@@ -112,6 +119,30 @@ public sealed record class SecretUpdateGroupParams : ParamsBase
         );
     }
 
+    public override string ToString() =>
+        JsonSerializer.Serialize(
+            new Dictionary<string, object?>()
+            {
+                ["Group"] = this.Group,
+                ["HeaderData"] = this._rawHeaderData.Freeze(),
+                ["QueryData"] = this._rawQueryData.Freeze(),
+                ["BodyData"] = this._rawBodyData.Freeze(),
+            },
+            ModelBase.ToStringSerializerOptions
+        );
+
+    public virtual bool Equals(SecretUpdateGroupParams? other)
+    {
+        if (other == null)
+        {
+            return false;
+        }
+        return (this.Group?.Equals(other.Group) ?? other.Group == null)
+            && this._rawHeaderData.Equals(other._rawHeaderData)
+            && this._rawQueryData.Equals(other._rawQueryData)
+            && this._rawBodyData.Equals(other._rawBodyData);
+    }
+
     public override Uri Url(ClientOptions options)
     {
         return new UriBuilder(
@@ -139,5 +170,10 @@ public sealed record class SecretUpdateGroupParams : ParamsBase
         {
             ParamsBase.AddHeaderElementToRequest(request, item.Key, item.Value);
         }
+    }
+
+    public override int GetHashCode()
+    {
+        return 0;
     }
 }

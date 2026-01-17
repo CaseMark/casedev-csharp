@@ -17,13 +17,20 @@ namespace CaseDev.Models.Voice.Streaming;
 /// - Channels: Mono (1 channel)</para>
 ///
 /// <para>**Pricing:** $0.30 per minute ($18.00 per hour)</para>
+///
+/// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
+/// breaking changes in non-major versions. We may add new methods in the future that
+/// cause existing derived classes to break.</para>
 /// </summary>
-public sealed record class StreamingGetUrlParams : ParamsBase
+public record class StreamingGetUrlParams : ParamsBase
 {
     public StreamingGetUrlParams() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public StreamingGetUrlParams(StreamingGetUrlParams streamingGetUrlParams)
         : base(streamingGetUrlParams) { }
+#pragma warning restore CS8618
 
     public StreamingGetUrlParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
@@ -58,6 +65,26 @@ public sealed record class StreamingGetUrlParams : ParamsBase
         );
     }
 
+    public override string ToString() =>
+        JsonSerializer.Serialize(
+            new Dictionary<string, object?>()
+            {
+                ["HeaderData"] = this._rawHeaderData.Freeze(),
+                ["QueryData"] = this._rawQueryData.Freeze(),
+            },
+            ModelBase.ToStringSerializerOptions
+        );
+
+    public virtual bool Equals(StreamingGetUrlParams? other)
+    {
+        if (other == null)
+        {
+            return false;
+        }
+        return this._rawHeaderData.Equals(other._rawHeaderData)
+            && this._rawQueryData.Equals(other._rawQueryData);
+    }
+
     public override Uri Url(ClientOptions options)
     {
         return new UriBuilder(options.BaseUrl.ToString().TrimEnd('/') + "/voice/streaming/url")
@@ -73,5 +100,10 @@ public sealed record class StreamingGetUrlParams : ParamsBase
         {
             ParamsBase.AddHeaderElementToRequest(request, item.Key, item.Value);
         }
+    }
+
+    public override int GetHashCode()
+    {
+        return 0;
     }
 }

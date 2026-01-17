@@ -24,4 +24,14 @@ public class ObjectListParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/vault/id/objects"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new ObjectListParams { ID = "id" };
+
+        ObjectListParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }

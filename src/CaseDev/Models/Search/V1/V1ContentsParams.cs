@@ -14,8 +14,12 @@ namespace CaseDev.Models.Search.V1;
 /// Scrapes and extracts text content from web pages, PDFs, and documents. Useful
 /// for legal research, evidence collection, and document analysis. Supports live
 /// crawling, subpage extraction, and content summarization.
+///
+/// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
+/// breaking changes in non-major versions. We may add new methods in the future that
+/// cause existing derived classes to break.</para>
 /// </summary>
-public sealed record class V1ContentsParams : ParamsBase
+public record class V1ContentsParams : ParamsBase
 {
     readonly JsonDictionary _rawBodyData = new();
     public IReadOnlyDictionary<string, JsonElement> RawBodyData
@@ -233,11 +237,14 @@ public sealed record class V1ContentsParams : ParamsBase
 
     public V1ContentsParams() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public V1ContentsParams(V1ContentsParams v1ContentsParams)
         : base(v1ContentsParams)
     {
         this._rawBodyData = new(v1ContentsParams._rawBodyData);
     }
+#pragma warning restore CS8618
 
     public V1ContentsParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
@@ -278,6 +285,28 @@ public sealed record class V1ContentsParams : ParamsBase
         );
     }
 
+    public override string ToString() =>
+        JsonSerializer.Serialize(
+            new Dictionary<string, object?>()
+            {
+                ["HeaderData"] = this._rawHeaderData.Freeze(),
+                ["QueryData"] = this._rawQueryData.Freeze(),
+                ["BodyData"] = this._rawBodyData.Freeze(),
+            },
+            ModelBase.ToStringSerializerOptions
+        );
+
+    public virtual bool Equals(V1ContentsParams? other)
+    {
+        if (other == null)
+        {
+            return false;
+        }
+        return this._rawHeaderData.Equals(other._rawHeaderData)
+            && this._rawQueryData.Equals(other._rawQueryData)
+            && this._rawBodyData.Equals(other._rawBodyData);
+    }
+
     public override Uri Url(ClientOptions options)
     {
         return new UriBuilder(options.BaseUrl.ToString().TrimEnd('/') + "/search/v1/contents")
@@ -302,5 +331,10 @@ public sealed record class V1ContentsParams : ParamsBase
         {
             ParamsBase.AddHeaderElementToRequest(request, item.Key, item.Value);
         }
+    }
+
+    public override int GetHashCode()
+    {
+        return 0;
     }
 }

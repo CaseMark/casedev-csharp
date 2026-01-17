@@ -27,4 +27,14 @@ public class EnvironmentSetDefaultParamsTest : TestBase
             url
         );
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new EnvironmentSetDefaultParams { Name = "prod-legal-docs" };
+
+        EnvironmentSetDefaultParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }

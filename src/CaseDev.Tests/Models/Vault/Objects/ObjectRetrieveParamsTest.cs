@@ -26,4 +26,14 @@ public class ObjectRetrieveParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/vault/id/objects/objectId"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new ObjectRetrieveParams { ID = "id", ObjectID = "objectId" };
+
+        ObjectRetrieveParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }

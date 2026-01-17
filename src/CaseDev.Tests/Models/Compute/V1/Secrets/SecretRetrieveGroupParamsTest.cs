@@ -50,4 +50,14 @@ public class SecretRetrieveGroupParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/compute/v1/secrets/group?env=env"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new SecretRetrieveGroupParams { Group = "group", Env = "env" };
+
+        SecretRetrieveGroupParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }

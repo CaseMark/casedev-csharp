@@ -12,18 +12,25 @@ namespace CaseDev.Models.Compute.V1.Environments;
 /// Permanently delete a compute environment and all its associated resources. This
 /// will stop all running deployments and clean up related configurations. The default
 /// environment cannot be deleted if other environments exist.
+///
+/// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
+/// breaking changes in non-major versions. We may add new methods in the future that
+/// cause existing derived classes to break.</para>
 /// </summary>
-public sealed record class EnvironmentDeleteParams : ParamsBase
+public record class EnvironmentDeleteParams : ParamsBase
 {
     public string? Name { get; init; }
 
     public EnvironmentDeleteParams() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public EnvironmentDeleteParams(EnvironmentDeleteParams environmentDeleteParams)
         : base(environmentDeleteParams)
     {
         this.Name = environmentDeleteParams.Name;
     }
+#pragma warning restore CS8618
 
     public EnvironmentDeleteParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
@@ -58,6 +65,28 @@ public sealed record class EnvironmentDeleteParams : ParamsBase
         );
     }
 
+    public override string ToString() =>
+        JsonSerializer.Serialize(
+            new Dictionary<string, object?>()
+            {
+                ["Name"] = this.Name,
+                ["HeaderData"] = this._rawHeaderData.Freeze(),
+                ["QueryData"] = this._rawQueryData.Freeze(),
+            },
+            ModelBase.ToStringSerializerOptions
+        );
+
+    public virtual bool Equals(EnvironmentDeleteParams? other)
+    {
+        if (other == null)
+        {
+            return false;
+        }
+        return (this.Name?.Equals(other.Name) ?? other.Name == null)
+            && this._rawHeaderData.Equals(other._rawHeaderData)
+            && this._rawQueryData.Equals(other._rawQueryData);
+    }
+
     public override Uri Url(ClientOptions options)
     {
         return new UriBuilder(
@@ -76,5 +105,10 @@ public sealed record class EnvironmentDeleteParams : ParamsBase
         {
             ParamsBase.AddHeaderElementToRequest(request, item.Key, item.Value);
         }
+    }
+
+    public override int GetHashCode()
+    {
+        return 0;
     }
 }

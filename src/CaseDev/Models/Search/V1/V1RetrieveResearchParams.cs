@@ -12,8 +12,12 @@ namespace CaseDev.Models.Search.V1;
 /// Retrieve the status and results of a deep research task by ID. Supports both
 /// standard JSON responses and streaming for real-time updates as the research progresses.
 /// Research tasks analyze topics comprehensively using web search and AI synthesis.
+///
+/// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
+/// breaking changes in non-major versions. We may add new methods in the future that
+/// cause existing derived classes to break.</para>
 /// </summary>
-public sealed record class V1RetrieveResearchParams : ParamsBase
+public record class V1RetrieveResearchParams : ParamsBase
 {
     public string? ID { get; init; }
 
@@ -61,11 +65,14 @@ public sealed record class V1RetrieveResearchParams : ParamsBase
 
     public V1RetrieveResearchParams() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public V1RetrieveResearchParams(V1RetrieveResearchParams v1RetrieveResearchParams)
         : base(v1RetrieveResearchParams)
     {
         this.ID = v1RetrieveResearchParams.ID;
     }
+#pragma warning restore CS8618
 
     public V1RetrieveResearchParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
@@ -100,6 +107,28 @@ public sealed record class V1RetrieveResearchParams : ParamsBase
         );
     }
 
+    public override string ToString() =>
+        JsonSerializer.Serialize(
+            new Dictionary<string, object?>()
+            {
+                ["ID"] = this.ID,
+                ["HeaderData"] = this._rawHeaderData.Freeze(),
+                ["QueryData"] = this._rawQueryData.Freeze(),
+            },
+            ModelBase.ToStringSerializerOptions
+        );
+
+    public virtual bool Equals(V1RetrieveResearchParams? other)
+    {
+        if (other == null)
+        {
+            return false;
+        }
+        return (this.ID?.Equals(other.ID) ?? other.ID == null)
+            && this._rawHeaderData.Equals(other._rawHeaderData)
+            && this._rawQueryData.Equals(other._rawQueryData);
+    }
+
     public override Uri Url(ClientOptions options)
     {
         return new UriBuilder(
@@ -118,5 +147,10 @@ public sealed record class V1RetrieveResearchParams : ParamsBase
         {
             ParamsBase.AddHeaderElementToRequest(request, item.Key, item.Value);
         }
+    }
+
+    public override int GetHashCode()
+    {
+        return 0;
     }
 }

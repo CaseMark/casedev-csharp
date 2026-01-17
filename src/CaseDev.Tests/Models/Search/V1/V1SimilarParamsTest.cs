@@ -129,4 +129,26 @@ public class V1SimilarParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/search/v1/similar"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new V1SimilarParams
+        {
+            UrlValue = "https://example.com",
+            Contents = "contents",
+            EndCrawlDate = "2019-12-27",
+            EndPublishedDate = "2019-12-27",
+            ExcludeDomains = ["string"],
+            IncludeDomains = ["string"],
+            IncludeText = true,
+            NumResults = 1,
+            StartCrawlDate = "2019-12-27",
+            StartPublishedDate = "2019-12-27",
+        };
+
+        V1SimilarParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }

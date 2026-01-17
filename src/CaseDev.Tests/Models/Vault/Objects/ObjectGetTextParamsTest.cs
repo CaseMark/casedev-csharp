@@ -26,4 +26,14 @@ public class ObjectGetTextParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/vault/id/objects/objectId/text"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new ObjectGetTextParams { ID = "id", ObjectID = "objectId" };
+
+        ObjectGetTextParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }

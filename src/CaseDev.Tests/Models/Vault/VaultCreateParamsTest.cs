@@ -94,4 +94,28 @@ public class VaultCreateParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/vault"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new VaultCreateParams
+        {
+            Name = "Contract Review Archive",
+            Description = "Repository for all client contract reviews and analysis",
+            EnableGraph = true,
+            EnableIndexing = true,
+            Metadata = JsonSerializer.Deserialize<JsonElement>(
+                """
+                {
+                  "containsPHI": true,
+                  "hipaaCompliant": true
+                }
+                """
+            ),
+        };
+
+        VaultCreateParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }

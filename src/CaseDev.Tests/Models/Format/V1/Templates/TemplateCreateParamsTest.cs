@@ -111,6 +111,25 @@ public class TemplateCreateParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/format/v1/templates"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new Templates::TemplateCreateParams
+        {
+            Content = "content",
+            Name = "name",
+            Type = Templates::Type.Caption,
+            Description = "description",
+            Styles = JsonSerializer.Deserialize<JsonElement>("{}"),
+            Tags = ["string"],
+            Variables = ["string"],
+        };
+
+        Templates::TemplateCreateParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }
 
 public class TypeTest : TestBase

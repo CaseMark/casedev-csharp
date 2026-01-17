@@ -24,4 +24,14 @@ public class EnvironmentRetrieveParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/compute/v1/environments/name"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new EnvironmentRetrieveParams { Name = "name" };
+
+        EnvironmentRetrieveParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }

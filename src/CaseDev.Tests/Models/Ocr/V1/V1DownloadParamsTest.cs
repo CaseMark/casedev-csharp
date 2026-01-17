@@ -29,6 +29,16 @@ public class V1DownloadParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/ocr/v1/id/download/text"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new V1::V1DownloadParams { ID = "id", Type = V1::Type.Text };
+
+        V1::V1DownloadParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }
 
 public class TypeTest : TestBase

@@ -109,6 +109,31 @@ public class V1ProcessParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/ocr/v1/process"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new V1ProcessParams
+        {
+            DocumentUrl = "https://example.com/contract.pdf",
+            CallbackUrl = "https://your-app.com/webhooks/ocr-complete",
+            DocumentID = "contract-2024-001",
+            Engine = Engine.Doctr,
+            Features = new()
+            {
+                Forms = false,
+                Layout = true,
+                Tables = true,
+                Text = true,
+            },
+            ResultBucket = "my-ocr-results",
+            ResultPrefix = "ocr/2024/",
+        };
+
+        V1ProcessParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }
 
 public class EngineTest : TestBase

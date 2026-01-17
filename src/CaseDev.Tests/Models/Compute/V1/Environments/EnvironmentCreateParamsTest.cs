@@ -24,4 +24,14 @@ public class EnvironmentCreateParamsTest : TestBase
 
         Assert.Equal(new Uri("https://api.case.dev/compute/v1/environments"), url);
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new EnvironmentCreateParams { Name = "document-review-prod" };
+
+        EnvironmentCreateParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
+    }
 }

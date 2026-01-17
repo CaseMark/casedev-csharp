@@ -17,8 +17,12 @@ namespace CaseDev.Models.Search.V1;
 /// two modes: native provider answers or custom LLM-powered answers using Case.dev's
 /// AI gateway. Perfect for legal research, fact-checking, and gathering supporting
 /// evidence for cases.
+///
+/// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
+/// breaking changes in non-major versions. We may add new methods in the future that
+/// cause existing derived classes to break.</para>
 /// </summary>
-public sealed record class V1AnswerParams : ParamsBase
+public record class V1AnswerParams : ParamsBase
 {
     readonly JsonDictionary _rawBodyData = new();
     public IReadOnlyDictionary<string, JsonElement> RawBodyData
@@ -257,11 +261,14 @@ public sealed record class V1AnswerParams : ParamsBase
 
     public V1AnswerParams() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public V1AnswerParams(V1AnswerParams v1AnswerParams)
         : base(v1AnswerParams)
     {
         this._rawBodyData = new(v1AnswerParams._rawBodyData);
     }
+#pragma warning restore CS8618
 
     public V1AnswerParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
@@ -302,6 +309,28 @@ public sealed record class V1AnswerParams : ParamsBase
         );
     }
 
+    public override string ToString() =>
+        JsonSerializer.Serialize(
+            new Dictionary<string, object?>()
+            {
+                ["HeaderData"] = this._rawHeaderData.Freeze(),
+                ["QueryData"] = this._rawQueryData.Freeze(),
+                ["BodyData"] = this._rawBodyData.Freeze(),
+            },
+            ModelBase.ToStringSerializerOptions
+        );
+
+    public virtual bool Equals(V1AnswerParams? other)
+    {
+        if (other == null)
+        {
+            return false;
+        }
+        return this._rawHeaderData.Equals(other._rawHeaderData)
+            && this._rawQueryData.Equals(other._rawQueryData)
+            && this._rawBodyData.Equals(other._rawBodyData);
+    }
+
     public override System::Uri Url(ClientOptions options)
     {
         return new System::UriBuilder(options.BaseUrl.ToString().TrimEnd('/') + "/search/v1/answer")
@@ -326,6 +355,11 @@ public sealed record class V1AnswerParams : ParamsBase
         {
             ParamsBase.AddHeaderElementToRequest(request, item.Key, item.Value);
         }
+    }
+
+    public override int GetHashCode()
+    {
+        return 0;
     }
 }
 
