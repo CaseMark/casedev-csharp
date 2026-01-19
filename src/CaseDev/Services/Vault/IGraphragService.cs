@@ -32,10 +32,13 @@ public interface IGraphragService
     /// entity relationships, and processing status that enable advanced semantic
     /// search and AI-powered document analysis.
     /// </summary>
-    Task GetStats(GraphragGetStatsParams parameters, CancellationToken cancellationToken = default);
+    Task<GraphragGetStatsResponse> GetStats(
+        GraphragGetStatsParams parameters,
+        CancellationToken cancellationToken = default
+    );
 
     /// <inheritdoc cref="GetStats(GraphragGetStatsParams, CancellationToken)"/>
-    Task GetStats(
+    Task<GraphragGetStatsResponse> GetStats(
         string id,
         GraphragGetStatsParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -47,10 +50,13 @@ public interface IGraphragService
     /// infrastructure for semantic document analysis and graph-based querying within
     /// the vault.
     /// </summary>
-    Task Init(GraphragInitParams parameters, CancellationToken cancellationToken = default);
+    Task<GraphragInitResponse> Init(
+        GraphragInitParams parameters,
+        CancellationToken cancellationToken = default
+    );
 
     /// <inheritdoc cref="Init(GraphragInitParams, CancellationToken)"/>
-    Task Init(
+    Task<GraphragInitResponse> Init(
         string id,
         GraphragInitParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -74,13 +80,13 @@ public interface IGraphragServiceWithRawResponse
     /// Returns a raw HTTP response for `get /vault/{id}/graphrag/stats`, but is otherwise the
     /// same as <see cref="IGraphragService.GetStats(GraphragGetStatsParams, CancellationToken)"/>.
     /// </summary>
-    Task<HttpResponse> GetStats(
+    Task<HttpResponse<GraphragGetStatsResponse>> GetStats(
         GraphragGetStatsParams parameters,
         CancellationToken cancellationToken = default
     );
 
     /// <inheritdoc cref="GetStats(GraphragGetStatsParams, CancellationToken)"/>
-    Task<HttpResponse> GetStats(
+    Task<HttpResponse<GraphragGetStatsResponse>> GetStats(
         string id,
         GraphragGetStatsParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -90,13 +96,13 @@ public interface IGraphragServiceWithRawResponse
     /// Returns a raw HTTP response for `post /vault/{id}/graphrag/init`, but is otherwise the
     /// same as <see cref="IGraphragService.Init(GraphragInitParams, CancellationToken)"/>.
     /// </summary>
-    Task<HttpResponse> Init(
+    Task<HttpResponse<GraphragInitResponse>> Init(
         GraphragInitParams parameters,
         CancellationToken cancellationToken = default
     );
 
     /// <inheritdoc cref="Init(GraphragInitParams, CancellationToken)"/>
-    Task<HttpResponse> Init(
+    Task<HttpResponse<GraphragInitResponse>> Init(
         string id,
         GraphragInitParams? parameters = null,
         CancellationToken cancellationToken = default

@@ -42,12 +42,15 @@ public sealed class LlmService : ILlmService
     }
 
     /// <inheritdoc/>
-    public Task GetConfig(
+    public async Task<LlmGetConfigResponse> GetConfig(
         LlmGetConfigParams? parameters = null,
         CancellationToken cancellationToken = default
     )
     {
-        return this.WithRawResponse.GetConfig(parameters, cancellationToken);
+        using var response = await this
+            .WithRawResponse.GetConfig(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
     }
 }
 
@@ -76,7 +79,7 @@ public sealed class LlmServiceWithRawResponse : ILlmServiceWithRawResponse
     }
 
     /// <inheritdoc/>
-    public Task<HttpResponse> GetConfig(
+    public async Task<HttpResponse<LlmGetConfigResponse>> GetConfig(
         LlmGetConfigParams? parameters = null,
         CancellationToken cancellationToken = default
     )
@@ -88,6 +91,20 @@ public sealed class LlmServiceWithRawResponse : ILlmServiceWithRawResponse
             Method = HttpMethod.Get,
             Params = parameters,
         };
-        return this._client.Execute(request, cancellationToken);
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var deserializedResponse = await response
+                    .Deserialize<LlmGetConfigResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    deserializedResponse.Validate();
+                }
+                return deserializedResponse;
+            }
+        );
     }
 }

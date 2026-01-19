@@ -7,6 +7,7 @@ using CaseDev.Models.Llm.V1;
 using CaseDev.Models.Llm.V1.Chat;
 using CaseDev.Models.Vault.Objects;
 using CaseDev.Models.Voice.V1;
+using Graphrag = CaseDev.Models.Vault.Graphrag;
 using SearchV1 = CaseDev.Models.Search.V1;
 using Speak = CaseDev.Models.Voice.V1.Speak;
 using Transcription = CaseDev.Models.Voice.Transcription;
@@ -39,15 +40,20 @@ public abstract record class ModelBase
             new ApiEnumConverter<string, EncodingFormat>(),
             new ApiEnumConverter<string, Role>(),
             new ApiEnumConverter<string, V1::Status>(),
+            new ApiEnumConverter<string, V1::V1ProcessResponseStatus>(),
             new ApiEnumConverter<string, V1::Type>(),
             new ApiEnumConverter<string, V1::Engine>(),
+            new ApiEnumConverter<string, SearchV1::V1RetrieveResearchResponseModel>(),
+            new ApiEnumConverter<string, SearchV1::Status>(),
             new ApiEnumConverter<string, SearchV1::SearchType>(),
             new ApiEnumConverter<string, SearchV1::Model>(),
             new ApiEnumConverter<string, SearchV1::Type>(),
             new ApiEnumConverter<string, Vault::Status>(),
             new ApiEnumConverter<string, Vault::Method>(),
+            new ApiEnumConverter<string, Graphrag::Status>(),
             new ApiEnumConverter<string, Operation>(),
             new ApiEnumConverter<string, Transcription::Status>(),
+            new ApiEnumConverter<string, Transcription::TranscriptionRetrieveResponseStatus>(),
             new ApiEnumConverter<string, Transcription::BoostParam>(),
             new ApiEnumConverter<string, Transcription::TranscriptionCreateParamsFormat>(),
             new ApiEnumConverter<string, Sort>(),

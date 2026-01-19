@@ -53,7 +53,7 @@ public interface IV1Service
     /// by environment. Use optional query parameters to filter by specific year
     /// and month.
     /// </summary>
-    Task GetUsage(
+    Task<V1GetUsageResponse> GetUsage(
         V1GetUsageParams? parameters = null,
         CancellationToken cancellationToken = default
     );
@@ -95,7 +95,7 @@ public interface IV1ServiceWithRawResponse
     /// Returns a raw HTTP response for `get /compute/v1/usage`, but is otherwise the
     /// same as <see cref="IV1Service.GetUsage(V1GetUsageParams?, CancellationToken)"/>.
     /// </summary>
-    Task<HttpResponse> GetUsage(
+    Task<HttpResponse<V1GetUsageResponse>> GetUsage(
         V1GetUsageParams? parameters = null,
         CancellationToken cancellationToken = default
     );

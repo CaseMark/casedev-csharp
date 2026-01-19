@@ -62,16 +62,19 @@ public sealed class VaultService : IVaultService
     }
 
     /// <inheritdoc/>
-    public Task Retrieve(
+    public async Task<VaultRetrieveResponse> Retrieve(
         VaultRetrieveParams parameters,
         CancellationToken cancellationToken = default
     )
     {
-        return this.WithRawResponse.Retrieve(parameters, cancellationToken);
+        using var response = await this
+            .WithRawResponse.Retrieve(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc/>
-    public async Task Retrieve(
+    public Task<VaultRetrieveResponse> Retrieve(
         string id,
         VaultRetrieveParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -79,7 +82,7 @@ public sealed class VaultService : IVaultService
     {
         parameters ??= new();
 
-        await this.Retrieve(parameters with { ID = id }, cancellationToken).ConfigureAwait(false);
+        return this.Retrieve(parameters with { ID = id }, cancellationToken);
     }
 
     /// <inheritdoc/>
@@ -221,7 +224,7 @@ public sealed class VaultServiceWithRawResponse : IVaultServiceWithRawResponse
     }
 
     /// <inheritdoc/>
-    public Task<HttpResponse> Retrieve(
+    public async Task<HttpResponse<VaultRetrieveResponse>> Retrieve(
         VaultRetrieveParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -236,11 +239,25 @@ public sealed class VaultServiceWithRawResponse : IVaultServiceWithRawResponse
             Method = HttpMethod.Get,
             Params = parameters,
         };
-        return this._client.Execute(request, cancellationToken);
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var vault = await response
+                    .Deserialize<VaultRetrieveResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    vault.Validate();
+                }
+                return vault;
+            }
+        );
     }
 
     /// <inheritdoc/>
-    public Task<HttpResponse> Retrieve(
+    public Task<HttpResponse<VaultRetrieveResponse>> Retrieve(
         string id,
         VaultRetrieveParams? parameters = null,
         CancellationToken cancellationToken = default

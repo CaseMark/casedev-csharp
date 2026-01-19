@@ -45,20 +45,23 @@ public interface ISecretService
     /// related secrets (API keys, credentials, etc.) that can be securely accessed
     /// by compute jobs during execution.
     /// </summary>
-    Task List(SecretListParams? parameters = null, CancellationToken cancellationToken = default);
+    Task<SecretListResponse> List(
+        SecretListParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
 
     /// <summary>
     /// Delete an entire secret group or a specific key within a secret group. When
     /// deleting a specific key, the remaining secrets in the group are preserved.
     /// When deleting the entire group, all secrets and the group itself are removed.
     /// </summary>
-    Task DeleteGroup(
+    Task<SecretDeleteGroupResponse> DeleteGroup(
         SecretDeleteGroupParams parameters,
         CancellationToken cancellationToken = default
     );
 
     /// <inheritdoc cref="DeleteGroup(SecretDeleteGroupParams, CancellationToken)"/>
-    Task DeleteGroup(
+    Task<SecretDeleteGroupResponse> DeleteGroup(
         string group,
         SecretDeleteGroupParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -69,13 +72,13 @@ public interface ISecretService
     /// environment. For security reasons, actual secret values are not returned -
     /// only the keys and metadata.
     /// </summary>
-    Task RetrieveGroup(
+    Task<SecretRetrieveGroupResponse> RetrieveGroup(
         SecretRetrieveGroupParams parameters,
         CancellationToken cancellationToken = default
     );
 
     /// <inheritdoc cref="RetrieveGroup(SecretRetrieveGroupParams, CancellationToken)"/>
-    Task RetrieveGroup(
+    Task<SecretRetrieveGroupResponse> RetrieveGroup(
         string group,
         SecretRetrieveGroupParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -86,13 +89,13 @@ public interface ISecretService
     /// AES-256-GCM. Use this to manage environment variables and API keys for your
     /// compute workloads.
     /// </summary>
-    Task UpdateGroup(
+    Task<SecretUpdateGroupResponse> UpdateGroup(
         SecretUpdateGroupParams parameters,
         CancellationToken cancellationToken = default
     );
 
     /// <inheritdoc cref="UpdateGroup(SecretUpdateGroupParams, CancellationToken)"/>
-    Task UpdateGroup(
+    Task<SecretUpdateGroupResponse> UpdateGroup(
         string group,
         SecretUpdateGroupParams parameters,
         CancellationToken cancellationToken = default
@@ -125,7 +128,7 @@ public interface ISecretServiceWithRawResponse
     /// Returns a raw HTTP response for `get /compute/v1/secrets`, but is otherwise the
     /// same as <see cref="ISecretService.List(SecretListParams?, CancellationToken)"/>.
     /// </summary>
-    Task<HttpResponse> List(
+    Task<HttpResponse<SecretListResponse>> List(
         SecretListParams? parameters = null,
         CancellationToken cancellationToken = default
     );
@@ -134,13 +137,13 @@ public interface ISecretServiceWithRawResponse
     /// Returns a raw HTTP response for `delete /compute/v1/secrets/{group}`, but is otherwise the
     /// same as <see cref="ISecretService.DeleteGroup(SecretDeleteGroupParams, CancellationToken)"/>.
     /// </summary>
-    Task<HttpResponse> DeleteGroup(
+    Task<HttpResponse<SecretDeleteGroupResponse>> DeleteGroup(
         SecretDeleteGroupParams parameters,
         CancellationToken cancellationToken = default
     );
 
     /// <inheritdoc cref="DeleteGroup(SecretDeleteGroupParams, CancellationToken)"/>
-    Task<HttpResponse> DeleteGroup(
+    Task<HttpResponse<SecretDeleteGroupResponse>> DeleteGroup(
         string group,
         SecretDeleteGroupParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -150,13 +153,13 @@ public interface ISecretServiceWithRawResponse
     /// Returns a raw HTTP response for `get /compute/v1/secrets/{group}`, but is otherwise the
     /// same as <see cref="ISecretService.RetrieveGroup(SecretRetrieveGroupParams, CancellationToken)"/>.
     /// </summary>
-    Task<HttpResponse> RetrieveGroup(
+    Task<HttpResponse<SecretRetrieveGroupResponse>> RetrieveGroup(
         SecretRetrieveGroupParams parameters,
         CancellationToken cancellationToken = default
     );
 
     /// <inheritdoc cref="RetrieveGroup(SecretRetrieveGroupParams, CancellationToken)"/>
-    Task<HttpResponse> RetrieveGroup(
+    Task<HttpResponse<SecretRetrieveGroupResponse>> RetrieveGroup(
         string group,
         SecretRetrieveGroupParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -166,13 +169,13 @@ public interface ISecretServiceWithRawResponse
     /// Returns a raw HTTP response for `put /compute/v1/secrets/{group}`, but is otherwise the
     /// same as <see cref="ISecretService.UpdateGroup(SecretUpdateGroupParams, CancellationToken)"/>.
     /// </summary>
-    Task<HttpResponse> UpdateGroup(
+    Task<HttpResponse<SecretUpdateGroupResponse>> UpdateGroup(
         SecretUpdateGroupParams parameters,
         CancellationToken cancellationToken = default
     );
 
     /// <inheritdoc cref="UpdateGroup(SecretUpdateGroupParams, CancellationToken)"/>
-    Task<HttpResponse> UpdateGroup(
+    Task<HttpResponse<SecretUpdateGroupResponse>> UpdateGroup(
         string group,
         SecretUpdateGroupParams parameters,
         CancellationToken cancellationToken = default

@@ -31,10 +31,13 @@ public interface IObjectService
     /// download URL. The download URL expires after 1 hour for security. This endpoint
     /// also updates the file size if it wasn't previously calculated.
     /// </summary>
-    Task Retrieve(ObjectRetrieveParams parameters, CancellationToken cancellationToken = default);
+    Task<ObjectRetrieveResponse> Retrieve(
+        ObjectRetrieveParams parameters,
+        CancellationToken cancellationToken = default
+    );
 
     /// <inheritdoc cref="Retrieve(ObjectRetrieveParams, CancellationToken)"/>
-    Task Retrieve(
+    Task<ObjectRetrieveResponse> Retrieve(
         string objectID,
         ObjectRetrieveParams parameters,
         CancellationToken cancellationToken = default
@@ -44,10 +47,13 @@ public interface IObjectService
     /// Retrieve all objects stored in a specific vault, including document metadata,
     /// ingestion status, and processing statistics.
     /// </summary>
-    Task List(ObjectListParams parameters, CancellationToken cancellationToken = default);
+    Task<ObjectListResponse> List(
+        ObjectListParams parameters,
+        CancellationToken cancellationToken = default
+    );
 
     /// <inheritdoc cref="List(ObjectListParams, CancellationToken)"/>
-    Task List(
+    Task<ObjectListResponse> List(
         string id,
         ObjectListParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -76,10 +82,13 @@ public interface IObjectService
     /// stream with appropriate headers for file download. Useful for retrieving
     /// contracts, depositions, case files, and other legal documents stored in your vault.
     /// </summary>
-    Task Download(ObjectDownloadParams parameters, CancellationToken cancellationToken = default);
+    Task<BinaryContent> Download(
+        ObjectDownloadParams parameters,
+        CancellationToken cancellationToken = default
+    );
 
     /// <inheritdoc cref="Download(ObjectDownloadParams, CancellationToken)"/>
-    Task Download(
+    Task<BinaryContent> Download(
         string objectID,
         ObjectDownloadParams parameters,
         CancellationToken cancellationToken = default
@@ -90,10 +99,13 @@ public interface IObjectService
     /// the concatenated text from all chunks, useful for document review, analysis,
     /// or export. The object must have completed processing before text can be retrieved.
     /// </summary>
-    Task GetText(ObjectGetTextParams parameters, CancellationToken cancellationToken = default);
+    Task<ObjectGetTextResponse> GetText(
+        ObjectGetTextParams parameters,
+        CancellationToken cancellationToken = default
+    );
 
     /// <inheritdoc cref="GetText(ObjectGetTextParams, CancellationToken)"/>
-    Task GetText(
+    Task<ObjectGetTextResponse> GetText(
         string objectID,
         ObjectGetTextParams parameters,
         CancellationToken cancellationToken = default
@@ -117,13 +129,13 @@ public interface IObjectServiceWithRawResponse
     /// Returns a raw HTTP response for `get /vault/{id}/objects/{objectId}`, but is otherwise the
     /// same as <see cref="IObjectService.Retrieve(ObjectRetrieveParams, CancellationToken)"/>.
     /// </summary>
-    Task<HttpResponse> Retrieve(
+    Task<HttpResponse<ObjectRetrieveResponse>> Retrieve(
         ObjectRetrieveParams parameters,
         CancellationToken cancellationToken = default
     );
 
     /// <inheritdoc cref="Retrieve(ObjectRetrieveParams, CancellationToken)"/>
-    Task<HttpResponse> Retrieve(
+    Task<HttpResponse<ObjectRetrieveResponse>> Retrieve(
         string objectID,
         ObjectRetrieveParams parameters,
         CancellationToken cancellationToken = default
@@ -133,13 +145,13 @@ public interface IObjectServiceWithRawResponse
     /// Returns a raw HTTP response for `get /vault/{id}/objects`, but is otherwise the
     /// same as <see cref="IObjectService.List(ObjectListParams, CancellationToken)"/>.
     /// </summary>
-    Task<HttpResponse> List(
+    Task<HttpResponse<ObjectListResponse>> List(
         ObjectListParams parameters,
         CancellationToken cancellationToken = default
     );
 
     /// <inheritdoc cref="List(ObjectListParams, CancellationToken)"/>
-    Task<HttpResponse> List(
+    Task<HttpResponse<ObjectListResponse>> List(
         string id,
         ObjectListParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -165,13 +177,13 @@ public interface IObjectServiceWithRawResponse
     /// Returns a raw HTTP response for `get /vault/{id}/objects/{objectId}/download`, but is otherwise the
     /// same as <see cref="IObjectService.Download(ObjectDownloadParams, CancellationToken)"/>.
     /// </summary>
-    Task<HttpResponse> Download(
+    Task<HttpResponse<BinaryContent>> Download(
         ObjectDownloadParams parameters,
         CancellationToken cancellationToken = default
     );
 
     /// <inheritdoc cref="Download(ObjectDownloadParams, CancellationToken)"/>
-    Task<HttpResponse> Download(
+    Task<HttpResponse<BinaryContent>> Download(
         string objectID,
         ObjectDownloadParams parameters,
         CancellationToken cancellationToken = default
@@ -181,13 +193,13 @@ public interface IObjectServiceWithRawResponse
     /// Returns a raw HTTP response for `get /vault/{id}/objects/{objectId}/text`, but is otherwise the
     /// same as <see cref="IObjectService.GetText(ObjectGetTextParams, CancellationToken)"/>.
     /// </summary>
-    Task<HttpResponse> GetText(
+    Task<HttpResponse<ObjectGetTextResponse>> GetText(
         ObjectGetTextParams parameters,
         CancellationToken cancellationToken = default
     );
 
     /// <inheritdoc cref="GetText(ObjectGetTextParams, CancellationToken)"/>
-    Task<HttpResponse> GetText(
+    Task<HttpResponse<ObjectGetTextResponse>> GetText(
         string objectID,
         ObjectGetTextParams parameters,
         CancellationToken cancellationToken = default

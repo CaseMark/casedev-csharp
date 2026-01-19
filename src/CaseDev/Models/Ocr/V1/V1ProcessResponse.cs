@@ -141,12 +141,14 @@ public sealed record class V1ProcessResponse : JsonModel
     /// <summary>
     /// Current job status
     /// </summary>
-    public ApiEnum<string, Status>? Status
+    public ApiEnum<string, V1ProcessResponseStatus>? Status
     {
         get
         {
             this._rawData.Freeze();
-            return this._rawData.GetNullableClass<ApiEnum<string, Status>>("status");
+            return this._rawData.GetNullableClass<ApiEnum<string, V1ProcessResponseStatus>>(
+                "status"
+            );
         }
         init
         {
@@ -208,8 +210,8 @@ class V1ProcessResponseFromRaw : IFromRawJson<V1ProcessResponse>
 /// <summary>
 /// Current job status
 /// </summary>
-[JsonConverter(typeof(StatusConverter))]
-public enum Status
+[JsonConverter(typeof(V1ProcessResponseStatusConverter))]
+public enum V1ProcessResponseStatus
 {
     Queued,
     Processing,
@@ -217,9 +219,9 @@ public enum Status
     Failed,
 }
 
-sealed class StatusConverter : JsonConverter<Status>
+sealed class V1ProcessResponseStatusConverter : JsonConverter<V1ProcessResponseStatus>
 {
-    public override Status Read(
+    public override V1ProcessResponseStatus Read(
         ref Utf8JsonReader reader,
         System::Type typeToConvert,
         JsonSerializerOptions options
@@ -227,24 +229,28 @@ sealed class StatusConverter : JsonConverter<Status>
     {
         return JsonSerializer.Deserialize<string>(ref reader, options) switch
         {
-            "queued" => Status.Queued,
-            "processing" => Status.Processing,
-            "completed" => Status.Completed,
-            "failed" => Status.Failed,
-            _ => (Status)(-1),
+            "queued" => V1ProcessResponseStatus.Queued,
+            "processing" => V1ProcessResponseStatus.Processing,
+            "completed" => V1ProcessResponseStatus.Completed,
+            "failed" => V1ProcessResponseStatus.Failed,
+            _ => (V1ProcessResponseStatus)(-1),
         };
     }
 
-    public override void Write(Utf8JsonWriter writer, Status value, JsonSerializerOptions options)
+    public override void Write(
+        Utf8JsonWriter writer,
+        V1ProcessResponseStatus value,
+        JsonSerializerOptions options
+    )
     {
         JsonSerializer.Serialize(
             writer,
             value switch
             {
-                Status.Queued => "queued",
-                Status.Processing => "processing",
-                Status.Completed => "completed",
-                Status.Failed => "failed",
+                V1ProcessResponseStatus.Queued => "queued",
+                V1ProcessResponseStatus.Processing => "processing",
+                V1ProcessResponseStatus.Completed => "completed",
+                V1ProcessResponseStatus.Failed => "failed",
                 _ => throw new CasedevInvalidDataException(
                     string.Format("Invalid value '{0}' in {1}", value, nameof(value))
                 ),

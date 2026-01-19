@@ -47,10 +47,13 @@ public interface IVaultService
     /// chunking strategy, and usage statistics. Returns vault metadata, bucket information,
     /// and vector storage details.
     /// </summary>
-    Task Retrieve(VaultRetrieveParams parameters, CancellationToken cancellationToken = default);
+    Task<VaultRetrieveResponse> Retrieve(
+        VaultRetrieveParams parameters,
+        CancellationToken cancellationToken = default
+    );
 
     /// <inheritdoc cref="Retrieve(VaultRetrieveParams, CancellationToken)"/>
-    Task Retrieve(
+    Task<VaultRetrieveResponse> Retrieve(
         string id,
         VaultRetrieveParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -150,13 +153,13 @@ public interface IVaultServiceWithRawResponse
     /// Returns a raw HTTP response for `get /vault/{id}`, but is otherwise the
     /// same as <see cref="IVaultService.Retrieve(VaultRetrieveParams, CancellationToken)"/>.
     /// </summary>
-    Task<HttpResponse> Retrieve(
+    Task<HttpResponse<VaultRetrieveResponse>> Retrieve(
         VaultRetrieveParams parameters,
         CancellationToken cancellationToken = default
     );
 
     /// <inheritdoc cref="Retrieve(VaultRetrieveParams, CancellationToken)"/>
-    Task<HttpResponse> Retrieve(
+    Task<HttpResponse<VaultRetrieveResponse>> Retrieve(
         string id,
         VaultRetrieveParams? parameters = null,
         CancellationToken cancellationToken = default

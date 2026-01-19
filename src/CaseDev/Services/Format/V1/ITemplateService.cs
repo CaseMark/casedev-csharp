@@ -41,10 +41,13 @@ public interface ITemplateService
     /// how documents should be structured and formatted for specific legal use cases
     /// such as contracts, briefs, or pleadings.
     /// </summary>
-    Task Retrieve(TemplateRetrieveParams parameters, CancellationToken cancellationToken = default);
+    Task<TemplateRetrieveResponse> Retrieve(
+        TemplateRetrieveParams parameters,
+        CancellationToken cancellationToken = default
+    );
 
     /// <inheritdoc cref="Retrieve(TemplateRetrieveParams, CancellationToken)"/>
-    Task Retrieve(
+    Task<TemplateRetrieveResponse> Retrieve(
         string id,
         TemplateRetrieveParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -58,7 +61,10 @@ public interface ITemplateService
     /// <para>Filter by type to get specific template categories like contracts,
     /// pleadings, or correspondence.</para>
     /// </summary>
-    Task List(TemplateListParams? parameters = null, CancellationToken cancellationToken = default);
+    Task<TemplateListResponse> List(
+        TemplateListParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
 }
 
 /// <summary>
@@ -87,13 +93,13 @@ public interface ITemplateServiceWithRawResponse
     /// Returns a raw HTTP response for `get /format/v1/templates/{id}`, but is otherwise the
     /// same as <see cref="ITemplateService.Retrieve(TemplateRetrieveParams, CancellationToken)"/>.
     /// </summary>
-    Task<HttpResponse> Retrieve(
+    Task<HttpResponse<TemplateRetrieveResponse>> Retrieve(
         TemplateRetrieveParams parameters,
         CancellationToken cancellationToken = default
     );
 
     /// <inheritdoc cref="Retrieve(TemplateRetrieveParams, CancellationToken)"/>
-    Task<HttpResponse> Retrieve(
+    Task<HttpResponse<TemplateRetrieveResponse>> Retrieve(
         string id,
         TemplateRetrieveParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -103,7 +109,7 @@ public interface ITemplateServiceWithRawResponse
     /// Returns a raw HTTP response for `get /format/v1/templates`, but is otherwise the
     /// same as <see cref="ITemplateService.List(TemplateListParams?, CancellationToken)"/>.
     /// </summary>
-    Task<HttpResponse> List(
+    Task<HttpResponse<TemplateListResponse>> List(
         TemplateListParams? parameters = null,
         CancellationToken cancellationToken = default
     );

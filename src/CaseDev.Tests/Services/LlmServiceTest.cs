@@ -7,6 +7,10 @@ public class LlmServiceTest : TestBase
     [Fact(Skip = "Prism tests are disabled")]
     public async Task GetConfig_Works()
     {
-        await this.client.Llm.GetConfig(new(), TestContext.Current.CancellationToken);
+        var response = await this.client.Llm.GetConfig(
+            new(),
+            TestContext.Current.CancellationToken
+        );
+        response.Validate();
     }
 }

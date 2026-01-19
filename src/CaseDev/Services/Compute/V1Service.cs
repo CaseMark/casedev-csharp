@@ -79,12 +79,15 @@ public sealed class V1Service : IV1Service
     }
 
     /// <inheritdoc/>
-    public Task GetUsage(
+    public async Task<V1GetUsageResponse> GetUsage(
         V1GetUsageParams? parameters = null,
         CancellationToken cancellationToken = default
     )
     {
-        return this.WithRawResponse.GetUsage(parameters, cancellationToken);
+        using var response = await this
+            .WithRawResponse.GetUsage(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
     }
 }
 
@@ -157,7 +160,7 @@ public sealed class V1ServiceWithRawResponse : IV1ServiceWithRawResponse
     }
 
     /// <inheritdoc/>
-    public Task<HttpResponse> GetUsage(
+    public async Task<HttpResponse<V1GetUsageResponse>> GetUsage(
         V1GetUsageParams? parameters = null,
         CancellationToken cancellationToken = default
     )
@@ -169,6 +172,20 @@ public sealed class V1ServiceWithRawResponse : IV1ServiceWithRawResponse
             Method = HttpMethod.Get,
             Params = parameters,
         };
-        return this._client.Execute(request, cancellationToken);
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var deserializedResponse = await response
+                    .Deserialize<V1GetUsageResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    deserializedResponse.Validate();
+                }
+                return deserializedResponse;
+            }
+        );
     }
 }
