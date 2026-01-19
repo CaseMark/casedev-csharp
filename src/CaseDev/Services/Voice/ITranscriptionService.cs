@@ -36,7 +36,7 @@ public interface ITranscriptionService
     /// <para>**Direct URL (legacy)**: Pass `audio_url` for direct transcription
     /// without automatic storage.</para>
     /// </summary>
-    Task Create(
+    Task<TranscriptionCreateResponse> Create(
         TranscriptionCreateParams? parameters = null,
         CancellationToken cancellationToken = default
     );
@@ -76,7 +76,7 @@ public interface ITranscriptionServiceWithRawResponse
     /// Returns a raw HTTP response for `post /voice/transcription`, but is otherwise the
     /// same as <see cref="ITranscriptionService.Create(TranscriptionCreateParams?, CancellationToken)"/>.
     /// </summary>
-    Task<HttpResponse> Create(
+    Task<HttpResponse<TranscriptionCreateResponse>> Create(
         TranscriptionCreateParams? parameters = null,
         CancellationToken cancellationToken = default
     );

@@ -63,13 +63,13 @@ public interface IV1Service
     /// progresses. Research tasks analyze topics comprehensively using web search
     /// and AI synthesis.
     /// </summary>
-    Task RetrieveResearch(
+    Task<V1RetrieveResearchResponse> RetrieveResearch(
         V1RetrieveResearchParams parameters,
         CancellationToken cancellationToken = default
     );
 
     /// <inheritdoc cref="RetrieveResearch(V1RetrieveResearchParams, CancellationToken)"/>
-    Task RetrieveResearch(
+    Task<V1RetrieveResearchResponse> RetrieveResearch(
         string id,
         V1RetrieveResearchParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -140,13 +140,13 @@ public interface IV1ServiceWithRawResponse
     /// Returns a raw HTTP response for `get /search/v1/research/{id}`, but is otherwise the
     /// same as <see cref="IV1Service.RetrieveResearch(V1RetrieveResearchParams, CancellationToken)"/>.
     /// </summary>
-    Task<HttpResponse> RetrieveResearch(
+    Task<HttpResponse<V1RetrieveResearchResponse>> RetrieveResearch(
         V1RetrieveResearchParams parameters,
         CancellationToken cancellationToken = default
     );
 
     /// <inheritdoc cref="RetrieveResearch(V1RetrieveResearchParams, CancellationToken)"/>
-    Task<HttpResponse> RetrieveResearch(
+    Task<HttpResponse<V1RetrieveResearchResponse>> RetrieveResearch(
         string id,
         V1RetrieveResearchParams? parameters = null,
         CancellationToken cancellationToken = default

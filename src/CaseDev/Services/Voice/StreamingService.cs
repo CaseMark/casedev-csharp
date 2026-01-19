@@ -34,12 +34,15 @@ public sealed class StreamingService : IStreamingService
     }
 
     /// <inheritdoc/>
-    public Task GetUrl(
+    public async Task<StreamingGetUrlResponse> GetUrl(
         StreamingGetUrlParams? parameters = null,
         CancellationToken cancellationToken = default
     )
     {
-        return this.WithRawResponse.GetUrl(parameters, cancellationToken);
+        using var response = await this
+            .WithRawResponse.GetUrl(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
     }
 }
 
@@ -60,7 +63,7 @@ public sealed class StreamingServiceWithRawResponse : IStreamingServiceWithRawRe
     }
 
     /// <inheritdoc/>
-    public Task<HttpResponse> GetUrl(
+    public async Task<HttpResponse<StreamingGetUrlResponse>> GetUrl(
         StreamingGetUrlParams? parameters = null,
         CancellationToken cancellationToken = default
     )
@@ -72,6 +75,20 @@ public sealed class StreamingServiceWithRawResponse : IStreamingServiceWithRawRe
             Method = HttpMethod.Get,
             Params = parameters,
         };
-        return this._client.Execute(request, cancellationToken);
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var deserializedResponse = await response
+                    .Deserialize<StreamingGetUrlResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    deserializedResponse.Validate();
+                }
+                return deserializedResponse;
+            }
+        );
     }
 }

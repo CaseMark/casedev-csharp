@@ -38,7 +38,7 @@ public interface ILlmService
     /// <para>Use this endpoint to: - Discover available language models - Get model
     /// specifications and pricing - Configure AI SDK clients - Build model selection interfaces</para>
     /// </summary>
-    Task GetConfig(
+    Task<LlmGetConfigResponse> GetConfig(
         LlmGetConfigParams? parameters = null,
         CancellationToken cancellationToken = default
     );
@@ -63,7 +63,7 @@ public interface ILlmServiceWithRawResponse
     /// Returns a raw HTTP response for `get /llm/config`, but is otherwise the
     /// same as <see cref="ILlmService.GetConfig(LlmGetConfigParams?, CancellationToken)"/>.
     /// </summary>
-    Task<HttpResponse> GetConfig(
+    Task<HttpResponse<LlmGetConfigResponse>> GetConfig(
         LlmGetConfigParams? parameters = null,
         CancellationToken cancellationToken = default
     );

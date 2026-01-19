@@ -33,7 +33,7 @@ public interface IV1Service
     /// Create vector embeddings from text using OpenAI-compatible models. Perfect
     /// for semantic search, document similarity, and building RAG systems for legal documents.
     /// </summary>
-    Task CreateEmbedding(
+    Task<V1CreateEmbeddingResponse> CreateEmbedding(
         V1CreateEmbeddingParams parameters,
         CancellationToken cancellationToken = default
     );
@@ -46,7 +46,7 @@ public interface IV1Service
     /// <para>This endpoint is compatible with OpenAI's models API format, making
     /// it easy to integrate with existing applications.</para>
     /// </summary>
-    Task ListModels(
+    Task<V1ListModelsResponse> ListModels(
         V1ListModelsParams? parameters = null,
         CancellationToken cancellationToken = default
     );
@@ -71,7 +71,7 @@ public interface IV1ServiceWithRawResponse
     /// Returns a raw HTTP response for `post /llm/v1/embeddings`, but is otherwise the
     /// same as <see cref="IV1Service.CreateEmbedding(V1CreateEmbeddingParams, CancellationToken)"/>.
     /// </summary>
-    Task<HttpResponse> CreateEmbedding(
+    Task<HttpResponse<V1CreateEmbeddingResponse>> CreateEmbedding(
         V1CreateEmbeddingParams parameters,
         CancellationToken cancellationToken = default
     );
@@ -80,7 +80,7 @@ public interface IV1ServiceWithRawResponse
     /// Returns a raw HTTP response for `get /llm/v1/models`, but is otherwise the
     /// same as <see cref="IV1Service.ListModels(V1ListModelsParams?, CancellationToken)"/>.
     /// </summary>
-    Task<HttpResponse> ListModels(
+    Task<HttpResponse<V1ListModelsResponse>> ListModels(
         V1ListModelsParams? parameters = null,
         CancellationToken cancellationToken = default
     );

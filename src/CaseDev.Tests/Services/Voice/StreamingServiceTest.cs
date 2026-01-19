@@ -7,6 +7,10 @@ public class StreamingServiceTest : TestBase
     [Fact(Skip = "Prism tests are disabled")]
     public async Task GetUrl_Works()
     {
-        await this.client.Voice.Streaming.GetUrl(new(), TestContext.Current.CancellationToken);
+        var response = await this.client.Voice.Streaming.GetUrl(
+            new(),
+            TestContext.Current.CancellationToken
+        );
+        response.Validate();
     }
 }

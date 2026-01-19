@@ -7,7 +7,11 @@ public class TranscriptionServiceTest : TestBase
     [Fact(Skip = "Prism tests are disabled")]
     public async Task Create_Works()
     {
-        await this.client.Voice.Transcription.Create(new(), TestContext.Current.CancellationToken);
+        var transcription = await this.client.Voice.Transcription.Create(
+            new(),
+            TestContext.Current.CancellationToken
+        );
+        transcription.Validate();
     }
 
     [Fact(Skip = "Prism tests are disabled")]

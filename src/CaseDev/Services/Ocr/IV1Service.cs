@@ -30,10 +30,13 @@ public interface IV1Service
     /// Retrieve the status and results of an OCR job. Returns job progress, extracted
     /// text, and metadata when processing is complete.
     /// </summary>
-    Task Retrieve(V1::V1RetrieveParams parameters, CancellationToken cancellationToken = default);
+    Task<V1::V1RetrieveResponse> Retrieve(
+        V1::V1RetrieveParams parameters,
+        CancellationToken cancellationToken = default
+    );
 
     /// <inheritdoc cref="Retrieve(V1::V1RetrieveParams, CancellationToken)"/>
-    Task Retrieve(
+    Task<V1::V1RetrieveResponse> Retrieve(
         string id,
         V1::V1RetrieveParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -44,10 +47,13 @@ public interface IV1Service
     /// document as text extraction, structured JSON with coordinates, searchable
     /// PDF with text layer, or the original uploaded document.
     /// </summary>
-    Task Download(V1::V1DownloadParams parameters, CancellationToken cancellationToken = default);
+    Task<BinaryContent> Download(
+        V1::V1DownloadParams parameters,
+        CancellationToken cancellationToken = default
+    );
 
     /// <inheritdoc cref="Download(V1::V1DownloadParams, CancellationToken)"/>
-    Task Download(
+    Task<BinaryContent> Download(
         ApiEnum<string, V1::Type> type,
         V1::V1DownloadParams parameters,
         CancellationToken cancellationToken = default
@@ -81,13 +87,13 @@ public interface IV1ServiceWithRawResponse
     /// Returns a raw HTTP response for `get /ocr/v1/{id}`, but is otherwise the
     /// same as <see cref="IV1Service.Retrieve(V1::V1RetrieveParams, CancellationToken)"/>.
     /// </summary>
-    Task<HttpResponse> Retrieve(
+    Task<HttpResponse<V1::V1RetrieveResponse>> Retrieve(
         V1::V1RetrieveParams parameters,
         CancellationToken cancellationToken = default
     );
 
     /// <inheritdoc cref="Retrieve(V1::V1RetrieveParams, CancellationToken)"/>
-    Task<HttpResponse> Retrieve(
+    Task<HttpResponse<V1::V1RetrieveResponse>> Retrieve(
         string id,
         V1::V1RetrieveParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -97,13 +103,13 @@ public interface IV1ServiceWithRawResponse
     /// Returns a raw HTTP response for `get /ocr/v1/{id}/download/{type}`, but is otherwise the
     /// same as <see cref="IV1Service.Download(V1::V1DownloadParams, CancellationToken)"/>.
     /// </summary>
-    Task<HttpResponse> Download(
+    Task<HttpResponse<BinaryContent>> Download(
         V1::V1DownloadParams parameters,
         CancellationToken cancellationToken = default
     );
 
     /// <inheritdoc cref="Download(V1::V1DownloadParams, CancellationToken)"/>
-    Task<HttpResponse> Download(
+    Task<HttpResponse<BinaryContent>> Download(
         ApiEnum<string, V1::Type> type,
         V1::V1DownloadParams parameters,
         CancellationToken cancellationToken = default

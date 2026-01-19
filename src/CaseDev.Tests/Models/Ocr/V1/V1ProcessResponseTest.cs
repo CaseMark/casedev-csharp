@@ -19,7 +19,7 @@ public class V1ProcessResponseTest : TestBase
             Engine = "engine",
             EstimatedCompletion = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             PageCount = 0,
-            Status = Status.Queued,
+            Status = V1ProcessResponseStatus.Queued,
         };
 
         string expectedID = "id";
@@ -30,7 +30,7 @@ public class V1ProcessResponseTest : TestBase
             "2019-12-27T18:11:19.117Z"
         );
         long expectedPageCount = 0;
-        ApiEnum<string, Status> expectedStatus = Status.Queued;
+        ApiEnum<string, V1ProcessResponseStatus> expectedStatus = V1ProcessResponseStatus.Queued;
 
         Assert.Equal(expectedID, model.ID);
         Assert.Equal(expectedCreatedAt, model.CreatedAt);
@@ -52,7 +52,7 @@ public class V1ProcessResponseTest : TestBase
             Engine = "engine",
             EstimatedCompletion = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             PageCount = 0,
-            Status = Status.Queued,
+            Status = V1ProcessResponseStatus.Queued,
         };
 
         string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
@@ -75,7 +75,7 @@ public class V1ProcessResponseTest : TestBase
             Engine = "engine",
             EstimatedCompletion = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             PageCount = 0,
-            Status = Status.Queued,
+            Status = V1ProcessResponseStatus.Queued,
         };
 
         string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
@@ -93,7 +93,7 @@ public class V1ProcessResponseTest : TestBase
             "2019-12-27T18:11:19.117Z"
         );
         long expectedPageCount = 0;
-        ApiEnum<string, Status> expectedStatus = Status.Queued;
+        ApiEnum<string, V1ProcessResponseStatus> expectedStatus = V1ProcessResponseStatus.Queued;
 
         Assert.Equal(expectedID, deserialized.ID);
         Assert.Equal(expectedCreatedAt, deserialized.CreatedAt);
@@ -115,7 +115,7 @@ public class V1ProcessResponseTest : TestBase
             Engine = "engine",
             EstimatedCompletion = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             PageCount = 0,
-            Status = Status.Queued,
+            Status = V1ProcessResponseStatus.Queued,
         };
 
         model.Validate();
@@ -200,24 +200,24 @@ public class V1ProcessResponseTest : TestBase
     }
 }
 
-public class StatusTest : TestBase
+public class V1ProcessResponseStatusTest : TestBase
 {
     [Theory]
-    [InlineData(Status.Queued)]
-    [InlineData(Status.Processing)]
-    [InlineData(Status.Completed)]
-    [InlineData(Status.Failed)]
-    public void Validation_Works(Status rawValue)
+    [InlineData(V1ProcessResponseStatus.Queued)]
+    [InlineData(V1ProcessResponseStatus.Processing)]
+    [InlineData(V1ProcessResponseStatus.Completed)]
+    [InlineData(V1ProcessResponseStatus.Failed)]
+    public void Validation_Works(V1ProcessResponseStatus rawValue)
     {
         // force implicit conversion because Theory can't do that for us
-        ApiEnum<string, Status> value = rawValue;
+        ApiEnum<string, V1ProcessResponseStatus> value = rawValue;
         value.Validate();
     }
 
     [Fact]
     public void InvalidEnumValidationThrows_Works()
     {
-        var value = JsonSerializer.Deserialize<ApiEnum<string, Status>>(
+        var value = JsonSerializer.Deserialize<ApiEnum<string, V1ProcessResponseStatus>>(
             JsonSerializer.SerializeToElement("invalid value"),
             ModelBase.SerializerOptions
         );
@@ -227,17 +227,17 @@ public class StatusTest : TestBase
     }
 
     [Theory]
-    [InlineData(Status.Queued)]
-    [InlineData(Status.Processing)]
-    [InlineData(Status.Completed)]
-    [InlineData(Status.Failed)]
-    public void SerializationRoundtrip_Works(Status rawValue)
+    [InlineData(V1ProcessResponseStatus.Queued)]
+    [InlineData(V1ProcessResponseStatus.Processing)]
+    [InlineData(V1ProcessResponseStatus.Completed)]
+    [InlineData(V1ProcessResponseStatus.Failed)]
+    public void SerializationRoundtrip_Works(V1ProcessResponseStatus rawValue)
     {
         // force implicit conversion because Theory can't do that for us
-        ApiEnum<string, Status> value = rawValue;
+        ApiEnum<string, V1ProcessResponseStatus> value = rawValue;
 
         string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Status>>(
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, V1ProcessResponseStatus>>(
             json,
             ModelBase.SerializerOptions
         );
@@ -248,12 +248,12 @@ public class StatusTest : TestBase
     [Fact]
     public void InvalidEnumSerializationRoundtrip_Works()
     {
-        var value = JsonSerializer.Deserialize<ApiEnum<string, Status>>(
+        var value = JsonSerializer.Deserialize<ApiEnum<string, V1ProcessResponseStatus>>(
             JsonSerializer.SerializeToElement("invalid value"),
             ModelBase.SerializerOptions
         );
         string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Status>>(
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, V1ProcessResponseStatus>>(
             json,
             ModelBase.SerializerOptions
         );

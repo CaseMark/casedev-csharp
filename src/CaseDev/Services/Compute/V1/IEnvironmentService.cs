@@ -41,13 +41,13 @@ public interface IEnvironmentService
     /// Retrieve a specific compute environment by name. Returns environment configuration
     /// including status, domain, and metadata for your serverless compute infrastructure.
     /// </summary>
-    Task Retrieve(
+    Task<EnvironmentRetrieveResponse> Retrieve(
         EnvironmentRetrieveParams parameters,
         CancellationToken cancellationToken = default
     );
 
     /// <inheritdoc cref="Retrieve(EnvironmentRetrieveParams, CancellationToken)"/>
-    Task Retrieve(
+    Task<EnvironmentRetrieveResponse> Retrieve(
         string name,
         EnvironmentRetrieveParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -57,7 +57,7 @@ public interface IEnvironmentService
     /// Retrieve all compute environments for your organization. Environments provide
     /// isolated execution contexts for running code and workflows.
     /// </summary>
-    Task List(
+    Task<EnvironmentListResponse> List(
         EnvironmentListParams? parameters = null,
         CancellationToken cancellationToken = default
     );
@@ -84,13 +84,13 @@ public interface IEnvironmentService
     /// environment can be default at a time - setting a new default will automatically
     /// unset the previous one.
     /// </summary>
-    Task SetDefault(
+    Task<EnvironmentSetDefaultResponse> SetDefault(
         EnvironmentSetDefaultParams parameters,
         CancellationToken cancellationToken = default
     );
 
     /// <inheritdoc cref="SetDefault(EnvironmentSetDefaultParams, CancellationToken)"/>
-    Task SetDefault(
+    Task<EnvironmentSetDefaultResponse> SetDefault(
         string name,
         EnvironmentSetDefaultParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -123,13 +123,13 @@ public interface IEnvironmentServiceWithRawResponse
     /// Returns a raw HTTP response for `get /compute/v1/environments/{name}`, but is otherwise the
     /// same as <see cref="IEnvironmentService.Retrieve(EnvironmentRetrieveParams, CancellationToken)"/>.
     /// </summary>
-    Task<HttpResponse> Retrieve(
+    Task<HttpResponse<EnvironmentRetrieveResponse>> Retrieve(
         EnvironmentRetrieveParams parameters,
         CancellationToken cancellationToken = default
     );
 
     /// <inheritdoc cref="Retrieve(EnvironmentRetrieveParams, CancellationToken)"/>
-    Task<HttpResponse> Retrieve(
+    Task<HttpResponse<EnvironmentRetrieveResponse>> Retrieve(
         string name,
         EnvironmentRetrieveParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -139,7 +139,7 @@ public interface IEnvironmentServiceWithRawResponse
     /// Returns a raw HTTP response for `get /compute/v1/environments`, but is otherwise the
     /// same as <see cref="IEnvironmentService.List(EnvironmentListParams?, CancellationToken)"/>.
     /// </summary>
-    Task<HttpResponse> List(
+    Task<HttpResponse<EnvironmentListResponse>> List(
         EnvironmentListParams? parameters = null,
         CancellationToken cancellationToken = default
     );
@@ -164,13 +164,13 @@ public interface IEnvironmentServiceWithRawResponse
     /// Returns a raw HTTP response for `post /compute/v1/environments/{name}/default`, but is otherwise the
     /// same as <see cref="IEnvironmentService.SetDefault(EnvironmentSetDefaultParams, CancellationToken)"/>.
     /// </summary>
-    Task<HttpResponse> SetDefault(
+    Task<HttpResponse<EnvironmentSetDefaultResponse>> SetDefault(
         EnvironmentSetDefaultParams parameters,
         CancellationToken cancellationToken = default
     );
 
     /// <inheritdoc cref="SetDefault(EnvironmentSetDefaultParams, CancellationToken)"/>
-    Task<HttpResponse> SetDefault(
+    Task<HttpResponse<EnvironmentSetDefaultResponse>> SetDefault(
         string name,
         EnvironmentSetDefaultParams? parameters = null,
         CancellationToken cancellationToken = default

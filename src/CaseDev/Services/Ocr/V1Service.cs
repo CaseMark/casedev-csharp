@@ -35,16 +35,19 @@ public sealed class V1Service : IV1Service
     }
 
     /// <inheritdoc/>
-    public Task Retrieve(
+    public async Task<V1::V1RetrieveResponse> Retrieve(
         V1::V1RetrieveParams parameters,
         CancellationToken cancellationToken = default
     )
     {
-        return this.WithRawResponse.Retrieve(parameters, cancellationToken);
+        using var response = await this
+            .WithRawResponse.Retrieve(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc/>
-    public async Task Retrieve(
+    public Task<V1::V1RetrieveResponse> Retrieve(
         string id,
         V1::V1RetrieveParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -52,27 +55,29 @@ public sealed class V1Service : IV1Service
     {
         parameters ??= new();
 
-        await this.Retrieve(parameters with { ID = id }, cancellationToken).ConfigureAwait(false);
+        return this.Retrieve(parameters with { ID = id }, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public Task Download(
+    public async Task<BinaryContent> Download(
         V1::V1DownloadParams parameters,
         CancellationToken cancellationToken = default
     )
     {
-        return this.WithRawResponse.Download(parameters, cancellationToken);
+        using var response = await this
+            .WithRawResponse.Download(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc/>
-    public async Task Download(
+    public Task<BinaryContent> Download(
         ApiEnum<string, V1::Type> type,
         V1::V1DownloadParams parameters,
         CancellationToken cancellationToken = default
     )
     {
-        await this.Download(parameters with { Type = type }, cancellationToken)
-            .ConfigureAwait(false);
+        return this.Download(parameters with { Type = type }, cancellationToken);
     }
 
     /// <inheritdoc/>
@@ -105,7 +110,7 @@ public sealed class V1ServiceWithRawResponse : IV1ServiceWithRawResponse
     }
 
     /// <inheritdoc/>
-    public Task<HttpResponse> Retrieve(
+    public async Task<HttpResponse<V1::V1RetrieveResponse>> Retrieve(
         V1::V1RetrieveParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -120,11 +125,25 @@ public sealed class V1ServiceWithRawResponse : IV1ServiceWithRawResponse
             Method = HttpMethod.Get,
             Params = parameters,
         };
-        return this._client.Execute(request, cancellationToken);
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var v1 = await response
+                    .Deserialize<V1::V1RetrieveResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    v1.Validate();
+                }
+                return v1;
+            }
+        );
     }
 
     /// <inheritdoc/>
-    public Task<HttpResponse> Retrieve(
+    public Task<HttpResponse<V1::V1RetrieveResponse>> Retrieve(
         string id,
         V1::V1RetrieveParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -136,7 +155,7 @@ public sealed class V1ServiceWithRawResponse : IV1ServiceWithRawResponse
     }
 
     /// <inheritdoc/>
-    public Task<HttpResponse> Download(
+    public async Task<HttpResponse<BinaryContent>> Download(
         V1::V1DownloadParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -151,11 +170,18 @@ public sealed class V1ServiceWithRawResponse : IV1ServiceWithRawResponse
             Method = HttpMethod.Get,
             Params = parameters,
         };
-        return this._client.Execute(request, cancellationToken);
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                return await response.Deserialize<BinaryContent>(token).ConfigureAwait(false);
+            }
+        );
     }
 
     /// <inheritdoc/>
-    public Task<HttpResponse> Download(
+    public Task<HttpResponse<BinaryContent>> Download(
         ApiEnum<string, V1::Type> type,
         V1::V1DownloadParams parameters,
         CancellationToken cancellationToken = default

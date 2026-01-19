@@ -47,16 +47,19 @@ public sealed class TemplateService : ITemplateService
     }
 
     /// <inheritdoc/>
-    public Task Retrieve(
+    public async Task<TemplateRetrieveResponse> Retrieve(
         TemplateRetrieveParams parameters,
         CancellationToken cancellationToken = default
     )
     {
-        return this.WithRawResponse.Retrieve(parameters, cancellationToken);
+        using var response = await this
+            .WithRawResponse.Retrieve(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc/>
-    public async Task Retrieve(
+    public Task<TemplateRetrieveResponse> Retrieve(
         string id,
         TemplateRetrieveParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -64,16 +67,19 @@ public sealed class TemplateService : ITemplateService
     {
         parameters ??= new();
 
-        await this.Retrieve(parameters with { ID = id }, cancellationToken).ConfigureAwait(false);
+        return this.Retrieve(parameters with { ID = id }, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public Task List(
+    public async Task<TemplateListResponse> List(
         TemplateListParams? parameters = null,
         CancellationToken cancellationToken = default
     )
     {
-        return this.WithRawResponse.List(parameters, cancellationToken);
+        using var response = await this
+            .WithRawResponse.List(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
     }
 }
 
@@ -122,7 +128,7 @@ public sealed class TemplateServiceWithRawResponse : ITemplateServiceWithRawResp
     }
 
     /// <inheritdoc/>
-    public Task<HttpResponse> Retrieve(
+    public async Task<HttpResponse<TemplateRetrieveResponse>> Retrieve(
         TemplateRetrieveParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -137,11 +143,25 @@ public sealed class TemplateServiceWithRawResponse : ITemplateServiceWithRawResp
             Method = HttpMethod.Get,
             Params = parameters,
         };
-        return this._client.Execute(request, cancellationToken);
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var template = await response
+                    .Deserialize<TemplateRetrieveResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    template.Validate();
+                }
+                return template;
+            }
+        );
     }
 
     /// <inheritdoc/>
-    public Task<HttpResponse> Retrieve(
+    public Task<HttpResponse<TemplateRetrieveResponse>> Retrieve(
         string id,
         TemplateRetrieveParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -153,7 +173,7 @@ public sealed class TemplateServiceWithRawResponse : ITemplateServiceWithRawResp
     }
 
     /// <inheritdoc/>
-    public Task<HttpResponse> List(
+    public async Task<HttpResponse<TemplateListResponse>> List(
         TemplateListParams? parameters = null,
         CancellationToken cancellationToken = default
     )
@@ -165,6 +185,20 @@ public sealed class TemplateServiceWithRawResponse : ITemplateServiceWithRawResp
             Method = HttpMethod.Get,
             Params = parameters,
         };
-        return this._client.Execute(request, cancellationToken);
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var templates = await response
+                    .Deserialize<TemplateListResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    templates.Validate();
+                }
+                return templates;
+            }
+        );
     }
 }

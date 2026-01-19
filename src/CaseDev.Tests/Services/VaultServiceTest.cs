@@ -17,11 +17,12 @@ public class VaultServiceTest : TestBase
     [Fact(Skip = "Prism tests are disabled")]
     public async Task Retrieve_Works()
     {
-        await this.client.Vault.Retrieve(
+        var vault = await this.client.Vault.Retrieve(
             "vault_abc123",
             new(),
             TestContext.Current.CancellationToken
         );
+        vault.Validate();
     }
 
     [Fact(Skip = "Prism tests are disabled")]

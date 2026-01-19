@@ -17,20 +17,22 @@ public class EnvironmentServiceTest : TestBase
     [Fact(Skip = "Prism tests are disabled")]
     public async Task Retrieve_Works()
     {
-        await this.client.Compute.V1.Environments.Retrieve(
+        var environment = await this.client.Compute.V1.Environments.Retrieve(
             "name",
             new(),
             TestContext.Current.CancellationToken
         );
+        environment.Validate();
     }
 
     [Fact(Skip = "Prism tests are disabled")]
     public async Task List_Works()
     {
-        await this.client.Compute.V1.Environments.List(
+        var environments = await this.client.Compute.V1.Environments.List(
             new(),
             TestContext.Current.CancellationToken
         );
+        environments.Validate();
     }
 
     [Fact(Skip = "Prism tests are disabled")]
@@ -47,10 +49,11 @@ public class EnvironmentServiceTest : TestBase
     [Fact(Skip = "Prism tests are disabled")]
     public async Task SetDefault_Works()
     {
-        await this.client.Compute.V1.Environments.SetDefault(
+        var response = await this.client.Compute.V1.Environments.SetDefault(
             "prod-legal-docs",
             new(),
             TestContext.Current.CancellationToken
         );
+        response.Validate();
     }
 }

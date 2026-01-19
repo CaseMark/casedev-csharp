@@ -8,7 +8,12 @@ public class V1ServiceTest : TestBase
     [Fact(Skip = "Prism tests are disabled")]
     public async Task Retrieve_Works()
     {
-        await this.client.Ocr.V1.Retrieve("id", new(), TestContext.Current.CancellationToken);
+        var v1 = await this.client.Ocr.V1.Retrieve(
+            "id",
+            new(),
+            TestContext.Current.CancellationToken
+        );
+        v1.Validate();
     }
 
     [Fact(Skip = "Prism tests are disabled")]

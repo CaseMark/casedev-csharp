@@ -14,7 +14,7 @@ public class TranscriptionRetrieveResponseTest : TestBase
         var model = new TranscriptionRetrieveResponse
         {
             ID = "id",
-            Status = Status.Queued,
+            Status = TranscriptionRetrieveResponseStatus.Queued,
             AudioDuration = 0,
             Confidence = 0,
             Error = "error",
@@ -27,7 +27,8 @@ public class TranscriptionRetrieveResponseTest : TestBase
         };
 
         string expectedID = "id";
-        ApiEnum<string, Status> expectedStatus = Status.Queued;
+        ApiEnum<string, TranscriptionRetrieveResponseStatus> expectedStatus =
+            TranscriptionRetrieveResponseStatus.Queued;
         double expectedAudioDuration = 0;
         double expectedConfidence = 0;
         string expectedError = "error";
@@ -62,7 +63,7 @@ public class TranscriptionRetrieveResponseTest : TestBase
         var model = new TranscriptionRetrieveResponse
         {
             ID = "id",
-            Status = Status.Queued,
+            Status = TranscriptionRetrieveResponseStatus.Queued,
             AudioDuration = 0,
             Confidence = 0,
             Error = "error",
@@ -89,7 +90,7 @@ public class TranscriptionRetrieveResponseTest : TestBase
         var model = new TranscriptionRetrieveResponse
         {
             ID = "id",
-            Status = Status.Queued,
+            Status = TranscriptionRetrieveResponseStatus.Queued,
             AudioDuration = 0,
             Confidence = 0,
             Error = "error",
@@ -109,7 +110,8 @@ public class TranscriptionRetrieveResponseTest : TestBase
         Assert.NotNull(deserialized);
 
         string expectedID = "id";
-        ApiEnum<string, Status> expectedStatus = Status.Queued;
+        ApiEnum<string, TranscriptionRetrieveResponseStatus> expectedStatus =
+            TranscriptionRetrieveResponseStatus.Queued;
         double expectedAudioDuration = 0;
         double expectedConfidence = 0;
         string expectedError = "error";
@@ -144,7 +146,7 @@ public class TranscriptionRetrieveResponseTest : TestBase
         var model = new TranscriptionRetrieveResponse
         {
             ID = "id",
-            Status = Status.Queued,
+            Status = TranscriptionRetrieveResponseStatus.Queued,
             AudioDuration = 0,
             Confidence = 0,
             Error = "error",
@@ -162,7 +164,11 @@ public class TranscriptionRetrieveResponseTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetAreNotSet_Works()
     {
-        var model = new TranscriptionRetrieveResponse { ID = "id", Status = Status.Queued };
+        var model = new TranscriptionRetrieveResponse
+        {
+            ID = "id",
+            Status = TranscriptionRetrieveResponseStatus.Queued,
+        };
 
         Assert.Null(model.AudioDuration);
         Assert.False(model.RawData.ContainsKey("audio_duration"));
@@ -187,7 +193,11 @@ public class TranscriptionRetrieveResponseTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetValidation_Works()
     {
-        var model = new TranscriptionRetrieveResponse { ID = "id", Status = Status.Queued };
+        var model = new TranscriptionRetrieveResponse
+        {
+            ID = "id",
+            Status = TranscriptionRetrieveResponseStatus.Queued,
+        };
 
         model.Validate();
     }
@@ -198,7 +208,7 @@ public class TranscriptionRetrieveResponseTest : TestBase
         var model = new TranscriptionRetrieveResponse
         {
             ID = "id",
-            Status = Status.Queued,
+            Status = TranscriptionRetrieveResponseStatus.Queued,
 
             // Null should be interpreted as omitted for these properties
             AudioDuration = null,
@@ -238,7 +248,7 @@ public class TranscriptionRetrieveResponseTest : TestBase
         var model = new TranscriptionRetrieveResponse
         {
             ID = "id",
-            Status = Status.Queued,
+            Status = TranscriptionRetrieveResponseStatus.Queued,
 
             // Null should be interpreted as omitted for these properties
             AudioDuration = null,
@@ -256,47 +266,45 @@ public class TranscriptionRetrieveResponseTest : TestBase
     }
 }
 
-public class StatusTest : TestBase
+public class TranscriptionRetrieveResponseStatusTest : TestBase
 {
     [Theory]
-    [InlineData(Status.Queued)]
-    [InlineData(Status.Processing)]
-    [InlineData(Status.Completed)]
-    [InlineData(Status.Failed)]
-    public void Validation_Works(Status rawValue)
+    [InlineData(TranscriptionRetrieveResponseStatus.Queued)]
+    [InlineData(TranscriptionRetrieveResponseStatus.Processing)]
+    [InlineData(TranscriptionRetrieveResponseStatus.Completed)]
+    [InlineData(TranscriptionRetrieveResponseStatus.Failed)]
+    public void Validation_Works(TranscriptionRetrieveResponseStatus rawValue)
     {
         // force implicit conversion because Theory can't do that for us
-        ApiEnum<string, Status> value = rawValue;
+        ApiEnum<string, TranscriptionRetrieveResponseStatus> value = rawValue;
         value.Validate();
     }
 
     [Fact]
     public void InvalidEnumValidationThrows_Works()
     {
-        var value = JsonSerializer.Deserialize<ApiEnum<string, Status>>(
-            JsonSerializer.SerializeToElement("invalid value"),
-            ModelBase.SerializerOptions
-        );
+        var value = JsonSerializer.Deserialize<
+            ApiEnum<string, TranscriptionRetrieveResponseStatus>
+        >(JsonSerializer.SerializeToElement("invalid value"), ModelBase.SerializerOptions);
 
         Assert.NotNull(value);
         Assert.Throws<CasedevInvalidDataException>(() => value.Validate());
     }
 
     [Theory]
-    [InlineData(Status.Queued)]
-    [InlineData(Status.Processing)]
-    [InlineData(Status.Completed)]
-    [InlineData(Status.Failed)]
-    public void SerializationRoundtrip_Works(Status rawValue)
+    [InlineData(TranscriptionRetrieveResponseStatus.Queued)]
+    [InlineData(TranscriptionRetrieveResponseStatus.Processing)]
+    [InlineData(TranscriptionRetrieveResponseStatus.Completed)]
+    [InlineData(TranscriptionRetrieveResponseStatus.Failed)]
+    public void SerializationRoundtrip_Works(TranscriptionRetrieveResponseStatus rawValue)
     {
         // force implicit conversion because Theory can't do that for us
-        ApiEnum<string, Status> value = rawValue;
+        ApiEnum<string, TranscriptionRetrieveResponseStatus> value = rawValue;
 
         string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Status>>(
-            json,
-            ModelBase.SerializerOptions
-        );
+        var deserialized = JsonSerializer.Deserialize<
+            ApiEnum<string, TranscriptionRetrieveResponseStatus>
+        >(json, ModelBase.SerializerOptions);
 
         Assert.Equal(value, deserialized);
     }
@@ -304,15 +312,13 @@ public class StatusTest : TestBase
     [Fact]
     public void InvalidEnumSerializationRoundtrip_Works()
     {
-        var value = JsonSerializer.Deserialize<ApiEnum<string, Status>>(
-            JsonSerializer.SerializeToElement("invalid value"),
-            ModelBase.SerializerOptions
-        );
+        var value = JsonSerializer.Deserialize<
+            ApiEnum<string, TranscriptionRetrieveResponseStatus>
+        >(JsonSerializer.SerializeToElement("invalid value"), ModelBase.SerializerOptions);
         string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Status>>(
-            json,
-            ModelBase.SerializerOptions
-        );
+        var deserialized = JsonSerializer.Deserialize<
+            ApiEnum<string, TranscriptionRetrieveResponseStatus>
+        >(json, ModelBase.SerializerOptions);
 
         Assert.Equal(value, deserialized);
     }

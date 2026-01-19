@@ -37,11 +37,12 @@ public class V1ServiceTest : TestBase
     [Fact(Skip = "Prism tests are disabled")]
     public async Task RetrieveResearch_Works()
     {
-        await this.client.Search.V1.RetrieveResearch(
+        var response = await this.client.Search.V1.RetrieveResearch(
             "id",
             new(),
             TestContext.Current.CancellationToken
         );
+        response.Validate();
     }
 
     [Fact(Skip = "Prism tests are disabled")]

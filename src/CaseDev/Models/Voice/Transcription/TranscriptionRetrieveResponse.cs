@@ -31,12 +31,14 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
     /// <summary>
     /// Current status of the transcription job
     /// </summary>
-    public required ApiEnum<string, Status> Status
+    public required ApiEnum<string, TranscriptionRetrieveResponseStatus> Status
     {
         get
         {
             this._rawData.Freeze();
-            return this._rawData.GetNotNullClass<ApiEnum<string, Status>>("status");
+            return this._rawData.GetNotNullClass<
+                ApiEnum<string, TranscriptionRetrieveResponseStatus>
+            >("status");
         }
         init { this._rawData.Set("status", value); }
     }
@@ -289,8 +291,8 @@ class TranscriptionRetrieveResponseFromRaw : IFromRawJson<TranscriptionRetrieveR
 /// <summary>
 /// Current status of the transcription job
 /// </summary>
-[JsonConverter(typeof(StatusConverter))]
-public enum Status
+[JsonConverter(typeof(TranscriptionRetrieveResponseStatusConverter))]
+public enum TranscriptionRetrieveResponseStatus
 {
     Queued,
     Processing,
@@ -298,9 +300,10 @@ public enum Status
     Failed,
 }
 
-sealed class StatusConverter : JsonConverter<Status>
+sealed class TranscriptionRetrieveResponseStatusConverter
+    : JsonConverter<TranscriptionRetrieveResponseStatus>
 {
-    public override Status Read(
+    public override TranscriptionRetrieveResponseStatus Read(
         ref Utf8JsonReader reader,
         Type typeToConvert,
         JsonSerializerOptions options
@@ -308,24 +311,28 @@ sealed class StatusConverter : JsonConverter<Status>
     {
         return JsonSerializer.Deserialize<string>(ref reader, options) switch
         {
-            "queued" => Status.Queued,
-            "processing" => Status.Processing,
-            "completed" => Status.Completed,
-            "failed" => Status.Failed,
-            _ => (Status)(-1),
+            "queued" => TranscriptionRetrieveResponseStatus.Queued,
+            "processing" => TranscriptionRetrieveResponseStatus.Processing,
+            "completed" => TranscriptionRetrieveResponseStatus.Completed,
+            "failed" => TranscriptionRetrieveResponseStatus.Failed,
+            _ => (TranscriptionRetrieveResponseStatus)(-1),
         };
     }
 
-    public override void Write(Utf8JsonWriter writer, Status value, JsonSerializerOptions options)
+    public override void Write(
+        Utf8JsonWriter writer,
+        TranscriptionRetrieveResponseStatus value,
+        JsonSerializerOptions options
+    )
     {
         JsonSerializer.Serialize(
             writer,
             value switch
             {
-                Status.Queued => "queued",
-                Status.Processing => "processing",
-                Status.Completed => "completed",
-                Status.Failed => "failed",
+                TranscriptionRetrieveResponseStatus.Queued => "queued",
+                TranscriptionRetrieveResponseStatus.Processing => "processing",
+                TranscriptionRetrieveResponseStatus.Completed => "completed",
+                TranscriptionRetrieveResponseStatus.Failed => "failed",
                 _ => throw new CasedevInvalidDataException(
                     string.Format("Invalid value '{0}' in {1}", value, nameof(value))
                 ),

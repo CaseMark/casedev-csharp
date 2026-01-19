@@ -35,7 +35,7 @@ public interface IV1Service
     /// languages, and styles suitable for legal document narration, client presentations,
     /// and accessibility purposes.
     /// </summary>
-    Task ListVoices(
+    Task<V1ListVoicesResponse> ListVoices(
         V1ListVoicesParams? parameters = null,
         CancellationToken cancellationToken = default
     );
@@ -60,7 +60,7 @@ public interface IV1ServiceWithRawResponse
     /// Returns a raw HTTP response for `get /voice/v1/voices`, but is otherwise the
     /// same as <see cref="IV1Service.ListVoices(V1ListVoicesParams?, CancellationToken)"/>.
     /// </summary>
-    Task<HttpResponse> ListVoices(
+    Task<HttpResponse<V1ListVoicesResponse>> ListVoices(
         V1ListVoicesParams? parameters = null,
         CancellationToken cancellationToken = default
     );

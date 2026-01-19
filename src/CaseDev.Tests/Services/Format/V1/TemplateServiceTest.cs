@@ -23,16 +23,21 @@ public class TemplateServiceTest : TestBase
     [Fact(Skip = "Prism tests are disabled")]
     public async Task Retrieve_Works()
     {
-        await this.client.Format.V1.Templates.Retrieve(
+        var template = await this.client.Format.V1.Templates.Retrieve(
             "id",
             new(),
             TestContext.Current.CancellationToken
         );
+        template.Validate();
     }
 
     [Fact(Skip = "Prism tests are disabled")]
     public async Task List_Works()
     {
-        await this.client.Format.V1.Templates.List(new(), TestContext.Current.CancellationToken);
+        var templates = await this.client.Format.V1.Templates.List(
+            new(),
+            TestContext.Current.CancellationToken
+        );
+        templates.Validate();
     }
 }

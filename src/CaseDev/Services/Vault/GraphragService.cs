@@ -35,16 +35,19 @@ public sealed class GraphragService : IGraphragService
     }
 
     /// <inheritdoc/>
-    public Task GetStats(
+    public async Task<GraphragGetStatsResponse> GetStats(
         GraphragGetStatsParams parameters,
         CancellationToken cancellationToken = default
     )
     {
-        return this.WithRawResponse.GetStats(parameters, cancellationToken);
+        using var response = await this
+            .WithRawResponse.GetStats(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc/>
-    public async Task GetStats(
+    public Task<GraphragGetStatsResponse> GetStats(
         string id,
         GraphragGetStatsParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -52,17 +55,23 @@ public sealed class GraphragService : IGraphragService
     {
         parameters ??= new();
 
-        await this.GetStats(parameters with { ID = id }, cancellationToken).ConfigureAwait(false);
+        return this.GetStats(parameters with { ID = id }, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public Task Init(GraphragInitParams parameters, CancellationToken cancellationToken = default)
+    public async Task<GraphragInitResponse> Init(
+        GraphragInitParams parameters,
+        CancellationToken cancellationToken = default
+    )
     {
-        return this.WithRawResponse.Init(parameters, cancellationToken);
+        using var response = await this
+            .WithRawResponse.Init(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc/>
-    public async Task Init(
+    public Task<GraphragInitResponse> Init(
         string id,
         GraphragInitParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -70,7 +79,7 @@ public sealed class GraphragService : IGraphragService
     {
         parameters ??= new();
 
-        await this.Init(parameters with { ID = id }, cancellationToken).ConfigureAwait(false);
+        return this.Init(parameters with { ID = id }, cancellationToken);
     }
 }
 
@@ -91,7 +100,7 @@ public sealed class GraphragServiceWithRawResponse : IGraphragServiceWithRawResp
     }
 
     /// <inheritdoc/>
-    public Task<HttpResponse> GetStats(
+    public async Task<HttpResponse<GraphragGetStatsResponse>> GetStats(
         GraphragGetStatsParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -106,11 +115,25 @@ public sealed class GraphragServiceWithRawResponse : IGraphragServiceWithRawResp
             Method = HttpMethod.Get,
             Params = parameters,
         };
-        return this._client.Execute(request, cancellationToken);
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var deserializedResponse = await response
+                    .Deserialize<GraphragGetStatsResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    deserializedResponse.Validate();
+                }
+                return deserializedResponse;
+            }
+        );
     }
 
     /// <inheritdoc/>
-    public Task<HttpResponse> GetStats(
+    public Task<HttpResponse<GraphragGetStatsResponse>> GetStats(
         string id,
         GraphragGetStatsParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -122,7 +145,7 @@ public sealed class GraphragServiceWithRawResponse : IGraphragServiceWithRawResp
     }
 
     /// <inheritdoc/>
-    public Task<HttpResponse> Init(
+    public async Task<HttpResponse<GraphragInitResponse>> Init(
         GraphragInitParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -137,11 +160,25 @@ public sealed class GraphragServiceWithRawResponse : IGraphragServiceWithRawResp
             Method = HttpMethod.Post,
             Params = parameters,
         };
-        return this._client.Execute(request, cancellationToken);
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var deserializedResponse = await response
+                    .Deserialize<GraphragInitResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    deserializedResponse.Validate();
+                }
+                return deserializedResponse;
+            }
+        );
     }
 
     /// <inheritdoc/>
-    public Task<HttpResponse> Init(
+    public Task<HttpResponse<GraphragInitResponse>> Init(
         string id,
         GraphragInitParams? parameters = null,
         CancellationToken cancellationToken = default

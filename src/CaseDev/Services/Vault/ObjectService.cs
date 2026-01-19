@@ -35,33 +35,41 @@ public sealed class ObjectService : IObjectService
     }
 
     /// <inheritdoc/>
-    public Task Retrieve(
+    public async Task<ObjectRetrieveResponse> Retrieve(
         ObjectRetrieveParams parameters,
         CancellationToken cancellationToken = default
     )
     {
-        return this.WithRawResponse.Retrieve(parameters, cancellationToken);
+        using var response = await this
+            .WithRawResponse.Retrieve(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc/>
-    public async Task Retrieve(
+    public Task<ObjectRetrieveResponse> Retrieve(
         string objectID,
         ObjectRetrieveParams parameters,
         CancellationToken cancellationToken = default
     )
     {
-        await this.Retrieve(parameters with { ObjectID = objectID }, cancellationToken)
-            .ConfigureAwait(false);
+        return this.Retrieve(parameters with { ObjectID = objectID }, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public Task List(ObjectListParams parameters, CancellationToken cancellationToken = default)
+    public async Task<ObjectListResponse> List(
+        ObjectListParams parameters,
+        CancellationToken cancellationToken = default
+    )
     {
-        return this.WithRawResponse.List(parameters, cancellationToken);
+        using var response = await this
+            .WithRawResponse.List(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc/>
-    public async Task List(
+    public Task<ObjectListResponse> List(
         string id,
         ObjectListParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -69,7 +77,7 @@ public sealed class ObjectService : IObjectService
     {
         parameters ??= new();
 
-        await this.List(parameters with { ID = id }, cancellationToken).ConfigureAwait(false);
+        return this.List(parameters with { ID = id }, cancellationToken);
     }
 
     /// <inheritdoc/>
@@ -95,43 +103,47 @@ public sealed class ObjectService : IObjectService
     }
 
     /// <inheritdoc/>
-    public Task Download(
+    public async Task<BinaryContent> Download(
         ObjectDownloadParams parameters,
         CancellationToken cancellationToken = default
     )
     {
-        return this.WithRawResponse.Download(parameters, cancellationToken);
+        using var response = await this
+            .WithRawResponse.Download(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc/>
-    public async Task Download(
+    public Task<BinaryContent> Download(
         string objectID,
         ObjectDownloadParams parameters,
         CancellationToken cancellationToken = default
     )
     {
-        await this.Download(parameters with { ObjectID = objectID }, cancellationToken)
-            .ConfigureAwait(false);
+        return this.Download(parameters with { ObjectID = objectID }, cancellationToken);
     }
 
     /// <inheritdoc/>
-    public Task GetText(
+    public async Task<ObjectGetTextResponse> GetText(
         ObjectGetTextParams parameters,
         CancellationToken cancellationToken = default
     )
     {
-        return this.WithRawResponse.GetText(parameters, cancellationToken);
+        using var response = await this
+            .WithRawResponse.GetText(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc/>
-    public async Task GetText(
+    public Task<ObjectGetTextResponse> GetText(
         string objectID,
         ObjectGetTextParams parameters,
         CancellationToken cancellationToken = default
     )
     {
-        await this.GetText(parameters with { ObjectID = objectID }, cancellationToken)
-            .ConfigureAwait(false);
+        return this.GetText(parameters with { ObjectID = objectID }, cancellationToken);
     }
 }
 
@@ -152,7 +164,7 @@ public sealed class ObjectServiceWithRawResponse : IObjectServiceWithRawResponse
     }
 
     /// <inheritdoc/>
-    public Task<HttpResponse> Retrieve(
+    public async Task<HttpResponse<ObjectRetrieveResponse>> Retrieve(
         ObjectRetrieveParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -167,11 +179,25 @@ public sealed class ObjectServiceWithRawResponse : IObjectServiceWithRawResponse
             Method = HttpMethod.Get,
             Params = parameters,
         };
-        return this._client.Execute(request, cancellationToken);
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var deserializedResponse = await response
+                    .Deserialize<ObjectRetrieveResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    deserializedResponse.Validate();
+                }
+                return deserializedResponse;
+            }
+        );
     }
 
     /// <inheritdoc/>
-    public Task<HttpResponse> Retrieve(
+    public Task<HttpResponse<ObjectRetrieveResponse>> Retrieve(
         string objectID,
         ObjectRetrieveParams parameters,
         CancellationToken cancellationToken = default
@@ -181,7 +207,7 @@ public sealed class ObjectServiceWithRawResponse : IObjectServiceWithRawResponse
     }
 
     /// <inheritdoc/>
-    public Task<HttpResponse> List(
+    public async Task<HttpResponse<ObjectListResponse>> List(
         ObjectListParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -196,11 +222,25 @@ public sealed class ObjectServiceWithRawResponse : IObjectServiceWithRawResponse
             Method = HttpMethod.Get,
             Params = parameters,
         };
-        return this._client.Execute(request, cancellationToken);
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var objects = await response
+                    .Deserialize<ObjectListResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    objects.Validate();
+                }
+                return objects;
+            }
+        );
     }
 
     /// <inheritdoc/>
-    public Task<HttpResponse> List(
+    public Task<HttpResponse<ObjectListResponse>> List(
         string id,
         ObjectListParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -255,7 +295,7 @@ public sealed class ObjectServiceWithRawResponse : IObjectServiceWithRawResponse
     }
 
     /// <inheritdoc/>
-    public Task<HttpResponse> Download(
+    public async Task<HttpResponse<BinaryContent>> Download(
         ObjectDownloadParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -270,11 +310,18 @@ public sealed class ObjectServiceWithRawResponse : IObjectServiceWithRawResponse
             Method = HttpMethod.Get,
             Params = parameters,
         };
-        return this._client.Execute(request, cancellationToken);
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                return await response.Deserialize<BinaryContent>(token).ConfigureAwait(false);
+            }
+        );
     }
 
     /// <inheritdoc/>
-    public Task<HttpResponse> Download(
+    public Task<HttpResponse<BinaryContent>> Download(
         string objectID,
         ObjectDownloadParams parameters,
         CancellationToken cancellationToken = default
@@ -284,7 +331,7 @@ public sealed class ObjectServiceWithRawResponse : IObjectServiceWithRawResponse
     }
 
     /// <inheritdoc/>
-    public Task<HttpResponse> GetText(
+    public async Task<HttpResponse<ObjectGetTextResponse>> GetText(
         ObjectGetTextParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -299,11 +346,25 @@ public sealed class ObjectServiceWithRawResponse : IObjectServiceWithRawResponse
             Method = HttpMethod.Get,
             Params = parameters,
         };
-        return this._client.Execute(request, cancellationToken);
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var deserializedResponse = await response
+                    .Deserialize<ObjectGetTextResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    deserializedResponse.Validate();
+                }
+                return deserializedResponse;
+            }
+        );
     }
 
     /// <inheritdoc/>
-    public Task<HttpResponse> GetText(
+    public Task<HttpResponse<ObjectGetTextResponse>> GetText(
         string objectID,
         ObjectGetTextParams parameters,
         CancellationToken cancellationToken = default

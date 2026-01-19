@@ -36,7 +36,7 @@ public interface IStreamingService
     ///
     /// <para>**Pricing:** $0.30 per minute ($18.00 per hour)</para>
     /// </summary>
-    Task GetUrl(
+    Task<StreamingGetUrlResponse> GetUrl(
         StreamingGetUrlParams? parameters = null,
         CancellationToken cancellationToken = default
     );
@@ -59,7 +59,7 @@ public interface IStreamingServiceWithRawResponse
     /// Returns a raw HTTP response for `get /voice/streaming/url`, but is otherwise the
     /// same as <see cref="IStreamingService.GetUrl(StreamingGetUrlParams?, CancellationToken)"/>.
     /// </summary>
-    Task<HttpResponse> GetUrl(
+    Task<HttpResponse<StreamingGetUrlResponse>> GetUrl(
         StreamingGetUrlParams? parameters = null,
         CancellationToken cancellationToken = default
     );

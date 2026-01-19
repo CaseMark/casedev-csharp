@@ -18,36 +18,43 @@ public class SecretServiceTest : TestBase
     [Fact(Skip = "Prism tests are disabled")]
     public async Task List_Works()
     {
-        await this.client.Compute.V1.Secrets.List(new(), TestContext.Current.CancellationToken);
+        var secrets = await this.client.Compute.V1.Secrets.List(
+            new(),
+            TestContext.Current.CancellationToken
+        );
+        secrets.Validate();
     }
 
     [Fact(Skip = "Prism tests are disabled")]
     public async Task DeleteGroup_Works()
     {
-        await this.client.Compute.V1.Secrets.DeleteGroup(
+        var response = await this.client.Compute.V1.Secrets.DeleteGroup(
             "group",
             new(),
             TestContext.Current.CancellationToken
         );
+        response.Validate();
     }
 
     [Fact(Skip = "Prism tests are disabled")]
     public async Task RetrieveGroup_Works()
     {
-        await this.client.Compute.V1.Secrets.RetrieveGroup(
+        var response = await this.client.Compute.V1.Secrets.RetrieveGroup(
             "group",
             new(),
             TestContext.Current.CancellationToken
         );
+        response.Validate();
     }
 
     [Fact(Skip = "Prism tests are disabled")]
     public async Task UpdateGroup_Works()
     {
-        await this.client.Compute.V1.Secrets.UpdateGroup(
+        var response = await this.client.Compute.V1.Secrets.UpdateGroup(
             "litigation-apis",
             new() { Secrets = new Dictionary<string, string>() { { "foo", "string" } } },
             TestContext.Current.CancellationToken
         );
+        response.Validate();
     }
 }
