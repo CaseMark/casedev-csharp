@@ -17,6 +17,11 @@ public class VaultSearchResponseTest : TestBase
             [
                 new()
                 {
+                    ChunkIndex = 0,
+                    Distance = 0,
+                    ObjectID = "object_id",
+                    PageEnd = 0,
+                    PageStart = 0,
                     Score = 0,
                     Source = "source",
                     Text = "text",
@@ -45,6 +50,11 @@ public class VaultSearchResponseTest : TestBase
         [
             new()
             {
+                ChunkIndex = 0,
+                Distance = 0,
+                ObjectID = "object_id",
+                PageEnd = 0,
+                PageStart = 0,
                 Score = 0,
                 Source = "source",
                 Text = "text",
@@ -95,6 +105,11 @@ public class VaultSearchResponseTest : TestBase
             [
                 new()
                 {
+                    ChunkIndex = 0,
+                    Distance = 0,
+                    ObjectID = "object_id",
+                    PageEnd = 0,
+                    PageStart = 0,
                     Score = 0,
                     Source = "source",
                     Text = "text",
@@ -137,6 +152,11 @@ public class VaultSearchResponseTest : TestBase
             [
                 new()
                 {
+                    ChunkIndex = 0,
+                    Distance = 0,
+                    ObjectID = "object_id",
+                    PageEnd = 0,
+                    PageStart = 0,
                     Score = 0,
                     Source = "source",
                     Text = "text",
@@ -172,6 +192,11 @@ public class VaultSearchResponseTest : TestBase
         [
             new()
             {
+                ChunkIndex = 0,
+                Distance = 0,
+                ObjectID = "object_id",
+                PageEnd = 0,
+                PageStart = 0,
                 Score = 0,
                 Source = "source",
                 Text = "text",
@@ -222,6 +247,11 @@ public class VaultSearchResponseTest : TestBase
             [
                 new()
                 {
+                    ChunkIndex = 0,
+                    Distance = 0,
+                    ObjectID = "object_id",
+                    PageEnd = 0,
+                    PageStart = 0,
                     Score = 0,
                     Source = "source",
                     Text = "text",
@@ -329,15 +359,30 @@ public class ChunkTest : TestBase
     {
         var model = new Chunk
         {
+            ChunkIndex = 0,
+            Distance = 0,
+            ObjectID = "object_id",
+            PageEnd = 0,
+            PageStart = 0,
             Score = 0,
             Source = "source",
             Text = "text",
         };
 
+        long expectedChunkIndex = 0;
+        double expectedDistance = 0;
+        string expectedObjectID = "object_id";
+        long expectedPageEnd = 0;
+        long expectedPageStart = 0;
         double expectedScore = 0;
         string expectedSource = "source";
         string expectedText = "text";
 
+        Assert.Equal(expectedChunkIndex, model.ChunkIndex);
+        Assert.Equal(expectedDistance, model.Distance);
+        Assert.Equal(expectedObjectID, model.ObjectID);
+        Assert.Equal(expectedPageEnd, model.PageEnd);
+        Assert.Equal(expectedPageStart, model.PageStart);
         Assert.Equal(expectedScore, model.Score);
         Assert.Equal(expectedSource, model.Source);
         Assert.Equal(expectedText, model.Text);
@@ -348,6 +393,11 @@ public class ChunkTest : TestBase
     {
         var model = new Chunk
         {
+            ChunkIndex = 0,
+            Distance = 0,
+            ObjectID = "object_id",
+            PageEnd = 0,
+            PageStart = 0,
             Score = 0,
             Source = "source",
             Text = "text",
@@ -364,6 +414,11 @@ public class ChunkTest : TestBase
     {
         var model = new Chunk
         {
+            ChunkIndex = 0,
+            Distance = 0,
+            ObjectID = "object_id",
+            PageEnd = 0,
+            PageStart = 0,
             Score = 0,
             Source = "source",
             Text = "text",
@@ -373,10 +428,20 @@ public class ChunkTest : TestBase
         var deserialized = JsonSerializer.Deserialize<Chunk>(element, ModelBase.SerializerOptions);
         Assert.NotNull(deserialized);
 
+        long expectedChunkIndex = 0;
+        double expectedDistance = 0;
+        string expectedObjectID = "object_id";
+        long expectedPageEnd = 0;
+        long expectedPageStart = 0;
         double expectedScore = 0;
         string expectedSource = "source";
         string expectedText = "text";
 
+        Assert.Equal(expectedChunkIndex, deserialized.ChunkIndex);
+        Assert.Equal(expectedDistance, deserialized.Distance);
+        Assert.Equal(expectedObjectID, deserialized.ObjectID);
+        Assert.Equal(expectedPageEnd, deserialized.PageEnd);
+        Assert.Equal(expectedPageStart, deserialized.PageStart);
         Assert.Equal(expectedScore, deserialized.Score);
         Assert.Equal(expectedSource, deserialized.Source);
         Assert.Equal(expectedText, deserialized.Text);
@@ -387,6 +452,11 @@ public class ChunkTest : TestBase
     {
         var model = new Chunk
         {
+            ChunkIndex = 0,
+            Distance = 0,
+            ObjectID = "object_id",
+            PageEnd = 0,
+            PageStart = 0,
             Score = 0,
             Source = "source",
             Text = "text",
@@ -398,8 +468,14 @@ public class ChunkTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetAreNotSet_Works()
     {
-        var model = new Chunk { };
+        var model = new Chunk { PageEnd = 0, PageStart = 0 };
 
+        Assert.Null(model.ChunkIndex);
+        Assert.False(model.RawData.ContainsKey("chunk_index"));
+        Assert.Null(model.Distance);
+        Assert.False(model.RawData.ContainsKey("distance"));
+        Assert.Null(model.ObjectID);
+        Assert.False(model.RawData.ContainsKey("object_id"));
         Assert.Null(model.Score);
         Assert.False(model.RawData.ContainsKey("score"));
         Assert.Null(model.Source);
@@ -411,7 +487,7 @@ public class ChunkTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetValidation_Works()
     {
-        var model = new Chunk { };
+        var model = new Chunk { PageEnd = 0, PageStart = 0 };
 
         model.Validate();
     }
@@ -421,12 +497,24 @@ public class ChunkTest : TestBase
     {
         var model = new Chunk
         {
+            PageEnd = 0,
+            PageStart = 0,
+
             // Null should be interpreted as omitted for these properties
+            ChunkIndex = null,
+            Distance = null,
+            ObjectID = null,
             Score = null,
             Source = null,
             Text = null,
         };
 
+        Assert.Null(model.ChunkIndex);
+        Assert.False(model.RawData.ContainsKey("chunk_index"));
+        Assert.Null(model.Distance);
+        Assert.False(model.RawData.ContainsKey("distance"));
+        Assert.Null(model.ObjectID);
+        Assert.False(model.RawData.ContainsKey("object_id"));
         Assert.Null(model.Score);
         Assert.False(model.RawData.ContainsKey("score"));
         Assert.Null(model.Source);
@@ -440,10 +528,92 @@ public class ChunkTest : TestBase
     {
         var model = new Chunk
         {
+            PageEnd = 0,
+            PageStart = 0,
+
             // Null should be interpreted as omitted for these properties
+            ChunkIndex = null,
+            Distance = null,
+            ObjectID = null,
             Score = null,
             Source = null,
             Text = null,
+        };
+
+        model.Validate();
+    }
+
+    [Fact]
+    public void OptionalNullablePropertiesUnsetAreNotSet_Works()
+    {
+        var model = new Chunk
+        {
+            ChunkIndex = 0,
+            Distance = 0,
+            ObjectID = "object_id",
+            Score = 0,
+            Source = "source",
+            Text = "text",
+        };
+
+        Assert.Null(model.PageEnd);
+        Assert.False(model.RawData.ContainsKey("page_end"));
+        Assert.Null(model.PageStart);
+        Assert.False(model.RawData.ContainsKey("page_start"));
+    }
+
+    [Fact]
+    public void OptionalNullablePropertiesUnsetValidation_Works()
+    {
+        var model = new Chunk
+        {
+            ChunkIndex = 0,
+            Distance = 0,
+            ObjectID = "object_id",
+            Score = 0,
+            Source = "source",
+            Text = "text",
+        };
+
+        model.Validate();
+    }
+
+    [Fact]
+    public void OptionalNullablePropertiesSetToNullAreSetToNull_Works()
+    {
+        var model = new Chunk
+        {
+            ChunkIndex = 0,
+            Distance = 0,
+            ObjectID = "object_id",
+            Score = 0,
+            Source = "source",
+            Text = "text",
+
+            PageEnd = null,
+            PageStart = null,
+        };
+
+        Assert.Null(model.PageEnd);
+        Assert.True(model.RawData.ContainsKey("page_end"));
+        Assert.Null(model.PageStart);
+        Assert.True(model.RawData.ContainsKey("page_start"));
+    }
+
+    [Fact]
+    public void OptionalNullablePropertiesSetToNullValidation_Works()
+    {
+        var model = new Chunk
+        {
+            ChunkIndex = 0,
+            Distance = 0,
+            ObjectID = "object_id",
+            Score = 0,
+            Source = "source",
+            Text = "text",
+
+            PageEnd = null,
+            PageStart = null,
         };
 
         model.Validate();

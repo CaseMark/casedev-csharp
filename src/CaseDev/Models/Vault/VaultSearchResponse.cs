@@ -13,7 +13,7 @@ namespace CaseDev.Models.Vault;
 public sealed record class VaultSearchResponse : JsonModel
 {
     /// <summary>
-    /// Relevant text chunks with similarity scores
+    /// Relevant text chunks with similarity scores and page locations
     /// </summary>
     public IReadOnlyList<Chunk>? Chunks
     {
@@ -195,6 +195,100 @@ class VaultSearchResponseFromRaw : IFromRawJson<VaultSearchResponse>
 [JsonConverter(typeof(JsonModelConverter<Chunk, ChunkFromRaw>))]
 public sealed record class Chunk : JsonModel
 {
+    /// <summary>
+    /// Index of the chunk within the document (0-based)
+    /// </summary>
+    public long? ChunkIndex
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("chunk_index");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawData.Set("chunk_index", value);
+        }
+    }
+
+    /// <summary>
+    /// Vector similarity distance (lower is more similar)
+    /// </summary>
+    public double? Distance
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<double>("distance");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawData.Set("distance", value);
+        }
+    }
+
+    /// <summary>
+    /// ID of the source document
+    /// </summary>
+    public string? ObjectID
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("object_id");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawData.Set("object_id", value);
+        }
+    }
+
+    /// <summary>
+    /// PDF page number where the chunk ends (1-indexed). Null for non-PDF documents
+    /// or documents ingested before page tracking was added.
+    /// </summary>
+    public long? PageEnd
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("page_end");
+        }
+        init { this._rawData.Set("page_end", value); }
+    }
+
+    /// <summary>
+    /// PDF page number where the chunk begins (1-indexed). Null for non-PDF documents
+    /// or documents ingested before page tracking was added.
+    /// </summary>
+    public long? PageStart
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("page_start");
+        }
+        init { this._rawData.Set("page_start", value); }
+    }
+
+    /// <summary>
+    /// Relevance score (deprecated, use distance or hybridScore)
+    /// </summary>
     public double? Score
     {
         get
@@ -213,6 +307,9 @@ public sealed record class Chunk : JsonModel
         }
     }
 
+    /// <summary>
+    /// Source identifier (deprecated, use object_id)
+    /// </summary>
     public string? Source
     {
         get
@@ -231,6 +328,9 @@ public sealed record class Chunk : JsonModel
         }
     }
 
+    /// <summary>
+    /// Preview of the chunk text (up to 500 characters)
+    /// </summary>
     public string? Text
     {
         get
@@ -252,6 +352,11 @@ public sealed record class Chunk : JsonModel
     /// <inheritdoc/>
     public override void Validate()
     {
+        _ = this.ChunkIndex;
+        _ = this.Distance;
+        _ = this.ObjectID;
+        _ = this.PageEnd;
+        _ = this.PageStart;
         _ = this.Score;
         _ = this.Source;
         _ = this.Text;
