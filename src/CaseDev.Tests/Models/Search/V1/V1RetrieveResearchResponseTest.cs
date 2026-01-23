@@ -385,6 +385,55 @@ public class V1RetrieveResearchResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new V1RetrieveResearchResponse
+        {
+            ID = "id",
+            CompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Model = V1RetrieveResearchResponseModel.Fast,
+            Progress = 0,
+            Query = "query",
+            Results = new()
+            {
+                Sections =
+                [
+                    new()
+                    {
+                        Content = "content",
+                        Sources =
+                        [
+                            new()
+                            {
+                                Snippet = "snippet",
+                                Title = "title",
+                                Url = "url",
+                            },
+                        ],
+                        Title = "title",
+                    },
+                ],
+                Sources =
+                [
+                    new()
+                    {
+                        Snippet = "snippet",
+                        Title = "title",
+                        Url = "url",
+                    },
+                ],
+                Summary = "summary",
+            },
+            Status = Status.Pending,
+        };
+
+        V1RetrieveResearchResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class V1RetrieveResearchResponseModelTest : TestBase
@@ -738,6 +787,45 @@ public class ResultsTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Results
+        {
+            Sections =
+            [
+                new()
+                {
+                    Content = "content",
+                    Sources =
+                    [
+                        new()
+                        {
+                            Snippet = "snippet",
+                            Title = "title",
+                            Url = "url",
+                        },
+                    ],
+                    Title = "title",
+                },
+            ],
+            Sources =
+            [
+                new()
+                {
+                    Snippet = "snippet",
+                    Title = "title",
+                    Url = "url",
+                },
+            ],
+            Summary = "summary",
+        };
+
+        Results copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class SectionTest : TestBase
@@ -927,6 +1015,29 @@ public class SectionTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Section
+        {
+            Content = "content",
+            Sources =
+            [
+                new()
+                {
+                    Snippet = "snippet",
+                    Title = "title",
+                    Url = "url",
+                },
+            ],
+            Title = "title",
+        };
+
+        Section copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class SourceTest : TestBase
@@ -1054,6 +1165,21 @@ public class SourceTest : TestBase
         };
 
         model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Source
+        {
+            Snippet = "snippet",
+            Title = "title",
+            Url = "url",
+        };
+
+        Source copied = new(model);
+
+        Assert.Equal(model, copied);
     }
 }
 
@@ -1188,6 +1314,21 @@ public class ResultsSourceTest : TestBase
         };
 
         model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new ResultsSource
+        {
+            Snippet = "snippet",
+            Title = "title",
+            Url = "url",
+        };
+
+        ResultsSource copied = new(model);
+
+        Assert.Equal(model, copied);
     }
 }
 

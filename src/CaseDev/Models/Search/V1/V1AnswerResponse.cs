@@ -112,8 +112,11 @@ public sealed record class V1AnswerResponse : JsonModel
 
     public V1AnswerResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public V1AnswerResponse(V1AnswerResponse v1AnswerResponse)
         : base(v1AnswerResponse) { }
+#pragma warning restore CS8618
 
     public V1AnswerResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -249,8 +252,11 @@ public sealed record class Citation : JsonModel
 
     public Citation() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public Citation(Citation citation)
         : base(citation) { }
+#pragma warning restore CS8618
 
     public Citation(IReadOnlyDictionary<string, JsonElement> rawData)
     {

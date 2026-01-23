@@ -46,8 +46,11 @@ public sealed record class EnvironmentListResponse : JsonModel
 
     public EnvironmentListResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public EnvironmentListResponse(EnvironmentListResponse environmentListResponse)
         : base(environmentListResponse) { }
+#pragma warning restore CS8618
 
     public EnvironmentListResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -270,8 +273,11 @@ public sealed record class Environment : JsonModel
 
     public Environment() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public Environment(global::CaseDev.Models.Compute.V1.Environments.Environment environment)
         : base(environment) { }
+#pragma warning restore CS8618
 
     public Environment(IReadOnlyDictionary<string, JsonElement> rawData)
     {

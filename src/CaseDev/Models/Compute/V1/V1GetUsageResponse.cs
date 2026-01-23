@@ -81,8 +81,11 @@ public sealed record class V1GetUsageResponse : JsonModel
 
     public V1GetUsageResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public V1GetUsageResponse(V1GetUsageResponse v1GetUsageResponse)
         : base(v1GetUsageResponse) { }
+#pragma warning restore CS8618
 
     public V1GetUsageResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -237,8 +240,11 @@ public sealed record class ByEnvironment : JsonModel
 
     public ByEnvironment() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public ByEnvironment(ByEnvironment byEnvironment)
         : base(byEnvironment) { }
+#pragma warning restore CS8618
 
     public ByEnvironment(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -334,8 +340,11 @@ public sealed record class Period : JsonModel
 
     public Period() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public Period(Period period)
         : base(period) { }
+#pragma warning restore CS8618
 
     public Period(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -469,8 +478,11 @@ public sealed record class Summary : JsonModel
 
     public Summary() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public Summary(Summary summary)
         : base(summary) { }
+#pragma warning restore CS8618
 
     public Summary(IReadOnlyDictionary<string, JsonElement> rawData)
     {

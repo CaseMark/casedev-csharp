@@ -240,10 +240,13 @@ public sealed record class ObjectCreatePresignedUrlResponse : JsonModel
 
     public ObjectCreatePresignedUrlResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public ObjectCreatePresignedUrlResponse(
         ObjectCreatePresignedUrlResponse objectCreatePresignedUrlResponse
     )
         : base(objectCreatePresignedUrlResponse) { }
+#pragma warning restore CS8618
 
     public ObjectCreatePresignedUrlResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -361,8 +364,11 @@ public sealed record class Metadata : JsonModel
 
     public Metadata() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public Metadata(Metadata metadata)
         : base(metadata) { }
+#pragma warning restore CS8618
 
     public Metadata(IReadOnlyDictionary<string, JsonElement> rawData)
     {

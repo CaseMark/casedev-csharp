@@ -44,8 +44,11 @@ public sealed record class SecretListResponse : JsonModel
 
     public SecretListResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public SecretListResponse(SecretListResponse secretListResponse)
         : base(secretListResponse) { }
+#pragma warning restore CS8618
 
     public SecretListResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -196,8 +199,11 @@ public sealed record class Group : JsonModel
 
     public Group() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public Group(Group group)
         : base(group) { }
+#pragma warning restore CS8618
 
     public Group(IReadOnlyDictionary<string, JsonElement> rawData)
     {

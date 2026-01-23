@@ -350,6 +350,49 @@ public class VaultSearchResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new VaultSearchResponse
+        {
+            Chunks =
+            [
+                new()
+                {
+                    ChunkIndex = 0,
+                    Distance = 0,
+                    ObjectID = "object_id",
+                    PageEnd = 0,
+                    PageStart = 0,
+                    Score = 0,
+                    Source = "source",
+                    Text = "text",
+                },
+            ],
+            Method = "method",
+            Query = "query",
+            Response = "response",
+            Sources =
+            [
+                new()
+                {
+                    ID = "id",
+                    ChunkCount = 0,
+                    CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    Filename = "filename",
+                    IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    PageCount = 0,
+                    TextLength = 0,
+                },
+            ],
+            VaultID = "vault_id",
+        };
+
+        VaultSearchResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class ChunkTest : TestBase
@@ -618,6 +661,26 @@ public class ChunkTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Chunk
+        {
+            ChunkIndex = 0,
+            Distance = 0,
+            ObjectID = "object_id",
+            PageEnd = 0,
+            PageStart = 0,
+            Score = 0,
+            Source = "source",
+            Text = "text",
+        };
+
+        Chunk copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class SourceTest : TestBase
@@ -805,5 +868,24 @@ public class SourceTest : TestBase
         };
 
         model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Source
+        {
+            ID = "id",
+            ChunkCount = 0,
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Filename = "filename",
+            IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            PageCount = 0,
+            TextLength = 0,
+        };
+
+        Source copied = new(model);
+
+        Assert.Equal(model, copied);
     }
 }

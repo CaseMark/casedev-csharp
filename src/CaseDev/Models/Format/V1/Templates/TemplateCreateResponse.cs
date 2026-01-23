@@ -132,8 +132,11 @@ public sealed record class TemplateCreateResponse : JsonModel
 
     public TemplateCreateResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public TemplateCreateResponse(TemplateCreateResponse templateCreateResponse)
         : base(templateCreateResponse) { }
+#pragma warning restore CS8618
 
     public TemplateCreateResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {

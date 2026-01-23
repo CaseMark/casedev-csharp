@@ -212,6 +212,33 @@ public class SecretRetrieveGroupResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new SecretRetrieveGroupResponse
+        {
+            Group = new()
+            {
+                ID = "id",
+                Description = "description",
+                Name = "name",
+            },
+            Keys =
+            [
+                new()
+                {
+                    CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    KeyValue = "key",
+                    UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                },
+            ],
+        };
+
+        SecretRetrieveGroupResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class SecretRetrieveGroupResponseGroupTest : TestBase
@@ -346,6 +373,21 @@ public class SecretRetrieveGroupResponseGroupTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new SecretRetrieveGroupResponseGroup
+        {
+            ID = "id",
+            Description = "description",
+            Name = "name",
+        };
+
+        SecretRetrieveGroupResponseGroup copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class KeyTest : TestBase
@@ -473,5 +515,20 @@ public class KeyTest : TestBase
         };
 
         model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Key
+        {
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            KeyValue = "key",
+            UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+        };
+
+        Key copied = new(model);
+
+        Assert.Equal(model, copied);
     }
 }

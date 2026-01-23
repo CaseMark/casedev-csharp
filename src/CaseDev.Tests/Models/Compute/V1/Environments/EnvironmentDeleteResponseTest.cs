@@ -74,4 +74,18 @@ public class EnvironmentDeleteResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new EnvironmentDeleteResponse
+        {
+            Message = "Environment 'litigation-processing' deleted",
+            Success = true,
+        };
+
+        EnvironmentDeleteResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }

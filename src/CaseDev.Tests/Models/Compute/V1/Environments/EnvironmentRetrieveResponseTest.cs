@@ -207,4 +207,24 @@ public class EnvironmentRetrieveResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new EnvironmentRetrieveResponse
+        {
+            ID = "id",
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Domain = "domain",
+            IsDefault = true,
+            Name = "name",
+            Slug = "slug",
+            Status = "status",
+            UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+        };
+
+        EnvironmentRetrieveResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }

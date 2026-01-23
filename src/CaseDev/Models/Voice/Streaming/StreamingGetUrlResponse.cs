@@ -121,8 +121,11 @@ public sealed record class StreamingGetUrlResponse : JsonModel
 
     public StreamingGetUrlResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public StreamingGetUrlResponse(StreamingGetUrlResponse streamingGetUrlResponse)
         : base(streamingGetUrlResponse) { }
+#pragma warning restore CS8618
 
     public StreamingGetUrlResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -230,8 +233,11 @@ public sealed record class AudioFormat : JsonModel
 
     public AudioFormat() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public AudioFormat(AudioFormat audioFormat)
         : base(audioFormat) { }
+#pragma warning restore CS8618
 
     public AudioFormat(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -336,8 +342,11 @@ public sealed record class Pricing : JsonModel
 
     public Pricing() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public Pricing(Pricing pricing)
         : base(pricing) { }
+#pragma warning restore CS8618
 
     public Pricing(IReadOnlyDictionary<string, JsonElement> rawData)
     {

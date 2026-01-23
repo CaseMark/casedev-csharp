@@ -150,4 +150,20 @@ public class GraphragInitResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new GraphragInitResponse
+        {
+            Message = "message",
+            Status = "status",
+            Success = true,
+            VaultID = "vault_id",
+        };
+
+        GraphragInitResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }

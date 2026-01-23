@@ -185,6 +185,16 @@ public class FiltersTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Filters { ObjectID = "string" };
+
+        Filters copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class ObjectIDTest : TestBase

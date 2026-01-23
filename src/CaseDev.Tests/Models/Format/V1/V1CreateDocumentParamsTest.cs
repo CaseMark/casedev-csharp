@@ -417,6 +417,28 @@ public class OptionsTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Options
+        {
+            Components =
+            [
+                new()
+                {
+                    Content = "content",
+                    Styles = JsonSerializer.Deserialize<JsonElement>("{}"),
+                    TemplateID = "templateId",
+                    Variables = JsonSerializer.Deserialize<JsonElement>("{}"),
+                },
+            ],
+        };
+
+        Options copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class ComponentTest : TestBase
@@ -565,5 +587,21 @@ public class ComponentTest : TestBase
         };
 
         model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Component
+        {
+            Content = "content",
+            Styles = JsonSerializer.Deserialize<JsonElement>("{}"),
+            TemplateID = "templateId",
+            Variables = JsonSerializer.Deserialize<JsonElement>("{}"),
+        };
+
+        Component copied = new(model);
+
+        Assert.Equal(model, copied);
     }
 }

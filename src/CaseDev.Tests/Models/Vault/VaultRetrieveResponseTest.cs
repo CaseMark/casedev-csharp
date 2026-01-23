@@ -485,6 +485,40 @@ public class VaultRetrieveResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new VaultRetrieveResponse
+        {
+            ID = "id",
+            ChunkStrategy = new()
+            {
+                ChunkSize = 0,
+                Method = "method",
+                MinChunkSize = 0,
+                Overlap = 0,
+            },
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Description = "description",
+            EnableGraph = true,
+            FilesBucket = "filesBucket",
+            IndexName = "indexName",
+            KmsKeyID = "kmsKeyId",
+            Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+            Name = "name",
+            Region = "region",
+            TotalBytes = 0,
+            TotalObjects = 0,
+            TotalVectors = 0,
+            UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            VectorBucket = "vectorBucket",
+        };
+
+        VaultRetrieveResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class ChunkStrategyTest : TestBase
@@ -632,5 +666,21 @@ public class ChunkStrategyTest : TestBase
         };
 
         model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new ChunkStrategy
+        {
+            ChunkSize = 0,
+            Method = "method",
+            MinChunkSize = 0,
+            Overlap = 0,
+        };
+
+        ChunkStrategy copied = new(model);
+
+        Assert.Equal(model, copied);
     }
 }

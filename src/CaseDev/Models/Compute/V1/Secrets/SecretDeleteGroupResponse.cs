@@ -57,8 +57,11 @@ public sealed record class SecretDeleteGroupResponse : JsonModel
 
     public SecretDeleteGroupResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public SecretDeleteGroupResponse(SecretDeleteGroupResponse secretDeleteGroupResponse)
         : base(secretDeleteGroupResponse) { }
+#pragma warning restore CS8618
 
     public SecretDeleteGroupResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {

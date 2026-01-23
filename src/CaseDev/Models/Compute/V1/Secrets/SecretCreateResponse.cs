@@ -106,8 +106,11 @@ public sealed record class SecretCreateResponse : JsonModel
 
     public SecretCreateResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public SecretCreateResponse(SecretCreateResponse secretCreateResponse)
         : base(secretCreateResponse) { }
+#pragma warning restore CS8618
 
     public SecretCreateResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {

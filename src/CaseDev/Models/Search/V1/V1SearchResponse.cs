@@ -93,8 +93,11 @@ public sealed record class V1SearchResponse : JsonModel
 
     public V1SearchResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public V1SearchResponse(V1SearchResponse v1SearchResponse)
         : base(v1SearchResponse) { }
+#pragma warning restore CS8618
 
     public V1SearchResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -245,8 +248,11 @@ public sealed record class V1SearchResponseResult : JsonModel
 
     public V1SearchResponseResult() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public V1SearchResponseResult(V1SearchResponseResult v1SearchResponseResult)
         : base(v1SearchResponseResult) { }
+#pragma warning restore CS8618
 
     public V1SearchResponseResult(IReadOnlyDictionary<string, JsonElement> rawData)
     {

@@ -198,6 +198,32 @@ public class EnvironmentListResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Environments::EnvironmentListResponse
+        {
+            Environments =
+            [
+                new()
+                {
+                    ID = "id",
+                    CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    Domain = "domain",
+                    IsDefault = true,
+                    Name = "name",
+                    Slug = "slug",
+                    Status = "status",
+                    UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                },
+            ],
+        };
+
+        Environments::EnvironmentListResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class EnvironmentTest : TestBase
@@ -401,5 +427,25 @@ public class EnvironmentTest : TestBase
         };
 
         model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Environments::Environment
+        {
+            ID = "id",
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Domain = "domain",
+            IsDefault = true,
+            Name = "name",
+            Slug = "slug",
+            Status = "status",
+            UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+        };
+
+        Environments::Environment copied = new(model);
+
+        Assert.Equal(model, copied);
     }
 }

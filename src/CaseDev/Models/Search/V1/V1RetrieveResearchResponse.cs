@@ -200,8 +200,11 @@ public sealed record class V1RetrieveResearchResponse : JsonModel
 
     public V1RetrieveResearchResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public V1RetrieveResearchResponse(V1RetrieveResearchResponse v1RetrieveResearchResponse)
         : base(v1RetrieveResearchResponse) { }
+#pragma warning restore CS8618
 
     public V1RetrieveResearchResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -375,8 +378,11 @@ public sealed record class Results : JsonModel
 
     public Results() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public Results(Results results)
         : base(results) { }
+#pragma warning restore CS8618
 
     public Results(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -478,8 +484,11 @@ public sealed record class Section : JsonModel
 
     public Section() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public Section(Section section)
         : base(section) { }
+#pragma warning restore CS8618
 
     public Section(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -575,8 +584,11 @@ public sealed record class Source : JsonModel
 
     public Source() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public Source(Source source)
         : base(source) { }
+#pragma warning restore CS8618
 
     public Source(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -672,8 +684,11 @@ public sealed record class ResultsSource : JsonModel
 
     public ResultsSource() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public ResultsSource(ResultsSource resultsSource)
         : base(resultsSource) { }
+#pragma warning restore CS8618
 
     public ResultsSource(IReadOnlyDictionary<string, JsonElement> rawData)
     {

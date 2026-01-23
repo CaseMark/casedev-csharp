@@ -453,4 +453,20 @@ public class VoiceSettingsTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new VoiceSettings
+        {
+            SimilarityBoost = 0,
+            Stability = 0,
+            Style = 0,
+            UseSpeakerBoost = true,
+        };
+
+        VoiceSettings copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }

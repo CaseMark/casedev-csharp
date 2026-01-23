@@ -223,6 +223,35 @@ public class V1ListModelsResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new V1ListModelsResponse
+        {
+            Data =
+            [
+                new()
+                {
+                    ID = "id",
+                    Created = 0,
+                    Object = "object",
+                    OwnedBy = "owned_by",
+                    Pricing = new()
+                    {
+                        Input = "input",
+                        InputCacheRead = "input_cache_read",
+                        Output = "output",
+                    },
+                },
+            ],
+            Object = "object",
+        };
+
+        V1ListModelsResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class V1ListModelsResponseDataTest : TestBase
@@ -415,6 +444,28 @@ public class V1ListModelsResponseDataTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new V1ListModelsResponseData
+        {
+            ID = "id",
+            Created = 0,
+            Object = "object",
+            OwnedBy = "owned_by",
+            Pricing = new()
+            {
+                Input = "input",
+                InputCacheRead = "input_cache_read",
+                Output = "output",
+            },
+        };
+
+        V1ListModelsResponseData copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class PricingTest : TestBase
@@ -545,5 +596,20 @@ public class PricingTest : TestBase
         };
 
         model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Pricing
+        {
+            Input = "input",
+            InputCacheRead = "input_cache_read",
+            Output = "output",
+        };
+
+        Pricing copied = new(model);
+
+        Assert.Equal(model, copied);
     }
 }

@@ -196,6 +196,25 @@ public class V1RetrieveResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new V1RetrieveResponse
+        {
+            ID = "id",
+            CompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+            PageCount = 0,
+            Status = Status.Pending,
+            Text = "text",
+        };
+
+        V1RetrieveResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class StatusTest : TestBase

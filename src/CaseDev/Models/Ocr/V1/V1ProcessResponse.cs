@@ -175,8 +175,11 @@ public sealed record class V1ProcessResponse : JsonModel
 
     public V1ProcessResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public V1ProcessResponse(V1ProcessResponse v1ProcessResponse)
         : base(v1ProcessResponse) { }
+#pragma warning restore CS8618
 
     public V1ProcessResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {

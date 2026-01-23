@@ -106,4 +106,14 @@ public class SecretDeleteGroupResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new SecretDeleteGroupResponse { Message = "message", Success = true };
+
+        SecretDeleteGroupResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }

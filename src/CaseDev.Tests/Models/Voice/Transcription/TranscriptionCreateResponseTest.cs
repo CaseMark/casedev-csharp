@@ -151,6 +151,22 @@ public class TranscriptionCreateResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new TranscriptionCreateResponse
+        {
+            ID = "id",
+            SourceObjectID = "source_object_id",
+            Status = Status.Queued,
+            VaultID = "vault_id",
+        };
+
+        TranscriptionCreateResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class StatusTest : TestBase

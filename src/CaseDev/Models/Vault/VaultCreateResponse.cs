@@ -200,8 +200,11 @@ public sealed record class VaultCreateResponse : JsonModel
 
     public VaultCreateResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public VaultCreateResponse(VaultCreateResponse vaultCreateResponse)
         : base(vaultCreateResponse) { }
+#pragma warning restore CS8618
 
     public VaultCreateResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {

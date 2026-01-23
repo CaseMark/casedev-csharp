@@ -198,6 +198,25 @@ public class V1ProcessResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new V1ProcessResponse
+        {
+            ID = "id",
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            DocumentID = "document_id",
+            Engine = "engine",
+            EstimatedCompletion = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            PageCount = 0,
+            Status = V1ProcessResponseStatus.Queued,
+        };
+
+        V1ProcessResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class V1ProcessResponseStatusTest : TestBase

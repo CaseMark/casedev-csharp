@@ -171,6 +171,28 @@ public class ObjectGetTextResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new ObjectGetTextResponse
+        {
+            Metadata = new()
+            {
+                ChunkCount = 0,
+                Filename = "filename",
+                IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                Length = 0,
+                ObjectID = "object_id",
+                VaultID = "vault_id",
+            },
+            Text = "text",
+        };
+
+        ObjectGetTextResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class ObjectGetTextResponseMetadataTest : TestBase
@@ -350,5 +372,23 @@ public class ObjectGetTextResponseMetadataTest : TestBase
         };
 
         model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new ObjectGetTextResponseMetadata
+        {
+            ChunkCount = 0,
+            Filename = "filename",
+            IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Length = 0,
+            ObjectID = "object_id",
+            VaultID = "vault_id",
+        };
+
+        ObjectGetTextResponseMetadata copied = new(model);
+
+        Assert.Equal(model, copied);
     }
 }

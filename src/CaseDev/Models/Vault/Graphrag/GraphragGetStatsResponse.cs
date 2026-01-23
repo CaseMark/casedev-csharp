@@ -153,8 +153,11 @@ public sealed record class GraphragGetStatsResponse : JsonModel
 
     public GraphragGetStatsResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public GraphragGetStatsResponse(GraphragGetStatsResponse graphragGetStatsResponse)
         : base(graphragGetStatsResponse) { }
+#pragma warning restore CS8618
 
     public GraphragGetStatsResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {

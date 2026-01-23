@@ -237,6 +237,16 @@ public class MessageTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Message { Content = "content", Role = Role.System };
+
+        Message copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class RoleTest : TestBase

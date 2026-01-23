@@ -83,8 +83,11 @@ public sealed record class V1ResearchResponse : JsonModel
 
     public V1ResearchResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public V1ResearchResponse(V1ResearchResponse v1ResearchResponse)
         : base(v1ResearchResponse) { }
+#pragma warning restore CS8618
 
     public V1ResearchResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {

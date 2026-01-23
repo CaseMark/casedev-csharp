@@ -262,6 +262,40 @@ public class ObjectListResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Objects::ObjectListResponse
+        {
+            Count = 0,
+            Objects =
+            [
+                new()
+                {
+                    ID = "id",
+                    ChunkCount = 0,
+                    ContentType = "contentType",
+                    CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    Filename = "filename",
+                    IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    IngestionStatus = "ingestionStatus",
+                    Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+                    PageCount = 0,
+                    Path = "path",
+                    SizeBytes = 0,
+                    Tags = ["string"],
+                    TextLength = 0,
+                    VectorCount = 0,
+                },
+            ],
+            VaultID = "vaultId",
+        };
+
+        Objects::ObjectListResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class ObjectTest : TestBase
@@ -661,5 +695,31 @@ public class ObjectTest : TestBase
         };
 
         model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Objects::Object
+        {
+            ID = "id",
+            ChunkCount = 0,
+            ContentType = "contentType",
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Filename = "filename",
+            IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            IngestionStatus = "ingestionStatus",
+            Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+            PageCount = 0,
+            Path = "path",
+            SizeBytes = 0,
+            Tags = ["string"],
+            TextLength = 0,
+            VectorCount = 0,
+        };
+
+        Objects::Object copied = new(model);
+
+        Assert.Equal(model, copied);
     }
 }

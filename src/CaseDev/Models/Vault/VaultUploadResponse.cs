@@ -196,8 +196,11 @@ public sealed record class VaultUploadResponse : JsonModel
 
     public VaultUploadResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public VaultUploadResponse(VaultUploadResponse vaultUploadResponse)
         : base(vaultUploadResponse) { }
+#pragma warning restore CS8618
 
     public VaultUploadResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -295,8 +298,11 @@ public sealed record class Instructions : JsonModel
 
     public Instructions() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public Instructions(Instructions instructions)
         : base(instructions) { }
+#pragma warning restore CS8618
 
     public Instructions(IReadOnlyDictionary<string, JsonElement> rawData)
     {

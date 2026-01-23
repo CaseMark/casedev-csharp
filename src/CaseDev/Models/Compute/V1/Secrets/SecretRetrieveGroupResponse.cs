@@ -65,8 +65,11 @@ public sealed record class SecretRetrieveGroupResponse : JsonModel
 
     public SecretRetrieveGroupResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public SecretRetrieveGroupResponse(SecretRetrieveGroupResponse secretRetrieveGroupResponse)
         : base(secretRetrieveGroupResponse) { }
+#pragma warning restore CS8618
 
     public SecretRetrieveGroupResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -179,10 +182,13 @@ public sealed record class SecretRetrieveGroupResponseGroup : JsonModel
 
     public SecretRetrieveGroupResponseGroup() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public SecretRetrieveGroupResponseGroup(
         SecretRetrieveGroupResponseGroup secretRetrieveGroupResponseGroup
     )
         : base(secretRetrieveGroupResponseGroup) { }
+#pragma warning restore CS8618
 
     public SecretRetrieveGroupResponseGroup(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -290,8 +296,11 @@ public sealed record class Key : JsonModel
 
     public Key() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public Key(Key key)
         : base(key) { }
+#pragma warning restore CS8618
 
     public Key(IReadOnlyDictionary<string, JsonElement> rawData)
     {

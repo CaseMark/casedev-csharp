@@ -41,8 +41,11 @@ public sealed record class EnvironmentDeleteResponse : JsonModel
 
     public EnvironmentDeleteResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public EnvironmentDeleteResponse(EnvironmentDeleteResponse environmentDeleteResponse)
         : base(environmentDeleteResponse) { }
+#pragma warning restore CS8618
 
     public EnvironmentDeleteResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {

@@ -285,6 +285,44 @@ public class V1GetUsageResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new V1GetUsageResponse
+        {
+            ByEnvironment =
+            [
+                new()
+                {
+                    Environment = "environment",
+                    TotalCostCents = 0,
+                    TotalCostFormatted = "totalCostFormatted",
+                    TotalCpuSeconds = 0,
+                    TotalGpuSeconds = 0,
+                    TotalRuns = 0,
+                },
+            ],
+            Period = new()
+            {
+                Month = 0,
+                MonthName = "monthName",
+                Year = 0,
+            },
+            Summary = new()
+            {
+                TotalCostCents = 0,
+                TotalCostFormatted = "totalCostFormatted",
+                TotalCpuHours = 0,
+                TotalGpuHours = 0,
+                TotalRuns = 0,
+            },
+        };
+
+        V1GetUsageResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class ByEnvironmentTest : TestBase
@@ -461,6 +499,24 @@ public class ByEnvironmentTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new ByEnvironment
+        {
+            Environment = "environment",
+            TotalCostCents = 0,
+            TotalCostFormatted = "totalCostFormatted",
+            TotalCpuSeconds = 0,
+            TotalGpuSeconds = 0,
+            TotalRuns = 0,
+        };
+
+        ByEnvironment copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class PeriodTest : TestBase
@@ -588,6 +644,21 @@ public class PeriodTest : TestBase
         };
 
         model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Period
+        {
+            Month = 0,
+            MonthName = "monthName",
+            Year = 0,
+        };
+
+        Period copied = new(model);
+
+        Assert.Equal(model, copied);
     }
 }
 
@@ -747,5 +818,22 @@ public class SummaryTest : TestBase
         };
 
         model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Summary
+        {
+            TotalCostCents = 0,
+            TotalCostFormatted = "totalCostFormatted",
+            TotalCpuHours = 0,
+            TotalGpuHours = 0,
+            TotalRuns = 0,
+        };
+
+        Summary copied = new(model);
+
+        Assert.Equal(model, copied);
     }
 }

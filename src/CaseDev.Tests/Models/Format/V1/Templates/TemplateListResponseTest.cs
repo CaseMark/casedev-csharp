@@ -198,6 +198,32 @@ public class TemplateListResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new TemplateListResponse
+        {
+            Templates =
+            [
+                new()
+                {
+                    ID = "id",
+                    CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    Description = "description",
+                    Name = "name",
+                    Tags = [JsonSerializer.Deserialize<JsonElement>("{}")],
+                    Type = "type",
+                    UsageCount = 0,
+                    Variables = [JsonSerializer.Deserialize<JsonElement>("{}")],
+                },
+            ],
+        };
+
+        TemplateListResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class TemplateTest : TestBase
@@ -418,5 +444,25 @@ public class TemplateTest : TestBase
         };
 
         model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Template
+        {
+            ID = "id",
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Description = "description",
+            Name = "name",
+            Tags = [JsonSerializer.Deserialize<JsonElement>("{}")],
+            Type = "type",
+            UsageCount = 0,
+            Variables = [JsonSerializer.Deserialize<JsonElement>("{}")],
+        };
+
+        Template copied = new(model);
+
+        Assert.Equal(model, copied);
     }
 }

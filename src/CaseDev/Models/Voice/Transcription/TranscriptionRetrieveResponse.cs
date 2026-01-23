@@ -253,10 +253,13 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
 
     public TranscriptionRetrieveResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public TranscriptionRetrieveResponse(
         TranscriptionRetrieveResponse transcriptionRetrieveResponse
     )
         : base(transcriptionRetrieveResponse) { }
+#pragma warning restore CS8618
 
     public TranscriptionRetrieveResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {

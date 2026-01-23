@@ -180,6 +180,24 @@ public class GraphragGetStatsResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new GraphragGetStatsResponse
+        {
+            Communities = 0,
+            Documents = 0,
+            Entities = 0,
+            LastProcessed = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Relationships = 0,
+            Status = Status.Processing,
+        };
+
+        GraphragGetStatsResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class StatusTest : TestBase
