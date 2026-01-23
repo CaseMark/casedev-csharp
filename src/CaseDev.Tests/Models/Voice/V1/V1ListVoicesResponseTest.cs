@@ -219,6 +219,33 @@ public class V1ListVoicesResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new V1ListVoicesResponse
+        {
+            NextPageToken = "next_page_token",
+            TotalCount = 0,
+            Voices =
+            [
+                new()
+                {
+                    AvailableForTiers = ["string"],
+                    Category = "category",
+                    Description = "description",
+                    Labels = JsonSerializer.Deserialize<JsonElement>("{}"),
+                    Name = "name",
+                    PreviewUrl = "preview_url",
+                    VoiceID = "voice_id",
+                },
+            ],
+        };
+
+        V1ListVoicesResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class V1ListVoicesResponseVoiceTest : TestBase
@@ -420,5 +447,24 @@ public class V1ListVoicesResponseVoiceTest : TestBase
         };
 
         model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new V1ListVoicesResponseVoice
+        {
+            AvailableForTiers = ["string"],
+            Category = "category",
+            Description = "description",
+            Labels = JsonSerializer.Deserialize<JsonElement>("{}"),
+            Name = "name",
+            PreviewUrl = "preview_url",
+            VoiceID = "voice_id",
+        };
+
+        V1ListVoicesResponseVoice copied = new(model);
+
+        Assert.Equal(model, copied);
     }
 }

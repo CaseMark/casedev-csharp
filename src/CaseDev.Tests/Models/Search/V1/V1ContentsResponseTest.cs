@@ -185,6 +185,30 @@ public class V1ContentsResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new V1ContentsResponse
+        {
+            Results =
+            [
+                new()
+                {
+                    Highlights = ["string"],
+                    Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+                    Summary = "summary",
+                    Text = "text",
+                    Title = "title",
+                    Url = "url",
+                },
+            ],
+        };
+
+        V1ContentsResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class ResultTest : TestBase
@@ -366,5 +390,23 @@ public class ResultTest : TestBase
         };
 
         model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Result
+        {
+            Highlights = ["string"],
+            Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+            Summary = "summary",
+            Text = "text",
+            Title = "title",
+            Url = "url",
+        };
+
+        Result copied = new(model);
+
+        Assert.Equal(model, copied);
     }
 }

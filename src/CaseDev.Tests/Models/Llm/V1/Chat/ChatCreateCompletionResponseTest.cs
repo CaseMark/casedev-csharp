@@ -273,6 +273,38 @@ public class ChatCreateCompletionResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new ChatCreateCompletionResponse
+        {
+            ID = "id",
+            Choices =
+            [
+                new()
+                {
+                    FinishReason = "finish_reason",
+                    Index = 0,
+                    Message = new() { Content = "content", Role = "role" },
+                },
+            ],
+            Created = 0,
+            Model = "model",
+            Object = "chat.completion",
+            Usage = new()
+            {
+                CompletionTokens = 0,
+                Cost = 0,
+                PromptTokens = 0,
+                TotalTokens = 0,
+            },
+        };
+
+        ChatCreateCompletionResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class ChoiceTest : TestBase
@@ -401,6 +433,21 @@ public class ChoiceTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Choice
+        {
+            FinishReason = "finish_reason",
+            Index = 0,
+            Message = new() { Content = "content", Role = "role" },
+        };
+
+        Choice copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class ChoiceMessageTest : TestBase
@@ -504,6 +551,16 @@ public class ChoiceMessageTest : TestBase
         };
 
         model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new ChoiceMessage { Content = "content", Role = "role" };
+
+        ChoiceMessage copied = new(model);
+
+        Assert.Equal(model, copied);
     }
 }
 
@@ -646,5 +703,21 @@ public class UsageTest : TestBase
         };
 
         model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Usage
+        {
+            CompletionTokens = 0,
+            Cost = 0,
+            PromptTokens = 0,
+            TotalTokens = 0,
+        };
+
+        Usage copied = new(model);
+
+        Assert.Equal(model, copied);
     }
 }

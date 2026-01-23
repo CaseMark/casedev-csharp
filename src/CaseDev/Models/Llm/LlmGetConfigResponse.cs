@@ -38,8 +38,11 @@ public sealed record class LlmGetConfigResponse : JsonModel
 
     public LlmGetConfigResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public LlmGetConfigResponse(LlmGetConfigResponse llmGetConfigResponse)
         : base(llmGetConfigResponse) { }
+#pragma warning restore CS8618
 
     public LlmGetConfigResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -196,8 +199,11 @@ public sealed record class Model : JsonModel
 
     public Model() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public Model(Model model)
         : base(model) { }
+#pragma warning restore CS8618
 
     public Model(IReadOnlyDictionary<string, JsonElement> rawData)
     {

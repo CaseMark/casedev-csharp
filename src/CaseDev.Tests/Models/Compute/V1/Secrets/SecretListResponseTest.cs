@@ -180,6 +180,29 @@ public class SecretListResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new SecretListResponse
+        {
+            Groups =
+            [
+                new()
+                {
+                    ID = "id",
+                    CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    Description = "description",
+                    Name = "name",
+                    UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                },
+            ],
+        };
+
+        SecretListResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class GroupTest : TestBase
@@ -335,5 +358,22 @@ public class GroupTest : TestBase
         };
 
         model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Group
+        {
+            ID = "id",
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Description = "description",
+            Name = "name",
+            UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+        };
+
+        Group copied = new(model);
+
+        Assert.Equal(model, copied);
     }
 }

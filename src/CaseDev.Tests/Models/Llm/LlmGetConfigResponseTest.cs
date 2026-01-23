@@ -141,6 +141,30 @@ public class LlmGetConfigResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new LlmGetConfigResponse
+        {
+            Models =
+            [
+                new()
+                {
+                    ID = "id",
+                    ModelType = "modelType",
+                    Name = "name",
+                    Description = "description",
+                    Pricing = JsonSerializer.Deserialize<JsonElement>("{}"),
+                    Specification = JsonSerializer.Deserialize<JsonElement>("{}"),
+                },
+            ],
+        };
+
+        LlmGetConfigResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class ModelTest : TestBase
@@ -316,5 +340,23 @@ public class ModelTest : TestBase
         };
 
         model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Model
+        {
+            ID = "id",
+            ModelType = "modelType",
+            Name = "name",
+            Description = "description",
+            Pricing = JsonSerializer.Deserialize<JsonElement>("{}"),
+            Specification = JsonSerializer.Deserialize<JsonElement>("{}"),
+        };
+
+        Model copied = new(model);
+
+        Assert.Equal(model, copied);
     }
 }

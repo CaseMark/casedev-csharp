@@ -67,8 +67,11 @@ public sealed record class V1ListModelsResponse : JsonModel
 
     public V1ListModelsResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public V1ListModelsResponse(V1ListModelsResponse v1ListModelsResponse)
         : base(v1ListModelsResponse) { }
+#pragma warning restore CS8618
 
     public V1ListModelsResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -219,8 +222,11 @@ public sealed record class V1ListModelsResponseData : JsonModel
 
     public V1ListModelsResponseData() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public V1ListModelsResponseData(V1ListModelsResponseData v1ListModelsResponseData)
         : base(v1ListModelsResponseData) { }
+#pragma warning restore CS8618
 
     public V1ListModelsResponseData(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -328,8 +334,11 @@ public sealed record class Pricing : JsonModel
 
     public Pricing() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public Pricing(Pricing pricing)
         : base(pricing) { }
+#pragma warning restore CS8618
 
     public Pricing(IReadOnlyDictionary<string, JsonElement> rawData)
     {

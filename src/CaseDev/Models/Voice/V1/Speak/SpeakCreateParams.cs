@@ -584,8 +584,11 @@ public sealed record class VoiceSettings : JsonModel
 
     public VoiceSettings() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public VoiceSettings(VoiceSettings voiceSettings)
         : base(voiceSettings) { }
+#pragma warning restore CS8618
 
     public VoiceSettings(IReadOnlyDictionary<string, JsonElement> rawData)
     {

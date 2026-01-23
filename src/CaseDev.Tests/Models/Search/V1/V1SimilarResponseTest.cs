@@ -219,6 +219,33 @@ public class V1SimilarResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new V1SimilarResponse
+        {
+            ProcessingTime = 0,
+            Results =
+            [
+                new()
+                {
+                    Domain = "domain",
+                    PublishedDate = "publishedDate",
+                    SimilarityScore = 0,
+                    Snippet = "snippet",
+                    Text = "text",
+                    Title = "title",
+                    Url = "url",
+                },
+            ],
+            TotalResults = 0,
+        };
+
+        V1SimilarResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class V1SimilarResponseResultTest : TestBase
@@ -408,5 +435,24 @@ public class V1SimilarResponseResultTest : TestBase
         };
 
         model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new V1SimilarResponseResult
+        {
+            Domain = "domain",
+            PublishedDate = "publishedDate",
+            SimilarityScore = 0,
+            Snippet = "snippet",
+            Text = "text",
+            Title = "title",
+            Url = "url",
+        };
+
+        V1SimilarResponseResult copied = new(model);
+
+        Assert.Equal(model, copied);
     }
 }

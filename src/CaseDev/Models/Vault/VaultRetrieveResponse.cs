@@ -362,8 +362,11 @@ public sealed record class VaultRetrieveResponse : JsonModel
 
     public VaultRetrieveResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public VaultRetrieveResponse(VaultRetrieveResponse vaultRetrieveResponse)
         : base(vaultRetrieveResponse) { }
+#pragma warning restore CS8618
 
     public VaultRetrieveResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -496,8 +499,11 @@ public sealed record class ChunkStrategy : JsonModel
 
     public ChunkStrategy() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public ChunkStrategy(ChunkStrategy chunkStrategy)
         : base(chunkStrategy) { }
+#pragma warning restore CS8618
 
     public ChunkStrategy(IReadOnlyDictionary<string, JsonElement> rawData)
     {

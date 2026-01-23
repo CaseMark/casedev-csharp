@@ -68,8 +68,11 @@ public sealed record class VaultListResponse : JsonModel
 
     public VaultListResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public VaultListResponse(VaultListResponse vaultListResponse)
         : base(vaultListResponse) { }
+#pragma warning restore CS8618
 
     public VaultListResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -264,8 +267,11 @@ public sealed record class VaultListResponseVault : JsonModel
 
     public VaultListResponseVault() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public VaultListResponseVault(VaultListResponseVault vaultListResponseVault)
         : base(vaultListResponseVault) { }
+#pragma warning restore CS8618
 
     public VaultListResponseVault(IReadOnlyDictionary<string, JsonElement> rawData)
     {

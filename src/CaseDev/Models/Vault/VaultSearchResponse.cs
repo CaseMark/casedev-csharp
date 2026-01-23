@@ -160,8 +160,11 @@ public sealed record class VaultSearchResponse : JsonModel
 
     public VaultSearchResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public VaultSearchResponse(VaultSearchResponse vaultSearchResponse)
         : base(vaultSearchResponse) { }
+#pragma warning restore CS8618
 
     public VaultSearchResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -364,8 +367,11 @@ public sealed record class Chunk : JsonModel
 
     public Chunk() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public Chunk(Chunk chunk)
         : base(chunk) { }
+#pragma warning restore CS8618
 
     public Chunk(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -537,8 +543,11 @@ public sealed record class Source : JsonModel
 
     public Source() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public Source(Source source)
         : base(source) { }
+#pragma warning restore CS8618
 
     public Source(IReadOnlyDictionary<string, JsonElement> rawData)
     {

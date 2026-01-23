@@ -164,4 +164,21 @@ public class SecretUpdateGroupResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new SecretUpdateGroupResponse
+        {
+            Created = 0,
+            Group = "group",
+            Message = "message",
+            Success = true,
+            Updated = 0,
+        };
+
+        SecretUpdateGroupResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }

@@ -264,6 +264,29 @@ public class TranscriptionRetrieveResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new TranscriptionRetrieveResponse
+        {
+            ID = "id",
+            Status = TranscriptionRetrieveResponseStatus.Queued,
+            AudioDuration = 0,
+            Confidence = 0,
+            Error = "error",
+            ResultObjectID = "result_object_id",
+            SourceObjectID = "source_object_id",
+            Text = "text",
+            VaultID = "vault_id",
+            WordCount = 0,
+            Words = [JsonSerializer.Deserialize<JsonElement>("{}")],
+        };
+
+        TranscriptionRetrieveResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class TranscriptionRetrieveResponseStatusTest : TestBase

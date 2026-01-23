@@ -338,8 +338,11 @@ public sealed record class Options : JsonModel
 
     public Options() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public Options(Options options)
         : base(options) { }
+#pragma warning restore CS8618
 
     public Options(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -466,8 +469,11 @@ public sealed record class Component : JsonModel
 
     public Component() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public Component(Component component)
         : base(component) { }
+#pragma warning restore CS8618
 
     public Component(IReadOnlyDictionary<string, JsonElement> rawData)
     {

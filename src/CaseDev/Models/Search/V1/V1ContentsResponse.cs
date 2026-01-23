@@ -43,8 +43,11 @@ public sealed record class V1ContentsResponse : JsonModel
 
     public V1ContentsResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public V1ContentsResponse(V1ContentsResponse v1ContentsResponse)
         : base(v1ContentsResponse) { }
+#pragma warning restore CS8618
 
     public V1ContentsResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -220,8 +223,11 @@ public sealed record class Result : JsonModel
 
     public Result() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public Result(Result result)
         : base(result) { }
+#pragma warning restore CS8618
 
     public Result(IReadOnlyDictionary<string, JsonElement> rawData)
     {

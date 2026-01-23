@@ -415,8 +415,11 @@ public sealed record class Features : JsonModel
 
     public Features() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public Features(Features features)
         : base(features) { }
+#pragma warning restore CS8618
 
     public Features(IReadOnlyDictionary<string, JsonElement> rawData)
     {

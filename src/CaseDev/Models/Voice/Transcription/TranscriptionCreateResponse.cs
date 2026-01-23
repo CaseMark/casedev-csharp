@@ -109,8 +109,11 @@ public sealed record class TranscriptionCreateResponse : JsonModel
 
     public TranscriptionCreateResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public TranscriptionCreateResponse(TranscriptionCreateResponse transcriptionCreateResponse)
         : base(transcriptionCreateResponse) { }
+#pragma warning restore CS8618
 
     public TranscriptionCreateResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {

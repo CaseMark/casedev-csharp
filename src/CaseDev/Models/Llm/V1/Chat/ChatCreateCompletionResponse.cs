@@ -149,8 +149,11 @@ public sealed record class ChatCreateCompletionResponse : JsonModel
 
     public ChatCreateCompletionResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public ChatCreateCompletionResponse(ChatCreateCompletionResponse chatCreateCompletionResponse)
         : base(chatCreateCompletionResponse) { }
+#pragma warning restore CS8618
 
     public ChatCreateCompletionResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -249,8 +252,11 @@ public sealed record class Choice : JsonModel
 
     public Choice() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public Choice(Choice choice)
         : base(choice) { }
+#pragma warning restore CS8618
 
     public Choice(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -327,8 +333,11 @@ public sealed record class ChoiceMessage : JsonModel
 
     public ChoiceMessage() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public ChoiceMessage(ChoiceMessage choiceMessage)
         : base(choiceMessage) { }
+#pragma warning restore CS8618
 
     public ChoiceMessage(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -446,8 +455,11 @@ public sealed record class Usage : JsonModel
 
     public Usage() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public Usage(Usage usage)
         : base(usage) { }
+#pragma warning restore CS8618
 
     public Usage(IReadOnlyDictionary<string, JsonElement> rawData)
     {

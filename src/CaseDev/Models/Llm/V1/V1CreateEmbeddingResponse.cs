@@ -102,8 +102,11 @@ public sealed record class V1CreateEmbeddingResponse : JsonModel
 
     public V1CreateEmbeddingResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public V1CreateEmbeddingResponse(V1CreateEmbeddingResponse v1CreateEmbeddingResponse)
         : base(v1CreateEmbeddingResponse) { }
+#pragma warning restore CS8618
 
     public V1CreateEmbeddingResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -205,8 +208,11 @@ public sealed record class Data : JsonModel
 
     public Data() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public Data(Data data)
         : base(data) { }
+#pragma warning restore CS8618
 
     public Data(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -283,8 +289,11 @@ public sealed record class Usage : JsonModel
 
     public Usage() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public Usage(Usage usage)
         : base(usage) { }
+#pragma warning restore CS8618
 
     public Usage(IReadOnlyDictionary<string, JsonElement> rawData)
     {

@@ -175,8 +175,11 @@ public sealed record class EnvironmentCreateResponse : JsonModel
 
     public EnvironmentCreateResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public EnvironmentCreateResponse(EnvironmentCreateResponse environmentCreateResponse)
         : base(environmentCreateResponse) { }
+#pragma warning restore CS8618
 
     public EnvironmentCreateResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {

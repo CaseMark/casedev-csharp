@@ -195,4 +195,23 @@ public class TemplateRetrieveResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new TemplateRetrieveResponse
+        {
+            ID = "id",
+            Content = JsonSerializer.Deserialize<JsonElement>("{}"),
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Description = "description",
+            Name = "name",
+            OrganizationID = "organizationId",
+            UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+        };
+
+        TemplateRetrieveResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }

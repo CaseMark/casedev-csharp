@@ -59,8 +59,11 @@ public sealed record class ObjectGetTextResponse : JsonModel
 
     public ObjectGetTextResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public ObjectGetTextResponse(ObjectGetTextResponse objectGetTextResponse)
         : base(objectGetTextResponse) { }
+#pragma warning restore CS8618
 
     public ObjectGetTextResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -236,10 +239,13 @@ public sealed record class ObjectGetTextResponseMetadata : JsonModel
 
     public ObjectGetTextResponseMetadata() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public ObjectGetTextResponseMetadata(
         ObjectGetTextResponseMetadata objectGetTextResponseMetadata
     )
         : base(objectGetTextResponseMetadata) { }
+#pragma warning restore CS8618
 
     public ObjectGetTextResponseMetadata(IReadOnlyDictionary<string, JsonElement> rawData)
     {

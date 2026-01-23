@@ -344,6 +344,32 @@ public class VaultUploadResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new VaultUploadResponse
+        {
+            AutoIndex = true,
+            EnableIndexing = true,
+            ExpiresIn = 0,
+            Instructions = new()
+            {
+                Headers = JsonSerializer.Deserialize<JsonElement>("{}"),
+                Method = "method",
+                Note = "note",
+            },
+            NextStep = "next_step",
+            ObjectID = "objectId",
+            Path = "path",
+            S3Key = "s3Key",
+            UploadUrl = "uploadUrl",
+        };
+
+        VaultUploadResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class InstructionsTest : TestBase
@@ -479,5 +505,20 @@ public class InstructionsTest : TestBase
         };
 
         model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Instructions
+        {
+            Headers = JsonSerializer.Deserialize<JsonElement>("{}"),
+            Method = "method",
+            Note = "note",
+        };
+
+        Instructions copied = new(model);
+
+        Assert.Equal(model, copied);
     }
 }

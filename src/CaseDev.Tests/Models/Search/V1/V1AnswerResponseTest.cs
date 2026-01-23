@@ -221,6 +221,32 @@ public class V1AnswerResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new V1AnswerResponse
+        {
+            Answer = "answer",
+            Citations =
+            [
+                new()
+                {
+                    ID = "id",
+                    PublishedDate = "publishedDate",
+                    Text = "text",
+                    Title = "title",
+                    Url = "url",
+                },
+            ],
+            Model = "model",
+            SearchType = "searchType",
+        };
+
+        V1AnswerResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class CitationTest : TestBase
@@ -379,5 +405,22 @@ public class CitationTest : TestBase
         };
 
         model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Citation
+        {
+            ID = "id",
+            PublishedDate = "publishedDate",
+            Text = "text",
+            Title = "title",
+            Url = "url",
+        };
+
+        Citation copied = new(model);
+
+        Assert.Equal(model, copied);
     }
 }

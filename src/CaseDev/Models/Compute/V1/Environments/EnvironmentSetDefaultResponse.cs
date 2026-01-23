@@ -196,10 +196,13 @@ public sealed record class EnvironmentSetDefaultResponse : JsonModel
 
     public EnvironmentSetDefaultResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public EnvironmentSetDefaultResponse(
         EnvironmentSetDefaultResponse environmentSetDefaultResponse
     )
         : base(environmentSetDefaultResponse) { }
+#pragma warning restore CS8618
 
     public EnvironmentSetDefaultResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {

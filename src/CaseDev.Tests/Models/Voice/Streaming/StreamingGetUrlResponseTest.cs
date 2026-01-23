@@ -224,6 +224,33 @@ public class StreamingGetUrlResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new StreamingGetUrlResponse
+        {
+            AudioFormat = new()
+            {
+                Channels = 0,
+                Encoding = "encoding",
+                SampleRate = 0,
+            },
+            ConnectUrl = "connect_url",
+            Pricing = new()
+            {
+                Currency = "currency",
+                PerHour = 0,
+                PerMinute = 0,
+            },
+            Protocol = "protocol",
+            Url = "url",
+        };
+
+        StreamingGetUrlResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class AudioFormatTest : TestBase
@@ -358,6 +385,21 @@ public class AudioFormatTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new AudioFormat
+        {
+            Channels = 0,
+            Encoding = "encoding",
+            SampleRate = 0,
+        };
+
+        AudioFormat copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class PricingTest : TestBase
@@ -488,5 +530,20 @@ public class PricingTest : TestBase
         };
 
         model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Pricing
+        {
+            Currency = "currency",
+            PerHour = 0,
+            PerMinute = 0,
+        };
+
+        Pricing copied = new(model);
+
+        Assert.Equal(model, copied);
     }
 }

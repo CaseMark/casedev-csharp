@@ -254,8 +254,11 @@ public sealed record class Filters : JsonModel
 
     public Filters() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public Filters(Filters filters)
         : base(filters) { }
+#pragma warning restore CS8618
 
     public Filters(IReadOnlyDictionary<string, JsonElement> rawData)
     {

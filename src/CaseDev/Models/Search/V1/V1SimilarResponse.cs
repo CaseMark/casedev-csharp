@@ -83,8 +83,11 @@ public sealed record class V1SimilarResponse : JsonModel
 
     public V1SimilarResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public V1SimilarResponse(V1SimilarResponse v1SimilarResponse)
         : base(v1SimilarResponse) { }
+#pragma warning restore CS8618
 
     public V1SimilarResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -258,8 +261,11 @@ public sealed record class V1SimilarResponseResult : JsonModel
 
     public V1SimilarResponseResult() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public V1SimilarResponseResult(V1SimilarResponseResult v1SimilarResponseResult)
         : base(v1SimilarResponseResult) { }
+#pragma warning restore CS8618
 
     public V1SimilarResponseResult(IReadOnlyDictionary<string, JsonElement> rawData)
     {

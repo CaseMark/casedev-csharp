@@ -173,8 +173,11 @@ public sealed record class V1RetrieveResponse : JsonModel
 
     public V1RetrieveResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public V1RetrieveResponse(V1RetrieveResponse v1RetrieveResponse)
         : base(v1RetrieveResponse) { }
+#pragma warning restore CS8618
 
     public V1RetrieveResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {

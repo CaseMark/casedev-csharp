@@ -138,4 +138,19 @@ public class V1ResearchResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new V1ResearchResponse
+        {
+            Model = "model",
+            ResearchID = "researchId",
+            Results = JsonSerializer.Deserialize<JsonElement>("{}"),
+        };
+
+        V1ResearchResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }

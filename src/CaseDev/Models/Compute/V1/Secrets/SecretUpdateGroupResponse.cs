@@ -123,8 +123,11 @@ public sealed record class SecretUpdateGroupResponse : JsonModel
 
     public SecretUpdateGroupResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public SecretUpdateGroupResponse(SecretUpdateGroupResponse secretUpdateGroupResponse)
         : base(secretUpdateGroupResponse) { }
+#pragma warning restore CS8618
 
     public SecretUpdateGroupResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {

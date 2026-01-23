@@ -206,6 +206,32 @@ public class VaultListResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new VaultListResponse
+        {
+            Total = 0,
+            Vaults =
+            [
+                new()
+                {
+                    ID = "id",
+                    CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    Description = "description",
+                    EnableGraph = true,
+                    Name = "name",
+                    TotalBytes = 0,
+                    TotalObjects = 0,
+                },
+            ],
+        };
+
+        VaultListResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class VaultListResponseVaultTest : TestBase
@@ -395,5 +421,24 @@ public class VaultListResponseVaultTest : TestBase
         };
 
         model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new VaultListResponseVault
+        {
+            ID = "id",
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Description = "description",
+            EnableGraph = true,
+            Name = "name",
+            TotalBytes = 0,
+            TotalObjects = 0,
+        };
+
+        VaultListResponseVault copied = new(model);
+
+        Assert.Equal(model, copied);
     }
 }

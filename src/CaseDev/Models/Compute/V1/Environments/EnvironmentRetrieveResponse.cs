@@ -196,8 +196,11 @@ public sealed record class EnvironmentRetrieveResponse : JsonModel
 
     public EnvironmentRetrieveResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public EnvironmentRetrieveResponse(EnvironmentRetrieveResponse environmentRetrieveResponse)
         : base(environmentRetrieveResponse) { }
+#pragma warning restore CS8618
 
     public EnvironmentRetrieveResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {

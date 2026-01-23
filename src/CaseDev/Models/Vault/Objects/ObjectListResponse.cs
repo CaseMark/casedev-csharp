@@ -90,8 +90,11 @@ public sealed record class ObjectListResponse : JsonModel
 
     public ObjectListResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public ObjectListResponse(ObjectListResponse objectListResponse)
         : base(objectListResponse) { }
+#pragma warning restore CS8618
 
     public ObjectListResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -437,8 +440,11 @@ public sealed record class Object : JsonModel
 
     public Object() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public Object(global::CaseDev.Models.Vault.Objects.Object object_)
         : base(object_) { }
+#pragma warning restore CS8618
 
     public Object(IReadOnlyDictionary<string, JsonElement> rawData)
     {

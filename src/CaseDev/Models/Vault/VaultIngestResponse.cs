@@ -90,8 +90,11 @@ public sealed record class VaultIngestResponse : JsonModel
 
     public VaultIngestResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public VaultIngestResponse(VaultIngestResponse vaultIngestResponse)
         : base(vaultIngestResponse) { }
+#pragma warning restore CS8618
 
     public VaultIngestResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {

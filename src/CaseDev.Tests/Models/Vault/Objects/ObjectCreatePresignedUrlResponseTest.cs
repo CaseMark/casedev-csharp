@@ -273,6 +273,34 @@ public class ObjectCreatePresignedUrlResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new ObjectCreatePresignedUrlResponse
+        {
+            ExpiresAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            ExpiresIn = 0,
+            Filename = "filename",
+            Instructions = JsonSerializer.Deserialize<JsonElement>("{}"),
+            Metadata = new()
+            {
+                Bucket = "bucket",
+                ContentType = "contentType",
+                Region = "region",
+                SizeBytes = 0,
+            },
+            ObjectID = "objectId",
+            Operation = "operation",
+            PresignedUrl = "presignedUrl",
+            S3Key = "s3Key",
+            VaultID = "vaultId",
+        };
+
+        ObjectCreatePresignedUrlResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class MetadataTest : TestBase
@@ -417,5 +445,21 @@ public class MetadataTest : TestBase
         };
 
         model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Metadata
+        {
+            Bucket = "bucket",
+            ContentType = "contentType",
+            Region = "region",
+            SizeBytes = 0,
+        };
+
+        Metadata copied = new(model);
+
+        Assert.Equal(model, copied);
     }
 }

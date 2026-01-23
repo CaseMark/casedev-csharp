@@ -44,8 +44,11 @@ public sealed record class TemplateListResponse : JsonModel
 
     public TemplateListResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public TemplateListResponse(TemplateListResponse templateListResponse)
         : base(templateListResponse) { }
+#pragma warning restore CS8618
 
     public TemplateListResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -269,8 +272,11 @@ public sealed record class Template : JsonModel
 
     public Template() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public Template(Template template)
         : base(template) { }
+#pragma warning restore CS8618
 
     public Template(IReadOnlyDictionary<string, JsonElement> rawData)
     {

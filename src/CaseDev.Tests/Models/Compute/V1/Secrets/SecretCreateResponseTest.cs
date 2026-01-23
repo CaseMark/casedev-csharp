@@ -151,4 +151,20 @@ public class SecretCreateResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new SecretCreateResponse
+        {
+            ID = "id",
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Description = "description",
+            Name = "name",
+        };
+
+        SecretCreateResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }

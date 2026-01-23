@@ -209,6 +209,30 @@ public class V1CreateEmbeddingResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new V1CreateEmbeddingResponse
+        {
+            Data =
+            [
+                new()
+                {
+                    Embedding = [0],
+                    Index = 0,
+                    Object = "embedding",
+                },
+            ],
+            Model = "model",
+            Object = "list",
+            Usage = new() { PromptTokens = 0, TotalTokens = 0 },
+        };
+
+        V1CreateEmbeddingResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class DataTest : TestBase
@@ -347,6 +371,21 @@ public class DataTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Data
+        {
+            Embedding = [0],
+            Index = 0,
+            Object = "embedding",
+        };
+
+        Data copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class UsageTest : TestBase
@@ -444,5 +483,15 @@ public class UsageTest : TestBase
         };
 
         model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Usage { PromptTokens = 0, TotalTokens = 0 };
+
+        Usage copied = new(model);
+
+        Assert.Equal(model, copied);
     }
 }

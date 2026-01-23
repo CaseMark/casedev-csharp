@@ -340,8 +340,11 @@ public sealed record class ObjectRetrieveResponse : JsonModel
 
     public ObjectRetrieveResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public ObjectRetrieveResponse(ObjectRetrieveResponse objectRetrieveResponse)
         : base(objectRetrieveResponse) { }
+#pragma warning restore CS8618
 
     public ObjectRetrieveResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {

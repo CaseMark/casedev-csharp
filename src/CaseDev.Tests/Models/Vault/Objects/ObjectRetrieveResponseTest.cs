@@ -407,4 +407,31 @@ public class ObjectRetrieveResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new ObjectRetrieveResponse
+        {
+            ID = "id",
+            ChunkCount = 0,
+            ContentType = "contentType",
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            DownloadUrl = "downloadUrl",
+            ExpiresIn = 0,
+            Filename = "filename",
+            IngestionStatus = "ingestionStatus",
+            Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+            PageCount = 0,
+            Path = "path",
+            SizeBytes = 0,
+            TextLength = 0,
+            VaultID = "vaultId",
+            VectorCount = 0,
+        };
+
+        ObjectRetrieveResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }

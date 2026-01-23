@@ -208,6 +208,31 @@ public class V1SearchResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new V1SearchResponse
+        {
+            Query = "query",
+            Results =
+            [
+                new()
+                {
+                    Domain = "domain",
+                    PublishedDate = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    Snippet = "snippet",
+                    Title = "title",
+                    Url = "url",
+                },
+            ],
+            TotalResults = 0,
+        };
+
+        V1SearchResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class V1SearchResponseResultTest : TestBase
@@ -369,5 +394,22 @@ public class V1SearchResponseResultTest : TestBase
         };
 
         model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new V1SearchResponseResult
+        {
+            Domain = "domain",
+            PublishedDate = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Snippet = "snippet",
+            Title = "title",
+            Url = "url",
+        };
+
+        V1SearchResponseResult copied = new(model);
+
+        Assert.Equal(model, copied);
     }
 }

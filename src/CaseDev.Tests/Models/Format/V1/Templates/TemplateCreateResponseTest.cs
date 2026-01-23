@@ -176,4 +176,21 @@ public class TemplateCreateResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new TemplateCreateResponse
+        {
+            ID = "id",
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Name = "name",
+            Type = "type",
+            Variables = ["string"],
+        };
+
+        TemplateCreateResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }

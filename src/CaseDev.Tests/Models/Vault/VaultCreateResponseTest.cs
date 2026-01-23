@@ -303,4 +303,25 @@ public class VaultCreateResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new VaultCreateResponse
+        {
+            ID = "id",
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Description = "description",
+            EnableIndexing = true,
+            FilesBucket = "filesBucket",
+            IndexName = "indexName",
+            Name = "name",
+            Region = "region",
+            VectorBucket = "vectorBucket",
+        };
+
+        VaultCreateResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }

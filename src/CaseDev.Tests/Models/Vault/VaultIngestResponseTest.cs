@@ -99,6 +99,23 @@ public class VaultIngestResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new VaultIngestResponse
+        {
+            EnableGraphRag = true,
+            Message = "message",
+            ObjectID = "objectId",
+            Status = Status.Processing,
+            WorkflowID = "workflowId",
+        };
+
+        VaultIngestResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class StatusTest : TestBase
