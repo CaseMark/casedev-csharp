@@ -25,6 +25,8 @@ public class VaultSearchResponseTest : TestBase
                     Score = 0,
                     Source = "source",
                     Text = "text",
+                    WordEndIndex = 0,
+                    WordStartIndex = 0,
                 },
             ],
             Method = "method",
@@ -58,6 +60,8 @@ public class VaultSearchResponseTest : TestBase
                 Score = 0,
                 Source = "source",
                 Text = "text",
+                WordEndIndex = 0,
+                WordStartIndex = 0,
             },
         ];
         string expectedMethod = "method";
@@ -113,6 +117,8 @@ public class VaultSearchResponseTest : TestBase
                     Score = 0,
                     Source = "source",
                     Text = "text",
+                    WordEndIndex = 0,
+                    WordStartIndex = 0,
                 },
             ],
             Method = "method",
@@ -160,6 +166,8 @@ public class VaultSearchResponseTest : TestBase
                     Score = 0,
                     Source = "source",
                     Text = "text",
+                    WordEndIndex = 0,
+                    WordStartIndex = 0,
                 },
             ],
             Method = "method",
@@ -200,6 +208,8 @@ public class VaultSearchResponseTest : TestBase
                 Score = 0,
                 Source = "source",
                 Text = "text",
+                WordEndIndex = 0,
+                WordStartIndex = 0,
             },
         ];
         string expectedMethod = "method";
@@ -255,6 +265,8 @@ public class VaultSearchResponseTest : TestBase
                     Score = 0,
                     Source = "source",
                     Text = "text",
+                    WordEndIndex = 0,
+                    WordStartIndex = 0,
                 },
             ],
             Method = "method",
@@ -368,6 +380,8 @@ public class VaultSearchResponseTest : TestBase
                     Score = 0,
                     Source = "source",
                     Text = "text",
+                    WordEndIndex = 0,
+                    WordStartIndex = 0,
                 },
             ],
             Method = "method",
@@ -410,6 +424,8 @@ public class ChunkTest : TestBase
             Score = 0,
             Source = "source",
             Text = "text",
+            WordEndIndex = 0,
+            WordStartIndex = 0,
         };
 
         long expectedChunkIndex = 0;
@@ -420,6 +436,8 @@ public class ChunkTest : TestBase
         double expectedScore = 0;
         string expectedSource = "source";
         string expectedText = "text";
+        long expectedWordEndIndex = 0;
+        long expectedWordStartIndex = 0;
 
         Assert.Equal(expectedChunkIndex, model.ChunkIndex);
         Assert.Equal(expectedDistance, model.Distance);
@@ -429,6 +447,8 @@ public class ChunkTest : TestBase
         Assert.Equal(expectedScore, model.Score);
         Assert.Equal(expectedSource, model.Source);
         Assert.Equal(expectedText, model.Text);
+        Assert.Equal(expectedWordEndIndex, model.WordEndIndex);
+        Assert.Equal(expectedWordStartIndex, model.WordStartIndex);
     }
 
     [Fact]
@@ -444,6 +464,8 @@ public class ChunkTest : TestBase
             Score = 0,
             Source = "source",
             Text = "text",
+            WordEndIndex = 0,
+            WordStartIndex = 0,
         };
 
         string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
@@ -465,6 +487,8 @@ public class ChunkTest : TestBase
             Score = 0,
             Source = "source",
             Text = "text",
+            WordEndIndex = 0,
+            WordStartIndex = 0,
         };
 
         string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
@@ -479,6 +503,8 @@ public class ChunkTest : TestBase
         double expectedScore = 0;
         string expectedSource = "source";
         string expectedText = "text";
+        long expectedWordEndIndex = 0;
+        long expectedWordStartIndex = 0;
 
         Assert.Equal(expectedChunkIndex, deserialized.ChunkIndex);
         Assert.Equal(expectedDistance, deserialized.Distance);
@@ -488,6 +514,8 @@ public class ChunkTest : TestBase
         Assert.Equal(expectedScore, deserialized.Score);
         Assert.Equal(expectedSource, deserialized.Source);
         Assert.Equal(expectedText, deserialized.Text);
+        Assert.Equal(expectedWordEndIndex, deserialized.WordEndIndex);
+        Assert.Equal(expectedWordStartIndex, deserialized.WordStartIndex);
     }
 
     [Fact]
@@ -503,6 +531,8 @@ public class ChunkTest : TestBase
             Score = 0,
             Source = "source",
             Text = "text",
+            WordEndIndex = 0,
+            WordStartIndex = 0,
         };
 
         model.Validate();
@@ -511,7 +541,13 @@ public class ChunkTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetAreNotSet_Works()
     {
-        var model = new Chunk { PageEnd = 0, PageStart = 0 };
+        var model = new Chunk
+        {
+            PageEnd = 0,
+            PageStart = 0,
+            WordEndIndex = 0,
+            WordStartIndex = 0,
+        };
 
         Assert.Null(model.ChunkIndex);
         Assert.False(model.RawData.ContainsKey("chunk_index"));
@@ -530,7 +566,13 @@ public class ChunkTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetValidation_Works()
     {
-        var model = new Chunk { PageEnd = 0, PageStart = 0 };
+        var model = new Chunk
+        {
+            PageEnd = 0,
+            PageStart = 0,
+            WordEndIndex = 0,
+            WordStartIndex = 0,
+        };
 
         model.Validate();
     }
@@ -542,6 +584,8 @@ public class ChunkTest : TestBase
         {
             PageEnd = 0,
             PageStart = 0,
+            WordEndIndex = 0,
+            WordStartIndex = 0,
 
             // Null should be interpreted as omitted for these properties
             ChunkIndex = null,
@@ -573,6 +617,8 @@ public class ChunkTest : TestBase
         {
             PageEnd = 0,
             PageStart = 0,
+            WordEndIndex = 0,
+            WordStartIndex = 0,
 
             // Null should be interpreted as omitted for these properties
             ChunkIndex = null,
@@ -603,6 +649,10 @@ public class ChunkTest : TestBase
         Assert.False(model.RawData.ContainsKey("page_end"));
         Assert.Null(model.PageStart);
         Assert.False(model.RawData.ContainsKey("page_start"));
+        Assert.Null(model.WordEndIndex);
+        Assert.False(model.RawData.ContainsKey("word_end_index"));
+        Assert.Null(model.WordStartIndex);
+        Assert.False(model.RawData.ContainsKey("word_start_index"));
     }
 
     [Fact]
@@ -635,12 +685,18 @@ public class ChunkTest : TestBase
 
             PageEnd = null,
             PageStart = null,
+            WordEndIndex = null,
+            WordStartIndex = null,
         };
 
         Assert.Null(model.PageEnd);
         Assert.True(model.RawData.ContainsKey("page_end"));
         Assert.Null(model.PageStart);
         Assert.True(model.RawData.ContainsKey("page_start"));
+        Assert.Null(model.WordEndIndex);
+        Assert.True(model.RawData.ContainsKey("word_end_index"));
+        Assert.Null(model.WordStartIndex);
+        Assert.True(model.RawData.ContainsKey("word_start_index"));
     }
 
     [Fact]
@@ -657,6 +713,8 @@ public class ChunkTest : TestBase
 
             PageEnd = null,
             PageStart = null,
+            WordEndIndex = null,
+            WordStartIndex = null,
         };
 
         model.Validate();
@@ -675,6 +733,8 @@ public class ChunkTest : TestBase
             Score = 0,
             Source = "source",
             Text = "text",
+            WordEndIndex = 0,
+            WordStartIndex = 0,
         };
 
         Chunk copied = new(model);

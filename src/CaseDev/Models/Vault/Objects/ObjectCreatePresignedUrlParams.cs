@@ -95,6 +95,28 @@ public record class ObjectCreatePresignedUrlParams : ParamsBase
         }
     }
 
+    /// <summary>
+    /// File size in bytes (required for PUT operations, max 500MB). Used to enforce
+    /// upload limits at S3 level.
+    /// </summary>
+    public long? SizeBytes
+    {
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<long>("sizeBytes");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawBodyData.Set("sizeBytes", value);
+        }
+    }
+
     public ObjectCreatePresignedUrlParams() { }
 
 #pragma warning disable CS8618

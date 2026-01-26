@@ -18,6 +18,7 @@ public class ObjectCreatePresignedUrlParamsTest : TestBase
             ContentType = "contentType",
             ExpiresIn = 60,
             Operation = Operation.Get,
+            SizeBytes = 1,
         };
 
         string expectedID = "id";
@@ -25,12 +26,14 @@ public class ObjectCreatePresignedUrlParamsTest : TestBase
         string expectedContentType = "contentType";
         long expectedExpiresIn = 60;
         ApiEnum<string, Operation> expectedOperation = Operation.Get;
+        long expectedSizeBytes = 1;
 
         Assert.Equal(expectedID, parameters.ID);
         Assert.Equal(expectedObjectID, parameters.ObjectID);
         Assert.Equal(expectedContentType, parameters.ContentType);
         Assert.Equal(expectedExpiresIn, parameters.ExpiresIn);
         Assert.Equal(expectedOperation, parameters.Operation);
+        Assert.Equal(expectedSizeBytes, parameters.SizeBytes);
     }
 
     [Fact]
@@ -44,6 +47,8 @@ public class ObjectCreatePresignedUrlParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("expiresIn"));
         Assert.Null(parameters.Operation);
         Assert.False(parameters.RawBodyData.ContainsKey("operation"));
+        Assert.Null(parameters.SizeBytes);
+        Assert.False(parameters.RawBodyData.ContainsKey("sizeBytes"));
     }
 
     [Fact]
@@ -58,6 +63,7 @@ public class ObjectCreatePresignedUrlParamsTest : TestBase
             ContentType = null,
             ExpiresIn = null,
             Operation = null,
+            SizeBytes = null,
         };
 
         Assert.Null(parameters.ContentType);
@@ -66,6 +72,8 @@ public class ObjectCreatePresignedUrlParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("expiresIn"));
         Assert.Null(parameters.Operation);
         Assert.False(parameters.RawBodyData.ContainsKey("operation"));
+        Assert.Null(parameters.SizeBytes);
+        Assert.False(parameters.RawBodyData.ContainsKey("sizeBytes"));
     }
 
     [Fact]
@@ -88,6 +96,7 @@ public class ObjectCreatePresignedUrlParamsTest : TestBase
             ContentType = "contentType",
             ExpiresIn = 60,
             Operation = Operation.Get,
+            SizeBytes = 1,
         };
 
         ObjectCreatePresignedUrlParams copied = new(parameters);

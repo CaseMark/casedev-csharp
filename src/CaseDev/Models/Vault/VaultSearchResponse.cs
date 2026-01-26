@@ -352,6 +352,34 @@ public sealed record class Chunk : JsonModel
         }
     }
 
+    /// <summary>
+    /// Ending word index (0-based) in the OCR word list. Use with GET /vault/:id/objects/:objectId/ocr-words
+    /// to retrieve bounding boxes for highlighting.
+    /// </summary>
+    public long? WordEndIndex
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("word_end_index");
+        }
+        init { this._rawData.Set("word_end_index", value); }
+    }
+
+    /// <summary>
+    /// Starting word index (0-based) in the OCR word list. Use with GET /vault/:id/objects/:objectId/ocr-words
+    /// to retrieve bounding boxes for highlighting.
+    /// </summary>
+    public long? WordStartIndex
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("word_start_index");
+        }
+        init { this._rawData.Set("word_start_index", value); }
+    }
+
     /// <inheritdoc/>
     public override void Validate()
     {
@@ -363,6 +391,8 @@ public sealed record class Chunk : JsonModel
         _ = this.Score;
         _ = this.Source;
         _ = this.Text;
+        _ = this.WordEndIndex;
+        _ = this.WordStartIndex;
     }
 
     public Chunk() { }
