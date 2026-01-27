@@ -16,7 +16,7 @@ namespace CaseDev.Models.Voice.Streaming;
 /// <para>**Audio Requirements:** - Sample Rate: 16kHz - Encoding: PCM 16-bit little-endian
 /// - Channels: Mono (1 channel)</para>
 ///
-/// <para>**Pricing:** $0.30 per minute ($18.00 per hour)</para>
+/// <para>**Pricing:** $0.01 per minute ($0.60 per hour)</para>
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that
