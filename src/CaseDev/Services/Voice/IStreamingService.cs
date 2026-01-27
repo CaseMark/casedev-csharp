@@ -34,7 +34,7 @@ public interface IStreamingService
     /// <para>**Audio Requirements:** - Sample Rate: 16kHz - Encoding: PCM 16-bit
     /// little-endian - Channels: Mono (1 channel)</para>
     ///
-    /// <para>**Pricing:** $0.30 per minute ($18.00 per hour)</para>
+    /// <para>**Pricing:** $0.01 per minute ($0.60 per hour)</para>
     /// </summary>
     Task<StreamingGetUrlResponse> GetUrl(
         StreamingGetUrlParams? parameters = null,
