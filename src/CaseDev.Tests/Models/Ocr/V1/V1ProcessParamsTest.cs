@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text.Json;
 using CaseDev.Core;
 using CaseDev.Exceptions;
@@ -19,10 +20,12 @@ public class V1ProcessParamsTest : TestBase
             Engine = Engine.Doctr,
             Features = new()
             {
-                Forms = false,
-                Layout = true,
-                Tables = true,
-                Text = true,
+                Embed = { },
+                Forms = new Dictionary<string, JsonElement>()
+                {
+                    { "foo", JsonSerializer.SerializeToElement("bar") },
+                },
+                Tables = new() { Format = TablesFormat.Csv },
             },
             ResultBucket = "my-ocr-results",
             ResultPrefix = "ocr/2024/",
@@ -34,10 +37,12 @@ public class V1ProcessParamsTest : TestBase
         ApiEnum<string, Engine> expectedEngine = Engine.Doctr;
         Features expectedFeatures = new()
         {
-            Forms = false,
-            Layout = true,
-            Tables = true,
-            Text = true,
+            Embed = { },
+            Forms = new Dictionary<string, JsonElement>()
+            {
+                { "foo", JsonSerializer.SerializeToElement("bar") },
+            },
+            Tables = new() { Format = TablesFormat.Csv },
         };
         string expectedResultBucket = "my-ocr-results";
         string expectedResultPrefix = "ocr/2024/";
@@ -121,10 +126,12 @@ public class V1ProcessParamsTest : TestBase
             Engine = Engine.Doctr,
             Features = new()
             {
-                Forms = false,
-                Layout = true,
-                Tables = true,
-                Text = true,
+                Embed = { },
+                Forms = new Dictionary<string, JsonElement>()
+                {
+                    { "foo", JsonSerializer.SerializeToElement("bar") },
+                },
+                Tables = new() { Format = TablesFormat.Csv },
             },
             ResultBucket = "my-ocr-results",
             ResultPrefix = "ocr/2024/",
@@ -201,21 +208,38 @@ public class FeaturesTest : TestBase
     {
         var model = new Features
         {
-            Forms = false,
-            Layout = true,
-            Tables = true,
-            Text = true,
+            Embed = { },
+            Forms = new Dictionary<string, JsonElement>()
+            {
+                { "foo", JsonSerializer.SerializeToElement("bar") },
+            },
+            Tables = new() { Format = TablesFormat.Csv },
         };
 
-        bool expectedForms = false;
-        bool expectedLayout = true;
-        bool expectedTables = true;
-        bool expectedText = true;
+        Dictionary<string, JsonElement> expectedEmbed = { };
+        Dictionary<string, JsonElement> expectedForms = new()
+        {
+            { "foo", JsonSerializer.SerializeToElement("bar") },
+        };
+        Tables expectedTables = new() { Format = TablesFormat.Csv };
 
-        Assert.Equal(expectedForms, model.Forms);
-        Assert.Equal(expectedLayout, model.Layout);
+        Assert.NotNull(model.Embed);
+        Assert.Equal(expectedEmbed.Count, model.Embed.Count);
+        foreach (var item in expectedEmbed)
+        {
+            Assert.True(model.Embed.TryGetValue(item.Key, out var value));
+
+            Assert.True(JsonElement.DeepEquals(value, model.Embed[item.Key]));
+        }
+        Assert.NotNull(model.Forms);
+        Assert.Equal(expectedForms.Count, model.Forms.Count);
+        foreach (var item in expectedForms)
+        {
+            Assert.True(model.Forms.TryGetValue(item.Key, out var value));
+
+            Assert.True(JsonElement.DeepEquals(value, model.Forms[item.Key]));
+        }
         Assert.Equal(expectedTables, model.Tables);
-        Assert.Equal(expectedText, model.Text);
     }
 
     [Fact]
@@ -223,10 +247,12 @@ public class FeaturesTest : TestBase
     {
         var model = new Features
         {
-            Forms = false,
-            Layout = true,
-            Tables = true,
-            Text = true,
+            Embed = { },
+            Forms = new Dictionary<string, JsonElement>()
+            {
+                { "foo", JsonSerializer.SerializeToElement("bar") },
+            },
+            Tables = new() { Format = TablesFormat.Csv },
         };
 
         string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
@@ -240,10 +266,12 @@ public class FeaturesTest : TestBase
     {
         var model = new Features
         {
-            Forms = false,
-            Layout = true,
-            Tables = true,
-            Text = true,
+            Embed = { },
+            Forms = new Dictionary<string, JsonElement>()
+            {
+                { "foo", JsonSerializer.SerializeToElement("bar") },
+            },
+            Tables = new() { Format = TablesFormat.Csv },
         };
 
         string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
@@ -253,15 +281,30 @@ public class FeaturesTest : TestBase
         );
         Assert.NotNull(deserialized);
 
-        bool expectedForms = false;
-        bool expectedLayout = true;
-        bool expectedTables = true;
-        bool expectedText = true;
+        Dictionary<string, JsonElement> expectedEmbed = { };
+        Dictionary<string, JsonElement> expectedForms = new()
+        {
+            { "foo", JsonSerializer.SerializeToElement("bar") },
+        };
+        Tables expectedTables = new() { Format = TablesFormat.Csv };
 
-        Assert.Equal(expectedForms, deserialized.Forms);
-        Assert.Equal(expectedLayout, deserialized.Layout);
+        Assert.NotNull(deserialized.Embed);
+        Assert.Equal(expectedEmbed.Count, deserialized.Embed.Count);
+        foreach (var item in expectedEmbed)
+        {
+            Assert.True(deserialized.Embed.TryGetValue(item.Key, out var value));
+
+            Assert.True(JsonElement.DeepEquals(value, deserialized.Embed[item.Key]));
+        }
+        Assert.NotNull(deserialized.Forms);
+        Assert.Equal(expectedForms.Count, deserialized.Forms.Count);
+        foreach (var item in expectedForms)
+        {
+            Assert.True(deserialized.Forms.TryGetValue(item.Key, out var value));
+
+            Assert.True(JsonElement.DeepEquals(value, deserialized.Forms[item.Key]));
+        }
         Assert.Equal(expectedTables, deserialized.Tables);
-        Assert.Equal(expectedText, deserialized.Text);
     }
 
     [Fact]
@@ -269,10 +312,12 @@ public class FeaturesTest : TestBase
     {
         var model = new Features
         {
-            Forms = false,
-            Layout = true,
-            Tables = true,
-            Text = true,
+            Embed = { },
+            Forms = new Dictionary<string, JsonElement>()
+            {
+                { "foo", JsonSerializer.SerializeToElement("bar") },
+            },
+            Tables = new() { Format = TablesFormat.Csv },
         };
 
         model.Validate();
@@ -283,14 +328,12 @@ public class FeaturesTest : TestBase
     {
         var model = new Features { };
 
+        Assert.Null(model.Embed);
+        Assert.False(model.RawData.ContainsKey("embed"));
         Assert.Null(model.Forms);
         Assert.False(model.RawData.ContainsKey("forms"));
-        Assert.Null(model.Layout);
-        Assert.False(model.RawData.ContainsKey("layout"));
         Assert.Null(model.Tables);
         Assert.False(model.RawData.ContainsKey("tables"));
-        Assert.Null(model.Text);
-        Assert.False(model.RawData.ContainsKey("text"));
     }
 
     [Fact]
@@ -307,20 +350,17 @@ public class FeaturesTest : TestBase
         var model = new Features
         {
             // Null should be interpreted as omitted for these properties
+            Embed = null,
             Forms = null,
-            Layout = null,
             Tables = null,
-            Text = null,
         };
 
+        Assert.Null(model.Embed);
+        Assert.False(model.RawData.ContainsKey("embed"));
         Assert.Null(model.Forms);
         Assert.False(model.RawData.ContainsKey("forms"));
-        Assert.Null(model.Layout);
-        Assert.False(model.RawData.ContainsKey("layout"));
         Assert.Null(model.Tables);
         Assert.False(model.RawData.ContainsKey("tables"));
-        Assert.Null(model.Text);
-        Assert.False(model.RawData.ContainsKey("text"));
     }
 
     [Fact]
@@ -329,10 +369,9 @@ public class FeaturesTest : TestBase
         var model = new Features
         {
             // Null should be interpreted as omitted for these properties
+            Embed = null,
             Forms = null,
-            Layout = null,
             Tables = null,
-            Text = null,
         };
 
         model.Validate();
@@ -343,14 +382,172 @@ public class FeaturesTest : TestBase
     {
         var model = new Features
         {
-            Forms = false,
-            Layout = true,
-            Tables = true,
-            Text = true,
+            Embed = { },
+            Forms = new Dictionary<string, JsonElement>()
+            {
+                { "foo", JsonSerializer.SerializeToElement("bar") },
+            },
+            Tables = new() { Format = TablesFormat.Csv },
         };
 
         Features copied = new(model);
 
         Assert.Equal(model, copied);
+    }
+}
+
+public class TablesTest : TestBase
+{
+    [Fact]
+    public void FieldRoundtrip_Works()
+    {
+        var model = new Tables { Format = TablesFormat.Csv };
+
+        ApiEnum<string, TablesFormat> expectedFormat = TablesFormat.Csv;
+
+        Assert.Equal(expectedFormat, model.Format);
+    }
+
+    [Fact]
+    public void SerializationRoundtrip_Works()
+    {
+        var model = new Tables { Format = TablesFormat.Csv };
+
+        string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<Tables>(json, ModelBase.SerializerOptions);
+
+        Assert.Equal(model, deserialized);
+    }
+
+    [Fact]
+    public void FieldRoundtripThroughSerialization_Works()
+    {
+        var model = new Tables { Format = TablesFormat.Csv };
+
+        string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<Tables>(element, ModelBase.SerializerOptions);
+        Assert.NotNull(deserialized);
+
+        ApiEnum<string, TablesFormat> expectedFormat = TablesFormat.Csv;
+
+        Assert.Equal(expectedFormat, deserialized.Format);
+    }
+
+    [Fact]
+    public void Validation_Works()
+    {
+        var model = new Tables { Format = TablesFormat.Csv };
+
+        model.Validate();
+    }
+
+    [Fact]
+    public void OptionalNonNullablePropertiesUnsetAreNotSet_Works()
+    {
+        var model = new Tables { };
+
+        Assert.Null(model.Format);
+        Assert.False(model.RawData.ContainsKey("format"));
+    }
+
+    [Fact]
+    public void OptionalNonNullablePropertiesUnsetValidation_Works()
+    {
+        var model = new Tables { };
+
+        model.Validate();
+    }
+
+    [Fact]
+    public void OptionalNonNullablePropertiesSetToNullAreNotSet_Works()
+    {
+        var model = new Tables
+        {
+            // Null should be interpreted as omitted for these properties
+            Format = null,
+        };
+
+        Assert.Null(model.Format);
+        Assert.False(model.RawData.ContainsKey("format"));
+    }
+
+    [Fact]
+    public void OptionalNonNullablePropertiesSetToNullValidation_Works()
+    {
+        var model = new Tables
+        {
+            // Null should be interpreted as omitted for these properties
+            Format = null,
+        };
+
+        model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Tables { Format = TablesFormat.Csv };
+
+        Tables copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
+}
+
+public class TablesFormatTest : TestBase
+{
+    [Theory]
+    [InlineData(TablesFormat.Csv)]
+    [InlineData(TablesFormat.Json)]
+    public void Validation_Works(TablesFormat rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, TablesFormat> value = rawValue;
+        value.Validate();
+    }
+
+    [Fact]
+    public void InvalidEnumValidationThrows_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, TablesFormat>>(
+            JsonSerializer.SerializeToElement("invalid value"),
+            ModelBase.SerializerOptions
+        );
+
+        Assert.NotNull(value);
+        Assert.Throws<CasedevInvalidDataException>(() => value.Validate());
+    }
+
+    [Theory]
+    [InlineData(TablesFormat.Csv)]
+    [InlineData(TablesFormat.Json)]
+    public void SerializationRoundtrip_Works(TablesFormat rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, TablesFormat> value = rawValue;
+
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, TablesFormat>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
+    }
+
+    [Fact]
+    public void InvalidEnumSerializationRoundtrip_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, TablesFormat>>(
+            JsonSerializer.SerializeToElement("invalid value"),
+            ModelBase.SerializerOptions
+        );
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, TablesFormat>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
     }
 }

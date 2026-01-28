@@ -43,6 +43,7 @@ public abstract record class ModelBase
             new ApiEnumConverter<string, V1::V1ProcessResponseStatus>(),
             new ApiEnumConverter<string, V1::Type>(),
             new ApiEnumConverter<string, V1::Engine>(),
+            new ApiEnumConverter<string, V1::TablesFormat>(),
             new ApiEnumConverter<string, SearchV1::V1RetrieveResearchResponseModel>(),
             new ApiEnumConverter<string, SearchV1::Status>(),
             new ApiEnumConverter<string, SearchV1::SearchType>(),
