@@ -14,29 +14,29 @@ public class V1RetrieveResponseTest : TestBase
         var model = new V1RetrieveResponse
         {
             ID = "id",
-            CompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Status = Status.Pending,
+            CompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
             PageCount = 0,
-            Status = Status.Pending,
             Text = "text",
         };
 
         string expectedID = "id";
-        DateTimeOffset expectedCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
         DateTimeOffset expectedCreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
+        ApiEnum<string, Status> expectedStatus = Status.Pending;
+        DateTimeOffset expectedCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
         JsonElement expectedMetadata = JsonSerializer.Deserialize<JsonElement>("{}");
         long expectedPageCount = 0;
-        ApiEnum<string, Status> expectedStatus = Status.Pending;
         string expectedText = "text";
 
         Assert.Equal(expectedID, model.ID);
-        Assert.Equal(expectedCompletedAt, model.CompletedAt);
         Assert.Equal(expectedCreatedAt, model.CreatedAt);
+        Assert.Equal(expectedStatus, model.Status);
+        Assert.Equal(expectedCompletedAt, model.CompletedAt);
         Assert.NotNull(model.Metadata);
         Assert.True(JsonElement.DeepEquals(expectedMetadata, model.Metadata.Value));
         Assert.Equal(expectedPageCount, model.PageCount);
-        Assert.Equal(expectedStatus, model.Status);
         Assert.Equal(expectedText, model.Text);
     }
 
@@ -46,11 +46,11 @@ public class V1RetrieveResponseTest : TestBase
         var model = new V1RetrieveResponse
         {
             ID = "id",
-            CompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Status = Status.Pending,
+            CompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
             PageCount = 0,
-            Status = Status.Pending,
             Text = "text",
         };
 
@@ -69,11 +69,11 @@ public class V1RetrieveResponseTest : TestBase
         var model = new V1RetrieveResponse
         {
             ID = "id",
-            CompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Status = Status.Pending,
+            CompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
             PageCount = 0,
-            Status = Status.Pending,
             Text = "text",
         };
 
@@ -85,20 +85,20 @@ public class V1RetrieveResponseTest : TestBase
         Assert.NotNull(deserialized);
 
         string expectedID = "id";
-        DateTimeOffset expectedCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
         DateTimeOffset expectedCreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
+        ApiEnum<string, Status> expectedStatus = Status.Pending;
+        DateTimeOffset expectedCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
         JsonElement expectedMetadata = JsonSerializer.Deserialize<JsonElement>("{}");
         long expectedPageCount = 0;
-        ApiEnum<string, Status> expectedStatus = Status.Pending;
         string expectedText = "text";
 
         Assert.Equal(expectedID, deserialized.ID);
-        Assert.Equal(expectedCompletedAt, deserialized.CompletedAt);
         Assert.Equal(expectedCreatedAt, deserialized.CreatedAt);
+        Assert.Equal(expectedStatus, deserialized.Status);
+        Assert.Equal(expectedCompletedAt, deserialized.CompletedAt);
         Assert.NotNull(deserialized.Metadata);
         Assert.True(JsonElement.DeepEquals(expectedMetadata, deserialized.Metadata.Value));
         Assert.Equal(expectedPageCount, deserialized.PageCount);
-        Assert.Equal(expectedStatus, deserialized.Status);
         Assert.Equal(expectedText, deserialized.Text);
     }
 
@@ -108,11 +108,11 @@ public class V1RetrieveResponseTest : TestBase
         var model = new V1RetrieveResponse
         {
             ID = "id",
-            CompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Status = Status.Pending,
+            CompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
             PageCount = 0,
-            Status = Status.Pending,
             Text = "text",
         };
 
@@ -122,20 +122,19 @@ public class V1RetrieveResponseTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetAreNotSet_Works()
     {
-        var model = new V1RetrieveResponse { };
+        var model = new V1RetrieveResponse
+        {
+            ID = "id",
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Status = Status.Pending,
+        };
 
-        Assert.Null(model.ID);
-        Assert.False(model.RawData.ContainsKey("id"));
         Assert.Null(model.CompletedAt);
         Assert.False(model.RawData.ContainsKey("completed_at"));
-        Assert.Null(model.CreatedAt);
-        Assert.False(model.RawData.ContainsKey("created_at"));
         Assert.Null(model.Metadata);
         Assert.False(model.RawData.ContainsKey("metadata"));
         Assert.Null(model.PageCount);
         Assert.False(model.RawData.ContainsKey("page_count"));
-        Assert.Null(model.Status);
-        Assert.False(model.RawData.ContainsKey("status"));
         Assert.Null(model.Text);
         Assert.False(model.RawData.ContainsKey("text"));
     }
@@ -143,7 +142,12 @@ public class V1RetrieveResponseTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetValidation_Works()
     {
-        var model = new V1RetrieveResponse { };
+        var model = new V1RetrieveResponse
+        {
+            ID = "id",
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Status = Status.Pending,
+        };
 
         model.Validate();
     }
@@ -153,28 +157,23 @@ public class V1RetrieveResponseTest : TestBase
     {
         var model = new V1RetrieveResponse
         {
+            ID = "id",
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Status = Status.Pending,
+
             // Null should be interpreted as omitted for these properties
-            ID = null,
             CompletedAt = null,
-            CreatedAt = null,
             Metadata = null,
             PageCount = null,
-            Status = null,
             Text = null,
         };
 
-        Assert.Null(model.ID);
-        Assert.False(model.RawData.ContainsKey("id"));
         Assert.Null(model.CompletedAt);
         Assert.False(model.RawData.ContainsKey("completed_at"));
-        Assert.Null(model.CreatedAt);
-        Assert.False(model.RawData.ContainsKey("created_at"));
         Assert.Null(model.Metadata);
         Assert.False(model.RawData.ContainsKey("metadata"));
         Assert.Null(model.PageCount);
         Assert.False(model.RawData.ContainsKey("page_count"));
-        Assert.Null(model.Status);
-        Assert.False(model.RawData.ContainsKey("status"));
         Assert.Null(model.Text);
         Assert.False(model.RawData.ContainsKey("text"));
     }
@@ -184,13 +183,14 @@ public class V1RetrieveResponseTest : TestBase
     {
         var model = new V1RetrieveResponse
         {
+            ID = "id",
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Status = Status.Pending,
+
             // Null should be interpreted as omitted for these properties
-            ID = null,
             CompletedAt = null,
-            CreatedAt = null,
             Metadata = null,
             PageCount = null,
-            Status = null,
             Text = null,
         };
 
@@ -203,11 +203,11 @@ public class V1RetrieveResponseTest : TestBase
         var model = new V1RetrieveResponse
         {
             ID = "id",
-            CompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Status = Status.Pending,
+            CompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
             PageCount = 0,
-            Status = Status.Pending,
             Text = "text",
         };
 

@@ -15,22 +15,40 @@ public sealed record class V1RetrieveResponse : JsonModel
     /// <summary>
     /// OCR job ID
     /// </summary>
-    public string? ID
+    public required string ID
     {
         get
         {
             this._rawData.Freeze();
-            return this._rawData.GetNullableClass<string>("id");
+            return this._rawData.GetNotNullClass<string>("id");
         }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
+        init { this._rawData.Set("id", value); }
+    }
 
-            this._rawData.Set("id", value);
+    /// <summary>
+    /// Job creation timestamp
+    /// </summary>
+    public required System::DateTimeOffset CreatedAt
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullStruct<System::DateTimeOffset>("created_at");
         }
+        init { this._rawData.Set("created_at", value); }
+    }
+
+    /// <summary>
+    /// Current job status
+    /// </summary>
+    public required ApiEnum<string, Status> Status
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullClass<ApiEnum<string, Status>>("status");
+        }
+        init { this._rawData.Set("status", value); }
     }
 
     /// <summary>
@@ -51,27 +69,6 @@ public sealed record class V1RetrieveResponse : JsonModel
             }
 
             this._rawData.Set("completed_at", value);
-        }
-    }
-
-    /// <summary>
-    /// Job creation timestamp
-    /// </summary>
-    public System::DateTimeOffset? CreatedAt
-    {
-        get
-        {
-            this._rawData.Freeze();
-            return this._rawData.GetNullableStruct<System::DateTimeOffset>("created_at");
-        }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawData.Set("created_at", value);
         }
     }
 
@@ -118,27 +115,6 @@ public sealed record class V1RetrieveResponse : JsonModel
     }
 
     /// <summary>
-    /// Current job status
-    /// </summary>
-    public ApiEnum<string, Status>? Status
-    {
-        get
-        {
-            this._rawData.Freeze();
-            return this._rawData.GetNullableClass<ApiEnum<string, Status>>("status");
-        }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawData.Set("status", value);
-        }
-    }
-
-    /// <summary>
     /// Extracted text content (when completed)
     /// </summary>
     public string? Text
@@ -163,11 +139,11 @@ public sealed record class V1RetrieveResponse : JsonModel
     public override void Validate()
     {
         _ = this.ID;
-        _ = this.CompletedAt;
         _ = this.CreatedAt;
+        this.Status.Validate();
+        _ = this.CompletedAt;
         _ = this.Metadata;
         _ = this.PageCount;
-        this.Status?.Validate();
         _ = this.Text;
     }
 
