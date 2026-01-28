@@ -105,7 +105,7 @@ public record class V1ProcessParams : ParamsBase
     }
 
     /// <summary>
-    /// OCR features to extract
+    /// Additional processing options
     /// </summary>
     public Features? Features
     {
@@ -315,20 +315,20 @@ sealed class EngineConverter : JsonConverter<Engine>
 }
 
 /// <summary>
-/// OCR features to extract
+/// Additional processing options
 /// </summary>
 [JsonConverter(typeof(JsonModelConverter<Features, FeaturesFromRaw>))]
 public sealed record class Features : JsonModel
 {
     /// <summary>
-    /// Detect form fields
+    /// Generate searchable PDF with text layer
     /// </summary>
-    public bool? Forms
+    public IReadOnlyDictionary<string, JsonElement>? Embed
     {
         get
         {
             this._rawData.Freeze();
-            return this._rawData.GetNullableStruct<bool>("forms");
+            return this._rawData.GetNullableClass<FrozenDictionary<string, JsonElement>>("embed");
         }
         init
         {
@@ -337,19 +337,22 @@ public sealed record class Features : JsonModel
                 return;
             }
 
-            this._rawData.Set("forms", value);
+            this._rawData.Set<FrozenDictionary<string, JsonElement>?>(
+                "embed",
+                value == null ? null : FrozenDictionary.ToFrozenDictionary(value)
+            );
         }
     }
 
     /// <summary>
-    /// Preserve document layout
+    /// Detect and extract form fields
     /// </summary>
-    public bool? Layout
+    public IReadOnlyDictionary<string, JsonElement>? Forms
     {
         get
         {
             this._rawData.Freeze();
-            return this._rawData.GetNullableStruct<bool>("layout");
+            return this._rawData.GetNullableClass<FrozenDictionary<string, JsonElement>>("forms");
         }
         init
         {
@@ -358,19 +361,22 @@ public sealed record class Features : JsonModel
                 return;
             }
 
-            this._rawData.Set("layout", value);
+            this._rawData.Set<FrozenDictionary<string, JsonElement>?>(
+                "forms",
+                value == null ? null : FrozenDictionary.ToFrozenDictionary(value)
+            );
         }
     }
 
     /// <summary>
-    /// Detect and extract tables
+    /// Extract tables as structured data
     /// </summary>
-    public bool? Tables
+    public Tables? Tables
     {
         get
         {
             this._rawData.Freeze();
-            return this._rawData.GetNullableStruct<bool>("tables");
+            return this._rawData.GetNullableClass<Tables>("tables");
         }
         init
         {
@@ -383,34 +389,12 @@ public sealed record class Features : JsonModel
         }
     }
 
-    /// <summary>
-    /// Extract text content
-    /// </summary>
-    public bool? Text
-    {
-        get
-        {
-            this._rawData.Freeze();
-            return this._rawData.GetNullableStruct<bool>("text");
-        }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawData.Set("text", value);
-        }
-    }
-
     /// <inheritdoc/>
     public override void Validate()
     {
+        _ = this.Embed;
         _ = this.Forms;
-        _ = this.Layout;
-        _ = this.Tables;
-        _ = this.Text;
+        this.Tables?.Validate();
     }
 
     public Features() { }
@@ -446,4 +430,119 @@ class FeaturesFromRaw : IFromRawJson<Features>
     /// <inheritdoc/>
     public Features FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         Features.FromRawUnchecked(rawData);
+}
+
+/// <summary>
+/// Extract tables as structured data
+/// </summary>
+[JsonConverter(typeof(JsonModelConverter<Tables, TablesFromRaw>))]
+public sealed record class Tables : JsonModel
+{
+    /// <summary>
+    /// Output format for extracted tables
+    /// </summary>
+    public ApiEnum<string, TablesFormat>? Format
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<ApiEnum<string, TablesFormat>>("format");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawData.Set("format", value);
+        }
+    }
+
+    /// <inheritdoc/>
+    public override void Validate()
+    {
+        this.Format?.Validate();
+    }
+
+    public Tables() { }
+
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
+    public Tables(Tables tables)
+        : base(tables) { }
+#pragma warning restore CS8618
+
+    public Tables(IReadOnlyDictionary<string, JsonElement> rawData)
+    {
+        this._rawData = new(rawData);
+    }
+
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
+    Tables(FrozenDictionary<string, JsonElement> rawData)
+    {
+        this._rawData = new(rawData);
+    }
+#pragma warning restore CS8618
+
+    /// <inheritdoc cref="TablesFromRaw.FromRawUnchecked"/>
+    public static Tables FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
+    {
+        return new(FrozenDictionary.ToFrozenDictionary(rawData));
+    }
+}
+
+class TablesFromRaw : IFromRawJson<Tables>
+{
+    /// <inheritdoc/>
+    public Tables FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
+        Tables.FromRawUnchecked(rawData);
+}
+
+/// <summary>
+/// Output format for extracted tables
+/// </summary>
+[JsonConverter(typeof(TablesFormatConverter))]
+public enum TablesFormat
+{
+    Csv,
+    Json,
+}
+
+sealed class TablesFormatConverter : JsonConverter<TablesFormat>
+{
+    public override TablesFormat Read(
+        ref Utf8JsonReader reader,
+        System::Type typeToConvert,
+        JsonSerializerOptions options
+    )
+    {
+        return JsonSerializer.Deserialize<string>(ref reader, options) switch
+        {
+            "csv" => TablesFormat.Csv,
+            "json" => TablesFormat.Json,
+            _ => (TablesFormat)(-1),
+        };
+    }
+
+    public override void Write(
+        Utf8JsonWriter writer,
+        TablesFormat value,
+        JsonSerializerOptions options
+    )
+    {
+        JsonSerializer.Serialize(
+            writer,
+            value switch
+            {
+                TablesFormat.Csv => "csv",
+                TablesFormat.Json => "json",
+                _ => throw new CasedevInvalidDataException(
+                    string.Format("Invalid value '{0}' in {1}", value, nameof(value))
+                ),
+            },
+            options
+        );
+    }
 }
