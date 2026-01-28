@@ -56,20 +56,6 @@ public record class VaultUploadParams : ParamsBase
     }
 
     /// <summary>
-    /// File size in bytes (required, max 500MB). Used to enforce upload limits at
-    /// S3 level.
-    /// </summary>
-    public required long SizeBytes
-    {
-        get
-        {
-            this._rawBodyData.Freeze();
-            return this._rawBodyData.GetNotNullStruct<long>("sizeBytes");
-        }
-        init { this._rawBodyData.Set("sizeBytes", value); }
-    }
-
-    /// <summary>
     /// Whether to automatically process and index the file for search
     /// </summary>
     public bool? AutoIndex
@@ -130,6 +116,28 @@ public record class VaultUploadParams : ParamsBase
             }
 
             this._rawBodyData.Set("path", value);
+        }
+    }
+
+    /// <summary>
+    /// File size in bytes (optional, max 500MB). When provided, enforces exact file
+    /// size at S3 level.
+    /// </summary>
+    public long? SizeBytes
+    {
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<long>("sizeBytes");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawBodyData.Set("sizeBytes", value);
         }
     }
 

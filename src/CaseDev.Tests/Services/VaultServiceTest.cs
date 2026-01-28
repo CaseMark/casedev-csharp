@@ -59,12 +59,7 @@ public class VaultServiceTest : TestBase
     {
         var response = await this.client.Vault.Upload(
             "id",
-            new()
-            {
-                ContentType = "contentType",
-                Filename = "filename",
-                SizeBytes = 1,
-            },
+            new() { ContentType = "contentType", Filename = "filename" },
             TestContext.Current.CancellationToken
         );
         response.Validate();

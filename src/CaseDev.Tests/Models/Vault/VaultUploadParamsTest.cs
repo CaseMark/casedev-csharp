@@ -14,28 +14,28 @@ public class VaultUploadParamsTest : TestBase
             ID = "id",
             ContentType = "contentType",
             Filename = "filename",
-            SizeBytes = 1,
             AutoIndex = true,
             Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
             Path = "path",
+            SizeBytes = 1,
         };
 
         string expectedID = "id";
         string expectedContentType = "contentType";
         string expectedFilename = "filename";
-        long expectedSizeBytes = 1;
         bool expectedAutoIndex = true;
         JsonElement expectedMetadata = JsonSerializer.Deserialize<JsonElement>("{}");
         string expectedPath = "path";
+        long expectedSizeBytes = 1;
 
         Assert.Equal(expectedID, parameters.ID);
         Assert.Equal(expectedContentType, parameters.ContentType);
         Assert.Equal(expectedFilename, parameters.Filename);
-        Assert.Equal(expectedSizeBytes, parameters.SizeBytes);
         Assert.Equal(expectedAutoIndex, parameters.AutoIndex);
         Assert.NotNull(parameters.Metadata);
         Assert.True(JsonElement.DeepEquals(expectedMetadata, parameters.Metadata.Value));
         Assert.Equal(expectedPath, parameters.Path);
+        Assert.Equal(expectedSizeBytes, parameters.SizeBytes);
     }
 
     [Fact]
@@ -46,7 +46,6 @@ public class VaultUploadParamsTest : TestBase
             ID = "id",
             ContentType = "contentType",
             Filename = "filename",
-            SizeBytes = 1,
         };
 
         Assert.Null(parameters.AutoIndex);
@@ -55,6 +54,8 @@ public class VaultUploadParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("metadata"));
         Assert.Null(parameters.Path);
         Assert.False(parameters.RawBodyData.ContainsKey("path"));
+        Assert.Null(parameters.SizeBytes);
+        Assert.False(parameters.RawBodyData.ContainsKey("sizeBytes"));
     }
 
     [Fact]
@@ -65,12 +66,12 @@ public class VaultUploadParamsTest : TestBase
             ID = "id",
             ContentType = "contentType",
             Filename = "filename",
-            SizeBytes = 1,
 
             // Null should be interpreted as omitted for these properties
             AutoIndex = null,
             Metadata = null,
             Path = null,
+            SizeBytes = null,
         };
 
         Assert.Null(parameters.AutoIndex);
@@ -79,6 +80,8 @@ public class VaultUploadParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("metadata"));
         Assert.Null(parameters.Path);
         Assert.False(parameters.RawBodyData.ContainsKey("path"));
+        Assert.Null(parameters.SizeBytes);
+        Assert.False(parameters.RawBodyData.ContainsKey("sizeBytes"));
     }
 
     [Fact]
@@ -89,7 +92,6 @@ public class VaultUploadParamsTest : TestBase
             ID = "id",
             ContentType = "contentType",
             Filename = "filename",
-            SizeBytes = 1,
         };
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
@@ -105,10 +107,10 @@ public class VaultUploadParamsTest : TestBase
             ID = "id",
             ContentType = "contentType",
             Filename = "filename",
-            SizeBytes = 1,
             AutoIndex = true,
             Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
             Path = "path",
+            SizeBytes = 1,
         };
 
         VaultUploadParams copied = new(parameters);
