@@ -19,12 +19,12 @@ public class ObjectListResponseTest : TestBase
                 new()
                 {
                     ID = "id",
-                    ChunkCount = 0,
                     ContentType = "contentType",
                     CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                     Filename = "filename",
-                    IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                     IngestionStatus = "ingestionStatus",
+                    ChunkCount = 0,
+                    IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                     Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
                     PageCount = 0,
                     Path = "path",
@@ -43,12 +43,12 @@ public class ObjectListResponseTest : TestBase
             new()
             {
                 ID = "id",
-                ChunkCount = 0,
                 ContentType = "contentType",
                 CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                 Filename = "filename",
-                IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                 IngestionStatus = "ingestionStatus",
+                ChunkCount = 0,
+                IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                 Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
                 PageCount = 0,
                 Path = "path",
@@ -61,7 +61,6 @@ public class ObjectListResponseTest : TestBase
         string expectedVaultID = "vaultId";
 
         Assert.Equal(expectedCount, model.Count);
-        Assert.NotNull(model.Objects);
         Assert.Equal(expectedObjects.Count, model.Objects.Count);
         for (int i = 0; i < expectedObjects.Count; i++)
         {
@@ -81,12 +80,12 @@ public class ObjectListResponseTest : TestBase
                 new()
                 {
                     ID = "id",
-                    ChunkCount = 0,
                     ContentType = "contentType",
                     CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                     Filename = "filename",
-                    IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                     IngestionStatus = "ingestionStatus",
+                    ChunkCount = 0,
+                    IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                     Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
                     PageCount = 0,
                     Path = "path",
@@ -119,12 +118,12 @@ public class ObjectListResponseTest : TestBase
                 new()
                 {
                     ID = "id",
-                    ChunkCount = 0,
                     ContentType = "contentType",
                     CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                     Filename = "filename",
-                    IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                     IngestionStatus = "ingestionStatus",
+                    ChunkCount = 0,
+                    IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                     Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
                     PageCount = 0,
                     Path = "path",
@@ -150,12 +149,12 @@ public class ObjectListResponseTest : TestBase
             new()
             {
                 ID = "id",
-                ChunkCount = 0,
                 ContentType = "contentType",
                 CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                 Filename = "filename",
-                IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                 IngestionStatus = "ingestionStatus",
+                ChunkCount = 0,
+                IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                 Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
                 PageCount = 0,
                 Path = "path",
@@ -168,7 +167,6 @@ public class ObjectListResponseTest : TestBase
         string expectedVaultID = "vaultId";
 
         Assert.Equal(expectedCount, deserialized.Count);
-        Assert.NotNull(deserialized.Objects);
         Assert.Equal(expectedObjects.Count, deserialized.Objects.Count);
         for (int i = 0; i < expectedObjects.Count; i++)
         {
@@ -188,12 +186,12 @@ public class ObjectListResponseTest : TestBase
                 new()
                 {
                     ID = "id",
-                    ChunkCount = 0,
                     ContentType = "contentType",
                     CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                     Filename = "filename",
-                    IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                     IngestionStatus = "ingestionStatus",
+                    ChunkCount = 0,
+                    IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                     Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
                     PageCount = 0,
                     Path = "path",
@@ -210,60 +208,6 @@ public class ObjectListResponseTest : TestBase
     }
 
     [Fact]
-    public void OptionalNonNullablePropertiesUnsetAreNotSet_Works()
-    {
-        var model = new Objects::ObjectListResponse { };
-
-        Assert.Null(model.Count);
-        Assert.False(model.RawData.ContainsKey("count"));
-        Assert.Null(model.Objects);
-        Assert.False(model.RawData.ContainsKey("objects"));
-        Assert.Null(model.VaultID);
-        Assert.False(model.RawData.ContainsKey("vaultId"));
-    }
-
-    [Fact]
-    public void OptionalNonNullablePropertiesUnsetValidation_Works()
-    {
-        var model = new Objects::ObjectListResponse { };
-
-        model.Validate();
-    }
-
-    [Fact]
-    public void OptionalNonNullablePropertiesSetToNullAreNotSet_Works()
-    {
-        var model = new Objects::ObjectListResponse
-        {
-            // Null should be interpreted as omitted for these properties
-            Count = null,
-            Objects = null,
-            VaultID = null,
-        };
-
-        Assert.Null(model.Count);
-        Assert.False(model.RawData.ContainsKey("count"));
-        Assert.Null(model.Objects);
-        Assert.False(model.RawData.ContainsKey("objects"));
-        Assert.Null(model.VaultID);
-        Assert.False(model.RawData.ContainsKey("vaultId"));
-    }
-
-    [Fact]
-    public void OptionalNonNullablePropertiesSetToNullValidation_Works()
-    {
-        var model = new Objects::ObjectListResponse
-        {
-            // Null should be interpreted as omitted for these properties
-            Count = null,
-            Objects = null,
-            VaultID = null,
-        };
-
-        model.Validate();
-    }
-
-    [Fact]
     public void CopyConstructor_Works()
     {
         var model = new Objects::ObjectListResponse
@@ -274,12 +218,12 @@ public class ObjectListResponseTest : TestBase
                 new()
                 {
                     ID = "id",
-                    ChunkCount = 0,
                     ContentType = "contentType",
                     CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                     Filename = "filename",
-                    IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                     IngestionStatus = "ingestionStatus",
+                    ChunkCount = 0,
+                    IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                     Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
                     PageCount = 0,
                     Path = "path",
@@ -306,12 +250,12 @@ public class ObjectTest : TestBase
         var model = new Objects::Object
         {
             ID = "id",
-            ChunkCount = 0,
             ContentType = "contentType",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Filename = "filename",
-            IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             IngestionStatus = "ingestionStatus",
+            ChunkCount = 0,
+            IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
             PageCount = 0,
             Path = "path",
@@ -322,14 +266,14 @@ public class ObjectTest : TestBase
         };
 
         string expectedID = "id";
-        double expectedChunkCount = 0;
         string expectedContentType = "contentType";
         DateTimeOffset expectedCreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
         string expectedFilename = "filename";
+        string expectedIngestionStatus = "ingestionStatus";
+        double expectedChunkCount = 0;
         DateTimeOffset expectedIngestionCompletedAt = DateTimeOffset.Parse(
             "2019-12-27T18:11:19.117Z"
         );
-        string expectedIngestionStatus = "ingestionStatus";
         JsonElement expectedMetadata = JsonSerializer.Deserialize<JsonElement>("{}");
         double expectedPageCount = 0;
         string expectedPath = "path";
@@ -339,12 +283,12 @@ public class ObjectTest : TestBase
         double expectedVectorCount = 0;
 
         Assert.Equal(expectedID, model.ID);
-        Assert.Equal(expectedChunkCount, model.ChunkCount);
         Assert.Equal(expectedContentType, model.ContentType);
         Assert.Equal(expectedCreatedAt, model.CreatedAt);
         Assert.Equal(expectedFilename, model.Filename);
-        Assert.Equal(expectedIngestionCompletedAt, model.IngestionCompletedAt);
         Assert.Equal(expectedIngestionStatus, model.IngestionStatus);
+        Assert.Equal(expectedChunkCount, model.ChunkCount);
+        Assert.Equal(expectedIngestionCompletedAt, model.IngestionCompletedAt);
         Assert.NotNull(model.Metadata);
         Assert.True(JsonElement.DeepEquals(expectedMetadata, model.Metadata.Value));
         Assert.Equal(expectedPageCount, model.PageCount);
@@ -366,12 +310,12 @@ public class ObjectTest : TestBase
         var model = new Objects::Object
         {
             ID = "id",
-            ChunkCount = 0,
             ContentType = "contentType",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Filename = "filename",
-            IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             IngestionStatus = "ingestionStatus",
+            ChunkCount = 0,
+            IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
             PageCount = 0,
             Path = "path",
@@ -396,12 +340,12 @@ public class ObjectTest : TestBase
         var model = new Objects::Object
         {
             ID = "id",
-            ChunkCount = 0,
             ContentType = "contentType",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Filename = "filename",
-            IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             IngestionStatus = "ingestionStatus",
+            ChunkCount = 0,
+            IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
             PageCount = 0,
             Path = "path",
@@ -419,14 +363,14 @@ public class ObjectTest : TestBase
         Assert.NotNull(deserialized);
 
         string expectedID = "id";
-        double expectedChunkCount = 0;
         string expectedContentType = "contentType";
         DateTimeOffset expectedCreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
         string expectedFilename = "filename";
+        string expectedIngestionStatus = "ingestionStatus";
+        double expectedChunkCount = 0;
         DateTimeOffset expectedIngestionCompletedAt = DateTimeOffset.Parse(
             "2019-12-27T18:11:19.117Z"
         );
-        string expectedIngestionStatus = "ingestionStatus";
         JsonElement expectedMetadata = JsonSerializer.Deserialize<JsonElement>("{}");
         double expectedPageCount = 0;
         string expectedPath = "path";
@@ -436,12 +380,12 @@ public class ObjectTest : TestBase
         double expectedVectorCount = 0;
 
         Assert.Equal(expectedID, deserialized.ID);
-        Assert.Equal(expectedChunkCount, deserialized.ChunkCount);
         Assert.Equal(expectedContentType, deserialized.ContentType);
         Assert.Equal(expectedCreatedAt, deserialized.CreatedAt);
         Assert.Equal(expectedFilename, deserialized.Filename);
-        Assert.Equal(expectedIngestionCompletedAt, deserialized.IngestionCompletedAt);
         Assert.Equal(expectedIngestionStatus, deserialized.IngestionStatus);
+        Assert.Equal(expectedChunkCount, deserialized.ChunkCount);
+        Assert.Equal(expectedIngestionCompletedAt, deserialized.IngestionCompletedAt);
         Assert.NotNull(deserialized.Metadata);
         Assert.True(JsonElement.DeepEquals(expectedMetadata, deserialized.Metadata.Value));
         Assert.Equal(expectedPageCount, deserialized.PageCount);
@@ -463,12 +407,12 @@ public class ObjectTest : TestBase
         var model = new Objects::Object
         {
             ID = "id",
-            ChunkCount = 0,
             ContentType = "contentType",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Filename = "filename",
-            IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             IngestionStatus = "ingestionStatus",
+            ChunkCount = 0,
+            IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
             PageCount = 0,
             Path = "path",
@@ -484,22 +428,20 @@ public class ObjectTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetAreNotSet_Works()
     {
-        var model = new Objects::Object { Path = "path" };
+        var model = new Objects::Object
+        {
+            ID = "id",
+            ContentType = "contentType",
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Filename = "filename",
+            IngestionStatus = "ingestionStatus",
+            Path = "path",
+        };
 
-        Assert.Null(model.ID);
-        Assert.False(model.RawData.ContainsKey("id"));
         Assert.Null(model.ChunkCount);
         Assert.False(model.RawData.ContainsKey("chunkCount"));
-        Assert.Null(model.ContentType);
-        Assert.False(model.RawData.ContainsKey("contentType"));
-        Assert.Null(model.CreatedAt);
-        Assert.False(model.RawData.ContainsKey("createdAt"));
-        Assert.Null(model.Filename);
-        Assert.False(model.RawData.ContainsKey("filename"));
         Assert.Null(model.IngestionCompletedAt);
         Assert.False(model.RawData.ContainsKey("ingestionCompletedAt"));
-        Assert.Null(model.IngestionStatus);
-        Assert.False(model.RawData.ContainsKey("ingestionStatus"));
         Assert.Null(model.Metadata);
         Assert.False(model.RawData.ContainsKey("metadata"));
         Assert.Null(model.PageCount);
@@ -517,7 +459,15 @@ public class ObjectTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetValidation_Works()
     {
-        var model = new Objects::Object { Path = "path" };
+        var model = new Objects::Object
+        {
+            ID = "id",
+            ContentType = "contentType",
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Filename = "filename",
+            IngestionStatus = "ingestionStatus",
+            Path = "path",
+        };
 
         model.Validate();
     }
@@ -527,16 +477,16 @@ public class ObjectTest : TestBase
     {
         var model = new Objects::Object
         {
+            ID = "id",
+            ContentType = "contentType",
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Filename = "filename",
+            IngestionStatus = "ingestionStatus",
             Path = "path",
 
             // Null should be interpreted as omitted for these properties
-            ID = null,
             ChunkCount = null,
-            ContentType = null,
-            CreatedAt = null,
-            Filename = null,
             IngestionCompletedAt = null,
-            IngestionStatus = null,
             Metadata = null,
             PageCount = null,
             SizeBytes = null,
@@ -545,20 +495,10 @@ public class ObjectTest : TestBase
             VectorCount = null,
         };
 
-        Assert.Null(model.ID);
-        Assert.False(model.RawData.ContainsKey("id"));
         Assert.Null(model.ChunkCount);
         Assert.False(model.RawData.ContainsKey("chunkCount"));
-        Assert.Null(model.ContentType);
-        Assert.False(model.RawData.ContainsKey("contentType"));
-        Assert.Null(model.CreatedAt);
-        Assert.False(model.RawData.ContainsKey("createdAt"));
-        Assert.Null(model.Filename);
-        Assert.False(model.RawData.ContainsKey("filename"));
         Assert.Null(model.IngestionCompletedAt);
         Assert.False(model.RawData.ContainsKey("ingestionCompletedAt"));
-        Assert.Null(model.IngestionStatus);
-        Assert.False(model.RawData.ContainsKey("ingestionStatus"));
         Assert.Null(model.Metadata);
         Assert.False(model.RawData.ContainsKey("metadata"));
         Assert.Null(model.PageCount);
@@ -578,16 +518,16 @@ public class ObjectTest : TestBase
     {
         var model = new Objects::Object
         {
+            ID = "id",
+            ContentType = "contentType",
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Filename = "filename",
+            IngestionStatus = "ingestionStatus",
             Path = "path",
 
             // Null should be interpreted as omitted for these properties
-            ID = null,
             ChunkCount = null,
-            ContentType = null,
-            CreatedAt = null,
-            Filename = null,
             IngestionCompletedAt = null,
-            IngestionStatus = null,
             Metadata = null,
             PageCount = null,
             SizeBytes = null,
@@ -605,12 +545,12 @@ public class ObjectTest : TestBase
         var model = new Objects::Object
         {
             ID = "id",
-            ChunkCount = 0,
             ContentType = "contentType",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Filename = "filename",
-            IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             IngestionStatus = "ingestionStatus",
+            ChunkCount = 0,
+            IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
             PageCount = 0,
             SizeBytes = 0,
@@ -629,12 +569,12 @@ public class ObjectTest : TestBase
         var model = new Objects::Object
         {
             ID = "id",
-            ChunkCount = 0,
             ContentType = "contentType",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Filename = "filename",
-            IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             IngestionStatus = "ingestionStatus",
+            ChunkCount = 0,
+            IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
             PageCount = 0,
             SizeBytes = 0,
@@ -652,12 +592,12 @@ public class ObjectTest : TestBase
         var model = new Objects::Object
         {
             ID = "id",
-            ChunkCount = 0,
             ContentType = "contentType",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Filename = "filename",
-            IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             IngestionStatus = "ingestionStatus",
+            ChunkCount = 0,
+            IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
             PageCount = 0,
             SizeBytes = 0,
@@ -678,12 +618,12 @@ public class ObjectTest : TestBase
         var model = new Objects::Object
         {
             ID = "id",
-            ChunkCount = 0,
             ContentType = "contentType",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Filename = "filename",
-            IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             IngestionStatus = "ingestionStatus",
+            ChunkCount = 0,
+            IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
             PageCount = 0,
             SizeBytes = 0,
@@ -703,12 +643,12 @@ public class ObjectTest : TestBase
         var model = new Objects::Object
         {
             ID = "id",
-            ChunkCount = 0,
             ContentType = "contentType",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Filename = "filename",
-            IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             IngestionStatus = "ingestionStatus",
+            ChunkCount = 0,
+            IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
             PageCount = 0,
             Path = "path",

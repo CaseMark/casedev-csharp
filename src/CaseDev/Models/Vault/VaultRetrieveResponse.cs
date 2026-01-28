@@ -14,22 +14,66 @@ public sealed record class VaultRetrieveResponse : JsonModel
     /// <summary>
     /// Vault identifier
     /// </summary>
-    public string? ID
+    public required string ID
     {
         get
         {
             this._rawData.Freeze();
-            return this._rawData.GetNullableClass<string>("id");
+            return this._rawData.GetNotNullClass<string>("id");
         }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
+        init { this._rawData.Set("id", value); }
+    }
 
-            this._rawData.Set("id", value);
+    /// <summary>
+    /// Vault creation timestamp
+    /// </summary>
+    public required DateTimeOffset CreatedAt
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullStruct<DateTimeOffset>("createdAt");
         }
+        init { this._rawData.Set("createdAt", value); }
+    }
+
+    /// <summary>
+    /// S3 bucket for document storage
+    /// </summary>
+    public required string FilesBucket
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullClass<string>("filesBucket");
+        }
+        init { this._rawData.Set("filesBucket", value); }
+    }
+
+    /// <summary>
+    /// Vault name
+    /// </summary>
+    public required string Name
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullClass<string>("name");
+        }
+        init { this._rawData.Set("name", value); }
+    }
+
+    /// <summary>
+    /// AWS region
+    /// </summary>
+    public required string Region
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullClass<string>("region");
+        }
+        init { this._rawData.Set("region", value); }
     }
 
     /// <summary>
@@ -50,27 +94,6 @@ public sealed record class VaultRetrieveResponse : JsonModel
             }
 
             this._rawData.Set("chunkStrategy", value);
-        }
-    }
-
-    /// <summary>
-    /// Vault creation timestamp
-    /// </summary>
-    public DateTimeOffset? CreatedAt
-    {
-        get
-        {
-            this._rawData.Freeze();
-            return this._rawData.GetNullableStruct<DateTimeOffset>("createdAt");
-        }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawData.Set("createdAt", value);
         }
     }
 
@@ -113,27 +136,6 @@ public sealed record class VaultRetrieveResponse : JsonModel
             }
 
             this._rawData.Set("enableGraph", value);
-        }
-    }
-
-    /// <summary>
-    /// S3 bucket for document storage
-    /// </summary>
-    public string? FilesBucket
-    {
-        get
-        {
-            this._rawData.Freeze();
-            return this._rawData.GetNullableClass<string>("filesBucket");
-        }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawData.Set("filesBucket", value);
         }
     }
 
@@ -197,48 +199,6 @@ public sealed record class VaultRetrieveResponse : JsonModel
             }
 
             this._rawData.Set("metadata", value);
-        }
-    }
-
-    /// <summary>
-    /// Vault name
-    /// </summary>
-    public string? Name
-    {
-        get
-        {
-            this._rawData.Freeze();
-            return this._rawData.GetNullableClass<string>("name");
-        }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawData.Set("name", value);
-        }
-    }
-
-    /// <summary>
-    /// AWS region
-    /// </summary>
-    public string? Region
-    {
-        get
-        {
-            this._rawData.Freeze();
-            return this._rawData.GetNullableClass<string>("region");
-        }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawData.Set("region", value);
         }
     }
 
@@ -343,16 +303,16 @@ public sealed record class VaultRetrieveResponse : JsonModel
     public override void Validate()
     {
         _ = this.ID;
-        this.ChunkStrategy?.Validate();
         _ = this.CreatedAt;
+        _ = this.FilesBucket;
+        _ = this.Name;
+        _ = this.Region;
+        this.ChunkStrategy?.Validate();
         _ = this.Description;
         _ = this.EnableGraph;
-        _ = this.FilesBucket;
         _ = this.IndexName;
         _ = this.KmsKeyID;
         _ = this.Metadata;
-        _ = this.Name;
-        _ = this.Region;
         _ = this.TotalBytes;
         _ = this.TotalObjects;
         _ = this.TotalVectors;

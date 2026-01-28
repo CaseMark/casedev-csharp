@@ -11,49 +11,33 @@ namespace CaseDev.Models.Vault.Objects;
 [JsonConverter(typeof(JsonModelConverter<ObjectGetTextResponse, ObjectGetTextResponseFromRaw>))]
 public sealed record class ObjectGetTextResponse : JsonModel
 {
-    public ObjectGetTextResponseMetadata? Metadata
+    public required ObjectGetTextResponseMetadata Metadata
     {
         get
         {
             this._rawData.Freeze();
-            return this._rawData.GetNullableClass<ObjectGetTextResponseMetadata>("metadata");
+            return this._rawData.GetNotNullClass<ObjectGetTextResponseMetadata>("metadata");
         }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawData.Set("metadata", value);
-        }
+        init { this._rawData.Set("metadata", value); }
     }
 
     /// <summary>
     /// Full concatenated text content from all chunks
     /// </summary>
-    public string? Text
+    public required string Text
     {
         get
         {
             this._rawData.Freeze();
-            return this._rawData.GetNullableClass<string>("text");
+            return this._rawData.GetNotNullClass<string>("text");
         }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawData.Set("text", value);
-        }
+        init { this._rawData.Set("text", value); }
     }
 
     /// <inheritdoc/>
     public override void Validate()
     {
-        this.Metadata?.Validate();
+        this.Metadata.Validate();
         _ = this.Text;
     }
 
@@ -103,43 +87,66 @@ public sealed record class ObjectGetTextResponseMetadata : JsonModel
     /// <summary>
     /// Number of text chunks the document was split into
     /// </summary>
-    public long? ChunkCount
+    public required long ChunkCount
     {
         get
         {
             this._rawData.Freeze();
-            return this._rawData.GetNullableStruct<long>("chunk_count");
+            return this._rawData.GetNotNullStruct<long>("chunk_count");
         }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawData.Set("chunk_count", value);
-        }
+        init { this._rawData.Set("chunk_count", value); }
     }
 
     /// <summary>
     /// Original filename of the document
     /// </summary>
-    public string? Filename
+    public required string Filename
     {
         get
         {
             this._rawData.Freeze();
-            return this._rawData.GetNullableClass<string>("filename");
+            return this._rawData.GetNotNullClass<string>("filename");
         }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
+        init { this._rawData.Set("filename", value); }
+    }
 
-            this._rawData.Set("filename", value);
+    /// <summary>
+    /// Total character count of the extracted text
+    /// </summary>
+    public required long Length
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullStruct<long>("length");
         }
+        init { this._rawData.Set("length", value); }
+    }
+
+    /// <summary>
+    /// The object ID
+    /// </summary>
+    public required string ObjectID
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullClass<string>("object_id");
+        }
+        init { this._rawData.Set("object_id", value); }
+    }
+
+    /// <summary>
+    /// The vault ID
+    /// </summary>
+    public required string VaultID
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullClass<string>("vault_id");
+        }
+        init { this._rawData.Set("vault_id", value); }
     }
 
     /// <summary>
@@ -163,78 +170,15 @@ public sealed record class ObjectGetTextResponseMetadata : JsonModel
         }
     }
 
-    /// <summary>
-    /// Total character count of the extracted text
-    /// </summary>
-    public long? Length
-    {
-        get
-        {
-            this._rawData.Freeze();
-            return this._rawData.GetNullableStruct<long>("length");
-        }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawData.Set("length", value);
-        }
-    }
-
-    /// <summary>
-    /// The object ID
-    /// </summary>
-    public string? ObjectID
-    {
-        get
-        {
-            this._rawData.Freeze();
-            return this._rawData.GetNullableClass<string>("object_id");
-        }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawData.Set("object_id", value);
-        }
-    }
-
-    /// <summary>
-    /// The vault ID
-    /// </summary>
-    public string? VaultID
-    {
-        get
-        {
-            this._rawData.Freeze();
-            return this._rawData.GetNullableClass<string>("vault_id");
-        }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawData.Set("vault_id", value);
-        }
-    }
-
     /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.ChunkCount;
         _ = this.Filename;
-        _ = this.IngestionCompletedAt;
         _ = this.Length;
         _ = this.ObjectID;
         _ = this.VaultID;
+        _ = this.IngestionCompletedAt;
     }
 
     public ObjectGetTextResponseMetadata() { }

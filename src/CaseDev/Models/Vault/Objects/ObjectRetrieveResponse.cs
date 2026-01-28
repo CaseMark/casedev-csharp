@@ -14,22 +14,105 @@ public sealed record class ObjectRetrieveResponse : JsonModel
     /// <summary>
     /// Object ID
     /// </summary>
-    public string? ID
+    public required string ID
     {
         get
         {
             this._rawData.Freeze();
-            return this._rawData.GetNullableClass<string>("id");
+            return this._rawData.GetNotNullClass<string>("id");
         }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
+        init { this._rawData.Set("id", value); }
+    }
 
-            this._rawData.Set("id", value);
+    /// <summary>
+    /// MIME type
+    /// </summary>
+    public required string ContentType
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullClass<string>("contentType");
         }
+        init { this._rawData.Set("contentType", value); }
+    }
+
+    /// <summary>
+    /// Upload timestamp
+    /// </summary>
+    public required DateTimeOffset CreatedAt
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullStruct<DateTimeOffset>("createdAt");
+        }
+        init { this._rawData.Set("createdAt", value); }
+    }
+
+    /// <summary>
+    /// Presigned S3 download URL
+    /// </summary>
+    public required string DownloadUrl
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullClass<string>("downloadUrl");
+        }
+        init { this._rawData.Set("downloadUrl", value); }
+    }
+
+    /// <summary>
+    /// URL expiration time in seconds
+    /// </summary>
+    public required long ExpiresIn
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullStruct<long>("expiresIn");
+        }
+        init { this._rawData.Set("expiresIn", value); }
+    }
+
+    /// <summary>
+    /// Original filename
+    /// </summary>
+    public required string Filename
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullClass<string>("filename");
+        }
+        init { this._rawData.Set("filename", value); }
+    }
+
+    /// <summary>
+    /// Processing status (pending, processing, completed, failed)
+    /// </summary>
+    public required string IngestionStatus
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullClass<string>("ingestionStatus");
+        }
+        init { this._rawData.Set("ingestionStatus", value); }
+    }
+
+    /// <summary>
+    /// Vault ID
+    /// </summary>
+    public required string VaultID
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullClass<string>("vaultId");
+        }
+        init { this._rawData.Set("vaultId", value); }
     }
 
     /// <summary>
@@ -50,132 +133,6 @@ public sealed record class ObjectRetrieveResponse : JsonModel
             }
 
             this._rawData.Set("chunkCount", value);
-        }
-    }
-
-    /// <summary>
-    /// MIME type
-    /// </summary>
-    public string? ContentType
-    {
-        get
-        {
-            this._rawData.Freeze();
-            return this._rawData.GetNullableClass<string>("contentType");
-        }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawData.Set("contentType", value);
-        }
-    }
-
-    /// <summary>
-    /// Upload timestamp
-    /// </summary>
-    public DateTimeOffset? CreatedAt
-    {
-        get
-        {
-            this._rawData.Freeze();
-            return this._rawData.GetNullableStruct<DateTimeOffset>("createdAt");
-        }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawData.Set("createdAt", value);
-        }
-    }
-
-    /// <summary>
-    /// Presigned S3 download URL
-    /// </summary>
-    public string? DownloadUrl
-    {
-        get
-        {
-            this._rawData.Freeze();
-            return this._rawData.GetNullableClass<string>("downloadUrl");
-        }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawData.Set("downloadUrl", value);
-        }
-    }
-
-    /// <summary>
-    /// URL expiration time in seconds
-    /// </summary>
-    public long? ExpiresIn
-    {
-        get
-        {
-            this._rawData.Freeze();
-            return this._rawData.GetNullableStruct<long>("expiresIn");
-        }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawData.Set("expiresIn", value);
-        }
-    }
-
-    /// <summary>
-    /// Original filename
-    /// </summary>
-    public string? Filename
-    {
-        get
-        {
-            this._rawData.Freeze();
-            return this._rawData.GetNullableClass<string>("filename");
-        }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawData.Set("filename", value);
-        }
-    }
-
-    /// <summary>
-    /// Processing status (pending, processing, completed, failed)
-    /// </summary>
-    public string? IngestionStatus
-    {
-        get
-        {
-            this._rawData.Freeze();
-            return this._rawData.GetNullableClass<string>("ingestionStatus");
-        }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawData.Set("ingestionStatus", value);
         }
     }
 
@@ -277,27 +234,6 @@ public sealed record class ObjectRetrieveResponse : JsonModel
     }
 
     /// <summary>
-    /// Vault ID
-    /// </summary>
-    public string? VaultID
-    {
-        get
-        {
-            this._rawData.Freeze();
-            return this._rawData.GetNullableClass<string>("vaultId");
-        }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawData.Set("vaultId", value);
-        }
-    }
-
-    /// <summary>
     /// Number of embedding vectors generated
     /// </summary>
     public long? VectorCount
@@ -322,19 +258,19 @@ public sealed record class ObjectRetrieveResponse : JsonModel
     public override void Validate()
     {
         _ = this.ID;
-        _ = this.ChunkCount;
         _ = this.ContentType;
         _ = this.CreatedAt;
         _ = this.DownloadUrl;
         _ = this.ExpiresIn;
         _ = this.Filename;
         _ = this.IngestionStatus;
+        _ = this.VaultID;
+        _ = this.ChunkCount;
         _ = this.Metadata;
         _ = this.PageCount;
         _ = this.Path;
         _ = this.SizeBytes;
         _ = this.TextLength;
-        _ = this.VaultID;
         _ = this.VectorCount;
     }
 

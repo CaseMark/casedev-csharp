@@ -15,43 +15,30 @@ public sealed record class ObjectListResponse : JsonModel
     /// <summary>
     /// Total number of objects in the vault
     /// </summary>
-    public double? Count
+    public required double Count
     {
         get
         {
             this._rawData.Freeze();
-            return this._rawData.GetNullableStruct<double>("count");
+            return this._rawData.GetNotNullStruct<double>("count");
         }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawData.Set("count", value);
-        }
+        init { this._rawData.Set("count", value); }
     }
 
-    public IReadOnlyList<global::CaseDev.Models.Vault.Objects.Object>? Objects
+    public required IReadOnlyList<global::CaseDev.Models.Vault.Objects.Object> Objects
     {
         get
         {
             this._rawData.Freeze();
-            return this._rawData.GetNullableStruct<
+            return this._rawData.GetNotNullStruct<
                 ImmutableArray<global::CaseDev.Models.Vault.Objects.Object>
             >("objects");
         }
         init
         {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawData.Set<ImmutableArray<global::CaseDev.Models.Vault.Objects.Object>?>(
+            this._rawData.Set<ImmutableArray<global::CaseDev.Models.Vault.Objects.Object>>(
                 "objects",
-                value == null ? null : ImmutableArray.ToImmutableArray(value)
+                ImmutableArray.ToImmutableArray(value)
             );
         }
     }
@@ -59,29 +46,21 @@ public sealed record class ObjectListResponse : JsonModel
     /// <summary>
     /// The ID of the vault
     /// </summary>
-    public string? VaultID
+    public required string VaultID
     {
         get
         {
             this._rawData.Freeze();
-            return this._rawData.GetNullableClass<string>("vaultId");
+            return this._rawData.GetNotNullClass<string>("vaultId");
         }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawData.Set("vaultId", value);
-        }
+        init { this._rawData.Set("vaultId", value); }
     }
 
     /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.Count;
-        foreach (var item in this.Objects ?? [])
+        foreach (var item in this.Objects)
         {
             item.Validate();
         }
@@ -133,22 +112,66 @@ public sealed record class Object : JsonModel
     /// <summary>
     /// Unique object identifier
     /// </summary>
-    public string? ID
+    public required string ID
     {
         get
         {
             this._rawData.Freeze();
-            return this._rawData.GetNullableClass<string>("id");
+            return this._rawData.GetNotNullClass<string>("id");
         }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
+        init { this._rawData.Set("id", value); }
+    }
 
-            this._rawData.Set("id", value);
+    /// <summary>
+    /// MIME type of the document
+    /// </summary>
+    public required string ContentType
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullClass<string>("contentType");
         }
+        init { this._rawData.Set("contentType", value); }
+    }
+
+    /// <summary>
+    /// Document upload timestamp
+    /// </summary>
+    public required DateTimeOffset CreatedAt
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullStruct<DateTimeOffset>("createdAt");
+        }
+        init { this._rawData.Set("createdAt", value); }
+    }
+
+    /// <summary>
+    /// Original filename of the uploaded document
+    /// </summary>
+    public required string Filename
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullClass<string>("filename");
+        }
+        init { this._rawData.Set("filename", value); }
+    }
+
+    /// <summary>
+    /// Processing status of the document
+    /// </summary>
+    public required string IngestionStatus
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullClass<string>("ingestionStatus");
+        }
+        init { this._rawData.Set("ingestionStatus", value); }
     }
 
     /// <summary>
@@ -173,69 +196,6 @@ public sealed record class Object : JsonModel
     }
 
     /// <summary>
-    /// MIME type of the document
-    /// </summary>
-    public string? ContentType
-    {
-        get
-        {
-            this._rawData.Freeze();
-            return this._rawData.GetNullableClass<string>("contentType");
-        }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawData.Set("contentType", value);
-        }
-    }
-
-    /// <summary>
-    /// Document upload timestamp
-    /// </summary>
-    public DateTimeOffset? CreatedAt
-    {
-        get
-        {
-            this._rawData.Freeze();
-            return this._rawData.GetNullableStruct<DateTimeOffset>("createdAt");
-        }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawData.Set("createdAt", value);
-        }
-    }
-
-    /// <summary>
-    /// Original filename of the uploaded document
-    /// </summary>
-    public string? Filename
-    {
-        get
-        {
-            this._rawData.Freeze();
-            return this._rawData.GetNullableClass<string>("filename");
-        }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawData.Set("filename", value);
-        }
-    }
-
-    /// <summary>
     /// Processing completion timestamp
     /// </summary>
     public DateTimeOffset? IngestionCompletedAt
@@ -253,27 +213,6 @@ public sealed record class Object : JsonModel
             }
 
             this._rawData.Set("ingestionCompletedAt", value);
-        }
-    }
-
-    /// <summary>
-    /// Processing status of the document
-    /// </summary>
-    public string? IngestionStatus
-    {
-        get
-        {
-            this._rawData.Freeze();
-            return this._rawData.GetNullableClass<string>("ingestionStatus");
-        }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawData.Set("ingestionStatus", value);
         }
     }
 
@@ -423,12 +362,12 @@ public sealed record class Object : JsonModel
     public override void Validate()
     {
         _ = this.ID;
-        _ = this.ChunkCount;
         _ = this.ContentType;
         _ = this.CreatedAt;
         _ = this.Filename;
-        _ = this.IngestionCompletedAt;
         _ = this.IngestionStatus;
+        _ = this.ChunkCount;
+        _ = this.IngestionCompletedAt;
         _ = this.Metadata;
         _ = this.PageCount;
         _ = this.Path;
