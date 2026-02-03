@@ -48,7 +48,7 @@ public class V1VerifyResponseTest : TestBase
             ],
             Summary = new()
             {
-                Ambiguous = 0,
+                MultipleMatches = 0,
                 NotFound = 0,
                 Total = 0,
                 Verified = 0,
@@ -90,7 +90,7 @@ public class V1VerifyResponseTest : TestBase
         ];
         Summary expectedSummary = new()
         {
-            Ambiguous = 0,
+            MultipleMatches = 0,
             NotFound = 0,
             Total = 0,
             Verified = 0,
@@ -145,7 +145,7 @@ public class V1VerifyResponseTest : TestBase
             ],
             Summary = new()
             {
-                Ambiguous = 0,
+                MultipleMatches = 0,
                 NotFound = 0,
                 Total = 0,
                 Verified = 0,
@@ -201,7 +201,7 @@ public class V1VerifyResponseTest : TestBase
             ],
             Summary = new()
             {
-                Ambiguous = 0,
+                MultipleMatches = 0,
                 NotFound = 0,
                 Total = 0,
                 Verified = 0,
@@ -250,7 +250,7 @@ public class V1VerifyResponseTest : TestBase
         ];
         Summary expectedSummary = new()
         {
-            Ambiguous = 0,
+            MultipleMatches = 0,
             NotFound = 0,
             Total = 0,
             Verified = 0,
@@ -305,7 +305,7 @@ public class V1VerifyResponseTest : TestBase
             ],
             Summary = new()
             {
-                Ambiguous = 0,
+                MultipleMatches = 0,
                 NotFound = 0,
                 Total = 0,
                 Verified = 0,
@@ -403,7 +403,7 @@ public class V1VerifyResponseTest : TestBase
             ],
             Summary = new()
             {
-                Ambiguous = 0,
+                MultipleMatches = 0,
                 NotFound = 0,
                 Total = 0,
                 Verified = 0,
@@ -1302,7 +1302,7 @@ public class StatusTest : TestBase
     [Theory]
     [InlineData(Status.Verified)]
     [InlineData(Status.NotFound)]
-    [InlineData(Status.Ambiguous)]
+    [InlineData(Status.MultipleMatches)]
     public void Validation_Works(Status rawValue)
     {
         // force implicit conversion because Theory can't do that for us
@@ -1325,7 +1325,7 @@ public class StatusTest : TestBase
     [Theory]
     [InlineData(Status.Verified)]
     [InlineData(Status.NotFound)]
-    [InlineData(Status.Ambiguous)]
+    [InlineData(Status.MultipleMatches)]
     public void SerializationRoundtrip_Works(Status rawValue)
     {
         // force implicit conversion because Theory can't do that for us
@@ -1422,18 +1422,18 @@ public class SummaryTest : TestBase
     {
         var model = new Summary
         {
-            Ambiguous = 0,
+            MultipleMatches = 0,
             NotFound = 0,
             Total = 0,
             Verified = 0,
         };
 
-        long expectedAmbiguous = 0;
+        long expectedMultipleMatches = 0;
         long expectedNotFound = 0;
         long expectedTotal = 0;
         long expectedVerified = 0;
 
-        Assert.Equal(expectedAmbiguous, model.Ambiguous);
+        Assert.Equal(expectedMultipleMatches, model.MultipleMatches);
         Assert.Equal(expectedNotFound, model.NotFound);
         Assert.Equal(expectedTotal, model.Total);
         Assert.Equal(expectedVerified, model.Verified);
@@ -1444,7 +1444,7 @@ public class SummaryTest : TestBase
     {
         var model = new Summary
         {
-            Ambiguous = 0,
+            MultipleMatches = 0,
             NotFound = 0,
             Total = 0,
             Verified = 0,
@@ -1461,7 +1461,7 @@ public class SummaryTest : TestBase
     {
         var model = new Summary
         {
-            Ambiguous = 0,
+            MultipleMatches = 0,
             NotFound = 0,
             Total = 0,
             Verified = 0,
@@ -1474,12 +1474,12 @@ public class SummaryTest : TestBase
         );
         Assert.NotNull(deserialized);
 
-        long expectedAmbiguous = 0;
+        long expectedMultipleMatches = 0;
         long expectedNotFound = 0;
         long expectedTotal = 0;
         long expectedVerified = 0;
 
-        Assert.Equal(expectedAmbiguous, deserialized.Ambiguous);
+        Assert.Equal(expectedMultipleMatches, deserialized.MultipleMatches);
         Assert.Equal(expectedNotFound, deserialized.NotFound);
         Assert.Equal(expectedTotal, deserialized.Total);
         Assert.Equal(expectedVerified, deserialized.Verified);
@@ -1490,7 +1490,7 @@ public class SummaryTest : TestBase
     {
         var model = new Summary
         {
-            Ambiguous = 0,
+            MultipleMatches = 0,
             NotFound = 0,
             Total = 0,
             Verified = 0,
@@ -1504,8 +1504,8 @@ public class SummaryTest : TestBase
     {
         var model = new Summary { };
 
-        Assert.Null(model.Ambiguous);
-        Assert.False(model.RawData.ContainsKey("ambiguous"));
+        Assert.Null(model.MultipleMatches);
+        Assert.False(model.RawData.ContainsKey("multipleMatches"));
         Assert.Null(model.NotFound);
         Assert.False(model.RawData.ContainsKey("notFound"));
         Assert.Null(model.Total);
@@ -1528,14 +1528,14 @@ public class SummaryTest : TestBase
         var model = new Summary
         {
             // Null should be interpreted as omitted for these properties
-            Ambiguous = null,
+            MultipleMatches = null,
             NotFound = null,
             Total = null,
             Verified = null,
         };
 
-        Assert.Null(model.Ambiguous);
-        Assert.False(model.RawData.ContainsKey("ambiguous"));
+        Assert.Null(model.MultipleMatches);
+        Assert.False(model.RawData.ContainsKey("multipleMatches"));
         Assert.Null(model.NotFound);
         Assert.False(model.RawData.ContainsKey("notFound"));
         Assert.Null(model.Total);
@@ -1550,7 +1550,7 @@ public class SummaryTest : TestBase
         var model = new Summary
         {
             // Null should be interpreted as omitted for these properties
-            Ambiguous = null,
+            MultipleMatches = null,
             NotFound = null,
             Total = null,
             Verified = null,
@@ -1564,7 +1564,7 @@ public class SummaryTest : TestBase
     {
         var model = new Summary
         {
-            Ambiguous = 0,
+            MultipleMatches = 0,
             NotFound = 0,
             Total = 0,
             Verified = 0,
