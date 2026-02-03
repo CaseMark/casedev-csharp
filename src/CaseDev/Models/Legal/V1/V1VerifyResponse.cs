@@ -107,7 +107,7 @@ class V1VerifyResponseFromRaw : IFromRawJson<V1VerifyResponse>
 public sealed record class V1VerifyResponseCitation : JsonModel
 {
     /// <summary>
-    /// Multiple candidates (when ambiguous)
+    /// Multiple candidates (when multiple_matches or heuristic verification)
     /// </summary>
     public IReadOnlyList<V1VerifyResponseCitationCandidate>? Candidates
     {
@@ -154,7 +154,7 @@ public sealed record class V1VerifyResponseCitation : JsonModel
     }
 
     /// <summary>
-    /// Heuristic confidence score when using fallback verification.
+    /// Confidence score (1.0 for CourtListener, heuristic score for fallback).
     /// </summary>
     public double? Confidence
     {
@@ -755,7 +755,7 @@ public enum Status
 {
     Verified,
     NotFound,
-    Ambiguous,
+    MultipleMatches,
 }
 
 sealed class StatusConverter : JsonConverter<Status>
@@ -770,7 +770,7 @@ sealed class StatusConverter : JsonConverter<Status>
         {
             "verified" => Status.Verified,
             "not_found" => Status.NotFound,
-            "ambiguous" => Status.Ambiguous,
+            "multiple_matches" => Status.MultipleMatches,
             _ => (Status)(-1),
         };
     }
@@ -783,7 +783,7 @@ sealed class StatusConverter : JsonConverter<Status>
             {
                 Status.Verified => "verified",
                 Status.NotFound => "not_found",
-                Status.Ambiguous => "ambiguous",
+                Status.MultipleMatches => "multiple_matches",
                 _ => throw new CasedevInvalidDataException(
                     string.Format("Invalid value '{0}' in {1}", value, nameof(value))
                 ),
@@ -846,12 +846,12 @@ public sealed record class Summary : JsonModel
     /// <summary>
     /// Citations with multiple possible matches
     /// </summary>
-    public long? Ambiguous
+    public long? MultipleMatches
     {
         get
         {
             this._rawData.Freeze();
-            return this._rawData.GetNullableStruct<long>("ambiguous");
+            return this._rawData.GetNullableStruct<long>("multipleMatches");
         }
         init
         {
@@ -860,7 +860,7 @@ public sealed record class Summary : JsonModel
                 return;
             }
 
-            this._rawData.Set("ambiguous", value);
+            this._rawData.Set("multipleMatches", value);
         }
     }
 
@@ -930,7 +930,7 @@ public sealed record class Summary : JsonModel
     /// <inheritdoc/>
     public override void Validate()
     {
-        _ = this.Ambiguous;
+        _ = this.MultipleMatches;
         _ = this.NotFound;
         _ = this.Total;
         _ = this.Verified;
