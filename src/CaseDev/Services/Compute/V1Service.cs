@@ -33,9 +33,8 @@ public sealed class V1Service : IV1Service
 
         _withRawResponse = new(() => new V1ServiceWithRawResponse(client.WithRawResponse));
         _environments = new(() => new EnvironmentService(client));
-        _functions = new(() => new FunctionService(client));
-        _invoke = new(() => new InvokeService(client));
-        _runs = new(() => new RunService(client));
+        _instanceTypes = new(() => new InstanceTypeService(client));
+        _instances = new(() => new InstanceService(client));
         _secrets = new(() => new SecretService(client));
     }
 
@@ -45,22 +44,16 @@ public sealed class V1Service : IV1Service
         get { return _environments.Value; }
     }
 
-    readonly Lazy<IFunctionService> _functions;
-    public IFunctionService Functions
+    readonly Lazy<IInstanceTypeService> _instanceTypes;
+    public IInstanceTypeService InstanceTypes
     {
-        get { return _functions.Value; }
+        get { return _instanceTypes.Value; }
     }
 
-    readonly Lazy<IInvokeService> _invoke;
-    public IInvokeService Invoke
+    readonly Lazy<IInstanceService> _instances;
+    public IInstanceService Instances
     {
-        get { return _invoke.Value; }
-    }
-
-    readonly Lazy<IRunService> _runs;
-    public IRunService Runs
-    {
-        get { return _runs.Value; }
+        get { return _instances.Value; }
     }
 
     readonly Lazy<ISecretService> _secrets;
@@ -107,9 +100,8 @@ public sealed class V1ServiceWithRawResponse : IV1ServiceWithRawResponse
         _client = client;
 
         _environments = new(() => new EnvironmentServiceWithRawResponse(client));
-        _functions = new(() => new FunctionServiceWithRawResponse(client));
-        _invoke = new(() => new InvokeServiceWithRawResponse(client));
-        _runs = new(() => new RunServiceWithRawResponse(client));
+        _instanceTypes = new(() => new InstanceTypeServiceWithRawResponse(client));
+        _instances = new(() => new InstanceServiceWithRawResponse(client));
         _secrets = new(() => new SecretServiceWithRawResponse(client));
     }
 
@@ -119,22 +111,16 @@ public sealed class V1ServiceWithRawResponse : IV1ServiceWithRawResponse
         get { return _environments.Value; }
     }
 
-    readonly Lazy<IFunctionServiceWithRawResponse> _functions;
-    public IFunctionServiceWithRawResponse Functions
+    readonly Lazy<IInstanceTypeServiceWithRawResponse> _instanceTypes;
+    public IInstanceTypeServiceWithRawResponse InstanceTypes
     {
-        get { return _functions.Value; }
+        get { return _instanceTypes.Value; }
     }
 
-    readonly Lazy<IInvokeServiceWithRawResponse> _invoke;
-    public IInvokeServiceWithRawResponse Invoke
+    readonly Lazy<IInstanceServiceWithRawResponse> _instances;
+    public IInstanceServiceWithRawResponse Instances
     {
-        get { return _invoke.Value; }
-    }
-
-    readonly Lazy<IRunServiceWithRawResponse> _runs;
-    public IRunServiceWithRawResponse Runs
-    {
-        get { return _runs.Value; }
+        get { return _instances.Value; }
     }
 
     readonly Lazy<ISecretServiceWithRawResponse> _secrets;

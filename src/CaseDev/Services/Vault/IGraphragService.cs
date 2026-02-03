@@ -61,6 +61,23 @@ public interface IGraphragService
         GraphragInitParams? parameters = null,
         CancellationToken cancellationToken = default
     );
+
+    /// <summary>
+    /// Manually trigger GraphRAG indexing for a vault object. The object must already
+    /// be ingested (completed status). This extracts entities, relationships, and
+    /// communities from the document for advanced knowledge graph queries.
+    /// </summary>
+    Task<GraphragProcessObjectResponse> ProcessObject(
+        GraphragProcessObjectParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="ProcessObject(GraphragProcessObjectParams, CancellationToken)"/>
+    Task<GraphragProcessObjectResponse> ProcessObject(
+        string objectID,
+        GraphragProcessObjectParams parameters,
+        CancellationToken cancellationToken = default
+    );
 }
 
 /// <summary>
@@ -105,6 +122,22 @@ public interface IGraphragServiceWithRawResponse
     Task<HttpResponse<GraphragInitResponse>> Init(
         string id,
         GraphragInitParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `post /vault/{id}/graphrag/{objectId}`, but is otherwise the
+    /// same as <see cref="IGraphragService.ProcessObject(GraphragProcessObjectParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<GraphragProcessObjectResponse>> ProcessObject(
+        GraphragProcessObjectParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="ProcessObject(GraphragProcessObjectParams, CancellationToken)"/>
+    Task<HttpResponse<GraphragProcessObjectResponse>> ProcessObject(
+        string objectID,
+        GraphragProcessObjectParams parameters,
         CancellationToken cancellationToken = default
     );
 }

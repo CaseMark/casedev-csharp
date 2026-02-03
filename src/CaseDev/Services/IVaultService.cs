@@ -60,11 +60,45 @@ public interface IVaultService
     );
 
     /// <summary>
+    /// Update vault settings including name, description, and enableGraph. Changing
+    /// enableGraph only affects future document uploads - existing documents retain
+    /// their current graph/non-graph state.
+    /// </summary>
+    Task<VaultUpdateResponse> Update(
+        VaultUpdateParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="Update(VaultUpdateParams, CancellationToken)"/>
+    Task<VaultUpdateResponse> Update(
+        string id,
+        VaultUpdateParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
     /// List all vaults for the authenticated organization. Returns vault metadata
     /// including name, description, storage configuration, and usage statistics.
     /// </summary>
     Task<VaultListResponse> List(
         VaultListParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Permanently deletes a vault and all its contents including documents, vectors,
+    /// graph data, and S3 buckets. This operation cannot be undone. For large vaults,
+    /// use the async=true query parameter to queue deletion in the background.
+    /// </summary>
+    Task<VaultDeleteResponse> Delete(
+        VaultDeleteParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="Delete(VaultDeleteParams, CancellationToken)"/>
+    Task<VaultDeleteResponse> Delete(
+        string id,
+        VaultDeleteParams? parameters = null,
         CancellationToken cancellationToken = default
     );
 
@@ -166,11 +200,43 @@ public interface IVaultServiceWithRawResponse
     );
 
     /// <summary>
+    /// Returns a raw HTTP response for `patch /vault/{id}`, but is otherwise the
+    /// same as <see cref="IVaultService.Update(VaultUpdateParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<VaultUpdateResponse>> Update(
+        VaultUpdateParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="Update(VaultUpdateParams, CancellationToken)"/>
+    Task<HttpResponse<VaultUpdateResponse>> Update(
+        string id,
+        VaultUpdateParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
     /// Returns a raw HTTP response for `get /vault`, but is otherwise the
     /// same as <see cref="IVaultService.List(VaultListParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<VaultListResponse>> List(
         VaultListParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `delete /vault/{id}`, but is otherwise the
+    /// same as <see cref="IVaultService.Delete(VaultDeleteParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<VaultDeleteResponse>> Delete(
+        VaultDeleteParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="Delete(VaultDeleteParams, CancellationToken)"/>
+    Task<HttpResponse<VaultDeleteResponse>> Delete(
+        string id,
+        VaultDeleteParams? parameters = null,
         CancellationToken cancellationToken = default
     );
 

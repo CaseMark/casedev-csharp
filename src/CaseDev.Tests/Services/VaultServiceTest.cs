@@ -26,10 +26,32 @@ public class VaultServiceTest : TestBase
     }
 
     [Fact(Skip = "Prism tests are disabled")]
+    public async Task Update_Works()
+    {
+        var vault = await this.client.Vault.Update(
+            "id",
+            new(),
+            TestContext.Current.CancellationToken
+        );
+        vault.Validate();
+    }
+
+    [Fact(Skip = "Prism tests are disabled")]
     public async Task List_Works()
     {
         var vaults = await this.client.Vault.List(new(), TestContext.Current.CancellationToken);
         vaults.Validate();
+    }
+
+    [Fact(Skip = "Prism tests are disabled")]
+    public async Task Delete_Works()
+    {
+        var vault = await this.client.Vault.Delete(
+            "id",
+            new(),
+            TestContext.Current.CancellationToken
+        );
+        vault.Validate();
     }
 
     [Fact(Skip = "Prism tests are disabled")]

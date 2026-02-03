@@ -1,0 +1,355 @@
+using System;
+using System.Collections.Frozen;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Net.Http;
+using System.Text.Json;
+using CaseDev.Core;
+
+namespace CaseDev.Models.Memory.V1;
+
+/// <summary>
+/// Delete multiple memories matching tag filter criteria. CAUTION: This will delete
+/// all matching memories for your organization.
+///
+/// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
+/// breaking changes in non-major versions. We may add new methods in the future that
+/// cause existing derived classes to break.</para>
+/// </summary>
+public record class V1DeleteAllParams : ParamsBase
+{
+    /// <summary>
+    /// Filter by tag_1
+    /// </summary>
+    public string? Tag1
+    {
+        get
+        {
+            this._rawQueryData.Freeze();
+            return this._rawQueryData.GetNullableClass<string>("tag_1");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawQueryData.Set("tag_1", value);
+        }
+    }
+
+    /// <summary>
+    /// Filter by tag_10
+    /// </summary>
+    public string? Tag10
+    {
+        get
+        {
+            this._rawQueryData.Freeze();
+            return this._rawQueryData.GetNullableClass<string>("tag_10");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawQueryData.Set("tag_10", value);
+        }
+    }
+
+    /// <summary>
+    /// Filter by tag_11
+    /// </summary>
+    public string? Tag11
+    {
+        get
+        {
+            this._rawQueryData.Freeze();
+            return this._rawQueryData.GetNullableClass<string>("tag_11");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawQueryData.Set("tag_11", value);
+        }
+    }
+
+    /// <summary>
+    /// Filter by tag_12
+    /// </summary>
+    public string? Tag12
+    {
+        get
+        {
+            this._rawQueryData.Freeze();
+            return this._rawQueryData.GetNullableClass<string>("tag_12");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawQueryData.Set("tag_12", value);
+        }
+    }
+
+    /// <summary>
+    /// Filter by tag_2
+    /// </summary>
+    public string? Tag2
+    {
+        get
+        {
+            this._rawQueryData.Freeze();
+            return this._rawQueryData.GetNullableClass<string>("tag_2");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawQueryData.Set("tag_2", value);
+        }
+    }
+
+    /// <summary>
+    /// Filter by tag_3
+    /// </summary>
+    public string? Tag3
+    {
+        get
+        {
+            this._rawQueryData.Freeze();
+            return this._rawQueryData.GetNullableClass<string>("tag_3");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawQueryData.Set("tag_3", value);
+        }
+    }
+
+    /// <summary>
+    /// Filter by tag_4
+    /// </summary>
+    public string? Tag4
+    {
+        get
+        {
+            this._rawQueryData.Freeze();
+            return this._rawQueryData.GetNullableClass<string>("tag_4");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawQueryData.Set("tag_4", value);
+        }
+    }
+
+    /// <summary>
+    /// Filter by tag_5
+    /// </summary>
+    public string? Tag5
+    {
+        get
+        {
+            this._rawQueryData.Freeze();
+            return this._rawQueryData.GetNullableClass<string>("tag_5");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawQueryData.Set("tag_5", value);
+        }
+    }
+
+    /// <summary>
+    /// Filter by tag_6
+    /// </summary>
+    public string? Tag6
+    {
+        get
+        {
+            this._rawQueryData.Freeze();
+            return this._rawQueryData.GetNullableClass<string>("tag_6");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawQueryData.Set("tag_6", value);
+        }
+    }
+
+    /// <summary>
+    /// Filter by tag_7
+    /// </summary>
+    public string? Tag7
+    {
+        get
+        {
+            this._rawQueryData.Freeze();
+            return this._rawQueryData.GetNullableClass<string>("tag_7");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawQueryData.Set("tag_7", value);
+        }
+    }
+
+    /// <summary>
+    /// Filter by tag_8
+    /// </summary>
+    public string? Tag8
+    {
+        get
+        {
+            this._rawQueryData.Freeze();
+            return this._rawQueryData.GetNullableClass<string>("tag_8");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawQueryData.Set("tag_8", value);
+        }
+    }
+
+    /// <summary>
+    /// Filter by tag_9
+    /// </summary>
+    public string? Tag9
+    {
+        get
+        {
+            this._rawQueryData.Freeze();
+            return this._rawQueryData.GetNullableClass<string>("tag_9");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawQueryData.Set("tag_9", value);
+        }
+    }
+
+    public V1DeleteAllParams() { }
+
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
+    public V1DeleteAllParams(V1DeleteAllParams v1DeleteAllParams)
+        : base(v1DeleteAllParams) { }
+#pragma warning restore CS8618
+
+    public V1DeleteAllParams(
+        IReadOnlyDictionary<string, JsonElement> rawHeaderData,
+        IReadOnlyDictionary<string, JsonElement> rawQueryData
+    )
+    {
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
+    }
+
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
+    V1DeleteAllParams(
+        FrozenDictionary<string, JsonElement> rawHeaderData,
+        FrozenDictionary<string, JsonElement> rawQueryData
+    )
+    {
+        this._rawHeaderData = new(rawHeaderData);
+        this._rawQueryData = new(rawQueryData);
+    }
+#pragma warning restore CS8618
+
+    /// <inheritdoc cref="IFromRawJson.FromRawUnchecked"/>
+    public static V1DeleteAllParams FromRawUnchecked(
+        IReadOnlyDictionary<string, JsonElement> rawHeaderData,
+        IReadOnlyDictionary<string, JsonElement> rawQueryData
+    )
+    {
+        return new(
+            FrozenDictionary.ToFrozenDictionary(rawHeaderData),
+            FrozenDictionary.ToFrozenDictionary(rawQueryData)
+        );
+    }
+
+    public override string ToString() =>
+        JsonSerializer.Serialize(
+            new Dictionary<string, object?>()
+            {
+                ["HeaderData"] = this._rawHeaderData.Freeze(),
+                ["QueryData"] = this._rawQueryData.Freeze(),
+            },
+            ModelBase.ToStringSerializerOptions
+        );
+
+    public virtual bool Equals(V1DeleteAllParams? other)
+    {
+        if (other == null)
+        {
+            return false;
+        }
+        return this._rawHeaderData.Equals(other._rawHeaderData)
+            && this._rawQueryData.Equals(other._rawQueryData);
+    }
+
+    public override Uri Url(ClientOptions options)
+    {
+        return new UriBuilder(options.BaseUrl.ToString().TrimEnd('/') + "/memory/v1")
+        {
+            Query = this.QueryString(options),
+        }.Uri;
+    }
+
+    internal override void AddHeadersToRequest(HttpRequestMessage request, ClientOptions options)
+    {
+        ParamsBase.AddDefaultHeaders(request, options);
+        foreach (var item in this.RawHeaderData)
+        {
+            ParamsBase.AddHeaderElementToRequest(request, item.Key, item.Value);
+        }
+    }
+
+    public override int GetHashCode()
+    {
+        return 0;
+    }
+}

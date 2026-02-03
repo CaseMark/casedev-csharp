@@ -44,6 +44,23 @@ public interface IObjectService
     );
 
     /// <summary>
+    /// Update a document's filename, path, or metadata. Use this to rename files
+    /// or organize them into virtual folders. The path is stored in metadata.path
+    /// and can be used to build folder hierarchies in your application.
+    /// </summary>
+    Task<ObjectUpdateResponse> Update(
+        ObjectUpdateParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="Update(ObjectUpdateParams, CancellationToken)"/>
+    Task<ObjectUpdateResponse> Update(
+        string objectID,
+        ObjectUpdateParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
     /// Retrieve all objects stored in a specific vault, including document metadata,
     /// ingestion status, and processing statistics.
     /// </summary>
@@ -56,6 +73,22 @@ public interface IObjectService
     Task<ObjectListResponse> List(
         string id,
         ObjectListParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Permanently deletes a document from the vault including all associated vectors,
+    /// chunks, graph data, and the original file. This operation cannot be undone.
+    /// </summary>
+    Task<ObjectDeleteResponse> Delete(
+        ObjectDeleteParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="Delete(ObjectDeleteParams, CancellationToken)"/>
+    Task<ObjectDeleteResponse> Delete(
+        string objectID,
+        ObjectDeleteParams parameters,
         CancellationToken cancellationToken = default
     );
 
@@ -91,6 +124,40 @@ public interface IObjectService
     Task<BinaryContent> Download(
         string objectID,
         ObjectDownloadParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Retrieves word-level OCR bounding box data for a processed PDF document. Each
+    /// word includes its text, normalized bounding box coordinates (0-1 range),
+    /// confidence score, and global word index. Use this data to highlight specific
+    /// text ranges in a PDF viewer based on word indices from search results.
+    /// </summary>
+    Task<ObjectGetOcrWordsResponse> GetOcrWords(
+        ObjectGetOcrWordsParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="GetOcrWords(ObjectGetOcrWordsParams, CancellationToken)"/>
+    Task<ObjectGetOcrWordsResponse> GetOcrWords(
+        string objectID,
+        ObjectGetOcrWordsParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Get the status of a CaseMark summary workflow job. If the job has been processing
+    /// for too long, this endpoint will poll CaseMark directly to recover stuck jobs.
+    /// </summary>
+    Task<ObjectGetSummarizeJobResponse> GetSummarizeJob(
+        ObjectGetSummarizeJobParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="GetSummarizeJob(ObjectGetSummarizeJobParams, CancellationToken)"/>
+    Task<ObjectGetSummarizeJobResponse> GetSummarizeJob(
+        string jobID,
+        ObjectGetSummarizeJobParams parameters,
         CancellationToken cancellationToken = default
     );
 
@@ -142,6 +209,22 @@ public interface IObjectServiceWithRawResponse
     );
 
     /// <summary>
+    /// Returns a raw HTTP response for `patch /vault/{id}/objects/{objectId}`, but is otherwise the
+    /// same as <see cref="IObjectService.Update(ObjectUpdateParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<ObjectUpdateResponse>> Update(
+        ObjectUpdateParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="Update(ObjectUpdateParams, CancellationToken)"/>
+    Task<HttpResponse<ObjectUpdateResponse>> Update(
+        string objectID,
+        ObjectUpdateParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
     /// Returns a raw HTTP response for `get /vault/{id}/objects`, but is otherwise the
     /// same as <see cref="IObjectService.List(ObjectListParams, CancellationToken)"/>.
     /// </summary>
@@ -154,6 +237,22 @@ public interface IObjectServiceWithRawResponse
     Task<HttpResponse<ObjectListResponse>> List(
         string id,
         ObjectListParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `delete /vault/{id}/objects/{objectId}`, but is otherwise the
+    /// same as <see cref="IObjectService.Delete(ObjectDeleteParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<ObjectDeleteResponse>> Delete(
+        ObjectDeleteParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="Delete(ObjectDeleteParams, CancellationToken)"/>
+    Task<HttpResponse<ObjectDeleteResponse>> Delete(
+        string objectID,
+        ObjectDeleteParams parameters,
         CancellationToken cancellationToken = default
     );
 
@@ -186,6 +285,38 @@ public interface IObjectServiceWithRawResponse
     Task<HttpResponse<BinaryContent>> Download(
         string objectID,
         ObjectDownloadParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `get /vault/{id}/objects/{objectId}/ocr-words`, but is otherwise the
+    /// same as <see cref="IObjectService.GetOcrWords(ObjectGetOcrWordsParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<ObjectGetOcrWordsResponse>> GetOcrWords(
+        ObjectGetOcrWordsParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="GetOcrWords(ObjectGetOcrWordsParams, CancellationToken)"/>
+    Task<HttpResponse<ObjectGetOcrWordsResponse>> GetOcrWords(
+        string objectID,
+        ObjectGetOcrWordsParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `get /vault/{id}/objects/{objectId}/summarize/{jobId}`, but is otherwise the
+    /// same as <see cref="IObjectService.GetSummarizeJob(ObjectGetSummarizeJobParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<ObjectGetSummarizeJobResponse>> GetSummarizeJob(
+        ObjectGetSummarizeJobParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="GetSummarizeJob(ObjectGetSummarizeJobParams, CancellationToken)"/>
+    Task<HttpResponse<ObjectGetSummarizeJobResponse>> GetSummarizeJob(
+        string jobID,
+        ObjectGetSummarizeJobParams parameters,
         CancellationToken cancellationToken = default
     );
 

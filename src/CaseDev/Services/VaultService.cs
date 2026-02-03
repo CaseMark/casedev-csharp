@@ -86,6 +86,30 @@ public sealed class VaultService : IVaultService
     }
 
     /// <inheritdoc/>
+    public async Task<VaultUpdateResponse> Update(
+        VaultUpdateParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.Update(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public Task<VaultUpdateResponse> Update(
+        string id,
+        VaultUpdateParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        return this.Update(parameters with { ID = id }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
     public async Task<VaultListResponse> List(
         VaultListParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -95,6 +119,30 @@ public sealed class VaultService : IVaultService
             .WithRawResponse.List(parameters, cancellationToken)
             .ConfigureAwait(false);
         return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public async Task<VaultDeleteResponse> Delete(
+        VaultDeleteParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.Delete(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public Task<VaultDeleteResponse> Delete(
+        string id,
+        VaultDeleteParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        return this.Delete(parameters with { ID = id }, cancellationToken);
     }
 
     /// <inheritdoc/>
@@ -269,6 +317,51 @@ public sealed class VaultServiceWithRawResponse : IVaultServiceWithRawResponse
     }
 
     /// <inheritdoc/>
+    public async Task<HttpResponse<VaultUpdateResponse>> Update(
+        VaultUpdateParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        if (parameters.ID == null)
+        {
+            throw new CasedevInvalidDataException("'parameters.ID' cannot be null");
+        }
+
+        HttpRequest<VaultUpdateParams> request = new()
+        {
+            Method = CasedevClientWithRawResponse.PatchMethod,
+            Params = parameters,
+        };
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var vault = await response
+                    .Deserialize<VaultUpdateResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    vault.Validate();
+                }
+                return vault;
+            }
+        );
+    }
+
+    /// <inheritdoc/>
+    public Task<HttpResponse<VaultUpdateResponse>> Update(
+        string id,
+        VaultUpdateParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        return this.Update(parameters with { ID = id }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
     public async Task<HttpResponse<VaultListResponse>> List(
         VaultListParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -296,6 +389,51 @@ public sealed class VaultServiceWithRawResponse : IVaultServiceWithRawResponse
                 return vaults;
             }
         );
+    }
+
+    /// <inheritdoc/>
+    public async Task<HttpResponse<VaultDeleteResponse>> Delete(
+        VaultDeleteParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        if (parameters.ID == null)
+        {
+            throw new CasedevInvalidDataException("'parameters.ID' cannot be null");
+        }
+
+        HttpRequest<VaultDeleteParams> request = new()
+        {
+            Method = HttpMethod.Delete,
+            Params = parameters,
+        };
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var vault = await response
+                    .Deserialize<VaultDeleteResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    vault.Validate();
+                }
+                return vault;
+            }
+        );
+    }
+
+    /// <inheritdoc/>
+    public Task<HttpResponse<VaultDeleteResponse>> Delete(
+        string id,
+        VaultDeleteParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        return this.Delete(parameters with { ID = id }, cancellationToken);
     }
 
     /// <inheritdoc/>
