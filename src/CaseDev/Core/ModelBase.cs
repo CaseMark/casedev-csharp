@@ -1,17 +1,31 @@
 using System.Text.Json;
 using CaseDev.Exceptions;
+using CaseDev.Models.Applications.V1.Deployments;
 using CaseDev.Models.Compute.V1.Environments;
 using CaseDev.Models.Format.V1;
 using CaseDev.Models.Format.V1.Templates;
 using CaseDev.Models.Llm.V1;
 using CaseDev.Models.Llm.V1.Chat;
-using CaseDev.Models.Vault.Objects;
+using CaseDev.Models.Privilege.V1;
+using CaseDev.Models.Translate.V1;
 using CaseDev.Models.Voice.V1;
+using Accounts = CaseDev.Models.Payments.V1.Accounts;
 using Graphrag = CaseDev.Models.Vault.Graphrag;
+using Holds = CaseDev.Models.Payments.V1.Holds;
+using Instances = CaseDev.Models.Compute.V1.Instances;
+using MemoryV1 = CaseDev.Models.Memory.V1;
+using Objects = CaseDev.Models.Vault.Objects;
+using OcrV1 = CaseDev.Models.Ocr.V1;
+using Parties = CaseDev.Models.Payments.V1.Parties;
+using Payouts = CaseDev.Models.Payments.V1.Payouts;
+using Projects = CaseDev.Models.Applications.V1.Projects;
+using ProjectsV1 = CaseDev.Models.Projects.V1;
 using SearchV1 = CaseDev.Models.Search.V1;
 using Speak = CaseDev.Models.Voice.V1.Speak;
+using SuperdocV1 = CaseDev.Models.Superdoc.V1;
 using Transcription = CaseDev.Models.Voice.Transcription;
-using V1 = CaseDev.Models.Ocr.V1;
+using V1 = CaseDev.Models.Legal.V1;
+using V1Projects = CaseDev.Models.Database.V1.Projects;
 using Vault = CaseDev.Models.Vault;
 
 namespace CaseDev.Core;
@@ -33,26 +47,76 @@ public abstract record class ModelBase
         Converters =
         {
             new FrozenDictionaryConverterFactory(),
+            new ApiEnumConverter<string, Target>(),
+            new ApiEnumConverter<string, DeploymentListParamsTarget>(),
+            new ApiEnumConverter<string, Projects::Target>(),
+            new ApiEnumConverter<string, Projects::Type>(),
+            new ApiEnumConverter<
+                string,
+                Projects::ProjectCreateDeploymentParamsEnvironmentVariableTarget
+            >(),
+            new ApiEnumConverter<
+                string,
+                Projects::ProjectCreateDeploymentParamsEnvironmentVariableType
+            >(),
+            new ApiEnumConverter<string, Projects::ProjectCreateEnvParamsTarget>(),
+            new ApiEnumConverter<string, Projects::ProjectCreateEnvParamsType>(),
+            new ApiEnumConverter<string, Projects::ProjectListDeploymentsParamsTarget>(),
             new ApiEnumConverter<string, Status>(),
+            new ApiEnumConverter<string, Instances::Status>(),
+            new ApiEnumConverter<string, V1Projects::Status>(),
+            new ApiEnumConverter<string, V1Projects::Type>(),
+            new ApiEnumConverter<string, V1Projects::ProjectRetrieveResponseStatus>(),
+            new ApiEnumConverter<string, V1Projects::ProjectLinkedDeploymentType>(),
+            new ApiEnumConverter<string, V1Projects::ProjectStatus>(),
+            new ApiEnumConverter<string, V1Projects::Region>(),
             new ApiEnumConverter<string, OutputFormat>(),
             new ApiEnumConverter<string, InputFormat>(),
             new ApiEnumConverter<string, Type>(),
+            new ApiEnumConverter<string, V1::Level>(),
+            new ApiEnumConverter<string, V1::Status>(),
+            new ApiEnumConverter<string, V1::VerificationSource>(),
             new ApiEnumConverter<string, EncodingFormat>(),
             new ApiEnumConverter<string, Role>(),
-            new ApiEnumConverter<string, V1::Status>(),
-            new ApiEnumConverter<string, V1::V1ProcessResponseStatus>(),
-            new ApiEnumConverter<string, V1::Type>(),
-            new ApiEnumConverter<string, V1::Engine>(),
-            new ApiEnumConverter<string, V1::TablesFormat>(),
+            new ApiEnumConverter<string, MemoryV1::Event>(),
+            new ApiEnumConverter<string, MemoryV1::Role>(),
+            new ApiEnumConverter<string, OcrV1::Status>(),
+            new ApiEnumConverter<string, OcrV1::V1ProcessResponseStatus>(),
+            new ApiEnumConverter<string, OcrV1::Type>(),
+            new ApiEnumConverter<string, OcrV1::Engine>(),
+            new ApiEnumConverter<string, OcrV1::TablesFormat>(),
+            new ApiEnumConverter<string, Accounts::Type>(),
+            new ApiEnumConverter<string, Holds::Type>(),
+            new ApiEnumConverter<string, Parties::Type>(),
+            new ApiEnumConverter<string, Parties::Role>(),
+            new ApiEnumConverter<string, Parties::PartyUpdateParamsRole>(),
+            new ApiEnumConverter<string, Payouts::DestinationType>(),
+            new ApiEnumConverter<string, Payouts::Status>(),
+            new ApiEnumConverter<string, Recommendation>(),
+            new ApiEnumConverter<string, Category>(),
+            new ApiEnumConverter<string, Jurisdiction>(),
+            new ApiEnumConverter<string, ProjectsV1::ProjectSourceType>(),
+            new ApiEnumConverter<string, ProjectsV1::SourceType>(),
+            new ApiEnumConverter<string, ProjectsV1::Environment>(),
+            new ApiEnumConverter<string, ProjectsV1::V1ListEnvVarsParamsEnvironment>(),
             new ApiEnumConverter<string, SearchV1::V1RetrieveResearchResponseModel>(),
             new ApiEnumConverter<string, SearchV1::Status>(),
             new ApiEnumConverter<string, SearchV1::SearchType>(),
             new ApiEnumConverter<string, SearchV1::Model>(),
             new ApiEnumConverter<string, SearchV1::Type>(),
+            new ApiEnumConverter<string, SuperdocV1::Type>(),
+            new ApiEnumConverter<string, SuperdocV1::OutputFormat>(),
+            new ApiEnumConverter<string, SuperdocV1::From>(),
+            new ApiEnumConverter<string, SuperdocV1::To>(),
+            new ApiEnumConverter<string, Model>(),
+            new ApiEnumConverter<string, V1TranslateParamsFormat>(),
+            new ApiEnumConverter<string, V1TranslateParamsModel>(),
             new ApiEnumConverter<string, Vault::Status>(),
             new ApiEnumConverter<string, Vault::Method>(),
             new ApiEnumConverter<string, Graphrag::Status>(),
-            new ApiEnumConverter<string, Operation>(),
+            new ApiEnumConverter<string, Objects::Status>(),
+            new ApiEnumConverter<string, Objects::Force>(),
+            new ApiEnumConverter<string, Objects::Operation>(),
             new ApiEnumConverter<string, Transcription::Status>(),
             new ApiEnumConverter<string, Transcription::TranscriptionRetrieveResponseStatus>(),
             new ApiEnumConverter<string, Transcription::BoostParam>(),

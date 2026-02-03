@@ -54,21 +54,37 @@ public interface ICasedevClient : IDisposable
     /// </summary>
     ICasedevClient WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
+    IApplicationService Applications { get; }
+
     IComputeService Compute { get; }
+
+    IDatabaseService Database { get; }
 
     IFormatService Format { get; }
 
+    ILegalService Legal { get; }
+
     ILlmService Llm { get; }
+
+    IMemoryService Memory { get; }
 
     IOcrService Ocr { get; }
 
+    IPaymentService Payments { get; }
+
+    IPrivilegeService Privilege { get; }
+
+    IProjectService Projects { get; }
+
     ISearchService Search { get; }
+
+    ISuperdocService Superdoc { get; }
+
+    ITranslateService Translate { get; }
 
     IVaultService Vault { get; }
 
     IVoiceService Voice { get; }
-
-    IWebhookService Webhooks { get; }
 }
 
 /// <summary>
@@ -103,21 +119,37 @@ public interface ICasedevClientWithRawResponse : IDisposable
     /// </summary>
     ICasedevClientWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
+    IApplicationServiceWithRawResponse Applications { get; }
+
     IComputeServiceWithRawResponse Compute { get; }
+
+    IDatabaseServiceWithRawResponse Database { get; }
 
     IFormatServiceWithRawResponse Format { get; }
 
+    ILegalServiceWithRawResponse Legal { get; }
+
     ILlmServiceWithRawResponse Llm { get; }
+
+    IMemoryServiceWithRawResponse Memory { get; }
 
     IOcrServiceWithRawResponse Ocr { get; }
 
+    IPaymentServiceWithRawResponse Payments { get; }
+
+    IPrivilegeServiceWithRawResponse Privilege { get; }
+
+    IProjectServiceWithRawResponse Projects { get; }
+
     ISearchServiceWithRawResponse Search { get; }
+
+    ISuperdocServiceWithRawResponse Superdoc { get; }
+
+    ITranslateServiceWithRawResponse Translate { get; }
 
     IVaultServiceWithRawResponse Vault { get; }
 
     IVoiceServiceWithRawResponse Voice { get; }
-
-    IWebhookServiceWithRawResponse Webhooks { get; }
 
     /// <summary>
     /// Sends a request to the Casedev REST API.

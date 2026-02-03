@@ -81,6 +81,28 @@ public sealed class GraphragService : IGraphragService
 
         return this.Init(parameters with { ID = id }, cancellationToken);
     }
+
+    /// <inheritdoc/>
+    public async Task<GraphragProcessObjectResponse> ProcessObject(
+        GraphragProcessObjectParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.ProcessObject(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public Task<GraphragProcessObjectResponse> ProcessObject(
+        string objectID,
+        GraphragProcessObjectParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return this.ProcessObject(parameters with { ObjectID = objectID }, cancellationToken);
+    }
 }
 
 /// <inheritdoc/>
@@ -187,5 +209,48 @@ public sealed class GraphragServiceWithRawResponse : IGraphragServiceWithRawResp
         parameters ??= new();
 
         return this.Init(parameters with { ID = id }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async Task<HttpResponse<GraphragProcessObjectResponse>> ProcessObject(
+        GraphragProcessObjectParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        if (parameters.ObjectID == null)
+        {
+            throw new CasedevInvalidDataException("'parameters.ObjectID' cannot be null");
+        }
+
+        HttpRequest<GraphragProcessObjectParams> request = new()
+        {
+            Method = HttpMethod.Post,
+            Params = parameters,
+        };
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var deserializedResponse = await response
+                    .Deserialize<GraphragProcessObjectResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    deserializedResponse.Validate();
+                }
+                return deserializedResponse;
+            }
+        );
+    }
+
+    /// <inheritdoc/>
+    public Task<HttpResponse<GraphragProcessObjectResponse>> ProcessObject(
+        string objectID,
+        GraphragProcessObjectParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return this.ProcessObject(parameters with { ObjectID = objectID }, cancellationToken);
     }
 }

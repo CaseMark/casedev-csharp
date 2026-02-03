@@ -72,10 +72,22 @@ public sealed class CasedevClient : ICasedevClient
         return new CasedevClient(modifier(this._options));
     }
 
+    readonly Lazy<IApplicationService> _applications;
+    public IApplicationService Applications
+    {
+        get { return _applications.Value; }
+    }
+
     readonly Lazy<IComputeService> _compute;
     public IComputeService Compute
     {
         get { return _compute.Value; }
+    }
+
+    readonly Lazy<IDatabaseService> _database;
+    public IDatabaseService Database
+    {
+        get { return _database.Value; }
     }
 
     readonly Lazy<IFormatService> _format;
@@ -84,10 +96,22 @@ public sealed class CasedevClient : ICasedevClient
         get { return _format.Value; }
     }
 
+    readonly Lazy<ILegalService> _legal;
+    public ILegalService Legal
+    {
+        get { return _legal.Value; }
+    }
+
     readonly Lazy<ILlmService> _llm;
     public ILlmService Llm
     {
         get { return _llm.Value; }
+    }
+
+    readonly Lazy<IMemoryService> _memory;
+    public IMemoryService Memory
+    {
+        get { return _memory.Value; }
     }
 
     readonly Lazy<IOcrService> _ocr;
@@ -96,10 +120,40 @@ public sealed class CasedevClient : ICasedevClient
         get { return _ocr.Value; }
     }
 
+    readonly Lazy<IPaymentService> _payments;
+    public IPaymentService Payments
+    {
+        get { return _payments.Value; }
+    }
+
+    readonly Lazy<IPrivilegeService> _privilege;
+    public IPrivilegeService Privilege
+    {
+        get { return _privilege.Value; }
+    }
+
+    readonly Lazy<IProjectService> _projects;
+    public IProjectService Projects
+    {
+        get { return _projects.Value; }
+    }
+
     readonly Lazy<ISearchService> _search;
     public ISearchService Search
     {
         get { return _search.Value; }
+    }
+
+    readonly Lazy<ISuperdocService> _superdoc;
+    public ISuperdocService Superdoc
+    {
+        get { return _superdoc.Value; }
+    }
+
+    readonly Lazy<ITranslateService> _translate;
+    public ITranslateService Translate
+    {
+        get { return _translate.Value; }
     }
 
     readonly Lazy<IVaultService> _vault;
@@ -114,12 +168,6 @@ public sealed class CasedevClient : ICasedevClient
         get { return _voice.Value; }
     }
 
-    readonly Lazy<IWebhookService> _webhooks;
-    public IWebhookService Webhooks
-    {
-        get { return _webhooks.Value; }
-    }
-
     public void Dispose() => this.HttpClient.Dispose();
 
     public CasedevClient()
@@ -127,14 +175,22 @@ public sealed class CasedevClient : ICasedevClient
         _options = new();
 
         _withRawResponse = new(() => new CasedevClientWithRawResponse(this._options));
+        _applications = new(() => new ApplicationService(this));
         _compute = new(() => new ComputeService(this));
+        _database = new(() => new DatabaseService(this));
         _format = new(() => new FormatService(this));
+        _legal = new(() => new LegalService(this));
         _llm = new(() => new LlmService(this));
+        _memory = new(() => new MemoryService(this));
         _ocr = new(() => new OcrService(this));
+        _payments = new(() => new PaymentService(this));
+        _privilege = new(() => new PrivilegeService(this));
+        _projects = new(() => new ProjectService(this));
         _search = new(() => new SearchService(this));
+        _superdoc = new(() => new SuperdocService(this));
+        _translate = new(() => new TranslateService(this));
         _vault = new(() => new VaultService(this));
         _voice = new(() => new VoiceService(this));
-        _webhooks = new(() => new WebhookService(this));
     }
 
     public CasedevClient(ClientOptions options)
@@ -157,6 +213,8 @@ public sealed class CasedevClientWithRawResponse : ICasedevClientWithRawResponse
         get { return _threadLocalRandom.Value!; }
     }
 #endif
+
+    internal static HttpMethod PatchMethod = new("PATCH");
 
     readonly ClientOptions _options;
 
@@ -208,10 +266,22 @@ public sealed class CasedevClientWithRawResponse : ICasedevClientWithRawResponse
         return new CasedevClientWithRawResponse(modifier(this._options));
     }
 
+    readonly Lazy<IApplicationServiceWithRawResponse> _applications;
+    public IApplicationServiceWithRawResponse Applications
+    {
+        get { return _applications.Value; }
+    }
+
     readonly Lazy<IComputeServiceWithRawResponse> _compute;
     public IComputeServiceWithRawResponse Compute
     {
         get { return _compute.Value; }
+    }
+
+    readonly Lazy<IDatabaseServiceWithRawResponse> _database;
+    public IDatabaseServiceWithRawResponse Database
+    {
+        get { return _database.Value; }
     }
 
     readonly Lazy<IFormatServiceWithRawResponse> _format;
@@ -220,10 +290,22 @@ public sealed class CasedevClientWithRawResponse : ICasedevClientWithRawResponse
         get { return _format.Value; }
     }
 
+    readonly Lazy<ILegalServiceWithRawResponse> _legal;
+    public ILegalServiceWithRawResponse Legal
+    {
+        get { return _legal.Value; }
+    }
+
     readonly Lazy<ILlmServiceWithRawResponse> _llm;
     public ILlmServiceWithRawResponse Llm
     {
         get { return _llm.Value; }
+    }
+
+    readonly Lazy<IMemoryServiceWithRawResponse> _memory;
+    public IMemoryServiceWithRawResponse Memory
+    {
+        get { return _memory.Value; }
     }
 
     readonly Lazy<IOcrServiceWithRawResponse> _ocr;
@@ -232,10 +314,40 @@ public sealed class CasedevClientWithRawResponse : ICasedevClientWithRawResponse
         get { return _ocr.Value; }
     }
 
+    readonly Lazy<IPaymentServiceWithRawResponse> _payments;
+    public IPaymentServiceWithRawResponse Payments
+    {
+        get { return _payments.Value; }
+    }
+
+    readonly Lazy<IPrivilegeServiceWithRawResponse> _privilege;
+    public IPrivilegeServiceWithRawResponse Privilege
+    {
+        get { return _privilege.Value; }
+    }
+
+    readonly Lazy<IProjectServiceWithRawResponse> _projects;
+    public IProjectServiceWithRawResponse Projects
+    {
+        get { return _projects.Value; }
+    }
+
     readonly Lazy<ISearchServiceWithRawResponse> _search;
     public ISearchServiceWithRawResponse Search
     {
         get { return _search.Value; }
+    }
+
+    readonly Lazy<ISuperdocServiceWithRawResponse> _superdoc;
+    public ISuperdocServiceWithRawResponse Superdoc
+    {
+        get { return _superdoc.Value; }
+    }
+
+    readonly Lazy<ITranslateServiceWithRawResponse> _translate;
+    public ITranslateServiceWithRawResponse Translate
+    {
+        get { return _translate.Value; }
     }
 
     readonly Lazy<IVaultServiceWithRawResponse> _vault;
@@ -248,12 +360,6 @@ public sealed class CasedevClientWithRawResponse : ICasedevClientWithRawResponse
     public IVoiceServiceWithRawResponse Voice
     {
         get { return _voice.Value; }
-    }
-
-    readonly Lazy<IWebhookServiceWithRawResponse> _webhooks;
-    public IWebhookServiceWithRawResponse Webhooks
-    {
-        get { return _webhooks.Value; }
     }
 
     /// <inheritdoc/>
@@ -450,14 +556,22 @@ public sealed class CasedevClientWithRawResponse : ICasedevClientWithRawResponse
     {
         _options = new();
 
+        _applications = new(() => new ApplicationServiceWithRawResponse(this));
         _compute = new(() => new ComputeServiceWithRawResponse(this));
+        _database = new(() => new DatabaseServiceWithRawResponse(this));
         _format = new(() => new FormatServiceWithRawResponse(this));
+        _legal = new(() => new LegalServiceWithRawResponse(this));
         _llm = new(() => new LlmServiceWithRawResponse(this));
+        _memory = new(() => new MemoryServiceWithRawResponse(this));
         _ocr = new(() => new OcrServiceWithRawResponse(this));
+        _payments = new(() => new PaymentServiceWithRawResponse(this));
+        _privilege = new(() => new PrivilegeServiceWithRawResponse(this));
+        _projects = new(() => new ProjectServiceWithRawResponse(this));
         _search = new(() => new SearchServiceWithRawResponse(this));
+        _superdoc = new(() => new SuperdocServiceWithRawResponse(this));
+        _translate = new(() => new TranslateServiceWithRawResponse(this));
         _vault = new(() => new VaultServiceWithRawResponse(this));
         _voice = new(() => new VoiceServiceWithRawResponse(this));
-        _webhooks = new(() => new WebhookServiceWithRawResponse(this));
     }
 
     public CasedevClientWithRawResponse(ClientOptions options)

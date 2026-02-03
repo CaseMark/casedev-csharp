@@ -57,6 +57,28 @@ public sealed class ObjectService : IObjectService
     }
 
     /// <inheritdoc/>
+    public async Task<ObjectUpdateResponse> Update(
+        ObjectUpdateParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.Update(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public Task<ObjectUpdateResponse> Update(
+        string objectID,
+        ObjectUpdateParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return this.Update(parameters with { ObjectID = objectID }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
     public async Task<ObjectListResponse> List(
         ObjectListParams parameters,
         CancellationToken cancellationToken = default
@@ -78,6 +100,28 @@ public sealed class ObjectService : IObjectService
         parameters ??= new();
 
         return this.List(parameters with { ID = id }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async Task<ObjectDeleteResponse> Delete(
+        ObjectDeleteParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.Delete(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public Task<ObjectDeleteResponse> Delete(
+        string objectID,
+        ObjectDeleteParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return this.Delete(parameters with { ObjectID = objectID }, cancellationToken);
     }
 
     /// <inheritdoc/>
@@ -122,6 +166,50 @@ public sealed class ObjectService : IObjectService
     )
     {
         return this.Download(parameters with { ObjectID = objectID }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async Task<ObjectGetOcrWordsResponse> GetOcrWords(
+        ObjectGetOcrWordsParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.GetOcrWords(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public Task<ObjectGetOcrWordsResponse> GetOcrWords(
+        string objectID,
+        ObjectGetOcrWordsParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return this.GetOcrWords(parameters with { ObjectID = objectID }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async Task<ObjectGetSummarizeJobResponse> GetSummarizeJob(
+        ObjectGetSummarizeJobParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.GetSummarizeJob(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public Task<ObjectGetSummarizeJobResponse> GetSummarizeJob(
+        string jobID,
+        ObjectGetSummarizeJobParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return this.GetSummarizeJob(parameters with { JobID = jobID }, cancellationToken);
     }
 
     /// <inheritdoc/>
@@ -207,6 +295,49 @@ public sealed class ObjectServiceWithRawResponse : IObjectServiceWithRawResponse
     }
 
     /// <inheritdoc/>
+    public async Task<HttpResponse<ObjectUpdateResponse>> Update(
+        ObjectUpdateParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        if (parameters.ObjectID == null)
+        {
+            throw new CasedevInvalidDataException("'parameters.ObjectID' cannot be null");
+        }
+
+        HttpRequest<ObjectUpdateParams> request = new()
+        {
+            Method = CasedevClientWithRawResponse.PatchMethod,
+            Params = parameters,
+        };
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var deserializedResponse = await response
+                    .Deserialize<ObjectUpdateResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    deserializedResponse.Validate();
+                }
+                return deserializedResponse;
+            }
+        );
+    }
+
+    /// <inheritdoc/>
+    public Task<HttpResponse<ObjectUpdateResponse>> Update(
+        string objectID,
+        ObjectUpdateParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return this.Update(parameters with { ObjectID = objectID }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
     public async Task<HttpResponse<ObjectListResponse>> List(
         ObjectListParams parameters,
         CancellationToken cancellationToken = default
@@ -249,6 +380,49 @@ public sealed class ObjectServiceWithRawResponse : IObjectServiceWithRawResponse
         parameters ??= new();
 
         return this.List(parameters with { ID = id }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async Task<HttpResponse<ObjectDeleteResponse>> Delete(
+        ObjectDeleteParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        if (parameters.ObjectID == null)
+        {
+            throw new CasedevInvalidDataException("'parameters.ObjectID' cannot be null");
+        }
+
+        HttpRequest<ObjectDeleteParams> request = new()
+        {
+            Method = HttpMethod.Delete,
+            Params = parameters,
+        };
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var deserializedResponse = await response
+                    .Deserialize<ObjectDeleteResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    deserializedResponse.Validate();
+                }
+                return deserializedResponse;
+            }
+        );
+    }
+
+    /// <inheritdoc/>
+    public Task<HttpResponse<ObjectDeleteResponse>> Delete(
+        string objectID,
+        ObjectDeleteParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return this.Delete(parameters with { ObjectID = objectID }, cancellationToken);
     }
 
     /// <inheritdoc/>
@@ -328,6 +502,92 @@ public sealed class ObjectServiceWithRawResponse : IObjectServiceWithRawResponse
     )
     {
         return this.Download(parameters with { ObjectID = objectID }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async Task<HttpResponse<ObjectGetOcrWordsResponse>> GetOcrWords(
+        ObjectGetOcrWordsParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        if (parameters.ObjectID == null)
+        {
+            throw new CasedevInvalidDataException("'parameters.ObjectID' cannot be null");
+        }
+
+        HttpRequest<ObjectGetOcrWordsParams> request = new()
+        {
+            Method = HttpMethod.Get,
+            Params = parameters,
+        };
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var deserializedResponse = await response
+                    .Deserialize<ObjectGetOcrWordsResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    deserializedResponse.Validate();
+                }
+                return deserializedResponse;
+            }
+        );
+    }
+
+    /// <inheritdoc/>
+    public Task<HttpResponse<ObjectGetOcrWordsResponse>> GetOcrWords(
+        string objectID,
+        ObjectGetOcrWordsParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return this.GetOcrWords(parameters with { ObjectID = objectID }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async Task<HttpResponse<ObjectGetSummarizeJobResponse>> GetSummarizeJob(
+        ObjectGetSummarizeJobParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        if (parameters.JobID == null)
+        {
+            throw new CasedevInvalidDataException("'parameters.JobID' cannot be null");
+        }
+
+        HttpRequest<ObjectGetSummarizeJobParams> request = new()
+        {
+            Method = HttpMethod.Get,
+            Params = parameters,
+        };
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var deserializedResponse = await response
+                    .Deserialize<ObjectGetSummarizeJobResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    deserializedResponse.Validate();
+                }
+                return deserializedResponse;
+            }
+        );
+    }
+
+    /// <inheritdoc/>
+    public Task<HttpResponse<ObjectGetSummarizeJobResponse>> GetSummarizeJob(
+        string jobID,
+        ObjectGetSummarizeJobParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return this.GetSummarizeJob(parameters with { JobID = jobID }, cancellationToken);
     }
 
     /// <inheritdoc/>

@@ -25,4 +25,15 @@ public class GraphragServiceTest : TestBase
         );
         response.Validate();
     }
+
+    [Fact(Skip = "Prism tests are disabled")]
+    public async Task ProcessObject_Works()
+    {
+        var response = await this.client.Vault.Graphrag.ProcessObject(
+            "objectId",
+            new() { ID = "id" },
+            TestContext.Current.CancellationToken
+        );
+        response.Validate();
+    }
 }

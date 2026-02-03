@@ -29,11 +29,9 @@ public interface IV1Service
 
     IEnvironmentService Environments { get; }
 
-    IFunctionService Functions { get; }
+    IInstanceTypeService InstanceTypes { get; }
 
-    IInvokeService Invoke { get; }
-
-    IRunService Runs { get; }
+    IInstanceService Instances { get; }
 
     ISecretService Secrets { get; }
 
@@ -74,11 +72,9 @@ public interface IV1ServiceWithRawResponse
 
     IEnvironmentServiceWithRawResponse Environments { get; }
 
-    IFunctionServiceWithRawResponse Functions { get; }
+    IInstanceTypeServiceWithRawResponse InstanceTypes { get; }
 
-    IInvokeServiceWithRawResponse Invoke { get; }
-
-    IRunServiceWithRawResponse Runs { get; }
+    IInstanceServiceWithRawResponse Instances { get; }
 
     ISecretServiceWithRawResponse Secrets { get; }
 
