@@ -120,8 +120,8 @@ public record class VaultUploadParams : ParamsBase
     }
 
     /// <summary>
-    /// File size in bytes (optional, max 500MB). When provided, enforces exact file
-    /// size at S3 level.
+    /// File size in bytes (optional, max 5GB for single PUT uploads). When provided,
+    /// enforces exact file size at S3 level.
     /// </summary>
     public long? SizeBytes
     {

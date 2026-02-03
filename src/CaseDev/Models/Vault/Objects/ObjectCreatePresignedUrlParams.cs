@@ -96,8 +96,8 @@ public record class ObjectCreatePresignedUrlParams : ParamsBase
     }
 
     /// <summary>
-    /// File size in bytes (optional, max 500MB). When provided for PUT operations,
-    /// enforces exact file size at S3 level.
+    /// File size in bytes (optional, max 5GB for single PUT uploads). When provided
+    /// for PUT operations, enforces exact file size at S3 level.
     /// </summary>
     public long? SizeBytes
     {
