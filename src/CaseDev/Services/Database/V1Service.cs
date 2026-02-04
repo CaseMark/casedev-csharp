@@ -1,6 +1,10 @@
 using System;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
 using CaseDev.Core;
-using V1 = CaseDev.Services.Database.V1;
+using CaseDev.Models.Database.V1;
+using CaseDev.Services.Database.V1;
 
 namespace CaseDev.Services.Database;
 
@@ -28,13 +32,25 @@ public sealed class V1Service : IV1Service
         _client = client;
 
         _withRawResponse = new(() => new V1ServiceWithRawResponse(client.WithRawResponse));
-        _projects = new(() => new V1::ProjectService(client));
+        _projects = new(() => new ProjectService(client));
     }
 
-    readonly Lazy<V1::IProjectService> _projects;
-    public V1::IProjectService Projects
+    readonly Lazy<IProjectService> _projects;
+    public IProjectService Projects
     {
         get { return _projects.Value; }
+    }
+
+    /// <inheritdoc/>
+    public async Task<V1GetUsageResponse> GetUsage(
+        V1GetUsageParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.GetUsage(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
     }
 }
 
@@ -53,12 +69,42 @@ public sealed class V1ServiceWithRawResponse : IV1ServiceWithRawResponse
     {
         _client = client;
 
-        _projects = new(() => new V1::ProjectServiceWithRawResponse(client));
+        _projects = new(() => new ProjectServiceWithRawResponse(client));
     }
 
-    readonly Lazy<V1::IProjectServiceWithRawResponse> _projects;
-    public V1::IProjectServiceWithRawResponse Projects
+    readonly Lazy<IProjectServiceWithRawResponse> _projects;
+    public IProjectServiceWithRawResponse Projects
     {
         get { return _projects.Value; }
+    }
+
+    /// <inheritdoc/>
+    public async Task<HttpResponse<V1GetUsageResponse>> GetUsage(
+        V1GetUsageParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        HttpRequest<V1GetUsageParams> request = new()
+        {
+            Method = HttpMethod.Get,
+            Params = parameters,
+        };
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var deserializedResponse = await response
+                    .Deserialize<V1GetUsageResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    deserializedResponse.Validate();
+                }
+                return deserializedResponse;
+            }
+        );
     }
 }

@@ -1,6 +1,6 @@
 using System;
 using CaseDev.Core;
-using V1 = CaseDev.Services.Applications.V1;
+using CaseDev.Services.Applications.V1;
 
 namespace CaseDev.Services.Applications;
 
@@ -28,25 +28,25 @@ public sealed class V1Service : IV1Service
         _client = client;
 
         _withRawResponse = new(() => new V1ServiceWithRawResponse(client.WithRawResponse));
-        _deployments = new(() => new V1::DeploymentService(client));
-        _projects = new(() => new V1::ProjectService(client));
-        _workflows = new(() => new V1::WorkflowService(client));
+        _deployments = new(() => new DeploymentService(client));
+        _projects = new(() => new ProjectService(client));
+        _workflows = new(() => new WorkflowService(client));
     }
 
-    readonly Lazy<V1::IDeploymentService> _deployments;
-    public V1::IDeploymentService Deployments
+    readonly Lazy<IDeploymentService> _deployments;
+    public IDeploymentService Deployments
     {
         get { return _deployments.Value; }
     }
 
-    readonly Lazy<V1::IProjectService> _projects;
-    public V1::IProjectService Projects
+    readonly Lazy<IProjectService> _projects;
+    public IProjectService Projects
     {
         get { return _projects.Value; }
     }
 
-    readonly Lazy<V1::IWorkflowService> _workflows;
-    public V1::IWorkflowService Workflows
+    readonly Lazy<IWorkflowService> _workflows;
+    public IWorkflowService Workflows
     {
         get { return _workflows.Value; }
     }
@@ -67,25 +67,25 @@ public sealed class V1ServiceWithRawResponse : IV1ServiceWithRawResponse
     {
         _client = client;
 
-        _deployments = new(() => new V1::DeploymentServiceWithRawResponse(client));
-        _projects = new(() => new V1::ProjectServiceWithRawResponse(client));
-        _workflows = new(() => new V1::WorkflowServiceWithRawResponse(client));
+        _deployments = new(() => new DeploymentServiceWithRawResponse(client));
+        _projects = new(() => new ProjectServiceWithRawResponse(client));
+        _workflows = new(() => new WorkflowServiceWithRawResponse(client));
     }
 
-    readonly Lazy<V1::IDeploymentServiceWithRawResponse> _deployments;
-    public V1::IDeploymentServiceWithRawResponse Deployments
+    readonly Lazy<IDeploymentServiceWithRawResponse> _deployments;
+    public IDeploymentServiceWithRawResponse Deployments
     {
         get { return _deployments.Value; }
     }
 
-    readonly Lazy<V1::IProjectServiceWithRawResponse> _projects;
-    public V1::IProjectServiceWithRawResponse Projects
+    readonly Lazy<IProjectServiceWithRawResponse> _projects;
+    public IProjectServiceWithRawResponse Projects
     {
         get { return _projects.Value; }
     }
 
-    readonly Lazy<V1::IWorkflowServiceWithRawResponse> _workflows;
-    public V1::IWorkflowServiceWithRawResponse Workflows
+    readonly Lazy<IWorkflowServiceWithRawResponse> _workflows;
+    public IWorkflowServiceWithRawResponse Workflows
     {
         get { return _workflows.Value; }
     }

@@ -70,11 +70,7 @@ public interface ICasedevClient : IDisposable
 
     IOcrService Ocr { get; }
 
-    IPaymentService Payments { get; }
-
     IPrivilegeService Privilege { get; }
-
-    IProjectService Projects { get; }
 
     ISearchService Search { get; }
 
@@ -135,11 +131,7 @@ public interface ICasedevClientWithRawResponse : IDisposable
 
     IOcrServiceWithRawResponse Ocr { get; }
 
-    IPaymentServiceWithRawResponse Payments { get; }
-
     IPrivilegeServiceWithRawResponse Privilege { get; }
-
-    IProjectServiceWithRawResponse Projects { get; }
 
     ISearchServiceWithRawResponse Search { get; }
 

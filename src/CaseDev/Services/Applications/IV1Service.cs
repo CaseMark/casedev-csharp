@@ -1,6 +1,6 @@
 using System;
 using CaseDev.Core;
-using V1 = CaseDev.Services.Applications.V1;
+using CaseDev.Services.Applications.V1;
 
 namespace CaseDev.Services.Applications;
 
@@ -24,11 +24,11 @@ public interface IV1Service
     /// </summary>
     IV1Service WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
-    V1::IDeploymentService Deployments { get; }
+    IDeploymentService Deployments { get; }
 
-    V1::IProjectService Projects { get; }
+    IProjectService Projects { get; }
 
-    V1::IWorkflowService Workflows { get; }
+    IWorkflowService Workflows { get; }
 }
 
 /// <summary>
@@ -44,9 +44,9 @@ public interface IV1ServiceWithRawResponse
     /// </summary>
     IV1ServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
-    V1::IDeploymentServiceWithRawResponse Deployments { get; }
+    IDeploymentServiceWithRawResponse Deployments { get; }
 
-    V1::IProjectServiceWithRawResponse Projects { get; }
+    IProjectServiceWithRawResponse Projects { get; }
 
-    V1::IWorkflowServiceWithRawResponse Workflows { get; }
+    IWorkflowServiceWithRawResponse Workflows { get; }
 }

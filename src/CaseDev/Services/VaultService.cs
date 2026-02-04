@@ -34,6 +34,7 @@ public sealed class VaultService : IVaultService
 
         _withRawResponse = new(() => new VaultServiceWithRawResponse(client.WithRawResponse));
         _graphrag = new(() => new GraphragService(client));
+        _multipart = new(() => new MultipartService(client));
         _objects = new(() => new ObjectService(client));
     }
 
@@ -41,6 +42,12 @@ public sealed class VaultService : IVaultService
     public IGraphragService Graphrag
     {
         get { return _graphrag.Value; }
+    }
+
+    readonly Lazy<IMultipartService> _multipart;
+    public IMultipartService Multipart
+    {
+        get { return _multipart.Value; }
     }
 
     readonly Lazy<IObjectService> _objects;
@@ -228,6 +235,7 @@ public sealed class VaultServiceWithRawResponse : IVaultServiceWithRawResponse
         _client = client;
 
         _graphrag = new(() => new GraphragServiceWithRawResponse(client));
+        _multipart = new(() => new MultipartServiceWithRawResponse(client));
         _objects = new(() => new ObjectServiceWithRawResponse(client));
     }
 
@@ -235,6 +243,12 @@ public sealed class VaultServiceWithRawResponse : IVaultServiceWithRawResponse
     public IGraphragServiceWithRawResponse Graphrag
     {
         get { return _graphrag.Value; }
+    }
+
+    readonly Lazy<IMultipartServiceWithRawResponse> _multipart;
+    public IMultipartServiceWithRawResponse Multipart
+    {
+        get { return _multipart.Value; }
     }
 
     readonly Lazy<IObjectServiceWithRawResponse> _objects;
