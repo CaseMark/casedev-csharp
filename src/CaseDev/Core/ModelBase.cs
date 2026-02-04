@@ -9,17 +9,12 @@ using CaseDev.Models.Llm.V1.Chat;
 using CaseDev.Models.Privilege.V1;
 using CaseDev.Models.Translate.V1;
 using CaseDev.Models.Voice.V1;
-using Accounts = CaseDev.Models.Payments.V1.Accounts;
 using Graphrag = CaseDev.Models.Vault.Graphrag;
-using Holds = CaseDev.Models.Payments.V1.Holds;
 using Instances = CaseDev.Models.Compute.V1.Instances;
 using MemoryV1 = CaseDev.Models.Memory.V1;
 using Objects = CaseDev.Models.Vault.Objects;
 using OcrV1 = CaseDev.Models.Ocr.V1;
-using Parties = CaseDev.Models.Payments.V1.Parties;
-using Payouts = CaseDev.Models.Payments.V1.Payouts;
 using Projects = CaseDev.Models.Applications.V1.Projects;
-using ProjectsV1 = CaseDev.Models.Projects.V1;
 using SearchV1 = CaseDev.Models.Search.V1;
 using Speak = CaseDev.Models.Voice.V1.Speak;
 using SuperdocV1 = CaseDev.Models.Superdoc.V1;
@@ -85,20 +80,9 @@ public abstract record class ModelBase
             new ApiEnumConverter<string, OcrV1::Type>(),
             new ApiEnumConverter<string, OcrV1::Engine>(),
             new ApiEnumConverter<string, OcrV1::TablesFormat>(),
-            new ApiEnumConverter<string, Accounts::Type>(),
-            new ApiEnumConverter<string, Holds::Type>(),
-            new ApiEnumConverter<string, Parties::Type>(),
-            new ApiEnumConverter<string, Parties::Role>(),
-            new ApiEnumConverter<string, Parties::PartyUpdateParamsRole>(),
-            new ApiEnumConverter<string, Payouts::DestinationType>(),
-            new ApiEnumConverter<string, Payouts::Status>(),
             new ApiEnumConverter<string, Recommendation>(),
             new ApiEnumConverter<string, Category>(),
             new ApiEnumConverter<string, Jurisdiction>(),
-            new ApiEnumConverter<string, ProjectsV1::ProjectSourceType>(),
-            new ApiEnumConverter<string, ProjectsV1::SourceType>(),
-            new ApiEnumConverter<string, ProjectsV1::Environment>(),
-            new ApiEnumConverter<string, ProjectsV1::V1ListEnvVarsParamsEnvironment>(),
             new ApiEnumConverter<string, SearchV1::V1RetrieveResearchResponseModel>(),
             new ApiEnumConverter<string, SearchV1::Status>(),
             new ApiEnumConverter<string, SearchV1::SearchType>(),

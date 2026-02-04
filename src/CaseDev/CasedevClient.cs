@@ -120,22 +120,10 @@ public sealed class CasedevClient : ICasedevClient
         get { return _ocr.Value; }
     }
 
-    readonly Lazy<IPaymentService> _payments;
-    public IPaymentService Payments
-    {
-        get { return _payments.Value; }
-    }
-
     readonly Lazy<IPrivilegeService> _privilege;
     public IPrivilegeService Privilege
     {
         get { return _privilege.Value; }
-    }
-
-    readonly Lazy<IProjectService> _projects;
-    public IProjectService Projects
-    {
-        get { return _projects.Value; }
     }
 
     readonly Lazy<ISearchService> _search;
@@ -183,9 +171,7 @@ public sealed class CasedevClient : ICasedevClient
         _llm = new(() => new LlmService(this));
         _memory = new(() => new MemoryService(this));
         _ocr = new(() => new OcrService(this));
-        _payments = new(() => new PaymentService(this));
         _privilege = new(() => new PrivilegeService(this));
-        _projects = new(() => new ProjectService(this));
         _search = new(() => new SearchService(this));
         _superdoc = new(() => new SuperdocService(this));
         _translate = new(() => new TranslateService(this));
@@ -314,22 +300,10 @@ public sealed class CasedevClientWithRawResponse : ICasedevClientWithRawResponse
         get { return _ocr.Value; }
     }
 
-    readonly Lazy<IPaymentServiceWithRawResponse> _payments;
-    public IPaymentServiceWithRawResponse Payments
-    {
-        get { return _payments.Value; }
-    }
-
     readonly Lazy<IPrivilegeServiceWithRawResponse> _privilege;
     public IPrivilegeServiceWithRawResponse Privilege
     {
         get { return _privilege.Value; }
-    }
-
-    readonly Lazy<IProjectServiceWithRawResponse> _projects;
-    public IProjectServiceWithRawResponse Projects
-    {
-        get { return _projects.Value; }
     }
 
     readonly Lazy<ISearchServiceWithRawResponse> _search;
@@ -564,9 +538,7 @@ public sealed class CasedevClientWithRawResponse : ICasedevClientWithRawResponse
         _llm = new(() => new LlmServiceWithRawResponse(this));
         _memory = new(() => new MemoryServiceWithRawResponse(this));
         _ocr = new(() => new OcrServiceWithRawResponse(this));
-        _payments = new(() => new PaymentServiceWithRawResponse(this));
         _privilege = new(() => new PrivilegeServiceWithRawResponse(this));
-        _projects = new(() => new ProjectServiceWithRawResponse(this));
         _search = new(() => new SearchServiceWithRawResponse(this));
         _superdoc = new(() => new SuperdocServiceWithRawResponse(this));
         _translate = new(() => new TranslateServiceWithRawResponse(this));

@@ -1,6 +1,9 @@
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 using CaseDev.Core;
-using V1 = CaseDev.Services.Database.V1;
+using CaseDev.Models.Database.V1;
+using CaseDev.Services.Database.V1;
 
 namespace CaseDev.Services.Database;
 
@@ -24,7 +27,17 @@ public interface IV1Service
     /// </summary>
     IV1Service WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
-    V1::IProjectService Projects { get; }
+    IProjectService Projects { get; }
+
+    /// <summary>
+    /// Returns detailed database usage statistics and billing information for the
+    /// current billing period. Includes compute hours, storage, data transfer, and
+    /// branch counts with associated costs broken down by project.
+    /// </summary>
+    Task<V1GetUsageResponse> GetUsage(
+        V1GetUsageParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
 }
 
 /// <summary>
@@ -40,5 +53,14 @@ public interface IV1ServiceWithRawResponse
     /// </summary>
     IV1ServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
-    V1::IProjectServiceWithRawResponse Projects { get; }
+    IProjectServiceWithRawResponse Projects { get; }
+
+    /// <summary>
+    /// Returns a raw HTTP response for `get /database/v1/usage`, but is otherwise the
+    /// same as <see cref="IV1Service.GetUsage(V1GetUsageParams?, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<V1GetUsageResponse>> GetUsage(
+        V1GetUsageParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
 }

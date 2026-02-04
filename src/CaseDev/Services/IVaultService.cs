@@ -29,6 +29,8 @@ public interface IVaultService
 
     IGraphragService Graphrag { get; }
 
+    IMultipartService Multipart { get; }
+
     IObjectService Objects { get; }
 
     /// <summary>
@@ -171,6 +173,8 @@ public interface IVaultServiceWithRawResponse
     IVaultServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     IGraphragServiceWithRawResponse Graphrag { get; }
+
+    IMultipartServiceWithRawResponse Multipart { get; }
 
     IObjectServiceWithRawResponse Objects { get; }
 
