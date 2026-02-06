@@ -105,6 +105,23 @@ public interface IVaultService
     );
 
     /// <summary>
+    /// Confirm whether a direct-to-S3 vault upload succeeded or failed. This endpoint
+    /// emits vault.upload.completed or vault.upload.failed events and is idempotent
+    /// for repeated confirmations.
+    /// </summary>
+    Task<VaultConfirmUploadResponse> ConfirmUpload(
+        VaultConfirmUploadParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="ConfirmUpload(VaultConfirmUploadParams, CancellationToken)"/>
+    Task<VaultConfirmUploadResponse> ConfirmUpload(
+        string objectID,
+        VaultConfirmUploadParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
     /// Triggers ingestion workflow for a vault object to extract text, generate chunks,
     /// and create embeddings. For supported file types (PDF, DOCX, TXT, RTF, XML,
     /// audio, video), processing happens asynchronously. For unsupported types (images,
@@ -142,9 +159,8 @@ public interface IVaultService
 
     /// <summary>
     /// Generate a presigned URL for uploading files directly to a vault's S3 storage.
-    /// This endpoint creates a temporary upload URL that allows secure file uploads
-    /// without exposing credentials. Files can be automatically indexed for semantic
-    /// search or stored for manual processing.
+    /// After uploading to S3, confirm the upload result via POST /vault/:vaultId/upload/:objectId/confirm
+    /// before triggering ingestion.
     /// </summary>
     Task<VaultUploadResponse> Upload(
         VaultUploadParams parameters,
@@ -241,6 +257,22 @@ public interface IVaultServiceWithRawResponse
     Task<HttpResponse<VaultDeleteResponse>> Delete(
         string id,
         VaultDeleteParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `post /vault/{id}/upload/{objectId}/confirm`, but is otherwise the
+    /// same as <see cref="IVaultService.ConfirmUpload(VaultConfirmUploadParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<VaultConfirmUploadResponse>> ConfirmUpload(
+        VaultConfirmUploadParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="ConfirmUpload(VaultConfirmUploadParams, CancellationToken)"/>
+    Task<HttpResponse<VaultConfirmUploadResponse>> ConfirmUpload(
+        string objectID,
+        VaultConfirmUploadParams parameters,
         CancellationToken cancellationToken = default
     );
 

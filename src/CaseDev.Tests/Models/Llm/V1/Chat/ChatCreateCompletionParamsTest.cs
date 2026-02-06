@@ -17,7 +17,7 @@ public class ChatCreateCompletionParamsTest : TestBase
             Messages = [new() { Content = "content", Role = Role.System }],
             FrequencyPenalty = 0,
             MaxTokens = 1000,
-            Model = "gpt-4o",
+            Model = "casemark/casemark-core-3",
             PresencePenalty = 0,
             Stream = false,
             Temperature = 0.7,
@@ -27,7 +27,7 @@ public class ChatCreateCompletionParamsTest : TestBase
         List<Message> expectedMessages = [new() { Content = "content", Role = Role.System }];
         double expectedFrequencyPenalty = 0;
         long expectedMaxTokens = 1000;
-        string expectedModel = "gpt-4o";
+        string expectedModel = "casemark/casemark-core-3";
         double expectedPresencePenalty = 0;
         bool expectedStream = false;
         double expectedTemperature = 0.7;
@@ -125,7 +125,7 @@ public class ChatCreateCompletionParamsTest : TestBase
             Messages = [new() { Content = "content", Role = Role.System }],
             FrequencyPenalty = 0,
             MaxTokens = 1000,
-            Model = "gpt-4o",
+            Model = "casemark/casemark-core-3",
             PresencePenalty = 0,
             Stream = false,
             Temperature = 0.7,

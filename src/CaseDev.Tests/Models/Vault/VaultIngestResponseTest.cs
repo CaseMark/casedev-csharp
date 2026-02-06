@@ -15,14 +15,15 @@ public class VaultIngestResponseTest : TestBase
             EnableGraphRag = true,
             Message = "message",
             ObjectID = "objectId",
-            Status = Status.Processing,
+            Status = VaultIngestResponseStatus.Processing,
             WorkflowID = "workflowId",
         };
 
         bool expectedEnableGraphRag = true;
         string expectedMessage = "message";
         string expectedObjectID = "objectId";
-        ApiEnum<string, Status> expectedStatus = Status.Processing;
+        ApiEnum<string, VaultIngestResponseStatus> expectedStatus =
+            VaultIngestResponseStatus.Processing;
         string expectedWorkflowID = "workflowId";
 
         Assert.Equal(expectedEnableGraphRag, model.EnableGraphRag);
@@ -40,7 +41,7 @@ public class VaultIngestResponseTest : TestBase
             EnableGraphRag = true,
             Message = "message",
             ObjectID = "objectId",
-            Status = Status.Processing,
+            Status = VaultIngestResponseStatus.Processing,
             WorkflowID = "workflowId",
         };
 
@@ -61,7 +62,7 @@ public class VaultIngestResponseTest : TestBase
             EnableGraphRag = true,
             Message = "message",
             ObjectID = "objectId",
-            Status = Status.Processing,
+            Status = VaultIngestResponseStatus.Processing,
             WorkflowID = "workflowId",
         };
 
@@ -75,7 +76,8 @@ public class VaultIngestResponseTest : TestBase
         bool expectedEnableGraphRag = true;
         string expectedMessage = "message";
         string expectedObjectID = "objectId";
-        ApiEnum<string, Status> expectedStatus = Status.Processing;
+        ApiEnum<string, VaultIngestResponseStatus> expectedStatus =
+            VaultIngestResponseStatus.Processing;
         string expectedWorkflowID = "workflowId";
 
         Assert.Equal(expectedEnableGraphRag, deserialized.EnableGraphRag);
@@ -93,7 +95,7 @@ public class VaultIngestResponseTest : TestBase
             EnableGraphRag = true,
             Message = "message",
             ObjectID = "objectId",
-            Status = Status.Processing,
+            Status = VaultIngestResponseStatus.Processing,
             WorkflowID = "workflowId",
         };
 
@@ -108,7 +110,7 @@ public class VaultIngestResponseTest : TestBase
             EnableGraphRag = true,
             Message = "message",
             ObjectID = "objectId",
-            Status = Status.Processing,
+            Status = VaultIngestResponseStatus.Processing,
             WorkflowID = "workflowId",
         };
 
@@ -118,22 +120,22 @@ public class VaultIngestResponseTest : TestBase
     }
 }
 
-public class StatusTest : TestBase
+public class VaultIngestResponseStatusTest : TestBase
 {
     [Theory]
-    [InlineData(Status.Processing)]
-    [InlineData(Status.Stored)]
-    public void Validation_Works(Status rawValue)
+    [InlineData(VaultIngestResponseStatus.Processing)]
+    [InlineData(VaultIngestResponseStatus.Stored)]
+    public void Validation_Works(VaultIngestResponseStatus rawValue)
     {
         // force implicit conversion because Theory can't do that for us
-        ApiEnum<string, Status> value = rawValue;
+        ApiEnum<string, VaultIngestResponseStatus> value = rawValue;
         value.Validate();
     }
 
     [Fact]
     public void InvalidEnumValidationThrows_Works()
     {
-        var value = JsonSerializer.Deserialize<ApiEnum<string, Status>>(
+        var value = JsonSerializer.Deserialize<ApiEnum<string, VaultIngestResponseStatus>>(
             JsonSerializer.SerializeToElement("invalid value"),
             ModelBase.SerializerOptions
         );
@@ -143,15 +145,15 @@ public class StatusTest : TestBase
     }
 
     [Theory]
-    [InlineData(Status.Processing)]
-    [InlineData(Status.Stored)]
-    public void SerializationRoundtrip_Works(Status rawValue)
+    [InlineData(VaultIngestResponseStatus.Processing)]
+    [InlineData(VaultIngestResponseStatus.Stored)]
+    public void SerializationRoundtrip_Works(VaultIngestResponseStatus rawValue)
     {
         // force implicit conversion because Theory can't do that for us
-        ApiEnum<string, Status> value = rawValue;
+        ApiEnum<string, VaultIngestResponseStatus> value = rawValue;
 
         string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Status>>(
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, VaultIngestResponseStatus>>(
             json,
             ModelBase.SerializerOptions
         );
@@ -162,12 +164,12 @@ public class StatusTest : TestBase
     [Fact]
     public void InvalidEnumSerializationRoundtrip_Works()
     {
-        var value = JsonSerializer.Deserialize<ApiEnum<string, Status>>(
+        var value = JsonSerializer.Deserialize<ApiEnum<string, VaultIngestResponseStatus>>(
             JsonSerializer.SerializeToElement("invalid value"),
             ModelBase.SerializerOptions
         );
         string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Status>>(
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, VaultIngestResponseStatus>>(
             json,
             ModelBase.SerializerOptions
         );

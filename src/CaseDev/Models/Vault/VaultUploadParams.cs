@@ -11,9 +11,8 @@ namespace CaseDev.Models.Vault;
 
 /// <summary>
 /// Generate a presigned URL for uploading files directly to a vault's S3 storage.
-/// This endpoint creates a temporary upload URL that allows secure file uploads without
-/// exposing credentials. Files can be automatically indexed for semantic search
-/// or stored for manual processing.
+/// After uploading to S3, confirm the upload result via POST /vault/:vaultId/upload/:objectId/confirm
+/// before triggering ingestion.
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that

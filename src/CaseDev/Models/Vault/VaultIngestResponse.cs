@@ -55,12 +55,14 @@ public sealed record class VaultIngestResponse : JsonModel
     /// Current ingestion status. 'stored' for file types without text extraction
     /// (no chunks/vectors created).
     /// </summary>
-    public required ApiEnum<string, Status> Status
+    public required ApiEnum<string, VaultIngestResponseStatus> Status
     {
         get
         {
             this._rawData.Freeze();
-            return this._rawData.GetNotNullClass<ApiEnum<string, Status>>("status");
+            return this._rawData.GetNotNullClass<ApiEnum<string, VaultIngestResponseStatus>>(
+                "status"
+            );
         }
         init { this._rawData.Set("status", value); }
     }
@@ -129,16 +131,16 @@ class VaultIngestResponseFromRaw : IFromRawJson<VaultIngestResponse>
 /// Current ingestion status. 'stored' for file types without text extraction (no
 /// chunks/vectors created).
 /// </summary>
-[JsonConverter(typeof(StatusConverter))]
-public enum Status
+[JsonConverter(typeof(VaultIngestResponseStatusConverter))]
+public enum VaultIngestResponseStatus
 {
     Processing,
     Stored,
 }
 
-sealed class StatusConverter : JsonConverter<Status>
+sealed class VaultIngestResponseStatusConverter : JsonConverter<VaultIngestResponseStatus>
 {
-    public override Status Read(
+    public override VaultIngestResponseStatus Read(
         ref Utf8JsonReader reader,
         Type typeToConvert,
         JsonSerializerOptions options
@@ -146,20 +148,24 @@ sealed class StatusConverter : JsonConverter<Status>
     {
         return JsonSerializer.Deserialize<string>(ref reader, options) switch
         {
-            "processing" => Status.Processing,
-            "stored" => Status.Stored,
-            _ => (Status)(-1),
+            "processing" => VaultIngestResponseStatus.Processing,
+            "stored" => VaultIngestResponseStatus.Stored,
+            _ => (VaultIngestResponseStatus)(-1),
         };
     }
 
-    public override void Write(Utf8JsonWriter writer, Status value, JsonSerializerOptions options)
+    public override void Write(
+        Utf8JsonWriter writer,
+        VaultIngestResponseStatus value,
+        JsonSerializerOptions options
+    )
     {
         JsonSerializer.Serialize(
             writer,
             value switch
             {
-                Status.Processing => "processing",
-                Status.Stored => "stored",
+                VaultIngestResponseStatus.Processing => "processing",
+                VaultIngestResponseStatus.Stored => "stored",
                 _ => throw new CasedevInvalidDataException(
                     string.Format("Invalid value '{0}' in {1}", value, nameof(value))
                 ),
