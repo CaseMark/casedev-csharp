@@ -153,6 +153,28 @@ public sealed class VaultService : IVaultService
     }
 
     /// <inheritdoc/>
+    public async Task<VaultConfirmUploadResponse> ConfirmUpload(
+        VaultConfirmUploadParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.ConfirmUpload(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public Task<VaultConfirmUploadResponse> ConfirmUpload(
+        string objectID,
+        VaultConfirmUploadParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return this.ConfirmUpload(parameters with { ObjectID = objectID }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
     public async Task<VaultIngestResponse> Ingest(
         VaultIngestParams parameters,
         CancellationToken cancellationToken = default
@@ -448,6 +470,49 @@ public sealed class VaultServiceWithRawResponse : IVaultServiceWithRawResponse
         parameters ??= new();
 
         return this.Delete(parameters with { ID = id }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async Task<HttpResponse<VaultConfirmUploadResponse>> ConfirmUpload(
+        VaultConfirmUploadParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        if (parameters.ObjectID == null)
+        {
+            throw new CasedevInvalidDataException("'parameters.ObjectID' cannot be null");
+        }
+
+        HttpRequest<VaultConfirmUploadParams> request = new()
+        {
+            Method = HttpMethod.Post,
+            Params = parameters,
+        };
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var deserializedResponse = await response
+                    .Deserialize<VaultConfirmUploadResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    deserializedResponse.Validate();
+                }
+                return deserializedResponse;
+            }
+        );
+    }
+
+    /// <inheritdoc/>
+    public Task<HttpResponse<VaultConfirmUploadResponse>> ConfirmUpload(
+        string objectID,
+        VaultConfirmUploadParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return this.ConfirmUpload(parameters with { ObjectID = objectID }, cancellationToken);
     }
 
     /// <inheritdoc/>

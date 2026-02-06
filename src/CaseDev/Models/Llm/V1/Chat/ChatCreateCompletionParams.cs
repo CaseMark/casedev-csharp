@@ -91,7 +91,7 @@ public record class ChatCreateCompletionParams : ParamsBase
     }
 
     /// <summary>
-    /// Model to use for completion. Defaults to casemark-core-1 if not specified
+    /// Model to use for completion. Defaults to casemark/casemark-core-3 if not specified
     /// </summary>
     public string? Model
     {

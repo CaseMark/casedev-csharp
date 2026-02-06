@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using CaseDev.Models.Vault;
 
 namespace CaseDev.Tests.Services;
 
@@ -52,6 +53,28 @@ public class VaultServiceTest : TestBase
             TestContext.Current.CancellationToken
         );
         vault.Validate();
+    }
+
+    [Fact(Skip = "Prism tests are disabled")]
+    public async Task ConfirmUpload_Works()
+    {
+        var response = await this.client.Vault.ConfirmUpload(
+            "objectId",
+            new()
+            {
+                ID = "id",
+                Body = new UnionMember0()
+                {
+                    SizeBytes = 1,
+                    Success = Success.True,
+                    ErrorCode = "errorCode",
+                    ErrorMessage = "errorMessage",
+                    Etag = "etag",
+                },
+            },
+            TestContext.Current.CancellationToken
+        );
+        response.Validate();
     }
 
     [Fact(Skip = "Prism tests are disabled")]

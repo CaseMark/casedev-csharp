@@ -6,7 +6,7 @@
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <Copyright>Copyright 2026 Casedev</Copyright>
     <PackageProjectUrl>https://docs.case.dev</PackageProjectUrl>
-    <RepositoryUrl>https://www.github.com/CaseMark/casedev-csharp</RepositoryUrl>
+    <RepositoryUrl>https://www.github.com/stainless-sdks/router-csharp</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
 
     <!-- Documentation-->
