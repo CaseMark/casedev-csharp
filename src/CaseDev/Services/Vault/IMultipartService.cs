@@ -27,7 +27,7 @@ public interface IMultipartService
     IMultipartService WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Abort a multipart upload and discard uploaded parts.
+    /// Abort a multipart upload and discard uploaded parts (live).
     /// </summary>
     Task Abort(MultipartAbortParams parameters, CancellationToken cancellationToken = default);
 
@@ -39,22 +39,7 @@ public interface IMultipartService
     );
 
     /// <summary>
-    /// Complete a multipart upload by providing the list of part numbers and ETags.
-    /// </summary>
-    Task Complete(
-        MultipartCompleteParams parameters,
-        CancellationToken cancellationToken = default
-    );
-
-    /// <inheritdoc cref="Complete(MultipartCompleteParams, CancellationToken)"/>
-    Task Complete(
-        string id,
-        MultipartCompleteParams parameters,
-        CancellationToken cancellationToken = default
-    );
-
-    /// <summary>
-    /// Generate presigned URLs for individual multipart upload parts.
+    /// Generate presigned URLs for individual multipart upload parts (live).
     /// </summary>
     Task<MultipartGetPartUrlsResponse> GetPartUrls(
         MultipartGetPartUrlsParams parameters,
@@ -65,23 +50,6 @@ public interface IMultipartService
     Task<MultipartGetPartUrlsResponse> GetPartUrls(
         string id,
         MultipartGetPartUrlsParams parameters,
-        CancellationToken cancellationToken = default
-    );
-
-    /// <summary>
-    /// Initiate a multipart upload for large files (>5GB). Returns an uploadId and
-    /// object metadata. Use part URLs endpoint to upload parts and complete endpoint
-    /// to finalize.
-    /// </summary>
-    Task<MultipartInitResponse> Init(
-        MultipartInitParams parameters,
-        CancellationToken cancellationToken = default
-    );
-
-    /// <inheritdoc cref="Init(MultipartInitParams, CancellationToken)"/>
-    Task<MultipartInitResponse> Init(
-        string id,
-        MultipartInitParams parameters,
         CancellationToken cancellationToken = default
     );
 }
@@ -116,22 +84,6 @@ public interface IMultipartServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /vault/{id}/multipart/complete`, but is otherwise the
-    /// same as <see cref="IMultipartService.Complete(MultipartCompleteParams, CancellationToken)"/>.
-    /// </summary>
-    Task<HttpResponse> Complete(
-        MultipartCompleteParams parameters,
-        CancellationToken cancellationToken = default
-    );
-
-    /// <inheritdoc cref="Complete(MultipartCompleteParams, CancellationToken)"/>
-    Task<HttpResponse> Complete(
-        string id,
-        MultipartCompleteParams parameters,
-        CancellationToken cancellationToken = default
-    );
-
-    /// <summary>
     /// Returns a raw HTTP response for `post /vault/{id}/multipart/part-urls`, but is otherwise the
     /// same as <see cref="IMultipartService.GetPartUrls(MultipartGetPartUrlsParams, CancellationToken)"/>.
     /// </summary>
@@ -144,22 +96,6 @@ public interface IMultipartServiceWithRawResponse
     Task<HttpResponse<MultipartGetPartUrlsResponse>> GetPartUrls(
         string id,
         MultipartGetPartUrlsParams parameters,
-        CancellationToken cancellationToken = default
-    );
-
-    /// <summary>
-    /// Returns a raw HTTP response for `post /vault/{id}/multipart/init`, but is otherwise the
-    /// same as <see cref="IMultipartService.Init(MultipartInitParams, CancellationToken)"/>.
-    /// </summary>
-    Task<HttpResponse<MultipartInitResponse>> Init(
-        MultipartInitParams parameters,
-        CancellationToken cancellationToken = default
-    );
-
-    /// <inheritdoc cref="Init(MultipartInitParams, CancellationToken)"/>
-    Task<HttpResponse<MultipartInitResponse>> Init(
-        string id,
-        MultipartInitParams parameters,
         CancellationToken cancellationToken = default
     );
 }

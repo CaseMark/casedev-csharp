@@ -10,7 +10,7 @@ using CaseDev.Core;
 namespace CaseDev.Models.Vault.Multipart;
 
 /// <summary>
-/// Abort a multipart upload and discard uploaded parts.
+/// Abort a multipart upload and discard uploaded parts (live).
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that

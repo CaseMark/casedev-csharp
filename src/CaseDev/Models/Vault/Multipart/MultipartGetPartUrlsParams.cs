@@ -12,7 +12,7 @@ using CaseDev.Core;
 namespace CaseDev.Models.Vault.Multipart;
 
 /// <summary>
-/// Generate presigned URLs for individual multipart upload parts.
+/// Generate presigned URLs for individual multipart upload parts (live).
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that
@@ -38,18 +38,16 @@ public record class MultipartGetPartUrlsParams : ParamsBase
         init { this._rawBodyData.Set("objectId", value); }
     }
 
-    public required IReadOnlyList<MultipartGetPartUrlsParamsPart> Parts
+    public required IReadOnlyList<Part> Parts
     {
         get
         {
             this._rawBodyData.Freeze();
-            return this._rawBodyData.GetNotNullStruct<
-                ImmutableArray<MultipartGetPartUrlsParamsPart>
-            >("parts");
+            return this._rawBodyData.GetNotNullStruct<ImmutableArray<Part>>("parts");
         }
         init
         {
-            this._rawBodyData.Set<ImmutableArray<MultipartGetPartUrlsParamsPart>>(
+            this._rawBodyData.Set<ImmutableArray<Part>>(
                 "parts",
                 ImmutableArray.ToImmutableArray(value)
             );
@@ -177,13 +175,8 @@ public record class MultipartGetPartUrlsParams : ParamsBase
     }
 }
 
-[JsonConverter(
-    typeof(JsonModelConverter<
-        MultipartGetPartUrlsParamsPart,
-        MultipartGetPartUrlsParamsPartFromRaw
-    >)
-)]
-public sealed record class MultipartGetPartUrlsParamsPart : JsonModel
+[JsonConverter(typeof(JsonModelConverter<Part, PartFromRaw>))]
+public sealed record class Part : JsonModel
 {
     public required long PartNumber
     {
@@ -195,6 +188,9 @@ public sealed record class MultipartGetPartUrlsParamsPart : JsonModel
         init { this._rawData.Set("partNumber", value); }
     }
 
+    /// <summary>
+    /// Part size in bytes (min 5MB except final part, max 5GB).
+    /// </summary>
     public required long SizeBytes
     {
         get
@@ -212,42 +208,37 @@ public sealed record class MultipartGetPartUrlsParamsPart : JsonModel
         _ = this.SizeBytes;
     }
 
-    public MultipartGetPartUrlsParamsPart() { }
+    public Part() { }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    public MultipartGetPartUrlsParamsPart(
-        MultipartGetPartUrlsParamsPart multipartGetPartUrlsParamsPart
-    )
-        : base(multipartGetPartUrlsParamsPart) { }
+    public Part(Part part)
+        : base(part) { }
 #pragma warning restore CS8618
 
-    public MultipartGetPartUrlsParamsPart(IReadOnlyDictionary<string, JsonElement> rawData)
+    public Part(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = new(rawData);
     }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    MultipartGetPartUrlsParamsPart(FrozenDictionary<string, JsonElement> rawData)
+    Part(FrozenDictionary<string, JsonElement> rawData)
     {
         this._rawData = new(rawData);
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="MultipartGetPartUrlsParamsPartFromRaw.FromRawUnchecked"/>
-    public static MultipartGetPartUrlsParamsPart FromRawUnchecked(
-        IReadOnlyDictionary<string, JsonElement> rawData
-    )
+    /// <inheritdoc cref="PartFromRaw.FromRawUnchecked"/>
+    public static Part FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         return new(FrozenDictionary.ToFrozenDictionary(rawData));
     }
 }
 
-class MultipartGetPartUrlsParamsPartFromRaw : IFromRawJson<MultipartGetPartUrlsParamsPart>
+class PartFromRaw : IFromRawJson<Part>
 {
     /// <inheritdoc/>
-    public MultipartGetPartUrlsParamsPart FromRawUnchecked(
-        IReadOnlyDictionary<string, JsonElement> rawData
-    ) => MultipartGetPartUrlsParamsPart.FromRawUnchecked(rawData);
+    public Part FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
+        Part.FromRawUnchecked(rawData);
 }

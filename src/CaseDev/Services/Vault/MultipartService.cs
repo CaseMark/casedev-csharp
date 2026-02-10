@@ -54,25 +54,6 @@ public sealed class MultipartService : IMultipartService
     }
 
     /// <inheritdoc/>
-    public Task Complete(
-        MultipartCompleteParams parameters,
-        CancellationToken cancellationToken = default
-    )
-    {
-        return this.WithRawResponse.Complete(parameters, cancellationToken);
-    }
-
-    /// <inheritdoc/>
-    public async Task Complete(
-        string id,
-        MultipartCompleteParams parameters,
-        CancellationToken cancellationToken = default
-    )
-    {
-        await this.Complete(parameters with { ID = id }, cancellationToken).ConfigureAwait(false);
-    }
-
-    /// <inheritdoc/>
     public async Task<MultipartGetPartUrlsResponse> GetPartUrls(
         MultipartGetPartUrlsParams parameters,
         CancellationToken cancellationToken = default
@@ -92,28 +73,6 @@ public sealed class MultipartService : IMultipartService
     )
     {
         return this.GetPartUrls(parameters with { ID = id }, cancellationToken);
-    }
-
-    /// <inheritdoc/>
-    public async Task<MultipartInitResponse> Init(
-        MultipartInitParams parameters,
-        CancellationToken cancellationToken = default
-    )
-    {
-        using var response = await this
-            .WithRawResponse.Init(parameters, cancellationToken)
-            .ConfigureAwait(false);
-        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
-    }
-
-    /// <inheritdoc/>
-    public Task<MultipartInitResponse> Init(
-        string id,
-        MultipartInitParams parameters,
-        CancellationToken cancellationToken = default
-    )
-    {
-        return this.Init(parameters with { ID = id }, cancellationToken);
     }
 }
 
@@ -163,35 +122,6 @@ public sealed class MultipartServiceWithRawResponse : IMultipartServiceWithRawRe
     }
 
     /// <inheritdoc/>
-    public Task<HttpResponse> Complete(
-        MultipartCompleteParams parameters,
-        CancellationToken cancellationToken = default
-    )
-    {
-        if (parameters.ID == null)
-        {
-            throw new CasedevInvalidDataException("'parameters.ID' cannot be null");
-        }
-
-        HttpRequest<MultipartCompleteParams> request = new()
-        {
-            Method = HttpMethod.Post,
-            Params = parameters,
-        };
-        return this._client.Execute(request, cancellationToken);
-    }
-
-    /// <inheritdoc/>
-    public Task<HttpResponse> Complete(
-        string id,
-        MultipartCompleteParams parameters,
-        CancellationToken cancellationToken = default
-    )
-    {
-        return this.Complete(parameters with { ID = id }, cancellationToken);
-    }
-
-    /// <inheritdoc/>
     public async Task<HttpResponse<MultipartGetPartUrlsResponse>> GetPartUrls(
         MultipartGetPartUrlsParams parameters,
         CancellationToken cancellationToken = default
@@ -232,48 +162,5 @@ public sealed class MultipartServiceWithRawResponse : IMultipartServiceWithRawRe
     )
     {
         return this.GetPartUrls(parameters with { ID = id }, cancellationToken);
-    }
-
-    /// <inheritdoc/>
-    public async Task<HttpResponse<MultipartInitResponse>> Init(
-        MultipartInitParams parameters,
-        CancellationToken cancellationToken = default
-    )
-    {
-        if (parameters.ID == null)
-        {
-            throw new CasedevInvalidDataException("'parameters.ID' cannot be null");
-        }
-
-        HttpRequest<MultipartInitParams> request = new()
-        {
-            Method = HttpMethod.Post,
-            Params = parameters,
-        };
-        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
-        return new(
-            response,
-            async (token) =>
-            {
-                var deserializedResponse = await response
-                    .Deserialize<MultipartInitResponse>(token)
-                    .ConfigureAwait(false);
-                if (this._client.ResponseValidation)
-                {
-                    deserializedResponse.Validate();
-                }
-                return deserializedResponse;
-            }
-        );
-    }
-
-    /// <inheritdoc/>
-    public Task<HttpResponse<MultipartInitResponse>> Init(
-        string id,
-        MultipartInitParams parameters,
-        CancellationToken cancellationToken = default
-    )
-    {
-        return this.Init(parameters with { ID = id }, cancellationToken);
     }
 }
