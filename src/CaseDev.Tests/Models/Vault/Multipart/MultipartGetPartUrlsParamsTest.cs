@@ -21,10 +21,7 @@ public class MultipartGetPartUrlsParamsTest : TestBase
 
         string expectedID = "id";
         string expectedObjectID = "objectId";
-        List<MultipartGetPartUrlsParamsPart> expectedParts =
-        [
-            new() { PartNumber = 1, SizeBytes = 1 },
-        ];
+        List<Part> expectedParts = [new() { PartNumber = 1, SizeBytes = 1 }];
         string expectedUploadID = "uploadId";
 
         Assert.Equal(expectedID, parameters.ID);
@@ -70,12 +67,12 @@ public class MultipartGetPartUrlsParamsTest : TestBase
     }
 }
 
-public class MultipartGetPartUrlsParamsPartTest : TestBase
+public class PartTest : TestBase
 {
     [Fact]
     public void FieldRoundtrip_Works()
     {
-        var model = new MultipartGetPartUrlsParamsPart { PartNumber = 1, SizeBytes = 1 };
+        var model = new Part { PartNumber = 1, SizeBytes = 1 };
 
         long expectedPartNumber = 1;
         long expectedSizeBytes = 1;
@@ -87,13 +84,10 @@ public class MultipartGetPartUrlsParamsPartTest : TestBase
     [Fact]
     public void SerializationRoundtrip_Works()
     {
-        var model = new MultipartGetPartUrlsParamsPart { PartNumber = 1, SizeBytes = 1 };
+        var model = new Part { PartNumber = 1, SizeBytes = 1 };
 
         string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<MultipartGetPartUrlsParamsPart>(
-            json,
-            ModelBase.SerializerOptions
-        );
+        var deserialized = JsonSerializer.Deserialize<Part>(json, ModelBase.SerializerOptions);
 
         Assert.Equal(model, deserialized);
     }
@@ -101,13 +95,10 @@ public class MultipartGetPartUrlsParamsPartTest : TestBase
     [Fact]
     public void FieldRoundtripThroughSerialization_Works()
     {
-        var model = new MultipartGetPartUrlsParamsPart { PartNumber = 1, SizeBytes = 1 };
+        var model = new Part { PartNumber = 1, SizeBytes = 1 };
 
         string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<MultipartGetPartUrlsParamsPart>(
-            element,
-            ModelBase.SerializerOptions
-        );
+        var deserialized = JsonSerializer.Deserialize<Part>(element, ModelBase.SerializerOptions);
         Assert.NotNull(deserialized);
 
         long expectedPartNumber = 1;
@@ -120,7 +111,7 @@ public class MultipartGetPartUrlsParamsPartTest : TestBase
     [Fact]
     public void Validation_Works()
     {
-        var model = new MultipartGetPartUrlsParamsPart { PartNumber = 1, SizeBytes = 1 };
+        var model = new Part { PartNumber = 1, SizeBytes = 1 };
 
         model.Validate();
     }
@@ -128,9 +119,9 @@ public class MultipartGetPartUrlsParamsPartTest : TestBase
     [Fact]
     public void CopyConstructor_Works()
     {
-        var model = new MultipartGetPartUrlsParamsPart { PartNumber = 1, SizeBytes = 1 };
+        var model = new Part { PartNumber = 1, SizeBytes = 1 };
 
-        MultipartGetPartUrlsParamsPart copied = new(model);
+        Part copied = new(model);
 
         Assert.Equal(model, copied);
     }
