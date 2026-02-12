@@ -9,8 +9,7 @@ using CaseDev.Core;
 namespace CaseDev.Models.Vault.Objects;
 
 /// <summary>
-/// Get the status of a CaseMark summary workflow job. If the job has been processing
-/// for too long, this endpoint will poll CaseMark directly to recover stuck jobs.
+/// Get the status of a CaseMark summary workflow job.
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that
