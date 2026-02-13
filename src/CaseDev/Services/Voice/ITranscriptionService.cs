@@ -57,6 +57,23 @@ public interface ITranscriptionService
         TranscriptionRetrieveParams? parameters = null,
         CancellationToken cancellationToken = default
     );
+
+    /// <summary>
+    /// Deletes a transcription job. For managed vault jobs (tr_*), also removes local
+    /// job records and managed transcript result objects. Idempotent: returns success
+    /// if already deleted.
+    /// </summary>
+    Task Delete(
+        TranscriptionDeleteParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="Delete(TranscriptionDeleteParams, CancellationToken)"/>
+    Task Delete(
+        string id,
+        TranscriptionDeleteParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
 }
 
 /// <summary>
@@ -94,6 +111,22 @@ public interface ITranscriptionServiceWithRawResponse
     Task<HttpResponse<TranscriptionRetrieveResponse>> Retrieve(
         string id,
         TranscriptionRetrieveParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `delete /voice/transcription/{id}`, but is otherwise the
+    /// same as <see cref="ITranscriptionService.Delete(TranscriptionDeleteParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> Delete(
+        TranscriptionDeleteParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="Delete(TranscriptionDeleteParams, CancellationToken)"/>
+    Task<HttpResponse> Delete(
+        string id,
+        TranscriptionDeleteParams? parameters = null,
         CancellationToken cancellationToken = default
     );
 }

@@ -71,6 +71,27 @@ public sealed class TranscriptionService : ITranscriptionService
 
         return this.Retrieve(parameters with { ID = id }, cancellationToken);
     }
+
+    /// <inheritdoc/>
+    public Task Delete(
+        TranscriptionDeleteParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return this.WithRawResponse.Delete(parameters, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async Task Delete(
+        string id,
+        TranscriptionDeleteParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        await this.Delete(parameters with { ID = id }, cancellationToken).ConfigureAwait(false);
+    }
 }
 
 /// <inheritdoc/>
@@ -164,5 +185,36 @@ public sealed class TranscriptionServiceWithRawResponse : ITranscriptionServiceW
         parameters ??= new();
 
         return this.Retrieve(parameters with { ID = id }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public Task<HttpResponse> Delete(
+        TranscriptionDeleteParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        if (parameters.ID == null)
+        {
+            throw new CasedevInvalidDataException("'parameters.ID' cannot be null");
+        }
+
+        HttpRequest<TranscriptionDeleteParams> request = new()
+        {
+            Method = HttpMethod.Delete,
+            Params = parameters,
+        };
+        return this._client.Execute(request, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public Task<HttpResponse> Delete(
+        string id,
+        TranscriptionDeleteParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        return this.Delete(parameters with { ID = id }, cancellationToken);
     }
 }

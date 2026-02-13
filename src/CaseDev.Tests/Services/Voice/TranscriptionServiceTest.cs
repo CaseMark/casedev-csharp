@@ -24,4 +24,14 @@ public class TranscriptionServiceTest : TestBase
         );
         transcription.Validate();
     }
+
+    [Fact(Skip = "Prism tests are disabled")]
+    public async Task Delete_Works()
+    {
+        await this.client.Voice.Transcription.Delete(
+            "id",
+            new(),
+            TestContext.Current.CancellationToken
+        );
+    }
 }
