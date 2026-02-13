@@ -75,6 +75,17 @@ public interface IV1Service
     );
 
     /// <summary>
+    /// Search the USPTO Open Data Portal for US patent applications and granted
+    /// patents. Supports free-text queries, field-specific search, filters by assignee/inventor/status/type,
+    /// date ranges, and pagination. Covers applications filed on or after January
+    /// 1, 2001. Data is refreshed daily.
+    /// </summary>
+    Task<V1PatentSearchResponse> PatentSearch(
+        V1PatentSearchParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
     /// Perform comprehensive legal research with multiple query variations. Uses
     /// advanced deep search to find relevant sources across different phrasings of
     /// the legal issue.
@@ -160,6 +171,15 @@ public interface IV1ServiceWithRawResponse
     /// </summary>
     Task<HttpResponse<V1ListJurisdictionsResponse>> ListJurisdictions(
         V1ListJurisdictionsParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `post /legal/v1/patent-search`, but is otherwise the
+    /// same as <see cref="IV1Service.PatentSearch(V1PatentSearchParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<V1PatentSearchResponse>> PatentSearch(
+        V1PatentSearchParams parameters,
         CancellationToken cancellationToken = default
     );
 
