@@ -27,6 +27,8 @@ public interface IVaultService
     /// </summary>
     IVaultService WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
+    IEventService Events { get; }
+
     IGraphragService Graphrag { get; }
 
     IMultipartService Multipart { get; }
@@ -187,6 +189,8 @@ public interface IVaultServiceWithRawResponse
     /// <para>The original service is not modified.</para>
     /// </summary>
     IVaultServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
+
+    IEventServiceWithRawResponse Events { get; }
 
     IGraphragServiceWithRawResponse Graphrag { get; }
 
