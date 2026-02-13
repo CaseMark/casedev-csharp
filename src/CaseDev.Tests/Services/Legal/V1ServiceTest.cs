@@ -55,6 +55,16 @@ public class V1ServiceTest : TestBase
     }
 
     [Fact(Skip = "Prism tests are disabled")]
+    public async Task PatentSearch_Works()
+    {
+        var response = await this.client.Legal.V1.PatentSearch(
+            new() { Query = "x" },
+            TestContext.Current.CancellationToken
+        );
+        response.Validate();
+    }
+
+    [Fact(Skip = "Prism tests are disabled")]
     public async Task Research_Works()
     {
         var response = await this.client.Legal.V1.Research(
