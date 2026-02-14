@@ -26,6 +26,7 @@ public class TranscriptionCreateParamsTest : TestBase
             Punctuate = true,
             SpeakerLabels = true,
             SpeakersExpected = 0,
+            SpeechModels = ["string"],
             VaultID = "vault_id",
             WordBoost = ["string"],
         };
@@ -43,6 +44,7 @@ public class TranscriptionCreateParamsTest : TestBase
         bool expectedPunctuate = true;
         bool expectedSpeakerLabels = true;
         long expectedSpeakersExpected = 0;
+        List<string> expectedSpeechModels = ["string"];
         string expectedVaultID = "vault_id";
         List<string> expectedWordBoost = ["string"];
 
@@ -58,6 +60,12 @@ public class TranscriptionCreateParamsTest : TestBase
         Assert.Equal(expectedPunctuate, parameters.Punctuate);
         Assert.Equal(expectedSpeakerLabels, parameters.SpeakerLabels);
         Assert.Equal(expectedSpeakersExpected, parameters.SpeakersExpected);
+        Assert.NotNull(parameters.SpeechModels);
+        Assert.Equal(expectedSpeechModels.Count, parameters.SpeechModels.Count);
+        for (int i = 0; i < expectedSpeechModels.Count; i++)
+        {
+            Assert.Equal(expectedSpeechModels[i], parameters.SpeechModels[i]);
+        }
         Assert.Equal(expectedVaultID, parameters.VaultID);
         Assert.NotNull(parameters.WordBoost);
         Assert.Equal(expectedWordBoost.Count, parameters.WordBoost.Count);
@@ -96,6 +104,8 @@ public class TranscriptionCreateParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("speaker_labels"));
         Assert.Null(parameters.SpeakersExpected);
         Assert.False(parameters.RawBodyData.ContainsKey("speakers_expected"));
+        Assert.Null(parameters.SpeechModels);
+        Assert.False(parameters.RawBodyData.ContainsKey("speech_models"));
         Assert.Null(parameters.VaultID);
         Assert.False(parameters.RawBodyData.ContainsKey("vault_id"));
         Assert.Null(parameters.WordBoost);
@@ -120,6 +130,7 @@ public class TranscriptionCreateParamsTest : TestBase
             Punctuate = null,
             SpeakerLabels = null,
             SpeakersExpected = null,
+            SpeechModels = null,
             VaultID = null,
             WordBoost = null,
         };
@@ -148,6 +159,8 @@ public class TranscriptionCreateParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("speaker_labels"));
         Assert.Null(parameters.SpeakersExpected);
         Assert.False(parameters.RawBodyData.ContainsKey("speakers_expected"));
+        Assert.Null(parameters.SpeechModels);
+        Assert.False(parameters.RawBodyData.ContainsKey("speech_models"));
         Assert.Null(parameters.VaultID);
         Assert.False(parameters.RawBodyData.ContainsKey("vault_id"));
         Assert.Null(parameters.WordBoost);
@@ -181,6 +194,7 @@ public class TranscriptionCreateParamsTest : TestBase
             Punctuate = true,
             SpeakerLabels = true,
             SpeakersExpected = 0,
+            SpeechModels = ["string"],
             VaultID = "vault_id",
             WordBoost = ["string"],
         };
