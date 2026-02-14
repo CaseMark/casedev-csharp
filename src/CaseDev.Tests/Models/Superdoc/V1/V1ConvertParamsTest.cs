@@ -9,6 +9,28 @@ namespace CaseDev.Tests.Models.Superdoc.V1;
 public class V1ConvertParamsTest : TestBase
 {
     [Fact]
+    public void FieldRoundtrip_Works()
+    {
+        var parameters = new V1ConvertParams
+        {
+            From = From.Docx,
+            DocumentBase64 = "document_base64",
+            DocumentUrl = "document_url",
+            To = To.Pdf,
+        };
+
+        ApiEnum<string, From> expectedFrom = From.Docx;
+        string expectedDocumentBase64 = "document_base64";
+        string expectedDocumentUrl = "document_url";
+        ApiEnum<string, To> expectedTo = To.Pdf;
+
+        Assert.Equal(expectedFrom, parameters.From);
+        Assert.Equal(expectedDocumentBase64, parameters.DocumentBase64);
+        Assert.Equal(expectedDocumentUrl, parameters.DocumentUrl);
+        Assert.Equal(expectedTo, parameters.To);
+    }
+
+    [Fact]
     public void OptionalNonNullableParamsUnsetAreNotSet_Works()
     {
         var parameters = new V1ConvertParams { From = From.Docx };
@@ -50,6 +72,22 @@ public class V1ConvertParamsTest : TestBase
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
         Assert.Equal(new Uri("https://api.case.dev/superdoc/v1/convert"), url);
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var parameters = new V1ConvertParams
+        {
+            From = From.Docx,
+            DocumentBase64 = "document_base64",
+            DocumentUrl = "document_url",
+            To = To.Pdf,
+        };
+
+        V1ConvertParams copied = new(parameters);
+
+        Assert.Equal(parameters, copied);
     }
 }
 
