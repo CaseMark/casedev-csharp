@@ -290,6 +290,30 @@ public record class TranscriptionCreateParams : ParamsBase
     }
 
     /// <summary>
+    /// Priority-ordered speech models to use
+    /// </summary>
+    public IReadOnlyList<string>? SpeechModels
+    {
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<ImmutableArray<string>>("speech_models");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawBodyData.Set<ImmutableArray<string>?>(
+                "speech_models",
+                value == null ? null : ImmutableArray.ToImmutableArray(value)
+            );
+        }
+    }
+
+    /// <summary>
     /// Vault ID containing the audio file (use with object_id)
     /// </summary>
     public string? VaultID
