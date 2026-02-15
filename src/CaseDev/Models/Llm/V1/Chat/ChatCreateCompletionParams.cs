@@ -49,6 +49,28 @@ public record class ChatCreateCompletionParams : ParamsBase
     }
 
     /// <summary>
+    /// CaseMark-only: when true, allows reasoning fields in responses. Defaults to
+    /// false (reasoning is suppressed).
+    /// </summary>
+    public bool? CasemarkShowReasoning
+    {
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<bool>("casemark_show_reasoning");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawBodyData.Set("casemark_show_reasoning", value);
+        }
+    }
+
+    /// <summary>
     /// Frequency penalty parameter
     /// </summary>
     public double? FrequencyPenalty

@@ -15,6 +15,7 @@ public class ChatCreateCompletionParamsTest : TestBase
         var parameters = new ChatCreateCompletionParams
         {
             Messages = [new() { Content = "content", Role = Role.System }],
+            CasemarkShowReasoning = false,
             FrequencyPenalty = 0,
             MaxTokens = 1000,
             Model = "casemark/casemark-core-3",
@@ -25,6 +26,7 @@ public class ChatCreateCompletionParamsTest : TestBase
         };
 
         List<Message> expectedMessages = [new() { Content = "content", Role = Role.System }];
+        bool expectedCasemarkShowReasoning = false;
         double expectedFrequencyPenalty = 0;
         long expectedMaxTokens = 1000;
         string expectedModel = "casemark/casemark-core-3";
@@ -38,6 +40,7 @@ public class ChatCreateCompletionParamsTest : TestBase
         {
             Assert.Equal(expectedMessages[i], parameters.Messages[i]);
         }
+        Assert.Equal(expectedCasemarkShowReasoning, parameters.CasemarkShowReasoning);
         Assert.Equal(expectedFrequencyPenalty, parameters.FrequencyPenalty);
         Assert.Equal(expectedMaxTokens, parameters.MaxTokens);
         Assert.Equal(expectedModel, parameters.Model);
@@ -55,6 +58,8 @@ public class ChatCreateCompletionParamsTest : TestBase
             Messages = [new() { Content = "content", Role = Role.System }],
         };
 
+        Assert.Null(parameters.CasemarkShowReasoning);
+        Assert.False(parameters.RawBodyData.ContainsKey("casemark_show_reasoning"));
         Assert.Null(parameters.FrequencyPenalty);
         Assert.False(parameters.RawBodyData.ContainsKey("frequency_penalty"));
         Assert.Null(parameters.MaxTokens);
@@ -79,6 +84,7 @@ public class ChatCreateCompletionParamsTest : TestBase
             Messages = [new() { Content = "content", Role = Role.System }],
 
             // Null should be interpreted as omitted for these properties
+            CasemarkShowReasoning = null,
             FrequencyPenalty = null,
             MaxTokens = null,
             Model = null,
@@ -88,6 +94,8 @@ public class ChatCreateCompletionParamsTest : TestBase
             TopP = null,
         };
 
+        Assert.Null(parameters.CasemarkShowReasoning);
+        Assert.False(parameters.RawBodyData.ContainsKey("casemark_show_reasoning"));
         Assert.Null(parameters.FrequencyPenalty);
         Assert.False(parameters.RawBodyData.ContainsKey("frequency_penalty"));
         Assert.Null(parameters.MaxTokens);
@@ -123,6 +131,7 @@ public class ChatCreateCompletionParamsTest : TestBase
         var parameters = new ChatCreateCompletionParams
         {
             Messages = [new() { Content = "content", Role = Role.System }],
+            CasemarkShowReasoning = false,
             FrequencyPenalty = 0,
             MaxTokens = 1000,
             Model = "casemark/casemark-core-3",
