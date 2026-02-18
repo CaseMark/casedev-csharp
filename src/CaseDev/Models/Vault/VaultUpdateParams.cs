@@ -63,6 +63,19 @@ public record class VaultUpdateParams : ParamsBase
     }
 
     /// <summary>
+    /// Move the vault to a different group, or set to null to remove from its current group.
+    /// </summary>
+    public string? GroupID
+    {
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("groupId");
+        }
+        init { this._rawBodyData.Set("groupId", value); }
+    }
+
+    /// <summary>
     /// New name for the vault
     /// </summary>
     public string? Name

@@ -31,6 +31,8 @@ public interface IVaultService
 
     IGraphragService Graphrag { get; }
 
+    IGroupService Groups { get; }
+
     IMultipartService Multipart { get; }
 
     IObjectService Objects { get; }
@@ -193,6 +195,8 @@ public interface IVaultServiceWithRawResponse
     IEventServiceWithRawResponse Events { get; }
 
     IGraphragServiceWithRawResponse Graphrag { get; }
+
+    IGroupServiceWithRawResponse Groups { get; }
 
     IMultipartServiceWithRawResponse Multipart { get; }
 

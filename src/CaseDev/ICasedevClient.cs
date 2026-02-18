@@ -54,6 +54,8 @@ public interface ICasedevClient : IDisposable
     /// </summary>
     ICasedevClient WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
+    ISystemService System { get; }
+
     IApplicationService Applications { get; }
 
     IComputeService Compute { get; }
@@ -114,6 +116,8 @@ public interface ICasedevClientWithRawResponse : IDisposable
     /// <para>The original service is not modified.</para>
     /// </summary>
     ICasedevClientWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
+
+    ISystemServiceWithRawResponse System { get; }
 
     IApplicationServiceWithRawResponse Applications { get; }
 

@@ -104,6 +104,28 @@ public record class VaultCreateParams : ParamsBase
     }
 
     /// <summary>
+    /// Assign the vault to a vault group for access control. Required when using
+    /// a group-scoped API key.
+    /// </summary>
+    public string? GroupID
+    {
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("groupId");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawBodyData.Set("groupId", value);
+        }
+    }
+
+    /// <summary>
     /// Optional metadata to attach to the vault (e.g., { containsPHI: true } for
     /// HIPAA compliance tracking)
     /// </summary>
