@@ -72,6 +72,12 @@ public sealed class CasedevClient : ICasedevClient
         return new CasedevClient(modifier(this._options));
     }
 
+    readonly Lazy<ISystemService> _system;
+    public ISystemService System
+    {
+        get { return _system.Value; }
+    }
+
     readonly Lazy<IApplicationService> _applications;
     public IApplicationService Applications
     {
@@ -163,6 +169,7 @@ public sealed class CasedevClient : ICasedevClient
         _options = new();
 
         _withRawResponse = new(() => new CasedevClientWithRawResponse(this._options));
+        _system = new(() => new SystemService(this));
         _applications = new(() => new ApplicationService(this));
         _compute = new(() => new ComputeService(this));
         _database = new(() => new DatabaseService(this));
@@ -250,6 +257,12 @@ public sealed class CasedevClientWithRawResponse : ICasedevClientWithRawResponse
     public ICasedevClientWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier)
     {
         return new CasedevClientWithRawResponse(modifier(this._options));
+    }
+
+    readonly Lazy<ISystemServiceWithRawResponse> _system;
+    public ISystemServiceWithRawResponse System
+    {
+        get { return _system.Value; }
     }
 
     readonly Lazy<IApplicationServiceWithRawResponse> _applications;
@@ -530,6 +543,7 @@ public sealed class CasedevClientWithRawResponse : ICasedevClientWithRawResponse
     {
         _options = new();
 
+        _system = new(() => new SystemServiceWithRawResponse(this));
         _applications = new(() => new ApplicationServiceWithRawResponse(this));
         _compute = new(() => new ComputeServiceWithRawResponse(this));
         _database = new(() => new DatabaseServiceWithRawResponse(this));

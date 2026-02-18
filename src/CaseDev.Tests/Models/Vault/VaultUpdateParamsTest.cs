@@ -13,24 +13,32 @@ public class VaultUpdateParamsTest : TestBase
             ID = "id",
             Description = "description",
             EnableGraph = false,
+            GroupID = "groupId",
             Name = "Updated Vault Name",
         };
 
         string expectedID = "id";
         string expectedDescription = "description";
         bool expectedEnableGraph = false;
+        string expectedGroupID = "groupId";
         string expectedName = "Updated Vault Name";
 
         Assert.Equal(expectedID, parameters.ID);
         Assert.Equal(expectedDescription, parameters.Description);
         Assert.Equal(expectedEnableGraph, parameters.EnableGraph);
+        Assert.Equal(expectedGroupID, parameters.GroupID);
         Assert.Equal(expectedName, parameters.Name);
     }
 
     [Fact]
     public void OptionalNonNullableParamsUnsetAreNotSet_Works()
     {
-        var parameters = new VaultUpdateParams { ID = "id", Description = "description" };
+        var parameters = new VaultUpdateParams
+        {
+            ID = "id",
+            Description = "description",
+            GroupID = "groupId",
+        };
 
         Assert.Null(parameters.EnableGraph);
         Assert.False(parameters.RawBodyData.ContainsKey("enableGraph"));
@@ -45,6 +53,7 @@ public class VaultUpdateParamsTest : TestBase
         {
             ID = "id",
             Description = "description",
+            GroupID = "groupId",
 
             // Null should be interpreted as omitted for these properties
             EnableGraph = null,
@@ -69,6 +78,8 @@ public class VaultUpdateParamsTest : TestBase
 
         Assert.Null(parameters.Description);
         Assert.False(parameters.RawBodyData.ContainsKey("description"));
+        Assert.Null(parameters.GroupID);
+        Assert.False(parameters.RawBodyData.ContainsKey("groupId"));
     }
 
     [Fact]
@@ -81,10 +92,13 @@ public class VaultUpdateParamsTest : TestBase
             Name = "Updated Vault Name",
 
             Description = null,
+            GroupID = null,
         };
 
         Assert.Null(parameters.Description);
         Assert.True(parameters.RawBodyData.ContainsKey("description"));
+        Assert.Null(parameters.GroupID);
+        Assert.True(parameters.RawBodyData.ContainsKey("groupId"));
     }
 
     [Fact]
@@ -105,6 +119,7 @@ public class VaultUpdateParamsTest : TestBase
             ID = "id",
             Description = "description",
             EnableGraph = false,
+            GroupID = "groupId",
             Name = "Updated Vault Name",
         };
 

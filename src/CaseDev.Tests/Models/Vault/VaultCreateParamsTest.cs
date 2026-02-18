@@ -15,6 +15,7 @@ public class VaultCreateParamsTest : TestBase
             Description = "Repository for all client contract reviews and analysis",
             EnableGraph = true,
             EnableIndexing = true,
+            GroupID = "grp_abc123",
             Metadata = JsonSerializer.Deserialize<JsonElement>(
                 """
                 {
@@ -29,6 +30,7 @@ public class VaultCreateParamsTest : TestBase
         string expectedDescription = "Repository for all client contract reviews and analysis";
         bool expectedEnableGraph = true;
         bool expectedEnableIndexing = true;
+        string expectedGroupID = "grp_abc123";
         JsonElement expectedMetadata = JsonSerializer.Deserialize<JsonElement>(
             """
             {
@@ -42,6 +44,7 @@ public class VaultCreateParamsTest : TestBase
         Assert.Equal(expectedDescription, parameters.Description);
         Assert.Equal(expectedEnableGraph, parameters.EnableGraph);
         Assert.Equal(expectedEnableIndexing, parameters.EnableIndexing);
+        Assert.Equal(expectedGroupID, parameters.GroupID);
         Assert.NotNull(parameters.Metadata);
         Assert.True(JsonElement.DeepEquals(expectedMetadata, parameters.Metadata.Value));
     }
@@ -57,6 +60,8 @@ public class VaultCreateParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("enableGraph"));
         Assert.Null(parameters.EnableIndexing);
         Assert.False(parameters.RawBodyData.ContainsKey("enableIndexing"));
+        Assert.Null(parameters.GroupID);
+        Assert.False(parameters.RawBodyData.ContainsKey("groupId"));
         Assert.Null(parameters.Metadata);
         Assert.False(parameters.RawBodyData.ContainsKey("metadata"));
     }
@@ -72,6 +77,7 @@ public class VaultCreateParamsTest : TestBase
             Description = null,
             EnableGraph = null,
             EnableIndexing = null,
+            GroupID = null,
             Metadata = null,
         };
 
@@ -81,6 +87,8 @@ public class VaultCreateParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("enableGraph"));
         Assert.Null(parameters.EnableIndexing);
         Assert.False(parameters.RawBodyData.ContainsKey("enableIndexing"));
+        Assert.Null(parameters.GroupID);
+        Assert.False(parameters.RawBodyData.ContainsKey("groupId"));
         Assert.Null(parameters.Metadata);
         Assert.False(parameters.RawBodyData.ContainsKey("metadata"));
     }
@@ -104,6 +112,7 @@ public class VaultCreateParamsTest : TestBase
             Description = "Repository for all client contract reviews and analysis",
             EnableGraph = true,
             EnableIndexing = true,
+            GroupID = "grp_abc123",
             Metadata = JsonSerializer.Deserialize<JsonElement>(
                 """
                 {
