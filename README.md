@@ -9,8 +9,8 @@ The REST API documentation can be found on [docs.case.dev](https://docs.case.dev
 ## Installation
 
 ```bash
-git clone git@github.com:stainless-sdks/router-csharp.git
-dotnet add reference router-csharp/src/Router
+git clone git@github.com:CaseMark/casedev-csharp.git
+dotnet add reference casedev-csharp/src/Router
 ```
 
 ## Requirements
@@ -331,4 +331,4 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/router-csharp/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/CaseMark/casedev-csharp/issues) with questions, bugs, or suggestions.
