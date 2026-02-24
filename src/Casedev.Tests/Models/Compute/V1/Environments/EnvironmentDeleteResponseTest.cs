@@ -1,0 +1,91 @@
+using System.Text.Json;
+using Casedev.Core;
+using Casedev.Models.Compute.V1.Environments;
+
+namespace Casedev.Tests.Models.Compute.V1.Environments;
+
+public class EnvironmentDeleteResponseTest : TestBase
+{
+    [Fact]
+    public void FieldRoundtrip_Works()
+    {
+        var model = new EnvironmentDeleteResponse
+        {
+            Message = "Environment 'litigation-processing' deleted",
+            Success = true,
+        };
+
+        string expectedMessage = "Environment 'litigation-processing' deleted";
+        bool expectedSuccess = true;
+
+        Assert.Equal(expectedMessage, model.Message);
+        Assert.Equal(expectedSuccess, model.Success);
+    }
+
+    [Fact]
+    public void SerializationRoundtrip_Works()
+    {
+        var model = new EnvironmentDeleteResponse
+        {
+            Message = "Environment 'litigation-processing' deleted",
+            Success = true,
+        };
+
+        string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<EnvironmentDeleteResponse>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(model, deserialized);
+    }
+
+    [Fact]
+    public void FieldRoundtripThroughSerialization_Works()
+    {
+        var model = new EnvironmentDeleteResponse
+        {
+            Message = "Environment 'litigation-processing' deleted",
+            Success = true,
+        };
+
+        string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<EnvironmentDeleteResponse>(
+            element,
+            ModelBase.SerializerOptions
+        );
+        Assert.NotNull(deserialized);
+
+        string expectedMessage = "Environment 'litigation-processing' deleted";
+        bool expectedSuccess = true;
+
+        Assert.Equal(expectedMessage, deserialized.Message);
+        Assert.Equal(expectedSuccess, deserialized.Success);
+    }
+
+    [Fact]
+    public void Validation_Works()
+    {
+        var model = new EnvironmentDeleteResponse
+        {
+            Message = "Environment 'litigation-processing' deleted",
+            Success = true,
+        };
+
+        model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new EnvironmentDeleteResponse
+        {
+            Message = "Environment 'litigation-processing' deleted",
+            Success = true,
+        };
+
+        EnvironmentDeleteResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
+}
