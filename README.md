@@ -8,9 +8,10 @@ The REST API documentation can be found on [docs.case.dev](https://docs.case.dev
 
 ## Installation
 
+Install the package from [NuGet](https://www.nuget.org/packages/Casedev):
+
 ```bash
-git clone git@github.com:stainless-sdks/router-csharp.git
-dotnet add reference router-csharp/src/CaseDev
+dotnet add package Casedev
 ```
 
 ## Requirements
@@ -23,8 +24,8 @@ See the [`examples`](examples) directory for complete and runnable examples.
 
 ```csharp
 using System;
-using CaseDev;
-using CaseDev.Models.Llm.V1.Chat;
+using Casedev;
+using Casedev.Models.Llm.V1.Chat;
 
 CasedevClient client = new();
 
@@ -50,7 +51,7 @@ Console.WriteLine(response);
 Configure the client using environment variables:
 
 ```csharp
-using CaseDev;
+using Casedev;
 
 // Configured using the CASEDEV_API_KEY and CASEDEV_BASE_URL environment variables
 CasedevClient client = new();
@@ -59,7 +60,7 @@ CasedevClient client = new();
 Or manually:
 
 ```csharp
-using CaseDev;
+using Casedev;
 
 CasedevClient client = new() { ApiKey = "My API Key" };
 ```
@@ -111,7 +112,7 @@ These methods return `HttpResponse`:
 
 ```csharp
 using System;
-using CaseDev.Models.Format.V1;
+using Casedev.Models.Format.V1;
 
 V1CreateDocumentParams parameters = new()
 {
@@ -153,7 +154,7 @@ For non-streaming responses, you can deserialize the response into an instance o
 
 ```csharp
 using System;
-using CaseDev.Models.Vault;
+using Casedev.Models.Vault;
 
 var response = await client.WithRawResponse.Vault.Create(parameters);
 VaultCreateResponse deserialized = await response.Deserialize();
@@ -206,7 +207,7 @@ The API may also explicitly instruct the SDK to retry or not retry a request.
 To set a custom number of retries, configure the client using the `MaxRetries` method:
 
 ```csharp
-using CaseDev;
+using Casedev;
 
 CasedevClient client = new() { MaxRetries = 3 };
 ```
@@ -233,7 +234,7 @@ To set a custom timeout, configure the client using the `Timeout` option:
 
 ```csharp
 using System;
-using CaseDev;
+using Casedev;
 
 CasedevClient client = new() { Timeout = TimeSpan.FromSeconds(42) };
 ```
@@ -252,13 +253,33 @@ var vault = await client
 Console.WriteLine(vault);
 ```
 
+### Proxies
+
+To route requests through a proxy, configure your client with a custom [`HttpClient`](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpclient?view=net-10.0):
+
+```csharp
+using System.Net;
+using System.Net.Http;
+using Casedev;
+
+var httpClient = new HttpClient
+(
+    new HttpClientHandler
+    {
+        Proxy = new WebProxy("https://example.com:8080")
+    }
+);
+
+CasedevClient client = new() { HttpClient = httpClient };
+```
+
 ### Environments
 
 The SDK sends requests to the production environment by default. To send requests to a different environment, configure the client like so:
 
 ```csharp
-using CaseDev;
-using CaseDev.Core;
+using Casedev;
+using Casedev.Core;
 
 CasedevClient client = new() { BaseUrl = EnvironmentUrl.Local };
 ```
@@ -283,7 +304,7 @@ response.Validate();
 Or configure the client using the `ResponseValidation` option:
 
 ```csharp
-using CaseDev;
+using Casedev;
 
 CasedevClient client = new() { ResponseValidation = true };
 ```
@@ -311,4 +332,4 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/router-csharp/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/CaseMark/casedev-csharp/issues) with questions, bugs, or suggestions.
