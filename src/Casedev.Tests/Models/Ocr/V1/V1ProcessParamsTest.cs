@@ -216,7 +216,7 @@ public class FeaturesTest : TestBase
             Tables = new() { Format = TablesFormat.Csv },
         };
 
-        Dictionary<string, JsonElement> expectedEmbed = { };
+        Dictionary<string, JsonElement> expectedEmbed = new() { };
         Dictionary<string, JsonElement> expectedForms = new()
         {
             { "foo", JsonSerializer.SerializeToElement("bar") },
@@ -281,7 +281,7 @@ public class FeaturesTest : TestBase
         );
         Assert.NotNull(deserialized);
 
-        Dictionary<string, JsonElement> expectedEmbed = { };
+        Dictionary<string, JsonElement> expectedEmbed = new() { };
         Dictionary<string, JsonElement> expectedForms = new()
         {
             { "foo", JsonSerializer.SerializeToElement("bar") },
