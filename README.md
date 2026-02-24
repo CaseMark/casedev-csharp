@@ -8,9 +8,10 @@ The REST API documentation can be found on [docs.case.dev](https://docs.case.dev
 
 ## Installation
 
+Install the package from [NuGet](https://www.nuget.org/packages/Casedev):
+
 ```bash
-git clone git@github.com:CaseMark/casedev-csharp.git
-dotnet add reference casedev-csharp/src/Router
+dotnet add package Casedev
 ```
 
 ## Requirements
@@ -23,8 +24,8 @@ See the [`examples`](examples) directory for complete and runnable examples.
 
 ```csharp
 using System;
-using Router;
-using Router.Models.Llm.V1.Chat;
+using Casedev;
+using Casedev.Models.Llm.V1.Chat;
 
 CasedevClient client = new();
 
@@ -50,7 +51,7 @@ Console.WriteLine(response);
 Configure the client using environment variables:
 
 ```csharp
-using Router;
+using Casedev;
 
 // Configured using the CASEDEV_API_KEY and CASEDEV_BASE_URL environment variables
 CasedevClient client = new();
@@ -59,7 +60,7 @@ CasedevClient client = new();
 Or manually:
 
 ```csharp
-using Router;
+using Casedev;
 
 CasedevClient client = new() { ApiKey = "My API Key" };
 ```
@@ -111,7 +112,7 @@ These methods return `HttpResponse`:
 
 ```csharp
 using System;
-using Router.Models.Format.V1;
+using Casedev.Models.Format.V1;
 
 V1CreateDocumentParams parameters = new()
 {
@@ -153,7 +154,7 @@ For non-streaming responses, you can deserialize the response into an instance o
 
 ```csharp
 using System;
-using Router.Models.Vault;
+using Casedev.Models.Vault;
 
 var response = await client.WithRawResponse.Vault.Create(parameters);
 VaultCreateResponse deserialized = await response.Deserialize();
@@ -206,7 +207,7 @@ The API may also explicitly instruct the SDK to retry or not retry a request.
 To set a custom number of retries, configure the client using the `MaxRetries` method:
 
 ```csharp
-using Router;
+using Casedev;
 
 CasedevClient client = new() { MaxRetries = 3 };
 ```
@@ -233,7 +234,7 @@ To set a custom timeout, configure the client using the `Timeout` option:
 
 ```csharp
 using System;
-using Router;
+using Casedev;
 
 CasedevClient client = new() { Timeout = TimeSpan.FromSeconds(42) };
 ```
@@ -259,7 +260,7 @@ To route requests through a proxy, configure your client with a custom [`HttpCli
 ```csharp
 using System.Net;
 using System.Net.Http;
-using Router;
+using Casedev;
 
 var httpClient = new HttpClient
 (
@@ -277,8 +278,8 @@ CasedevClient client = new() { HttpClient = httpClient };
 The SDK sends requests to the production environment by default. To send requests to a different environment, configure the client like so:
 
 ```csharp
-using Router;
-using Router.Core;
+using Casedev;
+using Casedev.Core;
 
 CasedevClient client = new() { BaseUrl = EnvironmentUrl.Local };
 ```
@@ -303,7 +304,7 @@ response.Validate();
 Or configure the client using the `ResponseValidation` option:
 
 ```csharp
-using Router;
+using Casedev;
 
 CasedevClient client = new() { ResponseValidation = true };
 ```
