@@ -9,6 +9,7 @@ using Casedev.Models.Privilege.V1;
 using Casedev.Models.Translate.V1;
 using Casedev.Models.Voice.V1;
 using Environments = Casedev.Models.Compute.V1.Environments;
+using Execute = Casedev.Models.Agent.V1.Execute;
 using Graphrag = Casedev.Models.Vault.Graphrag;
 using Instances = Casedev.Models.Compute.V1.Instances;
 using MemoryV1 = Casedev.Models.Memory.V1;
@@ -49,6 +50,7 @@ public abstract record class ModelBase
             new ApiEnumConverter<string, RunGetDetailsResponseStatus>(),
             new ApiEnumConverter<string, Type>(),
             new ApiEnumConverter<string, RunGetStatusResponseStatus>(),
+            new ApiEnumConverter<string, Execute::Status>(),
             new ApiEnumConverter<string, Target>(),
             new ApiEnumConverter<string, DeploymentListParamsTarget>(),
             new ApiEnumConverter<string, Projects::Target>(),

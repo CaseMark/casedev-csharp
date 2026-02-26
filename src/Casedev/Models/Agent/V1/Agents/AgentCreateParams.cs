@@ -147,6 +147,25 @@ public record class AgentCreateParams : ParamsBase
     }
 
     /// <summary>
+    /// Restrict agent to vaults within specific vault group IDs
+    /// </summary>
+    public IReadOnlyList<string>? VaultGroups
+    {
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<ImmutableArray<string>>("vaultGroups");
+        }
+        init
+        {
+            this._rawBodyData.Set<ImmutableArray<string>?>(
+                "vaultGroups",
+                value == null ? null : ImmutableArray.ToImmutableArray(value)
+            );
+        }
+    }
+
+    /// <summary>
     /// Restrict agent to specific vault IDs
     /// </summary>
     public IReadOnlyList<string>? VaultIds

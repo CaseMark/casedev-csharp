@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Text;
@@ -74,6 +75,26 @@ public record class RunCreateParams : ParamsBase
             return this._rawBodyData.GetNullableClass<string>("model");
         }
         init { this._rawBodyData.Set("model", value); }
+    }
+
+    /// <summary>
+    /// Scope this run to specific vault object IDs. The agent will only be able
+    /// to access these objects during execution.
+    /// </summary>
+    public IReadOnlyList<string>? ObjectIds
+    {
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<ImmutableArray<string>>("objectIds");
+        }
+        init
+        {
+            this._rawBodyData.Set<ImmutableArray<string>?>(
+                "objectIds",
+                value == null ? null : ImmutableArray.ToImmutableArray(value)
+            );
+        }
     }
 
     public RunCreateParams() { }
