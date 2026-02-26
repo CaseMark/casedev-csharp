@@ -27,6 +27,8 @@ public interface IV1Service
     V1::IAgentService Agents { get; }
 
     V1::IRunService Run { get; }
+
+    V1::IExecuteService Execute { get; }
 }
 
 /// <summary>
@@ -45,4 +47,6 @@ public interface IV1ServiceWithRawResponse
     V1::IAgentServiceWithRawResponse Agents { get; }
 
     V1::IRunServiceWithRawResponse Run { get; }
+
+    V1::IExecuteServiceWithRawResponse Execute { get; }
 }

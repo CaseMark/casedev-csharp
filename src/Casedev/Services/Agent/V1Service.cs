@@ -30,6 +30,7 @@ public sealed class V1Service : IV1Service
         _withRawResponse = new(() => new V1ServiceWithRawResponse(client.WithRawResponse));
         _agents = new(() => new V1::AgentService(client));
         _run = new(() => new V1::RunService(client));
+        _execute = new(() => new V1::ExecuteService(client));
     }
 
     readonly Lazy<V1::IAgentService> _agents;
@@ -42,6 +43,12 @@ public sealed class V1Service : IV1Service
     public V1::IRunService Run
     {
         get { return _run.Value; }
+    }
+
+    readonly Lazy<V1::IExecuteService> _execute;
+    public V1::IExecuteService Execute
+    {
+        get { return _execute.Value; }
     }
 }
 
@@ -62,6 +69,7 @@ public sealed class V1ServiceWithRawResponse : IV1ServiceWithRawResponse
 
         _agents = new(() => new V1::AgentServiceWithRawResponse(client));
         _run = new(() => new V1::RunServiceWithRawResponse(client));
+        _execute = new(() => new V1::ExecuteServiceWithRawResponse(client));
     }
 
     readonly Lazy<V1::IAgentServiceWithRawResponse> _agents;
@@ -74,5 +82,11 @@ public sealed class V1ServiceWithRawResponse : IV1ServiceWithRawResponse
     public V1::IRunServiceWithRawResponse Run
     {
         get { return _run.Value; }
+    }
+
+    readonly Lazy<V1::IExecuteServiceWithRawResponse> _execute;
+    public V1::IExecuteServiceWithRawResponse Execute
+    {
+        get { return _execute.Value; }
     }
 }

@@ -1,36 +1,20 @@
+using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Casedev.Core;
 using Casedev.Exceptions;
-using System = System;
 
-namespace Casedev.Models.Agent.V1.Run;
+namespace Casedev.Models.Agent.V1.Execute;
 
-[JsonConverter(typeof(JsonModelConverter<RunCreateResponse, RunCreateResponseFromRaw>))]
-public sealed record class RunCreateResponse : JsonModel
+[JsonConverter(typeof(JsonModelConverter<ExecuteCreateResponse, ExecuteCreateResponseFromRaw>))]
+public sealed record class ExecuteCreateResponse : JsonModel
 {
-    public string? ID
-    {
-        get
-        {
-            this._rawData.Freeze();
-            return this._rawData.GetNullableClass<string>("id");
-        }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawData.Set("id", value);
-        }
-    }
-
+    /// <summary>
+    /// Ephemeral agent ID (auto-created)
+    /// </summary>
     public string? AgentID
     {
         get
@@ -49,12 +33,12 @@ public sealed record class RunCreateResponse : JsonModel
         }
     }
 
-    public System::DateTimeOffset? CreatedAt
+    public string? Message
     {
         get
         {
             this._rawData.Freeze();
-            return this._rawData.GetNullableStruct<System::DateTimeOffset>("createdAt");
+            return this._rawData.GetNullableClass<string>("message");
         }
         init
         {
@@ -63,23 +47,28 @@ public sealed record class RunCreateResponse : JsonModel
                 return;
             }
 
-            this._rawData.Set("createdAt", value);
+            this._rawData.Set("message", value);
         }
     }
 
-    public IReadOnlyList<string>? ObjectIds
+    /// <summary>
+    /// Run ID — poll /agent/v1/run/:id/status
+    /// </summary>
+    public string? RunID
     {
         get
         {
             this._rawData.Freeze();
-            return this._rawData.GetNullableStruct<ImmutableArray<string>>("objectIds");
+            return this._rawData.GetNullableClass<string>("runId");
         }
         init
         {
-            this._rawData.Set<ImmutableArray<string>?>(
-                "objectIds",
-                value == null ? null : ImmutableArray.ToImmutableArray(value)
-            );
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawData.Set("runId", value);
         }
     }
 
@@ -104,36 +93,35 @@ public sealed record class RunCreateResponse : JsonModel
     /// <inheritdoc/>
     public override void Validate()
     {
-        _ = this.ID;
         _ = this.AgentID;
-        _ = this.CreatedAt;
-        _ = this.ObjectIds;
+        _ = this.Message;
+        _ = this.RunID;
         this.Status?.Validate();
     }
 
-    public RunCreateResponse() { }
+    public ExecuteCreateResponse() { }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    public RunCreateResponse(RunCreateResponse runCreateResponse)
-        : base(runCreateResponse) { }
+    public ExecuteCreateResponse(ExecuteCreateResponse executeCreateResponse)
+        : base(executeCreateResponse) { }
 #pragma warning restore CS8618
 
-    public RunCreateResponse(IReadOnlyDictionary<string, JsonElement> rawData)
+    public ExecuteCreateResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = new(rawData);
     }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    RunCreateResponse(FrozenDictionary<string, JsonElement> rawData)
+    ExecuteCreateResponse(FrozenDictionary<string, JsonElement> rawData)
     {
         this._rawData = new(rawData);
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="RunCreateResponseFromRaw.FromRawUnchecked"/>
-    public static RunCreateResponse FromRawUnchecked(
+    /// <inheritdoc cref="ExecuteCreateResponseFromRaw.FromRawUnchecked"/>
+    public static ExecuteCreateResponse FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawData
     )
     {
@@ -141,30 +129,31 @@ public sealed record class RunCreateResponse : JsonModel
     }
 }
 
-class RunCreateResponseFromRaw : IFromRawJson<RunCreateResponse>
+class ExecuteCreateResponseFromRaw : IFromRawJson<ExecuteCreateResponse>
 {
     /// <inheritdoc/>
-    public RunCreateResponse FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
-        RunCreateResponse.FromRawUnchecked(rawData);
+    public ExecuteCreateResponse FromRawUnchecked(
+        IReadOnlyDictionary<string, JsonElement> rawData
+    ) => ExecuteCreateResponse.FromRawUnchecked(rawData);
 }
 
 [JsonConverter(typeof(StatusConverter))]
 public enum Status
 {
-    Queued,
+    Running,
 }
 
 sealed class StatusConverter : JsonConverter<Status>
 {
     public override Status Read(
         ref Utf8JsonReader reader,
-        System::Type typeToConvert,
+        Type typeToConvert,
         JsonSerializerOptions options
     )
     {
         return JsonSerializer.Deserialize<string>(ref reader, options) switch
         {
-            "queued" => Status.Queued,
+            "running" => Status.Running,
             _ => (Status)(-1),
         };
     }
@@ -175,7 +164,7 @@ sealed class StatusConverter : JsonConverter<Status>
             writer,
             value switch
             {
-                Status.Queued => "queued",
+                Status.Running => "running",
                 _ => throw new CasedevInvalidDataException(
                     string.Format("Invalid value '{0}' in {1}", value, nameof(value))
                 ),

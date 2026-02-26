@@ -6,18 +6,21 @@ using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Casedev.Core;
 
-namespace Casedev.Models.Agent.V1.Agents;
+namespace Casedev.Models.Agent.V1.Execute;
 
 /// <summary>
-/// Updates an agent definition. Only provided fields are changed.
+/// Creates an ephemeral agent and immediately executes a run. Returns the run ID
+/// for polling status and results. This is the fastest way to run an agent without
+/// managing agent lifecycle.
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that
 /// cause existing derived classes to break.</para>
 /// </summary>
-public record class AgentUpdateParams : ParamsBase
+public record class ExecuteCreateParams : ParamsBase
 {
     readonly JsonDictionary _rawBodyData = new();
     public IReadOnlyDictionary<string, JsonElement> RawBodyData
@@ -25,26 +28,22 @@ public record class AgentUpdateParams : ParamsBase
         get { return this._rawBodyData.Freeze(); }
     }
 
-    public string? ID { get; init; }
-
-    public string? Description
+    /// <summary>
+    /// Task prompt for the agent
+    /// </summary>
+    public required string Prompt
     {
         get
         {
             this._rawBodyData.Freeze();
-            return this._rawBodyData.GetNullableClass<string>("description");
+            return this._rawBodyData.GetNotNullClass<string>("prompt");
         }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawBodyData.Set("description", value);
-        }
+        init { this._rawBodyData.Set("prompt", value); }
     }
 
+    /// <summary>
+    /// Denylist of tools the agent cannot use
+    /// </summary>
     public IReadOnlyList<string>? DisabledTools
     {
         get
@@ -61,6 +60,9 @@ public record class AgentUpdateParams : ParamsBase
         }
     }
 
+    /// <summary>
+    /// Allowlist of tools the agent can use
+    /// </summary>
     public IReadOnlyList<string>? EnabledTools
     {
         get
@@ -77,6 +79,23 @@ public record class AgentUpdateParams : ParamsBase
         }
     }
 
+    /// <summary>
+    /// Additional context or constraints for this run
+    /// </summary>
+    public string? Guidance
+    {
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("guidance");
+        }
+        init { this._rawBodyData.Set("guidance", value); }
+    }
+
+    /// <summary>
+    /// System instructions. Defaults to a general-purpose legal assistant prompt
+    /// if not provided.
+    /// </summary>
     public string? Instructions
     {
         get
@@ -95,6 +114,9 @@ public record class AgentUpdateParams : ParamsBase
         }
     }
 
+    /// <summary>
+    /// LLM model identifier. Defaults to anthropic/claude-sonnet-4.6
+    /// </summary>
     public string? Model
     {
         get
@@ -113,50 +135,41 @@ public record class AgentUpdateParams : ParamsBase
         }
     }
 
-    public string? Name
+    /// <summary>
+    /// Scope this run to specific vault object IDs. The agent will only access these objects.
+    /// </summary>
+    public IReadOnlyList<string>? ObjectIds
     {
         get
         {
             this._rawBodyData.Freeze();
-            return this._rawBodyData.GetNullableClass<string>("name");
-        }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawBodyData.Set("name", value);
-        }
-    }
-
-    public JsonElement? Sandbox
-    {
-        get
-        {
-            this._rawBodyData.Freeze();
-            return this._rawBodyData.GetNullableStruct<JsonElement>("sandbox");
-        }
-        init { this._rawBodyData.Set("sandbox", value); }
-    }
-
-    public IReadOnlyList<string>? VaultGroups
-    {
-        get
-        {
-            this._rawBodyData.Freeze();
-            return this._rawBodyData.GetNullableStruct<ImmutableArray<string>>("vaultGroups");
+            return this._rawBodyData.GetNullableStruct<ImmutableArray<string>>("objectIds");
         }
         init
         {
             this._rawBodyData.Set<ImmutableArray<string>?>(
-                "vaultGroups",
+                "objectIds",
                 value == null ? null : ImmutableArray.ToImmutableArray(value)
             );
         }
     }
 
+    /// <summary>
+    /// Custom sandbox resources (cpu, memoryMiB)
+    /// </summary>
+    public Sandbox? Sandbox
+    {
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<Sandbox>("sandbox");
+        }
+        init { this._rawBodyData.Set("sandbox", value); }
+    }
+
+    /// <summary>
+    /// Restrict agent to specific vault IDs
+    /// </summary>
     public IReadOnlyList<string>? VaultIds
     {
         get
@@ -173,20 +186,18 @@ public record class AgentUpdateParams : ParamsBase
         }
     }
 
-    public AgentUpdateParams() { }
+    public ExecuteCreateParams() { }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    public AgentUpdateParams(AgentUpdateParams agentUpdateParams)
-        : base(agentUpdateParams)
+    public ExecuteCreateParams(ExecuteCreateParams executeCreateParams)
+        : base(executeCreateParams)
     {
-        this.ID = agentUpdateParams.ID;
-
-        this._rawBodyData = new(agentUpdateParams._rawBodyData);
+        this._rawBodyData = new(executeCreateParams._rawBodyData);
     }
 #pragma warning restore CS8618
 
-    public AgentUpdateParams(
+    public ExecuteCreateParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
         IReadOnlyDictionary<string, JsonElement> rawBodyData
@@ -199,7 +210,7 @@ public record class AgentUpdateParams : ParamsBase
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    AgentUpdateParams(
+    ExecuteCreateParams(
         FrozenDictionary<string, JsonElement> rawHeaderData,
         FrozenDictionary<string, JsonElement> rawQueryData,
         FrozenDictionary<string, JsonElement> rawBodyData
@@ -212,7 +223,7 @@ public record class AgentUpdateParams : ParamsBase
 #pragma warning restore CS8618
 
     /// <inheritdoc cref="IFromRawJson.FromRawUnchecked"/>
-    public static AgentUpdateParams FromRawUnchecked(
+    public static ExecuteCreateParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
         IReadOnlyDictionary<string, JsonElement> rawBodyData
@@ -230,7 +241,6 @@ public record class AgentUpdateParams : ParamsBase
             FriendlyJsonPrinter.PrintValue(
                 new Dictionary<string, JsonElement>()
                 {
-                    ["ID"] = JsonSerializer.SerializeToElement(this.ID),
                     ["HeaderData"] = FriendlyJsonPrinter.PrintValue(
                         JsonSerializer.SerializeToElement(this._rawHeaderData.Freeze())
                     ),
@@ -243,23 +253,20 @@ public record class AgentUpdateParams : ParamsBase
             ModelBase.ToStringSerializerOptions
         );
 
-    public virtual bool Equals(AgentUpdateParams? other)
+    public virtual bool Equals(ExecuteCreateParams? other)
     {
         if (other == null)
         {
             return false;
         }
-        return (this.ID?.Equals(other.ID) ?? other.ID == null)
-            && this._rawHeaderData.Equals(other._rawHeaderData)
+        return this._rawHeaderData.Equals(other._rawHeaderData)
             && this._rawQueryData.Equals(other._rawQueryData)
             && this._rawBodyData.Equals(other._rawBodyData);
     }
 
     public override Uri Url(ClientOptions options)
     {
-        return new UriBuilder(
-            options.BaseUrl.ToString().TrimEnd('/') + string.Format("/agent/v1/agents/{0}", this.ID)
-        )
+        return new UriBuilder(options.BaseUrl.ToString().TrimEnd('/') + "/agent/v1/execute")
         {
             Query = this.QueryString(options),
         }.Uri;
@@ -287,4 +294,94 @@ public record class AgentUpdateParams : ParamsBase
     {
         return 0;
     }
+}
+
+/// <summary>
+/// Custom sandbox resources (cpu, memoryMiB)
+/// </summary>
+[JsonConverter(typeof(JsonModelConverter<Sandbox, SandboxFromRaw>))]
+public sealed record class Sandbox : JsonModel
+{
+    /// <summary>
+    /// Number of CPUs
+    /// </summary>
+    public long? Cpu
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("cpu");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawData.Set("cpu", value);
+        }
+    }
+
+    /// <summary>
+    /// Memory in MiB
+    /// </summary>
+    public long? MemoryMiB
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("memoryMiB");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawData.Set("memoryMiB", value);
+        }
+    }
+
+    /// <inheritdoc/>
+    public override void Validate()
+    {
+        _ = this.Cpu;
+        _ = this.MemoryMiB;
+    }
+
+    public Sandbox() { }
+
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
+    public Sandbox(Sandbox sandbox)
+        : base(sandbox) { }
+#pragma warning restore CS8618
+
+    public Sandbox(IReadOnlyDictionary<string, JsonElement> rawData)
+    {
+        this._rawData = new(rawData);
+    }
+
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
+    Sandbox(FrozenDictionary<string, JsonElement> rawData)
+    {
+        this._rawData = new(rawData);
+    }
+#pragma warning restore CS8618
+
+    /// <inheritdoc cref="SandboxFromRaw.FromRawUnchecked"/>
+    public static Sandbox FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
+    {
+        return new(FrozenDictionary.ToFrozenDictionary(rawData));
+    }
+}
+
+class SandboxFromRaw : IFromRawJson<Sandbox>
+{
+    /// <inheritdoc/>
+    public Sandbox FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
+        Sandbox.FromRawUnchecked(rawData);
 }

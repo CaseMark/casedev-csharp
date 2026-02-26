@@ -2,41 +2,39 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Casedev.Core;
-using Casedev.Models.Agent.V1.Agents;
+using Casedev.Models.Agent.V1.Execute;
 
-namespace Casedev.Tests.Models.Agent.V1.Agents;
+namespace Casedev.Tests.Models.Agent.V1.Execute;
 
-public class AgentCreateParamsTest : TestBase
+public class ExecuteCreateParamsTest : TestBase
 {
     [Fact]
     public void FieldRoundtrip_Works()
     {
-        var parameters = new AgentCreateParams
+        var parameters = new ExecuteCreateParams
         {
-            Instructions = "instructions",
-            Name = "name",
-            Description = "description",
+            Prompt = "prompt",
             DisabledTools = ["string"],
             EnabledTools = ["string"],
+            Guidance = "guidance",
+            Instructions = "instructions",
             Model = "model",
+            ObjectIds = ["string"],
             Sandbox = new() { Cpu = 0, MemoryMiB = 0 },
-            VaultGroups = ["string"],
             VaultIds = ["string"],
         };
 
-        string expectedInstructions = "instructions";
-        string expectedName = "name";
-        string expectedDescription = "description";
+        string expectedPrompt = "prompt";
         List<string> expectedDisabledTools = ["string"];
         List<string> expectedEnabledTools = ["string"];
+        string expectedGuidance = "guidance";
+        string expectedInstructions = "instructions";
         string expectedModel = "model";
+        List<string> expectedObjectIds = ["string"];
         Sandbox expectedSandbox = new() { Cpu = 0, MemoryMiB = 0 };
-        List<string> expectedVaultGroups = ["string"];
         List<string> expectedVaultIds = ["string"];
 
-        Assert.Equal(expectedInstructions, parameters.Instructions);
-        Assert.Equal(expectedName, parameters.Name);
-        Assert.Equal(expectedDescription, parameters.Description);
+        Assert.Equal(expectedPrompt, parameters.Prompt);
         Assert.NotNull(parameters.DisabledTools);
         Assert.Equal(expectedDisabledTools.Count, parameters.DisabledTools.Count);
         for (int i = 0; i < expectedDisabledTools.Count; i++)
@@ -49,14 +47,16 @@ public class AgentCreateParamsTest : TestBase
         {
             Assert.Equal(expectedEnabledTools[i], parameters.EnabledTools[i]);
         }
+        Assert.Equal(expectedGuidance, parameters.Guidance);
+        Assert.Equal(expectedInstructions, parameters.Instructions);
         Assert.Equal(expectedModel, parameters.Model);
-        Assert.Equal(expectedSandbox, parameters.Sandbox);
-        Assert.NotNull(parameters.VaultGroups);
-        Assert.Equal(expectedVaultGroups.Count, parameters.VaultGroups.Count);
-        for (int i = 0; i < expectedVaultGroups.Count; i++)
+        Assert.NotNull(parameters.ObjectIds);
+        Assert.Equal(expectedObjectIds.Count, parameters.ObjectIds.Count);
+        for (int i = 0; i < expectedObjectIds.Count; i++)
         {
-            Assert.Equal(expectedVaultGroups[i], parameters.VaultGroups[i]);
+            Assert.Equal(expectedObjectIds[i], parameters.ObjectIds[i]);
         }
+        Assert.Equal(expectedSandbox, parameters.Sandbox);
         Assert.NotNull(parameters.VaultIds);
         Assert.Equal(expectedVaultIds.Count, parameters.VaultIds.Count);
         for (int i = 0; i < expectedVaultIds.Count; i++)
@@ -68,19 +68,19 @@ public class AgentCreateParamsTest : TestBase
     [Fact]
     public void OptionalNonNullableParamsUnsetAreNotSet_Works()
     {
-        var parameters = new AgentCreateParams
+        var parameters = new ExecuteCreateParams
         {
-            Instructions = "instructions",
-            Name = "name",
+            Prompt = "prompt",
             DisabledTools = ["string"],
             EnabledTools = ["string"],
+            Guidance = "guidance",
+            ObjectIds = ["string"],
             Sandbox = new() { Cpu = 0, MemoryMiB = 0 },
-            VaultGroups = ["string"],
             VaultIds = ["string"],
         };
 
-        Assert.Null(parameters.Description);
-        Assert.False(parameters.RawBodyData.ContainsKey("description"));
+        Assert.Null(parameters.Instructions);
+        Assert.False(parameters.RawBodyData.ContainsKey("instructions"));
         Assert.Null(parameters.Model);
         Assert.False(parameters.RawBodyData.ContainsKey("model"));
     }
@@ -88,23 +88,23 @@ public class AgentCreateParamsTest : TestBase
     [Fact]
     public void OptionalNonNullableParamsSetToNullAreNotSet_Works()
     {
-        var parameters = new AgentCreateParams
+        var parameters = new ExecuteCreateParams
         {
-            Instructions = "instructions",
-            Name = "name",
+            Prompt = "prompt",
             DisabledTools = ["string"],
             EnabledTools = ["string"],
+            Guidance = "guidance",
+            ObjectIds = ["string"],
             Sandbox = new() { Cpu = 0, MemoryMiB = 0 },
-            VaultGroups = ["string"],
             VaultIds = ["string"],
 
             // Null should be interpreted as omitted for these properties
-            Description = null,
+            Instructions = null,
             Model = null,
         };
 
-        Assert.Null(parameters.Description);
-        Assert.False(parameters.RawBodyData.ContainsKey("description"));
+        Assert.Null(parameters.Instructions);
+        Assert.False(parameters.RawBodyData.ContainsKey("instructions"));
         Assert.Null(parameters.Model);
         Assert.False(parameters.RawBodyData.ContainsKey("model"));
     }
@@ -112,11 +112,10 @@ public class AgentCreateParamsTest : TestBase
     [Fact]
     public void OptionalNullableParamsUnsetAreNotSet_Works()
     {
-        var parameters = new AgentCreateParams
+        var parameters = new ExecuteCreateParams
         {
+            Prompt = "prompt",
             Instructions = "instructions",
-            Name = "name",
-            Description = "description",
             Model = "model",
         };
 
@@ -124,10 +123,12 @@ public class AgentCreateParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("disabledTools"));
         Assert.Null(parameters.EnabledTools);
         Assert.False(parameters.RawBodyData.ContainsKey("enabledTools"));
+        Assert.Null(parameters.Guidance);
+        Assert.False(parameters.RawBodyData.ContainsKey("guidance"));
+        Assert.Null(parameters.ObjectIds);
+        Assert.False(parameters.RawBodyData.ContainsKey("objectIds"));
         Assert.Null(parameters.Sandbox);
         Assert.False(parameters.RawBodyData.ContainsKey("sandbox"));
-        Assert.Null(parameters.VaultGroups);
-        Assert.False(parameters.RawBodyData.ContainsKey("vaultGroups"));
         Assert.Null(parameters.VaultIds);
         Assert.False(parameters.RawBodyData.ContainsKey("vaultIds"));
     }
@@ -135,17 +136,17 @@ public class AgentCreateParamsTest : TestBase
     [Fact]
     public void OptionalNullableParamsSetToNullAreSetToNull_Works()
     {
-        var parameters = new AgentCreateParams
+        var parameters = new ExecuteCreateParams
         {
+            Prompt = "prompt",
             Instructions = "instructions",
-            Name = "name",
-            Description = "description",
             Model = "model",
 
             DisabledTools = null,
             EnabledTools = null,
+            Guidance = null,
+            ObjectIds = null,
             Sandbox = null,
-            VaultGroups = null,
             VaultIds = null,
         };
 
@@ -153,10 +154,12 @@ public class AgentCreateParamsTest : TestBase
         Assert.True(parameters.RawBodyData.ContainsKey("disabledTools"));
         Assert.Null(parameters.EnabledTools);
         Assert.True(parameters.RawBodyData.ContainsKey("enabledTools"));
+        Assert.Null(parameters.Guidance);
+        Assert.True(parameters.RawBodyData.ContainsKey("guidance"));
+        Assert.Null(parameters.ObjectIds);
+        Assert.True(parameters.RawBodyData.ContainsKey("objectIds"));
         Assert.Null(parameters.Sandbox);
         Assert.True(parameters.RawBodyData.ContainsKey("sandbox"));
-        Assert.Null(parameters.VaultGroups);
-        Assert.True(parameters.RawBodyData.ContainsKey("vaultGroups"));
         Assert.Null(parameters.VaultIds);
         Assert.True(parameters.RawBodyData.ContainsKey("vaultIds"));
     }
@@ -164,30 +167,30 @@ public class AgentCreateParamsTest : TestBase
     [Fact]
     public void Url_Works()
     {
-        AgentCreateParams parameters = new() { Instructions = "instructions", Name = "name" };
+        ExecuteCreateParams parameters = new() { Prompt = "prompt" };
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/agent/v1/agents"), url);
+        Assert.Equal(new Uri("https://api.case.dev/agent/v1/execute"), url);
     }
 
     [Fact]
     public void CopyConstructor_Works()
     {
-        var parameters = new AgentCreateParams
+        var parameters = new ExecuteCreateParams
         {
-            Instructions = "instructions",
-            Name = "name",
-            Description = "description",
+            Prompt = "prompt",
             DisabledTools = ["string"],
             EnabledTools = ["string"],
+            Guidance = "guidance",
+            Instructions = "instructions",
             Model = "model",
+            ObjectIds = ["string"],
             Sandbox = new() { Cpu = 0, MemoryMiB = 0 },
-            VaultGroups = ["string"],
             VaultIds = ["string"],
         };
 
-        AgentCreateParams copied = new(parameters);
+        ExecuteCreateParams copied = new(parameters);
 
         Assert.Equal(parameters, copied);
     }

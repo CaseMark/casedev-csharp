@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text.Json;
 using Casedev.Core;
 using Casedev.Exceptions;
@@ -16,17 +17,25 @@ public class RunCreateResponseTest : TestBase
             ID = "id",
             AgentID = "agentId",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            ObjectIds = ["string"],
             Status = Status.Queued,
         };
 
         string expectedID = "id";
         string expectedAgentID = "agentId";
         DateTimeOffset expectedCreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
+        List<string> expectedObjectIds = ["string"];
         ApiEnum<string, Status> expectedStatus = Status.Queued;
 
         Assert.Equal(expectedID, model.ID);
         Assert.Equal(expectedAgentID, model.AgentID);
         Assert.Equal(expectedCreatedAt, model.CreatedAt);
+        Assert.NotNull(model.ObjectIds);
+        Assert.Equal(expectedObjectIds.Count, model.ObjectIds.Count);
+        for (int i = 0; i < expectedObjectIds.Count; i++)
+        {
+            Assert.Equal(expectedObjectIds[i], model.ObjectIds[i]);
+        }
         Assert.Equal(expectedStatus, model.Status);
     }
 
@@ -38,6 +47,7 @@ public class RunCreateResponseTest : TestBase
             ID = "id",
             AgentID = "agentId",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            ObjectIds = ["string"],
             Status = Status.Queued,
         };
 
@@ -58,6 +68,7 @@ public class RunCreateResponseTest : TestBase
             ID = "id",
             AgentID = "agentId",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            ObjectIds = ["string"],
             Status = Status.Queued,
         };
 
@@ -71,11 +82,18 @@ public class RunCreateResponseTest : TestBase
         string expectedID = "id";
         string expectedAgentID = "agentId";
         DateTimeOffset expectedCreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
+        List<string> expectedObjectIds = ["string"];
         ApiEnum<string, Status> expectedStatus = Status.Queued;
 
         Assert.Equal(expectedID, deserialized.ID);
         Assert.Equal(expectedAgentID, deserialized.AgentID);
         Assert.Equal(expectedCreatedAt, deserialized.CreatedAt);
+        Assert.NotNull(deserialized.ObjectIds);
+        Assert.Equal(expectedObjectIds.Count, deserialized.ObjectIds.Count);
+        for (int i = 0; i < expectedObjectIds.Count; i++)
+        {
+            Assert.Equal(expectedObjectIds[i], deserialized.ObjectIds[i]);
+        }
         Assert.Equal(expectedStatus, deserialized.Status);
     }
 
@@ -87,6 +105,7 @@ public class RunCreateResponseTest : TestBase
             ID = "id",
             AgentID = "agentId",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            ObjectIds = ["string"],
             Status = Status.Queued,
         };
 
@@ -96,7 +115,7 @@ public class RunCreateResponseTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetAreNotSet_Works()
     {
-        var model = new RunCreateResponse { };
+        var model = new RunCreateResponse { ObjectIds = ["string"] };
 
         Assert.Null(model.ID);
         Assert.False(model.RawData.ContainsKey("id"));
@@ -111,7 +130,7 @@ public class RunCreateResponseTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetValidation_Works()
     {
-        var model = new RunCreateResponse { };
+        var model = new RunCreateResponse { ObjectIds = ["string"] };
 
         model.Validate();
     }
@@ -121,6 +140,8 @@ public class RunCreateResponseTest : TestBase
     {
         var model = new RunCreateResponse
         {
+            ObjectIds = ["string"],
+
             // Null should be interpreted as omitted for these properties
             ID = null,
             AgentID = null,
@@ -143,11 +164,75 @@ public class RunCreateResponseTest : TestBase
     {
         var model = new RunCreateResponse
         {
+            ObjectIds = ["string"],
+
             // Null should be interpreted as omitted for these properties
             ID = null,
             AgentID = null,
             CreatedAt = null,
             Status = null,
+        };
+
+        model.Validate();
+    }
+
+    [Fact]
+    public void OptionalNullablePropertiesUnsetAreNotSet_Works()
+    {
+        var model = new RunCreateResponse
+        {
+            ID = "id",
+            AgentID = "agentId",
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Status = Status.Queued,
+        };
+
+        Assert.Null(model.ObjectIds);
+        Assert.False(model.RawData.ContainsKey("objectIds"));
+    }
+
+    [Fact]
+    public void OptionalNullablePropertiesUnsetValidation_Works()
+    {
+        var model = new RunCreateResponse
+        {
+            ID = "id",
+            AgentID = "agentId",
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Status = Status.Queued,
+        };
+
+        model.Validate();
+    }
+
+    [Fact]
+    public void OptionalNullablePropertiesSetToNullAreSetToNull_Works()
+    {
+        var model = new RunCreateResponse
+        {
+            ID = "id",
+            AgentID = "agentId",
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Status = Status.Queued,
+
+            ObjectIds = null,
+        };
+
+        Assert.Null(model.ObjectIds);
+        Assert.True(model.RawData.ContainsKey("objectIds"));
+    }
+
+    [Fact]
+    public void OptionalNullablePropertiesSetToNullValidation_Works()
+    {
+        var model = new RunCreateResponse
+        {
+            ID = "id",
+            AgentID = "agentId",
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Status = Status.Queued,
+
+            ObjectIds = null,
         };
 
         model.Validate();
@@ -161,6 +246,7 @@ public class RunCreateResponseTest : TestBase
             ID = "id",
             AgentID = "agentId",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            ObjectIds = ["string"],
             Status = Status.Queued,
         };
 
