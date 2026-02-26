@@ -19,6 +19,7 @@ public class RunGetDetailsResponseTest : TestBase
             CompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Guidance = "guidance",
+            ModalSandboxID = "modalSandboxId",
             Model = "model",
             Prompt = "prompt",
             Result = new()
@@ -50,6 +51,7 @@ public class RunGetDetailsResponseTest : TestBase
                 OutputTokens = 0,
                 ToolCalls = 0,
             },
+            WorkflowID = "workflowId",
         };
 
         string expectedID = "id";
@@ -57,6 +59,7 @@ public class RunGetDetailsResponseTest : TestBase
         DateTimeOffset expectedCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
         DateTimeOffset expectedCreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
         string expectedGuidance = "guidance";
+        string expectedModalSandboxID = "modalSandboxId";
         string expectedModel = "model";
         string expectedPrompt = "prompt";
         Run::Result expectedResult = new()
@@ -89,12 +92,14 @@ public class RunGetDetailsResponseTest : TestBase
             OutputTokens = 0,
             ToolCalls = 0,
         };
+        string expectedWorkflowID = "workflowId";
 
         Assert.Equal(expectedID, model.ID);
         Assert.Equal(expectedAgentID, model.AgentID);
         Assert.Equal(expectedCompletedAt, model.CompletedAt);
         Assert.Equal(expectedCreatedAt, model.CreatedAt);
         Assert.Equal(expectedGuidance, model.Guidance);
+        Assert.Equal(expectedModalSandboxID, model.ModalSandboxID);
         Assert.Equal(expectedModel, model.Model);
         Assert.Equal(expectedPrompt, model.Prompt);
         Assert.Equal(expectedResult, model.Result);
@@ -107,6 +112,7 @@ public class RunGetDetailsResponseTest : TestBase
             Assert.Equal(expectedSteps[i], model.Steps[i]);
         }
         Assert.Equal(expectedUsage, model.Usage);
+        Assert.Equal(expectedWorkflowID, model.WorkflowID);
     }
 
     [Fact]
@@ -119,6 +125,7 @@ public class RunGetDetailsResponseTest : TestBase
             CompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Guidance = "guidance",
+            ModalSandboxID = "modalSandboxId",
             Model = "model",
             Prompt = "prompt",
             Result = new()
@@ -150,6 +157,7 @@ public class RunGetDetailsResponseTest : TestBase
                 OutputTokens = 0,
                 ToolCalls = 0,
             },
+            WorkflowID = "workflowId",
         };
 
         string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
@@ -171,6 +179,7 @@ public class RunGetDetailsResponseTest : TestBase
             CompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Guidance = "guidance",
+            ModalSandboxID = "modalSandboxId",
             Model = "model",
             Prompt = "prompt",
             Result = new()
@@ -202,6 +211,7 @@ public class RunGetDetailsResponseTest : TestBase
                 OutputTokens = 0,
                 ToolCalls = 0,
             },
+            WorkflowID = "workflowId",
         };
 
         string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
@@ -216,6 +226,7 @@ public class RunGetDetailsResponseTest : TestBase
         DateTimeOffset expectedCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
         DateTimeOffset expectedCreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
         string expectedGuidance = "guidance";
+        string expectedModalSandboxID = "modalSandboxId";
         string expectedModel = "model";
         string expectedPrompt = "prompt";
         Run::Result expectedResult = new()
@@ -248,12 +259,14 @@ public class RunGetDetailsResponseTest : TestBase
             OutputTokens = 0,
             ToolCalls = 0,
         };
+        string expectedWorkflowID = "workflowId";
 
         Assert.Equal(expectedID, deserialized.ID);
         Assert.Equal(expectedAgentID, deserialized.AgentID);
         Assert.Equal(expectedCompletedAt, deserialized.CompletedAt);
         Assert.Equal(expectedCreatedAt, deserialized.CreatedAt);
         Assert.Equal(expectedGuidance, deserialized.Guidance);
+        Assert.Equal(expectedModalSandboxID, deserialized.ModalSandboxID);
         Assert.Equal(expectedModel, deserialized.Model);
         Assert.Equal(expectedPrompt, deserialized.Prompt);
         Assert.Equal(expectedResult, deserialized.Result);
@@ -266,6 +279,7 @@ public class RunGetDetailsResponseTest : TestBase
             Assert.Equal(expectedSteps[i], deserialized.Steps[i]);
         }
         Assert.Equal(expectedUsage, deserialized.Usage);
+        Assert.Equal(expectedWorkflowID, deserialized.WorkflowID);
     }
 
     [Fact]
@@ -278,6 +292,7 @@ public class RunGetDetailsResponseTest : TestBase
             CompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Guidance = "guidance",
+            ModalSandboxID = "modalSandboxId",
             Model = "model",
             Prompt = "prompt",
             Result = new()
@@ -309,6 +324,7 @@ public class RunGetDetailsResponseTest : TestBase
                 OutputTokens = 0,
                 ToolCalls = 0,
             },
+            WorkflowID = "workflowId",
         };
 
         model.Validate();
@@ -321,6 +337,7 @@ public class RunGetDetailsResponseTest : TestBase
         {
             CompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Guidance = "guidance",
+            ModalSandboxID = "modalSandboxId",
             Model = "model",
             Result = new()
             {
@@ -336,6 +353,7 @@ public class RunGetDetailsResponseTest : TestBase
                 OutputTokens = 0,
                 ToolCalls = 0,
             },
+            WorkflowID = "workflowId",
         };
 
         Assert.Null(model.ID);
@@ -359,6 +377,7 @@ public class RunGetDetailsResponseTest : TestBase
         {
             CompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Guidance = "guidance",
+            ModalSandboxID = "modalSandboxId",
             Model = "model",
             Result = new()
             {
@@ -374,6 +393,7 @@ public class RunGetDetailsResponseTest : TestBase
                 OutputTokens = 0,
                 ToolCalls = 0,
             },
+            WorkflowID = "workflowId",
         };
 
         model.Validate();
@@ -386,6 +406,7 @@ public class RunGetDetailsResponseTest : TestBase
         {
             CompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Guidance = "guidance",
+            ModalSandboxID = "modalSandboxId",
             Model = "model",
             Result = new()
             {
@@ -401,6 +422,7 @@ public class RunGetDetailsResponseTest : TestBase
                 OutputTokens = 0,
                 ToolCalls = 0,
             },
+            WorkflowID = "workflowId",
 
             // Null should be interpreted as omitted for these properties
             ID = null,
@@ -432,6 +454,7 @@ public class RunGetDetailsResponseTest : TestBase
         {
             CompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Guidance = "guidance",
+            ModalSandboxID = "modalSandboxId",
             Model = "model",
             Result = new()
             {
@@ -447,6 +470,7 @@ public class RunGetDetailsResponseTest : TestBase
                 OutputTokens = 0,
                 ToolCalls = 0,
             },
+            WorkflowID = "workflowId",
 
             // Null should be interpreted as omitted for these properties
             ID = null,
@@ -490,6 +514,8 @@ public class RunGetDetailsResponseTest : TestBase
         Assert.False(model.RawData.ContainsKey("completedAt"));
         Assert.Null(model.Guidance);
         Assert.False(model.RawData.ContainsKey("guidance"));
+        Assert.Null(model.ModalSandboxID);
+        Assert.False(model.RawData.ContainsKey("modalSandboxId"));
         Assert.Null(model.Model);
         Assert.False(model.RawData.ContainsKey("model"));
         Assert.Null(model.Result);
@@ -498,6 +524,8 @@ public class RunGetDetailsResponseTest : TestBase
         Assert.False(model.RawData.ContainsKey("startedAt"));
         Assert.Null(model.Usage);
         Assert.False(model.RawData.ContainsKey("usage"));
+        Assert.Null(model.WorkflowID);
+        Assert.False(model.RawData.ContainsKey("workflowId"));
     }
 
     [Fact]
@@ -556,16 +584,20 @@ public class RunGetDetailsResponseTest : TestBase
 
             CompletedAt = null,
             Guidance = null,
+            ModalSandboxID = null,
             Model = null,
             Result = null,
             StartedAt = null,
             Usage = null,
+            WorkflowID = null,
         };
 
         Assert.Null(model.CompletedAt);
         Assert.True(model.RawData.ContainsKey("completedAt"));
         Assert.Null(model.Guidance);
         Assert.True(model.RawData.ContainsKey("guidance"));
+        Assert.Null(model.ModalSandboxID);
+        Assert.True(model.RawData.ContainsKey("modalSandboxId"));
         Assert.Null(model.Model);
         Assert.True(model.RawData.ContainsKey("model"));
         Assert.Null(model.Result);
@@ -574,6 +606,8 @@ public class RunGetDetailsResponseTest : TestBase
         Assert.True(model.RawData.ContainsKey("startedAt"));
         Assert.Null(model.Usage);
         Assert.True(model.RawData.ContainsKey("usage"));
+        Assert.Null(model.WorkflowID);
+        Assert.True(model.RawData.ContainsKey("workflowId"));
     }
 
     [Fact]
@@ -603,10 +637,12 @@ public class RunGetDetailsResponseTest : TestBase
 
             CompletedAt = null,
             Guidance = null,
+            ModalSandboxID = null,
             Model = null,
             Result = null,
             StartedAt = null,
             Usage = null,
+            WorkflowID = null,
         };
 
         model.Validate();
@@ -622,6 +658,7 @@ public class RunGetDetailsResponseTest : TestBase
             CompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Guidance = "guidance",
+            ModalSandboxID = "modalSandboxId",
             Model = "model",
             Prompt = "prompt",
             Result = new()
@@ -653,6 +690,7 @@ public class RunGetDetailsResponseTest : TestBase
                 OutputTokens = 0,
                 ToolCalls = 0,
             },
+            WorkflowID = "workflowId",
         };
 
         Run::RunGetDetailsResponse copied = new(model);

@@ -190,6 +190,22 @@ public sealed record class AgentUpdateResponse : JsonModel
         }
     }
 
+    public IReadOnlyList<string>? VaultGroups
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<ImmutableArray<string>>("vaultGroups");
+        }
+        init
+        {
+            this._rawData.Set<ImmutableArray<string>?>(
+                "vaultGroups",
+                value == null ? null : ImmutableArray.ToImmutableArray(value)
+            );
+        }
+    }
+
     public IReadOnlyList<string>? VaultIds
     {
         get
@@ -220,6 +236,7 @@ public sealed record class AgentUpdateResponse : JsonModel
         _ = this.Name;
         _ = this.Sandbox;
         _ = this.UpdatedAt;
+        _ = this.VaultGroups;
         _ = this.VaultIds;
     }
 

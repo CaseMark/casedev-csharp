@@ -87,6 +87,19 @@ public sealed record class RunGetDetailsResponse : JsonModel
         init { this._rawData.Set("guidance", value); }
     }
 
+    /// <summary>
+    /// Modal sandbox ID (available once sandbox is created)
+    /// </summary>
+    public string? ModalSandboxID
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("modalSandboxId");
+        }
+        init { this._rawData.Set("modalSandboxId", value); }
+    }
+
     public string? Model
     {
         get
@@ -192,6 +205,19 @@ public sealed record class RunGetDetailsResponse : JsonModel
         init { this._rawData.Set("usage", value); }
     }
 
+    /// <summary>
+    /// Durable workflow run ID
+    /// </summary>
+    public string? WorkflowID
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("workflowId");
+        }
+        init { this._rawData.Set("workflowId", value); }
+    }
+
     /// <inheritdoc/>
     public override void Validate()
     {
@@ -200,6 +226,7 @@ public sealed record class RunGetDetailsResponse : JsonModel
         _ = this.CompletedAt;
         _ = this.CreatedAt;
         _ = this.Guidance;
+        _ = this.ModalSandboxID;
         _ = this.Model;
         _ = this.Prompt;
         this.Result?.Validate();
@@ -210,6 +237,7 @@ public sealed record class RunGetDetailsResponse : JsonModel
             item.Validate();
         }
         this.Usage?.Validate();
+        _ = this.WorkflowID;
     }
 
     public RunGetDetailsResponse() { }
