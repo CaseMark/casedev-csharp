@@ -24,6 +24,7 @@ public class AgentUpdateResponseTest : TestBase
             Name = "name",
             Sandbox = JsonSerializer.Deserialize<JsonElement>("{}"),
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            VaultGroups = ["string"],
             VaultIds = ["string"],
         };
 
@@ -38,6 +39,7 @@ public class AgentUpdateResponseTest : TestBase
         string expectedName = "name";
         JsonElement expectedSandbox = JsonSerializer.Deserialize<JsonElement>("{}");
         DateTimeOffset expectedUpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
+        List<string> expectedVaultGroups = ["string"];
         List<string> expectedVaultIds = ["string"];
 
         Assert.Equal(expectedID, model.ID);
@@ -62,6 +64,12 @@ public class AgentUpdateResponseTest : TestBase
         Assert.NotNull(model.Sandbox);
         Assert.True(JsonElement.DeepEquals(expectedSandbox, model.Sandbox.Value));
         Assert.Equal(expectedUpdatedAt, model.UpdatedAt);
+        Assert.NotNull(model.VaultGroups);
+        Assert.Equal(expectedVaultGroups.Count, model.VaultGroups.Count);
+        for (int i = 0; i < expectedVaultGroups.Count; i++)
+        {
+            Assert.Equal(expectedVaultGroups[i], model.VaultGroups[i]);
+        }
         Assert.NotNull(model.VaultIds);
         Assert.Equal(expectedVaultIds.Count, model.VaultIds.Count);
         for (int i = 0; i < expectedVaultIds.Count; i++)
@@ -86,6 +94,7 @@ public class AgentUpdateResponseTest : TestBase
             Name = "name",
             Sandbox = JsonSerializer.Deserialize<JsonElement>("{}"),
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            VaultGroups = ["string"],
             VaultIds = ["string"],
         };
 
@@ -114,6 +123,7 @@ public class AgentUpdateResponseTest : TestBase
             Name = "name",
             Sandbox = JsonSerializer.Deserialize<JsonElement>("{}"),
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            VaultGroups = ["string"],
             VaultIds = ["string"],
         };
 
@@ -135,6 +145,7 @@ public class AgentUpdateResponseTest : TestBase
         string expectedName = "name";
         JsonElement expectedSandbox = JsonSerializer.Deserialize<JsonElement>("{}");
         DateTimeOffset expectedUpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
+        List<string> expectedVaultGroups = ["string"];
         List<string> expectedVaultIds = ["string"];
 
         Assert.Equal(expectedID, deserialized.ID);
@@ -159,6 +170,12 @@ public class AgentUpdateResponseTest : TestBase
         Assert.NotNull(deserialized.Sandbox);
         Assert.True(JsonElement.DeepEquals(expectedSandbox, deserialized.Sandbox.Value));
         Assert.Equal(expectedUpdatedAt, deserialized.UpdatedAt);
+        Assert.NotNull(deserialized.VaultGroups);
+        Assert.Equal(expectedVaultGroups.Count, deserialized.VaultGroups.Count);
+        for (int i = 0; i < expectedVaultGroups.Count; i++)
+        {
+            Assert.Equal(expectedVaultGroups[i], deserialized.VaultGroups[i]);
+        }
         Assert.NotNull(deserialized.VaultIds);
         Assert.Equal(expectedVaultIds.Count, deserialized.VaultIds.Count);
         for (int i = 0; i < expectedVaultIds.Count; i++)
@@ -183,6 +200,7 @@ public class AgentUpdateResponseTest : TestBase
             Name = "name",
             Sandbox = JsonSerializer.Deserialize<JsonElement>("{}"),
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            VaultGroups = ["string"],
             VaultIds = ["string"],
         };
 
@@ -198,6 +216,7 @@ public class AgentUpdateResponseTest : TestBase
             DisabledTools = ["string"],
             EnabledTools = ["string"],
             Sandbox = JsonSerializer.Deserialize<JsonElement>("{}"),
+            VaultGroups = ["string"],
             VaultIds = ["string"],
         };
 
@@ -226,6 +245,7 @@ public class AgentUpdateResponseTest : TestBase
             DisabledTools = ["string"],
             EnabledTools = ["string"],
             Sandbox = JsonSerializer.Deserialize<JsonElement>("{}"),
+            VaultGroups = ["string"],
             VaultIds = ["string"],
         };
 
@@ -241,6 +261,7 @@ public class AgentUpdateResponseTest : TestBase
             DisabledTools = ["string"],
             EnabledTools = ["string"],
             Sandbox = JsonSerializer.Deserialize<JsonElement>("{}"),
+            VaultGroups = ["string"],
             VaultIds = ["string"],
 
             // Null should be interpreted as omitted for these properties
@@ -278,6 +299,7 @@ public class AgentUpdateResponseTest : TestBase
             DisabledTools = ["string"],
             EnabledTools = ["string"],
             Sandbox = JsonSerializer.Deserialize<JsonElement>("{}"),
+            VaultGroups = ["string"],
             VaultIds = ["string"],
 
             // Null should be interpreted as omitted for these properties
@@ -315,6 +337,8 @@ public class AgentUpdateResponseTest : TestBase
         Assert.False(model.RawData.ContainsKey("enabledTools"));
         Assert.Null(model.Sandbox);
         Assert.False(model.RawData.ContainsKey("sandbox"));
+        Assert.Null(model.VaultGroups);
+        Assert.False(model.RawData.ContainsKey("vaultGroups"));
         Assert.Null(model.VaultIds);
         Assert.False(model.RawData.ContainsKey("vaultIds"));
     }
@@ -353,6 +377,7 @@ public class AgentUpdateResponseTest : TestBase
             DisabledTools = null,
             EnabledTools = null,
             Sandbox = null,
+            VaultGroups = null,
             VaultIds = null,
         };
 
@@ -364,6 +389,8 @@ public class AgentUpdateResponseTest : TestBase
         Assert.True(model.RawData.ContainsKey("enabledTools"));
         Assert.Null(model.Sandbox);
         Assert.True(model.RawData.ContainsKey("sandbox"));
+        Assert.Null(model.VaultGroups);
+        Assert.True(model.RawData.ContainsKey("vaultGroups"));
         Assert.Null(model.VaultIds);
         Assert.True(model.RawData.ContainsKey("vaultIds"));
     }
@@ -385,6 +412,7 @@ public class AgentUpdateResponseTest : TestBase
             DisabledTools = null,
             EnabledTools = null,
             Sandbox = null,
+            VaultGroups = null,
             VaultIds = null,
         };
 
@@ -407,6 +435,7 @@ public class AgentUpdateResponseTest : TestBase
             Name = "name",
             Sandbox = JsonSerializer.Deserialize<JsonElement>("{}"),
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            VaultGroups = ["string"],
             VaultIds = ["string"],
         };
 

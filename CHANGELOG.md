@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.2.0 (2026-02-27)
+
+Full Changelog: [v0.1.0...v0.2.0](https://github.com/CaseMark/casedev-csharp/compare/v0.1.0...v0.2.0)
+
+### Features
+
+* **api:** api update ([cea9591](https://github.com/CaseMark/casedev-csharp/commit/cea95915dcf95026ff4ee9166316c6ddbb228f18))
+
+
+### Chores
+
+* **docs:** add undocumented parameters to readme ([cded0cc](https://github.com/CaseMark/casedev-csharp/commit/cded0cc364230d34ff23b3c41023233fdf6dd1cb))
+
 ## 0.1.0 (2026-02-24)
 
 Full Changelog: [v0.0.1...v0.1.0](https://github.com/CaseMark/casedev-csharp/compare/v0.0.1...v0.1.0)
