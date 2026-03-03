@@ -140,8 +140,9 @@ public record class VaultConfirmUploadParams : ParamsBase
 
     internal override HttpContent? BodyContent()
     {
+        var bodyElement = this.RawBodyData["body"];
         return new StringContent(
-            JsonSerializer.Serialize(this.RawBodyData, ModelBase.SerializerOptions),
+            JsonSerializer.Serialize(bodyElement, ModelBase.SerializerOptions),
             Encoding.UTF8,
             "application/json"
         );
