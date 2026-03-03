@@ -34,6 +34,18 @@ public sealed class V1Service : IV1Service
     }
 
     /// <inheritdoc/>
+    public async Task<V1DocketResponse> Docket(
+        V1DocketParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.Docket(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
     public async Task<V1FindResponse> Find(
         V1FindParams parameters,
         CancellationToken cancellationToken = default
@@ -77,6 +89,18 @@ public sealed class V1Service : IV1Service
     {
         using var response = await this
             .WithRawResponse.GetFullText(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public async Task<V1ListCourtsResponse> ListCourts(
+        V1ListCourtsParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.ListCourts(parameters, cancellationToken)
             .ConfigureAwait(false);
         return await response.Deserialize(cancellationToken).ConfigureAwait(false);
     }
@@ -168,6 +192,34 @@ public sealed class V1ServiceWithRawResponse : IV1ServiceWithRawResponse
     public V1ServiceWithRawResponse(ICasedevClientWithRawResponse client)
     {
         _client = client;
+    }
+
+    /// <inheritdoc/>
+    public async Task<HttpResponse<V1DocketResponse>> Docket(
+        V1DocketParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        HttpRequest<V1DocketParams> request = new()
+        {
+            Method = HttpMethod.Post,
+            Params = parameters,
+        };
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var deserializedResponse = await response
+                    .Deserialize<V1DocketResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    deserializedResponse.Validate();
+                }
+                return deserializedResponse;
+            }
+        );
     }
 
     /// <inheritdoc/>
@@ -268,6 +320,36 @@ public sealed class V1ServiceWithRawResponse : IV1ServiceWithRawResponse
             {
                 var deserializedResponse = await response
                     .Deserialize<V1GetFullTextResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    deserializedResponse.Validate();
+                }
+                return deserializedResponse;
+            }
+        );
+    }
+
+    /// <inheritdoc/>
+    public async Task<HttpResponse<V1ListCourtsResponse>> ListCourts(
+        V1ListCourtsParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        HttpRequest<V1ListCourtsParams> request = new()
+        {
+            Method = HttpMethod.Post,
+            Params = parameters,
+        };
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var deserializedResponse = await response
+                    .Deserialize<V1ListCourtsResponse>(token)
                     .ConfigureAwait(false);
                 if (this._client.ResponseValidation)
                 {

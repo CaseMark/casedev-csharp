@@ -1,9 +1,20 @@
 using System.Threading.Tasks;
+using Casedev.Models.Legal.V1;
 
 namespace Casedev.Tests.Services.Legal;
 
 public class V1ServiceTest : TestBase
 {
+    [Fact]
+    public async Task Docket_Works()
+    {
+        var response = await this.client.Legal.V1.Docket(
+            new() { Type = Type.Search },
+            TestContext.Current.CancellationToken
+        );
+        response.Validate();
+    }
+
     [Fact]
     public async Task Find_Works()
     {
@@ -39,6 +50,16 @@ public class V1ServiceTest : TestBase
     {
         var response = await this.client.Legal.V1.GetFullText(
             new() { UrlValue = "https://example.com" },
+            TestContext.Current.CancellationToken
+        );
+        response.Validate();
+    }
+
+    [Fact]
+    public async Task ListCourts_Works()
+    {
+        var response = await this.client.Legal.V1.ListCourts(
+            new(),
             TestContext.Current.CancellationToken
         );
         response.Validate();

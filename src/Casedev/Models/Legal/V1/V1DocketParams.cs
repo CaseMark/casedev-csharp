@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Text;
@@ -9,19 +7,19 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Casedev.Core;
 using Casedev.Exceptions;
+using System = System;
 
-namespace Casedev.Models.Llm.V1.Chat;
+namespace Casedev.Models.Legal.V1;
 
 /// <summary>
-/// Create a completion for the provided prompt and parameters. Compatible with OpenAI's
-/// chat completions API. Supports 40+ models including GPT-4, Claude, Gemini, and
-/// CaseMark legal AI models. Includes streaming support, token counting, and usage tracking.
+/// Search federal court dockets or retrieve a specific docket with optional filing
+/// entries via CourtListener RECAP data.
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that
 /// cause existing derived classes to break.</para>
 /// </summary>
-public record class ChatCreateCompletionParams : ParamsBase
+public record class V1DocketParams : ParamsBase
 {
     readonly JsonDictionary _rawBodyData = new();
     public IReadOnlyDictionary<string, JsonElement> RawBodyData
@@ -30,34 +28,29 @@ public record class ChatCreateCompletionParams : ParamsBase
     }
 
     /// <summary>
-    /// List of messages comprising the conversation
+    /// Search dockets or look up a docket by ID
     /// </summary>
-    public required IReadOnlyList<Message> Messages
+    public required ApiEnum<string, global::Casedev.Models.Legal.V1.Type> Type
     {
         get
         {
             this._rawBodyData.Freeze();
-            return this._rawBodyData.GetNotNullStruct<ImmutableArray<Message>>("messages");
+            return this._rawBodyData.GetNotNullClass<
+                ApiEnum<string, global::Casedev.Models.Legal.V1.Type>
+            >("type");
         }
-        init
-        {
-            this._rawBodyData.Set<ImmutableArray<Message>>(
-                "messages",
-                ImmutableArray.ToImmutableArray(value)
-            );
-        }
+        init { this._rawBodyData.Set("type", value); }
     }
 
     /// <summary>
-    /// CaseMark-only: when true, allows reasoning fields in responses. Defaults to
-    /// false (reasoning is suppressed).
+    /// Optional CourtListener court slug (e.g. "nysd", "ca9", "cafc")
     /// </summary>
-    public bool? CasemarkShowReasoning
+    public string? Court
     {
         get
         {
             this._rawBodyData.Freeze();
-            return this._rawBodyData.GetNullableStruct<bool>("casemark_show_reasoning");
+            return this._rawBodyData.GetNullableClass<string>("court");
         }
         init
         {
@@ -66,19 +59,19 @@ public record class ChatCreateCompletionParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData.Set("casemark_show_reasoning", value);
+            this._rawBodyData.Set("court", value);
         }
     }
 
     /// <summary>
-    /// Frequency penalty parameter
+    /// Optional lower bound for filing date (YYYY-MM-DD)
     /// </summary>
-    public double? FrequencyPenalty
+    public string? DateFiledAfter
     {
         get
         {
             this._rawBodyData.Freeze();
-            return this._rawBodyData.GetNullableStruct<double>("frequency_penalty");
+            return this._rawBodyData.GetNullableClass<string>("dateFiledAfter");
         }
         init
         {
@@ -87,19 +80,19 @@ public record class ChatCreateCompletionParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData.Set("frequency_penalty", value);
+            this._rawBodyData.Set("dateFiledAfter", value);
         }
     }
 
     /// <summary>
-    /// Maximum number of tokens to generate
+    /// Optional upper bound for filing date (YYYY-MM-DD)
     /// </summary>
-    public long? MaxTokens
+    public string? DateFiledBefore
     {
         get
         {
             this._rawBodyData.Freeze();
-            return this._rawBodyData.GetNullableStruct<long>("max_tokens");
+            return this._rawBodyData.GetNullableClass<string>("dateFiledBefore");
         }
         init
         {
@@ -108,19 +101,19 @@ public record class ChatCreateCompletionParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData.Set("max_tokens", value);
+            this._rawBodyData.Set("dateFiledBefore", value);
         }
     }
 
     /// <summary>
-    /// Model to use for completion. Defaults to casemark/casemark-core-6 if not specified
+    /// CourtListener docket ID (required for lookup)
     /// </summary>
-    public string? Model
+    public string? DocketID
     {
         get
         {
             this._rawBodyData.Freeze();
-            return this._rawBodyData.GetNullableClass<string>("model");
+            return this._rawBodyData.GetNullableClass<string>("docketId");
         }
         init
         {
@@ -129,19 +122,19 @@ public record class ChatCreateCompletionParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData.Set("model", value);
+            this._rawBodyData.Set("docketId", value);
         }
     }
 
     /// <summary>
-    /// Presence penalty parameter
+    /// Include docket entries/filings in lookup responses
     /// </summary>
-    public double? PresencePenalty
+    public bool? IncludeEntries
     {
         get
         {
             this._rawBodyData.Freeze();
-            return this._rawBodyData.GetNullableStruct<double>("presence_penalty");
+            return this._rawBodyData.GetNullableStruct<bool>("includeEntries");
         }
         init
         {
@@ -150,19 +143,19 @@ public record class ChatCreateCompletionParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData.Set("presence_penalty", value);
+            this._rawBodyData.Set("includeEntries", value);
         }
     }
 
     /// <summary>
-    /// Whether to stream back partial progress
+    /// Page size for search results or entry list (default 25 for search, 50 for lookup)
     /// </summary>
-    public bool? Stream
+    public long? Limit
     {
         get
         {
             this._rawBodyData.Freeze();
-            return this._rawBodyData.GetNullableStruct<bool>("stream");
+            return this._rawBodyData.GetNullableStruct<long>("limit");
         }
         init
         {
@@ -171,19 +164,19 @@ public record class ChatCreateCompletionParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData.Set("stream", value);
+            this._rawBodyData.Set("limit", value);
         }
     }
 
     /// <summary>
-    /// Sampling temperature between 0 and 2
+    /// Reserved for future PACER live fetch support. Setting true currently returns 400.
     /// </summary>
-    public double? Temperature
+    public bool? Live
     {
         get
         {
             this._rawBodyData.Freeze();
-            return this._rawBodyData.GetNullableStruct<double>("temperature");
+            return this._rawBodyData.GetNullableStruct<bool>("live");
         }
         init
         {
@@ -192,19 +185,19 @@ public record class ChatCreateCompletionParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData.Set("temperature", value);
+            this._rawBodyData.Set("live", value);
         }
     }
 
     /// <summary>
-    /// Nucleus sampling parameter
+    /// Offset for search results or entry list
     /// </summary>
-    public double? TopP
+    public long? Offset
     {
         get
         {
             this._rawBodyData.Freeze();
-            return this._rawBodyData.GetNullableStruct<double>("top_p");
+            return this._rawBodyData.GetNullableStruct<long>("offset");
         }
         init
         {
@@ -213,22 +206,43 @@ public record class ChatCreateCompletionParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData.Set("top_p", value);
+            this._rawBodyData.Set("offset", value);
         }
     }
 
-    public ChatCreateCompletionParams() { }
+    /// <summary>
+    /// Case name or party name search query (required for search)
+    /// </summary>
+    public string? Query
+    {
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("query");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawBodyData.Set("query", value);
+        }
+    }
+
+    public V1DocketParams() { }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    public ChatCreateCompletionParams(ChatCreateCompletionParams chatCreateCompletionParams)
-        : base(chatCreateCompletionParams)
+    public V1DocketParams(V1DocketParams v1DocketParams)
+        : base(v1DocketParams)
     {
-        this._rawBodyData = new(chatCreateCompletionParams._rawBodyData);
+        this._rawBodyData = new(v1DocketParams._rawBodyData);
     }
 #pragma warning restore CS8618
 
-    public ChatCreateCompletionParams(
+    public V1DocketParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
         IReadOnlyDictionary<string, JsonElement> rawBodyData
@@ -241,7 +255,7 @@ public record class ChatCreateCompletionParams : ParamsBase
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    ChatCreateCompletionParams(
+    V1DocketParams(
         FrozenDictionary<string, JsonElement> rawHeaderData,
         FrozenDictionary<string, JsonElement> rawQueryData,
         FrozenDictionary<string, JsonElement> rawBodyData
@@ -254,7 +268,7 @@ public record class ChatCreateCompletionParams : ParamsBase
 #pragma warning restore CS8618
 
     /// <inheritdoc cref="IFromRawJson.FromRawUnchecked"/>
-    public static ChatCreateCompletionParams FromRawUnchecked(
+    public static V1DocketParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
         IReadOnlyDictionary<string, JsonElement> rawBodyData
@@ -284,7 +298,7 @@ public record class ChatCreateCompletionParams : ParamsBase
             ModelBase.ToStringSerializerOptions
         );
 
-    public virtual bool Equals(ChatCreateCompletionParams? other)
+    public virtual bool Equals(V1DocketParams? other)
     {
         if (other == null)
         {
@@ -295,9 +309,9 @@ public record class ChatCreateCompletionParams : ParamsBase
             && this._rawBodyData.Equals(other._rawBodyData);
     }
 
-    public override Uri Url(ClientOptions options)
+    public override System::Uri Url(ClientOptions options)
     {
-        return new UriBuilder(options.BaseUrl.ToString().TrimEnd('/') + "/llm/v1/chat/completions")
+        return new System::UriBuilder(options.BaseUrl.ToString().TrimEnd('/') + "/legal/v1/docket")
         {
             Query = this.QueryString(options),
         }.Uri;
@@ -327,130 +341,44 @@ public record class ChatCreateCompletionParams : ParamsBase
     }
 }
 
-[JsonConverter(typeof(JsonModelConverter<Message, MessageFromRaw>))]
-public sealed record class Message : JsonModel
-{
-    /// <summary>
-    /// The contents of the message
-    /// </summary>
-    public string? Content
-    {
-        get
-        {
-            this._rawData.Freeze();
-            return this._rawData.GetNullableClass<string>("content");
-        }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawData.Set("content", value);
-        }
-    }
-
-    /// <summary>
-    /// The role of the message author
-    /// </summary>
-    public ApiEnum<string, Role>? Role
-    {
-        get
-        {
-            this._rawData.Freeze();
-            return this._rawData.GetNullableClass<ApiEnum<string, Role>>("role");
-        }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawData.Set("role", value);
-        }
-    }
-
-    /// <inheritdoc/>
-    public override void Validate()
-    {
-        _ = this.Content;
-        this.Role?.Validate();
-    }
-
-    public Message() { }
-
-#pragma warning disable CS8618
-    [SetsRequiredMembers]
-    public Message(Message message)
-        : base(message) { }
-#pragma warning restore CS8618
-
-    public Message(IReadOnlyDictionary<string, JsonElement> rawData)
-    {
-        this._rawData = new(rawData);
-    }
-
-#pragma warning disable CS8618
-    [SetsRequiredMembers]
-    Message(FrozenDictionary<string, JsonElement> rawData)
-    {
-        this._rawData = new(rawData);
-    }
-#pragma warning restore CS8618
-
-    /// <inheritdoc cref="MessageFromRaw.FromRawUnchecked"/>
-    public static Message FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
-    {
-        return new(FrozenDictionary.ToFrozenDictionary(rawData));
-    }
-}
-
-class MessageFromRaw : IFromRawJson<Message>
-{
-    /// <inheritdoc/>
-    public Message FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
-        Message.FromRawUnchecked(rawData);
-}
-
 /// <summary>
-/// The role of the message author
+/// Search dockets or look up a docket by ID
 /// </summary>
-[JsonConverter(typeof(RoleConverter))]
-public enum Role
+[JsonConverter(typeof(TypeConverter))]
+public enum Type
 {
-    System,
-    User,
-    Assistant,
+    Search,
+    Lookup,
 }
 
-sealed class RoleConverter : JsonConverter<Role>
+sealed class TypeConverter : JsonConverter<global::Casedev.Models.Legal.V1.Type>
 {
-    public override Role Read(
+    public override global::Casedev.Models.Legal.V1.Type Read(
         ref Utf8JsonReader reader,
-        Type typeToConvert,
+        System::Type typeToConvert,
         JsonSerializerOptions options
     )
     {
         return JsonSerializer.Deserialize<string>(ref reader, options) switch
         {
-            "system" => Role.System,
-            "user" => Role.User,
-            "assistant" => Role.Assistant,
-            _ => (Role)(-1),
+            "search" => global::Casedev.Models.Legal.V1.Type.Search,
+            "lookup" => global::Casedev.Models.Legal.V1.Type.Lookup,
+            _ => (global::Casedev.Models.Legal.V1.Type)(-1),
         };
     }
 
-    public override void Write(Utf8JsonWriter writer, Role value, JsonSerializerOptions options)
+    public override void Write(
+        Utf8JsonWriter writer,
+        global::Casedev.Models.Legal.V1.Type value,
+        JsonSerializerOptions options
+    )
     {
         JsonSerializer.Serialize(
             writer,
             value switch
             {
-                Role.System => "system",
-                Role.User => "user",
-                Role.Assistant => "assistant",
+                global::Casedev.Models.Legal.V1.Type.Search => "search",
+                global::Casedev.Models.Legal.V1.Type.Lookup => "lookup",
                 _ => throw new CasedevInvalidDataException(
                     string.Format("Invalid value '{0}' in {1}", value, nameof(value))
                 ),
