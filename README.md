@@ -180,7 +180,7 @@ The SDK throws custom unchecked exception types:
 
 Additionally, all 4xx errors inherit from `Casedev4xxException`.
 
-false
+- `CasedevSseException`: thrown for errors encountered during [SSE streaming](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events) after a successful initial HTTP response.
 
 - `CasedevIOException`: I/O networking errors.
 
