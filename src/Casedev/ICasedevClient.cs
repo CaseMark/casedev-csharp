@@ -76,6 +76,8 @@ public interface ICasedevClient : IDisposable
 
     IPrivilegeService Privilege { get; }
 
+    ISkillService Skills { get; }
+
     ISearchService Search { get; }
 
     ISuperdocService Superdoc { get; }
@@ -140,6 +142,8 @@ public interface ICasedevClientWithRawResponse : IDisposable
     IOcrServiceWithRawResponse Ocr { get; }
 
     IPrivilegeServiceWithRawResponse Privilege { get; }
+
+    ISkillServiceWithRawResponse Skills { get; }
 
     ISearchServiceWithRawResponse Search { get; }
 

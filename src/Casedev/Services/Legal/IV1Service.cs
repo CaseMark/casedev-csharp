@@ -27,6 +27,15 @@ public interface IV1Service
     IV1Service WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
+    /// Search federal court dockets or retrieve a specific docket with optional filing
+    /// entries via CourtListener RECAP data.
+    /// </summary>
+    Task<V1DocketResponse> Docket(
+        V1DocketParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
     /// Search for legal sources including cases, statutes, and regulations from
     /// authoritative legal databases. Returns ranked candidates. Always verify with
     /// legal.verify() before citing.
@@ -62,6 +71,15 @@ public interface IV1Service
     /// </summary>
     Task<V1GetFullTextResponse> GetFullText(
         V1GetFullTextParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns CourtListener court IDs and names for docket filtering. Use these
+    /// IDs in legal.docket() as the court parameter.
+    /// </summary>
+    Task<V1ListCourtsResponse> ListCourts(
+        V1ListCourtsParams? parameters = null,
         CancellationToken cancellationToken = default
     );
 
@@ -141,6 +159,15 @@ public interface IV1ServiceWithRawResponse
     IV1ServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
+    /// Returns a raw HTTP response for `post /legal/v1/docket`, but is otherwise the
+    /// same as <see cref="IV1Service.Docket(V1DocketParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<V1DocketResponse>> Docket(
+        V1DocketParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
     /// Returns a raw HTTP response for `post /legal/v1/find`, but is otherwise the
     /// same as <see cref="IV1Service.Find(V1FindParams, CancellationToken)"/>.
     /// </summary>
@@ -173,6 +200,15 @@ public interface IV1ServiceWithRawResponse
     /// </summary>
     Task<HttpResponse<V1GetFullTextResponse>> GetFullText(
         V1GetFullTextParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `post /legal/v1/courts`, but is otherwise the
+    /// same as <see cref="IV1Service.ListCourts(V1ListCourtsParams?, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<V1ListCourtsResponse>> ListCourts(
+        V1ListCourtsParams? parameters = null,
         CancellationToken cancellationToken = default
     );
 

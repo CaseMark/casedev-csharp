@@ -18,7 +18,7 @@ public class ChatCreateCompletionParamsTest : TestBase
             CasemarkShowReasoning = false,
             FrequencyPenalty = 0,
             MaxTokens = 1000,
-            Model = "casemark/casemark-core-3",
+            Model = "casemark/casemark-core-6",
             PresencePenalty = 0,
             Stream = false,
             Temperature = 0.7,
@@ -29,7 +29,7 @@ public class ChatCreateCompletionParamsTest : TestBase
         bool expectedCasemarkShowReasoning = false;
         double expectedFrequencyPenalty = 0;
         long expectedMaxTokens = 1000;
-        string expectedModel = "casemark/casemark-core-3";
+        string expectedModel = "casemark/casemark-core-6";
         double expectedPresencePenalty = 0;
         bool expectedStream = false;
         double expectedTemperature = 0.7;
@@ -134,7 +134,7 @@ public class ChatCreateCompletionParamsTest : TestBase
             CasemarkShowReasoning = false,
             FrequencyPenalty = 0,
             MaxTokens = 1000,
-            Model = "casemark/casemark-core-3",
+            Model = "casemark/casemark-core-6",
             PresencePenalty = 0,
             Stream = false,
             Temperature = 0.7,
