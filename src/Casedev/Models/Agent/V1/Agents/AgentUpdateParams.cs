@@ -141,6 +141,22 @@ public record class AgentUpdateParams : ParamsBase
         init { this._rawBodyData.Set("sandbox", value); }
     }
 
+    public IReadOnlyList<string>? VaultGroups
+    {
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<ImmutableArray<string>>("vaultGroups");
+        }
+        init
+        {
+            this._rawBodyData.Set<ImmutableArray<string>?>(
+                "vaultGroups",
+                value == null ? null : ImmutableArray.ToImmutableArray(value)
+            );
+        }
+    }
+
     public IReadOnlyList<string>? VaultIds
     {
         get

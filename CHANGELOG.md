@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.2.0 (2026-03-03)
+
+Full Changelog: [v0.1.0...v0.2.0](https://github.com/CaseMark/casedev-csharp/compare/v0.1.0...v0.2.0)
+
+### Features
+
+* **api:** api update ([bcfc206](https://github.com/CaseMark/casedev-csharp/commit/bcfc206ead398345201695442eafe1c3339765ff))
+* **api:** api update ([33e9933](https://github.com/CaseMark/casedev-csharp/commit/33e993377e02e4fd79401eceb4e480741e965ae1))
+* **api:** api update ([9f2d211](https://github.com/CaseMark/casedev-csharp/commit/9f2d211167d9b019a57f1a3edeede6ef4b245129))
+
+
+### Bug Fixes
+
+* deduplicate CI Slack alerts at workflow level, not PR level ([#8](https://github.com/CaseMark/casedev-csharp/issues/8)) ([934bb1a](https://github.com/CaseMark/casedev-csharp/commit/934bb1aa6e01b1734610d6ac14054e6498b3123b))
+
+
+### Chores
+
+* **docs:** add undocumented parameters to readme ([a754720](https://github.com/CaseMark/casedev-csharp/commit/a754720dbc43d702ba169f00acf28bf9dda955ac))
+
 ## 0.1.0 (2026-02-24)
 
 Full Changelog: [v0.0.1...v0.1.0](https://github.com/CaseMark/casedev-csharp/compare/v0.0.1...v0.1.0)

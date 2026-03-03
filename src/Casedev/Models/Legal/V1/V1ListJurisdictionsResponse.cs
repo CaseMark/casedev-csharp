@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -7,6 +6,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Casedev.Core;
 using Casedev.Exceptions;
+using System = System;
 
 namespace Casedev.Models.Legal.V1;
 
@@ -288,7 +288,7 @@ sealed class LevelConverter : JsonConverter<Level>
 {
     public override Level Read(
         ref Utf8JsonReader reader,
-        Type typeToConvert,
+        System::Type typeToConvert,
         JsonSerializerOptions options
     )
     {

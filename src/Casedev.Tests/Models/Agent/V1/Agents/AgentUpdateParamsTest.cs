@@ -20,6 +20,7 @@ public class AgentUpdateParamsTest : TestBase
             Model = "model",
             Name = "name",
             Sandbox = JsonSerializer.Deserialize<JsonElement>("{}"),
+            VaultGroups = ["string"],
             VaultIds = ["string"],
         };
 
@@ -31,6 +32,7 @@ public class AgentUpdateParamsTest : TestBase
         string expectedModel = "model";
         string expectedName = "name";
         JsonElement expectedSandbox = JsonSerializer.Deserialize<JsonElement>("{}");
+        List<string> expectedVaultGroups = ["string"];
         List<string> expectedVaultIds = ["string"];
 
         Assert.Equal(expectedID, parameters.ID);
@@ -52,6 +54,12 @@ public class AgentUpdateParamsTest : TestBase
         Assert.Equal(expectedName, parameters.Name);
         Assert.NotNull(parameters.Sandbox);
         Assert.True(JsonElement.DeepEquals(expectedSandbox, parameters.Sandbox.Value));
+        Assert.NotNull(parameters.VaultGroups);
+        Assert.Equal(expectedVaultGroups.Count, parameters.VaultGroups.Count);
+        for (int i = 0; i < expectedVaultGroups.Count; i++)
+        {
+            Assert.Equal(expectedVaultGroups[i], parameters.VaultGroups[i]);
+        }
         Assert.NotNull(parameters.VaultIds);
         Assert.Equal(expectedVaultIds.Count, parameters.VaultIds.Count);
         for (int i = 0; i < expectedVaultIds.Count; i++)
@@ -69,6 +77,7 @@ public class AgentUpdateParamsTest : TestBase
             DisabledTools = ["string"],
             EnabledTools = ["string"],
             Sandbox = JsonSerializer.Deserialize<JsonElement>("{}"),
+            VaultGroups = ["string"],
             VaultIds = ["string"],
         };
 
@@ -91,6 +100,7 @@ public class AgentUpdateParamsTest : TestBase
             DisabledTools = ["string"],
             EnabledTools = ["string"],
             Sandbox = JsonSerializer.Deserialize<JsonElement>("{}"),
+            VaultGroups = ["string"],
             VaultIds = ["string"],
 
             // Null should be interpreted as omitted for these properties
@@ -128,6 +138,8 @@ public class AgentUpdateParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("enabledTools"));
         Assert.Null(parameters.Sandbox);
         Assert.False(parameters.RawBodyData.ContainsKey("sandbox"));
+        Assert.Null(parameters.VaultGroups);
+        Assert.False(parameters.RawBodyData.ContainsKey("vaultGroups"));
         Assert.Null(parameters.VaultIds);
         Assert.False(parameters.RawBodyData.ContainsKey("vaultIds"));
     }
@@ -146,6 +158,7 @@ public class AgentUpdateParamsTest : TestBase
             DisabledTools = null,
             EnabledTools = null,
             Sandbox = null,
+            VaultGroups = null,
             VaultIds = null,
         };
 
@@ -155,6 +168,8 @@ public class AgentUpdateParamsTest : TestBase
         Assert.True(parameters.RawBodyData.ContainsKey("enabledTools"));
         Assert.Null(parameters.Sandbox);
         Assert.True(parameters.RawBodyData.ContainsKey("sandbox"));
+        Assert.Null(parameters.VaultGroups);
+        Assert.True(parameters.RawBodyData.ContainsKey("vaultGroups"));
         Assert.Null(parameters.VaultIds);
         Assert.True(parameters.RawBodyData.ContainsKey("vaultIds"));
     }
@@ -182,6 +197,7 @@ public class AgentUpdateParamsTest : TestBase
             Model = "model",
             Name = "name",
             Sandbox = JsonSerializer.Deserialize<JsonElement>("{}"),
+            VaultGroups = ["string"],
             VaultIds = ["string"],
         };
 

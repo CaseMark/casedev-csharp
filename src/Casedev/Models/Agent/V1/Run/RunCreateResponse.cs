@@ -1,5 +1,6 @@
 using System.Collections.Frozen;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -66,6 +67,22 @@ public sealed record class RunCreateResponse : JsonModel
         }
     }
 
+    public IReadOnlyList<string>? ObjectIds
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<ImmutableArray<string>>("objectIds");
+        }
+        init
+        {
+            this._rawData.Set<ImmutableArray<string>?>(
+                "objectIds",
+                value == null ? null : ImmutableArray.ToImmutableArray(value)
+            );
+        }
+    }
+
     public ApiEnum<string, Status>? Status
     {
         get
@@ -90,6 +107,7 @@ public sealed record class RunCreateResponse : JsonModel
         _ = this.ID;
         _ = this.AgentID;
         _ = this.CreatedAt;
+        _ = this.ObjectIds;
         this.Status?.Validate();
     }
 

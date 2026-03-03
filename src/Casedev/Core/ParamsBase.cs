@@ -159,7 +159,7 @@ public abstract record class ParamsBase
     internal string QueryString(ClientOptions options)
     {
         NameValueCollection collection = [];
-        foreach (var item in this.RawQueryData)
+        foreach (var item in this.RawQueryData.OrderBy(kvp => kvp.Key, StringComparer.Ordinal))
         {
             ParamsBase.AddQueryElementToCollection(collection, item.Key, item.Value);
         }
