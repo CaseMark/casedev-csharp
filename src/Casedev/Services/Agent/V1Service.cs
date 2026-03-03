@@ -31,6 +31,7 @@ public sealed class V1Service : IV1Service
         _agents = new(() => new V1::AgentService(client));
         _run = new(() => new V1::RunService(client));
         _execute = new(() => new V1::ExecuteService(client));
+        _chat = new(() => new V1::ChatService(client));
     }
 
     readonly Lazy<V1::IAgentService> _agents;
@@ -49,6 +50,12 @@ public sealed class V1Service : IV1Service
     public V1::IExecuteService Execute
     {
         get { return _execute.Value; }
+    }
+
+    readonly Lazy<V1::IChatService> _chat;
+    public V1::IChatService Chat
+    {
+        get { return _chat.Value; }
     }
 }
 
@@ -70,6 +77,7 @@ public sealed class V1ServiceWithRawResponse : IV1ServiceWithRawResponse
         _agents = new(() => new V1::AgentServiceWithRawResponse(client));
         _run = new(() => new V1::RunServiceWithRawResponse(client));
         _execute = new(() => new V1::ExecuteServiceWithRawResponse(client));
+        _chat = new(() => new V1::ChatServiceWithRawResponse(client));
     }
 
     readonly Lazy<V1::IAgentServiceWithRawResponse> _agents;
@@ -88,5 +96,11 @@ public sealed class V1ServiceWithRawResponse : IV1ServiceWithRawResponse
     public V1::IExecuteServiceWithRawResponse Execute
     {
         get { return _execute.Value; }
+    }
+
+    readonly Lazy<V1::IChatServiceWithRawResponse> _chat;
+    public V1::IChatServiceWithRawResponse Chat
+    {
+        get { return _chat.Value; }
     }
 }

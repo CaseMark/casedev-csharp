@@ -1,0 +1,187 @@
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using Casedev.Core;
+using Casedev.Models.Agent.V1.Chat;
+
+namespace Casedev.Services.Agent.V1;
+
+/// <summary>
+/// NOTE: Do not inherit from this type outside the SDK unless you're okay with breaking
+/// changes in non-major versions. We may add new methods in the future that cause
+/// existing derived classes to break.
+/// </summary>
+public interface IChatService
+{
+    /// <summary>
+    /// Returns a view of this service that provides access to raw HTTP responses
+    /// for each method.
+    /// </summary>
+    IChatServiceWithRawResponse WithRawResponse { get; }
+
+    /// <summary>
+    /// Returns a view of this service with the given option modifications applied.
+    ///
+    /// <para>The original service is not modified.</para>
+    /// </summary>
+    IChatService WithOptions(Func<ClientOptions, ClientOptions> modifier);
+
+    /// <summary>
+    /// Creates a persistent OpenCode chat session in a Modal sandbox. Session state
+    /// is retained and can be resumed across requests.
+    /// </summary>
+    Task<ChatCreateResponse> Create(
+        ChatCreateParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Snapshots and terminates the active sandbox (if any), then marks the chat
+    /// as ended.
+    /// </summary>
+    Task<ChatDeleteResponse> Delete(
+        ChatDeleteParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="Delete(ChatDeleteParams, CancellationToken)"/>
+    Task<ChatDeleteResponse> Delete(
+        string id,
+        ChatDeleteParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Aborts the active OpenCode generation for this chat session.
+    /// </summary>
+    Task<ChatCancelResponse> Cancel(
+        ChatCancelParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="Cancel(ChatCancelParams, CancellationToken)"/>
+    Task<ChatCancelResponse> Cancel(
+        string id,
+        ChatCancelParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Proxies a message to the OpenCode session bound to this chat.
+    /// </summary>
+    Task SendMessage(
+        ChatSendMessageParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="SendMessage(ChatSendMessageParams, CancellationToken)"/>
+    Task SendMessage(
+        string id,
+        ChatSendMessageParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Relays OpenCode SSE events for this chat. Supports replay from buffered events
+    /// using Last-Event-ID.
+    /// </summary>
+    IAsyncEnumerable<string> StreamStreaming(
+        ChatStreamParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="StreamStreaming(ChatStreamParams, CancellationToken)"/>
+    IAsyncEnumerable<string> StreamStreaming(
+        string id,
+        ChatStreamParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+}
+
+/// <summary>
+/// A view of <see cref="IChatService"/> that provides access to raw
+/// HTTP responses for each method.
+/// </summary>
+public interface IChatServiceWithRawResponse
+{
+    /// <summary>
+    /// Returns a view of this service with the given option modifications applied.
+    ///
+    /// <para>The original service is not modified.</para>
+    /// </summary>
+    IChatServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
+
+    /// <summary>
+    /// Returns a raw HTTP response for `post /agent/v1/chat`, but is otherwise the
+    /// same as <see cref="IChatService.Create(ChatCreateParams?, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<ChatCreateResponse>> Create(
+        ChatCreateParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `delete /agent/v1/chat/{id}`, but is otherwise the
+    /// same as <see cref="IChatService.Delete(ChatDeleteParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<ChatDeleteResponse>> Delete(
+        ChatDeleteParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="Delete(ChatDeleteParams, CancellationToken)"/>
+    Task<HttpResponse<ChatDeleteResponse>> Delete(
+        string id,
+        ChatDeleteParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `post /agent/v1/chat/{id}/cancel`, but is otherwise the
+    /// same as <see cref="IChatService.Cancel(ChatCancelParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<ChatCancelResponse>> Cancel(
+        ChatCancelParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="Cancel(ChatCancelParams, CancellationToken)"/>
+    Task<HttpResponse<ChatCancelResponse>> Cancel(
+        string id,
+        ChatCancelParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `post /agent/v1/chat/{id}/message`, but is otherwise the
+    /// same as <see cref="IChatService.SendMessage(ChatSendMessageParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> SendMessage(
+        ChatSendMessageParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="SendMessage(ChatSendMessageParams, CancellationToken)"/>
+    Task<HttpResponse> SendMessage(
+        string id,
+        ChatSendMessageParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `get /agent/v1/chat/{id}/stream`, but is otherwise the
+    /// same as <see cref="IChatService.StreamStreaming(ChatStreamParams, CancellationToken)"/>.
+    /// </summary>
+    Task<StreamingHttpResponse<string>> StreamStreaming(
+        ChatStreamParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="StreamStreaming(ChatStreamParams, CancellationToken)"/>
+    Task<StreamingHttpResponse<string>> StreamStreaming(
+        string id,
+        ChatStreamParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+}

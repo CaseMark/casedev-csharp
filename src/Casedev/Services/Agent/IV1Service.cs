@@ -29,6 +29,8 @@ public interface IV1Service
     V1::IRunService Run { get; }
 
     V1::IExecuteService Execute { get; }
+
+    V1::IChatService Chat { get; }
 }
 
 /// <summary>
@@ -49,4 +51,6 @@ public interface IV1ServiceWithRawResponse
     V1::IRunServiceWithRawResponse Run { get; }
 
     V1::IExecuteServiceWithRawResponse Execute { get; }
+
+    V1::IChatServiceWithRawResponse Chat { get; }
 }
