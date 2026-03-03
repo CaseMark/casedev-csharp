@@ -63,7 +63,7 @@ public class DeploymentRetrieveParamsTest : TestBase
 
         Assert.Equal(
             new Uri(
-                "https://api.case.dev/applications/v1/deployments/id?projectId=projectId&includeLogs=true"
+                "https://api.case.dev/applications/v1/deployments/id?includeLogs=true&projectId=projectId"
             ),
             url
         );

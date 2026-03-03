@@ -80,7 +80,7 @@ public class DeploymentListParamsTest : TestBase
 
         Assert.Equal(
             new Uri(
-                "https://api.case.dev/applications/v1/deployments?projectId=projectId&limit=0&state=state&target=production"
+                "https://api.case.dev/applications/v1/deployments?limit=0&projectId=projectId&state=state&target=production"
             ),
             url
         );
