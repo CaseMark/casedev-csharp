@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.2 (2026-03-04)
+
+Full Changelog: [v0.2.1...v0.2.2](https://github.com/CaseMark/casedev-csharp/compare/v0.2.1...v0.2.2)
+
+### Chores
+
+* **tests:** add tests for retry logic ([e0a99fa](https://github.com/CaseMark/casedev-csharp/commit/e0a99faf9e0517f8cdc331782cfbde532dbc2b25))
+
 ## 0.2.1 (2026-03-04)
 
 Full Changelog: [v0.2.0...v0.2.1](https://github.com/CaseMark/casedev-csharp/compare/v0.2.0...v0.2.1)
