@@ -10,10 +10,12 @@ namespace Casedev.Models.Vault;
 
 /// <summary>
 /// Triggers ingestion workflow for a vault object to extract text, generate chunks,
-/// and create embeddings. For supported file types (PDF, DOCX, TXT, RTF, XML, audio,
-/// video), processing happens asynchronously. For unsupported types (images, archives,
-/// etc.), the file is marked as completed immediately without text extraction. GraphRAG
-/// indexing must be triggered separately via POST /vault/:id/graphrag/:objectId.
+/// and create embeddings. For supported file types (PDF, DOCX, TXT, RTF, XML, ZIP,
+/// audio, video), processing happens asynchronously. ZIP archives are unpacked recursively
+/// up to 5 levels, and each extracted file is created as an independent vault object
+/// and ingested via the normal pipeline. For unsupported types (images, etc.), the
+/// file is marked as completed immediately without text extraction. GraphRAG indexing
+/// must be triggered separately via POST /vault/:id/graphrag/:objectId.
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that
