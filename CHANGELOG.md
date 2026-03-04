@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.3 (2026-03-04)
+
+Full Changelog: [v0.2.2...v0.2.3](https://github.com/CaseMark/casedev-csharp/compare/v0.2.2...v0.2.3)
+
+### Chores
+
+* send Accept header in more places ([32bf440](https://github.com/CaseMark/casedev-csharp/commit/32bf4404c0f6ef68aaabca655780e2be45174c32))
+
 ## 0.2.2 (2026-03-04)
 
 Full Changelog: [v0.2.1...v0.2.2](https://github.com/CaseMark/casedev-csharp/compare/v0.2.1...v0.2.2)
