@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.1 (2026-03-04)
+
+Full Changelog: [v0.2.0...v0.2.1](https://github.com/CaseMark/casedev-csharp/compare/v0.2.0...v0.2.1)
+
+### Chores
+
+* **internal:** codegen related update ([63b9ba1](https://github.com/CaseMark/casedev-csharp/commit/63b9ba186148d72356fcf8f4bca2d0821856e904))
+
 ## 0.2.0 (2026-03-03)
 
 Full Changelog: [v0.1.0...v0.2.0](https://github.com/CaseMark/casedev-csharp/compare/v0.1.0...v0.2.0)

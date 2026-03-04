@@ -7,9 +7,11 @@ using Casedev.Models.Compute.V1.InstanceTypes;
 namespace Casedev.Services.Compute.V1;
 
 /// <summary>
-/// NOTE: Do not inherit from this type outside the SDK unless you're okay with breaking
-/// changes in non-major versions. We may add new methods in the future that cause
-/// existing derived classes to break.
+/// Serverless GPU and CPU infrastructure
+///
+/// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
+/// breaking changes in non-major versions. We may add new methods in the future that
+/// cause existing derived classes to break.</para>
 /// </summary>
 public interface IInstanceTypeService
 {
