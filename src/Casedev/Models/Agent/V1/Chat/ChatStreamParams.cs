@@ -127,6 +127,7 @@ public record class ChatStreamParams : ParamsBase
     internal override void AddHeadersToRequest(HttpRequestMessage request, ClientOptions options)
     {
         ParamsBase.AddDefaultHeaders(request, options);
+        request.Headers.Add("Accept", "text/event-stream");
         foreach (var item in this.RawHeaderData)
         {
             ParamsBase.AddHeaderElementToRequest(request, item.Key, item.Value);
