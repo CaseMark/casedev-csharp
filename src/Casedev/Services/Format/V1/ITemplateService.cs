@@ -7,9 +7,11 @@ using Casedev.Models.Format.V1.Templates;
 namespace Casedev.Services.Format.V1;
 
 /// <summary>
-/// NOTE: Do not inherit from this type outside the SDK unless you're okay with breaking
-/// changes in non-major versions. We may add new methods in the future that cause
-/// existing derived classes to break.
+/// Document formatting and template rendering (MD/JSON to PDF/DOCX)
+///
+/// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
+/// breaking changes in non-major versions. We may add new methods in the future that
+/// cause existing derived classes to break.</para>
 /// </summary>
 public interface ITemplateService
 {

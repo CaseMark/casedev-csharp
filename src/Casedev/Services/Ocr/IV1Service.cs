@@ -7,9 +7,11 @@ using V1 = Casedev.Models.Ocr.V1;
 namespace Casedev.Services.Ocr;
 
 /// <summary>
-/// NOTE: Do not inherit from this type outside the SDK unless you're okay with breaking
-/// changes in non-major versions. We may add new methods in the future that cause
-/// existing derived classes to break.
+/// Extract text from PDFs, images, and scanned documents
+///
+/// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
+/// breaking changes in non-major versions. We may add new methods in the future that
+/// cause existing derived classes to break.</para>
 /// </summary>
 public interface IV1Service
 {
