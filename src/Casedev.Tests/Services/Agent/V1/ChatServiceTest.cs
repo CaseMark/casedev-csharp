@@ -37,6 +37,18 @@ public class ChatServiceTest : TestBase
         response.Validate();
     }
 
+    [Fact(Skip = "Mock server doesn't support text/event-stream responses")]
+    public async Task RespondStreaming_Works()
+    {
+        var stream = this.client.Agent.V1.Chat.RespondStreaming(
+            "id",
+            new() { Body = JsonSerializer.Deserialize<JsonElement>("{}") },
+            TestContext.Current.CancellationToken
+        );
+
+        await foreach (var response in stream) { }
+    }
+
     [Fact]
     public async Task SendMessage_Works()
     {

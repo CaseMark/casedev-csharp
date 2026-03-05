@@ -68,6 +68,22 @@ public interface IChatService
     );
 
     /// <summary>
+    /// Streams a single assistant turn as normalized state events with stable turn,
+    /// message, and part ids.
+    /// </summary>
+    IAsyncEnumerable<string> RespondStreaming(
+        ChatRespondParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="RespondStreaming(ChatRespondParams, CancellationToken)"/>
+    IAsyncEnumerable<string> RespondStreaming(
+        string id,
+        ChatRespondParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
     /// Proxies a message to the OpenCode session bound to this chat.
     /// </summary>
     Task SendMessage(
@@ -150,6 +166,22 @@ public interface IChatServiceWithRawResponse
     Task<HttpResponse<ChatCancelResponse>> Cancel(
         string id,
         ChatCancelParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `post /agent/v1/chat/{id}/respond`, but is otherwise the
+    /// same as <see cref="IChatService.RespondStreaming(ChatRespondParams, CancellationToken)"/>.
+    /// </summary>
+    Task<StreamingHttpResponse<string>> RespondStreaming(
+        ChatRespondParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="RespondStreaming(ChatRespondParams, CancellationToken)"/>
+    Task<StreamingHttpResponse<string>> RespondStreaming(
+        string id,
+        ChatRespondParams parameters,
         CancellationToken cancellationToken = default
     );
 
