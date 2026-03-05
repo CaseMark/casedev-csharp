@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Casedev.Core;
@@ -68,6 +70,38 @@ public sealed class RunService : IRunService
         parameters ??= new();
 
         return this.Cancel(parameters with { ID = id }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async IAsyncEnumerable<string> EventsStreaming(
+        RunEventsParams parameters,
+        [EnumeratorCancellation] CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.EventsStreaming(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        await foreach (var item in response.Enumerate(cancellationToken))
+        {
+            yield return item;
+        }
+    }
+
+    /// <inheritdoc/>
+    public async IAsyncEnumerable<string> EventsStreaming(
+        string id,
+        RunEventsParams? parameters = null,
+        [EnumeratorCancellation] CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        await foreach (
+            var item in this.EventsStreaming(parameters with { ID = id }, cancellationToken)
+        )
+        {
+            yield return item;
+        }
     }
 
     /// <inheritdoc/>
@@ -252,6 +286,48 @@ public sealed class RunServiceWithRawResponse : IRunServiceWithRawResponse
         parameters ??= new();
 
         return this.Cancel(parameters with { ID = id }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async Task<StreamingHttpResponse<string>> EventsStreaming(
+        RunEventsParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        if (parameters.ID == null)
+        {
+            throw new CasedevInvalidDataException("'parameters.ID' cannot be null");
+        }
+
+        HttpRequest<RunEventsParams> request = new()
+        {
+            Method = HttpMethod.Get,
+            Params = parameters,
+        };
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+
+        async IAsyncEnumerable<string> Enumerate([EnumeratorCancellation] CancellationToken token)
+        {
+            await foreach (
+                var deserializedItem in Sse.Enumerate<string>(response.RawMessage, token)
+            )
+            {
+                yield return deserializedItem;
+            }
+        }
+        return new(response, Enumerate);
+    }
+
+    /// <inheritdoc/>
+    public Task<StreamingHttpResponse<string>> EventsStreaming(
+        string id,
+        RunEventsParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        return this.EventsStreaming(parameters with { ID = id }, cancellationToken);
     }
 
     /// <inheritdoc/>

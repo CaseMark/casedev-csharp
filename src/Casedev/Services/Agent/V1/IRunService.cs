@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Casedev.Core;
@@ -47,6 +48,21 @@ public interface IRunService
     Task<RunCancelResponse> Cancel(
         string id,
         RunCancelParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Streams real-time run events over SSE. Supports replay using Last-Event-ID.
+    /// </summary>
+    IAsyncEnumerable<string> EventsStreaming(
+        RunEventsParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="EventsStreaming(RunEventsParams, CancellationToken)"/>
+    IAsyncEnumerable<string> EventsStreaming(
+        string id,
+        RunEventsParams? parameters = null,
         CancellationToken cancellationToken = default
     );
 
@@ -149,6 +165,22 @@ public interface IRunServiceWithRawResponse
     Task<HttpResponse<RunCancelResponse>> Cancel(
         string id,
         RunCancelParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `get /agent/v1/run/{id}/events`, but is otherwise the
+    /// same as <see cref="IRunService.EventsStreaming(RunEventsParams, CancellationToken)"/>.
+    /// </summary>
+    Task<StreamingHttpResponse<string>> EventsStreaming(
+        RunEventsParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="EventsStreaming(RunEventsParams, CancellationToken)"/>
+    Task<StreamingHttpResponse<string>> EventsStreaming(
+        string id,
+        RunEventsParams? parameters = null,
         CancellationToken cancellationToken = default
     );
 
