@@ -38,6 +38,16 @@ public interface IV1Service
     );
 
     /// <summary>
+    /// Generate a legal document with structured inputs. Powered by an agent that
+    /// handles research, formatting, citation verification, and vault upload. Returns
+    /// a run ID for polling.
+    /// </summary>
+    Task<V1DraftResponse> Draft(
+        V1DraftParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
     /// Search for legal sources including cases, statutes, and regulations from
     /// authoritative legal databases. Returns ranked candidates. Always verify with
     /// legal.verify() before citing.
@@ -166,6 +176,15 @@ public interface IV1ServiceWithRawResponse
     /// </summary>
     Task<HttpResponse<V1DocketResponse>> Docket(
         V1DocketParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `post /legal/v1/draft`, but is otherwise the
+    /// same as <see cref="IV1Service.Draft(V1DraftParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<V1DraftResponse>> Draft(
+        V1DraftParams parameters,
         CancellationToken cancellationToken = default
     );
 

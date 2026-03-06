@@ -24,8 +24,15 @@ public class RunGetDetailsResponseTest : TestBase
             Prompt = "prompt",
             Result = new()
             {
+                FinalResponse = new()
+                {
+                    CreatedObjectIds = ["string"],
+                    Issues = ["string"],
+                    Summary = "summary",
+                },
                 Logs = new() { Opencode = "opencode", Runner = "runner" },
                 Output = "output",
+                OutputObjectIds = ["string"],
             },
             StartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Status = Run::RunGetDetailsResponseStatus.Queued,
@@ -64,8 +71,15 @@ public class RunGetDetailsResponseTest : TestBase
         string expectedPrompt = "prompt";
         Run::Result expectedResult = new()
         {
+            FinalResponse = new()
+            {
+                CreatedObjectIds = ["string"],
+                Issues = ["string"],
+                Summary = "summary",
+            },
             Logs = new() { Opencode = "opencode", Runner = "runner" },
             Output = "output",
+            OutputObjectIds = ["string"],
         };
         DateTimeOffset expectedStartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
         ApiEnum<string, Run::RunGetDetailsResponseStatus> expectedStatus =
@@ -130,8 +144,15 @@ public class RunGetDetailsResponseTest : TestBase
             Prompt = "prompt",
             Result = new()
             {
+                FinalResponse = new()
+                {
+                    CreatedObjectIds = ["string"],
+                    Issues = ["string"],
+                    Summary = "summary",
+                },
                 Logs = new() { Opencode = "opencode", Runner = "runner" },
                 Output = "output",
+                OutputObjectIds = ["string"],
             },
             StartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Status = Run::RunGetDetailsResponseStatus.Queued,
@@ -184,8 +205,15 @@ public class RunGetDetailsResponseTest : TestBase
             Prompt = "prompt",
             Result = new()
             {
+                FinalResponse = new()
+                {
+                    CreatedObjectIds = ["string"],
+                    Issues = ["string"],
+                    Summary = "summary",
+                },
                 Logs = new() { Opencode = "opencode", Runner = "runner" },
                 Output = "output",
+                OutputObjectIds = ["string"],
             },
             StartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Status = Run::RunGetDetailsResponseStatus.Queued,
@@ -231,8 +259,15 @@ public class RunGetDetailsResponseTest : TestBase
         string expectedPrompt = "prompt";
         Run::Result expectedResult = new()
         {
+            FinalResponse = new()
+            {
+                CreatedObjectIds = ["string"],
+                Issues = ["string"],
+                Summary = "summary",
+            },
             Logs = new() { Opencode = "opencode", Runner = "runner" },
             Output = "output",
+            OutputObjectIds = ["string"],
         };
         DateTimeOffset expectedStartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
         ApiEnum<string, Run::RunGetDetailsResponseStatus> expectedStatus =
@@ -297,8 +332,15 @@ public class RunGetDetailsResponseTest : TestBase
             Prompt = "prompt",
             Result = new()
             {
+                FinalResponse = new()
+                {
+                    CreatedObjectIds = ["string"],
+                    Issues = ["string"],
+                    Summary = "summary",
+                },
                 Logs = new() { Opencode = "opencode", Runner = "runner" },
                 Output = "output",
+                OutputObjectIds = ["string"],
             },
             StartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Status = Run::RunGetDetailsResponseStatus.Queued,
@@ -341,8 +383,15 @@ public class RunGetDetailsResponseTest : TestBase
             Model = "model",
             Result = new()
             {
+                FinalResponse = new()
+                {
+                    CreatedObjectIds = ["string"],
+                    Issues = ["string"],
+                    Summary = "summary",
+                },
                 Logs = new() { Opencode = "opencode", Runner = "runner" },
                 Output = "output",
+                OutputObjectIds = ["string"],
             },
             StartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Usage = new()
@@ -381,8 +430,15 @@ public class RunGetDetailsResponseTest : TestBase
             Model = "model",
             Result = new()
             {
+                FinalResponse = new()
+                {
+                    CreatedObjectIds = ["string"],
+                    Issues = ["string"],
+                    Summary = "summary",
+                },
                 Logs = new() { Opencode = "opencode", Runner = "runner" },
                 Output = "output",
+                OutputObjectIds = ["string"],
             },
             StartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Usage = new()
@@ -410,8 +466,15 @@ public class RunGetDetailsResponseTest : TestBase
             Model = "model",
             Result = new()
             {
+                FinalResponse = new()
+                {
+                    CreatedObjectIds = ["string"],
+                    Issues = ["string"],
+                    Summary = "summary",
+                },
                 Logs = new() { Opencode = "opencode", Runner = "runner" },
                 Output = "output",
+                OutputObjectIds = ["string"],
             },
             StartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Usage = new()
@@ -458,8 +521,15 @@ public class RunGetDetailsResponseTest : TestBase
             Model = "model",
             Result = new()
             {
+                FinalResponse = new()
+                {
+                    CreatedObjectIds = ["string"],
+                    Issues = ["string"],
+                    Summary = "summary",
+                },
                 Logs = new() { Opencode = "opencode", Runner = "runner" },
                 Output = "output",
+                OutputObjectIds = ["string"],
             },
             StartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Usage = new()
@@ -663,8 +733,15 @@ public class RunGetDetailsResponseTest : TestBase
             Prompt = "prompt",
             Result = new()
             {
+                FinalResponse = new()
+                {
+                    CreatedObjectIds = ["string"],
+                    Issues = ["string"],
+                    Summary = "summary",
+                },
                 Logs = new() { Opencode = "opencode", Runner = "runner" },
                 Output = "output",
+                OutputObjectIds = ["string"],
             },
             StartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Status = Run::RunGetDetailsResponseStatus.Queued,
@@ -706,15 +783,36 @@ public class ResultTest : TestBase
     {
         var model = new Run::Result
         {
+            FinalResponse = new()
+            {
+                CreatedObjectIds = ["string"],
+                Issues = ["string"],
+                Summary = "summary",
+            },
             Logs = new() { Opencode = "opencode", Runner = "runner" },
             Output = "output",
+            OutputObjectIds = ["string"],
         };
 
+        Run::FinalResponse expectedFinalResponse = new()
+        {
+            CreatedObjectIds = ["string"],
+            Issues = ["string"],
+            Summary = "summary",
+        };
         Run::Logs expectedLogs = new() { Opencode = "opencode", Runner = "runner" };
         string expectedOutput = "output";
+        List<string> expectedOutputObjectIds = ["string"];
 
+        Assert.Equal(expectedFinalResponse, model.FinalResponse);
         Assert.Equal(expectedLogs, model.Logs);
         Assert.Equal(expectedOutput, model.Output);
+        Assert.NotNull(model.OutputObjectIds);
+        Assert.Equal(expectedOutputObjectIds.Count, model.OutputObjectIds.Count);
+        for (int i = 0; i < expectedOutputObjectIds.Count; i++)
+        {
+            Assert.Equal(expectedOutputObjectIds[i], model.OutputObjectIds[i]);
+        }
     }
 
     [Fact]
@@ -722,8 +820,15 @@ public class ResultTest : TestBase
     {
         var model = new Run::Result
         {
+            FinalResponse = new()
+            {
+                CreatedObjectIds = ["string"],
+                Issues = ["string"],
+                Summary = "summary",
+            },
             Logs = new() { Opencode = "opencode", Runner = "runner" },
             Output = "output",
+            OutputObjectIds = ["string"],
         };
 
         string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
@@ -740,8 +845,15 @@ public class ResultTest : TestBase
     {
         var model = new Run::Result
         {
+            FinalResponse = new()
+            {
+                CreatedObjectIds = ["string"],
+                Issues = ["string"],
+                Summary = "summary",
+            },
             Logs = new() { Opencode = "opencode", Runner = "runner" },
             Output = "output",
+            OutputObjectIds = ["string"],
         };
 
         string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
@@ -751,11 +863,25 @@ public class ResultTest : TestBase
         );
         Assert.NotNull(deserialized);
 
+        Run::FinalResponse expectedFinalResponse = new()
+        {
+            CreatedObjectIds = ["string"],
+            Issues = ["string"],
+            Summary = "summary",
+        };
         Run::Logs expectedLogs = new() { Opencode = "opencode", Runner = "runner" };
         string expectedOutput = "output";
+        List<string> expectedOutputObjectIds = ["string"];
 
+        Assert.Equal(expectedFinalResponse, deserialized.FinalResponse);
         Assert.Equal(expectedLogs, deserialized.Logs);
         Assert.Equal(expectedOutput, deserialized.Output);
+        Assert.NotNull(deserialized.OutputObjectIds);
+        Assert.Equal(expectedOutputObjectIds.Count, deserialized.OutputObjectIds.Count);
+        for (int i = 0; i < expectedOutputObjectIds.Count; i++)
+        {
+            Assert.Equal(expectedOutputObjectIds[i], deserialized.OutputObjectIds[i]);
+        }
     }
 
     [Fact]
@@ -763,8 +889,15 @@ public class ResultTest : TestBase
     {
         var model = new Run::Result
         {
+            FinalResponse = new()
+            {
+                CreatedObjectIds = ["string"],
+                Issues = ["string"],
+                Summary = "summary",
+            },
             Logs = new() { Opencode = "opencode", Runner = "runner" },
             Output = "output",
+            OutputObjectIds = ["string"],
         };
 
         model.Validate();
@@ -775,11 +908,19 @@ public class ResultTest : TestBase
     {
         var model = new Run::Result
         {
+            FinalResponse = new()
+            {
+                CreatedObjectIds = ["string"],
+                Issues = ["string"],
+                Summary = "summary",
+            },
             Logs = new() { Opencode = "opencode", Runner = "runner" },
         };
 
         Assert.Null(model.Output);
         Assert.False(model.RawData.ContainsKey("output"));
+        Assert.Null(model.OutputObjectIds);
+        Assert.False(model.RawData.ContainsKey("outputObjectIds"));
     }
 
     [Fact]
@@ -787,6 +928,12 @@ public class ResultTest : TestBase
     {
         var model = new Run::Result
         {
+            FinalResponse = new()
+            {
+                CreatedObjectIds = ["string"],
+                Issues = ["string"],
+                Summary = "summary",
+            },
             Logs = new() { Opencode = "opencode", Runner = "runner" },
         };
 
@@ -798,14 +945,23 @@ public class ResultTest : TestBase
     {
         var model = new Run::Result
         {
+            FinalResponse = new()
+            {
+                CreatedObjectIds = ["string"],
+                Issues = ["string"],
+                Summary = "summary",
+            },
             Logs = new() { Opencode = "opencode", Runner = "runner" },
 
             // Null should be interpreted as omitted for these properties
             Output = null,
+            OutputObjectIds = null,
         };
 
         Assert.Null(model.Output);
         Assert.False(model.RawData.ContainsKey("output"));
+        Assert.Null(model.OutputObjectIds);
+        Assert.False(model.RawData.ContainsKey("outputObjectIds"));
     }
 
     [Fact]
@@ -813,10 +969,17 @@ public class ResultTest : TestBase
     {
         var model = new Run::Result
         {
+            FinalResponse = new()
+            {
+                CreatedObjectIds = ["string"],
+                Issues = ["string"],
+                Summary = "summary",
+            },
             Logs = new() { Opencode = "opencode", Runner = "runner" },
 
             // Null should be interpreted as omitted for these properties
             Output = null,
+            OutputObjectIds = null,
         };
 
         model.Validate();
@@ -825,8 +988,10 @@ public class ResultTest : TestBase
     [Fact]
     public void OptionalNullablePropertiesUnsetAreNotSet_Works()
     {
-        var model = new Run::Result { Output = "output" };
+        var model = new Run::Result { Output = "output", OutputObjectIds = ["string"] };
 
+        Assert.Null(model.FinalResponse);
+        Assert.False(model.RawData.ContainsKey("finalResponse"));
         Assert.Null(model.Logs);
         Assert.False(model.RawData.ContainsKey("logs"));
     }
@@ -834,7 +999,7 @@ public class ResultTest : TestBase
     [Fact]
     public void OptionalNullablePropertiesUnsetValidation_Works()
     {
-        var model = new Run::Result { Output = "output" };
+        var model = new Run::Result { Output = "output", OutputObjectIds = ["string"] };
 
         model.Validate();
     }
@@ -845,10 +1010,14 @@ public class ResultTest : TestBase
         var model = new Run::Result
         {
             Output = "output",
+            OutputObjectIds = ["string"],
 
+            FinalResponse = null,
             Logs = null,
         };
 
+        Assert.Null(model.FinalResponse);
+        Assert.True(model.RawData.ContainsKey("finalResponse"));
         Assert.Null(model.Logs);
         Assert.True(model.RawData.ContainsKey("logs"));
     }
@@ -859,7 +1028,9 @@ public class ResultTest : TestBase
         var model = new Run::Result
         {
             Output = "output",
+            OutputObjectIds = ["string"],
 
+            FinalResponse = null,
             Logs = null,
         };
 
@@ -871,11 +1042,187 @@ public class ResultTest : TestBase
     {
         var model = new Run::Result
         {
+            FinalResponse = new()
+            {
+                CreatedObjectIds = ["string"],
+                Issues = ["string"],
+                Summary = "summary",
+            },
             Logs = new() { Opencode = "opencode", Runner = "runner" },
             Output = "output",
+            OutputObjectIds = ["string"],
         };
 
         Run::Result copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
+}
+
+public class FinalResponseTest : TestBase
+{
+    [Fact]
+    public void FieldRoundtrip_Works()
+    {
+        var model = new Run::FinalResponse
+        {
+            CreatedObjectIds = ["string"],
+            Issues = ["string"],
+            Summary = "summary",
+        };
+
+        List<string> expectedCreatedObjectIds = ["string"];
+        List<string> expectedIssues = ["string"];
+        string expectedSummary = "summary";
+
+        Assert.NotNull(model.CreatedObjectIds);
+        Assert.Equal(expectedCreatedObjectIds.Count, model.CreatedObjectIds.Count);
+        for (int i = 0; i < expectedCreatedObjectIds.Count; i++)
+        {
+            Assert.Equal(expectedCreatedObjectIds[i], model.CreatedObjectIds[i]);
+        }
+        Assert.NotNull(model.Issues);
+        Assert.Equal(expectedIssues.Count, model.Issues.Count);
+        for (int i = 0; i < expectedIssues.Count; i++)
+        {
+            Assert.Equal(expectedIssues[i], model.Issues[i]);
+        }
+        Assert.Equal(expectedSummary, model.Summary);
+    }
+
+    [Fact]
+    public void SerializationRoundtrip_Works()
+    {
+        var model = new Run::FinalResponse
+        {
+            CreatedObjectIds = ["string"],
+            Issues = ["string"],
+            Summary = "summary",
+        };
+
+        string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<Run::FinalResponse>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(model, deserialized);
+    }
+
+    [Fact]
+    public void FieldRoundtripThroughSerialization_Works()
+    {
+        var model = new Run::FinalResponse
+        {
+            CreatedObjectIds = ["string"],
+            Issues = ["string"],
+            Summary = "summary",
+        };
+
+        string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<Run::FinalResponse>(
+            element,
+            ModelBase.SerializerOptions
+        );
+        Assert.NotNull(deserialized);
+
+        List<string> expectedCreatedObjectIds = ["string"];
+        List<string> expectedIssues = ["string"];
+        string expectedSummary = "summary";
+
+        Assert.NotNull(deserialized.CreatedObjectIds);
+        Assert.Equal(expectedCreatedObjectIds.Count, deserialized.CreatedObjectIds.Count);
+        for (int i = 0; i < expectedCreatedObjectIds.Count; i++)
+        {
+            Assert.Equal(expectedCreatedObjectIds[i], deserialized.CreatedObjectIds[i]);
+        }
+        Assert.NotNull(deserialized.Issues);
+        Assert.Equal(expectedIssues.Count, deserialized.Issues.Count);
+        for (int i = 0; i < expectedIssues.Count; i++)
+        {
+            Assert.Equal(expectedIssues[i], deserialized.Issues[i]);
+        }
+        Assert.Equal(expectedSummary, deserialized.Summary);
+    }
+
+    [Fact]
+    public void Validation_Works()
+    {
+        var model = new Run::FinalResponse
+        {
+            CreatedObjectIds = ["string"],
+            Issues = ["string"],
+            Summary = "summary",
+        };
+
+        model.Validate();
+    }
+
+    [Fact]
+    public void OptionalNonNullablePropertiesUnsetAreNotSet_Works()
+    {
+        var model = new Run::FinalResponse { };
+
+        Assert.Null(model.CreatedObjectIds);
+        Assert.False(model.RawData.ContainsKey("createdObjectIds"));
+        Assert.Null(model.Issues);
+        Assert.False(model.RawData.ContainsKey("issues"));
+        Assert.Null(model.Summary);
+        Assert.False(model.RawData.ContainsKey("summary"));
+    }
+
+    [Fact]
+    public void OptionalNonNullablePropertiesUnsetValidation_Works()
+    {
+        var model = new Run::FinalResponse { };
+
+        model.Validate();
+    }
+
+    [Fact]
+    public void OptionalNonNullablePropertiesSetToNullAreNotSet_Works()
+    {
+        var model = new Run::FinalResponse
+        {
+            // Null should be interpreted as omitted for these properties
+            CreatedObjectIds = null,
+            Issues = null,
+            Summary = null,
+        };
+
+        Assert.Null(model.CreatedObjectIds);
+        Assert.False(model.RawData.ContainsKey("createdObjectIds"));
+        Assert.Null(model.Issues);
+        Assert.False(model.RawData.ContainsKey("issues"));
+        Assert.Null(model.Summary);
+        Assert.False(model.RawData.ContainsKey("summary"));
+    }
+
+    [Fact]
+    public void OptionalNonNullablePropertiesSetToNullValidation_Works()
+    {
+        var model = new Run::FinalResponse
+        {
+            // Null should be interpreted as omitted for these properties
+            CreatedObjectIds = null,
+            Issues = null,
+            Summary = null,
+        };
+
+        model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Run::FinalResponse
+        {
+            CreatedObjectIds = ["string"],
+            Issues = ["string"],
+            Summary = "summary",
+        };
+
+        Run::FinalResponse copied = new(model);
 
         Assert.Equal(model, copied);
     }
