@@ -285,6 +285,19 @@ class RunGetDetailsResponseFromRaw : IFromRawJson<RunGetDetailsResponse>
 public sealed record class Result : JsonModel
 {
     /// <summary>
+    /// Compact agent-facing result summary and execution issues
+    /// </summary>
+    public FinalResponse? FinalResponse
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<FinalResponse>("finalResponse");
+        }
+        init { this._rawData.Set("finalResponse", value); }
+    }
+
+    /// <summary>
     /// Sandbox execution logs (OpenCode server + runner script)
     /// </summary>
     public Logs? Logs
@@ -315,11 +328,34 @@ public sealed record class Result : JsonModel
         }
     }
 
+    public IReadOnlyList<string>? OutputObjectIds
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<ImmutableArray<string>>("outputObjectIds");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawData.Set<ImmutableArray<string>?>(
+                "outputObjectIds",
+                value == null ? null : ImmutableArray.ToImmutableArray(value)
+            );
+        }
+    }
+
     /// <inheritdoc/>
     public override void Validate()
     {
+        this.FinalResponse?.Validate();
         this.Logs?.Validate();
         _ = this.Output;
+        _ = this.OutputObjectIds;
     }
 
     public Result() { }
@@ -355,6 +391,115 @@ class ResultFromRaw : IFromRawJson<Result>
     /// <inheritdoc/>
     public Result FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         Result.FromRawUnchecked(rawData);
+}
+
+/// <summary>
+/// Compact agent-facing result summary and execution issues
+/// </summary>
+[JsonConverter(typeof(JsonModelConverter<FinalResponse, FinalResponseFromRaw>))]
+public sealed record class FinalResponse : JsonModel
+{
+    public IReadOnlyList<string>? CreatedObjectIds
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<ImmutableArray<string>>("createdObjectIds");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawData.Set<ImmutableArray<string>?>(
+                "createdObjectIds",
+                value == null ? null : ImmutableArray.ToImmutableArray(value)
+            );
+        }
+    }
+
+    public IReadOnlyList<string>? Issues
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<ImmutableArray<string>>("issues");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawData.Set<ImmutableArray<string>?>(
+                "issues",
+                value == null ? null : ImmutableArray.ToImmutableArray(value)
+            );
+        }
+    }
+
+    public string? Summary
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("summary");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawData.Set("summary", value);
+        }
+    }
+
+    /// <inheritdoc/>
+    public override void Validate()
+    {
+        _ = this.CreatedObjectIds;
+        _ = this.Issues;
+        _ = this.Summary;
+    }
+
+    public FinalResponse() { }
+
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
+    public FinalResponse(FinalResponse finalResponse)
+        : base(finalResponse) { }
+#pragma warning restore CS8618
+
+    public FinalResponse(IReadOnlyDictionary<string, JsonElement> rawData)
+    {
+        this._rawData = new(rawData);
+    }
+
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
+    FinalResponse(FrozenDictionary<string, JsonElement> rawData)
+    {
+        this._rawData = new(rawData);
+    }
+#pragma warning restore CS8618
+
+    /// <inheritdoc cref="FinalResponseFromRaw.FromRawUnchecked"/>
+    public static FinalResponse FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
+    {
+        return new(FrozenDictionary.ToFrozenDictionary(rawData));
+    }
+}
+
+class FinalResponseFromRaw : IFromRawJson<FinalResponse>
+{
+    /// <inheritdoc/>
+    public FinalResponse FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
+        FinalResponse.FromRawUnchecked(rawData);
 }
 
 /// <summary>

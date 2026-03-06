@@ -42,7 +42,7 @@ public class V1VerifyResponseTest : TestBase
                     Normalized = "normalized",
                     Original = "original",
                     Span = new() { End = 0, Start = 0 },
-                    Status = Status.Verified,
+                    Status = V1VerifyResponseCitationStatus.Verified,
                     VerificationSource = VerificationSource.Courtlistener,
                 },
             ],
@@ -84,7 +84,7 @@ public class V1VerifyResponseTest : TestBase
                 Normalized = "normalized",
                 Original = "original",
                 Span = new() { End = 0, Start = 0 },
-                Status = Status.Verified,
+                Status = V1VerifyResponseCitationStatus.Verified,
                 VerificationSource = VerificationSource.Courtlistener,
             },
         ];
@@ -139,7 +139,7 @@ public class V1VerifyResponseTest : TestBase
                     Normalized = "normalized",
                     Original = "original",
                     Span = new() { End = 0, Start = 0 },
-                    Status = Status.Verified,
+                    Status = V1VerifyResponseCitationStatus.Verified,
                     VerificationSource = VerificationSource.Courtlistener,
                 },
             ],
@@ -195,7 +195,7 @@ public class V1VerifyResponseTest : TestBase
                     Normalized = "normalized",
                     Original = "original",
                     Span = new() { End = 0, Start = 0 },
-                    Status = Status.Verified,
+                    Status = V1VerifyResponseCitationStatus.Verified,
                     VerificationSource = VerificationSource.Courtlistener,
                 },
             ],
@@ -244,7 +244,7 @@ public class V1VerifyResponseTest : TestBase
                 Normalized = "normalized",
                 Original = "original",
                 Span = new() { End = 0, Start = 0 },
-                Status = Status.Verified,
+                Status = V1VerifyResponseCitationStatus.Verified,
                 VerificationSource = VerificationSource.Courtlistener,
             },
         ];
@@ -299,7 +299,7 @@ public class V1VerifyResponseTest : TestBase
                     Normalized = "normalized",
                     Original = "original",
                     Span = new() { End = 0, Start = 0 },
-                    Status = Status.Verified,
+                    Status = V1VerifyResponseCitationStatus.Verified,
                     VerificationSource = VerificationSource.Courtlistener,
                 },
             ],
@@ -397,7 +397,7 @@ public class V1VerifyResponseTest : TestBase
                     Normalized = "normalized",
                     Original = "original",
                     Span = new() { End = 0, Start = 0 },
-                    Status = Status.Verified,
+                    Status = V1VerifyResponseCitationStatus.Verified,
                     VerificationSource = VerificationSource.Courtlistener,
                 },
             ],
@@ -448,7 +448,7 @@ public class V1VerifyResponseCitationTest : TestBase
             Normalized = "normalized",
             Original = "original",
             Span = new() { End = 0, Start = 0 },
-            Status = Status.Verified,
+            Status = V1VerifyResponseCitationStatus.Verified,
             VerificationSource = VerificationSource.Courtlistener,
         };
 
@@ -477,7 +477,8 @@ public class V1VerifyResponseCitationTest : TestBase
         string expectedNormalized = "normalized";
         string expectedOriginal = "original";
         V1VerifyResponseCitationSpan expectedSpan = new() { End = 0, Start = 0 };
-        ApiEnum<string, Status> expectedStatus = Status.Verified;
+        ApiEnum<string, V1VerifyResponseCitationStatus> expectedStatus =
+            V1VerifyResponseCitationStatus.Verified;
         ApiEnum<string, VerificationSource> expectedVerificationSource =
             VerificationSource.Courtlistener;
 
@@ -526,7 +527,7 @@ public class V1VerifyResponseCitationTest : TestBase
             Normalized = "normalized",
             Original = "original",
             Span = new() { End = 0, Start = 0 },
-            Status = Status.Verified,
+            Status = V1VerifyResponseCitationStatus.Verified,
             VerificationSource = VerificationSource.Courtlistener,
         };
 
@@ -569,7 +570,7 @@ public class V1VerifyResponseCitationTest : TestBase
             Normalized = "normalized",
             Original = "original",
             Span = new() { End = 0, Start = 0 },
-            Status = Status.Verified,
+            Status = V1VerifyResponseCitationStatus.Verified,
             VerificationSource = VerificationSource.Courtlistener,
         };
 
@@ -605,7 +606,8 @@ public class V1VerifyResponseCitationTest : TestBase
         string expectedNormalized = "normalized";
         string expectedOriginal = "original";
         V1VerifyResponseCitationSpan expectedSpan = new() { End = 0, Start = 0 };
-        ApiEnum<string, Status> expectedStatus = Status.Verified;
+        ApiEnum<string, V1VerifyResponseCitationStatus> expectedStatus =
+            V1VerifyResponseCitationStatus.Verified;
         ApiEnum<string, VerificationSource> expectedVerificationSource =
             VerificationSource.Courtlistener;
 
@@ -654,7 +656,7 @@ public class V1VerifyResponseCitationTest : TestBase
             Normalized = "normalized",
             Original = "original",
             Span = new() { End = 0, Start = 0 },
-            Status = Status.Verified,
+            Status = V1VerifyResponseCitationStatus.Verified,
             VerificationSource = VerificationSource.Courtlistener,
         };
 
@@ -775,7 +777,7 @@ public class V1VerifyResponseCitationTest : TestBase
             Normalized = "normalized",
             Original = "original",
             Span = new() { End = 0, Start = 0 },
-            Status = Status.Verified,
+            Status = V1VerifyResponseCitationStatus.Verified,
             VerificationSource = VerificationSource.Courtlistener,
         };
 
@@ -1297,23 +1299,23 @@ public class V1VerifyResponseCitationSpanTest : TestBase
     }
 }
 
-public class StatusTest : TestBase
+public class V1VerifyResponseCitationStatusTest : TestBase
 {
     [Theory]
-    [InlineData(Status.Verified)]
-    [InlineData(Status.NotFound)]
-    [InlineData(Status.MultipleMatches)]
-    public void Validation_Works(Status rawValue)
+    [InlineData(V1VerifyResponseCitationStatus.Verified)]
+    [InlineData(V1VerifyResponseCitationStatus.NotFound)]
+    [InlineData(V1VerifyResponseCitationStatus.MultipleMatches)]
+    public void Validation_Works(V1VerifyResponseCitationStatus rawValue)
     {
         // force implicit conversion because Theory can't do that for us
-        ApiEnum<string, Status> value = rawValue;
+        ApiEnum<string, V1VerifyResponseCitationStatus> value = rawValue;
         value.Validate();
     }
 
     [Fact]
     public void InvalidEnumValidationThrows_Works()
     {
-        var value = JsonSerializer.Deserialize<ApiEnum<string, Status>>(
+        var value = JsonSerializer.Deserialize<ApiEnum<string, V1VerifyResponseCitationStatus>>(
             JsonSerializer.SerializeToElement("invalid value"),
             ModelBase.SerializerOptions
         );
@@ -1323,19 +1325,18 @@ public class StatusTest : TestBase
     }
 
     [Theory]
-    [InlineData(Status.Verified)]
-    [InlineData(Status.NotFound)]
-    [InlineData(Status.MultipleMatches)]
-    public void SerializationRoundtrip_Works(Status rawValue)
+    [InlineData(V1VerifyResponseCitationStatus.Verified)]
+    [InlineData(V1VerifyResponseCitationStatus.NotFound)]
+    [InlineData(V1VerifyResponseCitationStatus.MultipleMatches)]
+    public void SerializationRoundtrip_Works(V1VerifyResponseCitationStatus rawValue)
     {
         // force implicit conversion because Theory can't do that for us
-        ApiEnum<string, Status> value = rawValue;
+        ApiEnum<string, V1VerifyResponseCitationStatus> value = rawValue;
 
         string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Status>>(
-            json,
-            ModelBase.SerializerOptions
-        );
+        var deserialized = JsonSerializer.Deserialize<
+            ApiEnum<string, V1VerifyResponseCitationStatus>
+        >(json, ModelBase.SerializerOptions);
 
         Assert.Equal(value, deserialized);
     }
@@ -1343,15 +1344,14 @@ public class StatusTest : TestBase
     [Fact]
     public void InvalidEnumSerializationRoundtrip_Works()
     {
-        var value = JsonSerializer.Deserialize<ApiEnum<string, Status>>(
+        var value = JsonSerializer.Deserialize<ApiEnum<string, V1VerifyResponseCitationStatus>>(
             JsonSerializer.SerializeToElement("invalid value"),
             ModelBase.SerializerOptions
         );
         string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Status>>(
-            json,
-            ModelBase.SerializerOptions
-        );
+        var deserialized = JsonSerializer.Deserialize<
+            ApiEnum<string, V1VerifyResponseCitationStatus>
+        >(json, ModelBase.SerializerOptions);
 
         Assert.Equal(value, deserialized);
     }

@@ -16,6 +16,16 @@ public class V1ServiceTest : TestBase
     }
 
     [Fact]
+    public async Task Draft_Works()
+    {
+        var response = await this.client.Legal.V1.Draft(
+            new() { Instructions = "xxxxxxxxxx", VaultID = "vault_id" },
+            TestContext.Current.CancellationToken
+        );
+        response.Validate();
+    }
+
+    [Fact]
     public async Task Find_Works()
     {
         var response = await this.client.Legal.V1.Find(
