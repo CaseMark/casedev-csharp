@@ -234,12 +234,14 @@ public sealed record class V1VerifyResponseCitation : JsonModel
         }
     }
 
-    public ApiEnum<string, Status>? Status
+    public ApiEnum<string, V1VerifyResponseCitationStatus>? Status
     {
         get
         {
             this._rawData.Freeze();
-            return this._rawData.GetNullableClass<ApiEnum<string, Status>>("status");
+            return this._rawData.GetNullableClass<ApiEnum<string, V1VerifyResponseCitationStatus>>(
+                "status"
+            );
         }
         init
         {
@@ -750,17 +752,17 @@ class V1VerifyResponseCitationSpanFromRaw : IFromRawJson<V1VerifyResponseCitatio
     ) => V1VerifyResponseCitationSpan.FromRawUnchecked(rawData);
 }
 
-[JsonConverter(typeof(StatusConverter))]
-public enum Status
+[JsonConverter(typeof(V1VerifyResponseCitationStatusConverter))]
+public enum V1VerifyResponseCitationStatus
 {
     Verified,
     NotFound,
     MultipleMatches,
 }
 
-sealed class StatusConverter : JsonConverter<Status>
+sealed class V1VerifyResponseCitationStatusConverter : JsonConverter<V1VerifyResponseCitationStatus>
 {
-    public override Status Read(
+    public override V1VerifyResponseCitationStatus Read(
         ref Utf8JsonReader reader,
         System::Type typeToConvert,
         JsonSerializerOptions options
@@ -768,22 +770,26 @@ sealed class StatusConverter : JsonConverter<Status>
     {
         return JsonSerializer.Deserialize<string>(ref reader, options) switch
         {
-            "verified" => Status.Verified,
-            "not_found" => Status.NotFound,
-            "multiple_matches" => Status.MultipleMatches,
-            _ => (Status)(-1),
+            "verified" => V1VerifyResponseCitationStatus.Verified,
+            "not_found" => V1VerifyResponseCitationStatus.NotFound,
+            "multiple_matches" => V1VerifyResponseCitationStatus.MultipleMatches,
+            _ => (V1VerifyResponseCitationStatus)(-1),
         };
     }
 
-    public override void Write(Utf8JsonWriter writer, Status value, JsonSerializerOptions options)
+    public override void Write(
+        Utf8JsonWriter writer,
+        V1VerifyResponseCitationStatus value,
+        JsonSerializerOptions options
+    )
     {
         JsonSerializer.Serialize(
             writer,
             value switch
             {
-                Status.Verified => "verified",
-                Status.NotFound => "not_found",
-                Status.MultipleMatches => "multiple_matches",
+                V1VerifyResponseCitationStatus.Verified => "verified",
+                V1VerifyResponseCitationStatus.NotFound => "not_found",
+                V1VerifyResponseCitationStatus.MultipleMatches => "multiple_matches",
                 _ => throw new CasedevInvalidDataException(
                     string.Format("Invalid value '{0}' in {1}", value, nameof(value))
                 ),

@@ -46,6 +46,18 @@ public sealed class V1Service : IV1Service
     }
 
     /// <inheritdoc/>
+    public async Task<V1DraftResponse> Draft(
+        V1DraftParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.Draft(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
     public async Task<V1FindResponse> Find(
         V1FindParams parameters,
         CancellationToken cancellationToken = default
@@ -212,6 +224,34 @@ public sealed class V1ServiceWithRawResponse : IV1ServiceWithRawResponse
             {
                 var deserializedResponse = await response
                     .Deserialize<V1DocketResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    deserializedResponse.Validate();
+                }
+                return deserializedResponse;
+            }
+        );
+    }
+
+    /// <inheritdoc/>
+    public async Task<HttpResponse<V1DraftResponse>> Draft(
+        V1DraftParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        HttpRequest<V1DraftParams> request = new()
+        {
+            Method = HttpMethod.Post,
+            Params = parameters,
+        };
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var deserializedResponse = await response
+                    .Deserialize<V1DraftResponse>(token)
                     .ConfigureAwait(false);
                 if (this._client.ResponseValidation)
                 {
