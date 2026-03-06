@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Text;
@@ -70,6 +71,25 @@ public record class ChatCreateParams : ParamsBase
             }
 
             this._rawBodyData.Set("title", value);
+        }
+    }
+
+    /// <summary>
+    /// Restrict the chat session to specific vault IDs
+    /// </summary>
+    public IReadOnlyList<string>? VaultIds
+    {
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<ImmutableArray<string>>("vaultIds");
+        }
+        init
+        {
+            this._rawBodyData.Set<ImmutableArray<string>?>(
+                "vaultIds",
+                value == null ? null : ImmutableArray.ToImmutableArray(value)
+            );
         }
     }
 
