@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.7.1 (2026-03-07)
+
+Full Changelog: [v0.7.0...v0.7.1](https://github.com/CaseMark/casedev-csharp/compare/v0.7.0...v0.7.1)
+
+### Chores
+
+* **test:** do not count install time for mock server timeout ([1051cb5](https://github.com/CaseMark/casedev-csharp/commit/1051cb5410db0cb727a2f424b95f445180562d33))
+
 ## 0.7.0 (2026-03-06)
 
 Full Changelog: [v0.6.0...v0.7.0](https://github.com/CaseMark/casedev-csharp/compare/v0.6.0...v0.7.0)
