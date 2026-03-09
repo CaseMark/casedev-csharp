@@ -97,6 +97,26 @@ public sealed class ChatService : IChatService
     }
 
     /// <inheritdoc/>
+    public Task ReplyToQuestion(
+        ChatReplyToQuestionParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return this.WithRawResponse.ReplyToQuestion(parameters, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async Task ReplyToQuestion(
+        string requestID,
+        ChatReplyToQuestionParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        await this.ReplyToQuestion(parameters with { RequestID = requestID }, cancellationToken)
+            .ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
     public async IAsyncEnumerable<string> RespondStreaming(
         ChatRespondParams parameters,
         [EnumeratorCancellation] CancellationToken cancellationToken = default
@@ -172,6 +192,36 @@ public sealed class ChatService : IChatService
 
         await foreach (
             var item in this.StreamStreaming(parameters with { ID = id }, cancellationToken)
+        )
+        {
+            yield return item;
+        }
+    }
+
+    /// <inheritdoc/>
+    public async IAsyncEnumerable<string> UiStreamStreaming(
+        ChatUiStreamParams parameters,
+        [EnumeratorCancellation] CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.UiStreamStreaming(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        await foreach (var item in response.Enumerate(cancellationToken))
+        {
+            yield return item;
+        }
+    }
+
+    /// <inheritdoc/>
+    public async IAsyncEnumerable<string> UiStreamStreaming(
+        string id,
+        ChatUiStreamParams parameters,
+        [EnumeratorCancellation] CancellationToken cancellationToken = default
+    )
+    {
+        await foreach (
+            var item in this.UiStreamStreaming(parameters with { ID = id }, cancellationToken)
         )
         {
             yield return item;
@@ -316,6 +366,35 @@ public sealed class ChatServiceWithRawResponse : IChatServiceWithRawResponse
     }
 
     /// <inheritdoc/>
+    public Task<HttpResponse> ReplyToQuestion(
+        ChatReplyToQuestionParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        if (parameters.RequestID == null)
+        {
+            throw new CasedevInvalidDataException("'parameters.RequestID' cannot be null");
+        }
+
+        HttpRequest<ChatReplyToQuestionParams> request = new()
+        {
+            Method = HttpMethod.Post,
+            Params = parameters,
+        };
+        return this._client.Execute(request, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public Task<HttpResponse> ReplyToQuestion(
+        string requestID,
+        ChatReplyToQuestionParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return this.ReplyToQuestion(parameters with { RequestID = requestID }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
     public async Task<StreamingHttpResponse<string>> RespondStreaming(
         ChatRespondParams parameters,
         CancellationToken cancellationToken = default
@@ -424,5 +503,45 @@ public sealed class ChatServiceWithRawResponse : IChatServiceWithRawResponse
         parameters ??= new();
 
         return this.StreamStreaming(parameters with { ID = id }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async Task<StreamingHttpResponse<string>> UiStreamStreaming(
+        ChatUiStreamParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        if (parameters.ID == null)
+        {
+            throw new CasedevInvalidDataException("'parameters.ID' cannot be null");
+        }
+
+        HttpRequest<ChatUiStreamParams> request = new()
+        {
+            Method = HttpMethod.Post,
+            Params = parameters,
+        };
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+
+        async IAsyncEnumerable<string> Enumerate([EnumeratorCancellation] CancellationToken token)
+        {
+            await foreach (
+                var deserializedItem in Sse.Enumerate<string>(response.RawMessage, token)
+            )
+            {
+                yield return deserializedItem;
+            }
+        }
+        return new(response, Enumerate);
+    }
+
+    /// <inheritdoc/>
+    public Task<StreamingHttpResponse<string>> UiStreamStreaming(
+        string id,
+        ChatUiStreamParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return this.UiStreamStreaming(parameters with { ID = id }, cancellationToken);
     }
 }

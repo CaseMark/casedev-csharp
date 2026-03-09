@@ -53,9 +53,35 @@ public class RunGetDetailsResponseTest : TestBase
             Usage = new()
             {
                 DurationMs = 0,
+                Entries =
+                [
+                    new()
+                    {
+                        ID = "id",
+                        CompletionTokens = 0,
+                        CostMicros = 0,
+                        Endpoint = "endpoint",
+                        Kind = Run::Kind.Llm,
+                        Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+                        Method = "method",
+                        Model = "model",
+                        PromptTokens = 0,
+                        Service = "service",
+                        StatusCode = 0,
+                        Timestamp = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                        TotalTokens = 0,
+                    },
+                ],
                 InputTokens = 0,
                 Model = "model",
                 OutputTokens = 0,
+                Summary = new()
+                {
+                    CostMicros = 0,
+                    TotalInputTokens = 0,
+                    TotalOutputTokens = 0,
+                    TotalTokens = 0,
+                },
                 ToolCalls = 0,
             },
             WorkflowID = "workflowId",
@@ -101,9 +127,35 @@ public class RunGetDetailsResponseTest : TestBase
         Run::Usage expectedUsage = new()
         {
             DurationMs = 0,
+            Entries =
+            [
+                new()
+                {
+                    ID = "id",
+                    CompletionTokens = 0,
+                    CostMicros = 0,
+                    Endpoint = "endpoint",
+                    Kind = Run::Kind.Llm,
+                    Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+                    Method = "method",
+                    Model = "model",
+                    PromptTokens = 0,
+                    Service = "service",
+                    StatusCode = 0,
+                    Timestamp = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    TotalTokens = 0,
+                },
+            ],
             InputTokens = 0,
             Model = "model",
             OutputTokens = 0,
+            Summary = new()
+            {
+                CostMicros = 0,
+                TotalInputTokens = 0,
+                TotalOutputTokens = 0,
+                TotalTokens = 0,
+            },
             ToolCalls = 0,
         };
         string expectedWorkflowID = "workflowId";
@@ -173,9 +225,35 @@ public class RunGetDetailsResponseTest : TestBase
             Usage = new()
             {
                 DurationMs = 0,
+                Entries =
+                [
+                    new()
+                    {
+                        ID = "id",
+                        CompletionTokens = 0,
+                        CostMicros = 0,
+                        Endpoint = "endpoint",
+                        Kind = Run::Kind.Llm,
+                        Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+                        Method = "method",
+                        Model = "model",
+                        PromptTokens = 0,
+                        Service = "service",
+                        StatusCode = 0,
+                        Timestamp = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                        TotalTokens = 0,
+                    },
+                ],
                 InputTokens = 0,
                 Model = "model",
                 OutputTokens = 0,
+                Summary = new()
+                {
+                    CostMicros = 0,
+                    TotalInputTokens = 0,
+                    TotalOutputTokens = 0,
+                    TotalTokens = 0,
+                },
                 ToolCalls = 0,
             },
             WorkflowID = "workflowId",
@@ -234,9 +312,35 @@ public class RunGetDetailsResponseTest : TestBase
             Usage = new()
             {
                 DurationMs = 0,
+                Entries =
+                [
+                    new()
+                    {
+                        ID = "id",
+                        CompletionTokens = 0,
+                        CostMicros = 0,
+                        Endpoint = "endpoint",
+                        Kind = Run::Kind.Llm,
+                        Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+                        Method = "method",
+                        Model = "model",
+                        PromptTokens = 0,
+                        Service = "service",
+                        StatusCode = 0,
+                        Timestamp = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                        TotalTokens = 0,
+                    },
+                ],
                 InputTokens = 0,
                 Model = "model",
                 OutputTokens = 0,
+                Summary = new()
+                {
+                    CostMicros = 0,
+                    TotalInputTokens = 0,
+                    TotalOutputTokens = 0,
+                    TotalTokens = 0,
+                },
                 ToolCalls = 0,
             },
             WorkflowID = "workflowId",
@@ -289,9 +393,35 @@ public class RunGetDetailsResponseTest : TestBase
         Run::Usage expectedUsage = new()
         {
             DurationMs = 0,
+            Entries =
+            [
+                new()
+                {
+                    ID = "id",
+                    CompletionTokens = 0,
+                    CostMicros = 0,
+                    Endpoint = "endpoint",
+                    Kind = Run::Kind.Llm,
+                    Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+                    Method = "method",
+                    Model = "model",
+                    PromptTokens = 0,
+                    Service = "service",
+                    StatusCode = 0,
+                    Timestamp = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    TotalTokens = 0,
+                },
+            ],
             InputTokens = 0,
             Model = "model",
             OutputTokens = 0,
+            Summary = new()
+            {
+                CostMicros = 0,
+                TotalInputTokens = 0,
+                TotalOutputTokens = 0,
+                TotalTokens = 0,
+            },
             ToolCalls = 0,
         };
         string expectedWorkflowID = "workflowId";
@@ -361,9 +491,35 @@ public class RunGetDetailsResponseTest : TestBase
             Usage = new()
             {
                 DurationMs = 0,
+                Entries =
+                [
+                    new()
+                    {
+                        ID = "id",
+                        CompletionTokens = 0,
+                        CostMicros = 0,
+                        Endpoint = "endpoint",
+                        Kind = Run::Kind.Llm,
+                        Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+                        Method = "method",
+                        Model = "model",
+                        PromptTokens = 0,
+                        Service = "service",
+                        StatusCode = 0,
+                        Timestamp = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                        TotalTokens = 0,
+                    },
+                ],
                 InputTokens = 0,
                 Model = "model",
                 OutputTokens = 0,
+                Summary = new()
+                {
+                    CostMicros = 0,
+                    TotalInputTokens = 0,
+                    TotalOutputTokens = 0,
+                    TotalTokens = 0,
+                },
                 ToolCalls = 0,
             },
             WorkflowID = "workflowId",
@@ -397,9 +553,35 @@ public class RunGetDetailsResponseTest : TestBase
             Usage = new()
             {
                 DurationMs = 0,
+                Entries =
+                [
+                    new()
+                    {
+                        ID = "id",
+                        CompletionTokens = 0,
+                        CostMicros = 0,
+                        Endpoint = "endpoint",
+                        Kind = Run::Kind.Llm,
+                        Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+                        Method = "method",
+                        Model = "model",
+                        PromptTokens = 0,
+                        Service = "service",
+                        StatusCode = 0,
+                        Timestamp = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                        TotalTokens = 0,
+                    },
+                ],
                 InputTokens = 0,
                 Model = "model",
                 OutputTokens = 0,
+                Summary = new()
+                {
+                    CostMicros = 0,
+                    TotalInputTokens = 0,
+                    TotalOutputTokens = 0,
+                    TotalTokens = 0,
+                },
                 ToolCalls = 0,
             },
             WorkflowID = "workflowId",
@@ -444,9 +626,35 @@ public class RunGetDetailsResponseTest : TestBase
             Usage = new()
             {
                 DurationMs = 0,
+                Entries =
+                [
+                    new()
+                    {
+                        ID = "id",
+                        CompletionTokens = 0,
+                        CostMicros = 0,
+                        Endpoint = "endpoint",
+                        Kind = Run::Kind.Llm,
+                        Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+                        Method = "method",
+                        Model = "model",
+                        PromptTokens = 0,
+                        Service = "service",
+                        StatusCode = 0,
+                        Timestamp = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                        TotalTokens = 0,
+                    },
+                ],
                 InputTokens = 0,
                 Model = "model",
                 OutputTokens = 0,
+                Summary = new()
+                {
+                    CostMicros = 0,
+                    TotalInputTokens = 0,
+                    TotalOutputTokens = 0,
+                    TotalTokens = 0,
+                },
                 ToolCalls = 0,
             },
             WorkflowID = "workflowId",
@@ -480,9 +688,35 @@ public class RunGetDetailsResponseTest : TestBase
             Usage = new()
             {
                 DurationMs = 0,
+                Entries =
+                [
+                    new()
+                    {
+                        ID = "id",
+                        CompletionTokens = 0,
+                        CostMicros = 0,
+                        Endpoint = "endpoint",
+                        Kind = Run::Kind.Llm,
+                        Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+                        Method = "method",
+                        Model = "model",
+                        PromptTokens = 0,
+                        Service = "service",
+                        StatusCode = 0,
+                        Timestamp = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                        TotalTokens = 0,
+                    },
+                ],
                 InputTokens = 0,
                 Model = "model",
                 OutputTokens = 0,
+                Summary = new()
+                {
+                    CostMicros = 0,
+                    TotalInputTokens = 0,
+                    TotalOutputTokens = 0,
+                    TotalTokens = 0,
+                },
                 ToolCalls = 0,
             },
             WorkflowID = "workflowId",
@@ -535,9 +769,35 @@ public class RunGetDetailsResponseTest : TestBase
             Usage = new()
             {
                 DurationMs = 0,
+                Entries =
+                [
+                    new()
+                    {
+                        ID = "id",
+                        CompletionTokens = 0,
+                        CostMicros = 0,
+                        Endpoint = "endpoint",
+                        Kind = Run::Kind.Llm,
+                        Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+                        Method = "method",
+                        Model = "model",
+                        PromptTokens = 0,
+                        Service = "service",
+                        StatusCode = 0,
+                        Timestamp = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                        TotalTokens = 0,
+                    },
+                ],
                 InputTokens = 0,
                 Model = "model",
                 OutputTokens = 0,
+                Summary = new()
+                {
+                    CostMicros = 0,
+                    TotalInputTokens = 0,
+                    TotalOutputTokens = 0,
+                    TotalTokens = 0,
+                },
                 ToolCalls = 0,
             },
             WorkflowID = "workflowId",
@@ -762,9 +1022,35 @@ public class RunGetDetailsResponseTest : TestBase
             Usage = new()
             {
                 DurationMs = 0,
+                Entries =
+                [
+                    new()
+                    {
+                        ID = "id",
+                        CompletionTokens = 0,
+                        CostMicros = 0,
+                        Endpoint = "endpoint",
+                        Kind = Run::Kind.Llm,
+                        Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+                        Method = "method",
+                        Model = "model",
+                        PromptTokens = 0,
+                        Service = "service",
+                        StatusCode = 0,
+                        Timestamp = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                        TotalTokens = 0,
+                    },
+                ],
                 InputTokens = 0,
                 Model = "model",
                 OutputTokens = 0,
+                Summary = new()
+                {
+                    CostMicros = 0,
+                    TotalInputTokens = 0,
+                    TotalOutputTokens = 0,
+                    TotalTokens = 0,
+                },
                 ToolCalls = 0,
             },
             WorkflowID = "workflowId",
@@ -1774,22 +2060,81 @@ public class UsageTest : TestBase
         var model = new Run::Usage
         {
             DurationMs = 0,
+            Entries =
+            [
+                new()
+                {
+                    ID = "id",
+                    CompletionTokens = 0,
+                    CostMicros = 0,
+                    Endpoint = "endpoint",
+                    Kind = Run::Kind.Llm,
+                    Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+                    Method = "method",
+                    Model = "model",
+                    PromptTokens = 0,
+                    Service = "service",
+                    StatusCode = 0,
+                    Timestamp = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    TotalTokens = 0,
+                },
+            ],
             InputTokens = 0,
             Model = "model",
             OutputTokens = 0,
+            Summary = new()
+            {
+                CostMicros = 0,
+                TotalInputTokens = 0,
+                TotalOutputTokens = 0,
+                TotalTokens = 0,
+            },
             ToolCalls = 0,
         };
 
         long expectedDurationMs = 0;
+        List<Run::Entry> expectedEntries =
+        [
+            new()
+            {
+                ID = "id",
+                CompletionTokens = 0,
+                CostMicros = 0,
+                Endpoint = "endpoint",
+                Kind = Run::Kind.Llm,
+                Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+                Method = "method",
+                Model = "model",
+                PromptTokens = 0,
+                Service = "service",
+                StatusCode = 0,
+                Timestamp = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                TotalTokens = 0,
+            },
+        ];
         long expectedInputTokens = 0;
         string expectedModel = "model";
         long expectedOutputTokens = 0;
+        Run::Summary expectedSummary = new()
+        {
+            CostMicros = 0,
+            TotalInputTokens = 0,
+            TotalOutputTokens = 0,
+            TotalTokens = 0,
+        };
         long expectedToolCalls = 0;
 
         Assert.Equal(expectedDurationMs, model.DurationMs);
+        Assert.NotNull(model.Entries);
+        Assert.Equal(expectedEntries.Count, model.Entries.Count);
+        for (int i = 0; i < expectedEntries.Count; i++)
+        {
+            Assert.Equal(expectedEntries[i], model.Entries[i]);
+        }
         Assert.Equal(expectedInputTokens, model.InputTokens);
         Assert.Equal(expectedModel, model.Model);
         Assert.Equal(expectedOutputTokens, model.OutputTokens);
+        Assert.Equal(expectedSummary, model.Summary);
         Assert.Equal(expectedToolCalls, model.ToolCalls);
     }
 
@@ -1799,9 +2144,35 @@ public class UsageTest : TestBase
         var model = new Run::Usage
         {
             DurationMs = 0,
+            Entries =
+            [
+                new()
+                {
+                    ID = "id",
+                    CompletionTokens = 0,
+                    CostMicros = 0,
+                    Endpoint = "endpoint",
+                    Kind = Run::Kind.Llm,
+                    Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+                    Method = "method",
+                    Model = "model",
+                    PromptTokens = 0,
+                    Service = "service",
+                    StatusCode = 0,
+                    Timestamp = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    TotalTokens = 0,
+                },
+            ],
             InputTokens = 0,
             Model = "model",
             OutputTokens = 0,
+            Summary = new()
+            {
+                CostMicros = 0,
+                TotalInputTokens = 0,
+                TotalOutputTokens = 0,
+                TotalTokens = 0,
+            },
             ToolCalls = 0,
         };
 
@@ -1820,9 +2191,35 @@ public class UsageTest : TestBase
         var model = new Run::Usage
         {
             DurationMs = 0,
+            Entries =
+            [
+                new()
+                {
+                    ID = "id",
+                    CompletionTokens = 0,
+                    CostMicros = 0,
+                    Endpoint = "endpoint",
+                    Kind = Run::Kind.Llm,
+                    Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+                    Method = "method",
+                    Model = "model",
+                    PromptTokens = 0,
+                    Service = "service",
+                    StatusCode = 0,
+                    Timestamp = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    TotalTokens = 0,
+                },
+            ],
             InputTokens = 0,
             Model = "model",
             OutputTokens = 0,
+            Summary = new()
+            {
+                CostMicros = 0,
+                TotalInputTokens = 0,
+                TotalOutputTokens = 0,
+                TotalTokens = 0,
+            },
             ToolCalls = 0,
         };
 
@@ -1834,15 +2231,48 @@ public class UsageTest : TestBase
         Assert.NotNull(deserialized);
 
         long expectedDurationMs = 0;
+        List<Run::Entry> expectedEntries =
+        [
+            new()
+            {
+                ID = "id",
+                CompletionTokens = 0,
+                CostMicros = 0,
+                Endpoint = "endpoint",
+                Kind = Run::Kind.Llm,
+                Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+                Method = "method",
+                Model = "model",
+                PromptTokens = 0,
+                Service = "service",
+                StatusCode = 0,
+                Timestamp = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                TotalTokens = 0,
+            },
+        ];
         long expectedInputTokens = 0;
         string expectedModel = "model";
         long expectedOutputTokens = 0;
+        Run::Summary expectedSummary = new()
+        {
+            CostMicros = 0,
+            TotalInputTokens = 0,
+            TotalOutputTokens = 0,
+            TotalTokens = 0,
+        };
         long expectedToolCalls = 0;
 
         Assert.Equal(expectedDurationMs, deserialized.DurationMs);
+        Assert.NotNull(deserialized.Entries);
+        Assert.Equal(expectedEntries.Count, deserialized.Entries.Count);
+        for (int i = 0; i < expectedEntries.Count; i++)
+        {
+            Assert.Equal(expectedEntries[i], deserialized.Entries[i]);
+        }
         Assert.Equal(expectedInputTokens, deserialized.InputTokens);
         Assert.Equal(expectedModel, deserialized.Model);
         Assert.Equal(expectedOutputTokens, deserialized.OutputTokens);
+        Assert.Equal(expectedSummary, deserialized.Summary);
         Assert.Equal(expectedToolCalls, deserialized.ToolCalls);
     }
 
@@ -1852,9 +2282,35 @@ public class UsageTest : TestBase
         var model = new Run::Usage
         {
             DurationMs = 0,
+            Entries =
+            [
+                new()
+                {
+                    ID = "id",
+                    CompletionTokens = 0,
+                    CostMicros = 0,
+                    Endpoint = "endpoint",
+                    Kind = Run::Kind.Llm,
+                    Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+                    Method = "method",
+                    Model = "model",
+                    PromptTokens = 0,
+                    Service = "service",
+                    StatusCode = 0,
+                    Timestamp = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    TotalTokens = 0,
+                },
+            ],
             InputTokens = 0,
             Model = "model",
             OutputTokens = 0,
+            Summary = new()
+            {
+                CostMicros = 0,
+                TotalInputTokens = 0,
+                TotalOutputTokens = 0,
+                TotalTokens = 0,
+            },
             ToolCalls = 0,
         };
 
@@ -1864,10 +2320,21 @@ public class UsageTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetAreNotSet_Works()
     {
-        var model = new Run::Usage { };
+        var model = new Run::Usage
+        {
+            Summary = new()
+            {
+                CostMicros = 0,
+                TotalInputTokens = 0,
+                TotalOutputTokens = 0,
+                TotalTokens = 0,
+            },
+        };
 
         Assert.Null(model.DurationMs);
         Assert.False(model.RawData.ContainsKey("durationMs"));
+        Assert.Null(model.Entries);
+        Assert.False(model.RawData.ContainsKey("entries"));
         Assert.Null(model.InputTokens);
         Assert.False(model.RawData.ContainsKey("inputTokens"));
         Assert.Null(model.Model);
@@ -1881,7 +2348,16 @@ public class UsageTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetValidation_Works()
     {
-        var model = new Run::Usage { };
+        var model = new Run::Usage
+        {
+            Summary = new()
+            {
+                CostMicros = 0,
+                TotalInputTokens = 0,
+                TotalOutputTokens = 0,
+                TotalTokens = 0,
+            },
+        };
 
         model.Validate();
     }
@@ -1891,8 +2367,17 @@ public class UsageTest : TestBase
     {
         var model = new Run::Usage
         {
+            Summary = new()
+            {
+                CostMicros = 0,
+                TotalInputTokens = 0,
+                TotalOutputTokens = 0,
+                TotalTokens = 0,
+            },
+
             // Null should be interpreted as omitted for these properties
             DurationMs = null,
+            Entries = null,
             InputTokens = null,
             Model = null,
             OutputTokens = null,
@@ -1901,6 +2386,8 @@ public class UsageTest : TestBase
 
         Assert.Null(model.DurationMs);
         Assert.False(model.RawData.ContainsKey("durationMs"));
+        Assert.Null(model.Entries);
+        Assert.False(model.RawData.ContainsKey("entries"));
         Assert.Null(model.InputTokens);
         Assert.False(model.RawData.ContainsKey("inputTokens"));
         Assert.Null(model.Model);
@@ -1916,12 +2403,163 @@ public class UsageTest : TestBase
     {
         var model = new Run::Usage
         {
+            Summary = new()
+            {
+                CostMicros = 0,
+                TotalInputTokens = 0,
+                TotalOutputTokens = 0,
+                TotalTokens = 0,
+            },
+
             // Null should be interpreted as omitted for these properties
             DurationMs = null,
+            Entries = null,
             InputTokens = null,
             Model = null,
             OutputTokens = null,
             ToolCalls = null,
+        };
+
+        model.Validate();
+    }
+
+    [Fact]
+    public void OptionalNullablePropertiesUnsetAreNotSet_Works()
+    {
+        var model = new Run::Usage
+        {
+            DurationMs = 0,
+            Entries =
+            [
+                new()
+                {
+                    ID = "id",
+                    CompletionTokens = 0,
+                    CostMicros = 0,
+                    Endpoint = "endpoint",
+                    Kind = Run::Kind.Llm,
+                    Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+                    Method = "method",
+                    Model = "model",
+                    PromptTokens = 0,
+                    Service = "service",
+                    StatusCode = 0,
+                    Timestamp = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    TotalTokens = 0,
+                },
+            ],
+            InputTokens = 0,
+            Model = "model",
+            OutputTokens = 0,
+            ToolCalls = 0,
+        };
+
+        Assert.Null(model.Summary);
+        Assert.False(model.RawData.ContainsKey("summary"));
+    }
+
+    [Fact]
+    public void OptionalNullablePropertiesUnsetValidation_Works()
+    {
+        var model = new Run::Usage
+        {
+            DurationMs = 0,
+            Entries =
+            [
+                new()
+                {
+                    ID = "id",
+                    CompletionTokens = 0,
+                    CostMicros = 0,
+                    Endpoint = "endpoint",
+                    Kind = Run::Kind.Llm,
+                    Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+                    Method = "method",
+                    Model = "model",
+                    PromptTokens = 0,
+                    Service = "service",
+                    StatusCode = 0,
+                    Timestamp = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    TotalTokens = 0,
+                },
+            ],
+            InputTokens = 0,
+            Model = "model",
+            OutputTokens = 0,
+            ToolCalls = 0,
+        };
+
+        model.Validate();
+    }
+
+    [Fact]
+    public void OptionalNullablePropertiesSetToNullAreSetToNull_Works()
+    {
+        var model = new Run::Usage
+        {
+            DurationMs = 0,
+            Entries =
+            [
+                new()
+                {
+                    ID = "id",
+                    CompletionTokens = 0,
+                    CostMicros = 0,
+                    Endpoint = "endpoint",
+                    Kind = Run::Kind.Llm,
+                    Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+                    Method = "method",
+                    Model = "model",
+                    PromptTokens = 0,
+                    Service = "service",
+                    StatusCode = 0,
+                    Timestamp = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    TotalTokens = 0,
+                },
+            ],
+            InputTokens = 0,
+            Model = "model",
+            OutputTokens = 0,
+            ToolCalls = 0,
+
+            Summary = null,
+        };
+
+        Assert.Null(model.Summary);
+        Assert.True(model.RawData.ContainsKey("summary"));
+    }
+
+    [Fact]
+    public void OptionalNullablePropertiesSetToNullValidation_Works()
+    {
+        var model = new Run::Usage
+        {
+            DurationMs = 0,
+            Entries =
+            [
+                new()
+                {
+                    ID = "id",
+                    CompletionTokens = 0,
+                    CostMicros = 0,
+                    Endpoint = "endpoint",
+                    Kind = Run::Kind.Llm,
+                    Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+                    Method = "method",
+                    Model = "model",
+                    PromptTokens = 0,
+                    Service = "service",
+                    StatusCode = 0,
+                    Timestamp = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    TotalTokens = 0,
+                },
+            ],
+            InputTokens = 0,
+            Model = "model",
+            OutputTokens = 0,
+            ToolCalls = 0,
+
+            Summary = null,
         };
 
         model.Validate();
@@ -1933,13 +2571,660 @@ public class UsageTest : TestBase
         var model = new Run::Usage
         {
             DurationMs = 0,
+            Entries =
+            [
+                new()
+                {
+                    ID = "id",
+                    CompletionTokens = 0,
+                    CostMicros = 0,
+                    Endpoint = "endpoint",
+                    Kind = Run::Kind.Llm,
+                    Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+                    Method = "method",
+                    Model = "model",
+                    PromptTokens = 0,
+                    Service = "service",
+                    StatusCode = 0,
+                    Timestamp = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    TotalTokens = 0,
+                },
+            ],
             InputTokens = 0,
             Model = "model",
             OutputTokens = 0,
+            Summary = new()
+            {
+                CostMicros = 0,
+                TotalInputTokens = 0,
+                TotalOutputTokens = 0,
+                TotalTokens = 0,
+            },
             ToolCalls = 0,
         };
 
         Run::Usage copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
+}
+
+public class EntryTest : TestBase
+{
+    [Fact]
+    public void FieldRoundtrip_Works()
+    {
+        var model = new Run::Entry
+        {
+            ID = "id",
+            CompletionTokens = 0,
+            CostMicros = 0,
+            Endpoint = "endpoint",
+            Kind = Run::Kind.Llm,
+            Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+            Method = "method",
+            Model = "model",
+            PromptTokens = 0,
+            Service = "service",
+            StatusCode = 0,
+            Timestamp = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            TotalTokens = 0,
+        };
+
+        string expectedID = "id";
+        long expectedCompletionTokens = 0;
+        long expectedCostMicros = 0;
+        string expectedEndpoint = "endpoint";
+        ApiEnum<string, Run::Kind> expectedKind = Run::Kind.Llm;
+        JsonElement expectedMetadata = JsonSerializer.Deserialize<JsonElement>("{}");
+        string expectedMethod = "method";
+        string expectedModel = "model";
+        long expectedPromptTokens = 0;
+        string expectedService = "service";
+        long expectedStatusCode = 0;
+        DateTimeOffset expectedTimestamp = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
+        long expectedTotalTokens = 0;
+
+        Assert.Equal(expectedID, model.ID);
+        Assert.Equal(expectedCompletionTokens, model.CompletionTokens);
+        Assert.Equal(expectedCostMicros, model.CostMicros);
+        Assert.Equal(expectedEndpoint, model.Endpoint);
+        Assert.Equal(expectedKind, model.Kind);
+        Assert.NotNull(model.Metadata);
+        Assert.True(JsonElement.DeepEquals(expectedMetadata, model.Metadata.Value));
+        Assert.Equal(expectedMethod, model.Method);
+        Assert.Equal(expectedModel, model.Model);
+        Assert.Equal(expectedPromptTokens, model.PromptTokens);
+        Assert.Equal(expectedService, model.Service);
+        Assert.Equal(expectedStatusCode, model.StatusCode);
+        Assert.Equal(expectedTimestamp, model.Timestamp);
+        Assert.Equal(expectedTotalTokens, model.TotalTokens);
+    }
+
+    [Fact]
+    public void SerializationRoundtrip_Works()
+    {
+        var model = new Run::Entry
+        {
+            ID = "id",
+            CompletionTokens = 0,
+            CostMicros = 0,
+            Endpoint = "endpoint",
+            Kind = Run::Kind.Llm,
+            Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+            Method = "method",
+            Model = "model",
+            PromptTokens = 0,
+            Service = "service",
+            StatusCode = 0,
+            Timestamp = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            TotalTokens = 0,
+        };
+
+        string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<Run::Entry>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(model, deserialized);
+    }
+
+    [Fact]
+    public void FieldRoundtripThroughSerialization_Works()
+    {
+        var model = new Run::Entry
+        {
+            ID = "id",
+            CompletionTokens = 0,
+            CostMicros = 0,
+            Endpoint = "endpoint",
+            Kind = Run::Kind.Llm,
+            Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+            Method = "method",
+            Model = "model",
+            PromptTokens = 0,
+            Service = "service",
+            StatusCode = 0,
+            Timestamp = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            TotalTokens = 0,
+        };
+
+        string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<Run::Entry>(
+            element,
+            ModelBase.SerializerOptions
+        );
+        Assert.NotNull(deserialized);
+
+        string expectedID = "id";
+        long expectedCompletionTokens = 0;
+        long expectedCostMicros = 0;
+        string expectedEndpoint = "endpoint";
+        ApiEnum<string, Run::Kind> expectedKind = Run::Kind.Llm;
+        JsonElement expectedMetadata = JsonSerializer.Deserialize<JsonElement>("{}");
+        string expectedMethod = "method";
+        string expectedModel = "model";
+        long expectedPromptTokens = 0;
+        string expectedService = "service";
+        long expectedStatusCode = 0;
+        DateTimeOffset expectedTimestamp = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
+        long expectedTotalTokens = 0;
+
+        Assert.Equal(expectedID, deserialized.ID);
+        Assert.Equal(expectedCompletionTokens, deserialized.CompletionTokens);
+        Assert.Equal(expectedCostMicros, deserialized.CostMicros);
+        Assert.Equal(expectedEndpoint, deserialized.Endpoint);
+        Assert.Equal(expectedKind, deserialized.Kind);
+        Assert.NotNull(deserialized.Metadata);
+        Assert.True(JsonElement.DeepEquals(expectedMetadata, deserialized.Metadata.Value));
+        Assert.Equal(expectedMethod, deserialized.Method);
+        Assert.Equal(expectedModel, deserialized.Model);
+        Assert.Equal(expectedPromptTokens, deserialized.PromptTokens);
+        Assert.Equal(expectedService, deserialized.Service);
+        Assert.Equal(expectedStatusCode, deserialized.StatusCode);
+        Assert.Equal(expectedTimestamp, deserialized.Timestamp);
+        Assert.Equal(expectedTotalTokens, deserialized.TotalTokens);
+    }
+
+    [Fact]
+    public void Validation_Works()
+    {
+        var model = new Run::Entry
+        {
+            ID = "id",
+            CompletionTokens = 0,
+            CostMicros = 0,
+            Endpoint = "endpoint",
+            Kind = Run::Kind.Llm,
+            Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+            Method = "method",
+            Model = "model",
+            PromptTokens = 0,
+            Service = "service",
+            StatusCode = 0,
+            Timestamp = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            TotalTokens = 0,
+        };
+
+        model.Validate();
+    }
+
+    [Fact]
+    public void OptionalNonNullablePropertiesUnsetAreNotSet_Works()
+    {
+        var model = new Run::Entry
+        {
+            CompletionTokens = 0,
+            Endpoint = "endpoint",
+            Method = "method",
+            Model = "model",
+            PromptTokens = 0,
+            StatusCode = 0,
+            TotalTokens = 0,
+        };
+
+        Assert.Null(model.ID);
+        Assert.False(model.RawData.ContainsKey("id"));
+        Assert.Null(model.CostMicros);
+        Assert.False(model.RawData.ContainsKey("costMicros"));
+        Assert.Null(model.Kind);
+        Assert.False(model.RawData.ContainsKey("kind"));
+        Assert.Null(model.Metadata);
+        Assert.False(model.RawData.ContainsKey("metadata"));
+        Assert.Null(model.Service);
+        Assert.False(model.RawData.ContainsKey("service"));
+        Assert.Null(model.Timestamp);
+        Assert.False(model.RawData.ContainsKey("timestamp"));
+    }
+
+    [Fact]
+    public void OptionalNonNullablePropertiesUnsetValidation_Works()
+    {
+        var model = new Run::Entry
+        {
+            CompletionTokens = 0,
+            Endpoint = "endpoint",
+            Method = "method",
+            Model = "model",
+            PromptTokens = 0,
+            StatusCode = 0,
+            TotalTokens = 0,
+        };
+
+        model.Validate();
+    }
+
+    [Fact]
+    public void OptionalNonNullablePropertiesSetToNullAreNotSet_Works()
+    {
+        var model = new Run::Entry
+        {
+            CompletionTokens = 0,
+            Endpoint = "endpoint",
+            Method = "method",
+            Model = "model",
+            PromptTokens = 0,
+            StatusCode = 0,
+            TotalTokens = 0,
+
+            // Null should be interpreted as omitted for these properties
+            ID = null,
+            CostMicros = null,
+            Kind = null,
+            Metadata = null,
+            Service = null,
+            Timestamp = null,
+        };
+
+        Assert.Null(model.ID);
+        Assert.False(model.RawData.ContainsKey("id"));
+        Assert.Null(model.CostMicros);
+        Assert.False(model.RawData.ContainsKey("costMicros"));
+        Assert.Null(model.Kind);
+        Assert.False(model.RawData.ContainsKey("kind"));
+        Assert.Null(model.Metadata);
+        Assert.False(model.RawData.ContainsKey("metadata"));
+        Assert.Null(model.Service);
+        Assert.False(model.RawData.ContainsKey("service"));
+        Assert.Null(model.Timestamp);
+        Assert.False(model.RawData.ContainsKey("timestamp"));
+    }
+
+    [Fact]
+    public void OptionalNonNullablePropertiesSetToNullValidation_Works()
+    {
+        var model = new Run::Entry
+        {
+            CompletionTokens = 0,
+            Endpoint = "endpoint",
+            Method = "method",
+            Model = "model",
+            PromptTokens = 0,
+            StatusCode = 0,
+            TotalTokens = 0,
+
+            // Null should be interpreted as omitted for these properties
+            ID = null,
+            CostMicros = null,
+            Kind = null,
+            Metadata = null,
+            Service = null,
+            Timestamp = null,
+        };
+
+        model.Validate();
+    }
+
+    [Fact]
+    public void OptionalNullablePropertiesUnsetAreNotSet_Works()
+    {
+        var model = new Run::Entry
+        {
+            ID = "id",
+            CostMicros = 0,
+            Kind = Run::Kind.Llm,
+            Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+            Service = "service",
+            Timestamp = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+        };
+
+        Assert.Null(model.CompletionTokens);
+        Assert.False(model.RawData.ContainsKey("completionTokens"));
+        Assert.Null(model.Endpoint);
+        Assert.False(model.RawData.ContainsKey("endpoint"));
+        Assert.Null(model.Method);
+        Assert.False(model.RawData.ContainsKey("method"));
+        Assert.Null(model.Model);
+        Assert.False(model.RawData.ContainsKey("model"));
+        Assert.Null(model.PromptTokens);
+        Assert.False(model.RawData.ContainsKey("promptTokens"));
+        Assert.Null(model.StatusCode);
+        Assert.False(model.RawData.ContainsKey("statusCode"));
+        Assert.Null(model.TotalTokens);
+        Assert.False(model.RawData.ContainsKey("totalTokens"));
+    }
+
+    [Fact]
+    public void OptionalNullablePropertiesUnsetValidation_Works()
+    {
+        var model = new Run::Entry
+        {
+            ID = "id",
+            CostMicros = 0,
+            Kind = Run::Kind.Llm,
+            Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+            Service = "service",
+            Timestamp = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+        };
+
+        model.Validate();
+    }
+
+    [Fact]
+    public void OptionalNullablePropertiesSetToNullAreSetToNull_Works()
+    {
+        var model = new Run::Entry
+        {
+            ID = "id",
+            CostMicros = 0,
+            Kind = Run::Kind.Llm,
+            Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+            Service = "service",
+            Timestamp = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+
+            CompletionTokens = null,
+            Endpoint = null,
+            Method = null,
+            Model = null,
+            PromptTokens = null,
+            StatusCode = null,
+            TotalTokens = null,
+        };
+
+        Assert.Null(model.CompletionTokens);
+        Assert.True(model.RawData.ContainsKey("completionTokens"));
+        Assert.Null(model.Endpoint);
+        Assert.True(model.RawData.ContainsKey("endpoint"));
+        Assert.Null(model.Method);
+        Assert.True(model.RawData.ContainsKey("method"));
+        Assert.Null(model.Model);
+        Assert.True(model.RawData.ContainsKey("model"));
+        Assert.Null(model.PromptTokens);
+        Assert.True(model.RawData.ContainsKey("promptTokens"));
+        Assert.Null(model.StatusCode);
+        Assert.True(model.RawData.ContainsKey("statusCode"));
+        Assert.Null(model.TotalTokens);
+        Assert.True(model.RawData.ContainsKey("totalTokens"));
+    }
+
+    [Fact]
+    public void OptionalNullablePropertiesSetToNullValidation_Works()
+    {
+        var model = new Run::Entry
+        {
+            ID = "id",
+            CostMicros = 0,
+            Kind = Run::Kind.Llm,
+            Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+            Service = "service",
+            Timestamp = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+
+            CompletionTokens = null,
+            Endpoint = null,
+            Method = null,
+            Model = null,
+            PromptTokens = null,
+            StatusCode = null,
+            TotalTokens = null,
+        };
+
+        model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Run::Entry
+        {
+            ID = "id",
+            CompletionTokens = 0,
+            CostMicros = 0,
+            Endpoint = "endpoint",
+            Kind = Run::Kind.Llm,
+            Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
+            Method = "method",
+            Model = "model",
+            PromptTokens = 0,
+            Service = "service",
+            StatusCode = 0,
+            Timestamp = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            TotalTokens = 0,
+        };
+
+        Run::Entry copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
+}
+
+public class KindTest : TestBase
+{
+    [Theory]
+    [InlineData(Run::Kind.Llm)]
+    [InlineData(Run::Kind.Api)]
+    public void Validation_Works(Run::Kind rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, Run::Kind> value = rawValue;
+        value.Validate();
+    }
+
+    [Fact]
+    public void InvalidEnumValidationThrows_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, Run::Kind>>(
+            JsonSerializer.SerializeToElement("invalid value"),
+            ModelBase.SerializerOptions
+        );
+
+        Assert.NotNull(value);
+        Assert.Throws<CasedevInvalidDataException>(() => value.Validate());
+    }
+
+    [Theory]
+    [InlineData(Run::Kind.Llm)]
+    [InlineData(Run::Kind.Api)]
+    public void SerializationRoundtrip_Works(Run::Kind rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, Run::Kind> value = rawValue;
+
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Run::Kind>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
+    }
+
+    [Fact]
+    public void InvalidEnumSerializationRoundtrip_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, Run::Kind>>(
+            JsonSerializer.SerializeToElement("invalid value"),
+            ModelBase.SerializerOptions
+        );
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Run::Kind>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
+    }
+}
+
+public class SummaryTest : TestBase
+{
+    [Fact]
+    public void FieldRoundtrip_Works()
+    {
+        var model = new Run::Summary
+        {
+            CostMicros = 0,
+            TotalInputTokens = 0,
+            TotalOutputTokens = 0,
+            TotalTokens = 0,
+        };
+
+        long expectedCostMicros = 0;
+        long expectedTotalInputTokens = 0;
+        long expectedTotalOutputTokens = 0;
+        long expectedTotalTokens = 0;
+
+        Assert.Equal(expectedCostMicros, model.CostMicros);
+        Assert.Equal(expectedTotalInputTokens, model.TotalInputTokens);
+        Assert.Equal(expectedTotalOutputTokens, model.TotalOutputTokens);
+        Assert.Equal(expectedTotalTokens, model.TotalTokens);
+    }
+
+    [Fact]
+    public void SerializationRoundtrip_Works()
+    {
+        var model = new Run::Summary
+        {
+            CostMicros = 0,
+            TotalInputTokens = 0,
+            TotalOutputTokens = 0,
+            TotalTokens = 0,
+        };
+
+        string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<Run::Summary>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(model, deserialized);
+    }
+
+    [Fact]
+    public void FieldRoundtripThroughSerialization_Works()
+    {
+        var model = new Run::Summary
+        {
+            CostMicros = 0,
+            TotalInputTokens = 0,
+            TotalOutputTokens = 0,
+            TotalTokens = 0,
+        };
+
+        string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<Run::Summary>(
+            element,
+            ModelBase.SerializerOptions
+        );
+        Assert.NotNull(deserialized);
+
+        long expectedCostMicros = 0;
+        long expectedTotalInputTokens = 0;
+        long expectedTotalOutputTokens = 0;
+        long expectedTotalTokens = 0;
+
+        Assert.Equal(expectedCostMicros, deserialized.CostMicros);
+        Assert.Equal(expectedTotalInputTokens, deserialized.TotalInputTokens);
+        Assert.Equal(expectedTotalOutputTokens, deserialized.TotalOutputTokens);
+        Assert.Equal(expectedTotalTokens, deserialized.TotalTokens);
+    }
+
+    [Fact]
+    public void Validation_Works()
+    {
+        var model = new Run::Summary
+        {
+            CostMicros = 0,
+            TotalInputTokens = 0,
+            TotalOutputTokens = 0,
+            TotalTokens = 0,
+        };
+
+        model.Validate();
+    }
+
+    [Fact]
+    public void OptionalNonNullablePropertiesUnsetAreNotSet_Works()
+    {
+        var model = new Run::Summary { };
+
+        Assert.Null(model.CostMicros);
+        Assert.False(model.RawData.ContainsKey("costMicros"));
+        Assert.Null(model.TotalInputTokens);
+        Assert.False(model.RawData.ContainsKey("totalInputTokens"));
+        Assert.Null(model.TotalOutputTokens);
+        Assert.False(model.RawData.ContainsKey("totalOutputTokens"));
+        Assert.Null(model.TotalTokens);
+        Assert.False(model.RawData.ContainsKey("totalTokens"));
+    }
+
+    [Fact]
+    public void OptionalNonNullablePropertiesUnsetValidation_Works()
+    {
+        var model = new Run::Summary { };
+
+        model.Validate();
+    }
+
+    [Fact]
+    public void OptionalNonNullablePropertiesSetToNullAreNotSet_Works()
+    {
+        var model = new Run::Summary
+        {
+            // Null should be interpreted as omitted for these properties
+            CostMicros = null,
+            TotalInputTokens = null,
+            TotalOutputTokens = null,
+            TotalTokens = null,
+        };
+
+        Assert.Null(model.CostMicros);
+        Assert.False(model.RawData.ContainsKey("costMicros"));
+        Assert.Null(model.TotalInputTokens);
+        Assert.False(model.RawData.ContainsKey("totalInputTokens"));
+        Assert.Null(model.TotalOutputTokens);
+        Assert.False(model.RawData.ContainsKey("totalOutputTokens"));
+        Assert.Null(model.TotalTokens);
+        Assert.False(model.RawData.ContainsKey("totalTokens"));
+    }
+
+    [Fact]
+    public void OptionalNonNullablePropertiesSetToNullValidation_Works()
+    {
+        var model = new Run::Summary
+        {
+            // Null should be interpreted as omitted for these properties
+            CostMicros = null,
+            TotalInputTokens = null,
+            TotalOutputTokens = null,
+            TotalTokens = null,
+        };
+
+        model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Run::Summary
+        {
+            CostMicros = 0,
+            TotalInputTokens = 0,
+            TotalOutputTokens = 0,
+            TotalTokens = 0,
+        };
+
+        Run::Summary copied = new(model);
 
         Assert.Equal(model, copied);
     }

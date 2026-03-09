@@ -49,6 +49,7 @@ public abstract record class ModelBase
             new ApiEnumConverter<string, RunExecResponseStatus>(),
             new ApiEnumConverter<string, RunGetDetailsResponseStatus>(),
             new ApiEnumConverter<string, Type>(),
+            new ApiEnumConverter<string, Kind>(),
             new ApiEnumConverter<string, RunGetStatusResponseStatus>(),
             new ApiEnumConverter<string, Execute::Status>(),
             new ApiEnumConverter<string, Target>(),
