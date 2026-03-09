@@ -25,6 +25,9 @@ public class ObjectListResponseTest : TestBase
                     IngestionStatus = "ingestionStatus",
                     ChunkCount = 0,
                     IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    IngestionError = "ingestionError",
+                    IngestionStartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    IngestionWorkflowID = "ingestionWorkflowId",
                     Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
                     PageCount = 0,
                     Path = "path",
@@ -49,6 +52,9 @@ public class ObjectListResponseTest : TestBase
                 IngestionStatus = "ingestionStatus",
                 ChunkCount = 0,
                 IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                IngestionError = "ingestionError",
+                IngestionStartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                IngestionWorkflowID = "ingestionWorkflowId",
                 Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
                 PageCount = 0,
                 Path = "path",
@@ -86,6 +92,9 @@ public class ObjectListResponseTest : TestBase
                     IngestionStatus = "ingestionStatus",
                     ChunkCount = 0,
                     IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    IngestionError = "ingestionError",
+                    IngestionStartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    IngestionWorkflowID = "ingestionWorkflowId",
                     Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
                     PageCount = 0,
                     Path = "path",
@@ -124,6 +133,9 @@ public class ObjectListResponseTest : TestBase
                     IngestionStatus = "ingestionStatus",
                     ChunkCount = 0,
                     IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    IngestionError = "ingestionError",
+                    IngestionStartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    IngestionWorkflowID = "ingestionWorkflowId",
                     Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
                     PageCount = 0,
                     Path = "path",
@@ -155,6 +167,9 @@ public class ObjectListResponseTest : TestBase
                 IngestionStatus = "ingestionStatus",
                 ChunkCount = 0,
                 IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                IngestionError = "ingestionError",
+                IngestionStartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                IngestionWorkflowID = "ingestionWorkflowId",
                 Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
                 PageCount = 0,
                 Path = "path",
@@ -192,6 +207,9 @@ public class ObjectListResponseTest : TestBase
                     IngestionStatus = "ingestionStatus",
                     ChunkCount = 0,
                     IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    IngestionError = "ingestionError",
+                    IngestionStartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    IngestionWorkflowID = "ingestionWorkflowId",
                     Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
                     PageCount = 0,
                     Path = "path",
@@ -224,6 +242,9 @@ public class ObjectListResponseTest : TestBase
                     IngestionStatus = "ingestionStatus",
                     ChunkCount = 0,
                     IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    IngestionError = "ingestionError",
+                    IngestionStartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    IngestionWorkflowID = "ingestionWorkflowId",
                     Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
                     PageCount = 0,
                     Path = "path",
@@ -256,6 +277,9 @@ public class ObjectTest : TestBase
             IngestionStatus = "ingestionStatus",
             ChunkCount = 0,
             IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            IngestionError = "ingestionError",
+            IngestionStartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            IngestionWorkflowID = "ingestionWorkflowId",
             Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
             PageCount = 0,
             Path = "path",
@@ -274,6 +298,11 @@ public class ObjectTest : TestBase
         DateTimeOffset expectedIngestionCompletedAt = DateTimeOffset.Parse(
             "2019-12-27T18:11:19.117Z"
         );
+        string expectedIngestionError = "ingestionError";
+        DateTimeOffset expectedIngestionStartedAt = DateTimeOffset.Parse(
+            "2019-12-27T18:11:19.117Z"
+        );
+        string expectedIngestionWorkflowID = "ingestionWorkflowId";
         JsonElement expectedMetadata = JsonSerializer.Deserialize<JsonElement>("{}");
         double expectedPageCount = 0;
         string expectedPath = "path";
@@ -289,6 +318,9 @@ public class ObjectTest : TestBase
         Assert.Equal(expectedIngestionStatus, model.IngestionStatus);
         Assert.Equal(expectedChunkCount, model.ChunkCount);
         Assert.Equal(expectedIngestionCompletedAt, model.IngestionCompletedAt);
+        Assert.Equal(expectedIngestionError, model.IngestionError);
+        Assert.Equal(expectedIngestionStartedAt, model.IngestionStartedAt);
+        Assert.Equal(expectedIngestionWorkflowID, model.IngestionWorkflowID);
         Assert.NotNull(model.Metadata);
         Assert.True(JsonElement.DeepEquals(expectedMetadata, model.Metadata.Value));
         Assert.Equal(expectedPageCount, model.PageCount);
@@ -316,6 +348,9 @@ public class ObjectTest : TestBase
             IngestionStatus = "ingestionStatus",
             ChunkCount = 0,
             IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            IngestionError = "ingestionError",
+            IngestionStartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            IngestionWorkflowID = "ingestionWorkflowId",
             Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
             PageCount = 0,
             Path = "path",
@@ -346,6 +381,9 @@ public class ObjectTest : TestBase
             IngestionStatus = "ingestionStatus",
             ChunkCount = 0,
             IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            IngestionError = "ingestionError",
+            IngestionStartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            IngestionWorkflowID = "ingestionWorkflowId",
             Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
             PageCount = 0,
             Path = "path",
@@ -371,6 +409,11 @@ public class ObjectTest : TestBase
         DateTimeOffset expectedIngestionCompletedAt = DateTimeOffset.Parse(
             "2019-12-27T18:11:19.117Z"
         );
+        string expectedIngestionError = "ingestionError";
+        DateTimeOffset expectedIngestionStartedAt = DateTimeOffset.Parse(
+            "2019-12-27T18:11:19.117Z"
+        );
+        string expectedIngestionWorkflowID = "ingestionWorkflowId";
         JsonElement expectedMetadata = JsonSerializer.Deserialize<JsonElement>("{}");
         double expectedPageCount = 0;
         string expectedPath = "path";
@@ -386,6 +429,9 @@ public class ObjectTest : TestBase
         Assert.Equal(expectedIngestionStatus, deserialized.IngestionStatus);
         Assert.Equal(expectedChunkCount, deserialized.ChunkCount);
         Assert.Equal(expectedIngestionCompletedAt, deserialized.IngestionCompletedAt);
+        Assert.Equal(expectedIngestionError, deserialized.IngestionError);
+        Assert.Equal(expectedIngestionStartedAt, deserialized.IngestionStartedAt);
+        Assert.Equal(expectedIngestionWorkflowID, deserialized.IngestionWorkflowID);
         Assert.NotNull(deserialized.Metadata);
         Assert.True(JsonElement.DeepEquals(expectedMetadata, deserialized.Metadata.Value));
         Assert.Equal(expectedPageCount, deserialized.PageCount);
@@ -413,6 +459,9 @@ public class ObjectTest : TestBase
             IngestionStatus = "ingestionStatus",
             ChunkCount = 0,
             IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            IngestionError = "ingestionError",
+            IngestionStartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            IngestionWorkflowID = "ingestionWorkflowId",
             Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
             PageCount = 0,
             Path = "path",
@@ -435,6 +484,9 @@ public class ObjectTest : TestBase
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Filename = "filename",
             IngestionStatus = "ingestionStatus",
+            IngestionError = "ingestionError",
+            IngestionStartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            IngestionWorkflowID = "ingestionWorkflowId",
             Path = "path",
         };
 
@@ -466,6 +518,9 @@ public class ObjectTest : TestBase
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Filename = "filename",
             IngestionStatus = "ingestionStatus",
+            IngestionError = "ingestionError",
+            IngestionStartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            IngestionWorkflowID = "ingestionWorkflowId",
             Path = "path",
         };
 
@@ -482,6 +537,9 @@ public class ObjectTest : TestBase
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Filename = "filename",
             IngestionStatus = "ingestionStatus",
+            IngestionError = "ingestionError",
+            IngestionStartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            IngestionWorkflowID = "ingestionWorkflowId",
             Path = "path",
 
             // Null should be interpreted as omitted for these properties
@@ -523,6 +581,9 @@ public class ObjectTest : TestBase
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Filename = "filename",
             IngestionStatus = "ingestionStatus",
+            IngestionError = "ingestionError",
+            IngestionStartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            IngestionWorkflowID = "ingestionWorkflowId",
             Path = "path",
 
             // Null should be interpreted as omitted for these properties
@@ -559,6 +620,12 @@ public class ObjectTest : TestBase
             VectorCount = 0,
         };
 
+        Assert.Null(model.IngestionError);
+        Assert.False(model.RawData.ContainsKey("ingestionError"));
+        Assert.Null(model.IngestionStartedAt);
+        Assert.False(model.RawData.ContainsKey("ingestionStartedAt"));
+        Assert.Null(model.IngestionWorkflowID);
+        Assert.False(model.RawData.ContainsKey("ingestionWorkflowId"));
         Assert.Null(model.Path);
         Assert.False(model.RawData.ContainsKey("path"));
     }
@@ -605,9 +672,18 @@ public class ObjectTest : TestBase
             TextLength = 0,
             VectorCount = 0,
 
+            IngestionError = null,
+            IngestionStartedAt = null,
+            IngestionWorkflowID = null,
             Path = null,
         };
 
+        Assert.Null(model.IngestionError);
+        Assert.True(model.RawData.ContainsKey("ingestionError"));
+        Assert.Null(model.IngestionStartedAt);
+        Assert.True(model.RawData.ContainsKey("ingestionStartedAt"));
+        Assert.Null(model.IngestionWorkflowID);
+        Assert.True(model.RawData.ContainsKey("ingestionWorkflowId"));
         Assert.Null(model.Path);
         Assert.True(model.RawData.ContainsKey("path"));
     }
@@ -631,6 +707,9 @@ public class ObjectTest : TestBase
             TextLength = 0,
             VectorCount = 0,
 
+            IngestionError = null,
+            IngestionStartedAt = null,
+            IngestionWorkflowID = null,
             Path = null,
         };
 
@@ -649,6 +728,9 @@ public class ObjectTest : TestBase
             IngestionStatus = "ingestionStatus",
             ChunkCount = 0,
             IngestionCompletedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            IngestionError = "ingestionError",
+            IngestionStartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            IngestionWorkflowID = "ingestionWorkflowId",
             Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
             PageCount = 0,
             Path = "path",

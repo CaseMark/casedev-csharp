@@ -217,6 +217,45 @@ public sealed record class Object : JsonModel
     }
 
     /// <summary>
+    /// Failure reason when ingestion status is a failed state
+    /// </summary>
+    public string? IngestionError
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("ingestionError");
+        }
+        init { this._rawData.Set("ingestionError", value); }
+    }
+
+    /// <summary>
+    /// When ingestion processing began
+    /// </summary>
+    public DateTimeOffset? IngestionStartedAt
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<DateTimeOffset>("ingestionStartedAt");
+        }
+        init { this._rawData.Set("ingestionStartedAt", value); }
+    }
+
+    /// <summary>
+    /// Durable workflow run ID for the active or last ingestion attempt
+    /// </summary>
+    public string? IngestionWorkflowID
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("ingestionWorkflowId");
+        }
+        init { this._rawData.Set("ingestionWorkflowId", value); }
+    }
+
+    /// <summary>
     /// Custom metadata associated with the document
     /// </summary>
     public JsonElement? Metadata
@@ -368,6 +407,9 @@ public sealed record class Object : JsonModel
         _ = this.IngestionStatus;
         _ = this.ChunkCount;
         _ = this.IngestionCompletedAt;
+        _ = this.IngestionError;
+        _ = this.IngestionStartedAt;
+        _ = this.IngestionWorkflowID;
         _ = this.Metadata;
         _ = this.PageCount;
         _ = this.Path;
