@@ -37,6 +37,23 @@ public class ChatServiceTest : TestBase
         response.Validate();
     }
 
+    [Fact]
+    public async Task ReplyToQuestion_Works()
+    {
+        await this.client.Agent.V1.Chat.ReplyToQuestion(
+            "requestID",
+            new()
+            {
+                ID = "id",
+                Answers =
+                [
+                    ["string"],
+                ],
+            },
+            TestContext.Current.CancellationToken
+        );
+    }
+
     [Fact(Skip = "Mock server doesn't support text/event-stream responses")]
     public async Task RespondStreaming_Works()
     {
@@ -65,6 +82,18 @@ public class ChatServiceTest : TestBase
         var stream = this.client.Agent.V1.Chat.StreamStreaming(
             "id",
             new(),
+            TestContext.Current.CancellationToken
+        );
+
+        await foreach (var response in stream) { }
+    }
+
+    [Fact(Skip = "Mock server doesn't support text/event-stream responses")]
+    public async Task UiStreamStreaming_Works()
+    {
+        var stream = this.client.Agent.V1.Chat.UiStreamStreaming(
+            "id",
+            new() { Body = JsonSerializer.Deserialize<JsonElement>("{}") },
             TestContext.Current.CancellationToken
         );
 

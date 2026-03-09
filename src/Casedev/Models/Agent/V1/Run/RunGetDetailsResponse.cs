@@ -892,6 +892,27 @@ public sealed record class Usage : JsonModel
         }
     }
 
+    public IReadOnlyList<Entry>? Entries
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<ImmutableArray<Entry>>("entries");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawData.Set<ImmutableArray<Entry>?>(
+                "entries",
+                value == null ? null : ImmutableArray.ToImmutableArray(value)
+            );
+        }
+    }
+
     public long? InputTokens
     {
         get
@@ -946,6 +967,16 @@ public sealed record class Usage : JsonModel
         }
     }
 
+    public Summary? Summary
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<Summary>("summary");
+        }
+        init { this._rawData.Set("summary", value); }
+    }
+
     public long? ToolCalls
     {
         get
@@ -968,9 +999,14 @@ public sealed record class Usage : JsonModel
     public override void Validate()
     {
         _ = this.DurationMs;
+        foreach (var item in this.Entries ?? [])
+        {
+            item.Validate();
+        }
         _ = this.InputTokens;
         _ = this.Model;
         _ = this.OutputTokens;
+        this.Summary?.Validate();
         _ = this.ToolCalls;
     }
 
@@ -1007,4 +1043,397 @@ class UsageFromRaw : IFromRawJson<Usage>
     /// <inheritdoc/>
     public Usage FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         Usage.FromRawUnchecked(rawData);
+}
+
+[JsonConverter(typeof(JsonModelConverter<Entry, EntryFromRaw>))]
+public sealed record class Entry : JsonModel
+{
+    public string? ID
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("id");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawData.Set("id", value);
+        }
+    }
+
+    public long? CompletionTokens
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("completionTokens");
+        }
+        init { this._rawData.Set("completionTokens", value); }
+    }
+
+    public long? CostMicros
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("costMicros");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawData.Set("costMicros", value);
+        }
+    }
+
+    public string? Endpoint
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("endpoint");
+        }
+        init { this._rawData.Set("endpoint", value); }
+    }
+
+    public ApiEnum<string, Kind>? Kind
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<ApiEnum<string, Kind>>("kind");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawData.Set("kind", value);
+        }
+    }
+
+    public JsonElement? Metadata
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<JsonElement>("metadata");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawData.Set("metadata", value);
+        }
+    }
+
+    public string? Method
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("method");
+        }
+        init { this._rawData.Set("method", value); }
+    }
+
+    public string? Model
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("model");
+        }
+        init { this._rawData.Set("model", value); }
+    }
+
+    public long? PromptTokens
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("promptTokens");
+        }
+        init { this._rawData.Set("promptTokens", value); }
+    }
+
+    public string? Service
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("service");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawData.Set("service", value);
+        }
+    }
+
+    public long? StatusCode
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("statusCode");
+        }
+        init { this._rawData.Set("statusCode", value); }
+    }
+
+    public System::DateTimeOffset? Timestamp
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<System::DateTimeOffset>("timestamp");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawData.Set("timestamp", value);
+        }
+    }
+
+    public long? TotalTokens
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("totalTokens");
+        }
+        init { this._rawData.Set("totalTokens", value); }
+    }
+
+    /// <inheritdoc/>
+    public override void Validate()
+    {
+        _ = this.ID;
+        _ = this.CompletionTokens;
+        _ = this.CostMicros;
+        _ = this.Endpoint;
+        this.Kind?.Validate();
+        _ = this.Metadata;
+        _ = this.Method;
+        _ = this.Model;
+        _ = this.PromptTokens;
+        _ = this.Service;
+        _ = this.StatusCode;
+        _ = this.Timestamp;
+        _ = this.TotalTokens;
+    }
+
+    public Entry() { }
+
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
+    public Entry(Entry entry)
+        : base(entry) { }
+#pragma warning restore CS8618
+
+    public Entry(IReadOnlyDictionary<string, JsonElement> rawData)
+    {
+        this._rawData = new(rawData);
+    }
+
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
+    Entry(FrozenDictionary<string, JsonElement> rawData)
+    {
+        this._rawData = new(rawData);
+    }
+#pragma warning restore CS8618
+
+    /// <inheritdoc cref="EntryFromRaw.FromRawUnchecked"/>
+    public static Entry FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
+    {
+        return new(FrozenDictionary.ToFrozenDictionary(rawData));
+    }
+}
+
+class EntryFromRaw : IFromRawJson<Entry>
+{
+    /// <inheritdoc/>
+    public Entry FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
+        Entry.FromRawUnchecked(rawData);
+}
+
+[JsonConverter(typeof(KindConverter))]
+public enum Kind
+{
+    Llm,
+    Api,
+}
+
+sealed class KindConverter : JsonConverter<Kind>
+{
+    public override Kind Read(
+        ref Utf8JsonReader reader,
+        System::Type typeToConvert,
+        JsonSerializerOptions options
+    )
+    {
+        return JsonSerializer.Deserialize<string>(ref reader, options) switch
+        {
+            "llm" => Kind.Llm,
+            "api" => Kind.Api,
+            _ => (Kind)(-1),
+        };
+    }
+
+    public override void Write(Utf8JsonWriter writer, Kind value, JsonSerializerOptions options)
+    {
+        JsonSerializer.Serialize(
+            writer,
+            value switch
+            {
+                Kind.Llm => "llm",
+                Kind.Api => "api",
+                _ => throw new CasedevInvalidDataException(
+                    string.Format("Invalid value '{0}' in {1}", value, nameof(value))
+                ),
+            },
+            options
+        );
+    }
+}
+
+[JsonConverter(typeof(JsonModelConverter<Summary, SummaryFromRaw>))]
+public sealed record class Summary : JsonModel
+{
+    public long? CostMicros
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("costMicros");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawData.Set("costMicros", value);
+        }
+    }
+
+    public long? TotalInputTokens
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("totalInputTokens");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawData.Set("totalInputTokens", value);
+        }
+    }
+
+    public long? TotalOutputTokens
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("totalOutputTokens");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawData.Set("totalOutputTokens", value);
+        }
+    }
+
+    public long? TotalTokens
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("totalTokens");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawData.Set("totalTokens", value);
+        }
+    }
+
+    /// <inheritdoc/>
+    public override void Validate()
+    {
+        _ = this.CostMicros;
+        _ = this.TotalInputTokens;
+        _ = this.TotalOutputTokens;
+        _ = this.TotalTokens;
+    }
+
+    public Summary() { }
+
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
+    public Summary(Summary summary)
+        : base(summary) { }
+#pragma warning restore CS8618
+
+    public Summary(IReadOnlyDictionary<string, JsonElement> rawData)
+    {
+        this._rawData = new(rawData);
+    }
+
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
+    Summary(FrozenDictionary<string, JsonElement> rawData)
+    {
+        this._rawData = new(rawData);
+    }
+#pragma warning restore CS8618
+
+    /// <inheritdoc cref="SummaryFromRaw.FromRawUnchecked"/>
+    public static Summary FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
+    {
+        return new(FrozenDictionary.ToFrozenDictionary(rawData));
+    }
+}
+
+class SummaryFromRaw : IFromRawJson<Summary>
+{
+    /// <inheritdoc/>
+    public Summary FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
+        Summary.FromRawUnchecked(rawData);
 }

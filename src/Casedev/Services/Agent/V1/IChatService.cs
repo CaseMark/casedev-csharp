@@ -68,8 +68,24 @@ public interface IChatService
     );
 
     /// <summary>
+    /// Answers a pending OpenCode question for the chat session bound to this agent chat.
+    /// </summary>
+    Task ReplyToQuestion(
+        ChatReplyToQuestionParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="ReplyToQuestion(ChatReplyToQuestionParams, CancellationToken)"/>
+    Task ReplyToQuestion(
+        string requestID,
+        ChatReplyToQuestionParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
     /// Streams a single assistant turn as normalized state events with stable turn,
-    /// message, and part ids.
+    /// message, and part ids. Emits session.usage before turn.completed when token
+    /// data is available.
     /// </summary>
     IAsyncEnumerable<string> RespondStreaming(
         ChatRespondParams parameters,
@@ -111,6 +127,22 @@ public interface IChatService
     IAsyncEnumerable<string> StreamStreaming(
         string id,
         ChatStreamParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Streams a single assistant turn as AI SDK UIMessageChunk SSE events for direct
+    /// client rendering.
+    /// </summary>
+    IAsyncEnumerable<string> UiStreamStreaming(
+        ChatUiStreamParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="UiStreamStreaming(ChatUiStreamParams, CancellationToken)"/>
+    IAsyncEnumerable<string> UiStreamStreaming(
+        string id,
+        ChatUiStreamParams parameters,
         CancellationToken cancellationToken = default
     );
 }
@@ -170,6 +202,22 @@ public interface IChatServiceWithRawResponse
     );
 
     /// <summary>
+    /// Returns a raw HTTP response for `post /agent/v1/chat/{id}/question/{requestID}/reply`, but is otherwise the
+    /// same as <see cref="IChatService.ReplyToQuestion(ChatReplyToQuestionParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> ReplyToQuestion(
+        ChatReplyToQuestionParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="ReplyToQuestion(ChatReplyToQuestionParams, CancellationToken)"/>
+    Task<HttpResponse> ReplyToQuestion(
+        string requestID,
+        ChatReplyToQuestionParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
     /// Returns a raw HTTP response for `post /agent/v1/chat/{id}/respond`, but is otherwise the
     /// same as <see cref="IChatService.RespondStreaming(ChatRespondParams, CancellationToken)"/>.
     /// </summary>
@@ -214,6 +262,22 @@ public interface IChatServiceWithRawResponse
     Task<StreamingHttpResponse<string>> StreamStreaming(
         string id,
         ChatStreamParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `post /agent/v1/chat/{id}/ui-stream`, but is otherwise the
+    /// same as <see cref="IChatService.UiStreamStreaming(ChatUiStreamParams, CancellationToken)"/>.
+    /// </summary>
+    Task<StreamingHttpResponse<string>> UiStreamStreaming(
+        ChatUiStreamParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="UiStreamStreaming(ChatUiStreamParams, CancellationToken)"/>
+    Task<StreamingHttpResponse<string>> UiStreamStreaming(
+        string id,
+        ChatUiStreamParams parameters,
         CancellationToken cancellationToken = default
     );
 }
