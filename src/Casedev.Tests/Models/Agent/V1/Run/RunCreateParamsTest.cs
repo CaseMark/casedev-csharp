@@ -13,6 +13,7 @@ public class RunCreateParamsTest : TestBase
         {
             AgentID = "agentId",
             Prompt = "prompt",
+            CallbackUrl = "https://example.com",
             Guidance = "guidance",
             Model = "model",
             ObjectIds = ["string"],
@@ -20,12 +21,14 @@ public class RunCreateParamsTest : TestBase
 
         string expectedAgentID = "agentId";
         string expectedPrompt = "prompt";
+        string expectedCallbackUrl = "https://example.com";
         string expectedGuidance = "guidance";
         string expectedModel = "model";
         List<string> expectedObjectIds = ["string"];
 
         Assert.Equal(expectedAgentID, parameters.AgentID);
         Assert.Equal(expectedPrompt, parameters.Prompt);
+        Assert.Equal(expectedCallbackUrl, parameters.CallbackUrl);
         Assert.Equal(expectedGuidance, parameters.Guidance);
         Assert.Equal(expectedModel, parameters.Model);
         Assert.NotNull(parameters.ObjectIds);
@@ -41,6 +44,8 @@ public class RunCreateParamsTest : TestBase
     {
         var parameters = new RunCreateParams { AgentID = "agentId", Prompt = "prompt" };
 
+        Assert.Null(parameters.CallbackUrl);
+        Assert.False(parameters.RawBodyData.ContainsKey("callbackUrl"));
         Assert.Null(parameters.Guidance);
         Assert.False(parameters.RawBodyData.ContainsKey("guidance"));
         Assert.Null(parameters.Model);
@@ -57,11 +62,14 @@ public class RunCreateParamsTest : TestBase
             AgentID = "agentId",
             Prompt = "prompt",
 
+            CallbackUrl = null,
             Guidance = null,
             Model = null,
             ObjectIds = null,
         };
 
+        Assert.Null(parameters.CallbackUrl);
+        Assert.True(parameters.RawBodyData.ContainsKey("callbackUrl"));
         Assert.Null(parameters.Guidance);
         Assert.True(parameters.RawBodyData.ContainsKey("guidance"));
         Assert.Null(parameters.Model);
@@ -87,6 +95,7 @@ public class RunCreateParamsTest : TestBase
         {
             AgentID = "agentId",
             Prompt = "prompt",
+            CallbackUrl = "https://example.com",
             Guidance = "guidance",
             Model = "model",
             ObjectIds = ["string"],

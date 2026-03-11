@@ -13,7 +13,8 @@ namespace Casedev.Models.Agent.V1.Execute;
 public sealed record class ExecuteCreateResponse : JsonModel
 {
     /// <summary>
-    /// Ephemeral agent ID (auto-created)
+    /// Ephemeral agent ID (auto-created). This agent is soft-deleted when the run
+    /// completes and should not be stored for reuse.
     /// </summary>
     public string? AgentID
     {

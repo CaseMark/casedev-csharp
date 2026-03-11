@@ -27,6 +27,8 @@ public class AgentListResponseTest : TestBase
                     VaultIds = ["string"],
                 },
             ],
+            HasMore = true,
+            NextCursor = "nextCursor",
         };
 
         List<AgentListResponseAgent> expectedAgents =
@@ -43,6 +45,8 @@ public class AgentListResponseTest : TestBase
                 VaultIds = ["string"],
             },
         ];
+        bool expectedHasMore = true;
+        string expectedNextCursor = "nextCursor";
 
         Assert.NotNull(model.Agents);
         Assert.Equal(expectedAgents.Count, model.Agents.Count);
@@ -50,6 +54,8 @@ public class AgentListResponseTest : TestBase
         {
             Assert.Equal(expectedAgents[i], model.Agents[i]);
         }
+        Assert.Equal(expectedHasMore, model.HasMore);
+        Assert.Equal(expectedNextCursor, model.NextCursor);
     }
 
     [Fact]
@@ -71,6 +77,8 @@ public class AgentListResponseTest : TestBase
                     VaultIds = ["string"],
                 },
             ],
+            HasMore = true,
+            NextCursor = "nextCursor",
         };
 
         string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
@@ -101,6 +109,8 @@ public class AgentListResponseTest : TestBase
                     VaultIds = ["string"],
                 },
             ],
+            HasMore = true,
+            NextCursor = "nextCursor",
         };
 
         string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
@@ -124,6 +134,8 @@ public class AgentListResponseTest : TestBase
                 VaultIds = ["string"],
             },
         ];
+        bool expectedHasMore = true;
+        string expectedNextCursor = "nextCursor";
 
         Assert.NotNull(deserialized.Agents);
         Assert.Equal(expectedAgents.Count, deserialized.Agents.Count);
@@ -131,6 +143,8 @@ public class AgentListResponseTest : TestBase
         {
             Assert.Equal(expectedAgents[i], deserialized.Agents[i]);
         }
+        Assert.Equal(expectedHasMore, deserialized.HasMore);
+        Assert.Equal(expectedNextCursor, deserialized.NextCursor);
     }
 
     [Fact]
@@ -152,6 +166,8 @@ public class AgentListResponseTest : TestBase
                     VaultIds = ["string"],
                 },
             ],
+            HasMore = true,
+            NextCursor = "nextCursor",
         };
 
         model.Validate();
@@ -160,16 +176,18 @@ public class AgentListResponseTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetAreNotSet_Works()
     {
-        var model = new AgentListResponse { };
+        var model = new AgentListResponse { NextCursor = "nextCursor" };
 
         Assert.Null(model.Agents);
         Assert.False(model.RawData.ContainsKey("agents"));
+        Assert.Null(model.HasMore);
+        Assert.False(model.RawData.ContainsKey("hasMore"));
     }
 
     [Fact]
     public void OptionalNonNullablePropertiesUnsetValidation_Works()
     {
-        var model = new AgentListResponse { };
+        var model = new AgentListResponse { NextCursor = "nextCursor" };
 
         model.Validate();
     }
@@ -179,12 +197,17 @@ public class AgentListResponseTest : TestBase
     {
         var model = new AgentListResponse
         {
+            NextCursor = "nextCursor",
+
             // Null should be interpreted as omitted for these properties
             Agents = null,
+            HasMore = null,
         };
 
         Assert.Null(model.Agents);
         Assert.False(model.RawData.ContainsKey("agents"));
+        Assert.Null(model.HasMore);
+        Assert.False(model.RawData.ContainsKey("hasMore"));
     }
 
     [Fact]
@@ -192,8 +215,117 @@ public class AgentListResponseTest : TestBase
     {
         var model = new AgentListResponse
         {
+            NextCursor = "nextCursor",
+
             // Null should be interpreted as omitted for these properties
             Agents = null,
+            HasMore = null,
+        };
+
+        model.Validate();
+    }
+
+    [Fact]
+    public void OptionalNullablePropertiesUnsetAreNotSet_Works()
+    {
+        var model = new AgentListResponse
+        {
+            Agents =
+            [
+                new()
+                {
+                    ID = "id",
+                    CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    Description = "description",
+                    IsActive = true,
+                    Model = "model",
+                    Name = "name",
+                    UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    VaultIds = ["string"],
+                },
+            ],
+            HasMore = true,
+        };
+
+        Assert.Null(model.NextCursor);
+        Assert.False(model.RawData.ContainsKey("nextCursor"));
+    }
+
+    [Fact]
+    public void OptionalNullablePropertiesUnsetValidation_Works()
+    {
+        var model = new AgentListResponse
+        {
+            Agents =
+            [
+                new()
+                {
+                    ID = "id",
+                    CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    Description = "description",
+                    IsActive = true,
+                    Model = "model",
+                    Name = "name",
+                    UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    VaultIds = ["string"],
+                },
+            ],
+            HasMore = true,
+        };
+
+        model.Validate();
+    }
+
+    [Fact]
+    public void OptionalNullablePropertiesSetToNullAreSetToNull_Works()
+    {
+        var model = new AgentListResponse
+        {
+            Agents =
+            [
+                new()
+                {
+                    ID = "id",
+                    CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    Description = "description",
+                    IsActive = true,
+                    Model = "model",
+                    Name = "name",
+                    UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    VaultIds = ["string"],
+                },
+            ],
+            HasMore = true,
+
+            NextCursor = null,
+        };
+
+        Assert.Null(model.NextCursor);
+        Assert.True(model.RawData.ContainsKey("nextCursor"));
+    }
+
+    [Fact]
+    public void OptionalNullablePropertiesSetToNullValidation_Works()
+    {
+        var model = new AgentListResponse
+        {
+            Agents =
+            [
+                new()
+                {
+                    ID = "id",
+                    CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    Description = "description",
+                    IsActive = true,
+                    Model = "model",
+                    Name = "name",
+                    UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                    VaultIds = ["string"],
+                },
+            ],
+            HasMore = true,
+
+            NextCursor = null,
         };
 
         model.Validate();
@@ -218,6 +350,8 @@ public class AgentListResponseTest : TestBase
                     VaultIds = ["string"],
                 },
             ],
+            HasMore = true,
+            NextCursor = "nextCursor",
         };
 
         AgentListResponse copied = new(model);

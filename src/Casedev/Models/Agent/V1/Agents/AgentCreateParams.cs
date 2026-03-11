@@ -75,7 +75,8 @@ public record class AgentCreateParams : ParamsBase
     }
 
     /// <summary>
-    /// Denylist of tools the agent cannot use
+    /// Denylist of tools the agent cannot use. Mutually exclusive with enabledTools
+    /// — set one or the other, not both.
     /// </summary>
     public IReadOnlyList<string>? DisabledTools
     {
@@ -94,7 +95,8 @@ public record class AgentCreateParams : ParamsBase
     }
 
     /// <summary>
-    /// Allowlist of tools the agent can use
+    /// Allowlist of tools the agent can use. Mutually exclusive with disabledTools
+    /// — set one or the other, not both.
     /// </summary>
     public IReadOnlyList<string>? EnabledTools
     {

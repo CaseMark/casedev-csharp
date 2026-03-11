@@ -83,12 +83,14 @@ public sealed record class RunCreateResponse : JsonModel
         }
     }
 
-    public ApiEnum<string, Status>? Status
+    public ApiEnum<string, RunCreateResponseStatus>? Status
     {
         get
         {
             this._rawData.Freeze();
-            return this._rawData.GetNullableClass<ApiEnum<string, Status>>("status");
+            return this._rawData.GetNullableClass<ApiEnum<string, RunCreateResponseStatus>>(
+                "status"
+            );
         }
         init
         {
@@ -148,15 +150,15 @@ class RunCreateResponseFromRaw : IFromRawJson<RunCreateResponse>
         RunCreateResponse.FromRawUnchecked(rawData);
 }
 
-[JsonConverter(typeof(StatusConverter))]
-public enum Status
+[JsonConverter(typeof(RunCreateResponseStatusConverter))]
+public enum RunCreateResponseStatus
 {
     Queued,
 }
 
-sealed class StatusConverter : JsonConverter<Status>
+sealed class RunCreateResponseStatusConverter : JsonConverter<RunCreateResponseStatus>
 {
-    public override Status Read(
+    public override RunCreateResponseStatus Read(
         ref Utf8JsonReader reader,
         System::Type typeToConvert,
         JsonSerializerOptions options
@@ -164,18 +166,22 @@ sealed class StatusConverter : JsonConverter<Status>
     {
         return JsonSerializer.Deserialize<string>(ref reader, options) switch
         {
-            "queued" => Status.Queued,
-            _ => (Status)(-1),
+            "queued" => RunCreateResponseStatus.Queued,
+            _ => (RunCreateResponseStatus)(-1),
         };
     }
 
-    public override void Write(Utf8JsonWriter writer, Status value, JsonSerializerOptions options)
+    public override void Write(
+        Utf8JsonWriter writer,
+        RunCreateResponseStatus value,
+        JsonSerializerOptions options
+    )
     {
         JsonSerializer.Serialize(
             writer,
             value switch
             {
-                Status.Queued => "queued",
+                RunCreateResponseStatus.Queued => "queued",
                 _ => throw new CasedevInvalidDataException(
                     string.Format("Invalid value '{0}' in {1}", value, nameof(value))
                 ),

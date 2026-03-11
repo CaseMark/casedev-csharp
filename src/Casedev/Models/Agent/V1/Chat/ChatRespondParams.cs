@@ -1,18 +1,28 @@
-using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Casedev.Core;
+using Casedev.Exceptions;
+using System = System;
 
 namespace Casedev.Models.Agent.V1.Chat;
 
 /// <summary>
-/// Streams a single assistant turn as normalized state events with stable turn,
-/// message, and part ids. Emits session.usage before turn.completed when token data
-/// is available.
+/// Streams a single assistant turn as normalized SSE events with stable turn, message,
+/// and part IDs. Emits events: `turn.started`, `turn.status`, `message.created`,
+/// `message.part.updated`, `message.completed`, `session.usage`, `turn.completed`.
+///
+/// <para>**When to use this endpoint:** Recommended for building custom chat UIs
+/// that need real-time streaming progress. This is the primary streaming endpoint
+/// for new integrations.</para>
+///
+/// <para>**Alternatives:** - `POST /chat/:id/message` — synchronous, returns complete
+/// response as JSON (best for server-to-server)</para>
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that
@@ -29,16 +39,28 @@ public record class ChatRespondParams : ParamsBase
     public string? ID { get; init; }
 
     /// <summary>
-    /// OpenCode message payload. Passed through 1:1.
+    /// Message content parts. Currently only "text" type is supported. Additional
+    /// types (e.g. file, image) may be added in future versions.
     /// </summary>
-    public required JsonElement Body
+    public IReadOnlyList<Part>? Parts
     {
         get
         {
             this._rawBodyData.Freeze();
-            return this._rawBodyData.GetNotNullStruct<JsonElement>("body");
+            return this._rawBodyData.GetNullableStruct<ImmutableArray<Part>>("parts");
         }
-        init { this._rawBodyData.Set("body", value); }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawBodyData.Set<ImmutableArray<Part>?>(
+                "parts",
+                value == null ? null : ImmutableArray.ToImmutableArray(value)
+            );
+        }
     }
 
     public ChatRespondParams() { }
@@ -123,9 +145,9 @@ public record class ChatRespondParams : ParamsBase
             && this._rawBodyData.Equals(other._rawBodyData);
     }
 
-    public override Uri Url(ClientOptions options)
+    public override System::Uri Url(ClientOptions options)
     {
-        return new UriBuilder(
+        return new System::UriBuilder(
             options.BaseUrl.ToString().TrimEnd('/')
                 + string.Format("/agent/v1/chat/{0}/respond", this.ID)
         )
@@ -156,5 +178,122 @@ public record class ChatRespondParams : ParamsBase
     public override int GetHashCode()
     {
         return 0;
+    }
+}
+
+[JsonConverter(typeof(JsonModelConverter<Part, PartFromRaw>))]
+public sealed record class Part : JsonModel
+{
+    /// <summary>
+    /// The message text content
+    /// </summary>
+    public required string Text
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullClass<string>("text");
+        }
+        init { this._rawData.Set("text", value); }
+    }
+
+    /// <summary>
+    /// Part type. Currently only "text" is supported.
+    /// </summary>
+    public required ApiEnum<string, global::Casedev.Models.Agent.V1.Chat.Type> Type
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullClass<
+                ApiEnum<string, global::Casedev.Models.Agent.V1.Chat.Type>
+            >("type");
+        }
+        init { this._rawData.Set("type", value); }
+    }
+
+    /// <inheritdoc/>
+    public override void Validate()
+    {
+        _ = this.Text;
+        this.Type.Validate();
+    }
+
+    public Part() { }
+
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
+    public Part(Part part)
+        : base(part) { }
+#pragma warning restore CS8618
+
+    public Part(IReadOnlyDictionary<string, JsonElement> rawData)
+    {
+        this._rawData = new(rawData);
+    }
+
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
+    Part(FrozenDictionary<string, JsonElement> rawData)
+    {
+        this._rawData = new(rawData);
+    }
+#pragma warning restore CS8618
+
+    /// <inheritdoc cref="PartFromRaw.FromRawUnchecked"/>
+    public static Part FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
+    {
+        return new(FrozenDictionary.ToFrozenDictionary(rawData));
+    }
+}
+
+class PartFromRaw : IFromRawJson<Part>
+{
+    /// <inheritdoc/>
+    public Part FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
+        Part.FromRawUnchecked(rawData);
+}
+
+/// <summary>
+/// Part type. Currently only "text" is supported.
+/// </summary>
+[JsonConverter(typeof(TypeConverter))]
+public enum Type
+{
+    Text,
+}
+
+sealed class TypeConverter : JsonConverter<global::Casedev.Models.Agent.V1.Chat.Type>
+{
+    public override global::Casedev.Models.Agent.V1.Chat.Type Read(
+        ref Utf8JsonReader reader,
+        System::Type typeToConvert,
+        JsonSerializerOptions options
+    )
+    {
+        return JsonSerializer.Deserialize<string>(ref reader, options) switch
+        {
+            "text" => global::Casedev.Models.Agent.V1.Chat.Type.Text,
+            _ => (global::Casedev.Models.Agent.V1.Chat.Type)(-1),
+        };
+    }
+
+    public override void Write(
+        Utf8JsonWriter writer,
+        global::Casedev.Models.Agent.V1.Chat.Type value,
+        JsonSerializerOptions options
+    )
+    {
+        JsonSerializer.Serialize(
+            writer,
+            value switch
+            {
+                global::Casedev.Models.Agent.V1.Chat.Type.Text => "text",
+                _ => throw new CasedevInvalidDataException(
+                    string.Format("Invalid value '{0}' in {1}", value, nameof(value))
+                ),
+            },
+            options
+        );
     }
 }

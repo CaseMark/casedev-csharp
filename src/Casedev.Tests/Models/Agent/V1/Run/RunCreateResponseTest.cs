@@ -18,14 +18,14 @@ public class RunCreateResponseTest : TestBase
             AgentID = "agentId",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             ObjectIds = ["string"],
-            Status = Status.Queued,
+            Status = RunCreateResponseStatus.Queued,
         };
 
         string expectedID = "id";
         string expectedAgentID = "agentId";
         DateTimeOffset expectedCreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
         List<string> expectedObjectIds = ["string"];
-        ApiEnum<string, Status> expectedStatus = Status.Queued;
+        ApiEnum<string, RunCreateResponseStatus> expectedStatus = RunCreateResponseStatus.Queued;
 
         Assert.Equal(expectedID, model.ID);
         Assert.Equal(expectedAgentID, model.AgentID);
@@ -48,7 +48,7 @@ public class RunCreateResponseTest : TestBase
             AgentID = "agentId",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             ObjectIds = ["string"],
-            Status = Status.Queued,
+            Status = RunCreateResponseStatus.Queued,
         };
 
         string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
@@ -69,7 +69,7 @@ public class RunCreateResponseTest : TestBase
             AgentID = "agentId",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             ObjectIds = ["string"],
-            Status = Status.Queued,
+            Status = RunCreateResponseStatus.Queued,
         };
 
         string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
@@ -83,7 +83,7 @@ public class RunCreateResponseTest : TestBase
         string expectedAgentID = "agentId";
         DateTimeOffset expectedCreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
         List<string> expectedObjectIds = ["string"];
-        ApiEnum<string, Status> expectedStatus = Status.Queued;
+        ApiEnum<string, RunCreateResponseStatus> expectedStatus = RunCreateResponseStatus.Queued;
 
         Assert.Equal(expectedID, deserialized.ID);
         Assert.Equal(expectedAgentID, deserialized.AgentID);
@@ -106,7 +106,7 @@ public class RunCreateResponseTest : TestBase
             AgentID = "agentId",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             ObjectIds = ["string"],
-            Status = Status.Queued,
+            Status = RunCreateResponseStatus.Queued,
         };
 
         model.Validate();
@@ -184,7 +184,7 @@ public class RunCreateResponseTest : TestBase
             ID = "id",
             AgentID = "agentId",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
-            Status = Status.Queued,
+            Status = RunCreateResponseStatus.Queued,
         };
 
         Assert.Null(model.ObjectIds);
@@ -199,7 +199,7 @@ public class RunCreateResponseTest : TestBase
             ID = "id",
             AgentID = "agentId",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
-            Status = Status.Queued,
+            Status = RunCreateResponseStatus.Queued,
         };
 
         model.Validate();
@@ -213,7 +213,7 @@ public class RunCreateResponseTest : TestBase
             ID = "id",
             AgentID = "agentId",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
-            Status = Status.Queued,
+            Status = RunCreateResponseStatus.Queued,
 
             ObjectIds = null,
         };
@@ -230,7 +230,7 @@ public class RunCreateResponseTest : TestBase
             ID = "id",
             AgentID = "agentId",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
-            Status = Status.Queued,
+            Status = RunCreateResponseStatus.Queued,
 
             ObjectIds = null,
         };
@@ -247,7 +247,7 @@ public class RunCreateResponseTest : TestBase
             AgentID = "agentId",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             ObjectIds = ["string"],
-            Status = Status.Queued,
+            Status = RunCreateResponseStatus.Queued,
         };
 
         RunCreateResponse copied = new(model);
@@ -256,21 +256,21 @@ public class RunCreateResponseTest : TestBase
     }
 }
 
-public class StatusTest : TestBase
+public class RunCreateResponseStatusTest : TestBase
 {
     [Theory]
-    [InlineData(Status.Queued)]
-    public void Validation_Works(Status rawValue)
+    [InlineData(RunCreateResponseStatus.Queued)]
+    public void Validation_Works(RunCreateResponseStatus rawValue)
     {
         // force implicit conversion because Theory can't do that for us
-        ApiEnum<string, Status> value = rawValue;
+        ApiEnum<string, RunCreateResponseStatus> value = rawValue;
         value.Validate();
     }
 
     [Fact]
     public void InvalidEnumValidationThrows_Works()
     {
-        var value = JsonSerializer.Deserialize<ApiEnum<string, Status>>(
+        var value = JsonSerializer.Deserialize<ApiEnum<string, RunCreateResponseStatus>>(
             JsonSerializer.SerializeToElement("invalid value"),
             ModelBase.SerializerOptions
         );
@@ -280,14 +280,14 @@ public class StatusTest : TestBase
     }
 
     [Theory]
-    [InlineData(Status.Queued)]
-    public void SerializationRoundtrip_Works(Status rawValue)
+    [InlineData(RunCreateResponseStatus.Queued)]
+    public void SerializationRoundtrip_Works(RunCreateResponseStatus rawValue)
     {
         // force implicit conversion because Theory can't do that for us
-        ApiEnum<string, Status> value = rawValue;
+        ApiEnum<string, RunCreateResponseStatus> value = rawValue;
 
         string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Status>>(
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, RunCreateResponseStatus>>(
             json,
             ModelBase.SerializerOptions
         );
@@ -298,12 +298,12 @@ public class StatusTest : TestBase
     [Fact]
     public void InvalidEnumSerializationRoundtrip_Works()
     {
-        var value = JsonSerializer.Deserialize<ApiEnum<string, Status>>(
+        var value = JsonSerializer.Deserialize<ApiEnum<string, RunCreateResponseStatus>>(
             JsonSerializer.SerializeToElement("invalid value"),
             ModelBase.SerializerOptions
         );
         string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Status>>(
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, RunCreateResponseStatus>>(
             json,
             ModelBase.SerializerOptions
         );

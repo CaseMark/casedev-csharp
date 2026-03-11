@@ -8,6 +8,7 @@ using Casedev.Models.Llm.V1.Chat;
 using Casedev.Models.Privilege.V1;
 using Casedev.Models.Translate.V1;
 using Casedev.Models.Voice.V1;
+using Chat = Casedev.Models.Agent.V1.Chat;
 using Environments = Casedev.Models.Compute.V1.Environments;
 using Execute = Casedev.Models.Agent.V1.Execute;
 using Graphrag = Casedev.Models.Vault.Graphrag;
@@ -44,14 +45,18 @@ public abstract record class ModelBase
         Converters =
         {
             new FrozenDictionaryConverterFactory(),
-            new ApiEnumConverter<string, Status>(),
+            new ApiEnumConverter<string, RunCreateResponseStatus>(),
+            new ApiEnumConverter<string, RunListResponseRunStatus>(),
             new ApiEnumConverter<string, RunCancelResponseStatus>(),
             new ApiEnumConverter<string, RunExecResponseStatus>(),
             new ApiEnumConverter<string, RunGetDetailsResponseStatus>(),
             new ApiEnumConverter<string, Type>(),
             new ApiEnumConverter<string, Kind>(),
             new ApiEnumConverter<string, RunGetStatusResponseStatus>(),
+            new ApiEnumConverter<string, Status>(),
             new ApiEnumConverter<string, Execute::Status>(),
+            new ApiEnumConverter<string, Chat::Type>(),
+            new ApiEnumConverter<string, Chat::ChatSendMessageParamsPartType>(),
             new ApiEnumConverter<string, Target>(),
             new ApiEnumConverter<string, DeploymentListParamsTarget>(),
             new ApiEnumConverter<string, Projects::Target>(),

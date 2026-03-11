@@ -1,4 +1,3 @@
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Casedev.Tests.Services.Agent.V1;
@@ -59,7 +58,7 @@ public class ChatServiceTest : TestBase
     {
         var stream = this.client.Agent.V1.Chat.RespondStreaming(
             "id",
-            new() { Body = JsonSerializer.Deserialize<JsonElement>("{}") },
+            new(),
             TestContext.Current.CancellationToken
         );
 
@@ -71,7 +70,7 @@ public class ChatServiceTest : TestBase
     {
         await this.client.Agent.V1.Chat.SendMessage(
             "id",
-            new() { Body = JsonSerializer.Deserialize<JsonElement>("{}") },
+            new(),
             TestContext.Current.CancellationToken
         );
     }
@@ -82,18 +81,6 @@ public class ChatServiceTest : TestBase
         var stream = this.client.Agent.V1.Chat.StreamStreaming(
             "id",
             new(),
-            TestContext.Current.CancellationToken
-        );
-
-        await foreach (var response in stream) { }
-    }
-
-    [Fact(Skip = "Mock server doesn't support text/event-stream responses")]
-    public async Task UiStreamStreaming_Works()
-    {
-        var stream = this.client.Agent.V1.Chat.UiStreamStreaming(
-            "id",
-            new() { Body = JsonSerializer.Deserialize<JsonElement>("{}") },
             TestContext.Current.CancellationToken
         );
 
