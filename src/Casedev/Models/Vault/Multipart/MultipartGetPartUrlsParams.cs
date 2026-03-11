@@ -28,6 +28,9 @@ public record class MultipartGetPartUrlsParams : ParamsBase
 
     public string? ID { get; init; }
 
+    /// <summary>
+    /// Vault object ID associated with the multipart upload
+    /// </summary>
     public required string ObjectID
     {
         get
@@ -38,6 +41,9 @@ public record class MultipartGetPartUrlsParams : ParamsBase
         init { this._rawBodyData.Set("objectId", value); }
     }
 
+    /// <summary>
+    /// Multipart parts that need presigned upload URLs
+    /// </summary>
     public required IReadOnlyList<Part> Parts
     {
         get
@@ -54,6 +60,9 @@ public record class MultipartGetPartUrlsParams : ParamsBase
         }
     }
 
+    /// <summary>
+    /// Multipart upload ID returned when the upload was initialized
+    /// </summary>
     public required string UploadID
     {
         get
@@ -184,6 +193,9 @@ public record class MultipartGetPartUrlsParams : ParamsBase
 [JsonConverter(typeof(JsonModelConverter<Part, PartFromRaw>))]
 public sealed record class Part : JsonModel
 {
+    /// <summary>
+    /// 1-based multipart part number
+    /// </summary>
     public required long PartNumber
     {
         get

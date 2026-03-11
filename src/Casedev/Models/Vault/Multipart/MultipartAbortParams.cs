@@ -26,6 +26,9 @@ public record class MultipartAbortParams : ParamsBase
 
     public string? ID { get; init; }
 
+    /// <summary>
+    /// Vault object ID associated with the multipart upload
+    /// </summary>
     public required string ObjectID
     {
         get
@@ -36,6 +39,9 @@ public record class MultipartAbortParams : ParamsBase
         init { this._rawBodyData.Set("objectId", value); }
     }
 
+    /// <summary>
+    /// Multipart upload ID returned when the upload was initialized
+    /// </summary>
     public required string UploadID
     {
         get

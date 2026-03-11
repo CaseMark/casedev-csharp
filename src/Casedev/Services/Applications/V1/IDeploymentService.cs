@@ -29,12 +29,15 @@ public interface IDeploymentService
     IDeploymentService WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Trigger a new deployment for a project
+    /// Creates a deployment for an existing project by fetching repository files
+    /// from GitHub and uploading them to the hosting provider. Use ref to deploy
+    /// a branch, tag, or commit other than the project default branch.
     /// </summary>
     Task Create(DeploymentCreateParams parameters, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Get details of a specific deployment including build logs
+    /// Returns deployment details for one project in the authenticated organization.
+    /// Set includeLogs=true to include recent build output in the response.
     /// </summary>
     Task Retrieve(
         DeploymentRetrieveParams parameters,
@@ -49,12 +52,15 @@ public interface IDeploymentService
     );
 
     /// <summary>
-    /// List deployments for a project
+    /// Lists recent deployments for one project in the authenticated organization.
+    /// Use the optional filters to narrow results by target or deployment state.
     /// </summary>
     Task List(DeploymentListParams parameters, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Cancel a running deployment
+    /// Cancels a running deployment after verifying that the referenced project
+    /// belongs to the authenticated organization. Use this when a build is stuck,
+    /// misconfigured, or no longer needed.
     /// </summary>
     Task Cancel(DeploymentCancelParams parameters, CancellationToken cancellationToken = default);
 
@@ -74,7 +80,9 @@ public interface IDeploymentService
     );
 
     /// <summary>
-    /// Get build logs for a specific deployment
+    /// Returns build and runtime log events for a deployment after verifying access
+    /// to the owning project. Use this when you need detailed output for a failed
+    /// or in-progress build.
     /// </summary>
     Task GetLogs(DeploymentGetLogsParams parameters, CancellationToken cancellationToken = default);
 
@@ -86,7 +94,9 @@ public interface IDeploymentService
     );
 
     /// <summary>
-    /// Get the current status of a deployment
+    /// Returns the current status of a deployment without fetching full build logs.
+    /// Use this endpoint for lightweight polling while a deployment is building or
+    /// waiting to become ready.
     /// </summary>
     Task GetStatus(
         DeploymentGetStatusParams parameters,

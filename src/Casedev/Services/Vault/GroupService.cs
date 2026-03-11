@@ -35,10 +35,7 @@ public sealed class GroupService : IGroupService
     }
 
     /// <inheritdoc/>
-    public Task Create(
-        GroupCreateParams? parameters = null,
-        CancellationToken cancellationToken = default
-    )
+    public Task Create(GroupCreateParams parameters, CancellationToken cancellationToken = default)
     {
         return this.WithRawResponse.Create(parameters, cancellationToken);
     }
@@ -109,12 +106,10 @@ public sealed class GroupServiceWithRawResponse : IGroupServiceWithRawResponse
 
     /// <inheritdoc/>
     public Task<HttpResponse> Create(
-        GroupCreateParams? parameters = null,
+        GroupCreateParams parameters,
         CancellationToken cancellationToken = default
     )
     {
-        parameters ??= new();
-
         HttpRequest<GroupCreateParams> request = new()
         {
             Method = HttpMethod.Post,

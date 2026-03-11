@@ -26,6 +26,8 @@ public interface IVoiceService
 
     IStreamingService Streaming { get; }
 
+    IBoostListService BoostList { get; }
+
     ITranscriptionService Transcription { get; }
 
     IV1Service V1 { get; }
@@ -45,6 +47,8 @@ public interface IVoiceServiceWithRawResponse
     IVoiceServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     IStreamingServiceWithRawResponse Streaming { get; }
+
+    IBoostListServiceWithRawResponse BoostList { get; }
 
     ITranscriptionServiceWithRawResponse Transcription { get; }
 

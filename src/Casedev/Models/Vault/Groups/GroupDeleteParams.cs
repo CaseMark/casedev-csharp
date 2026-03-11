@@ -9,7 +9,8 @@ using Casedev.Core;
 namespace Casedev.Models.Vault.Groups;
 
 /// <summary>
-/// Delete vault group
+/// Soft-deletes a vault group that no longer has any active vaults assigned. This
+/// operation is blocked when the group still contains vaults.
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that

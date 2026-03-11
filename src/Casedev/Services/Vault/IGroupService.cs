@@ -29,15 +29,14 @@ public interface IGroupService
     IGroupService WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Create vault group
+    /// Creates a vault group for organizing vaults and applying group-scoped access
+    /// controls. Group-scoped API keys cannot create or manage vault groups.
     /// </summary>
-    Task Create(
-        GroupCreateParams? parameters = null,
-        CancellationToken cancellationToken = default
-    );
+    Task Create(GroupCreateParams parameters, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Update vault group
+    /// Updates a vault group for the authenticated organization. Only provided fields
+    /// are changed, and setting description to null removes the current description.
     /// </summary>
     Task Update(GroupUpdateParams parameters, CancellationToken cancellationToken = default);
 
@@ -49,12 +48,14 @@ public interface IGroupService
     );
 
     /// <summary>
-    /// List vault groups
+    /// Lists vault groups visible to the authenticated organization. Group-scoped
+    /// API keys only receive groups within their allowed scope.
     /// </summary>
     Task List(GroupListParams? parameters = null, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Delete vault group
+    /// Soft-deletes a vault group that no longer has any active vaults assigned.
+    /// This operation is blocked when the group still contains vaults.
     /// </summary>
     Task Delete(GroupDeleteParams parameters, CancellationToken cancellationToken = default);
 
@@ -81,10 +82,10 @@ public interface IGroupServiceWithRawResponse
 
     /// <summary>
     /// Returns a raw HTTP response for `post /vault/groups`, but is otherwise the
-    /// same as <see cref="IGroupService.Create(GroupCreateParams?, CancellationToken)"/>.
+    /// same as <see cref="IGroupService.Create(GroupCreateParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> Create(
-        GroupCreateParams? parameters = null,
+        GroupCreateParams parameters,
         CancellationToken cancellationToken = default
     );
 

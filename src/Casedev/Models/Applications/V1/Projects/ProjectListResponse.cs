@@ -11,6 +11,9 @@ namespace Casedev.Models.Applications.V1.Projects;
 [JsonConverter(typeof(JsonModelConverter<ProjectListResponse, ProjectListResponseFromRaw>))]
 public sealed record class ProjectListResponse : JsonModel
 {
+    /// <summary>
+    /// Projects and deployed apps visible to the organization
+    /// </summary>
     public IReadOnlyList<Project>? Projects
     {
         get
@@ -81,6 +84,9 @@ class ProjectListResponseFromRaw : IFromRawJson<ProjectListResponse>
 [JsonConverter(typeof(JsonModelConverter<Project, ProjectFromRaw>))]
 public sealed record class Project : JsonModel
 {
+    /// <summary>
+    /// Project identifier
+    /// </summary>
     public string? ID
     {
         get
@@ -99,6 +105,9 @@ public sealed record class Project : JsonModel
         }
     }
 
+    /// <summary>
+    /// When the project record was created
+    /// </summary>
     public string? CreatedAt
     {
         get
@@ -117,6 +126,9 @@ public sealed record class Project : JsonModel
         }
     }
 
+    /// <summary>
+    /// Custom or generated domains assigned to the project
+    /// </summary>
     public IReadOnlyList<Domain>? Domains
     {
         get
@@ -138,6 +150,9 @@ public sealed record class Project : JsonModel
         }
     }
 
+    /// <summary>
+    /// Detected or configured application framework
+    /// </summary>
     public string? Framework
     {
         get
@@ -156,6 +171,9 @@ public sealed record class Project : JsonModel
         }
     }
 
+    /// <summary>
+    /// Default Git branch used for deployments
+    /// </summary>
     public string? GitBranch
     {
         get
@@ -174,6 +192,9 @@ public sealed record class Project : JsonModel
         }
     }
 
+    /// <summary>
+    /// Connected Git repository in owner/repo format
+    /// </summary>
     public string? GitRepo
     {
         get
@@ -192,6 +213,9 @@ public sealed record class Project : JsonModel
         }
     }
 
+    /// <summary>
+    /// Project display name
+    /// </summary>
     public string? Name
     {
         get
@@ -210,6 +234,9 @@ public sealed record class Project : JsonModel
         }
     }
 
+    /// <summary>
+    /// Current project deployment status
+    /// </summary>
     public string? Status
     {
         get
@@ -228,6 +255,9 @@ public sealed record class Project : JsonModel
         }
     }
 
+    /// <summary>
+    /// When the project record was last updated
+    /// </summary>
     public string? UpdatedAt
     {
         get
@@ -246,6 +276,9 @@ public sealed record class Project : JsonModel
         }
     }
 
+    /// <summary>
+    /// Hosting provider project ID, when linked
+    /// </summary>
     public string? VercelProjectID
     {
         get
@@ -320,6 +353,9 @@ class ProjectFromRaw : IFromRawJson<Project>
 [JsonConverter(typeof(JsonModelConverter<Domain, DomainFromRaw>))]
 public sealed record class Domain : JsonModel
 {
+    /// <summary>
+    /// Domain record identifier
+    /// </summary>
     public string? ID
     {
         get
@@ -338,6 +374,9 @@ public sealed record class Domain : JsonModel
         }
     }
 
+    /// <summary>
+    /// Hostname assigned to the project
+    /// </summary>
     public string? DomainValue
     {
         get
@@ -356,6 +395,9 @@ public sealed record class Domain : JsonModel
         }
     }
 
+    /// <summary>
+    /// Whether this is the primary project domain
+    /// </summary>
     public bool? IsPrimary
     {
         get
@@ -374,6 +416,9 @@ public sealed record class Domain : JsonModel
         }
     }
 
+    /// <summary>
+    /// Whether the domain has been verified by the hosting provider
+    /// </summary>
     public bool? IsVerified
     {
         get

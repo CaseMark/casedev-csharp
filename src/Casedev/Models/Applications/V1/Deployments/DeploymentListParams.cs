@@ -11,7 +11,8 @@ using Casedev.Exceptions;
 namespace Casedev.Models.Applications.V1.Deployments;
 
 /// <summary>
-/// List deployments for a project
+/// Lists recent deployments for one project in the authenticated organization. Use
+/// the optional filters to narrow results by target or deployment state.
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that
@@ -20,7 +21,7 @@ namespace Casedev.Models.Applications.V1.Deployments;
 public record class DeploymentListParams : ParamsBase
 {
     /// <summary>
-    /// Project ID
+    /// Project ID to list deployments for
     /// </summary>
     public required string ProjectID
     {
@@ -54,7 +55,7 @@ public record class DeploymentListParams : ParamsBase
     }
 
     /// <summary>
-    /// Filter by deployment state
+    /// Deployment state to filter by
     /// </summary>
     public string? State
     {
@@ -75,7 +76,7 @@ public record class DeploymentListParams : ParamsBase
     }
 
     /// <summary>
-    /// Filter by deployment target
+    /// Deployment target to filter by
     /// </summary>
     public ApiEnum<string, DeploymentListParamsTarget>? Target
     {
@@ -190,7 +191,7 @@ public record class DeploymentListParams : ParamsBase
 }
 
 /// <summary>
-/// Filter by deployment target
+/// Deployment target to filter by
 /// </summary>
 [JsonConverter(typeof(DeploymentListParamsTargetConverter))]
 public enum DeploymentListParamsTarget

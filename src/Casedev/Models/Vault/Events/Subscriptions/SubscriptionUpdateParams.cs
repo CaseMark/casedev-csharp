@@ -29,6 +29,9 @@ public record class SubscriptionUpdateParams : ParamsBase
 
     public string? SubscriptionID { get; init; }
 
+    /// <summary>
+    /// Updated webhook endpoint URL for deliveries
+    /// </summary>
     public string? CallbackUrl
     {
         get
@@ -47,6 +50,9 @@ public record class SubscriptionUpdateParams : ParamsBase
         }
     }
 
+    /// <summary>
+    /// Whether to remove the existing signing secret
+    /// </summary>
     public bool? ClearSigningSecret
     {
         get
@@ -65,6 +71,9 @@ public record class SubscriptionUpdateParams : ParamsBase
         }
     }
 
+    /// <summary>
+    /// Updated event types to deliver for this subscription
+    /// </summary>
     public IReadOnlyList<string>? EventTypes
     {
         get
@@ -86,6 +95,9 @@ public record class SubscriptionUpdateParams : ParamsBase
         }
     }
 
+    /// <summary>
+    /// Whether the subscription should continue delivering events
+    /// </summary>
     public bool? IsActive
     {
         get
@@ -104,6 +116,10 @@ public record class SubscriptionUpdateParams : ParamsBase
         }
     }
 
+    /// <summary>
+    /// Updated vault object IDs to limit notifications to. Pass an empty array to
+    /// remove the filter.
+    /// </summary>
     public IReadOnlyList<string>? ObjectIds
     {
         get
@@ -125,6 +141,9 @@ public record class SubscriptionUpdateParams : ParamsBase
         }
     }
 
+    /// <summary>
+    /// Replacement secret used to sign webhook deliveries
+    /// </summary>
     public string? SigningSecret
     {
         get
