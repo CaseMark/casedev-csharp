@@ -16,6 +16,12 @@ namespace Casedev.Models.Agent.V1.Execute;
 /// for polling status and results. This is the fastest way to run an agent without
 /// managing agent lifecycle.
 ///
+/// <para>**Ephemeral agent lifecycle:** The agent created by this endpoint is automatically
+/// soft-deleted and its scoped API key revoked when the run completes (whether it
+/// succeeds, fails, or times out). Ephemeral agents do not appear in GET /agent/v1/agents
+/// listings. The returned agentId is valid only for the duration of the run — do
+/// not store it for reuse. For persistent, reusable agents, use POST /agent/v1/agents instead.</para>
+///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that
 /// cause existing derived classes to break.</para>
@@ -42,7 +48,8 @@ public record class ExecuteCreateParams : ParamsBase
     }
 
     /// <summary>
-    /// Denylist of tools the agent cannot use
+    /// Denylist of tools the agent cannot use. Mutually exclusive with enabledTools
+    /// — set one or the other, not both.
     /// </summary>
     public IReadOnlyList<string>? DisabledTools
     {
@@ -61,7 +68,8 @@ public record class ExecuteCreateParams : ParamsBase
     }
 
     /// <summary>
-    /// Allowlist of tools the agent can use
+    /// Allowlist of tools the agent can use. Mutually exclusive with disabledTools
+    /// — set one or the other, not both.
     /// </summary>
     public IReadOnlyList<string>? EnabledTools
     {
