@@ -7,9 +7,12 @@ using Casedev.Models.Agent.V1.Agents;
 namespace Casedev.Services.Agent.V1;
 
 /// <summary>
-/// NOTE: Do not inherit from this type outside the SDK unless you're okay with breaking
-/// changes in non-major versions. We may add new methods in the future that cause
-/// existing derived classes to break.
+/// Create, manage, and execute AI agents with tool access, sandbox environments,
+/// and async run workflows
+///
+/// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
+/// breaking changes in non-major versions. We may add new methods in the future that
+/// cause existing derived classes to break.</para>
 /// </summary>
 public interface IAgentService
 {

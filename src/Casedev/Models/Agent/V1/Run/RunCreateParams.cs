@@ -52,6 +52,21 @@ public record class RunCreateParams : ParamsBase
     }
 
     /// <summary>
+    /// HTTPS callback URL to receive a notification when the run completes. Registered
+    /// atomically with the run — eliminates the race condition of calling /watch
+    /// after /exec. Additional watchers can still be added via POST /run/:id/watch.
+    /// </summary>
+    public string? CallbackUrl
+    {
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("callbackUrl");
+        }
+        init { this._rawBodyData.Set("callbackUrl", value); }
+    }
+
+    /// <summary>
     /// Additional guidance for this run
     /// </summary>
     public string? Guidance

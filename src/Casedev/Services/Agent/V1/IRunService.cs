@@ -8,9 +8,12 @@ using Casedev.Models.Agent.V1.Run;
 namespace Casedev.Services.Agent.V1;
 
 /// <summary>
-/// NOTE: Do not inherit from this type outside the SDK unless you're okay with breaking
-/// changes in non-major versions. We may add new methods in the future that cause
-/// existing derived classes to break.
+/// Create, manage, and execute AI agents with tool access, sandbox environments,
+/// and async run workflows
+///
+/// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
+/// breaking changes in non-major versions. We may add new methods in the future that
+/// cause existing derived classes to break.</para>
 /// </summary>
 public interface IRunService
 {
@@ -32,6 +35,15 @@ public interface IRunService
     /// </summary>
     Task<RunCreateResponse> Create(
         RunCreateParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Lists agent runs for the authenticated organization. Supports filtering by
+    /// agent, status, and cursor-based pagination.
+    /// </summary>
+    Task<RunListResponse> List(
+        RunListParams? parameters = null,
         CancellationToken cancellationToken = default
     );
 
@@ -149,6 +161,15 @@ public interface IRunServiceWithRawResponse
     /// </summary>
     Task<HttpResponse<RunCreateResponse>> Create(
         RunCreateParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `get /agent/v1/run`, but is otherwise the
+    /// same as <see cref="IRunService.List(RunListParams?, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<RunListResponse>> List(
+        RunListParams? parameters = null,
         CancellationToken cancellationToken = default
     );
 

@@ -15,6 +15,16 @@ public class RunServiceTest : TestBase
     }
 
     [Fact]
+    public async Task List_Works()
+    {
+        var runs = await this.client.Agent.V1.Run.List(
+            new(),
+            TestContext.Current.CancellationToken
+        );
+        runs.Validate();
+    }
+
+    [Fact]
     public async Task Cancel_Works()
     {
         var response = await this.client.Agent.V1.Run.Cancel(

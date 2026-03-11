@@ -45,6 +45,10 @@ public record class AgentUpdateParams : ParamsBase
         }
     }
 
+    /// <summary>
+    /// Denylist of tools the agent cannot use. Mutually exclusive with enabledTools
+    /// — set one or the other, not both. Pass null to clear.
+    /// </summary>
     public IReadOnlyList<string>? DisabledTools
     {
         get
@@ -61,6 +65,10 @@ public record class AgentUpdateParams : ParamsBase
         }
     }
 
+    /// <summary>
+    /// Allowlist of tools the agent can use. Mutually exclusive with disabledTools
+    /// — set one or the other, not both. Pass null to clear.
+    /// </summary>
     public IReadOnlyList<string>? EnabledTools
     {
         get
