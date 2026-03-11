@@ -12,7 +12,9 @@ using Casedev.Exceptions;
 namespace Casedev.Models.Applications.V1.Deployments;
 
 /// <summary>
-/// Trigger a new deployment for a project
+/// Creates a deployment for an existing project by fetching repository files from
+/// GitHub and uploading them to the hosting provider. Use ref to deploy a branch,
+/// tag, or commit other than the project default branch.
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that
@@ -27,7 +29,7 @@ public record class DeploymentCreateParams : ParamsBase
     }
 
     /// <summary>
-    /// Project ID
+    /// Project ID to deploy
     /// </summary>
     public required string ProjectID
     {
@@ -40,7 +42,7 @@ public record class DeploymentCreateParams : ParamsBase
     }
 
     /// <summary>
-    /// Git ref (branch, tag, or commit) to deploy
+    /// Git branch, tag, or commit to deploy. Defaults to the project branch.
     /// </summary>
     public string? Ref
     {
@@ -61,7 +63,7 @@ public record class DeploymentCreateParams : ParamsBase
     }
 
     /// <summary>
-    /// Deployment target
+    /// Deployment target environment
     /// </summary>
     public ApiEnum<string, Target>? Target
     {
@@ -194,7 +196,7 @@ public record class DeploymentCreateParams : ParamsBase
 }
 
 /// <summary>
-/// Deployment target
+/// Deployment target environment
 /// </summary>
 [JsonConverter(typeof(TargetConverter))]
 public enum Target

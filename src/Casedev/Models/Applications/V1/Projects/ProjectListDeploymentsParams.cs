@@ -11,7 +11,9 @@ using System = System;
 namespace Casedev.Models.Applications.V1.Projects;
 
 /// <summary>
-/// List deployments for a specific project
+/// Lists deployments for one project in the authenticated organization. If the hosting
+/// project has not been created yet, this endpoint returns an empty list with a
+/// progress message instead of failing.
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that
@@ -43,7 +45,7 @@ public record class ProjectListDeploymentsParams : ParamsBase
     }
 
     /// <summary>
-    /// Filter by deployment state
+    /// Deployment state to filter by
     /// </summary>
     public string? State
     {
@@ -64,7 +66,7 @@ public record class ProjectListDeploymentsParams : ParamsBase
     }
 
     /// <summary>
-    /// Filter by deployment target
+    /// Deployment target to filter by
     /// </summary>
     public ApiEnum<string, ProjectListDeploymentsParamsTarget>? Target
     {
@@ -185,7 +187,7 @@ public record class ProjectListDeploymentsParams : ParamsBase
 }
 
 /// <summary>
-/// Filter by deployment target
+/// Deployment target to filter by
 /// </summary>
 [JsonConverter(typeof(ProjectListDeploymentsParamsTargetConverter))]
 public enum ProjectListDeploymentsParamsTarget

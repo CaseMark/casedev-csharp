@@ -9,7 +9,9 @@ using Casedev.Core;
 namespace Casedev.Models.Applications.V1.Projects;
 
 /// <summary>
-/// Delete a web application project
+/// Soft-deletes an application project or deployed Thurgood app from Case.dev. By
+/// default it also removes the linked hosting project; set deleteFromHosting=false
+/// to keep the external hosting resources intact.
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that
@@ -20,7 +22,7 @@ public record class ProjectDeleteParams : ParamsBase
     public string? ID { get; init; }
 
     /// <summary>
-    /// Also delete the project from hosting (default: true)
+    /// Whether to also delete the linked hosting project. Defaults to true.
     /// </summary>
     public bool? DeleteFromHosting
     {

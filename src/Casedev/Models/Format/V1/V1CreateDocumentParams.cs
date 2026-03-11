@@ -78,6 +78,9 @@ public record class V1CreateDocumentParams : ParamsBase
         }
     }
 
+    /// <summary>
+    /// Optional template composition and styling settings used during document generation
+    /// </summary>
     public Options? Options
     {
         get
@@ -307,6 +310,9 @@ sealed class InputFormatConverter : JsonConverter<InputFormat>
     }
 }
 
+/// <summary>
+/// Optional template composition and styling settings used during document generation
+/// </summary>
 [JsonConverter(typeof(JsonModelConverter<Options, OptionsFromRaw>))]
 public sealed record class Options : JsonModel
 {

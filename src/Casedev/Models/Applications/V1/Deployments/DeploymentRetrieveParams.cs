@@ -9,7 +9,8 @@ using Casedev.Core;
 namespace Casedev.Models.Applications.V1.Deployments;
 
 /// <summary>
-/// Get details of a specific deployment including build logs
+/// Returns deployment details for one project in the authenticated organization.
+/// Set includeLogs=true to include recent build output in the response.
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that
@@ -20,7 +21,7 @@ public record class DeploymentRetrieveParams : ParamsBase
     public string? ID { get; init; }
 
     /// <summary>
-    /// Project ID (for authorization)
+    /// Project ID used to verify access to the deployment
     /// </summary>
     public required string ProjectID
     {
@@ -33,7 +34,7 @@ public record class DeploymentRetrieveParams : ParamsBase
     }
 
     /// <summary>
-    /// Include build logs
+    /// Whether to include build logs in the response
     /// </summary>
     public bool? IncludeLogs
     {

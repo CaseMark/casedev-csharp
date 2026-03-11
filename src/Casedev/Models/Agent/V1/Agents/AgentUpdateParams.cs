@@ -27,6 +27,9 @@ public record class AgentUpdateParams : ParamsBase
 
     public string? ID { get; init; }
 
+    /// <summary>
+    /// Updated agent description. Pass null to clear if supported by the client.
+    /// </summary>
     public string? Description
     {
         get
@@ -34,15 +37,7 @@ public record class AgentUpdateParams : ParamsBase
             this._rawBodyData.Freeze();
             return this._rawBodyData.GetNullableClass<string>("description");
         }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawBodyData.Set("description", value);
-        }
+        init { this._rawBodyData.Set("description", value); }
     }
 
     /// <summary>
@@ -85,6 +80,9 @@ public record class AgentUpdateParams : ParamsBase
         }
     }
 
+    /// <summary>
+    /// Updated system instructions that guide agent behavior
+    /// </summary>
     public string? Instructions
     {
         get
@@ -103,6 +101,9 @@ public record class AgentUpdateParams : ParamsBase
         }
     }
 
+    /// <summary>
+    /// Model identifier the agent should use for future runs
+    /// </summary>
     public string? Model
     {
         get
@@ -121,6 +122,9 @@ public record class AgentUpdateParams : ParamsBase
         }
     }
 
+    /// <summary>
+    /// Updated agent display name
+    /// </summary>
     public string? Name
     {
         get
@@ -139,6 +143,9 @@ public record class AgentUpdateParams : ParamsBase
         }
     }
 
+    /// <summary>
+    /// Sandbox configuration override for future agent runs. Pass null to clear.
+    /// </summary>
     public JsonElement? Sandbox
     {
         get
@@ -149,6 +156,9 @@ public record class AgentUpdateParams : ParamsBase
         init { this._rawBodyData.Set("sandbox", value); }
     }
 
+    /// <summary>
+    /// Vault group IDs the agent can access. Pass null to clear.
+    /// </summary>
     public IReadOnlyList<string>? VaultGroups
     {
         get
@@ -165,6 +175,9 @@ public record class AgentUpdateParams : ParamsBase
         }
     }
 
+    /// <summary>
+    /// Vault IDs the agent can access directly. Pass null to clear.
+    /// </summary>
     public IReadOnlyList<string>? VaultIds
     {
         get

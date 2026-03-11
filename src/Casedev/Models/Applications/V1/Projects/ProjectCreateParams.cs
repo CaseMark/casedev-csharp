@@ -13,7 +13,9 @@ using System = System;
 namespace Casedev.Models.Applications.V1.Projects;
 
 /// <summary>
-/// Create a new web application project
+/// Creates a new application project, validates GitHub access, provisions a default
+/// case.dev domain, and starts the deployment workflow. The initial response returns
+/// as soon as the workflow is queued so clients can poll for progress.
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that
@@ -28,7 +30,7 @@ public record class ProjectCreateParams : ParamsBase
     }
 
     /// <summary>
-    /// GitHub repository URL or "owner/repo"
+    /// GitHub repository URL or owner/repo identifier
     /// </summary>
     public required string GitRepo
     {
@@ -41,7 +43,7 @@ public record class ProjectCreateParams : ParamsBase
     }
 
     /// <summary>
-    /// Project name
+    /// Human-readable project name
     /// </summary>
     public required string Name
     {
@@ -54,7 +56,7 @@ public record class ProjectCreateParams : ParamsBase
     }
 
     /// <summary>
-    /// Custom build command
+    /// Custom build command to override the framework default
     /// </summary>
     public string? BuildCommand
     {
@@ -75,7 +77,7 @@ public record class ProjectCreateParams : ParamsBase
     }
 
     /// <summary>
-    /// Environment variables to set on the project
+    /// Environment variables to create before the first deployment
     /// </summary>
     public IReadOnlyList<EnvironmentVariable>? EnvironmentVariables
     {
@@ -101,7 +103,7 @@ public record class ProjectCreateParams : ParamsBase
     }
 
     /// <summary>
-    /// Framework (e.g., "nextjs", "remix", "astro")
+    /// Framework preset for the hosting project, such as nextjs or remix
     /// </summary>
     public string? Framework
     {
@@ -122,7 +124,7 @@ public record class ProjectCreateParams : ParamsBase
     }
 
     /// <summary>
-    /// Git branch to deploy
+    /// Git branch to deploy. Defaults to main.
     /// </summary>
     public string? GitBranch
     {
@@ -143,7 +145,7 @@ public record class ProjectCreateParams : ParamsBase
     }
 
     /// <summary>
-    /// Custom install command
+    /// Custom install command to override the framework default
     /// </summary>
     public string? InstallCommand
     {
@@ -164,7 +166,7 @@ public record class ProjectCreateParams : ParamsBase
     }
 
     /// <summary>
-    /// Build output directory
+    /// Build output directory relative to the project root
     /// </summary>
     public string? OutputDirectory
     {
@@ -185,7 +187,7 @@ public record class ProjectCreateParams : ParamsBase
     }
 
     /// <summary>
-    /// Root directory of the project
+    /// Repository subdirectory that contains the app to deploy
     /// </summary>
     public string? RootDirectory
     {
@@ -334,7 +336,7 @@ public sealed record class EnvironmentVariable : JsonModel
     }
 
     /// <summary>
-    /// Deployment targets for this variable
+    /// Deployment targets that should receive this variable
     /// </summary>
     public required IReadOnlyList<ApiEnum<string, Target>> Target
     {
@@ -368,7 +370,7 @@ public sealed record class EnvironmentVariable : JsonModel
     }
 
     /// <summary>
-    /// Variable type
+    /// Storage mode for the environment variable value
     /// </summary>
     public ApiEnum<string, global::Casedev.Models.Applications.V1.Projects.Type>? Type
     {
@@ -483,7 +485,7 @@ sealed class TargetConverter : JsonConverter<Target>
 }
 
 /// <summary>
-/// Variable type
+/// Storage mode for the environment variable value
 /// </summary>
 [JsonConverter(typeof(TypeConverter))]
 public enum Type

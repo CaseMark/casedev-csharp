@@ -74,6 +74,7 @@ public class AgentUpdateParamsTest : TestBase
         var parameters = new AgentUpdateParams
         {
             ID = "id",
+            Description = "description",
             DisabledTools = ["string"],
             EnabledTools = ["string"],
             Sandbox = JsonSerializer.Deserialize<JsonElement>("{}"),
@@ -81,8 +82,6 @@ public class AgentUpdateParamsTest : TestBase
             VaultIds = ["string"],
         };
 
-        Assert.Null(parameters.Description);
-        Assert.False(parameters.RawBodyData.ContainsKey("description"));
         Assert.Null(parameters.Instructions);
         Assert.False(parameters.RawBodyData.ContainsKey("instructions"));
         Assert.Null(parameters.Model);
@@ -97,6 +96,7 @@ public class AgentUpdateParamsTest : TestBase
         var parameters = new AgentUpdateParams
         {
             ID = "id",
+            Description = "description",
             DisabledTools = ["string"],
             EnabledTools = ["string"],
             Sandbox = JsonSerializer.Deserialize<JsonElement>("{}"),
@@ -104,14 +104,11 @@ public class AgentUpdateParamsTest : TestBase
             VaultIds = ["string"],
 
             // Null should be interpreted as omitted for these properties
-            Description = null,
             Instructions = null,
             Model = null,
             Name = null,
         };
 
-        Assert.Null(parameters.Description);
-        Assert.False(parameters.RawBodyData.ContainsKey("description"));
         Assert.Null(parameters.Instructions);
         Assert.False(parameters.RawBodyData.ContainsKey("instructions"));
         Assert.Null(parameters.Model);
@@ -126,12 +123,13 @@ public class AgentUpdateParamsTest : TestBase
         var parameters = new AgentUpdateParams
         {
             ID = "id",
-            Description = "description",
             Instructions = "instructions",
             Model = "model",
             Name = "name",
         };
 
+        Assert.Null(parameters.Description);
+        Assert.False(parameters.RawBodyData.ContainsKey("description"));
         Assert.Null(parameters.DisabledTools);
         Assert.False(parameters.RawBodyData.ContainsKey("disabledTools"));
         Assert.Null(parameters.EnabledTools);
@@ -150,11 +148,11 @@ public class AgentUpdateParamsTest : TestBase
         var parameters = new AgentUpdateParams
         {
             ID = "id",
-            Description = "description",
             Instructions = "instructions",
             Model = "model",
             Name = "name",
 
+            Description = null,
             DisabledTools = null,
             EnabledTools = null,
             Sandbox = null,
@@ -162,6 +160,8 @@ public class AgentUpdateParamsTest : TestBase
             VaultIds = null,
         };
 
+        Assert.Null(parameters.Description);
+        Assert.True(parameters.RawBodyData.ContainsKey("description"));
         Assert.Null(parameters.DisabledTools);
         Assert.True(parameters.RawBodyData.ContainsKey("disabledTools"));
         Assert.Null(parameters.EnabledTools);

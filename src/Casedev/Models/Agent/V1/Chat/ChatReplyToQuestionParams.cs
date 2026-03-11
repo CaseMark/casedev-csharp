@@ -30,6 +30,9 @@ public record class ChatReplyToQuestionParams : ParamsBase
 
     public string? RequestID { get; init; }
 
+    /// <summary>
+    /// Answer selections for each prompt element in the pending question
+    /// </summary>
     public required IReadOnlyList<IReadOnlyList<string>> Answers
     {
         get

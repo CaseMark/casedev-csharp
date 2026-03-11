@@ -9,7 +9,9 @@ using Casedev.Core;
 namespace Casedev.Models.Applications.V1.Deployments;
 
 /// <summary>
-/// Get build logs for a specific deployment
+/// Returns build and runtime log events for a deployment after verifying access
+/// to the owning project. Use this when you need detailed output for a failed or
+/// in-progress build.
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that
@@ -20,7 +22,7 @@ public record class DeploymentGetLogsParams : ParamsBase
     public string? ID { get; init; }
 
     /// <summary>
-    /// Project ID (for authorization)
+    /// Project ID used to verify access to the deployment
     /// </summary>
     public required string ProjectID
     {

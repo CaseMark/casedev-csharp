@@ -29,6 +29,7 @@ public sealed class VoiceService : IVoiceService
 
         _withRawResponse = new(() => new VoiceServiceWithRawResponse(client.WithRawResponse));
         _streaming = new(() => new StreamingService(client));
+        _boostList = new(() => new BoostListService(client));
         _transcription = new(() => new TranscriptionService(client));
         _v1 = new(() => new V1Service(client));
     }
@@ -37,6 +38,12 @@ public sealed class VoiceService : IVoiceService
     public IStreamingService Streaming
     {
         get { return _streaming.Value; }
+    }
+
+    readonly Lazy<IBoostListService> _boostList;
+    public IBoostListService BoostList
+    {
+        get { return _boostList.Value; }
     }
 
     readonly Lazy<ITranscriptionService> _transcription;
@@ -68,6 +75,7 @@ public sealed class VoiceServiceWithRawResponse : IVoiceServiceWithRawResponse
         _client = client;
 
         _streaming = new(() => new StreamingServiceWithRawResponse(client));
+        _boostList = new(() => new BoostListServiceWithRawResponse(client));
         _transcription = new(() => new TranscriptionServiceWithRawResponse(client));
         _v1 = new(() => new V1ServiceWithRawResponse(client));
     }
@@ -76,6 +84,12 @@ public sealed class VoiceServiceWithRawResponse : IVoiceServiceWithRawResponse
     public IStreamingServiceWithRawResponse Streaming
     {
         get { return _streaming.Value; }
+    }
+
+    readonly Lazy<IBoostListServiceWithRawResponse> _boostList;
+    public IBoostListServiceWithRawResponse BoostList
+    {
+        get { return _boostList.Value; }
     }
 
     readonly Lazy<ITranscriptionServiceWithRawResponse> _transcription;

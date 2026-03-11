@@ -13,7 +13,9 @@ using System = System;
 namespace Casedev.Models.Applications.V1.Projects;
 
 /// <summary>
-/// Trigger a new deployment for a project.
+/// Starts a new deployment for an existing project using its saved repository and
+/// hosting configuration. Any environment variables passed in the request are merged
+/// into the deployment workflow before the build starts.
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that
@@ -196,7 +198,7 @@ public sealed record class ProjectCreateDeploymentParamsEnvironmentVariable : Js
     }
 
     /// <summary>
-    /// Deployment targets for this variable
+    /// Deployment targets that should receive this variable
     /// </summary>
     public required IReadOnlyList<
         ApiEnum<string, ProjectCreateDeploymentParamsEnvironmentVariableTarget>
@@ -235,7 +237,7 @@ public sealed record class ProjectCreateDeploymentParamsEnvironmentVariable : Js
     }
 
     /// <summary>
-    /// Variable type
+    /// Storage mode for the environment variable value
     /// </summary>
     public ApiEnum<string, ProjectCreateDeploymentParamsEnvironmentVariableType>? Type
     {
@@ -361,7 +363,7 @@ sealed class ProjectCreateDeploymentParamsEnvironmentVariableTargetConverter
 }
 
 /// <summary>
-/// Variable type
+/// Storage mode for the environment variable value
 /// </summary>
 [JsonConverter(typeof(ProjectCreateDeploymentParamsEnvironmentVariableTypeConverter))]
 public enum ProjectCreateDeploymentParamsEnvironmentVariableType

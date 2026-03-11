@@ -8,6 +8,7 @@ using Casedev.Models.Llm.V1.Chat;
 using Casedev.Models.Privilege.V1;
 using Casedev.Models.Translate.V1;
 using Casedev.Models.Voice.V1;
+using BoostList = Casedev.Models.Voice.BoostList;
 using Chat = Casedev.Models.Agent.V1.Chat;
 using Environments = Casedev.Models.Compute.V1.Environments;
 using Execute = Casedev.Models.Agent.V1.Execute;
@@ -127,6 +128,12 @@ public abstract record class ModelBase
             new ApiEnumConverter<string, Objects::Status>(),
             new ApiEnumConverter<string, Objects::Force>(),
             new ApiEnumConverter<string, Objects::Operation>(),
+            new ApiEnumConverter<string, BoostList::BoostParam>(),
+            new ApiEnumConverter<string, BoostList::Source>(),
+            new ApiEnumConverter<string, BoostList::BoostListGenerateResponseItemBoostParam>(),
+            new ApiEnumConverter<string, BoostList::BoostListGenerateResponseSource>(),
+            new ApiEnumConverter<string, BoostList::Category>(),
+            new ApiEnumConverter<string, BoostList::BoostListGenerateParamsCategory>(),
             new ApiEnumConverter<string, Transcription::Status>(),
             new ApiEnumConverter<string, Transcription::TranscriptionRetrieveResponseStatus>(),
             new ApiEnumConverter<string, Transcription::BoostParam>(),

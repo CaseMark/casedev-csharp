@@ -3,13 +3,15 @@ using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
+using System.Text;
 using System.Text.Json;
 using Casedev.Core;
 
 namespace Casedev.Models.Vault.Groups;
 
 /// <summary>
-/// Create vault group
+/// Creates a vault group for organizing vaults and applying group-scoped access controls.
+/// Group-scoped API keys cannot create or manage vault groups.
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that
@@ -17,44 +19,93 @@ namespace Casedev.Models.Vault.Groups;
 /// </summary>
 public record class GroupCreateParams : ParamsBase
 {
+    readonly JsonDictionary _rawBodyData = new();
+    public IReadOnlyDictionary<string, JsonElement> RawBodyData
+    {
+        get { return this._rawBodyData.Freeze(); }
+    }
+
+    /// <summary>
+    /// Human-readable name for the vault group
+    /// </summary>
+    public required string Name
+    {
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNotNullClass<string>("name");
+        }
+        init { this._rawBodyData.Set("name", value); }
+    }
+
+    /// <summary>
+    /// Optional description of the vault group purpose
+    /// </summary>
+    public string? Description
+    {
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("description");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawBodyData.Set("description", value);
+        }
+    }
+
     public GroupCreateParams() { }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
     public GroupCreateParams(GroupCreateParams groupCreateParams)
-        : base(groupCreateParams) { }
+        : base(groupCreateParams)
+    {
+        this._rawBodyData = new(groupCreateParams._rawBodyData);
+    }
 #pragma warning restore CS8618
 
     public GroupCreateParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
-        IReadOnlyDictionary<string, JsonElement> rawQueryData
+        IReadOnlyDictionary<string, JsonElement> rawQueryData,
+        IReadOnlyDictionary<string, JsonElement> rawBodyData
     )
     {
         this._rawHeaderData = new(rawHeaderData);
         this._rawQueryData = new(rawQueryData);
+        this._rawBodyData = new(rawBodyData);
     }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
     GroupCreateParams(
         FrozenDictionary<string, JsonElement> rawHeaderData,
-        FrozenDictionary<string, JsonElement> rawQueryData
+        FrozenDictionary<string, JsonElement> rawQueryData,
+        FrozenDictionary<string, JsonElement> rawBodyData
     )
     {
         this._rawHeaderData = new(rawHeaderData);
         this._rawQueryData = new(rawQueryData);
+        this._rawBodyData = new(rawBodyData);
     }
 #pragma warning restore CS8618
 
     /// <inheritdoc cref="IFromRawJson.FromRawUnchecked"/>
     public static GroupCreateParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
-        IReadOnlyDictionary<string, JsonElement> rawQueryData
+        IReadOnlyDictionary<string, JsonElement> rawQueryData,
+        IReadOnlyDictionary<string, JsonElement> rawBodyData
     )
     {
         return new(
             FrozenDictionary.ToFrozenDictionary(rawHeaderData),
-            FrozenDictionary.ToFrozenDictionary(rawQueryData)
+            FrozenDictionary.ToFrozenDictionary(rawQueryData),
+            FrozenDictionary.ToFrozenDictionary(rawBodyData)
         );
     }
 
@@ -69,6 +120,7 @@ public record class GroupCreateParams : ParamsBase
                     ["QueryData"] = FriendlyJsonPrinter.PrintValue(
                         JsonSerializer.SerializeToElement(this._rawQueryData.Freeze())
                     ),
+                    ["BodyData"] = FriendlyJsonPrinter.PrintValue(this._rawBodyData.Freeze()),
                 }
             ),
             ModelBase.ToStringSerializerOptions
@@ -81,7 +133,8 @@ public record class GroupCreateParams : ParamsBase
             return false;
         }
         return this._rawHeaderData.Equals(other._rawHeaderData)
-            && this._rawQueryData.Equals(other._rawQueryData);
+            && this._rawQueryData.Equals(other._rawQueryData)
+            && this._rawBodyData.Equals(other._rawBodyData);
     }
 
     public override Uri Url(ClientOptions options)
@@ -90,6 +143,15 @@ public record class GroupCreateParams : ParamsBase
         {
             Query = this.QueryString(options),
         }.Uri;
+    }
+
+    internal override HttpContent? BodyContent()
+    {
+        return new StringContent(
+            JsonSerializer.Serialize(this.RawBodyData, ModelBase.SerializerOptions),
+            Encoding.UTF8,
+            "application/json"
+        );
     }
 
     internal override void AddHeadersToRequest(HttpRequestMessage request, ClientOptions options)

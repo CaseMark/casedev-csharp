@@ -27,12 +27,16 @@ public interface IProjectService
     IProjectService WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Create a new web application project
+    /// Creates a new application project, validates GitHub access, provisions a
+    /// default case.dev domain, and starts the deployment workflow. The initial
+    /// response returns as soon as the workflow is queued so clients can poll for progress.
     /// </summary>
     Task Create(ProjectCreateParams parameters, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Get details of a specific web application project
+    /// Returns project details, domains, and recent deployment information for one
+    /// application project or deployed Thurgood app. Use this endpoint when you need
+    /// a single record with hosting metadata for a details view.
     /// </summary>
     Task Retrieve(ProjectRetrieveParams parameters, CancellationToken cancellationToken = default);
 
@@ -44,7 +48,9 @@ public interface IProjectService
     );
 
     /// <summary>
-    /// List all web application projects
+    /// Lists application projects and deployed Thurgood apps for the authenticated
+    /// organization. Use enrich=true to include additional hosting metadata for projects
+    /// linked to Vercel.
     /// </summary>
     Task<ProjectListResponse> List(
         ProjectListParams? parameters = null,
@@ -52,7 +58,9 @@ public interface IProjectService
     );
 
     /// <summary>
-    /// Delete a web application project
+    /// Soft-deletes an application project or deployed Thurgood app from Case.dev.
+    /// By default it also removes the linked hosting project; set deleteFromHosting=false
+    /// to keep the external hosting resources intact.
     /// </summary>
     Task Delete(ProjectDeleteParams parameters, CancellationToken cancellationToken = default);
 
@@ -64,7 +72,9 @@ public interface IProjectService
     );
 
     /// <summary>
-    /// Trigger a new deployment for a project.
+    /// Starts a new deployment for an existing project using its saved repository
+    /// and hosting configuration. Any environment variables passed in the request
+    /// are merged into the deployment workflow before the build starts.
     /// </summary>
     Task CreateDeployment(
         ProjectCreateDeploymentParams parameters,
@@ -154,7 +164,9 @@ public interface IProjectService
     );
 
     /// <summary>
-    /// List deployments for a specific project
+    /// Lists deployments for one project in the authenticated organization. If the
+    /// hosting project has not been created yet, this endpoint returns an empty list
+    /// with a progress message instead of failing.
     /// </summary>
     Task ListDeployments(
         ProjectListDeploymentsParams parameters,
