@@ -9,7 +9,8 @@ using Casedev.Core;
 namespace Casedev.Models.Applications.V1.Projects;
 
 /// <summary>
-/// List all web application projects
+/// Lists application projects and deployed Thurgood apps for the authenticated organization.
+/// Use enrich=true to include additional hosting metadata for projects linked to Vercel.
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that
@@ -17,6 +18,48 @@ namespace Casedev.Models.Applications.V1.Projects;
 /// </summary>
 public record class ProjectListParams : ParamsBase
 {
+    /// <summary>
+    /// Whether to include additional hosting metadata from Vercel
+    /// </summary>
+    public bool? Enrich
+    {
+        get
+        {
+            this._rawQueryData.Freeze();
+            return this._rawQueryData.GetNullableStruct<bool>("enrich");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawQueryData.Set("enrich", value);
+        }
+    }
+
+    /// <summary>
+    /// Maximum number of projects to return from each backing source
+    /// </summary>
+    public double? Limit
+    {
+        get
+        {
+            this._rawQueryData.Freeze();
+            return this._rawQueryData.GetNullableStruct<double>("limit");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawQueryData.Set("limit", value);
+        }
+    }
+
     public ProjectListParams() { }
 
 #pragma warning disable CS8618

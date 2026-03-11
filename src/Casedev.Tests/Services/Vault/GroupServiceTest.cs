@@ -7,7 +7,10 @@ public class GroupServiceTest : TestBase
     [Fact]
     public async Task Create_Works()
     {
-        await this.client.Vault.Groups.Create(new(), TestContext.Current.CancellationToken);
+        await this.client.Vault.Groups.Create(
+            new() { Name = "name" },
+            TestContext.Current.CancellationToken
+        );
     }
 
     [Fact]

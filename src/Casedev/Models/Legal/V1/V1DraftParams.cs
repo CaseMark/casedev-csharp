@@ -329,6 +329,9 @@ public sealed record class Length : JsonModel
         }
     }
 
+    /// <summary>
+    /// Whether the target length is measured in words or pages
+    /// </summary>
     public ApiEnum<string, Unit>? Unit
     {
         get
@@ -389,6 +392,9 @@ class LengthFromRaw : IFromRawJson<Length>
         Length.FromRawUnchecked(rawData);
 }
 
+/// <summary>
+/// Whether the target length is measured in words or pages
+/// </summary>
 [JsonConverter(typeof(UnitConverter))]
 public enum Unit
 {

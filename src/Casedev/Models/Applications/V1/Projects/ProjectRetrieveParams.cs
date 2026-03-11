@@ -9,7 +9,9 @@ using Casedev.Core;
 namespace Casedev.Models.Applications.V1.Projects;
 
 /// <summary>
-/// Get details of a specific web application project
+/// Returns project details, domains, and recent deployment information for one application
+/// project or deployed Thurgood app. Use this endpoint when you need a single record
+/// with hosting metadata for a details view.
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that

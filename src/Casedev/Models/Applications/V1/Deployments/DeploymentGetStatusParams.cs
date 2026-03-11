@@ -9,7 +9,9 @@ using Casedev.Core;
 namespace Casedev.Models.Applications.V1.Deployments;
 
 /// <summary>
-/// Get the current status of a deployment
+/// Returns the current status of a deployment without fetching full build logs.
+/// Use this endpoint for lightweight polling while a deployment is building or waiting
+/// to become ready.
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that

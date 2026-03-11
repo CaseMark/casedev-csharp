@@ -67,6 +67,9 @@ public record class V1ListCourtsParams : ParamsBase
         }
     }
 
+    /// <summary>
+    /// Maximum number of courts to return
+    /// </summary>
     public long? Limit
     {
         get
@@ -85,6 +88,9 @@ public record class V1ListCourtsParams : ParamsBase
         }
     }
 
+    /// <summary>
+    /// Number of courts to skip before returning results
+    /// </summary>
     public long? Offset
     {
         get
