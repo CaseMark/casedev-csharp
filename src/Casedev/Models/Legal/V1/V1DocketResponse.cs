@@ -148,6 +148,40 @@ public sealed record class V1DocketResponse : JsonModel
     }
 
     /// <summary>
+    /// Whether this was a live PACER fetch (lookup mode only)
+    /// </summary>
+    public bool? Live
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<bool>("live");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawData.Set("live", value);
+        }
+    }
+
+    /// <summary>
+    /// PACER fee information (present when live: true)
+    /// </summary>
+    public PacerFees? PacerFees
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<PacerFees>("pacerFees");
+        }
+        init { this._rawData.Set("pacerFees", value); }
+    }
+
+    /// <summary>
     /// Pagination info for entry list (lookup mode with includeEntries)
     /// </summary>
     public Pagination? Pagination
@@ -208,6 +242,8 @@ public sealed record class V1DocketResponse : JsonModel
         }
         _ = this.Found;
         _ = this.IncludeEntries;
+        _ = this.Live;
+        this.PacerFees?.Validate();
         this.Pagination?.Validate();
         _ = this.Query;
         this.Type?.Validate();
@@ -485,6 +521,174 @@ class DocumentFromRaw : IFromRawJson<Document>
     /// <inheritdoc/>
     public Document FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         Document.FromRawUnchecked(rawData);
+}
+
+/// <summary>
+/// PACER fee information (present when live: true)
+/// </summary>
+[JsonConverter(typeof(JsonModelConverter<PacerFees, PacerFeesFromRaw>))]
+public sealed record class PacerFees : JsonModel
+{
+    public ApiEnum<string, Currency>? Currency
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<ApiEnum<string, Currency>>("currency");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawData.Set("currency", value);
+        }
+    }
+
+    /// <summary>
+    /// Time taken for PACER fetch in milliseconds
+    /// </summary>
+    public long? FetchDurationMs
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("fetchDurationMs");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawData.Set("fetchDurationMs", value);
+        }
+    }
+
+    /// <summary>
+    /// Maximum PACER charge per docket in USD
+    /// </summary>
+    public double? MaxPacerCost
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<double>("maxPacerCost");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawData.Set("maxPacerCost", value);
+        }
+    }
+
+    /// <summary>
+    /// CaseMark service fee in USD
+    /// </summary>
+    public double? ServiceFee
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<double>("serviceFee");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawData.Set("serviceFee", value);
+        }
+    }
+
+    /// <inheritdoc/>
+    public override void Validate()
+    {
+        this.Currency?.Validate();
+        _ = this.FetchDurationMs;
+        _ = this.MaxPacerCost;
+        _ = this.ServiceFee;
+    }
+
+    public PacerFees() { }
+
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
+    public PacerFees(PacerFees pacerFees)
+        : base(pacerFees) { }
+#pragma warning restore CS8618
+
+    public PacerFees(IReadOnlyDictionary<string, JsonElement> rawData)
+    {
+        this._rawData = new(rawData);
+    }
+
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
+    PacerFees(FrozenDictionary<string, JsonElement> rawData)
+    {
+        this._rawData = new(rawData);
+    }
+#pragma warning restore CS8618
+
+    /// <inheritdoc cref="PacerFeesFromRaw.FromRawUnchecked"/>
+    public static PacerFees FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
+    {
+        return new(FrozenDictionary.ToFrozenDictionary(rawData));
+    }
+}
+
+class PacerFeesFromRaw : IFromRawJson<PacerFees>
+{
+    /// <inheritdoc/>
+    public PacerFees FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
+        PacerFees.FromRawUnchecked(rawData);
+}
+
+[JsonConverter(typeof(CurrencyConverter))]
+public enum Currency
+{
+    Usd,
+}
+
+sealed class CurrencyConverter : JsonConverter<Currency>
+{
+    public override Currency Read(
+        ref Utf8JsonReader reader,
+        System::Type typeToConvert,
+        JsonSerializerOptions options
+    )
+    {
+        return JsonSerializer.Deserialize<string>(ref reader, options) switch
+        {
+            "USD" => Currency.Usd,
+            _ => (Currency)(-1),
+        };
+    }
+
+    public override void Write(Utf8JsonWriter writer, Currency value, JsonSerializerOptions options)
+    {
+        JsonSerializer.Serialize(
+            writer,
+            value switch
+            {
+                Currency.Usd => "USD",
+                _ => throw new CasedevInvalidDataException(
+                    string.Format("Invalid value '{0}' in {1}", value, nameof(value))
+                ),
+            },
+            options
+        );
+    }
 }
 
 /// <summary>
