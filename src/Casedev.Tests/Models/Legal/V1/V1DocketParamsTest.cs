@@ -14,6 +14,7 @@ public class V1DocketParamsTest : TestBase
         var parameters = new V1::V1DocketParams
         {
             Type = V1::Type.Search,
+            AcknowledgePacerFees = true,
             Court = "court",
             DateFiledAfter = "2019-12-27",
             DateFiledBefore = "2019-12-27",
@@ -26,6 +27,7 @@ public class V1DocketParamsTest : TestBase
         };
 
         ApiEnum<string, V1::Type> expectedType = V1::Type.Search;
+        bool expectedAcknowledgePacerFees = true;
         string expectedCourt = "court";
         string expectedDateFiledAfter = "2019-12-27";
         string expectedDateFiledBefore = "2019-12-27";
@@ -37,6 +39,7 @@ public class V1DocketParamsTest : TestBase
         string expectedQuery = "xx";
 
         Assert.Equal(expectedType, parameters.Type);
+        Assert.Equal(expectedAcknowledgePacerFees, parameters.AcknowledgePacerFees);
         Assert.Equal(expectedCourt, parameters.Court);
         Assert.Equal(expectedDateFiledAfter, parameters.DateFiledAfter);
         Assert.Equal(expectedDateFiledBefore, parameters.DateFiledBefore);
@@ -53,6 +56,8 @@ public class V1DocketParamsTest : TestBase
     {
         var parameters = new V1::V1DocketParams { Type = V1::Type.Search };
 
+        Assert.Null(parameters.AcknowledgePacerFees);
+        Assert.False(parameters.RawBodyData.ContainsKey("acknowledgePacerFees"));
         Assert.Null(parameters.Court);
         Assert.False(parameters.RawBodyData.ContainsKey("court"));
         Assert.Null(parameters.DateFiledAfter);
@@ -81,6 +86,7 @@ public class V1DocketParamsTest : TestBase
             Type = V1::Type.Search,
 
             // Null should be interpreted as omitted for these properties
+            AcknowledgePacerFees = null,
             Court = null,
             DateFiledAfter = null,
             DateFiledBefore = null,
@@ -92,6 +98,8 @@ public class V1DocketParamsTest : TestBase
             Query = null,
         };
 
+        Assert.Null(parameters.AcknowledgePacerFees);
+        Assert.False(parameters.RawBodyData.ContainsKey("acknowledgePacerFees"));
         Assert.Null(parameters.Court);
         Assert.False(parameters.RawBodyData.ContainsKey("court"));
         Assert.Null(parameters.DateFiledAfter);
@@ -128,6 +136,7 @@ public class V1DocketParamsTest : TestBase
         var parameters = new V1::V1DocketParams
         {
             Type = V1::Type.Search,
+            AcknowledgePacerFees = true,
             Court = "court",
             DateFiledAfter = "2019-12-27",
             DateFiledBefore = "2019-12-27",

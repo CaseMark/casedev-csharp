@@ -20,7 +20,7 @@ public class V1ProcessParamsTest : TestBase
             Engine = Engine.Doctr,
             Features = new()
             {
-                Embed = new Dictionary<string, JsonElement>(),
+                Embed = { },
                 Forms = new Dictionary<string, JsonElement>()
                 {
                     { "foo", JsonSerializer.SerializeToElement("bar") },
@@ -37,7 +37,7 @@ public class V1ProcessParamsTest : TestBase
         ApiEnum<string, Engine> expectedEngine = Engine.Doctr;
         Features expectedFeatures = new()
         {
-            Embed = new Dictionary<string, JsonElement>(),
+            Embed = { },
             Forms = new Dictionary<string, JsonElement>()
             {
                 { "foo", JsonSerializer.SerializeToElement("bar") },
@@ -126,7 +126,7 @@ public class V1ProcessParamsTest : TestBase
             Engine = Engine.Doctr,
             Features = new()
             {
-                Embed = new Dictionary<string, JsonElement>(),
+                Embed = { },
                 Forms = new Dictionary<string, JsonElement>()
                 {
                     { "foo", JsonSerializer.SerializeToElement("bar") },
@@ -208,7 +208,7 @@ public class FeaturesTest : TestBase
     {
         var model = new Features
         {
-            Embed = new Dictionary<string, JsonElement>(),
+            Embed = { },
             Forms = new Dictionary<string, JsonElement>()
             {
                 { "foo", JsonSerializer.SerializeToElement("bar") },
@@ -216,7 +216,7 @@ public class FeaturesTest : TestBase
             Tables = new() { Format = TablesFormat.Csv },
         };
 
-        Dictionary<string, JsonElement> expectedEmbed = new() { };
+        Dictionary<string, JsonElement> expectedEmbed = new();
         Dictionary<string, JsonElement> expectedForms = new()
         {
             { "foo", JsonSerializer.SerializeToElement("bar") },
@@ -247,7 +247,7 @@ public class FeaturesTest : TestBase
     {
         var model = new Features
         {
-            Embed = new Dictionary<string, JsonElement>(),
+            Embed = { },
             Forms = new Dictionary<string, JsonElement>()
             {
                 { "foo", JsonSerializer.SerializeToElement("bar") },
@@ -266,7 +266,7 @@ public class FeaturesTest : TestBase
     {
         var model = new Features
         {
-            Embed = new Dictionary<string, JsonElement>(),
+            Embed = { },
             Forms = new Dictionary<string, JsonElement>()
             {
                 { "foo", JsonSerializer.SerializeToElement("bar") },
@@ -281,7 +281,7 @@ public class FeaturesTest : TestBase
         );
         Assert.NotNull(deserialized);
 
-        Dictionary<string, JsonElement> expectedEmbed = new() { };
+        Dictionary<string, JsonElement> expectedEmbed = new();
         Dictionary<string, JsonElement> expectedForms = new()
         {
             { "foo", JsonSerializer.SerializeToElement("bar") },
@@ -312,7 +312,7 @@ public class FeaturesTest : TestBase
     {
         var model = new Features
         {
-            Embed = new Dictionary<string, JsonElement>(),
+            Embed = { },
             Forms = new Dictionary<string, JsonElement>()
             {
                 { "foo", JsonSerializer.SerializeToElement("bar") },
@@ -382,7 +382,7 @@ public class FeaturesTest : TestBase
     {
         var model = new Features
         {
-            Embed = new Dictionary<string, JsonElement>(),
+            Embed = { },
             Forms = new Dictionary<string, JsonElement>()
             {
                 { "foo", JsonSerializer.SerializeToElement("bar") },

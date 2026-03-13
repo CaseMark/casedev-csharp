@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Casedev.Core;
 using Casedev.Exceptions;
 using Casedev.Models.Agent.V1.Chat;
+using Casedev.Services.Agent.V1.Chat;
 
 namespace Casedev.Services.Agent.V1;
 
@@ -34,6 +35,13 @@ public sealed class ChatService : IChatService
         _client = client;
 
         _withRawResponse = new(() => new ChatServiceWithRawResponse(client.WithRawResponse));
+        _files = new(() => new FileService(client));
+    }
+
+    readonly Lazy<IFileService> _files;
+    public IFileService Files
+    {
+        get { return _files.Value; }
     }
 
     /// <inheritdoc/>
@@ -217,6 +225,14 @@ public sealed class ChatServiceWithRawResponse : IChatServiceWithRawResponse
     public ChatServiceWithRawResponse(ICasedevClientWithRawResponse client)
     {
         _client = client;
+
+        _files = new(() => new FileServiceWithRawResponse(client));
+    }
+
+    readonly Lazy<IFileServiceWithRawResponse> _files;
+    public IFileServiceWithRawResponse Files
+    {
+        get { return _files.Value; }
     }
 
     /// <inheritdoc/>

@@ -30,7 +30,7 @@ public interface IV1Service
 
     /// <summary>
     /// Search federal court dockets or retrieve a specific docket with optional filing
-    /// entries via CourtListener RECAP data.
+    /// entries. Use legal.listCourts() to resolve court slugs for filtering.
     /// </summary>
     Task<V1DocketResponse> Docket(
         V1DocketParams parameters,
@@ -87,8 +87,8 @@ public interface IV1Service
     );
 
     /// <summary>
-    /// Returns CourtListener court IDs and names for docket filtering. Use these
-    /// IDs in legal.docket() as the court parameter.
+    /// Returns court IDs (slugs) and names for use with the docket search endpoint.
+    /// Use the returned court ID as the `court` parameter in legal.docket().
     /// </summary>
     Task<V1ListCourtsResponse> ListCourts(
         V1ListCourtsParams? parameters = null,

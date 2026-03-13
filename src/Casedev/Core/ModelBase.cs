@@ -84,6 +84,7 @@ public abstract record class ModelBase
             new ApiEnumConverter<string, OutputFormat>(),
             new ApiEnumConverter<string, InputFormat>(),
             new ApiEnumConverter<string, Templates::Type>(),
+            new ApiEnumConverter<string, V1::Currency>(),
             new ApiEnumConverter<string, V1::V1DocketResponseType>(),
             new ApiEnumConverter<string, V1::Status>(),
             new ApiEnumConverter<string, V1::Level>(),

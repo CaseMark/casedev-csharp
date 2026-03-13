@@ -146,7 +146,7 @@ class V1ListCourtsResponseFromRaw : IFromRawJson<V1ListCourtsResponse>
 public sealed record class Court : JsonModel
 {
     /// <summary>
-    /// CourtListener court slug
+    /// Court slug (use as the court parameter in legal.docket())
     /// </summary>
     public string? ID
     {
