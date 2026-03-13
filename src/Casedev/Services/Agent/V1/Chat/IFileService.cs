@@ -58,7 +58,7 @@ public interface IFileService
 
     /// <inheritdoc cref="Download(FileDownloadParams, CancellationToken)"/>
     Task<HttpResponse> Download(
-        string path,
+        string filePath,
         FileDownloadParams parameters,
         CancellationToken cancellationToken = default
     );
@@ -94,7 +94,7 @@ public interface IFileServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /agent/v1/chat/{id}/files/{path}`, but is otherwise the
+    /// Returns a raw HTTP response for `get /agent/v1/chat/{id}/files/{filePath}`, but is otherwise the
     /// same as <see cref="IFileService.Download(FileDownloadParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> Download(
@@ -104,7 +104,7 @@ public interface IFileServiceWithRawResponse
 
     /// <inheritdoc cref="Download(FileDownloadParams, CancellationToken)"/>
     Task<HttpResponse> Download(
-        string path,
+        string filePath,
         FileDownloadParams parameters,
         CancellationToken cancellationToken = default
     );

@@ -69,12 +69,12 @@ public sealed class FileService : IFileService
 
     /// <inheritdoc/>
     public Task<HttpResponse> Download(
-        string path,
+        string filePath,
         FileDownloadParams parameters,
         CancellationToken cancellationToken = default
     )
     {
-        return this.Download(parameters with { Path = path }, cancellationToken);
+        return this.Download(parameters with { FilePath = filePath }, cancellationToken);
     }
 }
 
@@ -145,9 +145,9 @@ public sealed class FileServiceWithRawResponse : IFileServiceWithRawResponse
         CancellationToken cancellationToken = default
     )
     {
-        if (parameters.Path == null)
+        if (parameters.FilePath == null)
         {
-            throw new CasedevInvalidDataException("'parameters.Path' cannot be null");
+            throw new CasedevInvalidDataException("'parameters.FilePath' cannot be null");
         }
 
         HttpRequest<FileDownloadParams> request = new()
@@ -160,11 +160,11 @@ public sealed class FileServiceWithRawResponse : IFileServiceWithRawResponse
 
     /// <inheritdoc/>
     public Task<HttpResponse> Download(
-        string path,
+        string filePath,
         FileDownloadParams parameters,
         CancellationToken cancellationToken = default
     )
     {
-        return this.Download(parameters with { Path = path }, cancellationToken);
+        return this.Download(parameters with { FilePath = filePath }, cancellationToken);
     }
 }
