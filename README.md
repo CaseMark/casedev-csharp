@@ -112,15 +112,15 @@ These methods return `HttpResponse`:
 
 ```csharp
 using System;
-using Casedev.Models.Format.V1;
+using Casedev.Models.Agent.V1.Chat.Files;
 
-V1CreateDocumentParams parameters = new()
+FileDownloadParams parameters = new()
 {
-    Content = "content",
-    OutputFormat = OutputFormat.Pdf,
+    ID = "id",
+    Path = "path",
 };
 
-var response = await client.Format.V1.CreateDocument(parameters);
+var response = await client.Agent.V1.Chat.Files.Download(parameters);
 
 Console.WriteLine(response);
 ```
@@ -130,7 +130,7 @@ To save the response content to a file, or any [`Stream`](https://learn.microsof
 ```csharp
 using System.IO;
 
-using var response = await client.Format.V1.CreateDocument(parameters);
+using var response = await client.Agent.V1.Chat.Files.Download(parameters);
 using var contentStream = await response.ReadAsStream();
 using var fileStream = File.Open(path, FileMode.OpenOrCreate);
 await contentStream.CopyToAsync(fileStream); // Or any other Stream

@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Casedev.Core;
 using Casedev.Models.Agent.V1.Chat;
+using Casedev.Services.Agent.V1.Chat;
 
 namespace Casedev.Services.Agent.V1;
 
@@ -29,6 +30,8 @@ public interface IChatService
     /// <para>The original service is not modified.</para>
     /// </summary>
     IChatService WithOptions(Func<ClientOptions, ClientOptions> modifier);
+
+    IFileService Files { get; }
 
     /// <summary>
     /// Creates a persistent OpenCode chat session in a Modal sandbox. Session state
@@ -161,6 +164,8 @@ public interface IChatServiceWithRawResponse
     /// <para>The original service is not modified.</para>
     /// </summary>
     IChatServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
+
+    IFileServiceWithRawResponse Files { get; }
 
     /// <summary>
     /// Returns a raw HTTP response for `post /agent/v1/chat`, but is otherwise the
