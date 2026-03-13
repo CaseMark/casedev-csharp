@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.10.1 (2026-03-13)
+
+Full Changelog: [v0.10.0...v0.10.1](https://github.com/CaseMark/casedev-csharp/compare/v0.10.0...v0.10.1)
+
+### ⚠ BREAKING CHANGES
+
+* **Migration:** Only use all-caps in PascalCase for two-letter acronyms. Otherwise, use a capital letter for the first letter and lowercase letters for the rest.
+
+### Bug Fixes
+
+* resolve generated branch conflicts for api update ([#21](https://github.com/CaseMark/casedev-csharp/issues/21)) ([02d3a30](https://github.com/CaseMark/casedev-csharp/commit/02d3a30fdb799bf7b0dc4006a862bff4623f19ed))
+
 ## 0.10.0 (2026-03-11)
 
 Full Changelog: [v0.9.0...v0.10.0](https://github.com/CaseMark/casedev-csharp/compare/v0.9.0...v0.10.0)
