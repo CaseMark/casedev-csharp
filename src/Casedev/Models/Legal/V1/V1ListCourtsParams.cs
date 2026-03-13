@@ -10,8 +10,8 @@ using Casedev.Core;
 namespace Casedev.Models.Legal.V1;
 
 /// <summary>
-/// Returns CourtListener court IDs and names for docket filtering. Use these IDs
-/// in legal.docket() as the court parameter.
+/// Returns court IDs (slugs) and names for use with the docket search endpoint. Use
+/// the returned court ID as the `court` parameter in legal.docket().
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that
@@ -26,7 +26,7 @@ public record class V1ListCourtsParams : ParamsBase
     }
 
     /// <summary>
-    /// Only return courts currently in use by CourtListener
+    /// Only return courts with available docket data
     /// </summary>
     public bool? InUseOnly
     {
@@ -47,7 +47,8 @@ public record class V1ListCourtsParams : ParamsBase
     }
 
     /// <summary>
-    /// Optional CourtListener jurisdiction code filter (e.g. FD, F, S)
+    /// Optional jurisdiction code filter (e.g. FD for Federal District, F for all
+    /// Federal, S for State)
     /// </summary>
     public string? Jurisdiction
     {

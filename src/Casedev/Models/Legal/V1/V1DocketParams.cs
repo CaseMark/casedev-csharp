@@ -13,7 +13,7 @@ namespace Casedev.Models.Legal.V1;
 
 /// <summary>
 /// Search federal court dockets or retrieve a specific docket with optional filing
-/// entries via CourtListener RECAP data.
+/// entries. Use legal.listCourts() to resolve court slugs for filtering.
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that
@@ -43,7 +43,30 @@ public record class V1DocketParams : ParamsBase
     }
 
     /// <summary>
-    /// Optional CourtListener court slug (e.g. "nysd", "ca9", "cafc")
+    /// Required when live: true. Acknowledges that PACER fees (up to $3.00 per docket)
+    /// plus a $0.05 service fee will be charged to your account.
+    /// </summary>
+    public bool? AcknowledgePacerFees
+    {
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<bool>("acknowledgePacerFees");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawBodyData.Set("acknowledgePacerFees", value);
+        }
+    }
+
+    /// <summary>
+    /// Optional court slug for filtering (e.g. "nysd", "ca9", "cafc"). Use legal.listCourts()
+    /// to find slugs.
     /// </summary>
     public string? Court
     {
@@ -106,7 +129,7 @@ public record class V1DocketParams : ParamsBase
     }
 
     /// <summary>
-    /// CourtListener docket ID (required for lookup)
+    /// Docket ID (required for lookup)
     /// </summary>
     public string? DocketID
     {
@@ -127,7 +150,8 @@ public record class V1DocketParams : ParamsBase
     }
 
     /// <summary>
-    /// Include docket entries/filings in lookup responses
+    /// Include docket entries/filings in lookup responses. Coming soon — currently
+    /// returns 501. The parameter is accepted for forward compatibility.
     /// </summary>
     public bool? IncludeEntries
     {
@@ -169,7 +193,9 @@ public record class V1DocketParams : ParamsBase
     }
 
     /// <summary>
-    /// Reserved for future PACER live fetch support. Setting true currently returns 400.
+    /// Trigger a live PACER fetch for dockets not yet in the RECAP archive. Requires
+    /// acknowledgePacerFees: true. PACER charges up to $3.00 per docket sheet plus
+    /// a $0.05 service fee. Only valid with type: "lookup".
     /// </summary>
     public bool? Live
     {

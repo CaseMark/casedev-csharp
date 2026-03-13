@@ -75,6 +75,14 @@ public class V1DocketResponseTest : TestBase
             ],
             Found = 0,
             IncludeEntries = true,
+            Live = true,
+            PacerFees = new()
+            {
+                Currency = Currency.Usd,
+                FetchDurationMs = 0,
+                MaxPacerCost = 0,
+                ServiceFee = 0,
+            },
             Pagination = new()
             {
                 Limit = 0,
@@ -147,6 +155,14 @@ public class V1DocketResponseTest : TestBase
         ];
         long expectedFound = 0;
         bool expectedIncludeEntries = true;
+        bool expectedLive = true;
+        PacerFees expectedPacerFees = new()
+        {
+            Currency = Currency.Usd,
+            FetchDurationMs = 0,
+            MaxPacerCost = 0,
+            ServiceFee = 0,
+        };
         Pagination expectedPagination = new()
         {
             Limit = 0,
@@ -174,6 +190,8 @@ public class V1DocketResponseTest : TestBase
         }
         Assert.Equal(expectedFound, model.Found);
         Assert.Equal(expectedIncludeEntries, model.IncludeEntries);
+        Assert.Equal(expectedLive, model.Live);
+        Assert.Equal(expectedPacerFees, model.PacerFees);
         Assert.Equal(expectedPagination, model.Pagination);
         Assert.Equal(expectedQuery, model.Query);
         Assert.Equal(expectedType, model.Type);
@@ -246,6 +264,14 @@ public class V1DocketResponseTest : TestBase
             ],
             Found = 0,
             IncludeEntries = true,
+            Live = true,
+            PacerFees = new()
+            {
+                Currency = Currency.Usd,
+                FetchDurationMs = 0,
+                MaxPacerCost = 0,
+                ServiceFee = 0,
+            },
             Pagination = new()
             {
                 Limit = 0,
@@ -332,6 +358,14 @@ public class V1DocketResponseTest : TestBase
             ],
             Found = 0,
             IncludeEntries = true,
+            Live = true,
+            PacerFees = new()
+            {
+                Currency = Currency.Usd,
+                FetchDurationMs = 0,
+                MaxPacerCost = 0,
+                ServiceFee = 0,
+            },
             Pagination = new()
             {
                 Limit = 0,
@@ -411,6 +445,14 @@ public class V1DocketResponseTest : TestBase
         ];
         long expectedFound = 0;
         bool expectedIncludeEntries = true;
+        bool expectedLive = true;
+        PacerFees expectedPacerFees = new()
+        {
+            Currency = Currency.Usd,
+            FetchDurationMs = 0,
+            MaxPacerCost = 0,
+            ServiceFee = 0,
+        };
         Pagination expectedPagination = new()
         {
             Limit = 0,
@@ -438,6 +480,8 @@ public class V1DocketResponseTest : TestBase
         }
         Assert.Equal(expectedFound, deserialized.Found);
         Assert.Equal(expectedIncludeEntries, deserialized.IncludeEntries);
+        Assert.Equal(expectedLive, deserialized.Live);
+        Assert.Equal(expectedPacerFees, deserialized.PacerFees);
         Assert.Equal(expectedPagination, deserialized.Pagination);
         Assert.Equal(expectedQuery, deserialized.Query);
         Assert.Equal(expectedType, deserialized.Type);
@@ -510,6 +554,14 @@ public class V1DocketResponseTest : TestBase
             ],
             Found = 0,
             IncludeEntries = true,
+            Live = true,
+            PacerFees = new()
+            {
+                Currency = Currency.Usd,
+                FetchDurationMs = 0,
+                MaxPacerCost = 0,
+                ServiceFee = 0,
+            },
             Pagination = new()
             {
                 Limit = 0,
@@ -569,6 +621,13 @@ public class V1DocketResponseTest : TestBase
                     EntryNumber = 0,
                 },
             ],
+            PacerFees = new()
+            {
+                Currency = Currency.Usd,
+                FetchDurationMs = 0,
+                MaxPacerCost = 0,
+                ServiceFee = 0,
+            },
             Pagination = new()
             {
                 Limit = 0,
@@ -584,6 +643,8 @@ public class V1DocketResponseTest : TestBase
         Assert.False(model.RawData.ContainsKey("found"));
         Assert.Null(model.IncludeEntries);
         Assert.False(model.RawData.ContainsKey("includeEntries"));
+        Assert.Null(model.Live);
+        Assert.False(model.RawData.ContainsKey("live"));
         Assert.Null(model.Type);
         Assert.False(model.RawData.ContainsKey("type"));
     }
@@ -634,6 +695,13 @@ public class V1DocketResponseTest : TestBase
                     EntryNumber = 0,
                 },
             ],
+            PacerFees = new()
+            {
+                Currency = Currency.Usd,
+                FetchDurationMs = 0,
+                MaxPacerCost = 0,
+                ServiceFee = 0,
+            },
             Pagination = new()
             {
                 Limit = 0,
@@ -692,6 +760,13 @@ public class V1DocketResponseTest : TestBase
                     EntryNumber = 0,
                 },
             ],
+            PacerFees = new()
+            {
+                Currency = Currency.Usd,
+                FetchDurationMs = 0,
+                MaxPacerCost = 0,
+                ServiceFee = 0,
+            },
             Pagination = new()
             {
                 Limit = 0,
@@ -704,6 +779,7 @@ public class V1DocketResponseTest : TestBase
             Dockets = null,
             Found = null,
             IncludeEntries = null,
+            Live = null,
             Type = null,
         };
 
@@ -713,6 +789,8 @@ public class V1DocketResponseTest : TestBase
         Assert.False(model.RawData.ContainsKey("found"));
         Assert.Null(model.IncludeEntries);
         Assert.False(model.RawData.ContainsKey("includeEntries"));
+        Assert.Null(model.Live);
+        Assert.False(model.RawData.ContainsKey("live"));
         Assert.Null(model.Type);
         Assert.False(model.RawData.ContainsKey("type"));
     }
@@ -763,6 +841,13 @@ public class V1DocketResponseTest : TestBase
                     EntryNumber = 0,
                 },
             ],
+            PacerFees = new()
+            {
+                Currency = Currency.Usd,
+                FetchDurationMs = 0,
+                MaxPacerCost = 0,
+                ServiceFee = 0,
+            },
             Pagination = new()
             {
                 Limit = 0,
@@ -775,6 +860,7 @@ public class V1DocketResponseTest : TestBase
             Dockets = null,
             Found = null,
             IncludeEntries = null,
+            Live = null,
             Type = null,
         };
 
@@ -807,6 +893,7 @@ public class V1DocketResponseTest : TestBase
             ],
             Found = 0,
             IncludeEntries = true,
+            Live = true,
             Type = V1DocketResponseType.Search,
         };
 
@@ -820,6 +907,8 @@ public class V1DocketResponseTest : TestBase
         Assert.False(model.RawData.ContainsKey("docket"));
         Assert.Null(model.Entries);
         Assert.False(model.RawData.ContainsKey("entries"));
+        Assert.Null(model.PacerFees);
+        Assert.False(model.RawData.ContainsKey("pacerFees"));
         Assert.Null(model.Pagination);
         Assert.False(model.RawData.ContainsKey("pagination"));
         Assert.Null(model.Query);
@@ -852,6 +941,7 @@ public class V1DocketResponseTest : TestBase
             ],
             Found = 0,
             IncludeEntries = true,
+            Live = true,
             Type = V1DocketResponseType.Search,
         };
 
@@ -884,6 +974,7 @@ public class V1DocketResponseTest : TestBase
             ],
             Found = 0,
             IncludeEntries = true,
+            Live = true,
             Type = V1DocketResponseType.Search,
 
             Court = null,
@@ -891,6 +982,7 @@ public class V1DocketResponseTest : TestBase
             DateFiledBefore = null,
             Docket = null,
             Entries = null,
+            PacerFees = null,
             Pagination = null,
             Query = null,
         };
@@ -905,6 +997,8 @@ public class V1DocketResponseTest : TestBase
         Assert.True(model.RawData.ContainsKey("docket"));
         Assert.Null(model.Entries);
         Assert.True(model.RawData.ContainsKey("entries"));
+        Assert.Null(model.PacerFees);
+        Assert.True(model.RawData.ContainsKey("pacerFees"));
         Assert.Null(model.Pagination);
         Assert.True(model.RawData.ContainsKey("pagination"));
         Assert.Null(model.Query);
@@ -937,6 +1031,7 @@ public class V1DocketResponseTest : TestBase
             ],
             Found = 0,
             IncludeEntries = true,
+            Live = true,
             Type = V1DocketResponseType.Search,
 
             Court = null,
@@ -944,6 +1039,7 @@ public class V1DocketResponseTest : TestBase
             DateFiledBefore = null,
             Docket = null,
             Entries = null,
+            PacerFees = null,
             Pagination = null,
             Query = null,
         };
@@ -1018,6 +1114,14 @@ public class V1DocketResponseTest : TestBase
             ],
             Found = 0,
             IncludeEntries = true,
+            Live = true,
+            PacerFees = new()
+            {
+                Currency = Currency.Usd,
+                FetchDurationMs = 0,
+                MaxPacerCost = 0,
+                ServiceFee = 0,
+            },
             Pagination = new()
             {
                 Limit = 0,
@@ -1665,6 +1769,223 @@ public class DocumentTest : TestBase
         Document copied = new(model);
 
         Assert.Equal(model, copied);
+    }
+}
+
+public class PacerFeesTest : TestBase
+{
+    [Fact]
+    public void FieldRoundtrip_Works()
+    {
+        var model = new PacerFees
+        {
+            Currency = Currency.Usd,
+            FetchDurationMs = 0,
+            MaxPacerCost = 0,
+            ServiceFee = 0,
+        };
+
+        ApiEnum<string, Currency> expectedCurrency = Currency.Usd;
+        long expectedFetchDurationMs = 0;
+        double expectedMaxPacerCost = 0;
+        double expectedServiceFee = 0;
+
+        Assert.Equal(expectedCurrency, model.Currency);
+        Assert.Equal(expectedFetchDurationMs, model.FetchDurationMs);
+        Assert.Equal(expectedMaxPacerCost, model.MaxPacerCost);
+        Assert.Equal(expectedServiceFee, model.ServiceFee);
+    }
+
+    [Fact]
+    public void SerializationRoundtrip_Works()
+    {
+        var model = new PacerFees
+        {
+            Currency = Currency.Usd,
+            FetchDurationMs = 0,
+            MaxPacerCost = 0,
+            ServiceFee = 0,
+        };
+
+        string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<PacerFees>(json, ModelBase.SerializerOptions);
+
+        Assert.Equal(model, deserialized);
+    }
+
+    [Fact]
+    public void FieldRoundtripThroughSerialization_Works()
+    {
+        var model = new PacerFees
+        {
+            Currency = Currency.Usd,
+            FetchDurationMs = 0,
+            MaxPacerCost = 0,
+            ServiceFee = 0,
+        };
+
+        string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<PacerFees>(
+            element,
+            ModelBase.SerializerOptions
+        );
+        Assert.NotNull(deserialized);
+
+        ApiEnum<string, Currency> expectedCurrency = Currency.Usd;
+        long expectedFetchDurationMs = 0;
+        double expectedMaxPacerCost = 0;
+        double expectedServiceFee = 0;
+
+        Assert.Equal(expectedCurrency, deserialized.Currency);
+        Assert.Equal(expectedFetchDurationMs, deserialized.FetchDurationMs);
+        Assert.Equal(expectedMaxPacerCost, deserialized.MaxPacerCost);
+        Assert.Equal(expectedServiceFee, deserialized.ServiceFee);
+    }
+
+    [Fact]
+    public void Validation_Works()
+    {
+        var model = new PacerFees
+        {
+            Currency = Currency.Usd,
+            FetchDurationMs = 0,
+            MaxPacerCost = 0,
+            ServiceFee = 0,
+        };
+
+        model.Validate();
+    }
+
+    [Fact]
+    public void OptionalNonNullablePropertiesUnsetAreNotSet_Works()
+    {
+        var model = new PacerFees { };
+
+        Assert.Null(model.Currency);
+        Assert.False(model.RawData.ContainsKey("currency"));
+        Assert.Null(model.FetchDurationMs);
+        Assert.False(model.RawData.ContainsKey("fetchDurationMs"));
+        Assert.Null(model.MaxPacerCost);
+        Assert.False(model.RawData.ContainsKey("maxPacerCost"));
+        Assert.Null(model.ServiceFee);
+        Assert.False(model.RawData.ContainsKey("serviceFee"));
+    }
+
+    [Fact]
+    public void OptionalNonNullablePropertiesUnsetValidation_Works()
+    {
+        var model = new PacerFees { };
+
+        model.Validate();
+    }
+
+    [Fact]
+    public void OptionalNonNullablePropertiesSetToNullAreNotSet_Works()
+    {
+        var model = new PacerFees
+        {
+            // Null should be interpreted as omitted for these properties
+            Currency = null,
+            FetchDurationMs = null,
+            MaxPacerCost = null,
+            ServiceFee = null,
+        };
+
+        Assert.Null(model.Currency);
+        Assert.False(model.RawData.ContainsKey("currency"));
+        Assert.Null(model.FetchDurationMs);
+        Assert.False(model.RawData.ContainsKey("fetchDurationMs"));
+        Assert.Null(model.MaxPacerCost);
+        Assert.False(model.RawData.ContainsKey("maxPacerCost"));
+        Assert.Null(model.ServiceFee);
+        Assert.False(model.RawData.ContainsKey("serviceFee"));
+    }
+
+    [Fact]
+    public void OptionalNonNullablePropertiesSetToNullValidation_Works()
+    {
+        var model = new PacerFees
+        {
+            // Null should be interpreted as omitted for these properties
+            Currency = null,
+            FetchDurationMs = null,
+            MaxPacerCost = null,
+            ServiceFee = null,
+        };
+
+        model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new PacerFees
+        {
+            Currency = Currency.Usd,
+            FetchDurationMs = 0,
+            MaxPacerCost = 0,
+            ServiceFee = 0,
+        };
+
+        PacerFees copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
+}
+
+public class CurrencyTest : TestBase
+{
+    [Theory]
+    [InlineData(Currency.Usd)]
+    public void Validation_Works(Currency rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, Currency> value = rawValue;
+        value.Validate();
+    }
+
+    [Fact]
+    public void InvalidEnumValidationThrows_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, Currency>>(
+            JsonSerializer.SerializeToElement("invalid value"),
+            ModelBase.SerializerOptions
+        );
+
+        Assert.NotNull(value);
+        Assert.Throws<CasedevInvalidDataException>(() => value.Validate());
+    }
+
+    [Theory]
+    [InlineData(Currency.Usd)]
+    public void SerializationRoundtrip_Works(Currency rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, Currency> value = rawValue;
+
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Currency>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
+    }
+
+    [Fact]
+    public void InvalidEnumSerializationRoundtrip_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, Currency>>(
+            JsonSerializer.SerializeToElement("invalid value"),
+            ModelBase.SerializerOptions
+        );
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Currency>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
     }
 }
 

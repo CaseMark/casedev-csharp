@@ -158,8 +158,8 @@ public abstract record class ParamsBase
 
     internal string QueryString(ClientOptions options)
     {
-        NameValueCollection collection = [];
-        foreach (var item in this.RawQueryData.OrderBy(kvp => kvp.Key, StringComparer.Ordinal))
+        NameValueCollection collection = new();
+        foreach (var item in this.RawQueryData)
         {
             ParamsBase.AddQueryElementToCollection(collection, item.Key, item.Value);
         }
@@ -267,5 +267,10 @@ public abstract record class ParamsBase
         };
     }
 
-    readonly record struct Runtime(string Name, string Version);
+    readonly record struct Runtime
+    {
+        public string Name { get; init; }
+
+        public string Version { get; init; }
+    }
 }
