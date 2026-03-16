@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -5,6 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Casedev.Core;
+using Casedev.Exceptions;
 
 namespace Casedev.Models.Skills;
 
@@ -171,6 +173,27 @@ public sealed record class Result : JsonModel
     }
 
     /// <summary>
+    /// Whether the skill is curated or org-custom
+    /// </summary>
+    public ApiEnum<string, ResultSource>? Source
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<ApiEnum<string, ResultSource>>("source");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawData.Set("source", value);
+        }
+    }
+
+    /// <summary>
     /// Brief skill description
     /// </summary>
     public string? Summary
@@ -221,6 +244,7 @@ public sealed record class Result : JsonModel
         _ = this.Name;
         _ = this.Score;
         _ = this.Slug;
+        this.Source?.Validate();
         _ = this.Summary;
         _ = this.Tags;
     }
@@ -258,4 +282,51 @@ class ResultFromRaw : IFromRawJson<Result>
     /// <inheritdoc/>
     public Result FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         Result.FromRawUnchecked(rawData);
+}
+
+/// <summary>
+/// Whether the skill is curated or org-custom
+/// </summary>
+[JsonConverter(typeof(ResultSourceConverter))]
+public enum ResultSource
+{
+    Curated,
+    Custom,
+}
+
+sealed class ResultSourceConverter : JsonConverter<ResultSource>
+{
+    public override ResultSource Read(
+        ref Utf8JsonReader reader,
+        Type typeToConvert,
+        JsonSerializerOptions options
+    )
+    {
+        return JsonSerializer.Deserialize<string>(ref reader, options) switch
+        {
+            "curated" => ResultSource.Curated,
+            "custom" => ResultSource.Custom,
+            _ => (ResultSource)(-1),
+        };
+    }
+
+    public override void Write(
+        Utf8JsonWriter writer,
+        ResultSource value,
+        JsonSerializerOptions options
+    )
+    {
+        JsonSerializer.Serialize(
+            writer,
+            value switch
+            {
+                ResultSource.Curated => "curated",
+                ResultSource.Custom => "custom",
+                _ => throw new CasedevInvalidDataException(
+                    string.Format("Invalid value '{0}' in {1}", value, nameof(value))
+                ),
+            },
+            options
+        );
+    }
 }

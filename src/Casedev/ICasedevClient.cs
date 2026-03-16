@@ -76,6 +76,10 @@ public interface ICasedevClient : IDisposable
 
     IPrivilegeService Privilege { get; }
 
+    IMailService Mail { get; }
+
+    IOperatorService Operator { get; }
+
     ISkillService Skills { get; }
 
     ISearchService Search { get; }
@@ -142,6 +146,10 @@ public interface ICasedevClientWithRawResponse : IDisposable
     IOcrServiceWithRawResponse Ocr { get; }
 
     IPrivilegeServiceWithRawResponse Privilege { get; }
+
+    IMailServiceWithRawResponse Mail { get; }
+
+    IOperatorServiceWithRawResponse Operator { get; }
 
     ISkillServiceWithRawResponse Skills { get; }
 
