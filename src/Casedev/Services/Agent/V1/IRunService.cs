@@ -31,7 +31,8 @@ public interface IRunService
     IRunService WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Creates a run in queued state. Call POST /agent/v1/run/:id/exec to start execution.
+    /// Creates a run in queued state. Call POST /agent/v1/run/:id/exec to start
+    /// execution.
     /// </summary>
     Task<RunCreateResponse> Create(
         RunCreateParams parameters,
@@ -79,8 +80,8 @@ public interface IRunService
     );
 
     /// <summary>
-    /// Starts execution of a queued run. The agent runs in a durable workflow —
-    /// poll /run/:id/status for progress.
+    /// Starts execution of a queued run. The agent runs in a durable workflow — poll
+    /// /run/:id/status for progress.
     /// </summary>
     Task<RunExecResponse> Exec(
         RunExecParams parameters,
@@ -95,8 +96,8 @@ public interface IRunService
     );
 
     /// <summary>
-    /// Full audit trail for a run including output, steps (tool calls, text), and
-    /// token usage.
+    /// Full audit trail for a run including output, steps (tool calls, text), and token
+    /// usage.
     /// </summary>
     Task<RunGetDetailsResponse> GetDetails(
         RunGetDetailsParams parameters,
@@ -111,7 +112,8 @@ public interface IRunService
     );
 
     /// <summary>
-    /// Lightweight status poll for a run. Use /run/:id/details for the full audit trail.
+    /// Lightweight status poll for a run. Use /run/:id/details for the full audit
+    /// trail.
     /// </summary>
     Task<RunGetStatusResponse> GetStatus(
         RunGetStatusParams parameters,
@@ -156,7 +158,7 @@ public interface IRunServiceWithRawResponse
     IRunServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /agent/v1/run`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /agent/v1/run</c>, but is otherwise the
     /// same as <see cref="IRunService.Create(RunCreateParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<RunCreateResponse>> Create(
@@ -165,7 +167,7 @@ public interface IRunServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /agent/v1/run`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /agent/v1/run</c>, but is otherwise the
     /// same as <see cref="IRunService.List(RunListParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<RunListResponse>> List(
@@ -174,7 +176,7 @@ public interface IRunServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /agent/v1/run/{id}/cancel`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /agent/v1/run/{id}/cancel</c>, but is otherwise the
     /// same as <see cref="IRunService.Cancel(RunCancelParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<RunCancelResponse>> Cancel(
@@ -190,7 +192,7 @@ public interface IRunServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /agent/v1/run/{id}/events`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /agent/v1/run/{id}/events</c>, but is otherwise the
     /// same as <see cref="IRunService.EventsStreaming(RunEventsParams, CancellationToken)"/>.
     /// </summary>
     Task<StreamingHttpResponse<string>> EventsStreaming(
@@ -206,7 +208,7 @@ public interface IRunServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /agent/v1/run/{id}/exec`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /agent/v1/run/{id}/exec</c>, but is otherwise the
     /// same as <see cref="IRunService.Exec(RunExecParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<RunExecResponse>> Exec(
@@ -222,7 +224,7 @@ public interface IRunServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /agent/v1/run/{id}/details`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /agent/v1/run/{id}/details</c>, but is otherwise the
     /// same as <see cref="IRunService.GetDetails(RunGetDetailsParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<RunGetDetailsResponse>> GetDetails(
@@ -238,7 +240,7 @@ public interface IRunServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /agent/v1/run/{id}/status`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /agent/v1/run/{id}/status</c>, but is otherwise the
     /// same as <see cref="IRunService.GetStatus(RunGetStatusParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<RunGetStatusResponse>> GetStatus(
@@ -254,7 +256,7 @@ public interface IRunServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /agent/v1/run/{id}/watch`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /agent/v1/run/{id}/watch</c>, but is otherwise the
     /// same as <see cref="IRunService.Watch(RunWatchParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<RunWatchResponse>> Watch(

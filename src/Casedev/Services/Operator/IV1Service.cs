@@ -70,7 +70,7 @@ public interface IV1ServiceWithRawResponse
     IV1ServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /operator/v1/create`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /operator/v1/create</c>, but is otherwise the
     /// same as <see cref="IV1Service.Create(V1CreateParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> Create(
@@ -79,7 +79,7 @@ public interface IV1ServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /operator/v1/chat/completions`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /operator/v1/chat/completions</c>, but is otherwise the
     /// same as <see cref="IV1Service.CreateChatCompletion(V1CreateChatCompletionParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> CreateChatCompletion(
@@ -88,7 +88,7 @@ public interface IV1ServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /operator/v1/responses`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /operator/v1/responses</c>, but is otherwise the
     /// same as <see cref="IV1Service.CreateResponse(V1CreateResponseParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> CreateResponse(
@@ -97,7 +97,7 @@ public interface IV1ServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /operator/v1/status`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /operator/v1/status</c>, but is otherwise the
     /// same as <see cref="IV1Service.GetStatus(V1GetStatusParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> GetStatus(

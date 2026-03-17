@@ -30,8 +30,8 @@ public interface IInstanceTypeService
 
     /// <summary>
     /// Retrieves all available GPU instance types with pricing, specifications, and
-    /// regional availability. Includes T4, A10, A100, H100, and H200 GPUs powered
-    /// by Lambda Labs. Perfect for AI model training, inference workloads, and legal
+    /// regional availability. Includes T4, A10, A100, H100, and H200 GPUs powered by
+    /// Lambda Labs. Perfect for AI model training, inference workloads, and legal
     /// document OCR processing at scale.
     /// </summary>
     Task<InstanceTypeListResponse> List(
@@ -54,7 +54,7 @@ public interface IInstanceTypeServiceWithRawResponse
     IInstanceTypeServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /compute/v1/instance-types`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /compute/v1/instance-types</c>, but is otherwise the
     /// same as <see cref="IInstanceTypeService.List(InstanceTypeListParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<InstanceTypeListResponse>> List(

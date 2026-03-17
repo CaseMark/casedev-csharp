@@ -32,9 +32,9 @@ public interface IV1Service
     ITemplateService Templates { get; }
 
     /// <summary>
-    /// Convert Markdown, JSON, or text content to professionally formatted PDF,
-    /// DOCX, or HTML documents. Supports template components with variable interpolation
-    /// for creating consistent legal documents like contracts, briefs, and reports.
+    /// Convert Markdown, JSON, or text content to professionally formatted PDF, DOCX,
+    /// or HTML documents. Supports template components with variable interpolation for
+    /// creating consistent legal documents like contracts, briefs, and reports.
     ///
     /// <para>It's the caller's responsibility to dispose the returned response.</para>
     /// </summary>
@@ -60,7 +60,7 @@ public interface IV1ServiceWithRawResponse
     ITemplateServiceWithRawResponse Templates { get; }
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /format/v1/document`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /format/v1/document</c>, but is otherwise the
     /// same as <see cref="IV1Service.CreateDocument(V1CreateDocumentParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> CreateDocument(

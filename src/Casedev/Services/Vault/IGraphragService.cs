@@ -31,8 +31,8 @@ public interface IGraphragService
     /// <summary>
     /// Retrieve GraphRAG (Graph Retrieval-Augmented Generation) statistics for a
     /// specific vault. This includes metrics about the knowledge graph structure,
-    /// entity relationships, and processing status that enable advanced semantic
-    /// search and AI-powered document analysis.
+    /// entity relationships, and processing status that enable advanced semantic search
+    /// and AI-powered document analysis.
     /// </summary>
     Task<GraphragGetStatsResponse> GetStats(
         GraphragGetStatsParams parameters,
@@ -96,7 +96,7 @@ public interface IGraphragServiceWithRawResponse
     IGraphragServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /vault/{id}/graphrag/stats`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /vault/{id}/graphrag/stats</c>, but is otherwise the
     /// same as <see cref="IGraphragService.GetStats(GraphragGetStatsParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<GraphragGetStatsResponse>> GetStats(
@@ -112,7 +112,7 @@ public interface IGraphragServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /vault/{id}/graphrag/init`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /vault/{id}/graphrag/init</c>, but is otherwise the
     /// same as <see cref="IGraphragService.Init(GraphragInitParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<GraphragInitResponse>> Init(
@@ -128,7 +128,7 @@ public interface IGraphragServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /vault/{id}/graphrag/{objectId}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /vault/{id}/graphrag/{objectId}</c>, but is otherwise the
     /// same as <see cref="IGraphragService.ProcessObject(GraphragProcessObjectParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<GraphragProcessObjectResponse>> ProcessObject(

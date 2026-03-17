@@ -67,7 +67,8 @@ public interface IInboxService
     );
 
     /// <summary>
-    /// Get attachment metadata for a message in an inbox owned by the authenticated organization.
+    /// Get attachment metadata for a message in an inbox owned by the authenticated
+    /// organization.
     /// </summary>
     Task GetAttachment(
         InboxGetAttachmentParams parameters,
@@ -150,7 +151,7 @@ public interface IInboxServiceWithRawResponse
     IInboxServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /mail/v1/inboxes`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /mail/v1/inboxes</c>, but is otherwise the
     /// same as <see cref="IInboxService.Create(InboxCreateParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> Create(
@@ -159,7 +160,7 @@ public interface IInboxServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /mail/v1/inboxes/{inboxId}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /mail/v1/inboxes/{inboxId}</c>, but is otherwise the
     /// same as <see cref="IInboxService.Retrieve(InboxRetrieveParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> Retrieve(
@@ -175,7 +176,7 @@ public interface IInboxServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /mail/v1/inboxes`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /mail/v1/inboxes</c>, but is otherwise the
     /// same as <see cref="IInboxService.List(InboxListParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> List(
@@ -184,7 +185,7 @@ public interface IInboxServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `delete /mail/v1/inboxes/{inboxId}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>delete /mail/v1/inboxes/{inboxId}</c>, but is otherwise the
     /// same as <see cref="IInboxService.Delete(InboxDeleteParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> Delete(
@@ -200,7 +201,7 @@ public interface IInboxServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /mail/v1/inboxes/{inboxId}/messages/{messageId}/attachments/{attachmentId}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /mail/v1/inboxes/{inboxId}/messages/{messageId}/attachments/{attachmentId}</c>, but is otherwise the
     /// same as <see cref="IInboxService.GetAttachment(InboxGetAttachmentParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> GetAttachment(
@@ -216,7 +217,7 @@ public interface IInboxServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /mail/v1/inboxes/{inboxId}/messages/{messageId}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /mail/v1/inboxes/{inboxId}/messages/{messageId}</c>, but is otherwise the
     /// same as <see cref="IInboxService.GetMessage(InboxGetMessageParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> GetMessage(
@@ -232,7 +233,7 @@ public interface IInboxServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /mail/v1/inboxes/{inboxId}/messages`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /mail/v1/inboxes/{inboxId}/messages</c>, but is otherwise the
     /// same as <see cref="IInboxService.ListMessages(InboxListMessagesParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> ListMessages(
@@ -248,7 +249,7 @@ public interface IInboxServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /mail/v1/inboxes/{inboxId}/messages/{messageId}/reply`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /mail/v1/inboxes/{inboxId}/messages/{messageId}/reply</c>, but is otherwise the
     /// same as <see cref="IInboxService.Reply(InboxReplyParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> Reply(
@@ -264,7 +265,7 @@ public interface IInboxServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /mail/v1/inboxes/{inboxId}/messages/send`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /mail/v1/inboxes/{inboxId}/messages/send</c>, but is otherwise the
     /// same as <see cref="IInboxService.Send(InboxSendParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> Send(

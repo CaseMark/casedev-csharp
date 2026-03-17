@@ -30,19 +30,19 @@ public interface IV1Service
 
     /// <summary>
     /// Analyzes text or vault documents for legal privilege. Detects attorney-client
-    /// privilege, work product doctrine, common interest privilege, and litigation
-    /// hold materials.
+    /// privilege, work product doctrine, common interest privilege, and litigation hold
+    /// materials.
     ///
-    /// <para>Returns structured privilege flags with confidence scores and policy-friendly
-    /// rationale suitable for discovery workflows and privilege logs.</para>
+    /// <para>Returns structured privilege flags with confidence scores and
+    /// policy-friendly rationale suitable for discovery workflows and privilege logs.</para>
     ///
     /// <para>**Size Limit:** Maximum 200,000 characters (larger documents rejected).</para>
     ///
     /// <para>**Permissions:** Requires `chat` permission. When using `document_id`,
     /// also requires `vault` permission.</para>
     ///
-    /// <para>**Note:** When analyzing vault documents, results are automatically
-    /// stored in the document's `privilege_analysis` metadata field.</para>
+    /// <para>**Note:** When analyzing vault documents, results are automatically stored
+    /// in the document's `privilege_analysis` metadata field.</para>
     /// </summary>
     Task<V1DetectResponse> Detect(
         V1DetectParams? parameters = null,
@@ -64,7 +64,7 @@ public interface IV1ServiceWithRawResponse
     IV1ServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /privilege/v1/detect`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /privilege/v1/detect</c>, but is otherwise the
     /// same as <see cref="IV1Service.Detect(V1DetectParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1DetectResponse>> Detect(

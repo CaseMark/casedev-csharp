@@ -58,7 +58,7 @@ public interface IWorkflowServiceWithRawResponse
     IWorkflowServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /applications/v1/workflows/{id}/status`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /applications/v1/workflows/{id}/status</c>, but is otherwise the
     /// same as <see cref="IWorkflowService.GetStatus(WorkflowGetStatusParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> GetStatus(

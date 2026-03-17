@@ -29,9 +29,9 @@ public interface IStreamingService
     IStreamingService WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns the WebSocket URL and connection details for real-time audio transcription.
-    /// The returned URL can be used to establish a WebSocket connection for streaming
-    /// audio data and receiving transcribed text in real-time.
+    /// Returns the WebSocket URL and connection details for real-time audio
+    /// transcription. The returned URL can be used to establish a WebSocket connection
+    /// for streaming audio data and receiving transcribed text in real-time.
     ///
     /// <para>**Audio Requirements:** - Sample Rate: 16kHz - Encoding: PCM 16-bit
     /// little-endian - Channels: Mono (1 channel)</para>
@@ -58,7 +58,7 @@ public interface IStreamingServiceWithRawResponse
     IStreamingServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /voice/streaming/url`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /voice/streaming/url</c>, but is otherwise the
     /// same as <see cref="IStreamingService.GetUrl(StreamingGetUrlParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<StreamingGetUrlResponse>> GetUrl(

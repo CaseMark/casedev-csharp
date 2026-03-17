@@ -29,7 +29,8 @@ public interface ICustomService
     ICustomService WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// List all custom skills for the authenticated organization. Supports cursor-based pagination.
+    /// List all custom skills for the authenticated organization. Supports cursor-based
+    /// pagination.
     /// </summary>
     Task<CustomListResponse> List(
         CustomListParams? parameters = null,
@@ -51,7 +52,7 @@ public interface ICustomServiceWithRawResponse
     ICustomServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /skills/custom`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /skills/custom</c>, but is otherwise the
     /// same as <see cref="ICustomService.List(CustomListParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<CustomListResponse>> List(

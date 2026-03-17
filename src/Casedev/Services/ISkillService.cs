@@ -32,8 +32,8 @@ public interface ISkillService
     ICustomService Custom { get; }
 
     /// <summary>
-    /// Create an org-scoped custom skill. The skill will be searchable via /skills/resolve
-    /// alongside curated skills.
+    /// Create an org-scoped custom skill. The skill will be searchable via
+    /// /skills/resolve alongside curated skills.
     /// </summary>
     Task<SkillCreateResponse> Create(
         SkillCreateParams parameters,
@@ -57,8 +57,8 @@ public interface ISkillService
     );
 
     /// <summary>
-    /// Soft-delete an org-scoped custom skill by slug. The skill will no longer
-    /// appear in search results.
+    /// Soft-delete an org-scoped custom skill by slug. The skill will no longer appear
+    /// in search results.
     /// </summary>
     Task<SkillDeleteResponse> Delete(
         SkillDeleteParams parameters,
@@ -114,7 +114,7 @@ public interface ISkillServiceWithRawResponse
     ICustomServiceWithRawResponse Custom { get; }
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /skills`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /skills</c>, but is otherwise the
     /// same as <see cref="ISkillService.Create(SkillCreateParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<SkillCreateResponse>> Create(
@@ -123,7 +123,7 @@ public interface ISkillServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `put /skills/{slug}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>put /skills/{slug}</c>, but is otherwise the
     /// same as <see cref="ISkillService.Update(SkillUpdateParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<SkillUpdateResponse>> Update(
@@ -139,7 +139,7 @@ public interface ISkillServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `delete /skills/{slug}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>delete /skills/{slug}</c>, but is otherwise the
     /// same as <see cref="ISkillService.Delete(SkillDeleteParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<SkillDeleteResponse>> Delete(
@@ -155,7 +155,7 @@ public interface ISkillServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /skills/{slug}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /skills/{slug}</c>, but is otherwise the
     /// same as <see cref="ISkillService.Read(SkillReadParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<SkillReadResponse>> Read(
@@ -171,7 +171,7 @@ public interface ISkillServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /skills/resolve`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /skills/resolve</c>, but is otherwise the
     /// same as <see cref="ISkillService.Resolve(SkillResolveParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<SkillResolveResponse>> Resolve(

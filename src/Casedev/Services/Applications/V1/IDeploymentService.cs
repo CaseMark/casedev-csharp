@@ -29,9 +29,9 @@ public interface IDeploymentService
     IDeploymentService WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Creates a deployment for an existing project by fetching repository files
-    /// from GitHub and uploading them to the hosting provider. Use ref to deploy
-    /// a branch, tag, or commit other than the project default branch.
+    /// Creates a deployment for an existing project by fetching repository files from
+    /// GitHub and uploading them to the hosting provider. Use ref to deploy a branch,
+    /// tag, or commit other than the project default branch.
     /// </summary>
     Task Create(DeploymentCreateParams parameters, CancellationToken cancellationToken = default);
 
@@ -52,14 +52,14 @@ public interface IDeploymentService
     );
 
     /// <summary>
-    /// Lists recent deployments for one project in the authenticated organization.
-    /// Use the optional filters to narrow results by target or deployment state.
+    /// Lists recent deployments for one project in the authenticated organization. Use
+    /// the optional filters to narrow results by target or deployment state.
     /// </summary>
     Task List(DeploymentListParams parameters, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Cancels a running deployment after verifying that the referenced project
-    /// belongs to the authenticated organization. Use this when a build is stuck,
+    /// Cancels a running deployment after verifying that the referenced project belongs
+    /// to the authenticated organization. Use this when a build is stuck,
     /// misconfigured, or no longer needed.
     /// </summary>
     Task Cancel(DeploymentCancelParams parameters, CancellationToken cancellationToken = default);
@@ -80,9 +80,9 @@ public interface IDeploymentService
     );
 
     /// <summary>
-    /// Returns build and runtime log events for a deployment after verifying access
-    /// to the owning project. Use this when you need detailed output for a failed
-    /// or in-progress build.
+    /// Returns build and runtime log events for a deployment after verifying access to
+    /// the owning project. Use this when you need detailed output for a failed or
+    /// in-progress build.
     /// </summary>
     Task GetLogs(DeploymentGetLogsParams parameters, CancellationToken cancellationToken = default);
 
@@ -94,9 +94,9 @@ public interface IDeploymentService
     );
 
     /// <summary>
-    /// Returns the current status of a deployment without fetching full build logs.
-    /// Use this endpoint for lightweight polling while a deployment is building or
-    /// waiting to become ready.
+    /// Returns the current status of a deployment without fetching full build logs. Use
+    /// this endpoint for lightweight polling while a deployment is building or waiting
+    /// to become ready.
     /// </summary>
     Task GetStatus(
         DeploymentGetStatusParams parameters,
@@ -137,7 +137,7 @@ public interface IDeploymentServiceWithRawResponse
     IDeploymentServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /applications/v1/deployments`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /applications/v1/deployments</c>, but is otherwise the
     /// same as <see cref="IDeploymentService.Create(DeploymentCreateParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> Create(
@@ -146,7 +146,7 @@ public interface IDeploymentServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /applications/v1/deployments/{id}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /applications/v1/deployments/{id}</c>, but is otherwise the
     /// same as <see cref="IDeploymentService.Retrieve(DeploymentRetrieveParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> Retrieve(
@@ -162,7 +162,7 @@ public interface IDeploymentServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /applications/v1/deployments`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /applications/v1/deployments</c>, but is otherwise the
     /// same as <see cref="IDeploymentService.List(DeploymentListParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> List(
@@ -171,7 +171,7 @@ public interface IDeploymentServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /applications/v1/deployments/{id}/cancel`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /applications/v1/deployments/{id}/cancel</c>, but is otherwise the
     /// same as <see cref="IDeploymentService.Cancel(DeploymentCancelParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> Cancel(
@@ -187,7 +187,7 @@ public interface IDeploymentServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /applications/v1/deployments/from-files`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /applications/v1/deployments/from-files</c>, but is otherwise the
     /// same as <see cref="IDeploymentService.CreateFromFiles(DeploymentCreateFromFilesParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> CreateFromFiles(
@@ -196,7 +196,7 @@ public interface IDeploymentServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /applications/v1/deployments/{id}/logs`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /applications/v1/deployments/{id}/logs</c>, but is otherwise the
     /// same as <see cref="IDeploymentService.GetLogs(DeploymentGetLogsParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> GetLogs(
@@ -212,7 +212,7 @@ public interface IDeploymentServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /applications/v1/deployments/{id}/status`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /applications/v1/deployments/{id}/status</c>, but is otherwise the
     /// same as <see cref="IDeploymentService.GetStatus(DeploymentGetStatusParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> GetStatus(
@@ -228,7 +228,7 @@ public interface IDeploymentServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /applications/v1/deployments/{id}/stream`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /applications/v1/deployments/{id}/stream</c>, but is otherwise the
     /// same as <see cref="IDeploymentService.Stream(DeploymentStreamParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> Stream(
