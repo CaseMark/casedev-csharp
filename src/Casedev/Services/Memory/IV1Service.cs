@@ -33,8 +33,9 @@ public interface IV1Service
     /// handles deduplication.
     ///
     /// <para>Use tag_1 through tag_12 for filtering - these are generic indexed fields
-    /// you can use for any purpose: - Legal app: tag_1=client_id, tag_2=matter_id
-    /// - Healthcare: tag_1=patient_id, tag_2=encounter_id - E-commerce: tag_1=customer_id, tag_2=order_id</para>
+    /// you can use for any purpose: - Legal app: tag_1=client_id, tag_2=matter_id -
+    /// Healthcare: tag_1=patient_id, tag_2=encounter_id - E-commerce:
+    /// tag_1=customer_id, tag_2=order_id</para>
     /// </summary>
     Task<V1CreateResponse> Create(
         V1CreateParams parameters,
@@ -80,8 +81,8 @@ public interface IV1Service
     );
 
     /// <summary>
-    /// Delete multiple memories matching tag filter criteria. CAUTION: This will
-    /// delete all matching memories for your organization.
+    /// Delete multiple memories matching tag filter criteria. CAUTION: This will delete
+    /// all matching memories for your organization.
     /// </summary>
     Task<V1DeleteAllResponse> DeleteAll(
         V1DeleteAllParams? parameters = null,
@@ -89,10 +90,12 @@ public interface IV1Service
     );
 
     /// <summary>
-    /// Search memories using semantic similarity. Filter by tag fields to narrow results.
+    /// Search memories using semantic similarity. Filter by tag fields to narrow
+    /// results.
     ///
     /// <para>Use tag_1 through tag_12 for filtering - these are generic indexed fields
-    /// you define: - Legal app: tag_1=client_id, tag_2=matter_id - Healthcare: tag_1=patient_id, tag_2=encounter_id</para>
+    /// you define: - Legal app: tag_1=client_id, tag_2=matter_id - Healthcare:
+    /// tag_1=patient_id, tag_2=encounter_id</para>
     /// </summary>
     Task<V1SearchResponse> Search(
         V1SearchParams parameters,
@@ -114,7 +117,7 @@ public interface IV1ServiceWithRawResponse
     IV1ServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /memory/v1`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /memory/v1</c>, but is otherwise the
     /// same as <see cref="IV1Service.Create(V1CreateParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1CreateResponse>> Create(
@@ -123,7 +126,7 @@ public interface IV1ServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /memory/v1/{id}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /memory/v1/{id}</c>, but is otherwise the
     /// same as <see cref="IV1Service.Retrieve(V1RetrieveParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1RetrieveResponse>> Retrieve(
@@ -139,7 +142,7 @@ public interface IV1ServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /memory/v1`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /memory/v1</c>, but is otherwise the
     /// same as <see cref="IV1Service.List(V1ListParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1ListResponse>> List(
@@ -148,7 +151,7 @@ public interface IV1ServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `delete /memory/v1/{id}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>delete /memory/v1/{id}</c>, but is otherwise the
     /// same as <see cref="IV1Service.Delete(V1DeleteParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1DeleteResponse>> Delete(
@@ -164,7 +167,7 @@ public interface IV1ServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `delete /memory/v1`, but is otherwise the
+    /// Returns a raw HTTP response for <c>delete /memory/v1</c>, but is otherwise the
     /// same as <see cref="IV1Service.DeleteAll(V1DeleteAllParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1DeleteAllResponse>> DeleteAll(
@@ -173,7 +176,7 @@ public interface IV1ServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /memory/v1/search`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /memory/v1/search</c>, but is otherwise the
     /// same as <see cref="IV1Service.Search(V1SearchParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1SearchResponse>> Search(

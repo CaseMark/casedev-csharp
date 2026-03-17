@@ -27,8 +27,8 @@ public interface IV1Service
     IV1Service WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Detect the language of text. Returns the most likely language code and confidence
-    /// score. Supports batch detection for multiple texts.
+    /// Detect the language of text. Returns the most likely language code and
+    /// confidence score. Supports batch detection for multiple texts.
     /// </summary>
     Task<V1DetectResponse> Detect(
         V1DetectParams parameters,
@@ -36,8 +36,8 @@ public interface IV1Service
     );
 
     /// <summary>
-    /// Get the list of languages supported for translation. Optionally specify a
-    /// target language to get translated language names.
+    /// Get the list of languages supported for translation. Optionally specify a target
+    /// language to get translated language names.
     /// </summary>
     Task<V1ListLanguagesResponse> ListLanguages(
         V1ListLanguagesParams? parameters = null,
@@ -46,7 +46,8 @@ public interface IV1Service
 
     /// <summary>
     /// Translate text between languages using Google Cloud Translation API. Supports
-    /// 100+ languages, automatic language detection, HTML preservation, and batch translation.
+    /// 100+ languages, automatic language detection, HTML preservation, and batch
+    /// translation.
     /// </summary>
     Task<V1TranslateResponse> Translate(
         V1TranslateParams parameters,
@@ -68,7 +69,7 @@ public interface IV1ServiceWithRawResponse
     IV1ServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /translate/v1/detect`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /translate/v1/detect</c>, but is otherwise the
     /// same as <see cref="IV1Service.Detect(V1DetectParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1DetectResponse>> Detect(
@@ -77,7 +78,7 @@ public interface IV1ServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /translate/v1/languages`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /translate/v1/languages</c>, but is otherwise the
     /// same as <see cref="IV1Service.ListLanguages(V1ListLanguagesParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1ListLanguagesResponse>> ListLanguages(
@@ -86,7 +87,7 @@ public interface IV1ServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /translate/v1/translate`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /translate/v1/translate</c>, but is otherwise the
     /// same as <see cref="IV1Service.Translate(V1TranslateParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1TranslateResponse>> Translate(

@@ -33,9 +33,9 @@ public interface IV1Service
 
     /// <summary>
     /// Retrieve a list of available voices for text-to-speech synthesis. This endpoint
-    /// provides access to a comprehensive catalog of voices with various characteristics,
-    /// languages, and styles suitable for legal document narration, client presentations,
-    /// and accessibility purposes.
+    /// provides access to a comprehensive catalog of voices with various
+    /// characteristics, languages, and styles suitable for legal document narration,
+    /// client presentations, and accessibility purposes.
     /// </summary>
     Task<V1ListVoicesResponse> ListVoices(
         V1ListVoicesParams? parameters = null,
@@ -59,7 +59,7 @@ public interface IV1ServiceWithRawResponse
     ISpeakServiceWithRawResponse Speak { get; }
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /voice/v1/voices`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /voice/v1/voices</c>, but is otherwise the
     /// same as <see cref="IV1Service.ListVoices(V1ListVoicesParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1ListVoicesResponse>> ListVoices(

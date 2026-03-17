@@ -31,8 +31,9 @@ public interface IProjectService
     /// <summary>
     /// Creates a new serverless Postgres database project powered by Neon. Includes
     /// automatic scaling, connection pooling, and a default 'main' branch with 'neondb'
-    /// database. Supports branching for isolated dev/staging environments. Perfect
-    /// for case management applications, document workflows, and litigation support systems.
+    /// database. Supports branching for isolated dev/staging environments. Perfect for
+    /// case management applications, document workflows, and litigation support
+    /// systems.
     /// </summary>
     Task<ProjectCreateResponse> Create(
         ProjectCreateParams parameters,
@@ -58,8 +59,8 @@ public interface IProjectService
 
     /// <summary>
     /// Retrieves all serverless Postgres database projects for the authenticated
-    /// organization. Includes storage and compute metrics, plus linked deployments
-    /// from Thurgood apps and Compute instances.
+    /// organization. Includes storage and compute metrics, plus linked deployments from
+    /// Thurgood apps and Compute instances.
     /// </summary>
     Task<ProjectListResponse> List(
         ProjectListParams? parameters = null,
@@ -67,8 +68,8 @@ public interface IProjectService
     );
 
     /// <summary>
-    /// Permanently deletes a database project from Neon and marks it as deleted
-    /// in Case.dev. This action cannot be undone and will destroy all data including
+    /// Permanently deletes a database project from Neon and marks it as deleted in
+    /// Case.dev. This action cannot be undone and will destroy all data including
     /// branches and databases. Use with caution.
     /// </summary>
     Task<ProjectDeleteResponse> Delete(
@@ -87,7 +88,8 @@ public interface IProjectService
     /// Creates a new branch from the specified parent branch (or default 'main'
     /// branch). Branches provide instant point-in-time clones of your database for
     /// isolated development, staging, testing, or feature work. Perfect for testing
-    /// schema changes, running migrations safely, or creating ephemeral preview environments.
+    /// schema changes, running migrations safely, or creating ephemeral preview
+    /// environments.
     /// </summary>
     Task<ProjectCreateBranchResponse> CreateBranch(
         ProjectCreateBranchParams parameters,
@@ -104,8 +106,8 @@ public interface IProjectService
     /// <summary>
     /// Retrieves the PostgreSQL connection URI for a database project. Supports
     /// selecting specific branches and pooled vs direct connections. Connection strings
-    /// include credentials and should be stored securely. Use for configuring applications
-    /// and deployment environments.
+    /// include credentials and should be stored securely. Use for configuring
+    /// applications and deployment environments.
     /// </summary>
     Task<ProjectGetConnectionResponse> GetConnection(
         ProjectGetConnectionParams parameters,
@@ -120,10 +122,10 @@ public interface IProjectService
     );
 
     /// <summary>
-    /// Retrieves all branches for a database project. Branches enable isolated development
-    /// and testing environments with instant point-in-time cloning. Each branch
-    /// includes the default branch and any custom branches created for staging, testing,
-    /// or feature development.
+    /// Retrieves all branches for a database project. Branches enable isolated
+    /// development and testing environments with instant point-in-time cloning. Each
+    /// branch includes the default branch and any custom branches created for staging,
+    /// testing, or feature development.
     /// </summary>
     Task<ProjectListBranchesResponse> ListBranches(
         ProjectListBranchesParams parameters,
@@ -152,7 +154,7 @@ public interface IProjectServiceWithRawResponse
     IProjectServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /database/v1/projects`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /database/v1/projects</c>, but is otherwise the
     /// same as <see cref="IProjectService.Create(ProjectCreateParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<ProjectCreateResponse>> Create(
@@ -161,7 +163,7 @@ public interface IProjectServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /database/v1/projects/{id}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /database/v1/projects/{id}</c>, but is otherwise the
     /// same as <see cref="IProjectService.Retrieve(ProjectRetrieveParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<ProjectRetrieveResponse>> Retrieve(
@@ -177,7 +179,7 @@ public interface IProjectServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /database/v1/projects`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /database/v1/projects</c>, but is otherwise the
     /// same as <see cref="IProjectService.List(ProjectListParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<ProjectListResponse>> List(
@@ -186,7 +188,7 @@ public interface IProjectServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `delete /database/v1/projects/{id}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>delete /database/v1/projects/{id}</c>, but is otherwise the
     /// same as <see cref="IProjectService.Delete(ProjectDeleteParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<ProjectDeleteResponse>> Delete(
@@ -202,7 +204,7 @@ public interface IProjectServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /database/v1/projects/{id}/branches`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /database/v1/projects/{id}/branches</c>, but is otherwise the
     /// same as <see cref="IProjectService.CreateBranch(ProjectCreateBranchParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<ProjectCreateBranchResponse>> CreateBranch(
@@ -218,7 +220,7 @@ public interface IProjectServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /database/v1/projects/{id}/connection`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /database/v1/projects/{id}/connection</c>, but is otherwise the
     /// same as <see cref="IProjectService.GetConnection(ProjectGetConnectionParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<ProjectGetConnectionResponse>> GetConnection(
@@ -234,7 +236,7 @@ public interface IProjectServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /database/v1/projects/{id}/branches`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /database/v1/projects/{id}/branches</c>, but is otherwise the
     /// same as <see cref="IProjectService.ListBranches(ProjectListBranchesParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<ProjectListBranchesResponse>> ListBranches(

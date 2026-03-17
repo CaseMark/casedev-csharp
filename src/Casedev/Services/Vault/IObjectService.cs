@@ -46,9 +46,9 @@ public interface IObjectService
     );
 
     /// <summary>
-    /// Update a document's filename, path, or metadata. Use this to rename files
-    /// or organize them into virtual folders. The path is stored in metadata.path
-    /// and can be used to build folder hierarchies in your application.
+    /// Update a document's filename, path, or metadata. Use this to rename files or
+    /// organize them into virtual folders. The path is stored in metadata.path and can
+    /// be used to build folder hierarchies in your application.
     /// </summary>
     Task<ObjectUpdateResponse> Update(
         ObjectUpdateParams parameters,
@@ -95,10 +95,10 @@ public interface IObjectService
     );
 
     /// <summary>
-    /// Generate presigned URLs for direct S3 operations (GET, PUT, DELETE, HEAD)
-    /// on vault objects. This allows secure, time-limited access to files without
-    /// proxying through the API. Essential for large document uploads/downloads in
-    /// legal workflows.
+    /// Generate presigned URLs for direct S3 operations (GET, PUT, DELETE, HEAD) on
+    /// vault objects. This allows secure, time-limited access to files without proxying
+    /// through the API. Essential for large document uploads/downloads in legal
+    /// workflows.
     /// </summary>
     Task<ObjectCreatePresignedUrlResponse> CreatePresignedUrl(
         ObjectCreatePresignedUrlParams parameters,
@@ -115,7 +115,8 @@ public interface IObjectService
     /// <summary>
     /// Downloads a file from a vault. Returns the actual file content as a binary
     /// stream with appropriate headers for file download. Useful for retrieving
-    /// contracts, depositions, case files, and other legal documents stored in your vault.
+    /// contracts, depositions, case files, and other legal documents stored in your
+    /// vault.
     ///
     /// <para>It's the caller's responsibility to dispose the returned response.</para>
     /// </summary>
@@ -166,8 +167,8 @@ public interface IObjectService
 
     /// <summary>
     /// Retrieves the full extracted text content from a processed vault object. Returns
-    /// the concatenated text from all chunks, useful for document review, analysis,
-    /// or export. The object must have completed processing before text can be retrieved.
+    /// the concatenated text from all chunks, useful for document review, analysis, or
+    /// export. The object must have completed processing before text can be retrieved.
     /// </summary>
     Task<ObjectGetTextResponse> GetText(
         ObjectGetTextParams parameters,
@@ -196,7 +197,7 @@ public interface IObjectServiceWithRawResponse
     IObjectServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /vault/{id}/objects/{objectId}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /vault/{id}/objects/{objectId}</c>, but is otherwise the
     /// same as <see cref="IObjectService.Retrieve(ObjectRetrieveParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<ObjectRetrieveResponse>> Retrieve(
@@ -212,7 +213,7 @@ public interface IObjectServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `patch /vault/{id}/objects/{objectId}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>patch /vault/{id}/objects/{objectId}</c>, but is otherwise the
     /// same as <see cref="IObjectService.Update(ObjectUpdateParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<ObjectUpdateResponse>> Update(
@@ -228,7 +229,7 @@ public interface IObjectServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /vault/{id}/objects`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /vault/{id}/objects</c>, but is otherwise the
     /// same as <see cref="IObjectService.List(ObjectListParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<ObjectListResponse>> List(
@@ -244,7 +245,7 @@ public interface IObjectServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `delete /vault/{id}/objects/{objectId}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>delete /vault/{id}/objects/{objectId}</c>, but is otherwise the
     /// same as <see cref="IObjectService.Delete(ObjectDeleteParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<ObjectDeleteResponse>> Delete(
@@ -260,7 +261,7 @@ public interface IObjectServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /vault/{id}/objects/{objectId}/presigned-url`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /vault/{id}/objects/{objectId}/presigned-url</c>, but is otherwise the
     /// same as <see cref="IObjectService.CreatePresignedUrl(ObjectCreatePresignedUrlParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<ObjectCreatePresignedUrlResponse>> CreatePresignedUrl(
@@ -276,7 +277,7 @@ public interface IObjectServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /vault/{id}/objects/{objectId}/download`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /vault/{id}/objects/{objectId}/download</c>, but is otherwise the
     /// same as <see cref="IObjectService.Download(ObjectDownloadParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> Download(
@@ -292,7 +293,7 @@ public interface IObjectServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /vault/{id}/objects/{objectId}/ocr-words`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /vault/{id}/objects/{objectId}/ocr-words</c>, but is otherwise the
     /// same as <see cref="IObjectService.GetOcrWords(ObjectGetOcrWordsParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<ObjectGetOcrWordsResponse>> GetOcrWords(
@@ -308,7 +309,7 @@ public interface IObjectServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /vault/{id}/objects/{objectId}/summarize/{jobId}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /vault/{id}/objects/{objectId}/summarize/{jobId}</c>, but is otherwise the
     /// same as <see cref="IObjectService.GetSummarizeJob(ObjectGetSummarizeJobParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<ObjectGetSummarizeJobResponse>> GetSummarizeJob(
@@ -324,7 +325,7 @@ public interface IObjectServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /vault/{id}/objects/{objectId}/text`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /vault/{id}/objects/{objectId}/text</c>, but is otherwise the
     /// same as <see cref="IObjectService.GetText(ObjectGetTextParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<ObjectGetTextResponse>> GetText(

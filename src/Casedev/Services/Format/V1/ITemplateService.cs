@@ -29,9 +29,9 @@ public interface ITemplateService
     ITemplateService WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Create a new format template for document formatting. Templates support variables
-    /// using `{{variable}}` syntax and can be used for captions, signatures, letterheads,
-    /// certificates, footers, or custom formatting needs.
+    /// Create a new format template for document formatting. Templates support
+    /// variables using `{{variable}}` syntax and can be used for captions, signatures,
+    /// letterheads, certificates, footers, or custom formatting needs.
     /// </summary>
     Task<TemplateCreateResponse> Create(
         TemplateCreateParams parameters,
@@ -39,9 +39,9 @@ public interface ITemplateService
     );
 
     /// <summary>
-    /// Retrieve a specific document format template by ID. Format templates define
-    /// how documents should be structured and formatted for specific legal use cases
-    /// such as contracts, briefs, or pleadings.
+    /// Retrieve a specific document format template by ID. Format templates define how
+    /// documents should be structured and formatted for specific legal use cases such
+    /// as contracts, briefs, or pleadings.
     /// </summary>
     Task<TemplateRetrieveResponse> Retrieve(
         TemplateRetrieveParams parameters,
@@ -83,7 +83,7 @@ public interface ITemplateServiceWithRawResponse
     ITemplateServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /format/v1/templates`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /format/v1/templates</c>, but is otherwise the
     /// same as <see cref="ITemplateService.Create(TemplateCreateParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<TemplateCreateResponse>> Create(
@@ -92,7 +92,7 @@ public interface ITemplateServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /format/v1/templates/{id}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /format/v1/templates/{id}</c>, but is otherwise the
     /// same as <see cref="ITemplateService.Retrieve(TemplateRetrieveParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<TemplateRetrieveResponse>> Retrieve(
@@ -108,7 +108,7 @@ public interface ITemplateServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /format/v1/templates`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /format/v1/templates</c>, but is otherwise the
     /// same as <see cref="ITemplateService.List(TemplateListParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<TemplateListResponse>> List(

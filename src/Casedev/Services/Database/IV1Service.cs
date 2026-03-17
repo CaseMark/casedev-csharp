@@ -58,7 +58,7 @@ public interface IV1ServiceWithRawResponse
     IProjectServiceWithRawResponse Projects { get; }
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /database/v1/usage`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /database/v1/usage</c>, but is otherwise the
     /// same as <see cref="IV1Service.GetUsage(V1GetUsageParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1GetUsageResponse>> GetUsage(

@@ -8,29 +8,29 @@ public class FileDownloadParamsTest : TestBase
     [Fact]
     public void FieldRoundtrip_Works()
     {
-        var parameters = new FileDownloadParams { ID = "id", Path = "path" };
+        var parameters = new FileDownloadParams { ID = "id", FilePath = "filePath" };
 
         string expectedID = "id";
-        string expectedPath = "path";
+        string expectedFilePath = "filePath";
 
         Assert.Equal(expectedID, parameters.ID);
-        Assert.Equal(expectedPath, parameters.Path);
+        Assert.Equal(expectedFilePath, parameters.FilePath);
     }
 
     [Fact]
     public void Url_Works()
     {
-        FileDownloadParams parameters = new() { ID = "id", Path = "path" };
+        FileDownloadParams parameters = new() { ID = "id", FilePath = "filePath" };
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/agent/v1/chat/id/files/path"), url);
+        Assert.Equal(new Uri("https://api.case.dev/agent/v1/chat/id/files/filePath"), url);
     }
 
     [Fact]
     public void CopyConstructor_Works()
     {
-        var parameters = new FileDownloadParams { ID = "id", Path = "path" };
+        var parameters = new FileDownloadParams { ID = "id", FilePath = "filePath" };
 
         FileDownloadParams copied = new(parameters);
 

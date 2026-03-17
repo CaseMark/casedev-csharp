@@ -66,7 +66,7 @@ public interface IV1ServiceWithRawResponse
     IV1ServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /superdoc/v1/annotate`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /superdoc/v1/annotate</c>, but is otherwise the
     /// same as <see cref="IV1Service.Annotate(V1AnnotateParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> Annotate(
@@ -75,7 +75,7 @@ public interface IV1ServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /superdoc/v1/convert`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /superdoc/v1/convert</c>, but is otherwise the
     /// same as <see cref="IV1Service.Convert(V1ConvertParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> Convert(

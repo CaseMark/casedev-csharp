@@ -39,8 +39,8 @@ public interface IV1Service
 
     /// <summary>
     /// Generate a legal document with structured inputs. Powered by an agent that
-    /// handles research, formatting, citation verification, and vault upload. Returns
-    /// a run ID for polling.
+    /// handles research, formatting, citation verification, and vault upload. Returns a
+    /// run ID for polling.
     /// </summary>
     Task<V1DraftResponse> Draft(
         V1DraftParams parameters,
@@ -68,8 +68,9 @@ public interface IV1Service
     );
 
     /// <summary>
-    /// Extract all legal citations and references from a document URL. Returns structured
-    /// citation data including case citations, statute references, and regulatory citations.
+    /// Extract all legal citations and references from a document URL. Returns
+    /// structured citation data including case citations, statute references, and
+    /// regulatory citations.
     /// </summary>
     Task<V1GetCitationsFromUrlResponse> GetCitationsFromUrl(
         V1GetCitationsFromUrlParams parameters,
@@ -78,8 +79,8 @@ public interface IV1Service
 
     /// <summary>
     /// Retrieve the full text content of a legal document. Use after verifying the
-    /// source with legal.verify(). Returns complete text with optional highlights
-    /// and AI summary.
+    /// source with legal.verify(). Returns complete text with optional highlights and
+    /// AI summary.
     /// </summary>
     Task<V1GetFullTextResponse> GetFullText(
         V1GetFullTextParams parameters,
@@ -87,8 +88,8 @@ public interface IV1Service
     );
 
     /// <summary>
-    /// Returns court IDs (slugs) and names for use with the docket search endpoint.
-    /// Use the returned court ID as the `court` parameter in legal.docket().
+    /// Returns court IDs (slugs) and names for use with the docket search endpoint. Use
+    /// the returned court ID as the `court` parameter in legal.docket().
     /// </summary>
     Task<V1ListCourtsResponse> ListCourts(
         V1ListCourtsParams? parameters = null,
@@ -96,8 +97,8 @@ public interface IV1Service
     );
 
     /// <summary>
-    /// Search for a jurisdiction by name. Returns matching jurisdictions with their
-    /// IDs for use in legal.find() and other legal research endpoints.
+    /// Search for a jurisdiction by name. Returns matching jurisdictions with their IDs
+    /// for use in legal.find() and other legal research endpoints.
     /// </summary>
     Task<V1ListJurisdictionsResponse> ListJurisdictions(
         V1ListJurisdictionsParams parameters,
@@ -106,9 +107,9 @@ public interface IV1Service
 
     /// <summary>
     /// Search the USPTO Open Data Portal for US patent applications and granted
-    /// patents. Supports free-text queries, field-specific search, filters by assignee/inventor/status/type,
-    /// date ranges, and pagination. Covers applications filed on or after January
-    /// 1, 2001. Data is refreshed daily.
+    /// patents. Supports free-text queries, field-specific search, filters by
+    /// assignee/inventor/status/type, date ranges, and pagination. Covers applications
+    /// filed on or after January 1, 2001. Data is refreshed daily.
     /// </summary>
     Task<V1PatentSearchResponse> PatentSearch(
         V1PatentSearchParams parameters,
@@ -117,8 +118,8 @@ public interface IV1Service
 
     /// <summary>
     /// Perform comprehensive legal research with multiple query variations. Uses
-    /// advanced deep search to find relevant sources across different phrasings of
-    /// the legal issue.
+    /// advanced deep search to find relevant sources across different phrasings of the
+    /// legal issue.
     /// </summary>
     Task<V1ResearchResponse> Research(
         V1ResearchParams parameters,
@@ -135,7 +136,7 @@ public interface IV1Service
     );
 
     /// <summary>
-    /// Look up trademark status and details from the USPTO Trademark Status & Document
+    /// Look up trademark status and details from the USPTO Trademark Status &amp; Document
     /// Retrieval (TSDR) system. Supports lookup by serial number or registration
     /// number. Returns mark text, status, owner, goods/services, Nice classification,
     /// filing/registration dates, and more.
@@ -147,9 +148,9 @@ public interface IV1Service
 
     /// <summary>
     /// Validates legal citations against authoritative case law sources (CourtListener
-    /// database of ~10M cases). Returns verification status and case metadata for
-    /// each citation found in the input text. Accepts either a single citation or
-    /// a full text block containing multiple citations.
+    /// database of ~10M cases). Returns verification status and case metadata for each
+    /// citation found in the input text. Accepts either a single citation or a full
+    /// text block containing multiple citations.
     /// </summary>
     Task<V1VerifyResponse> Verify(
         V1VerifyParams parameters,
@@ -171,7 +172,7 @@ public interface IV1ServiceWithRawResponse
     IV1ServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /legal/v1/docket`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /legal/v1/docket</c>, but is otherwise the
     /// same as <see cref="IV1Service.Docket(V1DocketParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1DocketResponse>> Docket(
@@ -180,7 +181,7 @@ public interface IV1ServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /legal/v1/draft`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /legal/v1/draft</c>, but is otherwise the
     /// same as <see cref="IV1Service.Draft(V1DraftParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1DraftResponse>> Draft(
@@ -189,7 +190,7 @@ public interface IV1ServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /legal/v1/find`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /legal/v1/find</c>, but is otherwise the
     /// same as <see cref="IV1Service.Find(V1FindParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1FindResponse>> Find(
@@ -198,7 +199,7 @@ public interface IV1ServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /legal/v1/citations`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /legal/v1/citations</c>, but is otherwise the
     /// same as <see cref="IV1Service.GetCitations(V1GetCitationsParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1GetCitationsResponse>> GetCitations(
@@ -207,7 +208,7 @@ public interface IV1ServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /legal/v1/citations-from-url`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /legal/v1/citations-from-url</c>, but is otherwise the
     /// same as <see cref="IV1Service.GetCitationsFromUrl(V1GetCitationsFromUrlParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1GetCitationsFromUrlResponse>> GetCitationsFromUrl(
@@ -216,7 +217,7 @@ public interface IV1ServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /legal/v1/full-text`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /legal/v1/full-text</c>, but is otherwise the
     /// same as <see cref="IV1Service.GetFullText(V1GetFullTextParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1GetFullTextResponse>> GetFullText(
@@ -225,7 +226,7 @@ public interface IV1ServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /legal/v1/courts`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /legal/v1/courts</c>, but is otherwise the
     /// same as <see cref="IV1Service.ListCourts(V1ListCourtsParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1ListCourtsResponse>> ListCourts(
@@ -234,7 +235,7 @@ public interface IV1ServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /legal/v1/jurisdictions`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /legal/v1/jurisdictions</c>, but is otherwise the
     /// same as <see cref="IV1Service.ListJurisdictions(V1ListJurisdictionsParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1ListJurisdictionsResponse>> ListJurisdictions(
@@ -243,7 +244,7 @@ public interface IV1ServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /legal/v1/patent-search`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /legal/v1/patent-search</c>, but is otherwise the
     /// same as <see cref="IV1Service.PatentSearch(V1PatentSearchParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1PatentSearchResponse>> PatentSearch(
@@ -252,7 +253,7 @@ public interface IV1ServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /legal/v1/research`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /legal/v1/research</c>, but is otherwise the
     /// same as <see cref="IV1Service.Research(V1ResearchParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1ResearchResponse>> Research(
@@ -261,7 +262,7 @@ public interface IV1ServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /legal/v1/similar`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /legal/v1/similar</c>, but is otherwise the
     /// same as <see cref="IV1Service.Similar(V1SimilarParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1SimilarResponse>> Similar(
@@ -270,7 +271,7 @@ public interface IV1ServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /legal/v1/trademark-search`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /legal/v1/trademark-search</c>, but is otherwise the
     /// same as <see cref="IV1Service.TrademarkSearch(V1TrademarkSearchParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1TrademarkSearchResponse>> TrademarkSearch(
@@ -279,7 +280,7 @@ public interface IV1ServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /legal/v1/verify`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /legal/v1/verify</c>, but is otherwise the
     /// same as <see cref="IV1Service.Verify(V1VerifyParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1VerifyResponse>> Verify(

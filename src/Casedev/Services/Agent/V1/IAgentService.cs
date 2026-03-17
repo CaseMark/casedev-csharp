@@ -30,8 +30,8 @@ public interface IAgentService
     IAgentService WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Creates a new agent definition with a scoped API key. The agent can then
-    /// be used to create and execute runs.
+    /// Creates a new agent definition with a scoped API key. The agent can then be used
+    /// to create and execute runs.
     /// </summary>
     Task<AgentCreateResponse> Create(
         AgentCreateParams parameters,
@@ -106,7 +106,7 @@ public interface IAgentServiceWithRawResponse
     IAgentServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /agent/v1/agents`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /agent/v1/agents</c>, but is otherwise the
     /// same as <see cref="IAgentService.Create(AgentCreateParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<AgentCreateResponse>> Create(
@@ -115,7 +115,7 @@ public interface IAgentServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /agent/v1/agents/{id}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /agent/v1/agents/{id}</c>, but is otherwise the
     /// same as <see cref="IAgentService.Retrieve(AgentRetrieveParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<AgentRetrieveResponse>> Retrieve(
@@ -131,7 +131,7 @@ public interface IAgentServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `patch /agent/v1/agents/{id}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>patch /agent/v1/agents/{id}</c>, but is otherwise the
     /// same as <see cref="IAgentService.Update(AgentUpdateParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<AgentUpdateResponse>> Update(
@@ -147,7 +147,7 @@ public interface IAgentServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /agent/v1/agents`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /agent/v1/agents</c>, but is otherwise the
     /// same as <see cref="IAgentService.List(AgentListParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<AgentListResponse>> List(
@@ -156,7 +156,7 @@ public interface IAgentServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `delete /agent/v1/agents/{id}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>delete /agent/v1/agents/{id}</c>, but is otherwise the
     /// same as <see cref="IAgentService.Delete(AgentDeleteParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<AgentDeleteResponse>> Delete(

@@ -5,7 +5,9 @@ using Casedev.Models.Applications.V1.Deployments;
 using Casedev.Models.Format.V1;
 using Casedev.Models.Llm.V1;
 using Casedev.Models.Llm.V1.Chat;
+using Casedev.Models.Operator.V1;
 using Casedev.Models.Privilege.V1;
+using Casedev.Models.Skills;
 using Casedev.Models.Translate.V1;
 using Casedev.Models.Voice.V1;
 using BoostList = Casedev.Models.Voice.BoostList;
@@ -108,6 +110,9 @@ public abstract record class ModelBase
             new ApiEnumConverter<string, Recommendation>(),
             new ApiEnumConverter<string, Category>(),
             new ApiEnumConverter<string, Jurisdiction>(),
+            new ApiEnumConverter<string, Size>(),
+            new ApiEnumConverter<string, Source>(),
+            new ApiEnumConverter<string, ResultSource>(),
             new ApiEnumConverter<string, SearchV1::V1RetrieveResearchResponseModel>(),
             new ApiEnumConverter<string, SearchV1::Status>(),
             new ApiEnumConverter<string, SearchV1::SearchType>(),

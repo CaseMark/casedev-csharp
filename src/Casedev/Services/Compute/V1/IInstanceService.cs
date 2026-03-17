@@ -31,8 +31,8 @@ public interface IInstanceService
     /// <summary>
     /// Launches a new GPU compute instance with automatic SSH key generation. Supports
     /// mounting Case.dev Vaults as filesystems and configurable auto-shutdown. Instance
-    /// boots in ~2-5 minutes. Perfect for batch OCR processing, AI model training,
-    /// and intensive document analysis workloads.
+    /// boots in ~2-5 minutes. Perfect for batch OCR processing, AI model training, and
+    /// intensive document analysis workloads.
     /// </summary>
     Task<InstanceCreateResponse> Create(
         InstanceCreateParams parameters,
@@ -41,8 +41,8 @@ public interface IInstanceService
 
     /// <summary>
     /// Retrieves detailed information about a GPU instance including SSH connection
-    /// details, vault mount scripts, real-time cost tracking, and current status.
-    /// SSH private key included for secure access.
+    /// details, vault mount scripts, real-time cost tracking, and current status. SSH
+    /// private key included for secure access.
     /// </summary>
     Task<InstanceRetrieveResponse> Retrieve(
         InstanceRetrieveParams parameters,
@@ -57,8 +57,8 @@ public interface IInstanceService
     );
 
     /// <summary>
-    /// Retrieves all GPU compute instances for your organization with real-time
-    /// status updates from Lambda Labs. Includes pricing, runtime metrics, and auto-shutdown
+    /// Retrieves all GPU compute instances for your organization with real-time status
+    /// updates from Lambda Labs. Includes pricing, runtime metrics, and auto-shutdown
     /// configuration. Perfect for monitoring AI workloads, document processing jobs,
     /// and cost tracking.
     /// </summary>
@@ -99,7 +99,7 @@ public interface IInstanceServiceWithRawResponse
     IInstanceServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /compute/v1/instances`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /compute/v1/instances</c>, but is otherwise the
     /// same as <see cref="IInstanceService.Create(InstanceCreateParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<InstanceCreateResponse>> Create(
@@ -108,7 +108,7 @@ public interface IInstanceServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /compute/v1/instances/{id}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /compute/v1/instances/{id}</c>, but is otherwise the
     /// same as <see cref="IInstanceService.Retrieve(InstanceRetrieveParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<InstanceRetrieveResponse>> Retrieve(
@@ -124,7 +124,7 @@ public interface IInstanceServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /compute/v1/instances`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /compute/v1/instances</c>, but is otherwise the
     /// same as <see cref="IInstanceService.List(InstanceListParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<InstanceListResponse>> List(
@@ -133,7 +133,7 @@ public interface IInstanceServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `delete /compute/v1/instances/{id}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>delete /compute/v1/instances/{id}</c>, but is otherwise the
     /// same as <see cref="IInstanceService.Delete(InstanceDeleteParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<InstanceDeleteResponse>> Delete(

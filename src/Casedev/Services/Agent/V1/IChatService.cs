@@ -34,8 +34,8 @@ public interface IChatService
     IFileService Files { get; }
 
     /// <summary>
-    /// Creates a persistent OpenCode chat session in a Modal sandbox. Session state
-    /// is retained and can be resumed across requests.
+    /// Creates a persistent OpenCode chat session in a Modal sandbox. Session state is
+    /// retained and can be resumed across requests.
     /// </summary>
     Task<ChatCreateResponse> Create(
         ChatCreateParams? parameters = null,
@@ -43,8 +43,8 @@ public interface IChatService
     );
 
     /// <summary>
-    /// Snapshots and terminates the active sandbox (if any), then marks the chat
-    /// as ended.
+    /// Snapshots and terminates the active sandbox (if any), then marks the chat as
+    /// ended.
     /// </summary>
     Task<ChatDeleteResponse> Delete(
         ChatDeleteParams parameters,
@@ -74,7 +74,8 @@ public interface IChatService
     );
 
     /// <summary>
-    /// Answers a pending OpenCode question for the chat session bound to this agent chat.
+    /// Answers a pending OpenCode question for the chat session bound to this agent
+    /// chat.
     /// </summary>
     Task ReplyToQuestion(
         ChatReplyToQuestionParams parameters,
@@ -90,12 +91,13 @@ public interface IChatService
 
     /// <summary>
     /// Streams a single assistant turn as normalized SSE events with stable turn,
-    /// message, and part IDs. Emits events: `turn.started`, `turn.status`, `message.created`,
-    /// `message.part.updated`, `message.completed`, `session.usage`, `turn.completed`.
+    /// message, and part IDs. Emits events: `turn.started`, `turn.status`,
+    /// `message.created`, `message.part.updated`, `message.completed`, `session.usage`,
+    /// `turn.completed`.
     ///
-    /// <para>**When to use this endpoint:** Recommended for building custom chat
-    /// UIs that need real-time streaming progress. This is the primary streaming
-    /// endpoint for new integrations.</para>
+    /// <para>**When to use this endpoint:** Recommended for building custom chat UIs
+    /// that need real-time streaming progress. This is the primary streaming endpoint
+    /// for new integrations.</para>
     ///
     /// <para>**Alternatives:** - `POST /chat/:id/message` — synchronous, returns
     /// complete response as JSON (best for server-to-server)</para>
@@ -117,11 +119,11 @@ public interface IChatService
     /// until the agent turn completes.
     ///
     /// <para>**When to use this endpoint:** Best for server-to-server integrations,
-    /// background processing, or any context where you want the full response in
-    /// one call without managing an SSE stream.</para>
+    /// background processing, or any context where you want the full response in one
+    /// call without managing an SSE stream.</para>
     ///
-    /// <para>**Alternatives:** - `POST /chat/:id/respond` — streaming SSE with normalized
-    /// events (recommended for custom chat UIs)</para>
+    /// <para>**Alternatives:** - `POST /chat/:id/respond` — streaming SSE with
+    /// normalized events (recommended for custom chat UIs)</para>
     /// </summary>
     Task SendMessage(
         ChatSendMessageParams parameters,
@@ -168,7 +170,7 @@ public interface IChatServiceWithRawResponse
     IFileServiceWithRawResponse Files { get; }
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /agent/v1/chat`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /agent/v1/chat</c>, but is otherwise the
     /// same as <see cref="IChatService.Create(ChatCreateParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<ChatCreateResponse>> Create(
@@ -177,7 +179,7 @@ public interface IChatServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `delete /agent/v1/chat/{id}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>delete /agent/v1/chat/{id}</c>, but is otherwise the
     /// same as <see cref="IChatService.Delete(ChatDeleteParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<ChatDeleteResponse>> Delete(
@@ -193,7 +195,7 @@ public interface IChatServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /agent/v1/chat/{id}/cancel`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /agent/v1/chat/{id}/cancel</c>, but is otherwise the
     /// same as <see cref="IChatService.Cancel(ChatCancelParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<ChatCancelResponse>> Cancel(
@@ -209,7 +211,7 @@ public interface IChatServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /agent/v1/chat/{id}/question/{requestID}/reply`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /agent/v1/chat/{id}/question/{requestID}/reply</c>, but is otherwise the
     /// same as <see cref="IChatService.ReplyToQuestion(ChatReplyToQuestionParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> ReplyToQuestion(
@@ -225,7 +227,7 @@ public interface IChatServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /agent/v1/chat/{id}/respond`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /agent/v1/chat/{id}/respond</c>, but is otherwise the
     /// same as <see cref="IChatService.RespondStreaming(ChatRespondParams, CancellationToken)"/>.
     /// </summary>
     Task<StreamingHttpResponse<string>> RespondStreaming(
@@ -241,7 +243,7 @@ public interface IChatServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /agent/v1/chat/{id}/message`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /agent/v1/chat/{id}/message</c>, but is otherwise the
     /// same as <see cref="IChatService.SendMessage(ChatSendMessageParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> SendMessage(
@@ -257,7 +259,7 @@ public interface IChatServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /agent/v1/chat/{id}/stream`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /agent/v1/chat/{id}/stream</c>, but is otherwise the
     /// same as <see cref="IChatService.StreamStreaming(ChatStreamParams, CancellationToken)"/>.
     /// </summary>
     Task<StreamingHttpResponse<string>> StreamStreaming(

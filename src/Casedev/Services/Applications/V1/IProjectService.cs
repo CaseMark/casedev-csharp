@@ -27,16 +27,16 @@ public interface IProjectService
     IProjectService WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Creates a new application project, validates GitHub access, provisions a
-    /// default case.dev domain, and starts the deployment workflow. The initial
-    /// response returns as soon as the workflow is queued so clients can poll for progress.
+    /// Creates a new application project, validates GitHub access, provisions a default
+    /// case.dev domain, and starts the deployment workflow. The initial response
+    /// returns as soon as the workflow is queued so clients can poll for progress.
     /// </summary>
     Task Create(ProjectCreateParams parameters, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Returns project details, domains, and recent deployment information for one
-    /// application project or deployed Thurgood app. Use this endpoint when you need
-    /// a single record with hosting metadata for a details view.
+    /// application project or deployed Thurgood app. Use this endpoint when you need a
+    /// single record with hosting metadata for a details view.
     /// </summary>
     Task Retrieve(ProjectRetrieveParams parameters, CancellationToken cancellationToken = default);
 
@@ -49,8 +49,8 @@ public interface IProjectService
 
     /// <summary>
     /// Lists application projects and deployed Thurgood apps for the authenticated
-    /// organization. Use enrich=true to include additional hosting metadata for projects
-    /// linked to Vercel.
+    /// organization. Use enrich=true to include additional hosting metadata for
+    /// projects linked to Vercel.
     /// </summary>
     Task<ProjectListResponse> List(
         ProjectListParams? parameters = null,
@@ -58,8 +58,8 @@ public interface IProjectService
     );
 
     /// <summary>
-    /// Soft-deletes an application project or deployed Thurgood app from Case.dev.
-    /// By default it also removes the linked hosting project; set deleteFromHosting=false
+    /// Soft-deletes an application project or deployed Thurgood app from Case.dev. By
+    /// default it also removes the linked hosting project; set deleteFromHosting=false
     /// to keep the external hosting resources intact.
     /// </summary>
     Task Delete(ProjectDeleteParams parameters, CancellationToken cancellationToken = default);
@@ -72,9 +72,9 @@ public interface IProjectService
     );
 
     /// <summary>
-    /// Starts a new deployment for an existing project using its saved repository
-    /// and hosting configuration. Any environment variables passed in the request
-    /// are merged into the deployment workflow before the build starts.
+    /// Starts a new deployment for an existing project using its saved repository and
+    /// hosting configuration. Any environment variables passed in the request are
+    /// merged into the deployment workflow before the build starts.
     /// </summary>
     Task CreateDeployment(
         ProjectCreateDeploymentParams parameters,
@@ -196,7 +196,8 @@ public interface IProjectService
     );
 
     /// <summary>
-    /// List all environment variables for a project (values are hidden unless decrypt=true)
+    /// List all environment variables for a project (values are hidden unless
+    /// decrypt=true)
     /// </summary>
     Task ListEnv(ProjectListEnvParams parameters, CancellationToken cancellationToken = default);
 
@@ -222,7 +223,7 @@ public interface IProjectServiceWithRawResponse
     IProjectServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /applications/v1/projects`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /applications/v1/projects</c>, but is otherwise the
     /// same as <see cref="IProjectService.Create(ProjectCreateParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> Create(
@@ -231,7 +232,7 @@ public interface IProjectServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /applications/v1/projects/{id}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /applications/v1/projects/{id}</c>, but is otherwise the
     /// same as <see cref="IProjectService.Retrieve(ProjectRetrieveParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> Retrieve(
@@ -247,7 +248,7 @@ public interface IProjectServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /applications/v1/projects`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /applications/v1/projects</c>, but is otherwise the
     /// same as <see cref="IProjectService.List(ProjectListParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<ProjectListResponse>> List(
@@ -256,7 +257,7 @@ public interface IProjectServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `delete /applications/v1/projects/{id}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>delete /applications/v1/projects/{id}</c>, but is otherwise the
     /// same as <see cref="IProjectService.Delete(ProjectDeleteParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> Delete(
@@ -272,7 +273,7 @@ public interface IProjectServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /applications/v1/projects/{id}/deployments`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /applications/v1/projects/{id}/deployments</c>, but is otherwise the
     /// same as <see cref="IProjectService.CreateDeployment(ProjectCreateDeploymentParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> CreateDeployment(
@@ -288,7 +289,7 @@ public interface IProjectServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /applications/v1/projects/{id}/domains`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /applications/v1/projects/{id}/domains</c>, but is otherwise the
     /// same as <see cref="IProjectService.CreateDomain(ProjectCreateDomainParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> CreateDomain(
@@ -304,7 +305,7 @@ public interface IProjectServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /applications/v1/projects/{id}/env`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /applications/v1/projects/{id}/env</c>, but is otherwise the
     /// same as <see cref="IProjectService.CreateEnv(ProjectCreateEnvParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> CreateEnv(
@@ -320,7 +321,7 @@ public interface IProjectServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `delete /applications/v1/projects/{id}/domains/{domain}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>delete /applications/v1/projects/{id}/domains/{domain}</c>, but is otherwise the
     /// same as <see cref="IProjectService.DeleteDomain(ProjectDeleteDomainParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> DeleteDomain(
@@ -336,7 +337,7 @@ public interface IProjectServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `delete /applications/v1/projects/{id}/env/{envId}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>delete /applications/v1/projects/{id}/env/{envId}</c>, but is otherwise the
     /// same as <see cref="IProjectService.DeleteEnv(ProjectDeleteEnvParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> DeleteEnv(
@@ -352,7 +353,7 @@ public interface IProjectServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /applications/v1/projects/{id}/runtime-logs`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /applications/v1/projects/{id}/runtime-logs</c>, but is otherwise the
     /// same as <see cref="IProjectService.GetRuntimeLogs(ProjectGetRuntimeLogsParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> GetRuntimeLogs(
@@ -368,7 +369,7 @@ public interface IProjectServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /applications/v1/projects/{id}/deployments`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /applications/v1/projects/{id}/deployments</c>, but is otherwise the
     /// same as <see cref="IProjectService.ListDeployments(ProjectListDeploymentsParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> ListDeployments(
@@ -384,7 +385,7 @@ public interface IProjectServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /applications/v1/projects/{id}/domains`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /applications/v1/projects/{id}/domains</c>, but is otherwise the
     /// same as <see cref="IProjectService.ListDomains(ProjectListDomainsParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> ListDomains(
@@ -400,7 +401,7 @@ public interface IProjectServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /applications/v1/projects/{id}/env`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /applications/v1/projects/{id}/env</c>, but is otherwise the
     /// same as <see cref="IProjectService.ListEnv(ProjectListEnvParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> ListEnv(

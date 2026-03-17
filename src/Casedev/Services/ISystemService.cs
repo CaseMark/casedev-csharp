@@ -29,9 +29,9 @@ public interface ISystemService
     ISystemService WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns the public Case.dev services catalog derived from docs.case.dev/services.
-    /// This endpoint is unauthenticated and intended for discovery surfaces such
-    /// as the case.dev homepage.
+    /// Returns the public Case.dev services catalog derived from
+    /// docs.case.dev/services. This endpoint is unauthenticated and intended for
+    /// discovery surfaces such as the case.dev homepage.
     /// </summary>
     Task<SystemListServicesResponse> ListServices(
         SystemListServicesParams? parameters = null,
@@ -53,7 +53,7 @@ public interface ISystemServiceWithRawResponse
     ISystemServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /services`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /services</c>, but is otherwise the
     /// same as <see cref="ISystemService.ListServices(SystemListServicesParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<SystemListServicesResponse>> ListServices(

@@ -117,7 +117,7 @@ using Casedev.Models.Agent.V1.Chat.Files;
 FileDownloadParams parameters = new()
 {
     ID = "id",
-    Path = "path",
+    FilePath = "filePath",
 };
 
 var response = await client.Agent.V1.Chat.Files.Download(parameters);
