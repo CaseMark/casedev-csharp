@@ -136,7 +136,7 @@ public interface IV1Service
     );
 
     /// <summary>
-    /// Look up trademark status and details from the USPTO Trademark Status & Document
+    /// Look up trademark status and details from the USPTO Trademark Status &amp; Document
     /// Retrieval (TSDR) system. Supports lookup by serial number or registration
     /// number. Returns mark text, status, owner, goods/services, Nice classification,
     /// filing/registration dates, and more.
