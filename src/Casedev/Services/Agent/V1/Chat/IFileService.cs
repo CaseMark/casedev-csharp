@@ -30,8 +30,8 @@ public interface IFileService
     IFileService WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Lists files created by the agent in the sandbox workspace. Only available
-    /// while the sandbox is running.
+    /// Lists files created by the agent in the sandbox workspace. Only available while
+    /// the sandbox is running.
     /// </summary>
     Task<FileListResponse> List(
         FileListParams parameters,
@@ -46,8 +46,8 @@ public interface IFileService
     );
 
     /// <summary>
-    /// Downloads a file from the sandbox workspace by path. Only available while
-    /// the sandbox is running.
+    /// Downloads a file from the sandbox workspace by path. Only available while the
+    /// sandbox is running.
     ///
     /// <para>It's the caller's responsibility to dispose the returned response.</para>
     /// </summary>
@@ -58,7 +58,7 @@ public interface IFileService
 
     /// <inheritdoc cref="Download(FileDownloadParams, CancellationToken)"/>
     Task<HttpResponse> Download(
-        string path,
+        string filePath,
         FileDownloadParams parameters,
         CancellationToken cancellationToken = default
     );
@@ -78,7 +78,7 @@ public interface IFileServiceWithRawResponse
     IFileServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /agent/v1/chat/{id}/files`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /agent/v1/chat/{id}/files</c>, but is otherwise the
     /// same as <see cref="IFileService.List(FileListParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<FileListResponse>> List(
@@ -94,7 +94,7 @@ public interface IFileServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /agent/v1/chat/{id}/files/{path}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /agent/v1/chat/{id}/files/{filePath}</c>, but is otherwise the
     /// same as <see cref="IFileService.Download(FileDownloadParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> Download(
@@ -104,7 +104,7 @@ public interface IFileServiceWithRawResponse
 
     /// <inheritdoc cref="Download(FileDownloadParams, CancellationToken)"/>
     Task<HttpResponse> Download(
-        string path,
+        string filePath,
         FileDownloadParams parameters,
         CancellationToken cancellationToken = default
     );

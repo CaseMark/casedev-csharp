@@ -138,6 +138,18 @@ public sealed class CasedevClient : ICasedevClient
         get { return _privilege.Value; }
     }
 
+    readonly Lazy<IMailService> _mail;
+    public IMailService Mail
+    {
+        get { return _mail.Value; }
+    }
+
+    readonly Lazy<IOperatorService> _operator;
+    public IOperatorService Operator
+    {
+        get { return _operator.Value; }
+    }
+
     readonly Lazy<ISkillService> _skills;
     public ISkillService Skills
     {
@@ -192,6 +204,8 @@ public sealed class CasedevClient : ICasedevClient
         _memory = new(() => new MemoryService(this));
         _ocr = new(() => new OcrService(this));
         _privilege = new(() => new PrivilegeService(this));
+        _mail = new(() => new MailService(this));
+        _operator = new(() => new OperatorService(this));
         _skills = new(() => new SkillService(this));
         _search = new(() => new SearchService(this));
         _superdoc = new(() => new SuperdocService(this));
@@ -337,6 +351,18 @@ public sealed class CasedevClientWithRawResponse : ICasedevClientWithRawResponse
     public IPrivilegeServiceWithRawResponse Privilege
     {
         get { return _privilege.Value; }
+    }
+
+    readonly Lazy<IMailServiceWithRawResponse> _mail;
+    public IMailServiceWithRawResponse Mail
+    {
+        get { return _mail.Value; }
+    }
+
+    readonly Lazy<IOperatorServiceWithRawResponse> _operator;
+    public IOperatorServiceWithRawResponse Operator
+    {
+        get { return _operator.Value; }
     }
 
     readonly Lazy<ISkillServiceWithRawResponse> _skills;
@@ -584,6 +610,8 @@ public sealed class CasedevClientWithRawResponse : ICasedevClientWithRawResponse
         _memory = new(() => new MemoryServiceWithRawResponse(this));
         _ocr = new(() => new OcrServiceWithRawResponse(this));
         _privilege = new(() => new PrivilegeServiceWithRawResponse(this));
+        _mail = new(() => new MailServiceWithRawResponse(this));
+        _operator = new(() => new OperatorServiceWithRawResponse(this));
         _skills = new(() => new SkillServiceWithRawResponse(this));
         _search = new(() => new SearchServiceWithRawResponse(this));
         _superdoc = new(() => new SuperdocServiceWithRawResponse(this));

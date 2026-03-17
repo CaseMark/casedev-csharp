@@ -70,7 +70,7 @@ public interface IMultipartServiceWithRawResponse
     IMultipartServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /vault/{id}/multipart/abort`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /vault/{id}/multipart/abort</c>, but is otherwise the
     /// same as <see cref="IMultipartService.Abort(MultipartAbortParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> Abort(
@@ -86,7 +86,7 @@ public interface IMultipartServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /vault/{id}/multipart/part-urls`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /vault/{id}/multipart/part-urls</c>, but is otherwise the
     /// same as <see cref="IMultipartService.GetPartUrls(MultipartGetPartUrlsParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<MultipartGetPartUrlsResponse>> GetPartUrls(

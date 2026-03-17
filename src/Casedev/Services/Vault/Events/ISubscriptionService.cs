@@ -106,7 +106,7 @@ public interface ISubscriptionServiceWithRawResponse
     ISubscriptionServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /vault/{id}/events/subscriptions`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /vault/{id}/events/subscriptions</c>, but is otherwise the
     /// same as <see cref="ISubscriptionService.Create(SubscriptionCreateParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> Create(
@@ -122,7 +122,7 @@ public interface ISubscriptionServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `patch /vault/{id}/events/subscriptions/{subscriptionId}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>patch /vault/{id}/events/subscriptions/{subscriptionId}</c>, but is otherwise the
     /// same as <see cref="ISubscriptionService.Update(SubscriptionUpdateParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> Update(
@@ -138,7 +138,7 @@ public interface ISubscriptionServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /vault/{id}/events/subscriptions`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /vault/{id}/events/subscriptions</c>, but is otherwise the
     /// same as <see cref="ISubscriptionService.List(SubscriptionListParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> List(
@@ -154,7 +154,7 @@ public interface ISubscriptionServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `delete /vault/{id}/events/subscriptions/{subscriptionId}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>delete /vault/{id}/events/subscriptions/{subscriptionId}</c>, but is otherwise the
     /// same as <see cref="ISubscriptionService.Delete(SubscriptionDeleteParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> Delete(
@@ -170,7 +170,7 @@ public interface ISubscriptionServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /vault/{id}/events/subscriptions/{subscriptionId}/test`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /vault/{id}/events/subscriptions/{subscriptionId}/test</c>, but is otherwise the
     /// same as <see cref="ISubscriptionService.Test(SubscriptionTestParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> Test(

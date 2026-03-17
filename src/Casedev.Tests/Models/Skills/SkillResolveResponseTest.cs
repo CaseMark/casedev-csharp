@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using Casedev.Core;
+using Casedev.Exceptions;
 using Casedev.Models.Skills;
 
 namespace Casedev.Tests.Models.Skills;
@@ -20,6 +21,7 @@ public class SkillResolveResponseTest : TestBase
                     Name = "name",
                     Score = 0,
                     Slug = "slug",
+                    Source = ResultSource.Curated,
                     Summary = "summary",
                     Tags = ["string"],
                 },
@@ -34,6 +36,7 @@ public class SkillResolveResponseTest : TestBase
                 Name = "name",
                 Score = 0,
                 Slug = "slug",
+                Source = ResultSource.Curated,
                 Summary = "summary",
                 Tags = ["string"],
             },
@@ -66,6 +69,7 @@ public class SkillResolveResponseTest : TestBase
                     Name = "name",
                     Score = 0,
                     Slug = "slug",
+                    Source = ResultSource.Curated,
                     Summary = "summary",
                     Tags = ["string"],
                 },
@@ -94,6 +98,7 @@ public class SkillResolveResponseTest : TestBase
                     Name = "name",
                     Score = 0,
                     Slug = "slug",
+                    Source = ResultSource.Curated,
                     Summary = "summary",
                     Tags = ["string"],
                 },
@@ -115,6 +120,7 @@ public class SkillResolveResponseTest : TestBase
                 Name = "name",
                 Score = 0,
                 Slug = "slug",
+                Source = ResultSource.Curated,
                 Summary = "summary",
                 Tags = ["string"],
             },
@@ -147,6 +153,7 @@ public class SkillResolveResponseTest : TestBase
                     Name = "name",
                     Score = 0,
                     Slug = "slug",
+                    Source = ResultSource.Curated,
                     Summary = "summary",
                     Tags = ["string"],
                 },
@@ -217,6 +224,7 @@ public class SkillResolveResponseTest : TestBase
                     Name = "name",
                     Score = 0,
                     Slug = "slug",
+                    Source = ResultSource.Curated,
                     Summary = "summary",
                     Tags = ["string"],
                 },
@@ -239,6 +247,7 @@ public class ResultTest : TestBase
             Name = "name",
             Score = 0,
             Slug = "slug",
+            Source = ResultSource.Curated,
             Summary = "summary",
             Tags = ["string"],
         };
@@ -246,12 +255,14 @@ public class ResultTest : TestBase
         string expectedName = "name";
         double expectedScore = 0;
         string expectedSlug = "slug";
+        ApiEnum<string, ResultSource> expectedSource = ResultSource.Curated;
         string expectedSummary = "summary";
         List<string> expectedTags = ["string"];
 
         Assert.Equal(expectedName, model.Name);
         Assert.Equal(expectedScore, model.Score);
         Assert.Equal(expectedSlug, model.Slug);
+        Assert.Equal(expectedSource, model.Source);
         Assert.Equal(expectedSummary, model.Summary);
         Assert.NotNull(model.Tags);
         Assert.Equal(expectedTags.Count, model.Tags.Count);
@@ -269,6 +280,7 @@ public class ResultTest : TestBase
             Name = "name",
             Score = 0,
             Slug = "slug",
+            Source = ResultSource.Curated,
             Summary = "summary",
             Tags = ["string"],
         };
@@ -287,6 +299,7 @@ public class ResultTest : TestBase
             Name = "name",
             Score = 0,
             Slug = "slug",
+            Source = ResultSource.Curated,
             Summary = "summary",
             Tags = ["string"],
         };
@@ -298,12 +311,14 @@ public class ResultTest : TestBase
         string expectedName = "name";
         double expectedScore = 0;
         string expectedSlug = "slug";
+        ApiEnum<string, ResultSource> expectedSource = ResultSource.Curated;
         string expectedSummary = "summary";
         List<string> expectedTags = ["string"];
 
         Assert.Equal(expectedName, deserialized.Name);
         Assert.Equal(expectedScore, deserialized.Score);
         Assert.Equal(expectedSlug, deserialized.Slug);
+        Assert.Equal(expectedSource, deserialized.Source);
         Assert.Equal(expectedSummary, deserialized.Summary);
         Assert.NotNull(deserialized.Tags);
         Assert.Equal(expectedTags.Count, deserialized.Tags.Count);
@@ -321,6 +336,7 @@ public class ResultTest : TestBase
             Name = "name",
             Score = 0,
             Slug = "slug",
+            Source = ResultSource.Curated,
             Summary = "summary",
             Tags = ["string"],
         };
@@ -339,6 +355,8 @@ public class ResultTest : TestBase
         Assert.False(model.RawData.ContainsKey("score"));
         Assert.Null(model.Slug);
         Assert.False(model.RawData.ContainsKey("slug"));
+        Assert.Null(model.Source);
+        Assert.False(model.RawData.ContainsKey("source"));
         Assert.Null(model.Summary);
         Assert.False(model.RawData.ContainsKey("summary"));
         Assert.Null(model.Tags);
@@ -362,6 +380,7 @@ public class ResultTest : TestBase
             Name = null,
             Score = null,
             Slug = null,
+            Source = null,
             Summary = null,
             Tags = null,
         };
@@ -372,6 +391,8 @@ public class ResultTest : TestBase
         Assert.False(model.RawData.ContainsKey("score"));
         Assert.Null(model.Slug);
         Assert.False(model.RawData.ContainsKey("slug"));
+        Assert.Null(model.Source);
+        Assert.False(model.RawData.ContainsKey("source"));
         Assert.Null(model.Summary);
         Assert.False(model.RawData.ContainsKey("summary"));
         Assert.Null(model.Tags);
@@ -387,6 +408,7 @@ public class ResultTest : TestBase
             Name = null,
             Score = null,
             Slug = null,
+            Source = null,
             Summary = null,
             Tags = null,
         };
@@ -402,6 +424,7 @@ public class ResultTest : TestBase
             Name = "name",
             Score = 0,
             Slug = "slug",
+            Source = ResultSource.Curated,
             Summary = "summary",
             Tags = ["string"],
         };
@@ -409,5 +432,63 @@ public class ResultTest : TestBase
         Result copied = new(model);
 
         Assert.Equal(model, copied);
+    }
+}
+
+public class ResultSourceTest : TestBase
+{
+    [Theory]
+    [InlineData(ResultSource.Curated)]
+    [InlineData(ResultSource.Custom)]
+    public void Validation_Works(ResultSource rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, ResultSource> value = rawValue;
+        value.Validate();
+    }
+
+    [Fact]
+    public void InvalidEnumValidationThrows_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, ResultSource>>(
+            JsonSerializer.SerializeToElement("invalid value"),
+            ModelBase.SerializerOptions
+        );
+
+        Assert.NotNull(value);
+        Assert.Throws<CasedevInvalidDataException>(() => value.Validate());
+    }
+
+    [Theory]
+    [InlineData(ResultSource.Curated)]
+    [InlineData(ResultSource.Custom)]
+    public void SerializationRoundtrip_Works(ResultSource rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, ResultSource> value = rawValue;
+
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, ResultSource>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
+    }
+
+    [Fact]
+    public void InvalidEnumSerializationRoundtrip_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, ResultSource>>(
+            JsonSerializer.SerializeToElement("invalid value"),
+            ModelBase.SerializerOptions
+        );
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, ResultSource>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
     }
 }

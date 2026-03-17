@@ -32,8 +32,9 @@ public interface IV1Service
     IChatService Chat { get; }
 
     /// <summary>
-    /// Create vector embeddings from text using OpenAI-compatible models. Perfect
-    /// for semantic search, document similarity, and building RAG systems for legal documents.
+    /// Create vector embeddings from text using OpenAI-compatible models. Perfect for
+    /// semantic search, document similarity, and building RAG systems for legal
+    /// documents.
     /// </summary>
     Task<V1CreateEmbeddingResponse> CreateEmbedding(
         V1CreateEmbeddingParams parameters,
@@ -45,8 +46,8 @@ public interface IV1Service
     /// OpenAI, Anthropic, Google, and Case.dev's specialized legal models. Returns
     /// OpenAI-compatible model metadata with pricing information.
     ///
-    /// <para>This endpoint is compatible with OpenAI's models API format, making
-    /// it easy to integrate with existing applications.</para>
+    /// <para>This endpoint is compatible with OpenAI's models API format, making it
+    /// easy to integrate with existing applications.</para>
     /// </summary>
     Task<V1ListModelsResponse> ListModels(
         V1ListModelsParams? parameters = null,
@@ -70,7 +71,7 @@ public interface IV1ServiceWithRawResponse
     IChatServiceWithRawResponse Chat { get; }
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /llm/v1/embeddings`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /llm/v1/embeddings</c>, but is otherwise the
     /// same as <see cref="IV1Service.CreateEmbedding(V1CreateEmbeddingParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1CreateEmbeddingResponse>> CreateEmbedding(
@@ -79,7 +80,7 @@ public interface IV1ServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /llm/v1/models`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /llm/v1/models</c>, but is otherwise the
     /// same as <see cref="IV1Service.ListModels(V1ListModelsParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1ListModelsResponse>> ListModels(

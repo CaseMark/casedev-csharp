@@ -10,7 +10,7 @@ using Casedev.Core;
 namespace Casedev.Models.Legal.V1;
 
 /// <summary>
-/// Look up trademark status and details from the USPTO Trademark Status & Document
+/// Look up trademark status and details from the USPTO Trademark Status &amp; Document
 /// Retrieval (TSDR) system. Supports lookup by serial number or registration number.
 /// Returns mark text, status, owner, goods/services, Nice classification, filing/registration
 /// dates, and more.
@@ -105,7 +105,7 @@ public record class V1TrademarkSearchParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="IFromRawJson.FromRawUnchecked"/>
+    /// <inheritdoc cref="IFromRawJson{T}.FromRawUnchecked"/>
     public static V1TrademarkSearchParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,

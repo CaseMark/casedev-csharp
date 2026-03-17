@@ -38,9 +38,9 @@ public interface IV1Service
     ISecretService Secrets { get; }
 
     /// <summary>
-    /// Returns current pricing for GPU instances. Prices are fetched in real-time
-    /// and include a 20% platform fee. For detailed instance types and availability,
-    /// use GET /compute/v1/instance-types.
+    /// Returns current pricing for GPU instances. Prices are fetched in real-time and
+    /// include a 20% platform fee. For detailed instance types and availability, use
+    /// GET /compute/v1/instance-types.
     /// </summary>
     Task GetPricing(
         V1GetPricingParams? parameters = null,
@@ -49,9 +49,8 @@ public interface IV1Service
 
     /// <summary>
     /// Returns detailed compute usage statistics and billing information for your
-    /// organization. Includes GPU and CPU hours, total runs, costs, and breakdowns
-    /// by environment. Use optional query parameters to filter by specific year
-    /// and month.
+    /// organization. Includes GPU and CPU hours, total runs, costs, and breakdowns by
+    /// environment. Use optional query parameters to filter by specific year and month.
     /// </summary>
     Task<V1GetUsageResponse> GetUsage(
         V1GetUsageParams? parameters = null,
@@ -81,7 +80,7 @@ public interface IV1ServiceWithRawResponse
     ISecretServiceWithRawResponse Secrets { get; }
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /compute/v1/pricing`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /compute/v1/pricing</c>, but is otherwise the
     /// same as <see cref="IV1Service.GetPricing(V1GetPricingParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> GetPricing(
@@ -90,7 +89,7 @@ public interface IV1ServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /compute/v1/usage`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /compute/v1/usage</c>, but is otherwise the
     /// same as <see cref="IV1Service.GetUsage(V1GetUsageParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1GetUsageResponse>> GetUsage(

@@ -30,8 +30,8 @@ public interface ISpeakService
 
     /// <summary>
     /// Convert text to natural-sounding audio using ElevenLabs voices. Ideal for
-    /// creating audio summaries of legal documents, client presentations, or accessibility
-    /// features. Supports multiple languages and voice customization.
+    /// creating audio summaries of legal documents, client presentations, or
+    /// accessibility features. Supports multiple languages and voice customization.
     ///
     /// <para>It's the caller's responsibility to dispose the returned response.</para>
     /// </summary>
@@ -55,7 +55,7 @@ public interface ISpeakServiceWithRawResponse
     ISpeakServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /voice/v1/speak`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /voice/v1/speak</c>, but is otherwise the
     /// same as <see cref="ISpeakService.Create(SpeakCreateParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> Create(

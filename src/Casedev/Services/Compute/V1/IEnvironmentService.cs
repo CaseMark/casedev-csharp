@@ -40,8 +40,9 @@ public interface IEnvironmentService
     );
 
     /// <summary>
-    /// Retrieve a specific compute environment by name. Returns environment configuration
-    /// including status, domain, and metadata for your serverless compute infrastructure.
+    /// Retrieve a specific compute environment by name. Returns environment
+    /// configuration including status, domain, and metadata for your serverless compute
+    /// infrastructure.
     /// </summary>
     Task<EnvironmentRetrieveResponse> Retrieve(
         EnvironmentRetrieveParams parameters,
@@ -65,9 +66,9 @@ public interface IEnvironmentService
     );
 
     /// <summary>
-    /// Permanently delete a compute environment and all its associated resources.
-    /// This will stop all running deployments and clean up related configurations.
-    /// The default environment cannot be deleted if other environments exist.
+    /// Permanently delete a compute environment and all its associated resources. This
+    /// will stop all running deployments and clean up related configurations. The
+    /// default environment cannot be deleted if other environments exist.
     /// </summary>
     Task<EnvironmentDeleteResponse> Delete(
         EnvironmentDeleteParams parameters,
@@ -113,7 +114,7 @@ public interface IEnvironmentServiceWithRawResponse
     IEnvironmentServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /compute/v1/environments`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /compute/v1/environments</c>, but is otherwise the
     /// same as <see cref="IEnvironmentService.Create(EnvironmentCreateParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<EnvironmentCreateResponse>> Create(
@@ -122,7 +123,7 @@ public interface IEnvironmentServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /compute/v1/environments/{name}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /compute/v1/environments/{name}</c>, but is otherwise the
     /// same as <see cref="IEnvironmentService.Retrieve(EnvironmentRetrieveParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<EnvironmentRetrieveResponse>> Retrieve(
@@ -138,7 +139,7 @@ public interface IEnvironmentServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /compute/v1/environments`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /compute/v1/environments</c>, but is otherwise the
     /// same as <see cref="IEnvironmentService.List(EnvironmentListParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<EnvironmentListResponse>> List(
@@ -147,7 +148,7 @@ public interface IEnvironmentServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `delete /compute/v1/environments/{name}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>delete /compute/v1/environments/{name}</c>, but is otherwise the
     /// same as <see cref="IEnvironmentService.Delete(EnvironmentDeleteParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<EnvironmentDeleteResponse>> Delete(
@@ -163,7 +164,7 @@ public interface IEnvironmentServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /compute/v1/environments/{name}/default`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /compute/v1/environments/{name}/default</c>, but is otherwise the
     /// same as <see cref="IEnvironmentService.SetDefault(EnvironmentSetDefaultParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<EnvironmentSetDefaultResponse>> SetDefault(

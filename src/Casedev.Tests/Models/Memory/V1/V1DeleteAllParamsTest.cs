@@ -1,28 +1,10 @@
 using System;
-using System.Linq;
 using Casedev.Models.Memory.V1;
 
 namespace Casedev.Tests.Models.Memory.V1;
 
 public class V1DeleteAllParamsTest : TestBase
 {
-    static readonly char[] QuerySeparators = ['&'];
-    static readonly string[] ExpectedQueryEntries =
-    [
-        "tag_1=tag_1",
-        "tag_10=tag_10",
-        "tag_11=tag_11",
-        "tag_12=tag_12",
-        "tag_2=tag_2",
-        "tag_3=tag_3",
-        "tag_4=tag_4",
-        "tag_5=tag_5",
-        "tag_6=tag_6",
-        "tag_7=tag_7",
-        "tag_8=tag_8",
-        "tag_9=tag_9",
-    ];
-
     [Fact]
     public void FieldRoundtrip_Works()
     {
@@ -167,15 +149,12 @@ public class V1DeleteAllParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        var expectedQuery = ExpectedQueryEntries.OrderBy(x => x);
-
-        var actualQuery = url
-            .Query.TrimStart('?')
-            .Split(QuerySeparators, StringSplitOptions.RemoveEmptyEntries)
-            .OrderBy(x => x);
-
-        Assert.Equal("https://api.case.dev/memory/v1", url.GetLeftPart(UriPartial.Path));
-        Assert.Equal(expectedQuery, actualQuery);
+        Assert.Equal(
+            new Uri(
+                "https://api.case.dev/memory/v1?tag_1=tag_1&tag_10=tag_10&tag_11=tag_11&tag_12=tag_12&tag_2=tag_2&tag_3=tag_3&tag_4=tag_4&tag_5=tag_5&tag_6=tag_6&tag_7=tag_7&tag_8=tag_8&tag_9=tag_9"
+            ),
+            url
+        );
     }
 
     [Fact]

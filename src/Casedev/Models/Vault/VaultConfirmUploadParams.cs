@@ -81,7 +81,7 @@ public record class VaultConfirmUploadParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="IFromRawJson.FromRawUnchecked"/>
+    /// <inheritdoc cref="IFromRawJson{T}.FromRawUnchecked"/>
     public static VaultConfirmUploadParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
@@ -140,9 +140,8 @@ public record class VaultConfirmUploadParams : ParamsBase
 
     internal override HttpContent? BodyContent()
     {
-        var bodyElement = this.RawBodyData["body"];
         return new StringContent(
-            JsonSerializer.Serialize(bodyElement, ModelBase.SerializerOptions),
+            JsonSerializer.Serialize(this.RawBodyData, ModelBase.SerializerOptions),
             Encoding.UTF8,
             "application/json"
         );
@@ -202,7 +201,7 @@ public record class Body : ModelBase
     /// Returns true and sets the <c>out</c> parameter if the instance was constructed with a variant of
     /// type <see cref="VaultConfirmUploadSuccess"/>.
     ///
-    /// <para>Consider using <see cref="Switch"> or <see cref="Match"> if you need to handle every variant.</para>
+    /// <para>Consider using <see cref="Switch"/> or <see cref="Match"/> if you need to handle every variant.</para>
     ///
     /// <example>
     /// <code>
@@ -225,7 +224,7 @@ public record class Body : ModelBase
     /// Returns true and sets the <c>out</c> parameter if the instance was constructed with a variant of
     /// type <see cref="VaultConfirmUploadFailure"/>.
     ///
-    /// <para>Consider using <see cref="Switch"> or <see cref="Match"> if you need to handle every variant.</para>
+    /// <para>Consider using <see cref="Switch"/> or <see cref="Match"/> if you need to handle every variant.</para>
     ///
     /// <example>
     /// <code>
@@ -247,7 +246,7 @@ public record class Body : ModelBase
     /// <summary>
     /// Calls the function parameter corresponding to the variant the instance was constructed with.
     ///
-    /// <para>Use the <c>TryPick</c> method(s) if you don't need to handle every variant, or <see cref="Match">
+    /// <para>Use the <c>TryPick</c> method(s) if you don't need to handle every variant, or <see cref="Match"/>
     /// if you need your function parameters to return something.</para>
     ///
     /// <exception cref="CasedevInvalidDataException">
@@ -258,8 +257,8 @@ public record class Body : ModelBase
     /// <example>
     /// <code>
     /// instance.Switch(
-    ///     (VaultConfirmUploadSuccess value) => {...},
-    ///     (VaultConfirmUploadFailure value) => {...}
+    ///     (VaultConfirmUploadSuccess value) =&gt; {...},
+    ///     (VaultConfirmUploadFailure value) =&gt; {...}
     /// );
     /// </code>
     /// </example>
@@ -286,7 +285,7 @@ public record class Body : ModelBase
     /// Calls the function parameter corresponding to the variant the instance was constructed with and
     /// returns its result.
     ///
-    /// <para>Use the <c>TryPick</c> method(s) if you don't need to handle every variant, or <see cref="Switch">
+    /// <para>Use the <c>TryPick</c> method(s) if you don't need to handle every variant, or <see cref="Switch"/>
     /// if you don't need your function parameters to return a value.</para>
     ///
     /// <exception cref="CasedevInvalidDataException">
@@ -297,8 +296,8 @@ public record class Body : ModelBase
     /// <example>
     /// <code>
     /// var result = instance.Match(
-    ///     (VaultConfirmUploadSuccess value) => {...},
-    ///     (VaultConfirmUploadFailure value) => {...}
+    ///     (VaultConfirmUploadSuccess value) =&gt; {...},
+    ///     (VaultConfirmUploadFailure value) =&gt; {...}
     /// );
     /// </code>
     /// </example>

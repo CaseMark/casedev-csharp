@@ -19,7 +19,7 @@ public class FileServiceTest : TestBase
     public async Task Download_Works()
     {
         await this.client.Agent.V1.Chat.Files.Download(
-            "path",
+            "filePath",
             new() { ID = "id" },
             TestContext.Current.CancellationToken
         );

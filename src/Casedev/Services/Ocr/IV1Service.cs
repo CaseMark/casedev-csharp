@@ -46,8 +46,8 @@ public interface IV1Service
 
     /// <summary>
     /// Download OCR processing results in various formats. Returns the processed
-    /// document as text extraction, structured JSON with coordinates, searchable
-    /// PDF with text layer, or the original uploaded document.
+    /// document as text extraction, structured JSON with coordinates, searchable PDF
+    /// with text layer, or the original uploaded document.
     ///
     /// <para>It's the caller's responsibility to dispose the returned response.</para>
     /// </summary>
@@ -64,9 +64,9 @@ public interface IV1Service
     );
 
     /// <summary>
-    /// Submit a document for OCR processing to extract text, detect tables, forms,
-    /// and other features. Supports PDFs, images, and scanned documents. Returns
-    /// a job ID that can be used to track processing status.
+    /// Submit a document for OCR processing to extract text, detect tables, forms, and
+    /// other features. Supports PDFs, images, and scanned documents. Returns a job ID
+    /// that can be used to track processing status.
     /// </summary>
     Task<V1::V1ProcessResponse> Process(
         V1::V1ProcessParams parameters,
@@ -88,7 +88,7 @@ public interface IV1ServiceWithRawResponse
     IV1ServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /ocr/v1/{id}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /ocr/v1/{id}</c>, but is otherwise the
     /// same as <see cref="IV1Service.Retrieve(V1::V1RetrieveParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1::V1RetrieveResponse>> Retrieve(
@@ -104,7 +104,7 @@ public interface IV1ServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /ocr/v1/{id}/download/{type}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /ocr/v1/{id}/download/{type}</c>, but is otherwise the
     /// same as <see cref="IV1Service.Download(V1::V1DownloadParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> Download(
@@ -120,7 +120,7 @@ public interface IV1ServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /ocr/v1/process`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /ocr/v1/process</c>, but is otherwise the
     /// same as <see cref="IV1Service.Process(V1::V1ProcessParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1::V1ProcessResponse>> Process(

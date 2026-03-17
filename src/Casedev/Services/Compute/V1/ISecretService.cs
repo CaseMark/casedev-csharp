@@ -33,9 +33,9 @@ public interface ISecretService
     /// related secrets for use in serverless functions and workflows. If no environment
     /// is specified, the group is created in the default environment.
     ///
-    /// <para>**Features:** - Organize secrets by logical groups (e.g., database,
-    /// APIs, third-party services) - Environment-based isolation - Validation of
-    /// group names - Conflict detection for existing groups</para>
+    /// <para>**Features:** - Organize secrets by logical groups (e.g., database, APIs,
+    /// third-party services) - Environment-based isolation - Validation of group names
+    /// - Conflict detection for existing groups</para>
     /// </summary>
     Task<SecretCreateResponse> Create(
         SecretCreateParams parameters,
@@ -44,8 +44,8 @@ public interface ISecretService
 
     /// <summary>
     /// Retrieve all secret groups for a compute environment. Secret groups organize
-    /// related secrets (API keys, credentials, etc.) that can be securely accessed
-    /// by compute jobs during execution.
+    /// related secrets (API keys, credentials, etc.) that can be securely accessed by
+    /// compute jobs during execution.
     /// </summary>
     Task<SecretListResponse> List(
         SecretListParams? parameters = null,
@@ -54,8 +54,8 @@ public interface ISecretService
 
     /// <summary>
     /// Delete an entire secret group or a specific key within a secret group. When
-    /// deleting a specific key, the remaining secrets in the group are preserved.
-    /// When deleting the entire group, all secrets and the group itself are removed.
+    /// deleting a specific key, the remaining secrets in the group are preserved. When
+    /// deleting the entire group, all secrets and the group itself are removed.
     /// </summary>
     Task<SecretDeleteGroupResponse> DeleteGroup(
         SecretDeleteGroupParams parameters,
@@ -71,8 +71,8 @@ public interface ISecretService
 
     /// <summary>
     /// Retrieve the keys (names) of secrets in a specified group within a compute
-    /// environment. For security reasons, actual secret values are not returned -
-    /// only the keys and metadata.
+    /// environment. For security reasons, actual secret values are not returned - only
+    /// the keys and metadata.
     /// </summary>
     Task<SecretRetrieveGroupResponse> RetrieveGroup(
         SecretRetrieveGroupParams parameters,
@@ -118,7 +118,7 @@ public interface ISecretServiceWithRawResponse
     ISecretServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /compute/v1/secrets`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /compute/v1/secrets</c>, but is otherwise the
     /// same as <see cref="ISecretService.Create(SecretCreateParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<SecretCreateResponse>> Create(
@@ -127,7 +127,7 @@ public interface ISecretServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /compute/v1/secrets`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /compute/v1/secrets</c>, but is otherwise the
     /// same as <see cref="ISecretService.List(SecretListParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<SecretListResponse>> List(
@@ -136,7 +136,7 @@ public interface ISecretServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `delete /compute/v1/secrets/{group}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>delete /compute/v1/secrets/{group}</c>, but is otherwise the
     /// same as <see cref="ISecretService.DeleteGroup(SecretDeleteGroupParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<SecretDeleteGroupResponse>> DeleteGroup(
@@ -152,7 +152,7 @@ public interface ISecretServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /compute/v1/secrets/{group}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /compute/v1/secrets/{group}</c>, but is otherwise the
     /// same as <see cref="ISecretService.RetrieveGroup(SecretRetrieveGroupParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<SecretRetrieveGroupResponse>> RetrieveGroup(
@@ -168,7 +168,7 @@ public interface ISecretServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `put /compute/v1/secrets/{group}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>put /compute/v1/secrets/{group}</c>, but is otherwise the
     /// same as <see cref="ISecretService.UpdateGroup(SecretUpdateGroupParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<SecretUpdateGroupResponse>> UpdateGroup(

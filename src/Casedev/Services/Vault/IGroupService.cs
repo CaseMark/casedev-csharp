@@ -48,14 +48,14 @@ public interface IGroupService
     );
 
     /// <summary>
-    /// Lists vault groups visible to the authenticated organization. Group-scoped
-    /// API keys only receive groups within their allowed scope.
+    /// Lists vault groups visible to the authenticated organization. Group-scoped API
+    /// keys only receive groups within their allowed scope.
     /// </summary>
     Task List(GroupListParams? parameters = null, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Soft-deletes a vault group that no longer has any active vaults assigned.
-    /// This operation is blocked when the group still contains vaults.
+    /// Soft-deletes a vault group that no longer has any active vaults assigned. This
+    /// operation is blocked when the group still contains vaults.
     /// </summary>
     Task Delete(GroupDeleteParams parameters, CancellationToken cancellationToken = default);
 
@@ -81,7 +81,7 @@ public interface IGroupServiceWithRawResponse
     IGroupServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /vault/groups`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /vault/groups</c>, but is otherwise the
     /// same as <see cref="IGroupService.Create(GroupCreateParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> Create(
@@ -90,7 +90,7 @@ public interface IGroupServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `patch /vault/groups/{groupId}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>patch /vault/groups/{groupId}</c>, but is otherwise the
     /// same as <see cref="IGroupService.Update(GroupUpdateParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> Update(
@@ -106,7 +106,7 @@ public interface IGroupServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /vault/groups`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /vault/groups</c>, but is otherwise the
     /// same as <see cref="IGroupService.List(GroupListParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> List(
@@ -115,7 +115,7 @@ public interface IGroupServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `delete /vault/groups/{groupId}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>delete /vault/groups/{groupId}</c>, but is otherwise the
     /// same as <see cref="IGroupService.Delete(GroupDeleteParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> Delete(

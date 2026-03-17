@@ -20,7 +20,7 @@ public record class FileDownloadParams : ParamsBase
 {
     public required string ID { get; init; }
 
-    public string? Path { get; init; }
+    public string? FilePath { get; init; }
 
     public FileDownloadParams() { }
 
@@ -30,7 +30,7 @@ public record class FileDownloadParams : ParamsBase
         : base(fileDownloadParams)
     {
         this.ID = fileDownloadParams.ID;
-        this.Path = fileDownloadParams.Path;
+        this.FilePath = fileDownloadParams.FilePath;
     }
 #pragma warning restore CS8618
 
@@ -55,7 +55,7 @@ public record class FileDownloadParams : ParamsBase
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="IFromRawJson.FromRawUnchecked"/>
+    /// <inheritdoc cref="IFromRawJson{T}.FromRawUnchecked"/>
     public static FileDownloadParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData
@@ -73,7 +73,7 @@ public record class FileDownloadParams : ParamsBase
                 new Dictionary<string, JsonElement>()
                 {
                     ["ID"] = JsonSerializer.SerializeToElement(this.ID),
-                    ["Path"] = JsonSerializer.SerializeToElement(this.Path),
+                    ["FilePath"] = JsonSerializer.SerializeToElement(this.FilePath),
                     ["HeaderData"] = FriendlyJsonPrinter.PrintValue(
                         JsonSerializer.SerializeToElement(this._rawHeaderData.Freeze())
                     ),
@@ -92,7 +92,7 @@ public record class FileDownloadParams : ParamsBase
             return false;
         }
         return this.ID.Equals(other.ID)
-            && (this.Path?.Equals(other.Path) ?? other.Path == null)
+            && (this.FilePath?.Equals(other.FilePath) ?? other.FilePath == null)
             && this._rawHeaderData.Equals(other._rawHeaderData)
             && this._rawQueryData.Equals(other._rawQueryData);
     }
@@ -101,7 +101,7 @@ public record class FileDownloadParams : ParamsBase
     {
         return new UriBuilder(
             options.BaseUrl.ToString().TrimEnd('/')
-                + string.Format("/agent/v1/chat/{0}/files/{1}", this.ID, this.Path)
+                + string.Format("/agent/v1/chat/{0}/files/{1}", this.ID, this.FilePath)
         )
         {
             Query = this.QueryString(options),

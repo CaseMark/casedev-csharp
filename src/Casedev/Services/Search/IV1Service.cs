@@ -30,9 +30,9 @@ public interface IV1Service
 
     /// <summary>
     /// Generate comprehensive answers to questions using web search results. Supports
-    /// two modes: native provider answers or custom LLM-powered answers using Case.dev's
-    /// AI gateway. Perfect for legal research, fact-checking, and gathering supporting
-    /// evidence for cases.
+    /// two modes: native provider answers or custom LLM-powered answers using
+    /// Case.dev's AI gateway. Perfect for legal research, fact-checking, and gathering
+    /// supporting evidence for cases.
     /// </summary>
     Task<V1AnswerResponse> Answer(
         V1AnswerParams parameters,
@@ -62,8 +62,8 @@ public interface IV1Service
     /// <summary>
     /// Retrieve the status and results of a deep research task by ID. Supports both
     /// standard JSON responses and streaming for real-time updates as the research
-    /// progresses. Research tasks analyze topics comprehensively using web search
-    /// and AI synthesis.
+    /// progresses. Research tasks analyze topics comprehensively using web search and
+    /// AI synthesis.
     /// </summary>
     Task<V1RetrieveResearchResponse> RetrieveResearch(
         V1RetrieveResearchParams parameters,
@@ -78,9 +78,9 @@ public interface IV1Service
     );
 
     /// <summary>
-    /// Executes intelligent web search queries with advanced filtering and customization
-    /// options. Ideal for legal research, case law discovery, and gathering supporting
-    /// documentation for litigation or compliance matters.
+    /// Executes intelligent web search queries with advanced filtering and
+    /// customization options. Ideal for legal research, case law discovery, and
+    /// gathering supporting documentation for litigation or compliance matters.
     /// </summary>
     Task<V1SearchResponse> Search(
         V1SearchParams parameters,
@@ -112,7 +112,7 @@ public interface IV1ServiceWithRawResponse
     IV1ServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /search/v1/answer`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /search/v1/answer</c>, but is otherwise the
     /// same as <see cref="IV1Service.Answer(V1AnswerParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1AnswerResponse>> Answer(
@@ -121,7 +121,7 @@ public interface IV1ServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /search/v1/contents`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /search/v1/contents</c>, but is otherwise the
     /// same as <see cref="IV1Service.Contents(V1ContentsParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1ContentsResponse>> Contents(
@@ -130,7 +130,7 @@ public interface IV1ServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /search/v1/research`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /search/v1/research</c>, but is otherwise the
     /// same as <see cref="IV1Service.Research(V1ResearchParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1ResearchResponse>> Research(
@@ -139,7 +139,7 @@ public interface IV1ServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /search/v1/research/{id}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /search/v1/research/{id}</c>, but is otherwise the
     /// same as <see cref="IV1Service.RetrieveResearch(V1RetrieveResearchParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1RetrieveResearchResponse>> RetrieveResearch(
@@ -155,7 +155,7 @@ public interface IV1ServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /search/v1/search`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /search/v1/search</c>, but is otherwise the
     /// same as <see cref="IV1Service.Search(V1SearchParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1SearchResponse>> Search(
@@ -164,7 +164,7 @@ public interface IV1ServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /search/v1/similar`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /search/v1/similar</c>, but is otherwise the
     /// same as <see cref="IV1Service.Similar(V1SimilarParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<V1SimilarResponse>> Similar(

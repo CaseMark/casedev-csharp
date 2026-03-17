@@ -40,10 +40,10 @@ public interface IVaultService
     IObjectService Objects { get; }
 
     /// <summary>
-    /// Creates a new secure vault with dedicated S3 storage and vector search capabilities.
-    /// Each vault provides isolated document storage with semantic search, OCR processing,
-    /// and optional GraphRAG knowledge graph features for legal document analysis
-    /// and discovery.
+    /// Creates a new secure vault with dedicated S3 storage and vector search
+    /// capabilities. Each vault provides isolated document storage with semantic
+    /// search, OCR processing, and optional GraphRAG knowledge graph features for legal
+    /// document analysis and discovery.
     /// </summary>
     Task<VaultCreateResponse> Create(
         VaultCreateParams parameters,
@@ -51,9 +51,9 @@ public interface IVaultService
     );
 
     /// <summary>
-    /// Retrieve detailed information about a specific vault, including storage configuration,
-    /// chunking strategy, and usage statistics. Returns vault metadata, bucket information,
-    /// and vector storage details.
+    /// Retrieve detailed information about a specific vault, including storage
+    /// configuration, chunking strategy, and usage statistics. Returns vault metadata,
+    /// bucket information, and vector storage details.
     /// </summary>
     Task<VaultRetrieveResponse> Retrieve(
         VaultRetrieveParams parameters,
@@ -112,8 +112,8 @@ public interface IVaultService
 
     /// <summary>
     /// Confirm whether a direct-to-S3 vault upload succeeded or failed. This endpoint
-    /// emits vault.upload.completed or vault.upload.failed events and is idempotent
-    /// for repeated confirmations.
+    /// emits vault.upload.completed or vault.upload.failed events and is idempotent for
+    /// repeated confirmations.
     /// </summary>
     Task<VaultConfirmUploadResponse> ConfirmUpload(
         VaultConfirmUploadParams parameters,
@@ -129,12 +129,13 @@ public interface IVaultService
 
     /// <summary>
     /// Triggers ingestion workflow for a vault object to extract text, generate chunks,
-    /// and create embeddings. For supported file types (PDF, DOCX, PPTX, TXT, RTF,
-    /// XML, ZIP, audio, video), processing happens asynchronously. ZIP archives are
-    /// unpacked recursively up to 5 levels, and each extracted file is created as
-    /// an independent vault object and ingested via the normal pipeline. For unsupported
-    /// types (images, etc.), the file is marked as completed immediately without
-    /// text extraction. GraphRAG indexing must be triggered separately via POST /vault/:id/graphrag/:objectId.
+    /// and create embeddings. For supported file types (PDF, DOCX, PPTX, TXT, RTF, XML,
+    /// ZIP, audio, video), processing happens asynchronously. ZIP archives are unpacked
+    /// recursively up to 5 levels, and each extracted file is created as an independent
+    /// vault object and ingested via the normal pipeline. For unsupported types
+    /// (images, etc.), the file is marked as completed immediately without text
+    /// extraction. GraphRAG indexing must be triggered separately via POST
+    /// /vault/:id/graphrag/:objectId.
     /// </summary>
     Task<VaultIngestResponse> Ingest(
         VaultIngestParams parameters,
@@ -149,9 +150,10 @@ public interface IVaultService
     );
 
     /// <summary>
-    /// Search across vault documents using multiple methods including hybrid vector
-    /// + graph search, GraphRAG global search, entity-based search, and fast similarity
-    /// search. Returns relevant documents and contextual answers based on the search method.
+    /// Search across vault documents using multiple methods including hybrid vector +
+    /// graph search, GraphRAG global search, entity-based search, and fast similarity
+    /// search. Returns relevant documents and contextual answers based on the search
+    /// method.
     /// </summary>
     Task<VaultSearchResponse> Search(
         VaultSearchParams parameters,
@@ -167,8 +169,8 @@ public interface IVaultService
 
     /// <summary>
     /// Generate a presigned URL for uploading files directly to a vault's S3 storage.
-    /// After uploading to S3, confirm the upload result via POST /vault/:vaultId/upload/:objectId/confirm
-    /// before triggering ingestion.
+    /// After uploading to S3, confirm the upload result via POST
+    /// /vault/:vaultId/upload/:objectId/confirm before triggering ingestion.
     /// </summary>
     Task<VaultUploadResponse> Upload(
         VaultUploadParams parameters,
@@ -207,7 +209,7 @@ public interface IVaultServiceWithRawResponse
     IObjectServiceWithRawResponse Objects { get; }
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /vault`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /vault</c>, but is otherwise the
     /// same as <see cref="IVaultService.Create(VaultCreateParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<VaultCreateResponse>> Create(
@@ -216,7 +218,7 @@ public interface IVaultServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /vault/{id}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /vault/{id}</c>, but is otherwise the
     /// same as <see cref="IVaultService.Retrieve(VaultRetrieveParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<VaultRetrieveResponse>> Retrieve(
@@ -232,7 +234,7 @@ public interface IVaultServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `patch /vault/{id}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>patch /vault/{id}</c>, but is otherwise the
     /// same as <see cref="IVaultService.Update(VaultUpdateParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<VaultUpdateResponse>> Update(
@@ -248,7 +250,7 @@ public interface IVaultServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /vault`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /vault</c>, but is otherwise the
     /// same as <see cref="IVaultService.List(VaultListParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<VaultListResponse>> List(
@@ -257,7 +259,7 @@ public interface IVaultServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `delete /vault/{id}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>delete /vault/{id}</c>, but is otherwise the
     /// same as <see cref="IVaultService.Delete(VaultDeleteParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<VaultDeleteResponse>> Delete(
@@ -273,7 +275,7 @@ public interface IVaultServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /vault/{id}/upload/{objectId}/confirm`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /vault/{id}/upload/{objectId}/confirm</c>, but is otherwise the
     /// same as <see cref="IVaultService.ConfirmUpload(VaultConfirmUploadParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<VaultConfirmUploadResponse>> ConfirmUpload(
@@ -289,7 +291,7 @@ public interface IVaultServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /vault/{id}/ingest/{objectId}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /vault/{id}/ingest/{objectId}</c>, but is otherwise the
     /// same as <see cref="IVaultService.Ingest(VaultIngestParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<VaultIngestResponse>> Ingest(
@@ -305,7 +307,7 @@ public interface IVaultServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /vault/{id}/search`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /vault/{id}/search</c>, but is otherwise the
     /// same as <see cref="IVaultService.Search(VaultSearchParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<VaultSearchResponse>> Search(
@@ -321,7 +323,7 @@ public interface IVaultServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /vault/{id}/upload`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /vault/{id}/upload</c>, but is otherwise the
     /// same as <see cref="IVaultService.Upload(VaultUploadParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<VaultUploadResponse>> Upload(

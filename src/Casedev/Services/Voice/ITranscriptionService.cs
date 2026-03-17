@@ -31,12 +31,12 @@ public interface ITranscriptionService
     /// <summary>
     /// Creates an asynchronous transcription job for audio files. Supports two modes:
     ///
-    /// <para>**Vault-based (recommended)**: Pass `vault_id` and `object_id` to transcribe
-    /// audio from your vault. The transcript will automatically be saved back to
-    /// the vault when complete.</para>
+    /// <para>**Vault-based (recommended)**: Pass `vault_id` and `object_id` to
+    /// transcribe audio from your vault. The transcript will automatically be saved
+    /// back to the vault when complete.</para>
     ///
-    /// <para>**Direct URL (legacy)**: Pass `audio_url` for direct transcription
-    /// without automatic storage.</para>
+    /// <para>**Direct URL (legacy)**: Pass `audio_url` for direct transcription without
+    /// automatic storage.</para>
     /// </summary>
     Task<TranscriptionCreateResponse> Create(
         TranscriptionCreateParams? parameters = null,
@@ -45,8 +45,8 @@ public interface ITranscriptionService
 
     /// <summary>
     /// Retrieve the status and result of an audio transcription job. For vault-based
-    /// jobs, returns status and result_object_id when complete. For legacy direct
-    /// URL jobs, returns the full transcription data.
+    /// jobs, returns status and result_object_id when complete. For legacy direct URL
+    /// jobs, returns the full transcription data.
     /// </summary>
     Task<TranscriptionRetrieveResponse> Retrieve(
         TranscriptionRetrieveParams parameters,
@@ -92,7 +92,7 @@ public interface ITranscriptionServiceWithRawResponse
     ITranscriptionServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /voice/transcription`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /voice/transcription</c>, but is otherwise the
     /// same as <see cref="ITranscriptionService.Create(TranscriptionCreateParams?, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<TranscriptionCreateResponse>> Create(
@@ -101,7 +101,7 @@ public interface ITranscriptionServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /voice/transcription/{id}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /voice/transcription/{id}</c>, but is otherwise the
     /// same as <see cref="ITranscriptionService.Retrieve(TranscriptionRetrieveParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<TranscriptionRetrieveResponse>> Retrieve(
@@ -117,7 +117,7 @@ public interface ITranscriptionServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `delete /voice/transcription/{id}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>delete /voice/transcription/{id}</c>, but is otherwise the
     /// same as <see cref="ITranscriptionService.Delete(TranscriptionDeleteParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse> Delete(
