@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.10.2 (2026-03-17)
+
+Full Changelog: [v0.10.1...v0.10.2](https://github.com/CaseMark/casedev-csharp/compare/v0.10.1...v0.10.2)
+
+### Chores
+
+* remove custom code ([8fb1287](https://github.com/CaseMark/casedev-csharp/commit/8fb12871f88878c528f96b111e8cdc2229050bb7))
+
 ## 0.10.1 (2026-03-13)
 
 Full Changelog: [v0.10.0...v0.10.1](https://github.com/CaseMark/casedev-csharp/compare/v0.10.0...v0.10.1)
