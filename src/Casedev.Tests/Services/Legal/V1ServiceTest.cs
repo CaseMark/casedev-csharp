@@ -106,6 +106,16 @@ public class V1ServiceTest : TestBase
     }
 
     [Fact]
+    public async Task SecFiling_Works()
+    {
+        var response = await this.client.Legal.V1.SecFiling(
+            new() { Type = V1SecFilingParamsType.Search },
+            TestContext.Current.CancellationToken
+        );
+        response.Validate();
+    }
+
+    [Fact]
     public async Task Similar_Works()
     {
         var response = await this.client.Legal.V1.Similar(
