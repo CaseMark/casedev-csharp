@@ -6,9 +6,9 @@ namespace Casedev.Tests.Models.Memory.V1;
 
 public class V1ListParamsTest : TestBase
 {
-    static readonly char[] QuerySeparators = new[] { '&' };
-    static readonly string[] ExpectedQueryEntries = new[]
-    {
+    static readonly char[] QuerySeparators = ['&'];
+    static readonly string[] ExpectedQueryEntries =
+    [
         "category=category",
         "limit=0",
         "offset=0",
@@ -24,7 +24,7 @@ public class V1ListParamsTest : TestBase
         "tag_7=tag_7",
         "tag_8=tag_8",
         "tag_9=tag_9",
-    };
+    ];
 
     [Fact]
     public void FieldRoundtrip_Works()

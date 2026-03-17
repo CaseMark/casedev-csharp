@@ -6,9 +6,9 @@ namespace Casedev.Tests.Models.Memory.V1;
 
 public class V1DeleteAllParamsTest : TestBase
 {
-    static readonly char[] QuerySeparators = new[] { '&' };
-    static readonly string[] ExpectedQueryEntries = new[]
-    {
+    static readonly char[] QuerySeparators = ['&'];
+    static readonly string[] ExpectedQueryEntries =
+    [
         "tag_1=tag_1",
         "tag_10=tag_10",
         "tag_11=tag_11",
@@ -21,7 +21,7 @@ public class V1DeleteAllParamsTest : TestBase
         "tag_7=tag_7",
         "tag_8=tag_8",
         "tag_9=tag_9",
-    };
+    ];
 
     [Fact]
     public void FieldRoundtrip_Works()
