@@ -5,7 +5,6 @@ using Casedev.Models.Applications.V1.Deployments;
 using Casedev.Models.Format.V1;
 using Casedev.Models.Llm.V1;
 using Casedev.Models.Llm.V1.Chat;
-using Casedev.Models.Operator.V1;
 using Casedev.Models.Privilege.V1;
 using Casedev.Models.Skills;
 using Casedev.Models.Translate.V1;
@@ -90,6 +89,7 @@ public abstract record class ModelBase
             new ApiEnumConverter<string, V1::V1DocketResponseType>(),
             new ApiEnumConverter<string, V1::Status>(),
             new ApiEnumConverter<string, V1::Level>(),
+            new ApiEnumConverter<string, V1::V1SecFilingResponseType>(),
             new ApiEnumConverter<string, V1::V1VerifyResponseCitationStatus>(),
             new ApiEnumConverter<string, V1::VerificationSource>(),
             new ApiEnumConverter<string, V1::Type>(),
@@ -98,6 +98,7 @@ public abstract record class ModelBase
             new ApiEnumConverter<string, V1::ApplicationType>(),
             new ApiEnumConverter<string, V1::SortBy>(),
             new ApiEnumConverter<string, V1::SortOrder>(),
+            new ApiEnumConverter<string, V1::V1SecFilingParamsType>(),
             new ApiEnumConverter<string, EncodingFormat>(),
             new ApiEnumConverter<string, Role>(),
             new ApiEnumConverter<string, MemoryV1::Event>(),
@@ -110,7 +111,6 @@ public abstract record class ModelBase
             new ApiEnumConverter<string, Recommendation>(),
             new ApiEnumConverter<string, Category>(),
             new ApiEnumConverter<string, Jurisdiction>(),
-            new ApiEnumConverter<string, Size>(),
             new ApiEnumConverter<string, Source>(),
             new ApiEnumConverter<string, ResultSource>(),
             new ApiEnumConverter<string, SearchV1::V1RetrieveResearchResponseModel>(),

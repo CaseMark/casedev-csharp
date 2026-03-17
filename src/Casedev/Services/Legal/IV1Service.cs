@@ -127,6 +127,16 @@ public interface IV1Service
     );
 
     /// <summary>
+    /// Search SEC EDGAR full-text filings via efts.sec.gov or fetch a filer's
+    /// structured filing history via data.sec.gov. Returns direct SEC archive URLs with
+    /// filing metadata and match snippets when available.
+    /// </summary>
+    Task<V1SecFilingResponse> SecFiling(
+        V1SecFilingParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
     /// Find cases and documents similar to a given legal source. Useful for finding
     /// citing cases, related precedents, or similar statutes.
     /// </summary>
@@ -258,6 +268,15 @@ public interface IV1ServiceWithRawResponse
     /// </summary>
     Task<HttpResponse<V1ResearchResponse>> Research(
         V1ResearchParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for <c>post /legal/v1/sec-filing</c>, but is otherwise the
+    /// same as <see cref="IV1Service.SecFiling(V1SecFilingParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<V1SecFilingResponse>> SecFiling(
+        V1SecFilingParams parameters,
         CancellationToken cancellationToken = default
     );
 
