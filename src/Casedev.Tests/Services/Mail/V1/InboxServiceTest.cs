@@ -57,6 +57,16 @@ public class InboxServiceTest : TestBase
     }
 
     [Fact]
+    public async Task GetPolicy_Works()
+    {
+        await this.client.Mail.V1.Inboxes.GetPolicy(
+            "inboxId",
+            new(),
+            TestContext.Current.CancellationToken
+        );
+    }
+
+    [Fact]
     public async Task ListMessages_Works()
     {
         await this.client.Mail.V1.Inboxes.ListMessages(
@@ -80,6 +90,16 @@ public class InboxServiceTest : TestBase
     public async Task Send_Works()
     {
         await this.client.Mail.V1.Inboxes.Send(
+            "inboxId",
+            new(),
+            TestContext.Current.CancellationToken
+        );
+    }
+
+    [Fact]
+    public async Task SetPolicy_Works()
+    {
+        await this.client.Mail.V1.Inboxes.SetPolicy(
             "inboxId",
             new(),
             TestContext.Current.CancellationToken
