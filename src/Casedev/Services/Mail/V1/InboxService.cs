@@ -134,6 +134,28 @@ public sealed class InboxService : IInboxService
     }
 
     /// <inheritdoc/>
+    public Task GetPolicy(
+        InboxGetPolicyParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return this.WithRawResponse.GetPolicy(parameters, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async Task GetPolicy(
+        string inboxID,
+        InboxGetPolicyParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        await this.GetPolicy(parameters with { InboxID = inboxID }, cancellationToken)
+            .ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
     public Task ListMessages(
         InboxListMessagesParams parameters,
         CancellationToken cancellationToken = default
@@ -188,6 +210,28 @@ public sealed class InboxService : IInboxService
         parameters ??= new();
 
         await this.Send(parameters with { InboxID = inboxID }, cancellationToken)
+            .ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public Task SetPolicy(
+        InboxSetPolicyParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return this.WithRawResponse.SetPolicy(parameters, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async Task SetPolicy(
+        string inboxID,
+        InboxSetPolicyParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        await this.SetPolicy(parameters with { InboxID = inboxID }, cancellationToken)
             .ConfigureAwait(false);
     }
 }
@@ -367,6 +411,37 @@ public sealed class InboxServiceWithRawResponse : IInboxServiceWithRawResponse
     }
 
     /// <inheritdoc/>
+    public Task<HttpResponse> GetPolicy(
+        InboxGetPolicyParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        if (parameters.InboxID == null)
+        {
+            throw new CasedevInvalidDataException("'parameters.InboxID' cannot be null");
+        }
+
+        HttpRequest<InboxGetPolicyParams> request = new()
+        {
+            Method = HttpMethod.Get,
+            Params = parameters,
+        };
+        return this._client.Execute(request, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public Task<HttpResponse> GetPolicy(
+        string inboxID,
+        InboxGetPolicyParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        return this.GetPolicy(parameters with { InboxID = inboxID }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
     public Task<HttpResponse> ListMessages(
         InboxListMessagesParams parameters,
         CancellationToken cancellationToken = default
@@ -455,5 +530,36 @@ public sealed class InboxServiceWithRawResponse : IInboxServiceWithRawResponse
         parameters ??= new();
 
         return this.Send(parameters with { InboxID = inboxID }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public Task<HttpResponse> SetPolicy(
+        InboxSetPolicyParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        if (parameters.InboxID == null)
+        {
+            throw new CasedevInvalidDataException("'parameters.InboxID' cannot be null");
+        }
+
+        HttpRequest<InboxSetPolicyParams> request = new()
+        {
+            Method = HttpMethod.Put,
+            Params = parameters,
+        };
+        return this._client.Execute(request, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public Task<HttpResponse> SetPolicy(
+        string inboxID,
+        InboxSetPolicyParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        return this.SetPolicy(parameters with { InboxID = inboxID }, cancellationToken);
     }
 }

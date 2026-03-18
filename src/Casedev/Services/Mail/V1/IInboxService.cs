@@ -98,6 +98,19 @@ public interface IInboxService
     );
 
     /// <summary>
+    /// Get the sender allowlist and send/reply/read access rules for an inbox owned by
+    /// the authenticated organization.
+    /// </summary>
+    Task GetPolicy(InboxGetPolicyParams parameters, CancellationToken cancellationToken = default);
+
+    /// <inheritdoc cref="GetPolicy(InboxGetPolicyParams, CancellationToken)"/>
+    Task GetPolicy(
+        string inboxID,
+        InboxGetPolicyParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
     /// List messages for an inbox owned by the authenticated organization.
     /// </summary>
     Task ListMessages(
@@ -133,6 +146,19 @@ public interface IInboxService
     Task Send(
         string inboxID,
         InboxSendParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Set the sender allowlist and send/reply/read access rules for an inbox owned by
+    /// the authenticated organization.
+    /// </summary>
+    Task SetPolicy(InboxSetPolicyParams parameters, CancellationToken cancellationToken = default);
+
+    /// <inheritdoc cref="SetPolicy(InboxSetPolicyParams, CancellationToken)"/>
+    Task SetPolicy(
+        string inboxID,
+        InboxSetPolicyParams? parameters = null,
         CancellationToken cancellationToken = default
     );
 }
@@ -233,6 +259,22 @@ public interface IInboxServiceWithRawResponse
     );
 
     /// <summary>
+    /// Returns a raw HTTP response for <c>get /mail/v1/inboxes/{inboxId}/policy</c>, but is otherwise the
+    /// same as <see cref="IInboxService.GetPolicy(InboxGetPolicyParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> GetPolicy(
+        InboxGetPolicyParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="GetPolicy(InboxGetPolicyParams, CancellationToken)"/>
+    Task<HttpResponse> GetPolicy(
+        string inboxID,
+        InboxGetPolicyParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
     /// Returns a raw HTTP response for <c>get /mail/v1/inboxes/{inboxId}/messages</c>, but is otherwise the
     /// same as <see cref="IInboxService.ListMessages(InboxListMessagesParams, CancellationToken)"/>.
     /// </summary>
@@ -277,6 +319,22 @@ public interface IInboxServiceWithRawResponse
     Task<HttpResponse> Send(
         string inboxID,
         InboxSendParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for <c>put /mail/v1/inboxes/{inboxId}/policy</c>, but is otherwise the
+    /// same as <see cref="IInboxService.SetPolicy(InboxSetPolicyParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> SetPolicy(
+        InboxSetPolicyParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="SetPolicy(InboxSetPolicyParams, CancellationToken)"/>
+    Task<HttpResponse> SetPolicy(
+        string inboxID,
+        InboxSetPolicyParams? parameters = null,
         CancellationToken cancellationToken = default
     );
 }
