@@ -49,23 +49,35 @@ public record class InboxGetAttachmentParams : ParamsBase
     [SetsRequiredMembers]
     InboxGetAttachmentParams(
         FrozenDictionary<string, JsonElement> rawHeaderData,
-        FrozenDictionary<string, JsonElement> rawQueryData
+        FrozenDictionary<string, JsonElement> rawQueryData,
+        string inboxID,
+        string messageID,
+        string attachmentID
     )
     {
         this._rawHeaderData = new(rawHeaderData);
         this._rawQueryData = new(rawQueryData);
+        this.InboxID = inboxID;
+        this.MessageID = messageID;
+        this.AttachmentID = attachmentID;
     }
 #pragma warning restore CS8618
 
     /// <inheritdoc cref="IFromRawJson{T}.FromRawUnchecked"/>
     public static InboxGetAttachmentParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
-        IReadOnlyDictionary<string, JsonElement> rawQueryData
+        IReadOnlyDictionary<string, JsonElement> rawQueryData,
+        string inboxID,
+        string messageID,
+        string attachmentID
     )
     {
         return new(
             FrozenDictionary.ToFrozenDictionary(rawHeaderData),
-            FrozenDictionary.ToFrozenDictionary(rawQueryData)
+            FrozenDictionary.ToFrozenDictionary(rawQueryData),
+            inboxID,
+            messageID,
+            attachmentID
         );
     }
 
