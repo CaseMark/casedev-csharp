@@ -29,12 +29,19 @@ public sealed class AgentService : IAgentService
 
         _withRawResponse = new(() => new AgentServiceWithRawResponse(client.WithRawResponse));
         _v1 = new(() => new V1Service(client));
+        _v2 = new(() => new V2Service(client));
     }
 
     readonly Lazy<IV1Service> _v1;
     public IV1Service V1
     {
         get { return _v1.Value; }
+    }
+
+    readonly Lazy<IV2Service> _v2;
+    public IV2Service V2
+    {
+        get { return _v2.Value; }
     }
 }
 
@@ -54,11 +61,18 @@ public sealed class AgentServiceWithRawResponse : IAgentServiceWithRawResponse
         _client = client;
 
         _v1 = new(() => new V1ServiceWithRawResponse(client));
+        _v2 = new(() => new V2ServiceWithRawResponse(client));
     }
 
     readonly Lazy<IV1ServiceWithRawResponse> _v1;
     public IV1ServiceWithRawResponse V1
     {
         get { return _v1.Value; }
+    }
+
+    readonly Lazy<IV2ServiceWithRawResponse> _v2;
+    public IV2ServiceWithRawResponse V2
+    {
+        get { return _v2.Value; }
     }
 }
