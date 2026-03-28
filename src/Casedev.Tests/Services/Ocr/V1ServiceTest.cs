@@ -16,7 +16,7 @@ public class V1ServiceTest : TestBase
         v1.Validate();
     }
 
-    [Fact(Skip = "Mock server doesn't support application/octet-stream responses")]
+    [Fact]
     public async Task Download_Works()
     {
         await this.client.Ocr.V1.Download(

@@ -114,6 +114,12 @@ public sealed class CasedevClient : ICasedevClient
         get { return _legal.Value; }
     }
 
+    readonly Lazy<IMatterService> _matters;
+    public IMatterService Matters
+    {
+        get { return _matters.Value; }
+    }
+
     readonly Lazy<ILlmService> _llm;
     public ILlmService Llm
     {
@@ -194,6 +200,7 @@ public sealed class CasedevClient : ICasedevClient
         _database = new(() => new DatabaseService(this));
         _format = new(() => new FormatService(this));
         _legal = new(() => new LegalService(this));
+        _matters = new(() => new MatterService(this));
         _llm = new(() => new LlmService(this));
         _memory = new(() => new MemoryService(this));
         _ocr = new(() => new OcrService(this));
@@ -320,6 +327,12 @@ public sealed class CasedevClientWithRawResponse : ICasedevClientWithRawResponse
     public ILegalServiceWithRawResponse Legal
     {
         get { return _legal.Value; }
+    }
+
+    readonly Lazy<IMatterServiceWithRawResponse> _matters;
+    public IMatterServiceWithRawResponse Matters
+    {
+        get { return _matters.Value; }
     }
 
     readonly Lazy<ILlmServiceWithRawResponse> _llm;
@@ -593,6 +606,7 @@ public sealed class CasedevClientWithRawResponse : ICasedevClientWithRawResponse
         _database = new(() => new DatabaseServiceWithRawResponse(this));
         _format = new(() => new FormatServiceWithRawResponse(this));
         _legal = new(() => new LegalServiceWithRawResponse(this));
+        _matters = new(() => new MatterServiceWithRawResponse(this));
         _llm = new(() => new LlmServiceWithRawResponse(this));
         _memory = new(() => new MemoryServiceWithRawResponse(this));
         _ocr = new(() => new OcrServiceWithRawResponse(this));

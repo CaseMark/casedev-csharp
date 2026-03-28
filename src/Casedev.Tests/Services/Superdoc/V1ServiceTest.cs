@@ -5,7 +5,7 @@ namespace Casedev.Tests.Services.Superdoc;
 
 public class V1ServiceTest : TestBase
 {
-    [Fact(Skip = "Mock server doesn't support application/pdf responses")]
+    [Fact]
     public async Task Annotate_Works()
     {
         await this.client.Superdoc.V1.Annotate(
@@ -28,7 +28,7 @@ public class V1ServiceTest : TestBase
         );
     }
 
-    [Fact(Skip = "Mock server doesn't support application/pdf responses")]
+    [Fact]
     public async Task Convert_Works()
     {
         await this.client.Superdoc.V1.Convert(

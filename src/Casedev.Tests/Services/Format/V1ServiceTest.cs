@@ -5,7 +5,7 @@ namespace Casedev.Tests.Services.Format;
 
 public class V1ServiceTest : TestBase
 {
-    [Fact(Skip = "Mock server doesn't support application/pdf responses")]
+    [Fact]
     public async Task CreateDocument_Works()
     {
         await this.client.Format.V1.CreateDocument(

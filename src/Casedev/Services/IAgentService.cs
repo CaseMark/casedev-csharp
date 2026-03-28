@@ -25,6 +25,8 @@ public interface IAgentService
     IAgentService WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     IV1Service V1 { get; }
+
+    IV2Service V2 { get; }
 }
 
 /// <summary>
@@ -41,4 +43,6 @@ public interface IAgentServiceWithRawResponse
     IAgentServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     IV1ServiceWithRawResponse V1 { get; }
+
+    IV2ServiceWithRawResponse V2 { get; }
 }

@@ -53,7 +53,7 @@ public class ChatServiceTest : TestBase
         );
     }
 
-    [Fact(Skip = "Mock server doesn't support text/event-stream responses")]
+    [Fact]
     public async Task RespondStreaming_Works()
     {
         var stream = this.client.Agent.V1.Chat.RespondStreaming(
@@ -75,7 +75,7 @@ public class ChatServiceTest : TestBase
         );
     }
 
-    [Fact(Skip = "Mock server doesn't support text/event-stream responses")]
+    [Fact]
     public async Task StreamStreaming_Works()
     {
         var stream = this.client.Agent.V1.Chat.StreamStreaming(

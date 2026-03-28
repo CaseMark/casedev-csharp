@@ -59,7 +59,7 @@ public class ObjectServiceTest : TestBase
         response.Validate();
     }
 
-    [Fact(Skip = "Mock server doesn't support application/octet-stream responses")]
+    [Fact]
     public async Task Download_Works()
     {
         await this.client.Vault.Objects.Download(

@@ -22,11 +22,7 @@ namespace Casedev.Models.Vault;
 /// </summary>
 public record class VaultConfirmUploadParams : ParamsBase
 {
-    readonly JsonDictionary _rawBodyData = new();
-    public IReadOnlyDictionary<string, JsonElement> RawBodyData
-    {
-        get { return this._rawBodyData.Freeze(); }
-    }
+    public JsonElement RawBodyData { get; private init; }
 
     public required string ID { get; init; }
 
@@ -34,12 +30,8 @@ public record class VaultConfirmUploadParams : ParamsBase
 
     public required Body Body
     {
-        get
-        {
-            this._rawBodyData.Freeze();
-            return this._rawBodyData.GetNotNullClass<Body>("body");
-        }
-        init { this._rawBodyData.Set("body", value); }
+        get { return WrappedJsonSerializer.GetNotNullClass<Body>(this.RawBodyData, "RawBodyData"); }
+        init { this.RawBodyData = JsonSerializer.SerializeToElement(value); }
     }
 
     public VaultConfirmUploadParams() { }
@@ -52,19 +44,19 @@ public record class VaultConfirmUploadParams : ParamsBase
         this.ID = vaultConfirmUploadParams.ID;
         this.ObjectID = vaultConfirmUploadParams.ObjectID;
 
-        this._rawBodyData = new(vaultConfirmUploadParams._rawBodyData);
+        this.RawBodyData = vaultConfirmUploadParams.RawBodyData;
     }
 #pragma warning restore CS8618
 
     public VaultConfirmUploadParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
-        IReadOnlyDictionary<string, JsonElement> rawBodyData
+        JsonElement rawBodyData
     )
     {
         this._rawHeaderData = new(rawHeaderData);
         this._rawQueryData = new(rawQueryData);
-        this._rawBodyData = new(rawBodyData);
+        this.RawBodyData = rawBodyData;
     }
 
 #pragma warning disable CS8618
@@ -72,12 +64,16 @@ public record class VaultConfirmUploadParams : ParamsBase
     VaultConfirmUploadParams(
         FrozenDictionary<string, JsonElement> rawHeaderData,
         FrozenDictionary<string, JsonElement> rawQueryData,
-        FrozenDictionary<string, JsonElement> rawBodyData
+        JsonElement rawBodyData,
+        string id,
+        string objectID
     )
     {
         this._rawHeaderData = new(rawHeaderData);
         this._rawQueryData = new(rawQueryData);
-        this._rawBodyData = new(rawBodyData);
+        this.RawBodyData = rawBodyData;
+        this.ID = id;
+        this.ObjectID = objectID;
     }
 #pragma warning restore CS8618
 
@@ -85,13 +81,17 @@ public record class VaultConfirmUploadParams : ParamsBase
     public static VaultConfirmUploadParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
-        IReadOnlyDictionary<string, JsonElement> rawBodyData
+        JsonElement rawBodyData,
+        string id,
+        string objectID
     )
     {
         return new(
             FrozenDictionary.ToFrozenDictionary(rawHeaderData),
             FrozenDictionary.ToFrozenDictionary(rawQueryData),
-            FrozenDictionary.ToFrozenDictionary(rawBodyData)
+            rawBodyData,
+            id,
+            objectID
         );
     }
 
@@ -108,7 +108,7 @@ public record class VaultConfirmUploadParams : ParamsBase
                     ["QueryData"] = FriendlyJsonPrinter.PrintValue(
                         JsonSerializer.SerializeToElement(this._rawQueryData.Freeze())
                     ),
-                    ["BodyData"] = FriendlyJsonPrinter.PrintValue(this._rawBodyData.Freeze()),
+                    ["BodyData"] = FriendlyJsonPrinter.PrintValue(this.RawBodyData),
                 }
             ),
             ModelBase.ToStringSerializerOptions
@@ -124,7 +124,7 @@ public record class VaultConfirmUploadParams : ParamsBase
             && (this.ObjectID?.Equals(other.ObjectID) ?? other.ObjectID == null)
             && this._rawHeaderData.Equals(other._rawHeaderData)
             && this._rawQueryData.Equals(other._rawQueryData)
-            && this._rawBodyData.Equals(other._rawBodyData);
+            && this.RawBodyData.Equals(other.RawBodyData);
     }
 
     public override Uri Url(ClientOptions options)
