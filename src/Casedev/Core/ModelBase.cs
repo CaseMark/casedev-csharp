@@ -4,7 +4,10 @@ using Casedev.Models.Agent.V1.Run;
 using Casedev.Models.Applications.V1.Deployments;
 using Casedev.Models.Format.V1;
 using Casedev.Models.Llm.V1;
-using Casedev.Models.Llm.V1.Chat;
+using Casedev.Models.Matters.V1.Log;
+using Casedev.Models.Matters.V1.MatterParties;
+using Casedev.Models.Matters.V1.Shares;
+using Casedev.Models.Matters.V1.Types;
 using Casedev.Models.Privilege.V1;
 using Casedev.Models.Skills;
 using Casedev.Models.Translate.V1;
@@ -15,18 +18,25 @@ using Environments = Casedev.Models.Compute.V1.Environments;
 using Execute = Casedev.Models.Agent.V1.Execute;
 using Graphrag = Casedev.Models.Vault.Graphrag;
 using Instances = Casedev.Models.Compute.V1.Instances;
+using MattersV1 = Casedev.Models.Matters.V1;
 using MemoryV1 = Casedev.Models.Memory.V1;
 using Objects = Casedev.Models.Vault.Objects;
 using OcrV1 = Casedev.Models.Ocr.V1;
+using Parties = Casedev.Models.Matters.V1.Parties;
 using Projects = Casedev.Models.Applications.V1.Projects;
+using Run = Casedev.Models.Agent.V2.Run;
 using SearchV1 = Casedev.Models.Search.V1;
 using Speak = Casedev.Models.Voice.V1.Speak;
 using SuperdocV1 = Casedev.Models.Superdoc.V1;
 using Templates = Casedev.Models.Format.V1.Templates;
 using Transcription = Casedev.Models.Voice.Transcription;
 using V1 = Casedev.Models.Legal.V1;
+using V1Chat = Casedev.Models.Llm.V1.Chat;
 using V1Projects = Casedev.Models.Database.V1.Projects;
+using V2Chat = Casedev.Models.Agent.V2.Chat;
+using V2Execute = Casedev.Models.Agent.V2.Execute;
 using Vault = Casedev.Models.Vault;
+using WorkItems = Casedev.Models.Matters.V1.WorkItems;
 
 namespace Casedev.Core;
 
@@ -59,6 +69,17 @@ public abstract record class ModelBase
             new ApiEnumConverter<string, Execute::Status>(),
             new ApiEnumConverter<string, Chat::Type>(),
             new ApiEnumConverter<string, Chat::ChatSendMessageParamsPartType>(),
+            new ApiEnumConverter<string, Run::Status>(),
+            new ApiEnumConverter<string, Run::Provider>(),
+            new ApiEnumConverter<string, Run::RuntimeState>(),
+            new ApiEnumConverter<string, Run::RunExecResponseStatus>(),
+            new ApiEnumConverter<string, Run::RunGetStatusResponseStatus>(),
+            new ApiEnumConverter<string, V2Execute::Provider>(),
+            new ApiEnumConverter<string, V2Execute::RuntimeState>(),
+            new ApiEnumConverter<string, V2Execute::Status>(),
+            new ApiEnumConverter<string, V2Chat::Provider>(),
+            new ApiEnumConverter<string, V2Chat::Type>(),
+            new ApiEnumConverter<string, V2Chat::ChatSendMessageParamsPartType>(),
             new ApiEnumConverter<string, Target>(),
             new ApiEnumConverter<string, DeploymentListParamsTarget>(),
             new ApiEnumConverter<string, Projects::Target>(),
@@ -99,8 +120,23 @@ public abstract record class ModelBase
             new ApiEnumConverter<string, V1::SortBy>(),
             new ApiEnumConverter<string, V1::SortOrder>(),
             new ApiEnumConverter<string, V1::V1SecFilingParamsType>(),
-            new ApiEnumConverter<string, EncodingFormat>(),
+            new ApiEnumConverter<string, MattersV1::Status>(),
+            new ApiEnumConverter<string, MattersV1::V1UpdateParamsStatus>(),
+            new ApiEnumConverter<string, Parties::Type>(),
+            new ApiEnumConverter<string, Parties::PartyListParamsType>(),
+            new ApiEnumConverter<string, OrchestrationMode>(),
+            new ApiEnumConverter<string, TypeUpdateParamsOrchestrationMode>(),
+            new ApiEnumConverter<string, LogExportParamsFormat>(),
             new ApiEnumConverter<string, Role>(),
+            new ApiEnumConverter<string, Permission>(),
+            new ApiEnumConverter<string, WorkItems::Priority>(),
+            new ApiEnumConverter<string, WorkItems::Type>(),
+            new ApiEnumConverter<string, WorkItems::WorkItemUpdateParamsPriority>(),
+            new ApiEnumConverter<string, WorkItems::Status>(),
+            new ApiEnumConverter<string, WorkItems::WorkItemUpdateParamsType>(),
+            new ApiEnumConverter<string, WorkItems::Decision>(),
+            new ApiEnumConverter<string, EncodingFormat>(),
+            new ApiEnumConverter<string, V1Chat::Role>(),
             new ApiEnumConverter<string, MemoryV1::Event>(),
             new ApiEnumConverter<string, MemoryV1::Role>(),
             new ApiEnumConverter<string, OcrV1::Status>(),

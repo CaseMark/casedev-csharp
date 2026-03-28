@@ -68,6 +68,8 @@ public interface ICasedevClient : IDisposable
 
     ILegalService Legal { get; }
 
+    IMatterService Matters { get; }
+
     ILlmService Llm { get; }
 
     IMemoryService Memory { get; }
@@ -136,6 +138,8 @@ public interface ICasedevClientWithRawResponse : IDisposable
     IFormatServiceWithRawResponse Format { get; }
 
     ILegalServiceWithRawResponse Legal { get; }
+
+    IMatterServiceWithRawResponse Matters { get; }
 
     ILlmServiceWithRawResponse Llm { get; }
 
