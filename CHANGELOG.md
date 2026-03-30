@@ -1,5 +1,37 @@
 # Changelog
 
+## 0.12.0 (2026-03-30)
+
+Full Changelog: [v0.11.0...v0.12.0](https://github.com/CaseMark/casedev-csharp/compare/v0.11.0...v0.12.0)
+
+### Features
+
+* **api:** api update ([ba75302](https://github.com/CaseMark/casedev-csharp/commit/ba7530213373e823c1d67be45b901bec16cb472d))
+* **api:** api update ([30f0e00](https://github.com/CaseMark/casedev-csharp/commit/30f0e0048d1a2745a3ebf8cf7d295a4f63c23817))
+* **api:** api update ([ac61d2f](https://github.com/CaseMark/casedev-csharp/commit/ac61d2fea66c8555e916e00e529663eb0acd84fd))
+
+
+### Bug Fixes
+
+* **client:** handle path params correctly in `FromRawUnchecked` ([6620a04](https://github.com/CaseMark/casedev-csharp/commit/6620a044f85ee189347ff3785beb19f5ea6cd74b))
+* **client:** handle root bodies in requests properly ([beb2338](https://github.com/CaseMark/casedev-csharp/commit/beb233849f6936dbc9cf3bad2a475a9e9ee65f34))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([b0bda68](https://github.com/CaseMark/casedev-csharp/commit/b0bda68f995b6097558575abd0270928d5b92f3c))
+* **internal:** update gitignore ([5c49639](https://github.com/CaseMark/casedev-csharp/commit/5c49639a7a9b0eed3c4f2ae085d041e27f67d060))
+* **internal:** update multipart form array serialization ([fefdc59](https://github.com/CaseMark/casedev-csharp/commit/fefdc598d56b4d11c612d6c0f7bd9090f7b4708f))
+* **tests:** bump steady to v0.19.4 ([63a53bb](https://github.com/CaseMark/casedev-csharp/commit/63a53bb7bb2eee3d1d9d545a7973515c765999f3))
+* **tests:** bump steady to v0.19.5 ([513e55b](https://github.com/CaseMark/casedev-csharp/commit/513e55b1aed6235a484e7c69b053e89a2df14bc9))
+* **tests:** bump steady to v0.19.6 ([fe11349](https://github.com/CaseMark/casedev-csharp/commit/fe1134902f3d27466ac73dbd1d6abd57d32f01ef))
+* **tests:** bump steady to v0.19.7 ([f7b55bf](https://github.com/CaseMark/casedev-csharp/commit/f7b55bf16e4fd66d4bfbe8fa35568216554ceec6))
+
+
+### Refactors
+
+* **tests:** switch from prism to steady ([fe2629c](https://github.com/CaseMark/casedev-csharp/commit/fe2629c56adc83ad15332e4e802bfe3b6f6cf915))
+
 ## 0.11.0 (2026-03-17)
 
 Full Changelog: [v0.10.2...v0.11.0](https://github.com/CaseMark/casedev-csharp/compare/v0.10.2...v0.11.0)
