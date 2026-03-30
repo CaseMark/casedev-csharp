@@ -46,7 +46,7 @@ public interface IV1Service
     IWorkItemService WorkItems { get; }
 
     /// <summary>
-    /// Create a new legal matter and provision its primary vault.
+    /// Create a new legal matter and optionally link an existing primary vault.
     /// </summary>
     Task Create(V1CreateParams parameters, CancellationToken cancellationToken = default);
 

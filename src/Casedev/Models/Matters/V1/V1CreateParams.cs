@@ -12,7 +12,7 @@ using Casedev.Exceptions;
 namespace Casedev.Models.Matters.V1;
 
 /// <summary>
-/// Create a new legal matter and provision its primary vault.
+/// Create a new legal matter and optionally link an existing primary vault.
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that
@@ -320,6 +320,24 @@ public record class V1CreateParams : ParamsBase
             }
 
             this._rawBodyData.Set("vault", value);
+        }
+    }
+
+    public string? VaultID
+    {
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("vault_id");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawBodyData.Set("vault_id", value);
         }
     }
 
