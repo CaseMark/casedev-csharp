@@ -54,6 +54,7 @@ public class V1CreateParamsTest : TestBase
                     { "foo", JsonSerializer.SerializeToElement("bar") },
                 },
             },
+            VaultID = "vault_id",
         };
 
         string expectedTitle = "title";
@@ -96,6 +97,7 @@ public class V1CreateParamsTest : TestBase
                 { "foo", JsonSerializer.SerializeToElement("bar") },
             },
         };
+        string expectedVaultID = "vault_id";
 
         Assert.Equal(expectedTitle, parameters.Title);
         Assert.NotNull(parameters.Billing);
@@ -148,6 +150,7 @@ public class V1CreateParamsTest : TestBase
         Assert.Equal(expectedStatus, parameters.Status);
         Assert.Equal(expectedSubtype, parameters.Subtype);
         Assert.Equal(expectedVault, parameters.Vault);
+        Assert.Equal(expectedVaultID, parameters.VaultID);
     }
 
     [Fact]
@@ -183,6 +186,8 @@ public class V1CreateParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("subtype"));
         Assert.Null(parameters.Vault);
         Assert.False(parameters.RawBodyData.ContainsKey("vault"));
+        Assert.Null(parameters.VaultID);
+        Assert.False(parameters.RawBodyData.ContainsKey("vault_id"));
     }
 
     [Fact]
@@ -208,6 +213,7 @@ public class V1CreateParamsTest : TestBase
             Status = null,
             Subtype = null,
             Vault = null,
+            VaultID = null,
         };
 
         Assert.Null(parameters.Billing);
@@ -238,6 +244,8 @@ public class V1CreateParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("subtype"));
         Assert.Null(parameters.Vault);
         Assert.False(parameters.RawBodyData.ContainsKey("vault"));
+        Assert.Null(parameters.VaultID);
+        Assert.False(parameters.RawBodyData.ContainsKey("vault_id"));
     }
 
     [Fact]
@@ -284,6 +292,7 @@ public class V1CreateParamsTest : TestBase
                     { "foo", JsonSerializer.SerializeToElement("bar") },
                 },
             },
+            VaultID = "vault_id",
         };
 
         Assert.Null(parameters.ClientPartyID);
@@ -334,6 +343,7 @@ public class V1CreateParamsTest : TestBase
                     { "foo", JsonSerializer.SerializeToElement("bar") },
                 },
             },
+            VaultID = "vault_id",
 
             ClientPartyID = null,
         };
@@ -397,6 +407,7 @@ public class V1CreateParamsTest : TestBase
                     { "foo", JsonSerializer.SerializeToElement("bar") },
                 },
             },
+            VaultID = "vault_id",
         };
 
         V1CreateParams copied = new(parameters);
