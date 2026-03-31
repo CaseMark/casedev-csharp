@@ -30,6 +30,26 @@ public sealed record class ExecuteCreateResponse : JsonModel
         }
     }
 
+    public string? Error
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("error");
+        }
+        init { this._rawData.Set("error", value); }
+    }
+
+    public Logs? Logs
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<Logs>("logs");
+        }
+        init { this._rawData.Set("logs", value); }
+    }
+
     public string? Message
     {
         get
@@ -37,15 +57,17 @@ public sealed record class ExecuteCreateResponse : JsonModel
             this._rawData.Freeze();
             return this._rawData.GetNullableClass<string>("message");
         }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
+        init { this._rawData.Set("message", value); }
+    }
 
-            this._rawData.Set("message", value);
+    public string? Output
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("output");
         }
+        init { this._rawData.Set("output", value); }
     }
 
     public ApiEnum<string, Provider>? Provider
@@ -84,6 +106,16 @@ public sealed record class ExecuteCreateResponse : JsonModel
         }
     }
 
+    public string? RuntimeID
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("runtimeId");
+        }
+        init { this._rawData.Set("runtimeId", value); }
+    }
+
     public ApiEnum<string, RuntimeState>? RuntimeState
     {
         get
@@ -120,15 +152,30 @@ public sealed record class ExecuteCreateResponse : JsonModel
         }
     }
 
+    public JsonElement? Usage
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<JsonElement>("usage");
+        }
+        init { this._rawData.Set("usage", value); }
+    }
+
     /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.AgentID;
+        _ = this.Error;
+        this.Logs?.Validate();
         _ = this.Message;
+        _ = this.Output;
         this.Provider?.Validate();
         _ = this.RunID;
+        _ = this.RuntimeID;
         this.RuntimeState?.Validate();
         this.Status?.Validate();
+        _ = this.Usage;
     }
 
     public ExecuteCreateResponse() { }
@@ -169,10 +216,76 @@ class ExecuteCreateResponseFromRaw : IFromRawJson<ExecuteCreateResponse>
     ) => ExecuteCreateResponse.FromRawUnchecked(rawData);
 }
 
+[JsonConverter(typeof(JsonModelConverter<Logs, LogsFromRaw>))]
+public sealed record class Logs : JsonModel
+{
+    public string? Linc
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("linc");
+        }
+        init { this._rawData.Set("linc", value); }
+    }
+
+    public string? Runner
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("runner");
+        }
+        init { this._rawData.Set("runner", value); }
+    }
+
+    /// <inheritdoc/>
+    public override void Validate()
+    {
+        _ = this.Linc;
+        _ = this.Runner;
+    }
+
+    public Logs() { }
+
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
+    public Logs(Logs logs)
+        : base(logs) { }
+#pragma warning restore CS8618
+
+    public Logs(IReadOnlyDictionary<string, JsonElement> rawData)
+    {
+        this._rawData = new(rawData);
+    }
+
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
+    Logs(FrozenDictionary<string, JsonElement> rawData)
+    {
+        this._rawData = new(rawData);
+    }
+#pragma warning restore CS8618
+
+    /// <inheritdoc cref="LogsFromRaw.FromRawUnchecked"/>
+    public static Logs FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
+    {
+        return new(FrozenDictionary.ToFrozenDictionary(rawData));
+    }
+}
+
+class LogsFromRaw : IFromRawJson<Logs>
+{
+    /// <inheritdoc/>
+    public Logs FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
+        Logs.FromRawUnchecked(rawData);
+}
+
 [JsonConverter(typeof(ProviderConverter))]
 public enum Provider
 {
     Daytona,
+    Vercel,
 }
 
 sealed class ProviderConverter : JsonConverter<Provider>
@@ -186,6 +299,7 @@ sealed class ProviderConverter : JsonConverter<Provider>
         return JsonSerializer.Deserialize<string>(ref reader, options) switch
         {
             "daytona" => Provider.Daytona,
+            "vercel" => Provider.Vercel,
             _ => (Provider)(-1),
         };
     }
@@ -197,6 +311,7 @@ sealed class ProviderConverter : JsonConverter<Provider>
             value switch
             {
                 Provider.Daytona => "daytona",
+                Provider.Vercel => "vercel",
                 _ => throw new CasedevInvalidDataException(
                     string.Format("Invalid value '{0}' in {1}", value, nameof(value))
                 ),
@@ -210,6 +325,8 @@ sealed class ProviderConverter : JsonConverter<Provider>
 public enum RuntimeState
 {
     Running,
+    Ended,
+    Error,
 }
 
 sealed class RuntimeStateConverter : JsonConverter<RuntimeState>
@@ -223,6 +340,8 @@ sealed class RuntimeStateConverter : JsonConverter<RuntimeState>
         return JsonSerializer.Deserialize<string>(ref reader, options) switch
         {
             "running" => RuntimeState.Running,
+            "ended" => RuntimeState.Ended,
+            "error" => RuntimeState.Error,
             _ => (RuntimeState)(-1),
         };
     }
@@ -238,6 +357,8 @@ sealed class RuntimeStateConverter : JsonConverter<RuntimeState>
             value switch
             {
                 RuntimeState.Running => "running",
+                RuntimeState.Ended => "ended",
+                RuntimeState.Error => "error",
                 _ => throw new CasedevInvalidDataException(
                     string.Format("Invalid value '{0}' in {1}", value, nameof(value))
                 ),
@@ -251,6 +372,8 @@ sealed class RuntimeStateConverter : JsonConverter<RuntimeState>
 public enum Status
 {
     Running,
+    Completed,
+    Failed,
 }
 
 sealed class StatusConverter : JsonConverter<Status>
@@ -264,6 +387,8 @@ sealed class StatusConverter : JsonConverter<Status>
         return JsonSerializer.Deserialize<string>(ref reader, options) switch
         {
             "running" => Status.Running,
+            "completed" => Status.Completed,
+            "failed" => Status.Failed,
             _ => (Status)(-1),
         };
     }
@@ -275,6 +400,8 @@ sealed class StatusConverter : JsonConverter<Status>
             value switch
             {
                 Status.Running => "running",
+                Status.Completed => "completed",
+                Status.Failed => "failed",
                 _ => throw new CasedevInvalidDataException(
                     string.Format("Invalid value '{0}' in {1}", value, nameof(value))
                 ),

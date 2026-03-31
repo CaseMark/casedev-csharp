@@ -14,6 +14,7 @@ public class ExecuteCreateParamsTest : TestBase
         var parameters = new ExecuteCreateParams
         {
             Prompt = "prompt",
+            AgentRuntime = true,
             DisabledTools = ["string"],
             EnabledTools = ["string"],
             Guidance = "guidance",
@@ -25,6 +26,7 @@ public class ExecuteCreateParamsTest : TestBase
         };
 
         string expectedPrompt = "prompt";
+        bool expectedAgentRuntime = true;
         List<string> expectedDisabledTools = ["string"];
         List<string> expectedEnabledTools = ["string"];
         string expectedGuidance = "guidance";
@@ -35,6 +37,7 @@ public class ExecuteCreateParamsTest : TestBase
         List<string> expectedVaultIds = ["string"];
 
         Assert.Equal(expectedPrompt, parameters.Prompt);
+        Assert.Equal(expectedAgentRuntime, parameters.AgentRuntime);
         Assert.NotNull(parameters.DisabledTools);
         Assert.Equal(expectedDisabledTools.Count, parameters.DisabledTools.Count);
         for (int i = 0; i < expectedDisabledTools.Count; i++)
@@ -71,6 +74,7 @@ public class ExecuteCreateParamsTest : TestBase
         var parameters = new ExecuteCreateParams
         {
             Prompt = "prompt",
+            AgentRuntime = true,
             DisabledTools = ["string"],
             EnabledTools = ["string"],
             Guidance = "guidance",
@@ -91,6 +95,7 @@ public class ExecuteCreateParamsTest : TestBase
         var parameters = new ExecuteCreateParams
         {
             Prompt = "prompt",
+            AgentRuntime = true,
             DisabledTools = ["string"],
             EnabledTools = ["string"],
             Guidance = "guidance",
@@ -119,6 +124,8 @@ public class ExecuteCreateParamsTest : TestBase
             Model = "model",
         };
 
+        Assert.Null(parameters.AgentRuntime);
+        Assert.False(parameters.RawBodyData.ContainsKey("agentRuntime"));
         Assert.Null(parameters.DisabledTools);
         Assert.False(parameters.RawBodyData.ContainsKey("disabledTools"));
         Assert.Null(parameters.EnabledTools);
@@ -142,6 +149,7 @@ public class ExecuteCreateParamsTest : TestBase
             Instructions = "instructions",
             Model = "model",
 
+            AgentRuntime = null,
             DisabledTools = null,
             EnabledTools = null,
             Guidance = null,
@@ -150,6 +158,8 @@ public class ExecuteCreateParamsTest : TestBase
             VaultIds = null,
         };
 
+        Assert.Null(parameters.AgentRuntime);
+        Assert.True(parameters.RawBodyData.ContainsKey("agentRuntime"));
         Assert.Null(parameters.DisabledTools);
         Assert.True(parameters.RawBodyData.ContainsKey("disabledTools"));
         Assert.Null(parameters.EnabledTools);
@@ -180,6 +190,7 @@ public class ExecuteCreateParamsTest : TestBase
         var parameters = new ExecuteCreateParams
         {
             Prompt = "prompt",
+            AgentRuntime = true,
             DisabledTools = ["string"],
             EnabledTools = ["string"],
             Guidance = "guidance",
