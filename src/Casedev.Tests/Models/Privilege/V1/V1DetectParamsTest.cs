@@ -133,7 +133,6 @@ public class CategoryTest : TestBase
     [InlineData(Category.AttorneyClient)]
     [InlineData(Category.WorkProduct)]
     [InlineData(Category.CommonInterest)]
-    [InlineData(Category.LitigationHold)]
     public void Validation_Works(Category rawValue)
     {
         // force implicit conversion because Theory can't do that for us
@@ -157,7 +156,6 @@ public class CategoryTest : TestBase
     [InlineData(Category.AttorneyClient)]
     [InlineData(Category.WorkProduct)]
     [InlineData(Category.CommonInterest)]
-    [InlineData(Category.LitigationHold)]
     public void SerializationRoundtrip_Works(Category rawValue)
     {
         // force implicit conversion because Theory can't do that for us

@@ -13,11 +13,12 @@ using Casedev.Exceptions;
 namespace Casedev.Models.Privilege.V1;
 
 /// <summary>
-/// Analyzes text or vault documents for legal privilege. Detects attorney-client
-/// privilege, work product doctrine, common interest privilege, and litigation hold materials.
+/// Analyzes text or vault documents for legal privilege review. Detects attorney-client
+/// privilege, work product doctrine, and common interest privilege.
 ///
-/// <para>Returns structured privilege flags with confidence scores and policy-friendly
-/// rationale suitable for discovery workflows and privilege logs.</para>
+/// <para>Returns structured review flags with confidence scores and policy-friendly
+/// rationale suitable for discovery workflows and privilege logs. This endpoint is
+/// an AI-assisted triage tool and does not replace attorney judgment.</para>
 ///
 /// <para>**Size Limit:** Maximum 200,000 characters (larger documents rejected).</para>
 ///
@@ -40,8 +41,7 @@ public record class V1DetectParams : ParamsBase
     }
 
     /// <summary>
-    /// Privilege categories to check. Defaults to all: attorney_client, work_product,
-    /// common_interest, litigation_hold
+    /// Privilege categories to check. Defaults to all: attorney_client, work_product, common_interest
     /// </summary>
     public IReadOnlyList<ApiEnum<string, Category>>? Categories
     {
@@ -310,7 +310,6 @@ public enum Category
     AttorneyClient,
     WorkProduct,
     CommonInterest,
-    LitigationHold,
 }
 
 sealed class CategoryConverter : JsonConverter<Category>
@@ -326,7 +325,6 @@ sealed class CategoryConverter : JsonConverter<Category>
             "attorney_client" => Category.AttorneyClient,
             "work_product" => Category.WorkProduct,
             "common_interest" => Category.CommonInterest,
-            "litigation_hold" => Category.LitigationHold,
             _ => (Category)(-1),
         };
     }
@@ -340,7 +338,6 @@ sealed class CategoryConverter : JsonConverter<Category>
                 Category.AttorneyClient => "attorney_client",
                 Category.WorkProduct => "work_product",
                 Category.CommonInterest => "common_interest",
-                Category.LitigationHold => "litigation_hold",
                 _ => throw new CasedevInvalidDataException(
                     string.Format("Invalid value '{0}' in {1}", value, nameof(value))
                 ),

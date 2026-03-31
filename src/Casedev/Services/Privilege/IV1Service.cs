@@ -29,12 +29,12 @@ public interface IV1Service
     IV1Service WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Analyzes text or vault documents for legal privilege. Detects attorney-client
-    /// privilege, work product doctrine, common interest privilege, and litigation hold
-    /// materials.
+    /// Analyzes text or vault documents for legal privilege review. Detects
+    /// attorney-client privilege, work product doctrine, and common interest privilege.
     ///
-    /// <para>Returns structured privilege flags with confidence scores and
-    /// policy-friendly rationale suitable for discovery workflows and privilege logs.</para>
+    /// <para>Returns structured review flags with confidence scores and policy-friendly
+    /// rationale suitable for discovery workflows and privilege logs. This endpoint is
+    /// an AI-assisted triage tool and does not replace attorney judgment.</para>
     ///
     /// <para>**Size Limit:** Maximum 200,000 characters (larger documents rejected).</para>
     ///
