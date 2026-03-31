@@ -35,7 +35,7 @@ public class RunServiceTest : TestBase
         response.Validate();
     }
 
-    [Fact]
+    [Fact(Skip = "Mock server doesn't support text/event-stream responses")]
     public async Task EventsStreaming_Works()
     {
         var stream = this.client.Agent.V1.Run.EventsStreaming(

@@ -28,7 +28,7 @@ public class V1ServiceTest : TestBase
         );
     }
 
-    [Fact]
+    [Fact(Skip = "Mock server doesn't support application/pdf responses")]
     public async Task Convert_Works()
     {
         await this.client.Superdoc.V1.Convert(
