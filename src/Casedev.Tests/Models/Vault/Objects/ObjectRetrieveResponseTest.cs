@@ -21,6 +21,7 @@ public class ObjectRetrieveResponseTest : TestBase
             IngestionStatus = "ingestionStatus",
             VaultID = "vaultId",
             ChunkCount = 0,
+            IngestionError = "ingestionError",
             Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
             PageCount = 0,
             Path = "path",
@@ -38,6 +39,7 @@ public class ObjectRetrieveResponseTest : TestBase
         string expectedIngestionStatus = "ingestionStatus";
         string expectedVaultID = "vaultId";
         long expectedChunkCount = 0;
+        string expectedIngestionError = "ingestionError";
         JsonElement expectedMetadata = JsonSerializer.Deserialize<JsonElement>("{}");
         long expectedPageCount = 0;
         string expectedPath = "path";
@@ -54,6 +56,7 @@ public class ObjectRetrieveResponseTest : TestBase
         Assert.Equal(expectedIngestionStatus, model.IngestionStatus);
         Assert.Equal(expectedVaultID, model.VaultID);
         Assert.Equal(expectedChunkCount, model.ChunkCount);
+        Assert.Equal(expectedIngestionError, model.IngestionError);
         Assert.NotNull(model.Metadata);
         Assert.True(JsonElement.DeepEquals(expectedMetadata, model.Metadata.Value));
         Assert.Equal(expectedPageCount, model.PageCount);
@@ -77,6 +80,7 @@ public class ObjectRetrieveResponseTest : TestBase
             IngestionStatus = "ingestionStatus",
             VaultID = "vaultId",
             ChunkCount = 0,
+            IngestionError = "ingestionError",
             Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
             PageCount = 0,
             Path = "path",
@@ -108,6 +112,7 @@ public class ObjectRetrieveResponseTest : TestBase
             IngestionStatus = "ingestionStatus",
             VaultID = "vaultId",
             ChunkCount = 0,
+            IngestionError = "ingestionError",
             Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
             PageCount = 0,
             Path = "path",
@@ -132,6 +137,7 @@ public class ObjectRetrieveResponseTest : TestBase
         string expectedIngestionStatus = "ingestionStatus";
         string expectedVaultID = "vaultId";
         long expectedChunkCount = 0;
+        string expectedIngestionError = "ingestionError";
         JsonElement expectedMetadata = JsonSerializer.Deserialize<JsonElement>("{}");
         long expectedPageCount = 0;
         string expectedPath = "path";
@@ -148,6 +154,7 @@ public class ObjectRetrieveResponseTest : TestBase
         Assert.Equal(expectedIngestionStatus, deserialized.IngestionStatus);
         Assert.Equal(expectedVaultID, deserialized.VaultID);
         Assert.Equal(expectedChunkCount, deserialized.ChunkCount);
+        Assert.Equal(expectedIngestionError, deserialized.IngestionError);
         Assert.NotNull(deserialized.Metadata);
         Assert.True(JsonElement.DeepEquals(expectedMetadata, deserialized.Metadata.Value));
         Assert.Equal(expectedPageCount, deserialized.PageCount);
@@ -171,6 +178,7 @@ public class ObjectRetrieveResponseTest : TestBase
             IngestionStatus = "ingestionStatus",
             VaultID = "vaultId",
             ChunkCount = 0,
+            IngestionError = "ingestionError",
             Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
             PageCount = 0,
             Path = "path",
@@ -195,6 +203,7 @@ public class ObjectRetrieveResponseTest : TestBase
             Filename = "filename",
             IngestionStatus = "ingestionStatus",
             VaultID = "vaultId",
+            IngestionError = "ingestionError",
             Path = "path",
         };
 
@@ -225,6 +234,7 @@ public class ObjectRetrieveResponseTest : TestBase
             Filename = "filename",
             IngestionStatus = "ingestionStatus",
             VaultID = "vaultId",
+            IngestionError = "ingestionError",
             Path = "path",
         };
 
@@ -244,6 +254,7 @@ public class ObjectRetrieveResponseTest : TestBase
             Filename = "filename",
             IngestionStatus = "ingestionStatus",
             VaultID = "vaultId",
+            IngestionError = "ingestionError",
             Path = "path",
 
             // Null should be interpreted as omitted for these properties
@@ -282,6 +293,7 @@ public class ObjectRetrieveResponseTest : TestBase
             Filename = "filename",
             IngestionStatus = "ingestionStatus",
             VaultID = "vaultId",
+            IngestionError = "ingestionError",
             Path = "path",
 
             // Null should be interpreted as omitted for these properties
@@ -317,6 +329,8 @@ public class ObjectRetrieveResponseTest : TestBase
             VectorCount = 0,
         };
 
+        Assert.Null(model.IngestionError);
+        Assert.False(model.RawData.ContainsKey("ingestionError"));
         Assert.Null(model.Path);
         Assert.False(model.RawData.ContainsKey("path"));
     }
@@ -365,9 +379,12 @@ public class ObjectRetrieveResponseTest : TestBase
             TextLength = 0,
             VectorCount = 0,
 
+            IngestionError = null,
             Path = null,
         };
 
+        Assert.Null(model.IngestionError);
+        Assert.True(model.RawData.ContainsKey("ingestionError"));
         Assert.Null(model.Path);
         Assert.True(model.RawData.ContainsKey("path"));
     }
@@ -392,6 +409,7 @@ public class ObjectRetrieveResponseTest : TestBase
             TextLength = 0,
             VectorCount = 0,
 
+            IngestionError = null,
             Path = null,
         };
 
@@ -412,6 +430,7 @@ public class ObjectRetrieveResponseTest : TestBase
             IngestionStatus = "ingestionStatus",
             VaultID = "vaultId",
             ChunkCount = 0,
+            IngestionError = "ingestionError",
             Metadata = JsonSerializer.Deserialize<JsonElement>("{}"),
             PageCount = 0,
             Path = "path",

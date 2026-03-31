@@ -137,6 +137,19 @@ public sealed record class ObjectRetrieveResponse : JsonModel
     }
 
     /// <summary>
+    /// Error details when ingestion fails
+    /// </summary>
+    public string? IngestionError
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("ingestionError");
+        }
+        init { this._rawData.Set("ingestionError", value); }
+    }
+
+    /// <summary>
     /// Additional metadata
     /// </summary>
     public JsonElement? Metadata
@@ -266,6 +279,7 @@ public sealed record class ObjectRetrieveResponse : JsonModel
         _ = this.IngestionStatus;
         _ = this.VaultID;
         _ = this.ChunkCount;
+        _ = this.IngestionError;
         _ = this.Metadata;
         _ = this.PageCount;
         _ = this.Path;
