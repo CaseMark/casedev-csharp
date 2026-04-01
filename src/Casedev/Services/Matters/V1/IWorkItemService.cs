@@ -77,7 +77,8 @@ public interface IWorkItemService
     );
 
     /// <summary>
-    /// Allow a human to act as the orchestrator for a work item.
+    /// Approve, revise, block, or reassign a work item. Used by humans or agents to
+    /// move work items through their lifecycle.
     /// </summary>
     Task Decide(WorkItemDecideParams parameters, CancellationToken cancellationToken = default);
 
