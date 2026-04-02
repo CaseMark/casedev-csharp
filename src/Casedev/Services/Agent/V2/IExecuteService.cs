@@ -30,8 +30,9 @@ public interface IExecuteService
     IExecuteService WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Creates an ephemeral agent and immediately executes a v2 run on the Daytona
-    /// runtime.
+    /// Creates an ephemeral agent and executes it immediately. By default this uses the
+    /// lightweight synchronous linc runtime on Vercel Sandbox. Set `agentRuntime: true`
+    /// to opt into the legacy Daytona-backed agent runtime.
     /// </summary>
     Task<ExecuteCreateResponse> Create(
         ExecuteCreateParams parameters,

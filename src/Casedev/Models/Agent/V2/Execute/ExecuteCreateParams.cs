@@ -12,7 +12,9 @@ using Casedev.Core;
 namespace Casedev.Models.Agent.V2.Execute;
 
 /// <summary>
-/// Creates an ephemeral agent and immediately executes a v2 run on the Daytona runtime.
+/// Creates an ephemeral agent and executes it immediately. By default this uses
+/// the lightweight synchronous linc runtime on Vercel Sandbox. Set `agentRuntime:
+/// true` to opt into the legacy Daytona-backed agent runtime.
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that
@@ -34,6 +36,19 @@ public record class ExecuteCreateParams : ParamsBase
             return this._rawBodyData.GetNotNullClass<string>("prompt");
         }
         init { this._rawBodyData.Set("prompt", value); }
+    }
+
+    /// <summary>
+    /// Set to true to opt into the legacy Daytona-backed agent runtime.
+    /// </summary>
+    public bool? AgentRuntime
+    {
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableStruct<bool>("agentRuntime");
+        }
+        init { this._rawBodyData.Set("agentRuntime", value); }
     }
 
     public IReadOnlyList<string>? DisabledTools
