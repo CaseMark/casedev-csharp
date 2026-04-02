@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.13.0 (2026-04-02)
+
+Full Changelog: [v0.12.0...v0.13.0](https://github.com/CaseMark/casedev-csharp/compare/v0.12.0...v0.13.0)
+
+### Features
+
+* **api:** api update ([49da2c5](https://github.com/CaseMark/casedev-csharp/commit/49da2c5c5a3f4aceec11799e79ce04b47cb8d4a8))
+* **api:** api update ([20223dd](https://github.com/CaseMark/casedev-csharp/commit/20223dd7187cb946070c759bc290d06f2801b9d0))
+* **api:** api update ([b361023](https://github.com/CaseMark/casedev-csharp/commit/b3610232e40679e724ae7704090f9f0cc54b9b43))
+* **client:** enable gzip decompression ([1b1b533](https://github.com/CaseMark/casedev-csharp/commit/1b1b5335ffd85bf917cb54dad6befaeb145746c2))
+
+
+### Bug Fixes
+
+* **client:** allow cancelling when enumerating over an http response ([1bf3bee](https://github.com/CaseMark/casedev-csharp/commit/1bf3bee5427d4ad3374d2205280e4cca824d888b))
+
+
+### Chores
+
+* **tests:** bump steady to v0.20.1 ([fa776b6](https://github.com/CaseMark/casedev-csharp/commit/fa776b6e8ea4a8a7de8b902118c0bcd2d0467cf0))
+* **tests:** bump steady to v0.20.2 ([9cef6cc](https://github.com/CaseMark/casedev-csharp/commit/9cef6cc2da0fac1e9c901232338e6d411dd981bd))
+
 ## 0.12.0 (2026-03-30)
 
 Full Changelog: [v0.11.0...v0.12.0](https://github.com/CaseMark/casedev-csharp/compare/v0.11.0...v0.12.0)
