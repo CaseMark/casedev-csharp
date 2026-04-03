@@ -15,13 +15,16 @@ public class ChatRespondParamsTest : TestBase
         var parameters = new Chat::ChatRespondParams
         {
             ID = "id",
+            Model = "model",
             Parts = [new() { Text = "text", Type = Chat::Type.Text }],
         };
 
         string expectedID = "id";
+        string expectedModel = "model";
         List<Chat::Part> expectedParts = [new() { Text = "text", Type = Chat::Type.Text }];
 
         Assert.Equal(expectedID, parameters.ID);
+        Assert.Equal(expectedModel, parameters.Model);
         Assert.NotNull(parameters.Parts);
         Assert.Equal(expectedParts.Count, parameters.Parts.Count);
         for (int i = 0; i < expectedParts.Count; i++)
@@ -33,7 +36,7 @@ public class ChatRespondParamsTest : TestBase
     [Fact]
     public void OptionalNonNullableParamsUnsetAreNotSet_Works()
     {
-        var parameters = new Chat::ChatRespondParams { ID = "id" };
+        var parameters = new Chat::ChatRespondParams { ID = "id", Model = "model" };
 
         Assert.Null(parameters.Parts);
         Assert.False(parameters.RawBodyData.ContainsKey("parts"));
@@ -45,6 +48,7 @@ public class ChatRespondParamsTest : TestBase
         var parameters = new Chat::ChatRespondParams
         {
             ID = "id",
+            Model = "model",
 
             // Null should be interpreted as omitted for these properties
             Parts = null,
@@ -52,6 +56,34 @@ public class ChatRespondParamsTest : TestBase
 
         Assert.Null(parameters.Parts);
         Assert.False(parameters.RawBodyData.ContainsKey("parts"));
+    }
+
+    [Fact]
+    public void OptionalNullableParamsUnsetAreNotSet_Works()
+    {
+        var parameters = new Chat::ChatRespondParams
+        {
+            ID = "id",
+            Parts = [new() { Text = "text", Type = Chat::Type.Text }],
+        };
+
+        Assert.Null(parameters.Model);
+        Assert.False(parameters.RawBodyData.ContainsKey("model"));
+    }
+
+    [Fact]
+    public void OptionalNullableParamsSetToNullAreSetToNull_Works()
+    {
+        var parameters = new Chat::ChatRespondParams
+        {
+            ID = "id",
+            Parts = [new() { Text = "text", Type = Chat::Type.Text }],
+
+            Model = null,
+        };
+
+        Assert.Null(parameters.Model);
+        Assert.True(parameters.RawBodyData.ContainsKey("model"));
     }
 
     [Fact]
@@ -70,6 +102,7 @@ public class ChatRespondParamsTest : TestBase
         var parameters = new Chat::ChatRespondParams
         {
             ID = "id",
+            Model = "model",
             Parts = [new() { Text = "text", Type = Chat::Type.Text }],
         };
 
