@@ -40,6 +40,20 @@ public record class ChatRespondParams : ParamsBase
     public string? ID { get; init; }
 
     /// <summary>
+    /// Optional model override. When provided, the runtime bootstrap config is updated
+    /// so subsequent turns use this model. Conversation history is preserved.
+    /// </summary>
+    public string? Model
+    {
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("model");
+        }
+        init { this._rawBodyData.Set("model", value); }
+    }
+
+    /// <summary>
     /// Message content parts. Currently only "text" type is supported. Additional
     /// types (e.g. file, image) may be added in future versions.
     /// </summary>
