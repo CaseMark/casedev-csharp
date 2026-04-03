@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Casedev.Core;
 using Casedev.Exceptions;
 using Casedev.Models.Vault;
-using Casedev.Services.Vault;
+using Vault = Casedev.Services.Vault;
 
 namespace Casedev.Services;
 
@@ -33,41 +33,48 @@ public sealed class VaultService : IVaultService
         _client = client;
 
         _withRawResponse = new(() => new VaultServiceWithRawResponse(client.WithRawResponse));
-        _events = new(() => new EventService(client));
-        _graphrag = new(() => new GraphragService(client));
-        _groups = new(() => new GroupService(client));
-        _multipart = new(() => new MultipartService(client));
-        _objects = new(() => new ObjectService(client));
+        _events = new(() => new Vault::EventService(client));
+        _graphrag = new(() => new Vault::GraphragService(client));
+        _groups = new(() => new Vault::GroupService(client));
+        _multipart = new(() => new Vault::MultipartService(client));
+        _objects = new(() => new Vault::ObjectService(client));
+        _memory = new(() => new Vault::MemoryService(client));
     }
 
-    readonly Lazy<IEventService> _events;
-    public IEventService Events
+    readonly Lazy<Vault::IEventService> _events;
+    public Vault::IEventService Events
     {
         get { return _events.Value; }
     }
 
-    readonly Lazy<IGraphragService> _graphrag;
-    public IGraphragService Graphrag
+    readonly Lazy<Vault::IGraphragService> _graphrag;
+    public Vault::IGraphragService Graphrag
     {
         get { return _graphrag.Value; }
     }
 
-    readonly Lazy<IGroupService> _groups;
-    public IGroupService Groups
+    readonly Lazy<Vault::IGroupService> _groups;
+    public Vault::IGroupService Groups
     {
         get { return _groups.Value; }
     }
 
-    readonly Lazy<IMultipartService> _multipart;
-    public IMultipartService Multipart
+    readonly Lazy<Vault::IMultipartService> _multipart;
+    public Vault::IMultipartService Multipart
     {
         get { return _multipart.Value; }
     }
 
-    readonly Lazy<IObjectService> _objects;
-    public IObjectService Objects
+    readonly Lazy<Vault::IObjectService> _objects;
+    public Vault::IObjectService Objects
     {
         get { return _objects.Value; }
+    }
+
+    readonly Lazy<Vault::IMemoryService> _memory;
+    public Vault::IMemoryService Memory
+    {
+        get { return _memory.Value; }
     }
 
     /// <inheritdoc/>
@@ -270,41 +277,48 @@ public sealed class VaultServiceWithRawResponse : IVaultServiceWithRawResponse
     {
         _client = client;
 
-        _events = new(() => new EventServiceWithRawResponse(client));
-        _graphrag = new(() => new GraphragServiceWithRawResponse(client));
-        _groups = new(() => new GroupServiceWithRawResponse(client));
-        _multipart = new(() => new MultipartServiceWithRawResponse(client));
-        _objects = new(() => new ObjectServiceWithRawResponse(client));
+        _events = new(() => new Vault::EventServiceWithRawResponse(client));
+        _graphrag = new(() => new Vault::GraphragServiceWithRawResponse(client));
+        _groups = new(() => new Vault::GroupServiceWithRawResponse(client));
+        _multipart = new(() => new Vault::MultipartServiceWithRawResponse(client));
+        _objects = new(() => new Vault::ObjectServiceWithRawResponse(client));
+        _memory = new(() => new Vault::MemoryServiceWithRawResponse(client));
     }
 
-    readonly Lazy<IEventServiceWithRawResponse> _events;
-    public IEventServiceWithRawResponse Events
+    readonly Lazy<Vault::IEventServiceWithRawResponse> _events;
+    public Vault::IEventServiceWithRawResponse Events
     {
         get { return _events.Value; }
     }
 
-    readonly Lazy<IGraphragServiceWithRawResponse> _graphrag;
-    public IGraphragServiceWithRawResponse Graphrag
+    readonly Lazy<Vault::IGraphragServiceWithRawResponse> _graphrag;
+    public Vault::IGraphragServiceWithRawResponse Graphrag
     {
         get { return _graphrag.Value; }
     }
 
-    readonly Lazy<IGroupServiceWithRawResponse> _groups;
-    public IGroupServiceWithRawResponse Groups
+    readonly Lazy<Vault::IGroupServiceWithRawResponse> _groups;
+    public Vault::IGroupServiceWithRawResponse Groups
     {
         get { return _groups.Value; }
     }
 
-    readonly Lazy<IMultipartServiceWithRawResponse> _multipart;
-    public IMultipartServiceWithRawResponse Multipart
+    readonly Lazy<Vault::IMultipartServiceWithRawResponse> _multipart;
+    public Vault::IMultipartServiceWithRawResponse Multipart
     {
         get { return _multipart.Value; }
     }
 
-    readonly Lazy<IObjectServiceWithRawResponse> _objects;
-    public IObjectServiceWithRawResponse Objects
+    readonly Lazy<Vault::IObjectServiceWithRawResponse> _objects;
+    public Vault::IObjectServiceWithRawResponse Objects
     {
         get { return _objects.Value; }
+    }
+
+    readonly Lazy<Vault::IMemoryServiceWithRawResponse> _memory;
+    public Vault::IMemoryServiceWithRawResponse Memory
+    {
+        get { return _memory.Value; }
     }
 
     /// <inheritdoc/>
