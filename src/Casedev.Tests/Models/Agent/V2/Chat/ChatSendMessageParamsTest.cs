@@ -15,16 +15,19 @@ public class ChatSendMessageParamsTest : TestBase
         var parameters = new ChatSendMessageParams
         {
             ID = "id",
+            Model = "model",
             Parts = [new() { Text = "text", Type = ChatSendMessageParamsPartType.Text }],
         };
 
         string expectedID = "id";
+        string expectedModel = "model";
         List<ChatSendMessageParamsPart> expectedParts =
         [
             new() { Text = "text", Type = ChatSendMessageParamsPartType.Text },
         ];
 
         Assert.Equal(expectedID, parameters.ID);
+        Assert.Equal(expectedModel, parameters.Model);
         Assert.NotNull(parameters.Parts);
         Assert.Equal(expectedParts.Count, parameters.Parts.Count);
         for (int i = 0; i < expectedParts.Count; i++)
@@ -36,7 +39,7 @@ public class ChatSendMessageParamsTest : TestBase
     [Fact]
     public void OptionalNonNullableParamsUnsetAreNotSet_Works()
     {
-        var parameters = new ChatSendMessageParams { ID = "id" };
+        var parameters = new ChatSendMessageParams { ID = "id", Model = "model" };
 
         Assert.Null(parameters.Parts);
         Assert.False(parameters.RawBodyData.ContainsKey("parts"));
@@ -48,6 +51,7 @@ public class ChatSendMessageParamsTest : TestBase
         var parameters = new ChatSendMessageParams
         {
             ID = "id",
+            Model = "model",
 
             // Null should be interpreted as omitted for these properties
             Parts = null,
@@ -55,6 +59,34 @@ public class ChatSendMessageParamsTest : TestBase
 
         Assert.Null(parameters.Parts);
         Assert.False(parameters.RawBodyData.ContainsKey("parts"));
+    }
+
+    [Fact]
+    public void OptionalNullableParamsUnsetAreNotSet_Works()
+    {
+        var parameters = new ChatSendMessageParams
+        {
+            ID = "id",
+            Parts = [new() { Text = "text", Type = ChatSendMessageParamsPartType.Text }],
+        };
+
+        Assert.Null(parameters.Model);
+        Assert.False(parameters.RawBodyData.ContainsKey("model"));
+    }
+
+    [Fact]
+    public void OptionalNullableParamsSetToNullAreSetToNull_Works()
+    {
+        var parameters = new ChatSendMessageParams
+        {
+            ID = "id",
+            Parts = [new() { Text = "text", Type = ChatSendMessageParamsPartType.Text }],
+
+            Model = null,
+        };
+
+        Assert.Null(parameters.Model);
+        Assert.True(parameters.RawBodyData.ContainsKey("model"));
     }
 
     [Fact]
@@ -73,6 +105,7 @@ public class ChatSendMessageParamsTest : TestBase
         var parameters = new ChatSendMessageParams
         {
             ID = "id",
+            Model = "model",
             Parts = [new() { Text = "text", Type = ChatSendMessageParamsPartType.Text }],
         };
 
