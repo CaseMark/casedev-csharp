@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Casedev.Core;
 using Casedev.Models.Vault;
-using Casedev.Services.Vault;
+using Vault = Casedev.Services.Vault;
 
 namespace Casedev.Services;
 
@@ -29,15 +29,17 @@ public interface IVaultService
     /// </summary>
     IVaultService WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
-    IEventService Events { get; }
+    Vault::IEventService Events { get; }
 
-    IGraphragService Graphrag { get; }
+    Vault::IGraphragService Graphrag { get; }
 
-    IGroupService Groups { get; }
+    Vault::IGroupService Groups { get; }
 
-    IMultipartService Multipart { get; }
+    Vault::IMultipartService Multipart { get; }
 
-    IObjectService Objects { get; }
+    Vault::IObjectService Objects { get; }
+
+    Vault::IMemoryService Memory { get; }
 
     /// <summary>
     /// Creates a new secure vault with dedicated S3 storage and vector search
@@ -198,15 +200,17 @@ public interface IVaultServiceWithRawResponse
     /// </summary>
     IVaultServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
-    IEventServiceWithRawResponse Events { get; }
+    Vault::IEventServiceWithRawResponse Events { get; }
 
-    IGraphragServiceWithRawResponse Graphrag { get; }
+    Vault::IGraphragServiceWithRawResponse Graphrag { get; }
 
-    IGroupServiceWithRawResponse Groups { get; }
+    Vault::IGroupServiceWithRawResponse Groups { get; }
 
-    IMultipartServiceWithRawResponse Multipart { get; }
+    Vault::IMultipartServiceWithRawResponse Multipart { get; }
 
-    IObjectServiceWithRawResponse Objects { get; }
+    Vault::IObjectServiceWithRawResponse Objects { get; }
+
+    Vault::IMemoryServiceWithRawResponse Memory { get; }
 
     /// <summary>
     /// Returns a raw HTTP response for <c>post /vault</c>, but is otherwise the
