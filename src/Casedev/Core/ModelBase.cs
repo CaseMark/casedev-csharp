@@ -19,6 +19,7 @@ using Execute = Casedev.Models.Agent.V1.Execute;
 using Graphrag = Casedev.Models.Vault.Graphrag;
 using Instances = Casedev.Models.Compute.V1.Instances;
 using MattersV1 = Casedev.Models.Matters.V1;
+using Memory = Casedev.Models.Vault.Memory;
 using MemoryV1 = Casedev.Models.Memory.V1;
 using Objects = Casedev.Models.Vault.Objects;
 using OcrV1 = Casedev.Models.Ocr.V1;
@@ -170,6 +171,7 @@ public abstract record class ModelBase
             new ApiEnumConverter<string, Objects::Status>(),
             new ApiEnumConverter<string, Objects::Force>(),
             new ApiEnumConverter<string, Objects::Operation>(),
+            new ApiEnumConverter<string, Memory::Type>(),
             new ApiEnumConverter<string, BoostList::BoostParam>(),
             new ApiEnumConverter<string, BoostList::Source>(),
             new ApiEnumConverter<string, BoostList::BoostListGenerateResponseItemBoostParam>(),
