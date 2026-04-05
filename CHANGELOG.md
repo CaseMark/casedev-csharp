@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.16.0 (2026-04-05)
+
+Full Changelog: [v0.15.0...v0.16.0](https://github.com/CaseMark/casedev-csharp/compare/v0.15.0...v0.16.0)
+
+### Features
+
+* **api:** api update ([195e9f9](https://github.com/CaseMark/casedev-csharp/commit/195e9f981a9656b7a58d3b2013ccd48bbe381c9f))
+
 ## 0.15.0 (2026-04-03)
 
 Full Changelog: [v0.14.0...v0.15.0](https://github.com/CaseMark/casedev-csharp/compare/v0.14.0...v0.15.0)
