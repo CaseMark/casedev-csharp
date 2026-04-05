@@ -182,6 +182,7 @@ public abstract record class ModelBase
             new ApiEnumConverter<string, Transcription::TranscriptionRetrieveResponseStatus>(),
             new ApiEnumConverter<string, Transcription::BoostParam>(),
             new ApiEnumConverter<string, Transcription::TranscriptionCreateParamsFormat>(),
+            new ApiEnumConverter<string, Transcription::IncludeText>(),
             new ApiEnumConverter<string, Sort>(),
             new ApiEnumConverter<string, SortDirection>(),
             new ApiEnumConverter<string, VoiceType>(),
