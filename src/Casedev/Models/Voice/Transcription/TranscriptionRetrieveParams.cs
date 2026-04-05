@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Casedev.Core;
+using Casedev.Exceptions;
 
 namespace Casedev.Models.Voice.Transcription;
 
@@ -20,6 +22,29 @@ namespace Casedev.Models.Voice.Transcription;
 public record class TranscriptionRetrieveParams : ParamsBase
 {
     public string? ID { get; init; }
+
+    /// <summary>
+    /// Include full transcript text in response for vault-based jobs (default: false)
+    /// </summary>
+    public ApiEnum<string, IncludeText>? IncludeText
+    {
+        get
+        {
+            this._rawQueryData.Freeze();
+            return this._rawQueryData.GetNullableClass<ApiEnum<string, IncludeText>>(
+                "include_text"
+            );
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawQueryData.Set("include_text", value);
+        }
+    }
 
     public TranscriptionRetrieveParams() { }
 
@@ -120,5 +145,52 @@ public record class TranscriptionRetrieveParams : ParamsBase
     public override int GetHashCode()
     {
         return 0;
+    }
+}
+
+/// <summary>
+/// Include full transcript text in response for vault-based jobs (default: false)
+/// </summary>
+[JsonConverter(typeof(IncludeTextConverter))]
+public enum IncludeText
+{
+    True,
+    False,
+}
+
+sealed class IncludeTextConverter : JsonConverter<IncludeText>
+{
+    public override IncludeText Read(
+        ref Utf8JsonReader reader,
+        Type typeToConvert,
+        JsonSerializerOptions options
+    )
+    {
+        return JsonSerializer.Deserialize<string>(ref reader, options) switch
+        {
+            "true" => IncludeText.True,
+            "false" => IncludeText.False,
+            _ => (IncludeText)(-1),
+        };
+    }
+
+    public override void Write(
+        Utf8JsonWriter writer,
+        IncludeText value,
+        JsonSerializerOptions options
+    )
+    {
+        JsonSerializer.Serialize(
+            writer,
+            value switch
+            {
+                IncludeText.True => "true",
+                IncludeText.False => "false",
+                _ => throw new CasedevInvalidDataException(
+                    string.Format("Invalid value '{0}' in {1}", value, nameof(value))
+                ),
+            },
+            options
+        );
     }
 }

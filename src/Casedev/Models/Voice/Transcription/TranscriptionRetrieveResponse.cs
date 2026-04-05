@@ -149,7 +149,8 @@ public sealed record class TranscriptionRetrieveResponse : JsonModel
     }
 
     /// <summary>
-    /// Full transcription text (legacy direct URL jobs only)
+    /// Full transcription text (only included when include_text=true for vault-based
+    /// jobs, or for legacy direct URL jobs)
     /// </summary>
     public string? Text
     {
