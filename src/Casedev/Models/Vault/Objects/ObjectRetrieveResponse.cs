@@ -247,6 +247,19 @@ public sealed record class ObjectRetrieveResponse : JsonModel
     }
 
     /// <summary>
+    /// Object ID of the completed transcript (if available)
+    /// </summary>
+    public string? TranscriptObjectID
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("transcript_object_id");
+        }
+        init { this._rawData.Set("transcript_object_id", value); }
+    }
+
+    /// <summary>
     /// Number of embedding vectors generated
     /// </summary>
     public long? VectorCount
@@ -285,6 +298,7 @@ public sealed record class ObjectRetrieveResponse : JsonModel
         _ = this.Path;
         _ = this.SizeBytes;
         _ = this.TextLength;
+        _ = this.TranscriptObjectID;
         _ = this.VectorCount;
     }
 
