@@ -174,6 +174,12 @@ public sealed class CasedevClient : ICasedevClient
         get { return _translate.Value; }
     }
 
+    readonly Lazy<IUsageService> _usage;
+    public IUsageService Usage
+    {
+        get { return _usage.Value; }
+    }
+
     readonly Lazy<IVaultService> _vault;
     public IVaultService Vault
     {
@@ -210,6 +216,7 @@ public sealed class CasedevClient : ICasedevClient
         _search = new(() => new SearchService(this));
         _superdoc = new(() => new SuperdocService(this));
         _translate = new(() => new TranslateService(this));
+        _usage = new(() => new UsageService(this));
         _vault = new(() => new VaultService(this));
         _voice = new(() => new VoiceService(this));
     }
@@ -387,6 +394,12 @@ public sealed class CasedevClientWithRawResponse : ICasedevClientWithRawResponse
     public ITranslateServiceWithRawResponse Translate
     {
         get { return _translate.Value; }
+    }
+
+    readonly Lazy<IUsageServiceWithRawResponse> _usage;
+    public IUsageServiceWithRawResponse Usage
+    {
+        get { return _usage.Value; }
     }
 
     readonly Lazy<IVaultServiceWithRawResponse> _vault;
@@ -616,6 +629,7 @@ public sealed class CasedevClientWithRawResponse : ICasedevClientWithRawResponse
         _search = new(() => new SearchServiceWithRawResponse(this));
         _superdoc = new(() => new SuperdocServiceWithRawResponse(this));
         _translate = new(() => new TranslateServiceWithRawResponse(this));
+        _usage = new(() => new UsageServiceWithRawResponse(this));
         _vault = new(() => new VaultServiceWithRawResponse(this));
         _voice = new(() => new VoiceServiceWithRawResponse(this));
     }
