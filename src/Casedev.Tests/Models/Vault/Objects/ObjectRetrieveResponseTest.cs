@@ -27,6 +27,7 @@ public class ObjectRetrieveResponseTest : TestBase
             Path = "path",
             SizeBytes = 0,
             TextLength = 0,
+            TranscriptObjectID = "transcript_object_id",
             VectorCount = 0,
         };
 
@@ -45,6 +46,7 @@ public class ObjectRetrieveResponseTest : TestBase
         string expectedPath = "path";
         long expectedSizeBytes = 0;
         long expectedTextLength = 0;
+        string expectedTranscriptObjectID = "transcript_object_id";
         long expectedVectorCount = 0;
 
         Assert.Equal(expectedID, model.ID);
@@ -63,6 +65,7 @@ public class ObjectRetrieveResponseTest : TestBase
         Assert.Equal(expectedPath, model.Path);
         Assert.Equal(expectedSizeBytes, model.SizeBytes);
         Assert.Equal(expectedTextLength, model.TextLength);
+        Assert.Equal(expectedTranscriptObjectID, model.TranscriptObjectID);
         Assert.Equal(expectedVectorCount, model.VectorCount);
     }
 
@@ -86,6 +89,7 @@ public class ObjectRetrieveResponseTest : TestBase
             Path = "path",
             SizeBytes = 0,
             TextLength = 0,
+            TranscriptObjectID = "transcript_object_id",
             VectorCount = 0,
         };
 
@@ -118,6 +122,7 @@ public class ObjectRetrieveResponseTest : TestBase
             Path = "path",
             SizeBytes = 0,
             TextLength = 0,
+            TranscriptObjectID = "transcript_object_id",
             VectorCount = 0,
         };
 
@@ -143,6 +148,7 @@ public class ObjectRetrieveResponseTest : TestBase
         string expectedPath = "path";
         long expectedSizeBytes = 0;
         long expectedTextLength = 0;
+        string expectedTranscriptObjectID = "transcript_object_id";
         long expectedVectorCount = 0;
 
         Assert.Equal(expectedID, deserialized.ID);
@@ -161,6 +167,7 @@ public class ObjectRetrieveResponseTest : TestBase
         Assert.Equal(expectedPath, deserialized.Path);
         Assert.Equal(expectedSizeBytes, deserialized.SizeBytes);
         Assert.Equal(expectedTextLength, deserialized.TextLength);
+        Assert.Equal(expectedTranscriptObjectID, deserialized.TranscriptObjectID);
         Assert.Equal(expectedVectorCount, deserialized.VectorCount);
     }
 
@@ -184,6 +191,7 @@ public class ObjectRetrieveResponseTest : TestBase
             Path = "path",
             SizeBytes = 0,
             TextLength = 0,
+            TranscriptObjectID = "transcript_object_id",
             VectorCount = 0,
         };
 
@@ -205,6 +213,7 @@ public class ObjectRetrieveResponseTest : TestBase
             VaultID = "vaultId",
             IngestionError = "ingestionError",
             Path = "path",
+            TranscriptObjectID = "transcript_object_id",
         };
 
         Assert.Null(model.ChunkCount);
@@ -236,6 +245,7 @@ public class ObjectRetrieveResponseTest : TestBase
             VaultID = "vaultId",
             IngestionError = "ingestionError",
             Path = "path",
+            TranscriptObjectID = "transcript_object_id",
         };
 
         model.Validate();
@@ -256,6 +266,7 @@ public class ObjectRetrieveResponseTest : TestBase
             VaultID = "vaultId",
             IngestionError = "ingestionError",
             Path = "path",
+            TranscriptObjectID = "transcript_object_id",
 
             // Null should be interpreted as omitted for these properties
             ChunkCount = null,
@@ -295,6 +306,7 @@ public class ObjectRetrieveResponseTest : TestBase
             VaultID = "vaultId",
             IngestionError = "ingestionError",
             Path = "path",
+            TranscriptObjectID = "transcript_object_id",
 
             // Null should be interpreted as omitted for these properties
             ChunkCount = null,
@@ -333,6 +345,8 @@ public class ObjectRetrieveResponseTest : TestBase
         Assert.False(model.RawData.ContainsKey("ingestionError"));
         Assert.Null(model.Path);
         Assert.False(model.RawData.ContainsKey("path"));
+        Assert.Null(model.TranscriptObjectID);
+        Assert.False(model.RawData.ContainsKey("transcript_object_id"));
     }
 
     [Fact]
@@ -381,12 +395,15 @@ public class ObjectRetrieveResponseTest : TestBase
 
             IngestionError = null,
             Path = null,
+            TranscriptObjectID = null,
         };
 
         Assert.Null(model.IngestionError);
         Assert.True(model.RawData.ContainsKey("ingestionError"));
         Assert.Null(model.Path);
         Assert.True(model.RawData.ContainsKey("path"));
+        Assert.Null(model.TranscriptObjectID);
+        Assert.True(model.RawData.ContainsKey("transcript_object_id"));
     }
 
     [Fact]
@@ -411,6 +428,7 @@ public class ObjectRetrieveResponseTest : TestBase
 
             IngestionError = null,
             Path = null,
+            TranscriptObjectID = null,
         };
 
         model.Validate();
@@ -436,6 +454,7 @@ public class ObjectRetrieveResponseTest : TestBase
             Path = "path",
             SizeBytes = 0,
             TextLength = 0,
+            TranscriptObjectID = "transcript_object_id",
             VectorCount = 0,
         };
 
