@@ -47,7 +47,7 @@ public class ChatCreateCompletionResponseTest : TestBase
         long expectedCreated = 0;
         string expectedModel = "model";
         string expectedObject = "chat.completion";
-        Usage expectedUsage = new()
+        ChatCreateCompletionResponseUsage expectedUsage = new()
         {
             CompletionTokens = 0,
             Cost = 0,
@@ -151,7 +151,7 @@ public class ChatCreateCompletionResponseTest : TestBase
         long expectedCreated = 0;
         string expectedModel = "model";
         string expectedObject = "chat.completion";
-        Usage expectedUsage = new()
+        ChatCreateCompletionResponseUsage expectedUsage = new()
         {
             CompletionTokens = 0,
             Cost = 0,
@@ -564,12 +564,12 @@ public class ChoiceMessageTest : TestBase
     }
 }
 
-public class UsageTest : TestBase
+public class ChatCreateCompletionResponseUsageTest : TestBase
 {
     [Fact]
     public void FieldRoundtrip_Works()
     {
-        var model = new Usage
+        var model = new ChatCreateCompletionResponseUsage
         {
             CompletionTokens = 0,
             Cost = 0,
@@ -591,7 +591,7 @@ public class UsageTest : TestBase
     [Fact]
     public void SerializationRoundtrip_Works()
     {
-        var model = new Usage
+        var model = new ChatCreateCompletionResponseUsage
         {
             CompletionTokens = 0,
             Cost = 0,
@@ -600,7 +600,10 @@ public class UsageTest : TestBase
         };
 
         string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<Usage>(json, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ChatCreateCompletionResponseUsage>(
+            json,
+            ModelBase.SerializerOptions
+        );
 
         Assert.Equal(model, deserialized);
     }
@@ -608,7 +611,7 @@ public class UsageTest : TestBase
     [Fact]
     public void FieldRoundtripThroughSerialization_Works()
     {
-        var model = new Usage
+        var model = new ChatCreateCompletionResponseUsage
         {
             CompletionTokens = 0,
             Cost = 0,
@@ -617,7 +620,10 @@ public class UsageTest : TestBase
         };
 
         string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<Usage>(element, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ChatCreateCompletionResponseUsage>(
+            element,
+            ModelBase.SerializerOptions
+        );
         Assert.NotNull(deserialized);
 
         long expectedCompletionTokens = 0;
@@ -634,7 +640,7 @@ public class UsageTest : TestBase
     [Fact]
     public void Validation_Works()
     {
-        var model = new Usage
+        var model = new ChatCreateCompletionResponseUsage
         {
             CompletionTokens = 0,
             Cost = 0,
@@ -648,7 +654,7 @@ public class UsageTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetAreNotSet_Works()
     {
-        var model = new Usage { };
+        var model = new ChatCreateCompletionResponseUsage { };
 
         Assert.Null(model.CompletionTokens);
         Assert.False(model.RawData.ContainsKey("completion_tokens"));
@@ -663,7 +669,7 @@ public class UsageTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetValidation_Works()
     {
-        var model = new Usage { };
+        var model = new ChatCreateCompletionResponseUsage { };
 
         model.Validate();
     }
@@ -671,7 +677,7 @@ public class UsageTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesSetToNullAreNotSet_Works()
     {
-        var model = new Usage
+        var model = new ChatCreateCompletionResponseUsage
         {
             // Null should be interpreted as omitted for these properties
             CompletionTokens = null,
@@ -693,7 +699,7 @@ public class UsageTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesSetToNullValidation_Works()
     {
-        var model = new Usage
+        var model = new ChatCreateCompletionResponseUsage
         {
             // Null should be interpreted as omitted for these properties
             CompletionTokens = null,
@@ -708,7 +714,7 @@ public class UsageTest : TestBase
     [Fact]
     public void CopyConstructor_Works()
     {
-        var model = new Usage
+        var model = new ChatCreateCompletionResponseUsage
         {
             CompletionTokens = 0,
             Cost = 0,
@@ -716,7 +722,7 @@ public class UsageTest : TestBase
             TotalTokens = 0,
         };
 
-        Usage copied = new(model);
+        ChatCreateCompletionResponseUsage copied = new(model);
 
         Assert.Equal(model, copied);
     }

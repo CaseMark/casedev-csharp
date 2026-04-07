@@ -37,7 +37,7 @@ public class V1CreateEmbeddingResponseTest : TestBase
         ];
         string expectedModel = "model";
         string expectedObject = "list";
-        Usage expectedUsage = new() { PromptTokens = 0, TotalTokens = 0 };
+        V1CreateEmbeddingResponseUsage expectedUsage = new() { PromptTokens = 0, TotalTokens = 0 };
 
         Assert.NotNull(model.Data);
         Assert.Equal(expectedData.Count, model.Data.Count);
@@ -115,7 +115,7 @@ public class V1CreateEmbeddingResponseTest : TestBase
         ];
         string expectedModel = "model";
         string expectedObject = "list";
-        Usage expectedUsage = new() { PromptTokens = 0, TotalTokens = 0 };
+        V1CreateEmbeddingResponseUsage expectedUsage = new() { PromptTokens = 0, TotalTokens = 0 };
 
         Assert.NotNull(deserialized.Data);
         Assert.Equal(expectedData.Count, deserialized.Data.Count);
@@ -388,12 +388,12 @@ public class DataTest : TestBase
     }
 }
 
-public class UsageTest : TestBase
+public class V1CreateEmbeddingResponseUsageTest : TestBase
 {
     [Fact]
     public void FieldRoundtrip_Works()
     {
-        var model = new Usage { PromptTokens = 0, TotalTokens = 0 };
+        var model = new V1CreateEmbeddingResponseUsage { PromptTokens = 0, TotalTokens = 0 };
 
         long expectedPromptTokens = 0;
         long expectedTotalTokens = 0;
@@ -405,10 +405,13 @@ public class UsageTest : TestBase
     [Fact]
     public void SerializationRoundtrip_Works()
     {
-        var model = new Usage { PromptTokens = 0, TotalTokens = 0 };
+        var model = new V1CreateEmbeddingResponseUsage { PromptTokens = 0, TotalTokens = 0 };
 
         string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<Usage>(json, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<V1CreateEmbeddingResponseUsage>(
+            json,
+            ModelBase.SerializerOptions
+        );
 
         Assert.Equal(model, deserialized);
     }
@@ -416,10 +419,13 @@ public class UsageTest : TestBase
     [Fact]
     public void FieldRoundtripThroughSerialization_Works()
     {
-        var model = new Usage { PromptTokens = 0, TotalTokens = 0 };
+        var model = new V1CreateEmbeddingResponseUsage { PromptTokens = 0, TotalTokens = 0 };
 
         string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<Usage>(element, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<V1CreateEmbeddingResponseUsage>(
+            element,
+            ModelBase.SerializerOptions
+        );
         Assert.NotNull(deserialized);
 
         long expectedPromptTokens = 0;
@@ -432,7 +438,7 @@ public class UsageTest : TestBase
     [Fact]
     public void Validation_Works()
     {
-        var model = new Usage { PromptTokens = 0, TotalTokens = 0 };
+        var model = new V1CreateEmbeddingResponseUsage { PromptTokens = 0, TotalTokens = 0 };
 
         model.Validate();
     }
@@ -440,7 +446,7 @@ public class UsageTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetAreNotSet_Works()
     {
-        var model = new Usage { };
+        var model = new V1CreateEmbeddingResponseUsage { };
 
         Assert.Null(model.PromptTokens);
         Assert.False(model.RawData.ContainsKey("prompt_tokens"));
@@ -451,7 +457,7 @@ public class UsageTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetValidation_Works()
     {
-        var model = new Usage { };
+        var model = new V1CreateEmbeddingResponseUsage { };
 
         model.Validate();
     }
@@ -459,7 +465,7 @@ public class UsageTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesSetToNullAreNotSet_Works()
     {
-        var model = new Usage
+        var model = new V1CreateEmbeddingResponseUsage
         {
             // Null should be interpreted as omitted for these properties
             PromptTokens = null,
@@ -475,7 +481,7 @@ public class UsageTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesSetToNullValidation_Works()
     {
-        var model = new Usage
+        var model = new V1CreateEmbeddingResponseUsage
         {
             // Null should be interpreted as omitted for these properties
             PromptTokens = null,
@@ -488,9 +494,9 @@ public class UsageTest : TestBase
     [Fact]
     public void CopyConstructor_Works()
     {
-        var model = new Usage { PromptTokens = 0, TotalTokens = 0 };
+        var model = new V1CreateEmbeddingResponseUsage { PromptTokens = 0, TotalTokens = 0 };
 
-        Usage copied = new(model);
+        V1CreateEmbeddingResponseUsage copied = new(model);
 
         Assert.Equal(model, copied);
     }

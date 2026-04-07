@@ -88,6 +88,8 @@ public interface ICasedevClient : IDisposable
 
     ITranslateService Translate { get; }
 
+    IUsageService Usage { get; }
+
     IVaultService Vault { get; }
 
     IVoiceService Voice { get; }
@@ -158,6 +160,8 @@ public interface ICasedevClientWithRawResponse : IDisposable
     ISuperdocServiceWithRawResponse Superdoc { get; }
 
     ITranslateServiceWithRawResponse Translate { get; }
+
+    IUsageServiceWithRawResponse Usage { get; }
 
     IVaultServiceWithRawResponse Vault { get; }
 

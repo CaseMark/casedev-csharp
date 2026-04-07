@@ -124,7 +124,7 @@ public class RunGetDetailsResponseTest : TestBase
                 Type = Run::Type.Output,
             },
         ];
-        Run::Usage expectedUsage = new()
+        Run::RunGetDetailsResponseUsage expectedUsage = new()
         {
             DurationMs = 0,
             Entries =
@@ -390,7 +390,7 @@ public class RunGetDetailsResponseTest : TestBase
                 Type = Run::Type.Output,
             },
         ];
-        Run::Usage expectedUsage = new()
+        Run::RunGetDetailsResponseUsage expectedUsage = new()
         {
             DurationMs = 0,
             Entries =
@@ -2052,12 +2052,12 @@ public class TypeTest : TestBase
     }
 }
 
-public class UsageTest : TestBase
+public class RunGetDetailsResponseUsageTest : TestBase
 {
     [Fact]
     public void FieldRoundtrip_Works()
     {
-        var model = new Run::Usage
+        var model = new Run::RunGetDetailsResponseUsage
         {
             DurationMs = 0,
             Entries =
@@ -2141,7 +2141,7 @@ public class UsageTest : TestBase
     [Fact]
     public void SerializationRoundtrip_Works()
     {
-        var model = new Run::Usage
+        var model = new Run::RunGetDetailsResponseUsage
         {
             DurationMs = 0,
             Entries =
@@ -2177,7 +2177,7 @@ public class UsageTest : TestBase
         };
 
         string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<Run::Usage>(
+        var deserialized = JsonSerializer.Deserialize<Run::RunGetDetailsResponseUsage>(
             json,
             ModelBase.SerializerOptions
         );
@@ -2188,7 +2188,7 @@ public class UsageTest : TestBase
     [Fact]
     public void FieldRoundtripThroughSerialization_Works()
     {
-        var model = new Run::Usage
+        var model = new Run::RunGetDetailsResponseUsage
         {
             DurationMs = 0,
             Entries =
@@ -2224,7 +2224,7 @@ public class UsageTest : TestBase
         };
 
         string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<Run::Usage>(
+        var deserialized = JsonSerializer.Deserialize<Run::RunGetDetailsResponseUsage>(
             element,
             ModelBase.SerializerOptions
         );
@@ -2279,7 +2279,7 @@ public class UsageTest : TestBase
     [Fact]
     public void Validation_Works()
     {
-        var model = new Run::Usage
+        var model = new Run::RunGetDetailsResponseUsage
         {
             DurationMs = 0,
             Entries =
@@ -2320,7 +2320,7 @@ public class UsageTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetAreNotSet_Works()
     {
-        var model = new Run::Usage
+        var model = new Run::RunGetDetailsResponseUsage
         {
             Summary = new()
             {
@@ -2348,7 +2348,7 @@ public class UsageTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetValidation_Works()
     {
-        var model = new Run::Usage
+        var model = new Run::RunGetDetailsResponseUsage
         {
             Summary = new()
             {
@@ -2365,7 +2365,7 @@ public class UsageTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesSetToNullAreNotSet_Works()
     {
-        var model = new Run::Usage
+        var model = new Run::RunGetDetailsResponseUsage
         {
             Summary = new()
             {
@@ -2401,7 +2401,7 @@ public class UsageTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesSetToNullValidation_Works()
     {
-        var model = new Run::Usage
+        var model = new Run::RunGetDetailsResponseUsage
         {
             Summary = new()
             {
@@ -2426,7 +2426,7 @@ public class UsageTest : TestBase
     [Fact]
     public void OptionalNullablePropertiesUnsetAreNotSet_Works()
     {
-        var model = new Run::Usage
+        var model = new Run::RunGetDetailsResponseUsage
         {
             DurationMs = 0,
             Entries =
@@ -2461,7 +2461,7 @@ public class UsageTest : TestBase
     [Fact]
     public void OptionalNullablePropertiesUnsetValidation_Works()
     {
-        var model = new Run::Usage
+        var model = new Run::RunGetDetailsResponseUsage
         {
             DurationMs = 0,
             Entries =
@@ -2495,7 +2495,7 @@ public class UsageTest : TestBase
     [Fact]
     public void OptionalNullablePropertiesSetToNullAreSetToNull_Works()
     {
-        var model = new Run::Usage
+        var model = new Run::RunGetDetailsResponseUsage
         {
             DurationMs = 0,
             Entries =
@@ -2532,7 +2532,7 @@ public class UsageTest : TestBase
     [Fact]
     public void OptionalNullablePropertiesSetToNullValidation_Works()
     {
-        var model = new Run::Usage
+        var model = new Run::RunGetDetailsResponseUsage
         {
             DurationMs = 0,
             Entries =
@@ -2568,7 +2568,7 @@ public class UsageTest : TestBase
     [Fact]
     public void CopyConstructor_Works()
     {
-        var model = new Run::Usage
+        var model = new Run::RunGetDetailsResponseUsage
         {
             DurationMs = 0,
             Entries =
@@ -2603,7 +2603,7 @@ public class UsageTest : TestBase
             ToolCalls = 0,
         };
 
-        Run::Usage copied = new(model);
+        Run::RunGetDetailsResponseUsage copied = new(model);
 
         Assert.Equal(model, copied);
     }

@@ -70,12 +70,12 @@ public sealed record class V1CreateEmbeddingResponse : JsonModel
         }
     }
 
-    public Usage? Usage
+    public V1CreateEmbeddingResponseUsage? Usage
     {
         get
         {
             this._rawData.Freeze();
-            return this._rawData.GetNullableClass<Usage>("usage");
+            return this._rawData.GetNullableClass<V1CreateEmbeddingResponseUsage>("usage");
         }
         init
         {
@@ -241,8 +241,13 @@ class DataFromRaw : IFromRawJson<Data>
         Data.FromRawUnchecked(rawData);
 }
 
-[JsonConverter(typeof(JsonModelConverter<Usage, UsageFromRaw>))]
-public sealed record class Usage : JsonModel
+[JsonConverter(
+    typeof(JsonModelConverter<
+        V1CreateEmbeddingResponseUsage,
+        V1CreateEmbeddingResponseUsageFromRaw
+    >)
+)]
+public sealed record class V1CreateEmbeddingResponseUsage : JsonModel
 {
     public long? PromptTokens
     {
@@ -287,37 +292,42 @@ public sealed record class Usage : JsonModel
         _ = this.TotalTokens;
     }
 
-    public Usage() { }
+    public V1CreateEmbeddingResponseUsage() { }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    public Usage(Usage usage)
-        : base(usage) { }
+    public V1CreateEmbeddingResponseUsage(
+        V1CreateEmbeddingResponseUsage v1CreateEmbeddingResponseUsage
+    )
+        : base(v1CreateEmbeddingResponseUsage) { }
 #pragma warning restore CS8618
 
-    public Usage(IReadOnlyDictionary<string, JsonElement> rawData)
+    public V1CreateEmbeddingResponseUsage(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = new(rawData);
     }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    Usage(FrozenDictionary<string, JsonElement> rawData)
+    V1CreateEmbeddingResponseUsage(FrozenDictionary<string, JsonElement> rawData)
     {
         this._rawData = new(rawData);
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="UsageFromRaw.FromRawUnchecked"/>
-    public static Usage FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
+    /// <inheritdoc cref="V1CreateEmbeddingResponseUsageFromRaw.FromRawUnchecked"/>
+    public static V1CreateEmbeddingResponseUsage FromRawUnchecked(
+        IReadOnlyDictionary<string, JsonElement> rawData
+    )
     {
         return new(FrozenDictionary.ToFrozenDictionary(rawData));
     }
 }
 
-class UsageFromRaw : IFromRawJson<Usage>
+class V1CreateEmbeddingResponseUsageFromRaw : IFromRawJson<V1CreateEmbeddingResponseUsage>
 {
     /// <inheritdoc/>
-    public Usage FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
-        Usage.FromRawUnchecked(rawData);
+    public V1CreateEmbeddingResponseUsage FromRawUnchecked(
+        IReadOnlyDictionary<string, JsonElement> rawData
+    ) => V1CreateEmbeddingResponseUsage.FromRawUnchecked(rawData);
 }
