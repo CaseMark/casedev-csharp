@@ -11,6 +11,7 @@ using Casedev.Models.Matters.V1.Types;
 using Casedev.Models.Privilege.V1;
 using Casedev.Models.Skills;
 using Casedev.Models.Translate.V1;
+using Casedev.Models.Usage.V1;
 using Casedev.Models.Voice.V1;
 using BoostList = Casedev.Models.Voice.BoostList;
 using Chat = Casedev.Models.Agent.V1.Chat;
@@ -162,6 +163,7 @@ public abstract record class ModelBase
             new ApiEnumConverter<string, Model>(),
             new ApiEnumConverter<string, V1TranslateParamsFormat>(),
             new ApiEnumConverter<string, V1TranslateParamsModel>(),
+            new ApiEnumConverter<string, Granularity>(),
             new ApiEnumConverter<string, Vault::Status>(),
             new ApiEnumConverter<string, Vault::VaultIngestResponseStatus>(),
             new ApiEnumConverter<bool, Vault::Success>(),

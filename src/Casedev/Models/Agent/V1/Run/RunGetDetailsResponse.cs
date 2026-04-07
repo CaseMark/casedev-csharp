@@ -195,12 +195,12 @@ public sealed record class RunGetDetailsResponse : JsonModel
     /// <summary>
     /// Token usage statistics
     /// </summary>
-    public Usage? Usage
+    public RunGetDetailsResponseUsage? Usage
     {
         get
         {
             this._rawData.Freeze();
-            return this._rawData.GetNullableClass<Usage>("usage");
+            return this._rawData.GetNullableClass<RunGetDetailsResponseUsage>("usage");
         }
         init { this._rawData.Set("usage", value); }
     }
@@ -871,8 +871,10 @@ sealed class TypeConverter : JsonConverter<global::Casedev.Models.Agent.V1.Run.T
 /// <summary>
 /// Token usage statistics
 /// </summary>
-[JsonConverter(typeof(JsonModelConverter<Usage, UsageFromRaw>))]
-public sealed record class Usage : JsonModel
+[JsonConverter(
+    typeof(JsonModelConverter<RunGetDetailsResponseUsage, RunGetDetailsResponseUsageFromRaw>)
+)]
+public sealed record class RunGetDetailsResponseUsage : JsonModel
 {
     public long? DurationMs
     {
@@ -1010,39 +1012,42 @@ public sealed record class Usage : JsonModel
         _ = this.ToolCalls;
     }
 
-    public Usage() { }
+    public RunGetDetailsResponseUsage() { }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    public Usage(Usage usage)
-        : base(usage) { }
+    public RunGetDetailsResponseUsage(RunGetDetailsResponseUsage runGetDetailsResponseUsage)
+        : base(runGetDetailsResponseUsage) { }
 #pragma warning restore CS8618
 
-    public Usage(IReadOnlyDictionary<string, JsonElement> rawData)
+    public RunGetDetailsResponseUsage(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = new(rawData);
     }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    Usage(FrozenDictionary<string, JsonElement> rawData)
+    RunGetDetailsResponseUsage(FrozenDictionary<string, JsonElement> rawData)
     {
         this._rawData = new(rawData);
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="UsageFromRaw.FromRawUnchecked"/>
-    public static Usage FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
+    /// <inheritdoc cref="RunGetDetailsResponseUsageFromRaw.FromRawUnchecked"/>
+    public static RunGetDetailsResponseUsage FromRawUnchecked(
+        IReadOnlyDictionary<string, JsonElement> rawData
+    )
     {
         return new(FrozenDictionary.ToFrozenDictionary(rawData));
     }
 }
 
-class UsageFromRaw : IFromRawJson<Usage>
+class RunGetDetailsResponseUsageFromRaw : IFromRawJson<RunGetDetailsResponseUsage>
 {
     /// <inheritdoc/>
-    public Usage FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
-        Usage.FromRawUnchecked(rawData);
+    public RunGetDetailsResponseUsage FromRawUnchecked(
+        IReadOnlyDictionary<string, JsonElement> rawData
+    ) => RunGetDetailsResponseUsage.FromRawUnchecked(rawData);
 }
 
 [JsonConverter(typeof(JsonModelConverter<Entry, EntryFromRaw>))]
