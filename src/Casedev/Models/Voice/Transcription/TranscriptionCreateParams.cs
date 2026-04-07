@@ -100,12 +100,12 @@ public record class TranscriptionCreateParams : ParamsBase
     /// <summary>
     /// Enable content moderation and safety labeling
     /// </summary>
-    public bool? ContentSafetyLabels
+    public bool? ContentSafety
     {
         get
         {
             this._rawBodyData.Freeze();
-            return this._rawBodyData.GetNullableStruct<bool>("content_safety_labels");
+            return this._rawBodyData.GetNullableStruct<bool>("content_safety");
         }
         init
         {
@@ -114,7 +114,7 @@ public record class TranscriptionCreateParams : ParamsBase
                 return;
             }
 
-            this._rawBodyData.Set("content_safety_labels", value);
+            this._rawBodyData.Set("content_safety", value);
         }
     }
 
