@@ -17,7 +17,7 @@ public class TranscriptionCreateParamsTest : TestBase
             AudioUrl = "audio_url",
             AutoHighlights = true,
             BoostParam = BoostParam.Low,
-            ContentSafetyLabels = true,
+            ContentSafety = true,
             Format = TranscriptionCreateParamsFormat.Json,
             FormatText = true,
             LanguageCode = "language_code",
@@ -34,7 +34,7 @@ public class TranscriptionCreateParamsTest : TestBase
         string expectedAudioUrl = "audio_url";
         bool expectedAutoHighlights = true;
         ApiEnum<string, BoostParam> expectedBoostParam = BoostParam.Low;
-        bool expectedContentSafetyLabels = true;
+        bool expectedContentSafety = true;
         ApiEnum<string, TranscriptionCreateParamsFormat> expectedFormat =
             TranscriptionCreateParamsFormat.Json;
         bool expectedFormatText = true;
@@ -51,7 +51,7 @@ public class TranscriptionCreateParamsTest : TestBase
         Assert.Equal(expectedAudioUrl, parameters.AudioUrl);
         Assert.Equal(expectedAutoHighlights, parameters.AutoHighlights);
         Assert.Equal(expectedBoostParam, parameters.BoostParam);
-        Assert.Equal(expectedContentSafetyLabels, parameters.ContentSafetyLabels);
+        Assert.Equal(expectedContentSafety, parameters.ContentSafety);
         Assert.Equal(expectedFormat, parameters.Format);
         Assert.Equal(expectedFormatText, parameters.FormatText);
         Assert.Equal(expectedLanguageCode, parameters.LanguageCode);
@@ -86,8 +86,8 @@ public class TranscriptionCreateParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("auto_highlights"));
         Assert.Null(parameters.BoostParam);
         Assert.False(parameters.RawBodyData.ContainsKey("boost_param"));
-        Assert.Null(parameters.ContentSafetyLabels);
-        Assert.False(parameters.RawBodyData.ContainsKey("content_safety_labels"));
+        Assert.Null(parameters.ContentSafety);
+        Assert.False(parameters.RawBodyData.ContainsKey("content_safety"));
         Assert.Null(parameters.Format);
         Assert.False(parameters.RawBodyData.ContainsKey("format"));
         Assert.Null(parameters.FormatText);
@@ -121,7 +121,7 @@ public class TranscriptionCreateParamsTest : TestBase
             AudioUrl = null,
             AutoHighlights = null,
             BoostParam = null,
-            ContentSafetyLabels = null,
+            ContentSafety = null,
             Format = null,
             FormatText = null,
             LanguageCode = null,
@@ -141,8 +141,8 @@ public class TranscriptionCreateParamsTest : TestBase
         Assert.False(parameters.RawBodyData.ContainsKey("auto_highlights"));
         Assert.Null(parameters.BoostParam);
         Assert.False(parameters.RawBodyData.ContainsKey("boost_param"));
-        Assert.Null(parameters.ContentSafetyLabels);
-        Assert.False(parameters.RawBodyData.ContainsKey("content_safety_labels"));
+        Assert.Null(parameters.ContentSafety);
+        Assert.False(parameters.RawBodyData.ContainsKey("content_safety"));
         Assert.Null(parameters.Format);
         Assert.False(parameters.RawBodyData.ContainsKey("format"));
         Assert.Null(parameters.FormatText);
@@ -185,7 +185,7 @@ public class TranscriptionCreateParamsTest : TestBase
             AudioUrl = "audio_url",
             AutoHighlights = true,
             BoostParam = BoostParam.Low,
-            ContentSafetyLabels = true,
+            ContentSafety = true,
             Format = TranscriptionCreateParamsFormat.Json,
             FormatText = true,
             LanguageCode = "language_code",
