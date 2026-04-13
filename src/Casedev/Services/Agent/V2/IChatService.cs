@@ -73,6 +73,22 @@ public interface IChatService
     );
 
     /// <summary>
+    /// Returns a short-lived token that allows browser clients to connect directly to
+    /// the agent chat SSE stream without exposing the underlying org API key.
+    /// </summary>
+    Task<ChatCreateStreamTokenResponse> CreateStreamToken(
+        ChatCreateStreamTokenParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="CreateStreamToken(ChatCreateStreamTokenParams, CancellationToken)"/>
+    Task<ChatCreateStreamTokenResponse> CreateStreamToken(
+        string id,
+        ChatCreateStreamTokenParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
     /// Answers a pending OpenCode question for the Daytona-backed chat session and
     /// resumes or recovers the runtime if needed.
     /// </summary>
@@ -139,7 +155,8 @@ public interface IChatService
     /// <summary>
     /// Relays OpenCode SSE events for this Daytona-backed chat runtime. Supports replay
     /// from buffered events using Last-Event-ID and transparently reconnects stopped or
-    /// archived runtimes.
+    /// archived runtimes. Accepts either Bearer token auth or a short-lived stream
+    /// token via query parameter. When both are provided, Bearer auth takes precedence.
     /// </summary>
     IAsyncEnumerable<string> StreamStreaming(
         ChatStreamParams parameters,
@@ -207,6 +224,22 @@ public interface IChatServiceWithRawResponse
     Task<HttpResponse<ChatCancelResponse>> Cancel(
         string id,
         ChatCancelParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for <c>post /agent/v2/chat/{id}/stream-token</c>, but is otherwise the
+    /// same as <see cref="IChatService.CreateStreamToken(ChatCreateStreamTokenParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<ChatCreateStreamTokenResponse>> CreateStreamToken(
+        ChatCreateStreamTokenParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="CreateStreamToken(ChatCreateStreamTokenParams, CancellationToken)"/>
+    Task<HttpResponse<ChatCreateStreamTokenResponse>> CreateStreamToken(
+        string id,
+        ChatCreateStreamTokenParams? parameters = null,
         CancellationToken cancellationToken = default
     );
 

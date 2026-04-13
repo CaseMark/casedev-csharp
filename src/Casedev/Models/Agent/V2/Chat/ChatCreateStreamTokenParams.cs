@@ -9,74 +9,29 @@ using Casedev.Core;
 namespace Casedev.Models.Agent.V2.Chat;
 
 /// <summary>
-/// Relays OpenCode SSE events for this Daytona-backed chat runtime. Supports replay
-/// from buffered events using Last-Event-ID and transparently reconnects stopped
-/// or archived runtimes. Accepts either Bearer token auth or a short-lived stream
-/// token via query parameter. When both are provided, Bearer auth takes precedence.
+/// Returns a short-lived token that allows browser clients to connect directly to
+/// the agent chat SSE stream without exposing the underlying org API key.
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that
 /// cause existing derived classes to break.</para>
 /// </summary>
-public record class ChatStreamParams : ParamsBase
+public record class ChatCreateStreamTokenParams : ParamsBase
 {
     public string? ID { get; init; }
 
-    /// <summary>
-    /// Short-lived stream token from POST /agent/v2/chat/:id/stream-token. If provided,
-    /// Bearer auth is not required.
-    /// </summary>
-    public string? Token
-    {
-        get
-        {
-            this._rawQueryData.Freeze();
-            return this._rawQueryData.GetNullableClass<string>("token");
-        }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawQueryData.Set("token", value);
-        }
-    }
-
-    /// <summary>
-    /// Replay events after this sequence number
-    /// </summary>
-    public long? LastEventID
-    {
-        get
-        {
-            this._rawQueryData.Freeze();
-            return this._rawQueryData.GetNullableStruct<long>("lastEventId");
-        }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawQueryData.Set("lastEventId", value);
-        }
-    }
-
-    public ChatStreamParams() { }
+    public ChatCreateStreamTokenParams() { }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    public ChatStreamParams(ChatStreamParams chatStreamParams)
-        : base(chatStreamParams)
+    public ChatCreateStreamTokenParams(ChatCreateStreamTokenParams chatCreateStreamTokenParams)
+        : base(chatCreateStreamTokenParams)
     {
-        this.ID = chatStreamParams.ID;
+        this.ID = chatCreateStreamTokenParams.ID;
     }
 #pragma warning restore CS8618
 
-    public ChatStreamParams(
+    public ChatCreateStreamTokenParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData
     )
@@ -87,7 +42,7 @@ public record class ChatStreamParams : ParamsBase
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    ChatStreamParams(
+    ChatCreateStreamTokenParams(
         FrozenDictionary<string, JsonElement> rawHeaderData,
         FrozenDictionary<string, JsonElement> rawQueryData,
         string id
@@ -100,7 +55,7 @@ public record class ChatStreamParams : ParamsBase
 #pragma warning restore CS8618
 
     /// <inheritdoc cref="IFromRawJson{T}.FromRawUnchecked"/>
-    public static ChatStreamParams FromRawUnchecked(
+    public static ChatCreateStreamTokenParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
         string id
@@ -130,7 +85,7 @@ public record class ChatStreamParams : ParamsBase
             ModelBase.ToStringSerializerOptions
         );
 
-    public virtual bool Equals(ChatStreamParams? other)
+    public virtual bool Equals(ChatCreateStreamTokenParams? other)
     {
         if (other == null)
         {
@@ -145,7 +100,7 @@ public record class ChatStreamParams : ParamsBase
     {
         return new UriBuilder(
             options.BaseUrl.ToString().TrimEnd('/')
-                + string.Format("/agent/v2/chat/{0}/stream", this.ID)
+                + string.Format("/agent/v2/chat/{0}/stream-token", this.ID)
         )
         {
             Query = this.QueryString(options),
@@ -155,7 +110,6 @@ public record class ChatStreamParams : ParamsBase
     internal override void AddHeadersToRequest(HttpRequestMessage request, ClientOptions options)
     {
         ParamsBase.AddDefaultHeaders(request, options);
-        request.Headers.Add("Accept", "text/event-stream");
         foreach (var item in this.RawHeaderData)
         {
             ParamsBase.AddHeaderElementToRequest(request, item.Key, item.Value);

@@ -105,6 +105,30 @@ public sealed class ChatService : IChatService
     }
 
     /// <inheritdoc/>
+    public async Task<ChatCreateStreamTokenResponse> CreateStreamToken(
+        ChatCreateStreamTokenParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.CreateStreamToken(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public Task<ChatCreateStreamTokenResponse> CreateStreamToken(
+        string id,
+        ChatCreateStreamTokenParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        return this.CreateStreamToken(parameters with { ID = id }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
     public Task ReplyToQuestion(
         ChatReplyToQuestionParams parameters,
         CancellationToken cancellationToken = default
@@ -353,6 +377,51 @@ public sealed class ChatServiceWithRawResponse : IChatServiceWithRawResponse
         parameters ??= new();
 
         return this.Cancel(parameters with { ID = id }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async Task<HttpResponse<ChatCreateStreamTokenResponse>> CreateStreamToken(
+        ChatCreateStreamTokenParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        if (parameters.ID == null)
+        {
+            throw new CasedevInvalidDataException("'parameters.ID' cannot be null");
+        }
+
+        HttpRequest<ChatCreateStreamTokenParams> request = new()
+        {
+            Method = HttpMethod.Post,
+            Params = parameters,
+        };
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var deserializedResponse = await response
+                    .Deserialize<ChatCreateStreamTokenResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    deserializedResponse.Validate();
+                }
+                return deserializedResponse;
+            }
+        );
+    }
+
+    /// <inheritdoc/>
+    public Task<HttpResponse<ChatCreateStreamTokenResponse>> CreateStreamToken(
+        string id,
+        ChatCreateStreamTokenParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        return this.CreateStreamToken(parameters with { ID = id }, cancellationToken);
     }
 
     /// <inheritdoc/>
