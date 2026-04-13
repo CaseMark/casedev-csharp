@@ -37,6 +37,17 @@ public class ChatServiceTest : TestBase
     }
 
     [Fact]
+    public async Task CreateStreamToken_Works()
+    {
+        var response = await this.client.Agent.V2.Chat.CreateStreamToken(
+            "id",
+            new(),
+            TestContext.Current.CancellationToken
+        );
+        response.Validate();
+    }
+
+    [Fact]
     public async Task ReplyToQuestion_Works()
     {
         await this.client.Agent.V2.Chat.ReplyToQuestion(
