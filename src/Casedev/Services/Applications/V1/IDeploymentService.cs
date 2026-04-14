@@ -72,7 +72,7 @@ public interface IDeploymentService
     );
 
     /// <summary>
-    /// Create a deployment from raw file contents (for Thurgood sandbox deployments)
+    /// Create a deployment from raw file contents for application deployments
     /// </summary>
     Task CreateFromFiles(
         DeploymentCreateFromFilesParams? parameters = null,

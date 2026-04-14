@@ -436,7 +436,7 @@ public sealed record class ProjectLinkedDeployment : JsonModel
     }
 
     /// <summary>
-    /// Deployment URL (for Thurgood apps)
+    /// Deployment URL
     /// </summary>
     public string? Url
     {
@@ -509,7 +509,6 @@ class ProjectLinkedDeploymentFromRaw : IFromRawJson<ProjectLinkedDeployment>
 [JsonConverter(typeof(ProjectLinkedDeploymentTypeConverter))]
 public enum ProjectLinkedDeploymentType
 {
-    Thurgood,
     Compute,
 }
 
@@ -523,7 +522,6 @@ sealed class ProjectLinkedDeploymentTypeConverter : JsonConverter<ProjectLinkedD
     {
         return JsonSerializer.Deserialize<string>(ref reader, options) switch
         {
-            "thurgood" => ProjectLinkedDeploymentType.Thurgood,
             "compute" => ProjectLinkedDeploymentType.Compute,
             _ => (ProjectLinkedDeploymentType)(-1),
         };
@@ -539,7 +537,6 @@ sealed class ProjectLinkedDeploymentTypeConverter : JsonConverter<ProjectLinkedD
             writer,
             value switch
             {
-                ProjectLinkedDeploymentType.Thurgood => "thurgood",
                 ProjectLinkedDeploymentType.Compute => "compute",
                 _ => throw new CasedevInvalidDataException(
                     string.Format("Invalid value '{0}' in {1}", value, nameof(value))
