@@ -9,7 +9,7 @@ using Casedev.Core;
 namespace Casedev.Models.Applications.V1.Deployments;
 
 /// <summary>
-/// Create a deployment from raw file contents (for Thurgood sandbox deployments)
+/// Create a deployment from raw file contents for application deployments
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that

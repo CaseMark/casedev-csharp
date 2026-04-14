@@ -9,8 +9,8 @@ using Casedev.Core;
 namespace Casedev.Models.Applications.V1.Projects;
 
 /// <summary>
-/// Lists application projects and deployed Thurgood apps for the authenticated organization.
-/// Use enrich=true to include additional hosting metadata for projects linked to Vercel.
+/// Lists application projects for the authenticated organization. Use enrich=true
+/// to include additional hosting metadata for projects linked to Vercel.
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that

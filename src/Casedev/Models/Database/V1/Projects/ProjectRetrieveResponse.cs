@@ -720,7 +720,6 @@ class LinkedDeploymentFromRaw : IFromRawJson<LinkedDeployment>
 [JsonConverter(typeof(TypeConverter))]
 public enum Type
 {
-    Thurgood,
     Compute,
 }
 
@@ -734,7 +733,6 @@ sealed class TypeConverter : JsonConverter<global::Casedev.Models.Database.V1.Pr
     {
         return JsonSerializer.Deserialize<string>(ref reader, options) switch
         {
-            "thurgood" => global::Casedev.Models.Database.V1.Projects.Type.Thurgood,
             "compute" => global::Casedev.Models.Database.V1.Projects.Type.Compute,
             _ => (global::Casedev.Models.Database.V1.Projects.Type)(-1),
         };
@@ -750,7 +748,6 @@ sealed class TypeConverter : JsonConverter<global::Casedev.Models.Database.V1.Pr
             writer,
             value switch
             {
-                global::Casedev.Models.Database.V1.Projects.Type.Thurgood => "thurgood",
                 global::Casedev.Models.Database.V1.Projects.Type.Compute => "compute",
                 _ => throw new CasedevInvalidDataException(
                     string.Format("Invalid value '{0}' in {1}", value, nameof(value))

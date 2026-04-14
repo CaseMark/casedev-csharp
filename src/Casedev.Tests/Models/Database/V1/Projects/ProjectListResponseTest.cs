@@ -28,7 +28,7 @@ public class ProjectListResponseTest : TestBase
                         {
                             ID = "id",
                             Name = "name",
-                            Type = ProjectLinkedDeploymentType.Thurgood,
+                            Type = ProjectLinkedDeploymentType.Compute,
                             Url = "url",
                         },
                     ],
@@ -56,7 +56,7 @@ public class ProjectListResponseTest : TestBase
                     {
                         ID = "id",
                         Name = "name",
-                        Type = ProjectLinkedDeploymentType.Thurgood,
+                        Type = ProjectLinkedDeploymentType.Compute,
                         Url = "url",
                     },
                 ],
@@ -95,7 +95,7 @@ public class ProjectListResponseTest : TestBase
                         {
                             ID = "id",
                             Name = "name",
-                            Type = ProjectLinkedDeploymentType.Thurgood,
+                            Type = ProjectLinkedDeploymentType.Compute,
                             Url = "url",
                         },
                     ],
@@ -137,7 +137,7 @@ public class ProjectListResponseTest : TestBase
                         {
                             ID = "id",
                             Name = "name",
-                            Type = ProjectLinkedDeploymentType.Thurgood,
+                            Type = ProjectLinkedDeploymentType.Compute,
                             Url = "url",
                         },
                     ],
@@ -172,7 +172,7 @@ public class ProjectListResponseTest : TestBase
                     {
                         ID = "id",
                         Name = "name",
-                        Type = ProjectLinkedDeploymentType.Thurgood,
+                        Type = ProjectLinkedDeploymentType.Compute,
                         Url = "url",
                     },
                 ],
@@ -211,7 +211,7 @@ public class ProjectListResponseTest : TestBase
                         {
                             ID = "id",
                             Name = "name",
-                            Type = ProjectLinkedDeploymentType.Thurgood,
+                            Type = ProjectLinkedDeploymentType.Compute,
                             Url = "url",
                         },
                     ],
@@ -247,7 +247,7 @@ public class ProjectListResponseTest : TestBase
                         {
                             ID = "id",
                             Name = "name",
-                            Type = ProjectLinkedDeploymentType.Thurgood,
+                            Type = ProjectLinkedDeploymentType.Compute,
                             Url = "url",
                         },
                     ],
@@ -284,7 +284,7 @@ public class ProjectTest : TestBase
                 {
                     ID = "id",
                     Name = "name",
-                    Type = ProjectLinkedDeploymentType.Thurgood,
+                    Type = ProjectLinkedDeploymentType.Compute,
                     Url = "url",
                 },
             ],
@@ -306,7 +306,7 @@ public class ProjectTest : TestBase
             {
                 ID = "id",
                 Name = "name",
-                Type = ProjectLinkedDeploymentType.Thurgood,
+                Type = ProjectLinkedDeploymentType.Compute,
                 Url = "url",
             },
         ];
@@ -350,7 +350,7 @@ public class ProjectTest : TestBase
                 {
                     ID = "id",
                     Name = "name",
-                    Type = ProjectLinkedDeploymentType.Thurgood,
+                    Type = ProjectLinkedDeploymentType.Compute,
                     Url = "url",
                 },
             ],
@@ -383,7 +383,7 @@ public class ProjectTest : TestBase
                 {
                     ID = "id",
                     Name = "name",
-                    Type = ProjectLinkedDeploymentType.Thurgood,
+                    Type = ProjectLinkedDeploymentType.Compute,
                     Url = "url",
                 },
             ],
@@ -412,7 +412,7 @@ public class ProjectTest : TestBase
             {
                 ID = "id",
                 Name = "name",
-                Type = ProjectLinkedDeploymentType.Thurgood,
+                Type = ProjectLinkedDeploymentType.Compute,
                 Url = "url",
             },
         ];
@@ -456,7 +456,7 @@ public class ProjectTest : TestBase
                 {
                     ID = "id",
                     Name = "name",
-                    Type = ProjectLinkedDeploymentType.Thurgood,
+                    Type = ProjectLinkedDeploymentType.Compute,
                     Url = "url",
                 },
             ],
@@ -585,7 +585,7 @@ public class ProjectTest : TestBase
                 {
                     ID = "id",
                     Name = "name",
-                    Type = ProjectLinkedDeploymentType.Thurgood,
+                    Type = ProjectLinkedDeploymentType.Compute,
                     Url = "url",
                 },
             ],
@@ -615,7 +615,7 @@ public class ProjectTest : TestBase
                 {
                     ID = "id",
                     Name = "name",
-                    Type = ProjectLinkedDeploymentType.Thurgood,
+                    Type = ProjectLinkedDeploymentType.Compute,
                     Url = "url",
                 },
             ],
@@ -644,7 +644,7 @@ public class ProjectTest : TestBase
                 {
                     ID = "id",
                     Name = "name",
-                    Type = ProjectLinkedDeploymentType.Thurgood,
+                    Type = ProjectLinkedDeploymentType.Compute,
                     Url = "url",
                 },
             ],
@@ -676,7 +676,7 @@ public class ProjectTest : TestBase
                 {
                     ID = "id",
                     Name = "name",
-                    Type = ProjectLinkedDeploymentType.Thurgood,
+                    Type = ProjectLinkedDeploymentType.Compute,
                     Url = "url",
                 },
             ],
@@ -708,7 +708,7 @@ public class ProjectTest : TestBase
                 {
                     ID = "id",
                     Name = "name",
-                    Type = ProjectLinkedDeploymentType.Thurgood,
+                    Type = ProjectLinkedDeploymentType.Compute,
                     Url = "url",
                 },
             ],
@@ -735,14 +735,14 @@ public class ProjectLinkedDeploymentTest : TestBase
         {
             ID = "id",
             Name = "name",
-            Type = ProjectLinkedDeploymentType.Thurgood,
+            Type = ProjectLinkedDeploymentType.Compute,
             Url = "url",
         };
 
         string expectedID = "id";
         string expectedName = "name";
         ApiEnum<string, ProjectLinkedDeploymentType> expectedType =
-            ProjectLinkedDeploymentType.Thurgood;
+            ProjectLinkedDeploymentType.Compute;
         string expectedUrl = "url";
 
         Assert.Equal(expectedID, model.ID);
@@ -758,7 +758,7 @@ public class ProjectLinkedDeploymentTest : TestBase
         {
             ID = "id",
             Name = "name",
-            Type = ProjectLinkedDeploymentType.Thurgood,
+            Type = ProjectLinkedDeploymentType.Compute,
             Url = "url",
         };
 
@@ -778,7 +778,7 @@ public class ProjectLinkedDeploymentTest : TestBase
         {
             ID = "id",
             Name = "name",
-            Type = ProjectLinkedDeploymentType.Thurgood,
+            Type = ProjectLinkedDeploymentType.Compute,
             Url = "url",
         };
 
@@ -792,7 +792,7 @@ public class ProjectLinkedDeploymentTest : TestBase
         string expectedID = "id";
         string expectedName = "name";
         ApiEnum<string, ProjectLinkedDeploymentType> expectedType =
-            ProjectLinkedDeploymentType.Thurgood;
+            ProjectLinkedDeploymentType.Compute;
         string expectedUrl = "url";
 
         Assert.Equal(expectedID, deserialized.ID);
@@ -808,7 +808,7 @@ public class ProjectLinkedDeploymentTest : TestBase
         {
             ID = "id",
             Name = "name",
-            Type = ProjectLinkedDeploymentType.Thurgood,
+            Type = ProjectLinkedDeploymentType.Compute,
             Url = "url",
         };
 
@@ -882,7 +882,7 @@ public class ProjectLinkedDeploymentTest : TestBase
         {
             ID = "id",
             Name = "name",
-            Type = ProjectLinkedDeploymentType.Thurgood,
+            Type = ProjectLinkedDeploymentType.Compute,
             Url = "url",
         };
 
@@ -895,7 +895,6 @@ public class ProjectLinkedDeploymentTest : TestBase
 public class ProjectLinkedDeploymentTypeTest : TestBase
 {
     [Theory]
-    [InlineData(ProjectLinkedDeploymentType.Thurgood)]
     [InlineData(ProjectLinkedDeploymentType.Compute)]
     public void Validation_Works(ProjectLinkedDeploymentType rawValue)
     {
@@ -917,7 +916,6 @@ public class ProjectLinkedDeploymentTypeTest : TestBase
     }
 
     [Theory]
-    [InlineData(ProjectLinkedDeploymentType.Thurgood)]
     [InlineData(ProjectLinkedDeploymentType.Compute)]
     public void SerializationRoundtrip_Works(ProjectLinkedDeploymentType rawValue)
     {

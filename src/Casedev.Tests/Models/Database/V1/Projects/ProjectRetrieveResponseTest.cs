@@ -45,7 +45,7 @@ public class ProjectRetrieveResponseTest : TestBase
                     ID = "id",
                     EnvVarName = "envVarName",
                     Name = "name",
-                    Type = Projects::Type.Thurgood,
+                    Type = Projects::Type.Compute,
                     Url = "url",
                 },
             ],
@@ -89,7 +89,7 @@ public class ProjectRetrieveResponseTest : TestBase
                 ID = "id",
                 EnvVarName = "envVarName",
                 Name = "name",
-                Type = Projects::Type.Thurgood,
+                Type = Projects::Type.Compute,
                 Url = "url",
             },
         ];
@@ -166,7 +166,7 @@ public class ProjectRetrieveResponseTest : TestBase
                     ID = "id",
                     EnvVarName = "envVarName",
                     Name = "name",
-                    Type = Projects::Type.Thurgood,
+                    Type = Projects::Type.Compute,
                     Url = "url",
                 },
             ],
@@ -224,7 +224,7 @@ public class ProjectRetrieveResponseTest : TestBase
                     ID = "id",
                     EnvVarName = "envVarName",
                     Name = "name",
-                    Type = Projects::Type.Thurgood,
+                    Type = Projects::Type.Compute,
                     Url = "url",
                 },
             ],
@@ -275,7 +275,7 @@ public class ProjectRetrieveResponseTest : TestBase
                 ID = "id",
                 EnvVarName = "envVarName",
                 Name = "name",
-                Type = Projects::Type.Thurgood,
+                Type = Projects::Type.Compute,
                 Url = "url",
             },
         ];
@@ -352,7 +352,7 @@ public class ProjectRetrieveResponseTest : TestBase
                     ID = "id",
                     EnvVarName = "envVarName",
                     Name = "name",
-                    Type = Projects::Type.Thurgood,
+                    Type = Projects::Type.Compute,
                     Url = "url",
                 },
             ],
@@ -404,7 +404,7 @@ public class ProjectRetrieveResponseTest : TestBase
                     ID = "id",
                     EnvVarName = "envVarName",
                     Name = "name",
-                    Type = Projects::Type.Thurgood,
+                    Type = Projects::Type.Compute,
                     Url = "url",
                 },
             ],
@@ -456,7 +456,7 @@ public class ProjectRetrieveResponseTest : TestBase
                     ID = "id",
                     EnvVarName = "envVarName",
                     Name = "name",
-                    Type = Projects::Type.Thurgood,
+                    Type = Projects::Type.Compute,
                     Url = "url",
                 },
             ],
@@ -507,7 +507,7 @@ public class ProjectRetrieveResponseTest : TestBase
                     ID = "id",
                     EnvVarName = "envVarName",
                     Name = "name",
-                    Type = Projects::Type.Thurgood,
+                    Type = Projects::Type.Compute,
                     Url = "url",
                 },
             ],
@@ -561,7 +561,7 @@ public class ProjectRetrieveResponseTest : TestBase
                     ID = "id",
                     EnvVarName = "envVarName",
                     Name = "name",
-                    Type = Projects::Type.Thurgood,
+                    Type = Projects::Type.Compute,
                     Url = "url",
                 },
             ],
@@ -614,7 +614,7 @@ public class ProjectRetrieveResponseTest : TestBase
                     ID = "id",
                     EnvVarName = "envVarName",
                     Name = "name",
-                    Type = Projects::Type.Thurgood,
+                    Type = Projects::Type.Compute,
                     Url = "url",
                 },
             ],
@@ -971,14 +971,14 @@ public class LinkedDeploymentTest : TestBase
             ID = "id",
             EnvVarName = "envVarName",
             Name = "name",
-            Type = Projects::Type.Thurgood,
+            Type = Projects::Type.Compute,
             Url = "url",
         };
 
         string expectedID = "id";
         string expectedEnvVarName = "envVarName";
         string expectedName = "name";
-        ApiEnum<string, Projects::Type> expectedType = Projects::Type.Thurgood;
+        ApiEnum<string, Projects::Type> expectedType = Projects::Type.Compute;
         string expectedUrl = "url";
 
         Assert.Equal(expectedID, model.ID);
@@ -996,7 +996,7 @@ public class LinkedDeploymentTest : TestBase
             ID = "id",
             EnvVarName = "envVarName",
             Name = "name",
-            Type = Projects::Type.Thurgood,
+            Type = Projects::Type.Compute,
             Url = "url",
         };
 
@@ -1017,7 +1017,7 @@ public class LinkedDeploymentTest : TestBase
             ID = "id",
             EnvVarName = "envVarName",
             Name = "name",
-            Type = Projects::Type.Thurgood,
+            Type = Projects::Type.Compute,
             Url = "url",
         };
 
@@ -1031,7 +1031,7 @@ public class LinkedDeploymentTest : TestBase
         string expectedID = "id";
         string expectedEnvVarName = "envVarName";
         string expectedName = "name";
-        ApiEnum<string, Projects::Type> expectedType = Projects::Type.Thurgood;
+        ApiEnum<string, Projects::Type> expectedType = Projects::Type.Compute;
         string expectedUrl = "url";
 
         Assert.Equal(expectedID, deserialized.ID);
@@ -1049,7 +1049,7 @@ public class LinkedDeploymentTest : TestBase
             ID = "id",
             EnvVarName = "envVarName",
             Name = "name",
-            Type = Projects::Type.Thurgood,
+            Type = Projects::Type.Compute,
             Url = "url",
         };
 
@@ -1130,7 +1130,7 @@ public class LinkedDeploymentTest : TestBase
             ID = "id",
             EnvVarName = "envVarName",
             Name = "name",
-            Type = Projects::Type.Thurgood,
+            Type = Projects::Type.Compute,
             Url = "url",
         };
 
@@ -1143,7 +1143,6 @@ public class LinkedDeploymentTest : TestBase
 public class TypeTest : TestBase
 {
     [Theory]
-    [InlineData(Projects::Type.Thurgood)]
     [InlineData(Projects::Type.Compute)]
     public void Validation_Works(Projects::Type rawValue)
     {
@@ -1165,7 +1164,6 @@ public class TypeTest : TestBase
     }
 
     [Theory]
-    [InlineData(Projects::Type.Thurgood)]
     [InlineData(Projects::Type.Compute)]
     public void SerializationRoundtrip_Works(Projects::Type rawValue)
     {
