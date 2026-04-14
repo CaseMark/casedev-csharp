@@ -40,6 +40,20 @@ public record class ChatCreateParams : ParamsBase
     }
 
     /// <summary>
+    /// Optional hidden app instructions merged into the chat runtime bootstrap and
+    /// never exposed as a user message. Only accepted for privileged C3 system keys.
+    /// </summary>
+    public string? Instructions
+    {
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("instructions");
+        }
+        init { this._rawBodyData.Set("instructions", value); }
+    }
+
+    /// <summary>
     /// Optional model override for the OpenCode session
     /// </summary>
     public string? Model

@@ -12,17 +12,20 @@ public class ChatCreateParamsTest : TestBase
         var parameters = new ChatCreateParams
         {
             IdleTimeoutMs = 0,
+            Instructions = "instructions",
             Model = "model",
             Title = "title",
             VaultIds = ["string"],
         };
 
         long expectedIdleTimeoutMs = 0;
+        string expectedInstructions = "instructions";
         string expectedModel = "model";
         string expectedTitle = "title";
         List<string> expectedVaultIds = ["string"];
 
         Assert.Equal(expectedIdleTimeoutMs, parameters.IdleTimeoutMs);
+        Assert.Equal(expectedInstructions, parameters.Instructions);
         Assert.Equal(expectedModel, parameters.Model);
         Assert.Equal(expectedTitle, parameters.Title);
         Assert.NotNull(parameters.VaultIds);
@@ -39,6 +42,7 @@ public class ChatCreateParamsTest : TestBase
         var parameters = new ChatCreateParams
         {
             IdleTimeoutMs = 0,
+            Instructions = "instructions",
             Model = "model",
             VaultIds = ["string"],
         };
@@ -53,6 +57,7 @@ public class ChatCreateParamsTest : TestBase
         var parameters = new ChatCreateParams
         {
             IdleTimeoutMs = 0,
+            Instructions = "instructions",
             Model = "model",
             VaultIds = ["string"],
 
@@ -71,6 +76,8 @@ public class ChatCreateParamsTest : TestBase
 
         Assert.Null(parameters.IdleTimeoutMs);
         Assert.False(parameters.RawBodyData.ContainsKey("idleTimeoutMs"));
+        Assert.Null(parameters.Instructions);
+        Assert.False(parameters.RawBodyData.ContainsKey("instructions"));
         Assert.Null(parameters.Model);
         Assert.False(parameters.RawBodyData.ContainsKey("model"));
         Assert.Null(parameters.VaultIds);
@@ -85,12 +92,15 @@ public class ChatCreateParamsTest : TestBase
             Title = "title",
 
             IdleTimeoutMs = null,
+            Instructions = null,
             Model = null,
             VaultIds = null,
         };
 
         Assert.Null(parameters.IdleTimeoutMs);
         Assert.True(parameters.RawBodyData.ContainsKey("idleTimeoutMs"));
+        Assert.Null(parameters.Instructions);
+        Assert.True(parameters.RawBodyData.ContainsKey("instructions"));
         Assert.Null(parameters.Model);
         Assert.True(parameters.RawBodyData.ContainsKey("model"));
         Assert.Null(parameters.VaultIds);
@@ -113,6 +123,7 @@ public class ChatCreateParamsTest : TestBase
         var parameters = new ChatCreateParams
         {
             IdleTimeoutMs = 0,
+            Instructions = "instructions",
             Model = "model",
             Title = "title",
             VaultIds = ["string"],
