@@ -22,6 +22,7 @@ public class RunGetDetailsResponseTest : TestBase
             ModalSandboxID = "modalSandboxId",
             Model = "model",
             Prompt = "prompt",
+            Provider = Run::Provider.Daytona,
             Result = new()
             {
                 FinalResponse = new()
@@ -34,6 +35,8 @@ public class RunGetDetailsResponseTest : TestBase
                 Output = "output",
                 OutputObjectIds = ["string"],
             },
+            RuntimeID = "runtimeId",
+            RuntimeState = Run::RuntimeState.Running,
             StartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Status = Run::RunGetDetailsResponseStatus.Queued,
             Steps =
@@ -95,6 +98,7 @@ public class RunGetDetailsResponseTest : TestBase
         string expectedModalSandboxID = "modalSandboxId";
         string expectedModel = "model";
         string expectedPrompt = "prompt";
+        ApiEnum<string, Run::Provider> expectedProvider = Run::Provider.Daytona;
         Run::Result expectedResult = new()
         {
             FinalResponse = new()
@@ -107,6 +111,8 @@ public class RunGetDetailsResponseTest : TestBase
             Output = "output",
             OutputObjectIds = ["string"],
         };
+        string expectedRuntimeID = "runtimeId";
+        ApiEnum<string, Run::RuntimeState> expectedRuntimeState = Run::RuntimeState.Running;
         DateTimeOffset expectedStartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
         ApiEnum<string, Run::RunGetDetailsResponseStatus> expectedStatus =
             Run::RunGetDetailsResponseStatus.Queued;
@@ -168,7 +174,10 @@ public class RunGetDetailsResponseTest : TestBase
         Assert.Equal(expectedModalSandboxID, model.ModalSandboxID);
         Assert.Equal(expectedModel, model.Model);
         Assert.Equal(expectedPrompt, model.Prompt);
+        Assert.Equal(expectedProvider, model.Provider);
         Assert.Equal(expectedResult, model.Result);
+        Assert.Equal(expectedRuntimeID, model.RuntimeID);
+        Assert.Equal(expectedRuntimeState, model.RuntimeState);
         Assert.Equal(expectedStartedAt, model.StartedAt);
         Assert.Equal(expectedStatus, model.Status);
         Assert.NotNull(model.Steps);
@@ -194,6 +203,7 @@ public class RunGetDetailsResponseTest : TestBase
             ModalSandboxID = "modalSandboxId",
             Model = "model",
             Prompt = "prompt",
+            Provider = Run::Provider.Daytona,
             Result = new()
             {
                 FinalResponse = new()
@@ -206,6 +216,8 @@ public class RunGetDetailsResponseTest : TestBase
                 Output = "output",
                 OutputObjectIds = ["string"],
             },
+            RuntimeID = "runtimeId",
+            RuntimeState = Run::RuntimeState.Running,
             StartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Status = Run::RunGetDetailsResponseStatus.Queued,
             Steps =
@@ -281,6 +293,7 @@ public class RunGetDetailsResponseTest : TestBase
             ModalSandboxID = "modalSandboxId",
             Model = "model",
             Prompt = "prompt",
+            Provider = Run::Provider.Daytona,
             Result = new()
             {
                 FinalResponse = new()
@@ -293,6 +306,8 @@ public class RunGetDetailsResponseTest : TestBase
                 Output = "output",
                 OutputObjectIds = ["string"],
             },
+            RuntimeID = "runtimeId",
+            RuntimeState = Run::RuntimeState.Running,
             StartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Status = Run::RunGetDetailsResponseStatus.Queued,
             Steps =
@@ -361,6 +376,7 @@ public class RunGetDetailsResponseTest : TestBase
         string expectedModalSandboxID = "modalSandboxId";
         string expectedModel = "model";
         string expectedPrompt = "prompt";
+        ApiEnum<string, Run::Provider> expectedProvider = Run::Provider.Daytona;
         Run::Result expectedResult = new()
         {
             FinalResponse = new()
@@ -373,6 +389,8 @@ public class RunGetDetailsResponseTest : TestBase
             Output = "output",
             OutputObjectIds = ["string"],
         };
+        string expectedRuntimeID = "runtimeId";
+        ApiEnum<string, Run::RuntimeState> expectedRuntimeState = Run::RuntimeState.Running;
         DateTimeOffset expectedStartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
         ApiEnum<string, Run::RunGetDetailsResponseStatus> expectedStatus =
             Run::RunGetDetailsResponseStatus.Queued;
@@ -434,7 +452,10 @@ public class RunGetDetailsResponseTest : TestBase
         Assert.Equal(expectedModalSandboxID, deserialized.ModalSandboxID);
         Assert.Equal(expectedModel, deserialized.Model);
         Assert.Equal(expectedPrompt, deserialized.Prompt);
+        Assert.Equal(expectedProvider, deserialized.Provider);
         Assert.Equal(expectedResult, deserialized.Result);
+        Assert.Equal(expectedRuntimeID, deserialized.RuntimeID);
+        Assert.Equal(expectedRuntimeState, deserialized.RuntimeState);
         Assert.Equal(expectedStartedAt, deserialized.StartedAt);
         Assert.Equal(expectedStatus, deserialized.Status);
         Assert.NotNull(deserialized.Steps);
@@ -460,6 +481,7 @@ public class RunGetDetailsResponseTest : TestBase
             ModalSandboxID = "modalSandboxId",
             Model = "model",
             Prompt = "prompt",
+            Provider = Run::Provider.Daytona,
             Result = new()
             {
                 FinalResponse = new()
@@ -472,6 +494,8 @@ public class RunGetDetailsResponseTest : TestBase
                 Output = "output",
                 OutputObjectIds = ["string"],
             },
+            RuntimeID = "runtimeId",
+            RuntimeState = Run::RuntimeState.Running,
             StartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Status = Run::RunGetDetailsResponseStatus.Queued,
             Steps =
@@ -537,6 +561,7 @@ public class RunGetDetailsResponseTest : TestBase
             Guidance = "guidance",
             ModalSandboxID = "modalSandboxId",
             Model = "model",
+            Provider = Run::Provider.Daytona,
             Result = new()
             {
                 FinalResponse = new()
@@ -549,6 +574,8 @@ public class RunGetDetailsResponseTest : TestBase
                 Output = "output",
                 OutputObjectIds = ["string"],
             },
+            RuntimeID = "runtimeId",
+            RuntimeState = Run::RuntimeState.Running,
             StartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Usage = new()
             {
@@ -610,6 +637,7 @@ public class RunGetDetailsResponseTest : TestBase
             Guidance = "guidance",
             ModalSandboxID = "modalSandboxId",
             Model = "model",
+            Provider = Run::Provider.Daytona,
             Result = new()
             {
                 FinalResponse = new()
@@ -622,6 +650,8 @@ public class RunGetDetailsResponseTest : TestBase
                 Output = "output",
                 OutputObjectIds = ["string"],
             },
+            RuntimeID = "runtimeId",
+            RuntimeState = Run::RuntimeState.Running,
             StartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Usage = new()
             {
@@ -672,6 +702,7 @@ public class RunGetDetailsResponseTest : TestBase
             Guidance = "guidance",
             ModalSandboxID = "modalSandboxId",
             Model = "model",
+            Provider = Run::Provider.Daytona,
             Result = new()
             {
                 FinalResponse = new()
@@ -684,6 +715,8 @@ public class RunGetDetailsResponseTest : TestBase
                 Output = "output",
                 OutputObjectIds = ["string"],
             },
+            RuntimeID = "runtimeId",
+            RuntimeState = Run::RuntimeState.Running,
             StartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Usage = new()
             {
@@ -753,6 +786,7 @@ public class RunGetDetailsResponseTest : TestBase
             Guidance = "guidance",
             ModalSandboxID = "modalSandboxId",
             Model = "model",
+            Provider = Run::Provider.Daytona,
             Result = new()
             {
                 FinalResponse = new()
@@ -765,6 +799,8 @@ public class RunGetDetailsResponseTest : TestBase
                 Output = "output",
                 OutputObjectIds = ["string"],
             },
+            RuntimeID = "runtimeId",
+            RuntimeState = Run::RuntimeState.Running,
             StartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Usage = new()
             {
@@ -848,8 +884,14 @@ public class RunGetDetailsResponseTest : TestBase
         Assert.False(model.RawData.ContainsKey("modalSandboxId"));
         Assert.Null(model.Model);
         Assert.False(model.RawData.ContainsKey("model"));
+        Assert.Null(model.Provider);
+        Assert.False(model.RawData.ContainsKey("provider"));
         Assert.Null(model.Result);
         Assert.False(model.RawData.ContainsKey("result"));
+        Assert.Null(model.RuntimeID);
+        Assert.False(model.RawData.ContainsKey("runtimeId"));
+        Assert.Null(model.RuntimeState);
+        Assert.False(model.RawData.ContainsKey("runtimeState"));
         Assert.Null(model.StartedAt);
         Assert.False(model.RawData.ContainsKey("startedAt"));
         Assert.Null(model.Usage);
@@ -916,7 +958,10 @@ public class RunGetDetailsResponseTest : TestBase
             Guidance = null,
             ModalSandboxID = null,
             Model = null,
+            Provider = null,
             Result = null,
+            RuntimeID = null,
+            RuntimeState = null,
             StartedAt = null,
             Usage = null,
             WorkflowID = null,
@@ -930,8 +975,14 @@ public class RunGetDetailsResponseTest : TestBase
         Assert.True(model.RawData.ContainsKey("modalSandboxId"));
         Assert.Null(model.Model);
         Assert.True(model.RawData.ContainsKey("model"));
+        Assert.Null(model.Provider);
+        Assert.True(model.RawData.ContainsKey("provider"));
         Assert.Null(model.Result);
         Assert.True(model.RawData.ContainsKey("result"));
+        Assert.Null(model.RuntimeID);
+        Assert.True(model.RawData.ContainsKey("runtimeId"));
+        Assert.Null(model.RuntimeState);
+        Assert.True(model.RawData.ContainsKey("runtimeState"));
         Assert.Null(model.StartedAt);
         Assert.True(model.RawData.ContainsKey("startedAt"));
         Assert.Null(model.Usage);
@@ -969,7 +1020,10 @@ public class RunGetDetailsResponseTest : TestBase
             Guidance = null,
             ModalSandboxID = null,
             Model = null,
+            Provider = null,
             Result = null,
+            RuntimeID = null,
+            RuntimeState = null,
             StartedAt = null,
             Usage = null,
             WorkflowID = null,
@@ -991,6 +1045,7 @@ public class RunGetDetailsResponseTest : TestBase
             ModalSandboxID = "modalSandboxId",
             Model = "model",
             Prompt = "prompt",
+            Provider = Run::Provider.Daytona,
             Result = new()
             {
                 FinalResponse = new()
@@ -1003,6 +1058,8 @@ public class RunGetDetailsResponseTest : TestBase
                 Output = "output",
                 OutputObjectIds = ["string"],
             },
+            RuntimeID = "runtimeId",
+            RuntimeState = Run::RuntimeState.Running,
             StartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Status = Run::RunGetDetailsResponseStatus.Queued,
             Steps =
@@ -1059,6 +1116,64 @@ public class RunGetDetailsResponseTest : TestBase
         Run::RunGetDetailsResponse copied = new(model);
 
         Assert.Equal(model, copied);
+    }
+}
+
+public class ProviderTest : TestBase
+{
+    [Theory]
+    [InlineData(Run::Provider.Daytona)]
+    [InlineData(Run::Provider.Vercel)]
+    public void Validation_Works(Run::Provider rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, Run::Provider> value = rawValue;
+        value.Validate();
+    }
+
+    [Fact]
+    public void InvalidEnumValidationThrows_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, Run::Provider>>(
+            JsonSerializer.SerializeToElement("invalid value"),
+            ModelBase.SerializerOptions
+        );
+
+        Assert.NotNull(value);
+        Assert.Throws<CasedevInvalidDataException>(() => value.Validate());
+    }
+
+    [Theory]
+    [InlineData(Run::Provider.Daytona)]
+    [InlineData(Run::Provider.Vercel)]
+    public void SerializationRoundtrip_Works(Run::Provider rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, Run::Provider> value = rawValue;
+
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Run::Provider>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
+    }
+
+    [Fact]
+    public void InvalidEnumSerializationRoundtrip_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, Run::Provider>>(
+            JsonSerializer.SerializeToElement("invalid value"),
+            ModelBase.SerializerOptions
+        );
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Run::Provider>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
     }
 }
 
@@ -1622,6 +1737,70 @@ public class LogsTest : TestBase
         Run::Logs copied = new(model);
 
         Assert.Equal(model, copied);
+    }
+}
+
+public class RuntimeStateTest : TestBase
+{
+    [Theory]
+    [InlineData(Run::RuntimeState.Running)]
+    [InlineData(Run::RuntimeState.Stopped)]
+    [InlineData(Run::RuntimeState.Archived)]
+    [InlineData(Run::RuntimeState.Ended)]
+    [InlineData(Run::RuntimeState.Error)]
+    public void Validation_Works(Run::RuntimeState rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, Run::RuntimeState> value = rawValue;
+        value.Validate();
+    }
+
+    [Fact]
+    public void InvalidEnumValidationThrows_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, Run::RuntimeState>>(
+            JsonSerializer.SerializeToElement("invalid value"),
+            ModelBase.SerializerOptions
+        );
+
+        Assert.NotNull(value);
+        Assert.Throws<CasedevInvalidDataException>(() => value.Validate());
+    }
+
+    [Theory]
+    [InlineData(Run::RuntimeState.Running)]
+    [InlineData(Run::RuntimeState.Stopped)]
+    [InlineData(Run::RuntimeState.Archived)]
+    [InlineData(Run::RuntimeState.Ended)]
+    [InlineData(Run::RuntimeState.Error)]
+    public void SerializationRoundtrip_Works(Run::RuntimeState rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, Run::RuntimeState> value = rawValue;
+
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Run::RuntimeState>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
+    }
+
+    [Fact]
+    public void InvalidEnumSerializationRoundtrip_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, Run::RuntimeState>>(
+            JsonSerializer.SerializeToElement("invalid value"),
+            ModelBase.SerializerOptions
+        );
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Run::RuntimeState>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
     }
 }
 

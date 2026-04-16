@@ -11,8 +11,8 @@ using Casedev.Core;
 namespace Casedev.Models.Agent.V1.Chat;
 
 /// <summary>
-/// Creates a persistent OpenCode chat session in a Modal sandbox. Session state
-/// is retained and can be resumed across requests.
+/// Creates a persistent OpenCode chat session backed by a Daytona or Vercel runtime.
+/// Session state is retained and can be resumed or recovered across requests.
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that

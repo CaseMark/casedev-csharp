@@ -1,10 +1,12 @@
-using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Casedev.Core;
+using Casedev.Exceptions;
+using System = System;
 
 namespace Casedev.Models.Ocr.V1;
 
@@ -19,6 +21,29 @@ namespace Casedev.Models.Ocr.V1;
 public record class V1RetrieveParams : ParamsBase
 {
     public string? ID { get; init; }
+
+    /// <summary>
+    /// Include full OCR text in completed responses (default: true)
+    /// </summary>
+    public ApiEnum<string, IncludeText>? IncludeText
+    {
+        get
+        {
+            this._rawQueryData.Freeze();
+            return this._rawQueryData.GetNullableClass<ApiEnum<string, IncludeText>>(
+                "include_text"
+            );
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawQueryData.Set("include_text", value);
+        }
+    }
 
     public V1RetrieveParams() { }
 
@@ -96,9 +121,9 @@ public record class V1RetrieveParams : ParamsBase
             && this._rawQueryData.Equals(other._rawQueryData);
     }
 
-    public override Uri Url(ClientOptions options)
+    public override System::Uri Url(ClientOptions options)
     {
-        return new UriBuilder(
+        return new System::UriBuilder(
             options.BaseUrl.ToString().TrimEnd('/') + string.Format("/ocr/v1/{0}", this.ID)
         )
         {
@@ -118,5 +143,52 @@ public record class V1RetrieveParams : ParamsBase
     public override int GetHashCode()
     {
         return 0;
+    }
+}
+
+/// <summary>
+/// Include full OCR text in completed responses (default: true)
+/// </summary>
+[JsonConverter(typeof(IncludeTextConverter))]
+public enum IncludeText
+{
+    True,
+    False,
+}
+
+sealed class IncludeTextConverter : JsonConverter<IncludeText>
+{
+    public override IncludeText Read(
+        ref Utf8JsonReader reader,
+        System::Type typeToConvert,
+        JsonSerializerOptions options
+    )
+    {
+        return JsonSerializer.Deserialize<string>(ref reader, options) switch
+        {
+            "true" => IncludeText.True,
+            "false" => IncludeText.False,
+            _ => (IncludeText)(-1),
+        };
+    }
+
+    public override void Write(
+        Utf8JsonWriter writer,
+        IncludeText value,
+        JsonSerializerOptions options
+    )
+    {
+        JsonSerializer.Serialize(
+            writer,
+            value switch
+            {
+                IncludeText.True => "true",
+                IncludeText.False => "false",
+                _ => throw new CasedevInvalidDataException(
+                    string.Format("Invalid value '{0}' in {1}", value, nameof(value))
+                ),
+            },
+            options
+        );
     }
 }
