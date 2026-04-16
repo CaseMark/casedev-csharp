@@ -122,7 +122,9 @@ public class ChatCreateCompletionParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/llm/v1/chat/completions"), url);
+        Assert.True(
+            TestBase.UrisEqual(new Uri("https://api.case.dev/llm/v1/chat/completions"), url)
+        );
     }
 
     [Fact]

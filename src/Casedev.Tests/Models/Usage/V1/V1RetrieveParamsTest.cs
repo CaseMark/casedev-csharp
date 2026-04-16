@@ -65,17 +65,19 @@ public class V1RetrieveParamsTest : TestBase
         V1RetrieveParams parameters = new()
         {
             Granularity = Granularity.Summary,
-            PeriodEnd = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
-            PeriodStart = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            PeriodEnd = DateTimeOffset.Parse("2019-12-27T18:11:19.117+00:00"),
+            PeriodStart = DateTimeOffset.Parse("2019-12-27T18:11:19.117+00:00"),
         };
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(
-            new Uri(
-                "https://api.case.dev/usage/v1?granularity=summary&periodEnd=2019-12-27T18%3a11%3a19.117%2b00%3a00&periodStart=2019-12-27T18%3a11%3a19.117%2b00%3a00"
-            ),
-            url
+        Assert.True(
+            TestBase.UrisEqual(
+                new Uri(
+                    "https://api.case.dev/usage/v1?granularity=summary&periodEnd=2019-12-27T18%3a11%3a19.117%2b00%3a00&periodStart=2019-12-27T18%3a11%3a19.117%2b00%3a00"
+                ),
+                url
+            )
         );
     }
 

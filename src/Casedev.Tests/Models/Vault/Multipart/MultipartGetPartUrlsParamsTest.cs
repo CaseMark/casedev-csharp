@@ -47,7 +47,9 @@ public class MultipartGetPartUrlsParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/vault/id/multipart/part-urls"), url);
+        Assert.True(
+            TestBase.UrisEqual(new Uri("https://api.case.dev/vault/id/multipart/part-urls"), url)
+        );
     }
 
     [Fact]

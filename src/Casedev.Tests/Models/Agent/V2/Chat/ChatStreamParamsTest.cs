@@ -65,9 +65,11 @@ public class ChatStreamParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(
-            new Uri("https://api.case.dev/agent/v2/chat/id/stream?token=token&lastEventId=0"),
-            url
+        Assert.True(
+            TestBase.UrisEqual(
+                new Uri("https://api.case.dev/agent/v2/chat/id/stream?token=token&lastEventId=0"),
+                url
+            )
         );
     }
 

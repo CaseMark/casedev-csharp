@@ -150,7 +150,9 @@ public class AgentTypeCreateParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/matters/v1/agent-types"), url);
+        Assert.True(
+            TestBase.UrisEqual(new Uri("https://api.case.dev/matters/v1/agent-types"), url)
+        );
     }
 
     [Fact]

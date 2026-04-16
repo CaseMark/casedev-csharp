@@ -22,7 +22,12 @@ public class InboxListMessagesParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/mail/v1/inboxes/inboxId/messages"), url);
+        Assert.True(
+            TestBase.UrisEqual(
+                new Uri("https://api.case.dev/mail/v1/inboxes/inboxId/messages"),
+                url
+            )
+        );
     }
 
     [Fact]

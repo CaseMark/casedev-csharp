@@ -149,11 +149,13 @@ public class V1DeleteAllParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(
-            new Uri(
-                "https://api.case.dev/memory/v1?tag_1=tag_1&tag_10=tag_10&tag_11=tag_11&tag_12=tag_12&tag_2=tag_2&tag_3=tag_3&tag_4=tag_4&tag_5=tag_5&tag_6=tag_6&tag_7=tag_7&tag_8=tag_8&tag_9=tag_9"
-            ),
-            url
+        Assert.True(
+            TestBase.UrisEqual(
+                new Uri(
+                    "https://api.case.dev/memory/v1?tag_1=tag_1&tag_10=tag_10&tag_11=tag_11&tag_12=tag_12&tag_2=tag_2&tag_3=tag_3&tag_4=tag_4&tag_5=tag_5&tag_6=tag_6&tag_7=tag_7&tag_8=tag_8&tag_9=tag_9"
+                ),
+                url
+            )
         );
     }
 

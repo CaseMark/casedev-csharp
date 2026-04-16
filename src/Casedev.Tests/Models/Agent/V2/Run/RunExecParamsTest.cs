@@ -22,7 +22,7 @@ public class RunExecParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/agent/v2/run/id/exec"), url);
+        Assert.True(TestBase.UrisEqual(new Uri("https://api.case.dev/agent/v2/run/id/exec"), url));
     }
 
     [Fact]

@@ -68,9 +68,11 @@ public class CustomListParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(
-            new Uri("https://api.case.dev/skills/custom?cursor=cursor&limit=1&tag=tag"),
-            url
+        Assert.True(
+            TestBase.UrisEqual(
+                new Uri("https://api.case.dev/skills/custom?cursor=cursor&limit=1&tag=tag"),
+                url
+            )
         );
     }
 

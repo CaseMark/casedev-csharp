@@ -123,7 +123,7 @@ public class V1ContentsParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/search/v1/contents"), url);
+        Assert.True(TestBase.UrisEqual(new Uri("https://api.case.dev/search/v1/contents"), url));
     }
 
     [Fact]

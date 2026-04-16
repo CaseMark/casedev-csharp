@@ -22,7 +22,7 @@ public class GroupDeleteParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/vault/groups/groupId"), url);
+        Assert.True(TestBase.UrisEqual(new Uri("https://api.case.dev/vault/groups/groupId"), url));
     }
 
     [Fact]

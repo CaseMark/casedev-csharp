@@ -122,7 +122,7 @@ public class V1AnnotateParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/superdoc/v1/annotate"), url);
+        Assert.True(TestBase.UrisEqual(new Uri("https://api.case.dev/superdoc/v1/annotate"), url));
     }
 
     [Fact]

@@ -22,7 +22,9 @@ public class ChatCreateStreamTokenParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/agent/v2/chat/id/stream-token"), url);
+        Assert.True(
+            TestBase.UrisEqual(new Uri("https://api.case.dev/agent/v2/chat/id/stream-token"), url)
+        );
     }
 
     [Fact]

@@ -78,11 +78,13 @@ public class DeploymentListParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(
-            new Uri(
-                "https://api.case.dev/applications/v1/deployments?projectId=projectId&limit=0&state=state&target=production"
-            ),
-            url
+        Assert.True(
+            TestBase.UrisEqual(
+                new Uri(
+                    "https://api.case.dev/applications/v1/deployments?projectId=projectId&limit=0&state=state&target=production"
+                ),
+                url
+            )
         );
     }
 

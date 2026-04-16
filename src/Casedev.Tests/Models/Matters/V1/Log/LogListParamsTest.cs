@@ -119,22 +119,24 @@ public class LogListParamsTest : TestBase
             ID = "id",
             ActorID = "actor_id",
             ActorType = "actor_type",
-            EndTime = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            EndTime = DateTimeOffset.Parse("2019-12-27T18:11:19.117+00:00"),
             EventType = "event_type",
             Limit = 200,
             Offset = 0,
             Scope = "string",
-            StartTime = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            StartTime = DateTimeOffset.Parse("2019-12-27T18:11:19.117+00:00"),
             WorkItemID = "work_item_id",
         };
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(
-            new Uri(
-                "https://api.case.dev/matters/v1/id/log?actor_id=actor_id&actor_type=actor_type&end_time=2019-12-27T18%3a11%3a19.117%2b00%3a00&event_type=event_type&limit=200&offset=0&scope=string&start_time=2019-12-27T18%3a11%3a19.117%2b00%3a00&work_item_id=work_item_id"
-            ),
-            url
+        Assert.True(
+            TestBase.UrisEqual(
+                new Uri(
+                    "https://api.case.dev/matters/v1/id/log?actor_id=actor_id&actor_type=actor_type&end_time=2019-12-27T18%3a11%3a19.117%2b00%3a00&event_type=event_type&limit=200&offset=0&scope=string&start_time=2019-12-27T18%3a11%3a19.117%2b00%3a00&work_item_id=work_item_id"
+                ),
+                url
+            )
         );
     }
 

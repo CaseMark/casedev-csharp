@@ -66,7 +66,9 @@ public class SubscriptionCreateParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/usage/v1/subscriptions"), url);
+        Assert.True(
+            TestBase.UrisEqual(new Uri("https://api.case.dev/usage/v1/subscriptions"), url)
+        );
     }
 
     [Fact]

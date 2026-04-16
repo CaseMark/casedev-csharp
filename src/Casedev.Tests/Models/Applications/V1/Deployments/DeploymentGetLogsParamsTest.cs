@@ -24,9 +24,13 @@ public class DeploymentGetLogsParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(
-            new Uri("https://api.case.dev/applications/v1/deployments/id/logs?projectId=projectId"),
-            url
+        Assert.True(
+            TestBase.UrisEqual(
+                new Uri(
+                    "https://api.case.dev/applications/v1/deployments/id/logs?projectId=projectId"
+                ),
+                url
+            )
         );
     }
 

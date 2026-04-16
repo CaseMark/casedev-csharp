@@ -71,7 +71,12 @@ public class SecretUpdateGroupParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/compute/v1/secrets/litigation-apis"), url);
+        Assert.True(
+            TestBase.UrisEqual(
+                new Uri("https://api.case.dev/compute/v1/secrets/litigation-apis"),
+                url
+            )
+        );
     }
 
     [Fact]

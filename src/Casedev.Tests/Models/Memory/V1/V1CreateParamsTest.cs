@@ -199,7 +199,7 @@ public class V1CreateParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/memory/v1"), url);
+        Assert.True(TestBase.UrisEqual(new Uri("https://api.case.dev/memory/v1"), url));
     }
 
     [Fact]
