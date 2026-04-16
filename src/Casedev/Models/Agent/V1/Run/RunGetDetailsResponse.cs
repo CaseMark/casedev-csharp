@@ -88,8 +88,9 @@ public sealed record class RunGetDetailsResponse : JsonModel
     }
 
     /// <summary>
-    /// Modal sandbox ID (available once sandbox is created)
+    /// Deprecated legacy Modal sandbox ID. Prefer `provider` and `runtimeId`.
     /// </summary>
+    [System::Obsolete("deprecated")]
     public string? ModalSandboxID
     {
         get
@@ -129,6 +130,19 @@ public sealed record class RunGetDetailsResponse : JsonModel
     }
 
     /// <summary>
+    /// Runtime provider for this run
+    /// </summary>
+    public ApiEnum<string, Provider>? Provider
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<ApiEnum<string, Provider>>("provider");
+        }
+        init { this._rawData.Set("provider", value); }
+    }
+
+    /// <summary>
     /// Final output from the agent
     /// </summary>
     public Result? Result
@@ -139,6 +153,32 @@ public sealed record class RunGetDetailsResponse : JsonModel
             return this._rawData.GetNullableClass<Result>("result");
         }
         init { this._rawData.Set("result", value); }
+    }
+
+    /// <summary>
+    /// Provider-specific runtime identifier
+    /// </summary>
+    public string? RuntimeID
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("runtimeId");
+        }
+        init { this._rawData.Set("runtimeId", value); }
+    }
+
+    /// <summary>
+    /// Current runtime state, when available
+    /// </summary>
+    public ApiEnum<string, RuntimeState>? RuntimeState
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<ApiEnum<string, RuntimeState>>("runtimeState");
+        }
+        init { this._rawData.Set("runtimeState", value); }
     }
 
     public System::DateTimeOffset? StartedAt
@@ -229,7 +269,10 @@ public sealed record class RunGetDetailsResponse : JsonModel
         _ = this.ModalSandboxID;
         _ = this.Model;
         _ = this.Prompt;
+        this.Provider?.Validate();
         this.Result?.Validate();
+        _ = this.RuntimeID;
+        this.RuntimeState?.Validate();
         _ = this.StartedAt;
         this.Status?.Validate();
         foreach (var item in this.Steps ?? [])
@@ -276,6 +319,49 @@ class RunGetDetailsResponseFromRaw : IFromRawJson<RunGetDetailsResponse>
     public RunGetDetailsResponse FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawData
     ) => RunGetDetailsResponse.FromRawUnchecked(rawData);
+}
+
+/// <summary>
+/// Runtime provider for this run
+/// </summary>
+[JsonConverter(typeof(ProviderConverter))]
+public enum Provider
+{
+    Daytona,
+    Vercel,
+}
+
+sealed class ProviderConverter : JsonConverter<Provider>
+{
+    public override Provider Read(
+        ref Utf8JsonReader reader,
+        System::Type typeToConvert,
+        JsonSerializerOptions options
+    )
+    {
+        return JsonSerializer.Deserialize<string>(ref reader, options) switch
+        {
+            "daytona" => Provider.Daytona,
+            "vercel" => Provider.Vercel,
+            _ => (Provider)(-1),
+        };
+    }
+
+    public override void Write(Utf8JsonWriter writer, Provider value, JsonSerializerOptions options)
+    {
+        JsonSerializer.Serialize(
+            writer,
+            value switch
+            {
+                Provider.Daytona => "daytona",
+                Provider.Vercel => "vercel",
+                _ => throw new CasedevInvalidDataException(
+                    string.Format("Invalid value '{0}' in {1}", value, nameof(value))
+                ),
+            },
+            options
+        );
+    }
 }
 
 /// <summary>
@@ -590,6 +676,62 @@ class LogsFromRaw : IFromRawJson<Logs>
     /// <inheritdoc/>
     public Logs FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         Logs.FromRawUnchecked(rawData);
+}
+
+/// <summary>
+/// Current runtime state, when available
+/// </summary>
+[JsonConverter(typeof(RuntimeStateConverter))]
+public enum RuntimeState
+{
+    Running,
+    Stopped,
+    Archived,
+    Ended,
+    Error,
+}
+
+sealed class RuntimeStateConverter : JsonConverter<RuntimeState>
+{
+    public override RuntimeState Read(
+        ref Utf8JsonReader reader,
+        System::Type typeToConvert,
+        JsonSerializerOptions options
+    )
+    {
+        return JsonSerializer.Deserialize<string>(ref reader, options) switch
+        {
+            "running" => RuntimeState.Running,
+            "stopped" => RuntimeState.Stopped,
+            "archived" => RuntimeState.Archived,
+            "ended" => RuntimeState.Ended,
+            "error" => RuntimeState.Error,
+            _ => (RuntimeState)(-1),
+        };
+    }
+
+    public override void Write(
+        Utf8JsonWriter writer,
+        RuntimeState value,
+        JsonSerializerOptions options
+    )
+    {
+        JsonSerializer.Serialize(
+            writer,
+            value switch
+            {
+                RuntimeState.Running => "running",
+                RuntimeState.Stopped => "stopped",
+                RuntimeState.Archived => "archived",
+                RuntimeState.Ended => "ended",
+                RuntimeState.Error => "error",
+                _ => throw new CasedevInvalidDataException(
+                    string.Format("Invalid value '{0}' in {1}", value, nameof(value))
+                ),
+            },
+            options
+        );
+    }
 }
 
 [JsonConverter(typeof(RunGetDetailsResponseStatusConverter))]
