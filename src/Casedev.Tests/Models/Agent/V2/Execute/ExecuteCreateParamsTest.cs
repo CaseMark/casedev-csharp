@@ -181,7 +181,7 @@ public class ExecuteCreateParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/agent/v2/execute"), url);
+        Assert.True(TestBase.UrisEqual(new Uri("https://api.case.dev/agent/v2/execute"), url));
     }
 
     [Fact]

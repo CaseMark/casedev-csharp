@@ -24,7 +24,9 @@ public class GraphragProcessObjectParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/vault/id/graphrag/objectId"), url);
+        Assert.True(
+            TestBase.UrisEqual(new Uri("https://api.case.dev/vault/id/graphrag/objectId"), url)
+        );
     }
 
     [Fact]

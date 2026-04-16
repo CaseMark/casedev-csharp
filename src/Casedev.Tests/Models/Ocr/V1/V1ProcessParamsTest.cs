@@ -112,7 +112,7 @@ public class V1ProcessParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/ocr/v1/process"), url);
+        Assert.True(TestBase.UrisEqual(new Uri("https://api.case.dev/ocr/v1/process"), url));
     }
 
     [Fact]

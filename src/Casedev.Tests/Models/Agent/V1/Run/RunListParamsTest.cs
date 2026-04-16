@@ -80,11 +80,13 @@ public class RunListParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(
-            new Uri(
-                "https://api.case.dev/agent/v1/run?agentId=agentId&cursor=cursor&limit=1&status=queued"
-            ),
-            url
+        Assert.True(
+            TestBase.UrisEqual(
+                new Uri(
+                    "https://api.case.dev/agent/v1/run?agentId=agentId&cursor=cursor&limit=1&status=queued"
+                ),
+                url
+            )
         );
     }
 

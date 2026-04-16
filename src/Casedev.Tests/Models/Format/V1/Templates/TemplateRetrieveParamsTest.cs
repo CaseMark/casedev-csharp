@@ -22,7 +22,9 @@ public class TemplateRetrieveParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/format/v1/templates/id"), url);
+        Assert.True(
+            TestBase.UrisEqual(new Uri("https://api.case.dev/format/v1/templates/id"), url)
+        );
     }
 
     [Fact]

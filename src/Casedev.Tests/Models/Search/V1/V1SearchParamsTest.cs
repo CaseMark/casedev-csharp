@@ -167,7 +167,7 @@ public class V1SearchParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/search/v1/search"), url);
+        Assert.True(TestBase.UrisEqual(new Uri("https://api.case.dev/search/v1/search"), url));
     }
 
     [Fact]

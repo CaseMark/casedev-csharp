@@ -85,7 +85,9 @@ public class BoostListExtractParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/voice/boost-list/extract"), url);
+        Assert.True(
+            TestBase.UrisEqual(new Uri("https://api.case.dev/voice/boost-list/extract"), url)
+        );
     }
 
     [Fact]

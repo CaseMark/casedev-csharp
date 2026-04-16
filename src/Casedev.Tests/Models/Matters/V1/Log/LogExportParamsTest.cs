@@ -111,7 +111,9 @@ public class LogExportParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/matters/v1/id/log/export"), url);
+        Assert.True(
+            TestBase.UrisEqual(new Uri("https://api.case.dev/matters/v1/id/log/export"), url)
+        );
     }
 
     [Fact]

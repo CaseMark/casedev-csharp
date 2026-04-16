@@ -59,9 +59,13 @@ public class TranscriptionRetrieveParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(
-            new Uri("https://api.case.dev/voice/transcription/tr_abc123def456?include_text=true"),
-            url
+        Assert.True(
+            TestBase.UrisEqual(
+                new Uri(
+                    "https://api.case.dev/voice/transcription/tr_abc123def456?include_text=true"
+                ),
+                url
+            )
         );
     }
 

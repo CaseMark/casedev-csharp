@@ -127,7 +127,7 @@ public class V1DocketParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/legal/v1/docket"), url);
+        Assert.True(TestBase.UrisEqual(new Uri("https://api.case.dev/legal/v1/docket"), url));
     }
 
     [Fact]

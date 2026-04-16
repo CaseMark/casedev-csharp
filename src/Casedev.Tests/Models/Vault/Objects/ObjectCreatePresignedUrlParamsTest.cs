@@ -83,7 +83,12 @@ public class ObjectCreatePresignedUrlParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/vault/id/objects/objectId/presigned-url"), url);
+        Assert.True(
+            TestBase.UrisEqual(
+                new Uri("https://api.case.dev/vault/id/objects/objectId/presigned-url"),
+                url
+            )
+        );
     }
 
     [Fact]

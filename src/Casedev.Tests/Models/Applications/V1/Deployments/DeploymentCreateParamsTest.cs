@@ -63,7 +63,9 @@ public class DeploymentCreateParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/applications/v1/deployments"), url);
+        Assert.True(
+            TestBase.UrisEqual(new Uri("https://api.case.dev/applications/v1/deployments"), url)
+        );
     }
 
     [Fact]

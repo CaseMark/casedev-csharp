@@ -147,7 +147,7 @@ public class SpeakCreateParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/voice/v1/speak"), url);
+        Assert.True(TestBase.UrisEqual(new Uri("https://api.case.dev/voice/v1/speak"), url));
     }
 
     [Fact]

@@ -51,7 +51,12 @@ public class AgentListParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/agent/v1/agents?cursor=cursor&limit=1"), url);
+        Assert.True(
+            TestBase.UrisEqual(
+                new Uri("https://api.case.dev/agent/v1/agents?cursor=cursor&limit=1"),
+                url
+            )
+        );
     }
 
     [Fact]

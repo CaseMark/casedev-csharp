@@ -65,11 +65,13 @@ public class WorkItemListParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(
-            new Uri(
-                "https://api.case.dev/matters/v1/id/work-items?assignee_id=assignee_id&status=status"
-            ),
-            url
+        Assert.True(
+            TestBase.UrisEqual(
+                new Uri(
+                    "https://api.case.dev/matters/v1/id/work-items?assignee_id=assignee_id&status=status"
+                ),
+                url
+            )
         );
     }
 

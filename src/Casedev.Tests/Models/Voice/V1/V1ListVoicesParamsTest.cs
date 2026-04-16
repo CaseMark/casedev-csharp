@@ -125,11 +125,13 @@ public class V1ListVoicesParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(
-            new Uri(
-                "https://api.case.dev/voice/v1/voices?category=category&collection_id=collection_id&include_total_count=true&next_page_token=next_page_token&page_size=1&search=search&sort=name&sort_direction=asc&voice_type=premade"
-            ),
-            url
+        Assert.True(
+            TestBase.UrisEqual(
+                new Uri(
+                    "https://api.case.dev/voice/v1/voices?category=category&collection_id=collection_id&include_total_count=true&next_page_token=next_page_token&page_size=1&search=search&sort=name&sort_direction=asc&voice_type=premade"
+                ),
+                url
+            )
         );
     }
 
