@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.22.1 (2026-04-16)
+
+Full Changelog: [v0.22.0...v0.22.1](https://github.com/CaseMark/casedev-csharp/compare/v0.22.0...v0.22.1)
+
+### Bug Fixes
+
+* **tests:** round-trip urls correctly ([822f4d0](https://github.com/CaseMark/casedev-csharp/commit/822f4d087529784421754ce54d54baaea315c11a))
+
 ## 0.22.0 (2026-04-14)
 
 Full Changelog: [v0.21.0...v0.22.0](https://github.com/CaseMark/casedev-csharp/compare/v0.21.0...v0.22.0)
