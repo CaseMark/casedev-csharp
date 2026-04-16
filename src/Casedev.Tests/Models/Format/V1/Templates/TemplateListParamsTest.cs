@@ -44,7 +44,9 @@ public class TemplateListParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/format/v1/templates?type=type"), url);
+        Assert.True(
+            TestBase.UrisEqual(new Uri("https://api.case.dev/format/v1/templates?type=type"), url)
+        );
     }
 
     [Fact]

@@ -24,7 +24,12 @@ public class DeploymentCancelParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/applications/v1/deployments/id/cancel"), url);
+        Assert.True(
+            TestBase.UrisEqual(
+                new Uri("https://api.case.dev/applications/v1/deployments/id/cancel"),
+                url
+            )
+        );
     }
 
     [Fact]

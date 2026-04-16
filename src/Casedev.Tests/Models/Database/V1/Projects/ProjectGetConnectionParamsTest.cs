@@ -65,11 +65,13 @@ public class ProjectGetConnectionParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(
-            new Uri(
-                "https://api.case.dev/database/v1/projects/id/connection?branch=branch&pooled=true"
-            ),
-            url
+        Assert.True(
+            TestBase.UrisEqual(
+                new Uri(
+                    "https://api.case.dev/database/v1/projects/id/connection?branch=branch&pooled=true"
+                ),
+                url
+            )
         );
     }
 

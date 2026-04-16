@@ -22,7 +22,7 @@ public class V1VerifyParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/legal/v1/verify"), url);
+        Assert.True(TestBase.UrisEqual(new Uri("https://api.case.dev/legal/v1/verify"), url));
     }
 
     [Fact]

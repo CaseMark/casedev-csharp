@@ -63,7 +63,7 @@ public class ProjectCreateParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/database/v1/projects"), url);
+        Assert.True(TestBase.UrisEqual(new Uri("https://api.case.dev/database/v1/projects"), url));
     }
 
     [Fact]

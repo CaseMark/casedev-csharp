@@ -22,7 +22,9 @@ public class EnvironmentCreateParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/compute/v1/environments"), url);
+        Assert.True(
+            TestBase.UrisEqual(new Uri("https://api.case.dev/compute/v1/environments"), url)
+        );
     }
 
     [Fact]

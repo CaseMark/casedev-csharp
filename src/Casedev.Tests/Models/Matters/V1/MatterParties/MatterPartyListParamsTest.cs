@@ -22,7 +22,7 @@ public class MatterPartyListParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/matters/v1/id/parties"), url);
+        Assert.True(TestBase.UrisEqual(new Uri("https://api.case.dev/matters/v1/id/parties"), url));
     }
 
     [Fact]

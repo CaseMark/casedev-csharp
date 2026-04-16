@@ -71,7 +71,7 @@ public class V1ConvertParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/superdoc/v1/convert"), url);
+        Assert.True(TestBase.UrisEqual(new Uri("https://api.case.dev/superdoc/v1/convert"), url));
     }
 
     [Fact]

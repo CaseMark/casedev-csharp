@@ -143,7 +143,9 @@ public class V1PatentSearchParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/legal/v1/patent-search"), url);
+        Assert.True(
+            TestBase.UrisEqual(new Uri("https://api.case.dev/legal/v1/patent-search"), url)
+        );
     }
 
     [Fact]

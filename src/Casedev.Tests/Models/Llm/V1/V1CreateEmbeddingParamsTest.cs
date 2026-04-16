@@ -75,7 +75,7 @@ public class V1CreateEmbeddingParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.case.dev/llm/v1/embeddings"), url);
+        Assert.True(TestBase.UrisEqual(new Uri("https://api.case.dev/llm/v1/embeddings"), url));
     }
 
     [Fact]
