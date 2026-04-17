@@ -133,6 +133,24 @@ public interface IObjectService
     );
 
     /// <summary>
+    /// Retrieves full extracted chunk text for a processed vault object. Use this after
+    /// search when a truncated preview is not enough and you need the exact chunk text
+    /// or adjacent chunks for surrounding context such as tables, exhibit lists, or
+    /// multi-part passages.
+    /// </summary>
+    Task<ObjectGetChunksResponse> GetChunks(
+        ObjectGetChunksParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="GetChunks(ObjectGetChunksParams, CancellationToken)"/>
+    Task<ObjectGetChunksResponse> GetChunks(
+        string objectID,
+        ObjectGetChunksParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
     /// Retrieves word-level OCR bounding box data for a processed PDF document. Each
     /// word includes its text, normalized bounding box coordinates (0-1 range),
     /// confidence score, and global word index. Use this data to highlight specific
@@ -289,6 +307,22 @@ public interface IObjectServiceWithRawResponse
     Task<HttpResponse> Download(
         string objectID,
         ObjectDownloadParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for <c>get /vault/{id}/objects/{objectId}/chunks</c>, but is otherwise the
+    /// same as <see cref="IObjectService.GetChunks(ObjectGetChunksParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<ObjectGetChunksResponse>> GetChunks(
+        ObjectGetChunksParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="GetChunks(ObjectGetChunksParams, CancellationToken)"/>
+    Task<HttpResponse<ObjectGetChunksResponse>> GetChunks(
+        string objectID,
+        ObjectGetChunksParams parameters,
         CancellationToken cancellationToken = default
     );
 
