@@ -166,6 +166,28 @@ public sealed class ObjectService : IObjectService
     }
 
     /// <inheritdoc/>
+    public async Task<ObjectGetChunksResponse> GetChunks(
+        ObjectGetChunksParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.GetChunks(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public Task<ObjectGetChunksResponse> GetChunks(
+        string objectID,
+        ObjectGetChunksParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return this.GetChunks(parameters with { ObjectID = objectID }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
     public async Task<ObjectGetOcrWordsResponse> GetOcrWords(
         ObjectGetOcrWordsParams parameters,
         CancellationToken cancellationToken = default
@@ -492,6 +514,49 @@ public sealed class ObjectServiceWithRawResponse : IObjectServiceWithRawResponse
     )
     {
         return this.Download(parameters with { ObjectID = objectID }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async Task<HttpResponse<ObjectGetChunksResponse>> GetChunks(
+        ObjectGetChunksParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        if (parameters.ObjectID == null)
+        {
+            throw new CasedevInvalidDataException("'parameters.ObjectID' cannot be null");
+        }
+
+        HttpRequest<ObjectGetChunksParams> request = new()
+        {
+            Method = HttpMethod.Get,
+            Params = parameters,
+        };
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var deserializedResponse = await response
+                    .Deserialize<ObjectGetChunksResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    deserializedResponse.Validate();
+                }
+                return deserializedResponse;
+            }
+        );
+    }
+
+    /// <inheritdoc/>
+    public Task<HttpResponse<ObjectGetChunksResponse>> GetChunks(
+        string objectID,
+        ObjectGetChunksParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return this.GetChunks(parameters with { ObjectID = objectID }, cancellationToken);
     }
 
     /// <inheritdoc/>

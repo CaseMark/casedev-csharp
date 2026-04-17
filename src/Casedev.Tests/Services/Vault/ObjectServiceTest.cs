@@ -70,6 +70,17 @@ public class ObjectServiceTest : TestBase
     }
 
     [Fact]
+    public async Task GetChunks_Works()
+    {
+        var response = await this.client.Vault.Objects.GetChunks(
+            "objectId",
+            new() { ID = "id" },
+            TestContext.Current.CancellationToken
+        );
+        response.Validate();
+    }
+
+    [Fact]
     public async Task GetOcrWords_Works()
     {
         var response = await this.client.Vault.Objects.GetOcrWords(
