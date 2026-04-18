@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.24.1 (2026-04-18)
+
+Full Changelog: [v0.24.0...v0.24.1](https://github.com/CaseMark/casedev-csharp/compare/v0.24.0...v0.24.1)
+
+### Chores
+
+* **tests:** bump steady to v0.22.1 ([847a735](https://github.com/CaseMark/casedev-csharp/commit/847a735955f145af51763cfbb76c2998dfbbd31d))
+
 ## 0.24.0 (2026-04-17)
 
 Full Changelog: [v0.23.0...v0.24.0](https://github.com/CaseMark/casedev-csharp/compare/v0.23.0...v0.24.0)
