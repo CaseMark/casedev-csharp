@@ -113,7 +113,7 @@ public record class ChatCreateCompletionParams : ParamsBase
     }
 
     /// <summary>
-    /// Model to use for completion. Defaults to casemark/casemark-core-6 if not specified
+    /// Model to use for completion. Defaults to casemark/core-large if not specified
     /// </summary>
     public string? Model
     {
