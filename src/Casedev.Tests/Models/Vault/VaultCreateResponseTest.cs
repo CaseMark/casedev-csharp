@@ -15,6 +15,12 @@ public class VaultCreateResponseTest : TestBase
             ID = "id",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Description = "description",
+            EmbeddingProfile = new()
+            {
+                Dimensions = 0,
+                Model = "model",
+                Provider = "provider",
+            },
             EnableIndexing = true,
             FilesBucket = "filesBucket",
             IndexName = "indexName",
@@ -26,6 +32,12 @@ public class VaultCreateResponseTest : TestBase
         string expectedID = "id";
         DateTimeOffset expectedCreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
         string expectedDescription = "description";
+        EmbeddingProfile expectedEmbeddingProfile = new()
+        {
+            Dimensions = 0,
+            Model = "model",
+            Provider = "provider",
+        };
         bool expectedEnableIndexing = true;
         string expectedFilesBucket = "filesBucket";
         string expectedIndexName = "indexName";
@@ -36,6 +48,7 @@ public class VaultCreateResponseTest : TestBase
         Assert.Equal(expectedID, model.ID);
         Assert.Equal(expectedCreatedAt, model.CreatedAt);
         Assert.Equal(expectedDescription, model.Description);
+        Assert.Equal(expectedEmbeddingProfile, model.EmbeddingProfile);
         Assert.Equal(expectedEnableIndexing, model.EnableIndexing);
         Assert.Equal(expectedFilesBucket, model.FilesBucket);
         Assert.Equal(expectedIndexName, model.IndexName);
@@ -52,6 +65,12 @@ public class VaultCreateResponseTest : TestBase
             ID = "id",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Description = "description",
+            EmbeddingProfile = new()
+            {
+                Dimensions = 0,
+                Model = "model",
+                Provider = "provider",
+            },
             EnableIndexing = true,
             FilesBucket = "filesBucket",
             IndexName = "indexName",
@@ -77,6 +96,12 @@ public class VaultCreateResponseTest : TestBase
             ID = "id",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Description = "description",
+            EmbeddingProfile = new()
+            {
+                Dimensions = 0,
+                Model = "model",
+                Provider = "provider",
+            },
             EnableIndexing = true,
             FilesBucket = "filesBucket",
             IndexName = "indexName",
@@ -95,6 +120,12 @@ public class VaultCreateResponseTest : TestBase
         string expectedID = "id";
         DateTimeOffset expectedCreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
         string expectedDescription = "description";
+        EmbeddingProfile expectedEmbeddingProfile = new()
+        {
+            Dimensions = 0,
+            Model = "model",
+            Provider = "provider",
+        };
         bool expectedEnableIndexing = true;
         string expectedFilesBucket = "filesBucket";
         string expectedIndexName = "indexName";
@@ -105,6 +136,7 @@ public class VaultCreateResponseTest : TestBase
         Assert.Equal(expectedID, deserialized.ID);
         Assert.Equal(expectedCreatedAt, deserialized.CreatedAt);
         Assert.Equal(expectedDescription, deserialized.Description);
+        Assert.Equal(expectedEmbeddingProfile, deserialized.EmbeddingProfile);
         Assert.Equal(expectedEnableIndexing, deserialized.EnableIndexing);
         Assert.Equal(expectedFilesBucket, deserialized.FilesBucket);
         Assert.Equal(expectedIndexName, deserialized.IndexName);
@@ -121,6 +153,12 @@ public class VaultCreateResponseTest : TestBase
             ID = "id",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Description = "description",
+            EmbeddingProfile = new()
+            {
+                Dimensions = 0,
+                Model = "model",
+                Provider = "provider",
+            },
             EnableIndexing = true,
             FilesBucket = "filesBucket",
             IndexName = "indexName",
@@ -137,6 +175,12 @@ public class VaultCreateResponseTest : TestBase
     {
         var model = new VaultCreateResponse
         {
+            EmbeddingProfile = new()
+            {
+                Dimensions = 0,
+                Model = "model",
+                Provider = "provider",
+            },
             IndexName = "indexName",
             VectorBucket = "vectorBucket",
         };
@@ -162,6 +206,12 @@ public class VaultCreateResponseTest : TestBase
     {
         var model = new VaultCreateResponse
         {
+            EmbeddingProfile = new()
+            {
+                Dimensions = 0,
+                Model = "model",
+                Provider = "provider",
+            },
             IndexName = "indexName",
             VectorBucket = "vectorBucket",
         };
@@ -174,6 +224,12 @@ public class VaultCreateResponseTest : TestBase
     {
         var model = new VaultCreateResponse
         {
+            EmbeddingProfile = new()
+            {
+                Dimensions = 0,
+                Model = "model",
+                Provider = "provider",
+            },
             IndexName = "indexName",
             VectorBucket = "vectorBucket",
 
@@ -208,6 +264,12 @@ public class VaultCreateResponseTest : TestBase
     {
         var model = new VaultCreateResponse
         {
+            EmbeddingProfile = new()
+            {
+                Dimensions = 0,
+                Model = "model",
+                Provider = "provider",
+            },
             IndexName = "indexName",
             VectorBucket = "vectorBucket",
 
@@ -238,6 +300,8 @@ public class VaultCreateResponseTest : TestBase
             Region = "region",
         };
 
+        Assert.Null(model.EmbeddingProfile);
+        Assert.False(model.RawData.ContainsKey("embeddingProfile"));
         Assert.Null(model.IndexName);
         Assert.False(model.RawData.ContainsKey("indexName"));
         Assert.Null(model.VectorBucket);
@@ -274,10 +338,13 @@ public class VaultCreateResponseTest : TestBase
             Name = "name",
             Region = "region",
 
+            EmbeddingProfile = null,
             IndexName = null,
             VectorBucket = null,
         };
 
+        Assert.Null(model.EmbeddingProfile);
+        Assert.True(model.RawData.ContainsKey("embeddingProfile"));
         Assert.Null(model.IndexName);
         Assert.True(model.RawData.ContainsKey("indexName"));
         Assert.Null(model.VectorBucket);
@@ -297,6 +364,7 @@ public class VaultCreateResponseTest : TestBase
             Name = "name",
             Region = "region",
 
+            EmbeddingProfile = null,
             IndexName = null,
             VectorBucket = null,
         };
@@ -312,6 +380,12 @@ public class VaultCreateResponseTest : TestBase
             ID = "id",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Description = "description",
+            EmbeddingProfile = new()
+            {
+                Dimensions = 0,
+                Model = "model",
+                Provider = "provider",
+            },
             EnableIndexing = true,
             FilesBucket = "filesBucket",
             IndexName = "indexName",
@@ -321,6 +395,155 @@ public class VaultCreateResponseTest : TestBase
         };
 
         VaultCreateResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
+}
+
+public class EmbeddingProfileTest : TestBase
+{
+    [Fact]
+    public void FieldRoundtrip_Works()
+    {
+        var model = new EmbeddingProfile
+        {
+            Dimensions = 0,
+            Model = "model",
+            Provider = "provider",
+        };
+
+        long expectedDimensions = 0;
+        string expectedModel = "model";
+        string expectedProvider = "provider";
+
+        Assert.Equal(expectedDimensions, model.Dimensions);
+        Assert.Equal(expectedModel, model.Model);
+        Assert.Equal(expectedProvider, model.Provider);
+    }
+
+    [Fact]
+    public void SerializationRoundtrip_Works()
+    {
+        var model = new EmbeddingProfile
+        {
+            Dimensions = 0,
+            Model = "model",
+            Provider = "provider",
+        };
+
+        string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<EmbeddingProfile>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(model, deserialized);
+    }
+
+    [Fact]
+    public void FieldRoundtripThroughSerialization_Works()
+    {
+        var model = new EmbeddingProfile
+        {
+            Dimensions = 0,
+            Model = "model",
+            Provider = "provider",
+        };
+
+        string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<EmbeddingProfile>(
+            element,
+            ModelBase.SerializerOptions
+        );
+        Assert.NotNull(deserialized);
+
+        long expectedDimensions = 0;
+        string expectedModel = "model";
+        string expectedProvider = "provider";
+
+        Assert.Equal(expectedDimensions, deserialized.Dimensions);
+        Assert.Equal(expectedModel, deserialized.Model);
+        Assert.Equal(expectedProvider, deserialized.Provider);
+    }
+
+    [Fact]
+    public void Validation_Works()
+    {
+        var model = new EmbeddingProfile
+        {
+            Dimensions = 0,
+            Model = "model",
+            Provider = "provider",
+        };
+
+        model.Validate();
+    }
+
+    [Fact]
+    public void OptionalNonNullablePropertiesUnsetAreNotSet_Works()
+    {
+        var model = new EmbeddingProfile { };
+
+        Assert.Null(model.Dimensions);
+        Assert.False(model.RawData.ContainsKey("dimensions"));
+        Assert.Null(model.Model);
+        Assert.False(model.RawData.ContainsKey("model"));
+        Assert.Null(model.Provider);
+        Assert.False(model.RawData.ContainsKey("provider"));
+    }
+
+    [Fact]
+    public void OptionalNonNullablePropertiesUnsetValidation_Works()
+    {
+        var model = new EmbeddingProfile { };
+
+        model.Validate();
+    }
+
+    [Fact]
+    public void OptionalNonNullablePropertiesSetToNullAreNotSet_Works()
+    {
+        var model = new EmbeddingProfile
+        {
+            // Null should be interpreted as omitted for these properties
+            Dimensions = null,
+            Model = null,
+            Provider = null,
+        };
+
+        Assert.Null(model.Dimensions);
+        Assert.False(model.RawData.ContainsKey("dimensions"));
+        Assert.Null(model.Model);
+        Assert.False(model.RawData.ContainsKey("model"));
+        Assert.Null(model.Provider);
+        Assert.False(model.RawData.ContainsKey("provider"));
+    }
+
+    [Fact]
+    public void OptionalNonNullablePropertiesSetToNullValidation_Works()
+    {
+        var model = new EmbeddingProfile
+        {
+            // Null should be interpreted as omitted for these properties
+            Dimensions = null,
+            Model = null,
+            Provider = null,
+        };
+
+        model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new EmbeddingProfile
+        {
+            Dimensions = 0,
+            Model = "model",
+            Provider = "provider",
+        };
+
+        EmbeddingProfile copied = new(model);
 
         Assert.Equal(model, copied);
     }

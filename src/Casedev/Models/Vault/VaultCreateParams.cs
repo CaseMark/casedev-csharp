@@ -5,7 +5,9 @@ using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Casedev.Core;
+using Casedev.Exceptions;
 
 namespace Casedev.Models.Vault;
 
@@ -57,6 +59,32 @@ public record class VaultCreateParams : ParamsBase
             }
 
             this._rawBodyData.Set("description", value);
+        }
+    }
+
+    /// <summary>
+    /// Optional embedding model for this vault. Defaults to openai/text-embedding-3-small.
+    /// Determines the S3 Vectors index dimension and which model is used at both
+    /// ingest and search time. The vault is locked to this model after creation —
+    /// use a re-embed flow to change later. Ignored when enableIndexing is false.
+    /// </summary>
+    public ApiEnum<string, EmbeddingModel>? EmbeddingModel
+    {
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<ApiEnum<string, EmbeddingModel>>(
+                "embeddingModel"
+            );
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawBodyData.Set("embeddingModel", value);
         }
     }
 
@@ -254,5 +282,72 @@ public record class VaultCreateParams : ParamsBase
     public override int GetHashCode()
     {
         return 0;
+    }
+}
+
+/// <summary>
+/// Optional embedding model for this vault. Defaults to openai/text-embedding-3-small.
+/// Determines the S3 Vectors index dimension and which model is used at both ingest
+/// and search time. The vault is locked to this model after creation — use a re-embed
+/// flow to change later. Ignored when enableIndexing is false.
+/// </summary>
+[JsonConverter(typeof(EmbeddingModelConverter))]
+public enum EmbeddingModel
+{
+    OpenAITextEmbedding3Small,
+    OpenAITextEmbedding3Large,
+    VoyageVoyage3_5,
+    VoyageVoyageLaw2,
+    CohereEmbedV4_0,
+    GoogleGeminiEmbedding2,
+    CasemarkLlamaNemotronEmbedVl1bV2,
+}
+
+sealed class EmbeddingModelConverter : JsonConverter<EmbeddingModel>
+{
+    public override EmbeddingModel Read(
+        ref Utf8JsonReader reader,
+        Type typeToConvert,
+        JsonSerializerOptions options
+    )
+    {
+        return JsonSerializer.Deserialize<string>(ref reader, options) switch
+        {
+            "openai/text-embedding-3-small" => EmbeddingModel.OpenAITextEmbedding3Small,
+            "openai/text-embedding-3-large" => EmbeddingModel.OpenAITextEmbedding3Large,
+            "voyage/voyage-3.5" => EmbeddingModel.VoyageVoyage3_5,
+            "voyage/voyage-law-2" => EmbeddingModel.VoyageVoyageLaw2,
+            "cohere/embed-v4.0" => EmbeddingModel.CohereEmbedV4_0,
+            "google/gemini-embedding-2" => EmbeddingModel.GoogleGeminiEmbedding2,
+            "casemark/llama-nemotron-embed-vl-1b-v2" =>
+                EmbeddingModel.CasemarkLlamaNemotronEmbedVl1bV2,
+            _ => (EmbeddingModel)(-1),
+        };
+    }
+
+    public override void Write(
+        Utf8JsonWriter writer,
+        EmbeddingModel value,
+        JsonSerializerOptions options
+    )
+    {
+        JsonSerializer.Serialize(
+            writer,
+            value switch
+            {
+                EmbeddingModel.OpenAITextEmbedding3Small => "openai/text-embedding-3-small",
+                EmbeddingModel.OpenAITextEmbedding3Large => "openai/text-embedding-3-large",
+                EmbeddingModel.VoyageVoyage3_5 => "voyage/voyage-3.5",
+                EmbeddingModel.VoyageVoyageLaw2 => "voyage/voyage-law-2",
+                EmbeddingModel.CohereEmbedV4_0 => "cohere/embed-v4.0",
+                EmbeddingModel.GoogleGeminiEmbedding2 => "google/gemini-embedding-2",
+                EmbeddingModel.CasemarkLlamaNemotronEmbedVl1bV2 =>
+                    "casemark/llama-nemotron-embed-vl-1b-v2",
+                _ => throw new CasedevInvalidDataException(
+                    string.Format("Invalid value '{0}' in {1}", value, nameof(value))
+                ),
+            },
+            options
+        );
     }
 }
