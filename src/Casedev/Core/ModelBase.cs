@@ -18,7 +18,6 @@ using Chat = Casedev.Models.Agent.V1.Chat;
 using Environments = Casedev.Models.Compute.V1.Environments;
 using Execute = Casedev.Models.Agent.V1.Execute;
 using Graphrag = Casedev.Models.Vault.Graphrag;
-using Instances = Casedev.Models.Compute.V1.Instances;
 using MattersV1 = Casedev.Models.Matters.V1;
 using Memory = Casedev.Models.Vault.Memory;
 using MemoryV1 = Casedev.Models.Memory.V1;
@@ -100,7 +99,6 @@ public abstract record class ModelBase
             new ApiEnumConverter<string, Projects::ProjectCreateEnvParamsType>(),
             new ApiEnumConverter<string, Projects::ProjectListDeploymentsParamsTarget>(),
             new ApiEnumConverter<string, Environments::Status>(),
-            new ApiEnumConverter<string, Instances::Status>(),
             new ApiEnumConverter<string, V1Projects::Status>(),
             new ApiEnumConverter<string, V1Projects::Type>(),
             new ApiEnumConverter<string, V1Projects::ProjectRetrieveResponseStatus>(),
@@ -169,6 +167,7 @@ public abstract record class ModelBase
             new ApiEnumConverter<string, Granularity>(),
             new ApiEnumConverter<string, Vault::Status>(),
             new ApiEnumConverter<string, Vault::VaultIngestResponseStatus>(),
+            new ApiEnumConverter<string, Vault::EmbeddingModel>(),
             new ApiEnumConverter<bool, Vault::Success>(),
             new ApiEnumConverter<bool, Vault::VaultConfirmUploadFailureSuccess>(),
             new ApiEnumConverter<string, Vault::Method>(),

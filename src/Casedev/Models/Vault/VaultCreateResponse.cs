@@ -75,6 +75,19 @@ public sealed record class VaultCreateResponse : JsonModel
     }
 
     /// <summary>
+    /// The resolved embedding profile for this vault. Null for storage-only vaults.
+    /// </summary>
+    public EmbeddingProfile? EmbeddingProfile
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<EmbeddingProfile>("embeddingProfile");
+        }
+        init { this._rawData.Set("embeddingProfile", value); }
+    }
+
+    /// <summary>
     /// Whether vector indexing is enabled for this vault
     /// </summary>
     public bool? EnableIndexing
@@ -190,6 +203,7 @@ public sealed record class VaultCreateResponse : JsonModel
         _ = this.ID;
         _ = this.CreatedAt;
         _ = this.Description;
+        this.EmbeddingProfile?.Validate();
         _ = this.EnableIndexing;
         _ = this.FilesBucket;
         _ = this.IndexName;
@@ -233,4 +247,118 @@ class VaultCreateResponseFromRaw : IFromRawJson<VaultCreateResponse>
     /// <inheritdoc/>
     public VaultCreateResponse FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
         VaultCreateResponse.FromRawUnchecked(rawData);
+}
+
+/// <summary>
+/// The resolved embedding profile for this vault. Null for storage-only vaults.
+/// </summary>
+[JsonConverter(typeof(JsonModelConverter<EmbeddingProfile, EmbeddingProfileFromRaw>))]
+public sealed record class EmbeddingProfile : JsonModel
+{
+    /// <summary>
+    /// Vector dimension used by this vault
+    /// </summary>
+    public long? Dimensions
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableStruct<long>("dimensions");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawData.Set("dimensions", value);
+        }
+    }
+
+    /// <summary>
+    /// Embedding model catalog key
+    /// </summary>
+    public string? Model
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("model");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawData.Set("model", value);
+        }
+    }
+
+    /// <summary>
+    /// Embedding provider
+    /// </summary>
+    public string? Provider
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("provider");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawData.Set("provider", value);
+        }
+    }
+
+    /// <inheritdoc/>
+    public override void Validate()
+    {
+        _ = this.Dimensions;
+        _ = this.Model;
+        _ = this.Provider;
+    }
+
+    public EmbeddingProfile() { }
+
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
+    public EmbeddingProfile(EmbeddingProfile embeddingProfile)
+        : base(embeddingProfile) { }
+#pragma warning restore CS8618
+
+    public EmbeddingProfile(IReadOnlyDictionary<string, JsonElement> rawData)
+    {
+        this._rawData = new(rawData);
+    }
+
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
+    EmbeddingProfile(FrozenDictionary<string, JsonElement> rawData)
+    {
+        this._rawData = new(rawData);
+    }
+#pragma warning restore CS8618
+
+    /// <inheritdoc cref="EmbeddingProfileFromRaw.FromRawUnchecked"/>
+    public static EmbeddingProfile FromRawUnchecked(
+        IReadOnlyDictionary<string, JsonElement> rawData
+    )
+    {
+        return new(FrozenDictionary.ToFrozenDictionary(rawData));
+    }
+}
+
+class EmbeddingProfileFromRaw : IFromRawJson<EmbeddingProfile>
+{
+    /// <inheritdoc/>
+    public EmbeddingProfile FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
+        EmbeddingProfile.FromRawUnchecked(rawData);
 }
