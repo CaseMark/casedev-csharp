@@ -15,7 +15,7 @@ public class VaultCreateParamsTest : TestBase
         {
             Name = "Contract Review Archive",
             Description = "Repository for all client contract reviews and analysis",
-            EmbeddingModel = EmbeddingModel.CasemarkLlamaNemotronEmbedVl1bV2,
+            EmbeddingModel = EmbeddingModel.CasemarkEmbedV1,
             EnableGraph = true,
             EnableIndexing = true,
             GroupID = "grp_abc123",
@@ -31,8 +31,7 @@ public class VaultCreateParamsTest : TestBase
 
         string expectedName = "Contract Review Archive";
         string expectedDescription = "Repository for all client contract reviews and analysis";
-        ApiEnum<string, EmbeddingModel> expectedEmbeddingModel =
-            EmbeddingModel.CasemarkLlamaNemotronEmbedVl1bV2;
+        ApiEnum<string, EmbeddingModel> expectedEmbeddingModel = EmbeddingModel.CasemarkEmbedV1;
         bool expectedEnableGraph = true;
         bool expectedEnableIndexing = true;
         string expectedGroupID = "grp_abc123";
@@ -121,7 +120,7 @@ public class VaultCreateParamsTest : TestBase
         {
             Name = "Contract Review Archive",
             Description = "Repository for all client contract reviews and analysis",
-            EmbeddingModel = EmbeddingModel.CasemarkLlamaNemotronEmbedVl1bV2,
+            EmbeddingModel = EmbeddingModel.CasemarkEmbedV1,
             EnableGraph = true,
             EnableIndexing = true,
             GroupID = "grp_abc123",
@@ -150,6 +149,7 @@ public class EmbeddingModelTest : TestBase
     [InlineData(EmbeddingModel.VoyageVoyageLaw2)]
     [InlineData(EmbeddingModel.CohereEmbedV4_0)]
     [InlineData(EmbeddingModel.GoogleGeminiEmbedding2)]
+    [InlineData(EmbeddingModel.CasemarkEmbedV1)]
     [InlineData(EmbeddingModel.CasemarkLlamaNemotronEmbedVl1bV2)]
     public void Validation_Works(EmbeddingModel rawValue)
     {
@@ -177,6 +177,7 @@ public class EmbeddingModelTest : TestBase
     [InlineData(EmbeddingModel.VoyageVoyageLaw2)]
     [InlineData(EmbeddingModel.CohereEmbedV4_0)]
     [InlineData(EmbeddingModel.GoogleGeminiEmbedding2)]
+    [InlineData(EmbeddingModel.CasemarkEmbedV1)]
     [InlineData(EmbeddingModel.CasemarkLlamaNemotronEmbedVl1bV2)]
     public void SerializationRoundtrip_Works(EmbeddingModel rawValue)
     {
