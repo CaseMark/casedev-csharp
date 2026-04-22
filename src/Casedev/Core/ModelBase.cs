@@ -1,7 +1,6 @@
 using System.Text.Json;
 using Casedev.Exceptions;
 using Casedev.Models.Agent.V1.Run;
-using Casedev.Models.Applications.V1.Deployments;
 using Casedev.Models.Format.V1;
 using Casedev.Models.Llm.V1;
 using Casedev.Models.Matters.V1.Log;
@@ -24,7 +23,7 @@ using MemoryV1 = Casedev.Models.Memory.V1;
 using Objects = Casedev.Models.Vault.Objects;
 using OcrV1 = Casedev.Models.Ocr.V1;
 using Parties = Casedev.Models.Matters.V1.Parties;
-using Projects = Casedev.Models.Applications.V1.Projects;
+using Projects = Casedev.Models.Database.V1.Projects;
 using Run = Casedev.Models.Agent.V2.Run;
 using SearchV1 = Casedev.Models.Search.V1;
 using Speak = Casedev.Models.Voice.V1.Speak;
@@ -33,7 +32,6 @@ using Templates = Casedev.Models.Format.V1.Templates;
 using Transcription = Casedev.Models.Voice.Transcription;
 using V1 = Casedev.Models.Legal.V1;
 using V1Chat = Casedev.Models.Llm.V1.Chat;
-using V1Projects = Casedev.Models.Database.V1.Projects;
 using V2Chat = Casedev.Models.Agent.V2.Chat;
 using V2Execute = Casedev.Models.Agent.V2.Execute;
 using Vault = Casedev.Models.Vault;
@@ -83,28 +81,13 @@ public abstract record class ModelBase
             new ApiEnumConverter<string, V2Chat::Provider>(),
             new ApiEnumConverter<string, V2Chat::Type>(),
             new ApiEnumConverter<string, V2Chat::ChatSendMessageParamsPartType>(),
-            new ApiEnumConverter<string, Target>(),
-            new ApiEnumConverter<string, DeploymentListParamsTarget>(),
-            new ApiEnumConverter<string, Projects::Target>(),
-            new ApiEnumConverter<string, Projects::Type>(),
-            new ApiEnumConverter<
-                string,
-                Projects::ProjectCreateDeploymentParamsEnvironmentVariableTarget
-            >(),
-            new ApiEnumConverter<
-                string,
-                Projects::ProjectCreateDeploymentParamsEnvironmentVariableType
-            >(),
-            new ApiEnumConverter<string, Projects::ProjectCreateEnvParamsTarget>(),
-            new ApiEnumConverter<string, Projects::ProjectCreateEnvParamsType>(),
-            new ApiEnumConverter<string, Projects::ProjectListDeploymentsParamsTarget>(),
             new ApiEnumConverter<string, Environments::Status>(),
-            new ApiEnumConverter<string, V1Projects::Status>(),
-            new ApiEnumConverter<string, V1Projects::Type>(),
-            new ApiEnumConverter<string, V1Projects::ProjectRetrieveResponseStatus>(),
-            new ApiEnumConverter<string, V1Projects::ProjectLinkedDeploymentType>(),
-            new ApiEnumConverter<string, V1Projects::ProjectStatus>(),
-            new ApiEnumConverter<string, V1Projects::Region>(),
+            new ApiEnumConverter<string, Projects::Status>(),
+            new ApiEnumConverter<string, Projects::Type>(),
+            new ApiEnumConverter<string, Projects::ProjectRetrieveResponseStatus>(),
+            new ApiEnumConverter<string, Projects::ProjectLinkedDeploymentType>(),
+            new ApiEnumConverter<string, Projects::ProjectStatus>(),
+            new ApiEnumConverter<string, Projects::Region>(),
             new ApiEnumConverter<string, OutputFormat>(),
             new ApiEnumConverter<string, InputFormat>(),
             new ApiEnumConverter<string, Templates::Type>(),
