@@ -84,12 +84,6 @@ public sealed class CasedevClient : ICasedevClient
         get { return _system.Value; }
     }
 
-    readonly Lazy<IApplicationService> _applications;
-    public IApplicationService Applications
-    {
-        get { return _applications.Value; }
-    }
-
     readonly Lazy<IComputeService> _compute;
     public IComputeService Compute
     {
@@ -201,7 +195,6 @@ public sealed class CasedevClient : ICasedevClient
         _withRawResponse = new(() => new CasedevClientWithRawResponse(this._options));
         _agent = new(() => new AgentService(this));
         _system = new(() => new SystemService(this));
-        _applications = new(() => new ApplicationService(this));
         _compute = new(() => new ComputeService(this));
         _database = new(() => new DatabaseService(this));
         _format = new(() => new FormatService(this));
@@ -304,12 +297,6 @@ public sealed class CasedevClientWithRawResponse : ICasedevClientWithRawResponse
     public ISystemServiceWithRawResponse System
     {
         get { return _system.Value; }
-    }
-
-    readonly Lazy<IApplicationServiceWithRawResponse> _applications;
-    public IApplicationServiceWithRawResponse Applications
-    {
-        get { return _applications.Value; }
     }
 
     readonly Lazy<IComputeServiceWithRawResponse> _compute;
@@ -614,7 +601,6 @@ public sealed class CasedevClientWithRawResponse : ICasedevClientWithRawResponse
 
         _agent = new(() => new AgentServiceWithRawResponse(this));
         _system = new(() => new SystemServiceWithRawResponse(this));
-        _applications = new(() => new ApplicationServiceWithRawResponse(this));
         _compute = new(() => new ComputeServiceWithRawResponse(this));
         _database = new(() => new DatabaseServiceWithRawResponse(this));
         _format = new(() => new FormatServiceWithRawResponse(this));
