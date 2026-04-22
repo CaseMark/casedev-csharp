@@ -58,8 +58,6 @@ public interface ICasedevClient : IDisposable
 
     ISystemService System { get; }
 
-    IApplicationService Applications { get; }
-
     IComputeService Compute { get; }
 
     IDatabaseService Database { get; }
@@ -130,8 +128,6 @@ public interface ICasedevClientWithRawResponse : IDisposable
     IAgentServiceWithRawResponse Agent { get; }
 
     ISystemServiceWithRawResponse System { get; }
-
-    IApplicationServiceWithRawResponse Applications { get; }
 
     IComputeServiceWithRawResponse Compute { get; }
 
