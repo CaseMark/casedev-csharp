@@ -67,6 +67,8 @@ public record class VaultCreateParams : ParamsBase
     /// Determines the S3 Vectors index dimension and which model is used at both
     /// ingest and search time. The vault is locked to this model after creation —
     /// use a re-embed flow to change later. Ignored when enableIndexing is false.
+    /// Note: `casemark/llama-nemotron-embed-vl-1b-v2` is a deprecated alias for `casemark/embed-v1`
+    /// (retained for SDK backward compatibility); new integrations should use `casemark/embed-v1` directly.
     /// </summary>
     public ApiEnum<string, EmbeddingModel>? EmbeddingModel
     {
@@ -289,7 +291,9 @@ public record class VaultCreateParams : ParamsBase
 /// Optional embedding model for this vault. Defaults to openai/text-embedding-3-small.
 /// Determines the S3 Vectors index dimension and which model is used at both ingest
 /// and search time. The vault is locked to this model after creation — use a re-embed
-/// flow to change later. Ignored when enableIndexing is false.
+/// flow to change later. Ignored when enableIndexing is false. Note: `casemark/llama-nemotron-embed-vl-1b-v2`
+/// is a deprecated alias for `casemark/embed-v1` (retained for SDK backward compatibility);
+/// new integrations should use `casemark/embed-v1` directly.
 /// </summary>
 [JsonConverter(typeof(EmbeddingModelConverter))]
 public enum EmbeddingModel
@@ -300,6 +304,7 @@ public enum EmbeddingModel
     VoyageVoyageLaw2,
     CohereEmbedV4_0,
     GoogleGeminiEmbedding2,
+    CasemarkEmbedV1,
     CasemarkLlamaNemotronEmbedVl1bV2,
 }
 
@@ -319,6 +324,7 @@ sealed class EmbeddingModelConverter : JsonConverter<EmbeddingModel>
             "voyage/voyage-law-2" => EmbeddingModel.VoyageVoyageLaw2,
             "cohere/embed-v4.0" => EmbeddingModel.CohereEmbedV4_0,
             "google/gemini-embedding-2" => EmbeddingModel.GoogleGeminiEmbedding2,
+            "casemark/embed-v1" => EmbeddingModel.CasemarkEmbedV1,
             "casemark/llama-nemotron-embed-vl-1b-v2" =>
                 EmbeddingModel.CasemarkLlamaNemotronEmbedVl1bV2,
             _ => (EmbeddingModel)(-1),
@@ -341,6 +347,7 @@ sealed class EmbeddingModelConverter : JsonConverter<EmbeddingModel>
                 EmbeddingModel.VoyageVoyageLaw2 => "voyage/voyage-law-2",
                 EmbeddingModel.CohereEmbedV4_0 => "cohere/embed-v4.0",
                 EmbeddingModel.GoogleGeminiEmbedding2 => "google/gemini-embedding-2",
+                EmbeddingModel.CasemarkEmbedV1 => "casemark/embed-v1",
                 EmbeddingModel.CasemarkLlamaNemotronEmbedVl1bV2 =>
                     "casemark/llama-nemotron-embed-vl-1b-v2",
                 _ => throw new CasedevInvalidDataException(
