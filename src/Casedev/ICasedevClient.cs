@@ -91,6 +91,8 @@ public interface ICasedevClient : IDisposable
     IVaultService Vault { get; }
 
     IVoiceService Voice { get; }
+
+    IWebhookService Webhooks { get; }
 }
 
 /// <summary>
@@ -162,6 +164,8 @@ public interface ICasedevClientWithRawResponse : IDisposable
     IVaultServiceWithRawResponse Vault { get; }
 
     IVoiceServiceWithRawResponse Voice { get; }
+
+    IWebhookServiceWithRawResponse Webhooks { get; }
 
     /// <summary>
     /// Sends a request to the Casedev REST API.
