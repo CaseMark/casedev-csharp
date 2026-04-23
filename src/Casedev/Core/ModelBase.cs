@@ -14,6 +14,8 @@ using Casedev.Models.Usage.V1;
 using Casedev.Models.Voice.V1;
 using BoostList = Casedev.Models.Voice.BoostList;
 using Chat = Casedev.Models.Agent.V1.Chat;
+using Deliveries = Casedev.Models.Webhooks.V1.Deliveries;
+using Endpoints = Casedev.Models.Webhooks.V1.Endpoints;
 using Environments = Casedev.Models.Compute.V1.Environments;
 using Execute = Casedev.Models.Agent.V1.Execute;
 using Graphrag = Casedev.Models.Vault.Graphrag;
@@ -177,6 +179,9 @@ public abstract record class ModelBase
             new ApiEnumConverter<string, VoiceType>(),
             new ApiEnumConverter<string, Speak::ModelID>(),
             new ApiEnumConverter<string, Speak::OutputFormat>(),
+            new ApiEnumConverter<string, Endpoints::Status>(),
+            new ApiEnumConverter<string, Endpoints::EndpointListParamsStatus>(),
+            new ApiEnumConverter<string, Deliveries::Status>(),
         },
     };
 

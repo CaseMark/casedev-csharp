@@ -186,6 +186,12 @@ public sealed class CasedevClient : ICasedevClient
         get { return _voice.Value; }
     }
 
+    readonly Lazy<IWebhookService> _webhooks;
+    public IWebhookService Webhooks
+    {
+        get { return _webhooks.Value; }
+    }
+
     public void Dispose() => this.HttpClient.Dispose();
 
     public CasedevClient()
@@ -212,6 +218,7 @@ public sealed class CasedevClient : ICasedevClient
         _usage = new(() => new UsageService(this));
         _vault = new(() => new VaultService(this));
         _voice = new(() => new VoiceService(this));
+        _webhooks = new(() => new WebhookService(this));
     }
 
     public CasedevClient(ClientOptions options)
@@ -399,6 +406,12 @@ public sealed class CasedevClientWithRawResponse : ICasedevClientWithRawResponse
     public IVoiceServiceWithRawResponse Voice
     {
         get { return _voice.Value; }
+    }
+
+    readonly Lazy<IWebhookServiceWithRawResponse> _webhooks;
+    public IWebhookServiceWithRawResponse Webhooks
+    {
+        get { return _webhooks.Value; }
     }
 
     /// <inheritdoc/>
@@ -618,6 +631,7 @@ public sealed class CasedevClientWithRawResponse : ICasedevClientWithRawResponse
         _usage = new(() => new UsageServiceWithRawResponse(this));
         _vault = new(() => new VaultServiceWithRawResponse(this));
         _voice = new(() => new VoiceServiceWithRawResponse(this));
+        _webhooks = new(() => new WebhookServiceWithRawResponse(this));
     }
 
     public CasedevClientWithRawResponse(ClientOptions options)
