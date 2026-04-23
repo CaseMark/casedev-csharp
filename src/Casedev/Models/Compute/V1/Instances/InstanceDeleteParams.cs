@@ -6,41 +6,32 @@ using System.Net.Http;
 using System.Text.Json;
 using Casedev.Core;
 
-namespace Casedev.Models.Vault;
+namespace Casedev.Models.Compute.V1.Instances;
 
 /// <summary>
-/// Triggers ingestion workflow for a vault object to extract text, generate chunks,
-/// and create embeddings. For supported file types (PDF, DOCX, PPTX, TXT, RTF, XML,
-/// HTML, Markdown, CSV/TSV, JSON/YAML/TOML, common source code files, ZIP, audio,
-/// video), processing happens asynchronously. ZIP archives are unpacked recursively
-/// up to 5 levels, and each extracted file is created as an independent vault object
-/// and ingested via the normal pipeline. For unsupported types (images, etc.), the
-/// file is marked as completed immediately without text extraction. GraphRAG indexing
-/// must be triggered separately via POST /vault/:id/graphrag/:objectId.
+/// Terminates a running GPU instance, calculates final cost, and cleans up SSH keys.
+/// This action is permanent and cannot be undone. All data on the instance will be lost.
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that
 /// cause existing derived classes to break.</para>
 /// </summary>
-public record class VaultIngestParams : ParamsBase
+public record class InstanceDeleteParams : ParamsBase
 {
-    public required string ID { get; init; }
+    public string? ID { get; init; }
 
-    public string? ObjectID { get; init; }
-
-    public VaultIngestParams() { }
+    public InstanceDeleteParams() { }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    public VaultIngestParams(VaultIngestParams vaultIngestParams)
-        : base(vaultIngestParams)
+    public InstanceDeleteParams(InstanceDeleteParams instanceDeleteParams)
+        : base(instanceDeleteParams)
     {
-        this.ID = vaultIngestParams.ID;
-        this.ObjectID = vaultIngestParams.ObjectID;
+        this.ID = instanceDeleteParams.ID;
     }
 #pragma warning restore CS8618
 
-    public VaultIngestParams(
+    public InstanceDeleteParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData
     )
@@ -51,33 +42,29 @@ public record class VaultIngestParams : ParamsBase
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    VaultIngestParams(
+    InstanceDeleteParams(
         FrozenDictionary<string, JsonElement> rawHeaderData,
         FrozenDictionary<string, JsonElement> rawQueryData,
-        string id,
-        string objectID
+        string id
     )
     {
         this._rawHeaderData = new(rawHeaderData);
         this._rawQueryData = new(rawQueryData);
         this.ID = id;
-        this.ObjectID = objectID;
     }
 #pragma warning restore CS8618
 
     /// <inheritdoc cref="IFromRawJson{T}.FromRawUnchecked"/>
-    public static VaultIngestParams FromRawUnchecked(
+    public static InstanceDeleteParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
-        string id,
-        string objectID
+        string id
     )
     {
         return new(
             FrozenDictionary.ToFrozenDictionary(rawHeaderData),
             FrozenDictionary.ToFrozenDictionary(rawQueryData),
-            id,
-            objectID
+            id
         );
     }
 
@@ -87,7 +74,6 @@ public record class VaultIngestParams : ParamsBase
                 new Dictionary<string, JsonElement>()
                 {
                     ["ID"] = JsonSerializer.SerializeToElement(this.ID),
-                    ["ObjectID"] = JsonSerializer.SerializeToElement(this.ObjectID),
                     ["HeaderData"] = FriendlyJsonPrinter.PrintValue(
                         JsonSerializer.SerializeToElement(this._rawHeaderData.Freeze())
                     ),
@@ -99,14 +85,13 @@ public record class VaultIngestParams : ParamsBase
             ModelBase.ToStringSerializerOptions
         );
 
-    public virtual bool Equals(VaultIngestParams? other)
+    public virtual bool Equals(InstanceDeleteParams? other)
     {
         if (other == null)
         {
             return false;
         }
-        return this.ID.Equals(other.ID)
-            && (this.ObjectID?.Equals(other.ObjectID) ?? other.ObjectID == null)
+        return (this.ID?.Equals(other.ID) ?? other.ID == null)
             && this._rawHeaderData.Equals(other._rawHeaderData)
             && this._rawQueryData.Equals(other._rawQueryData);
     }
@@ -115,7 +100,7 @@ public record class VaultIngestParams : ParamsBase
     {
         return new UriBuilder(
             options.BaseUrl.ToString().TrimEnd('/')
-                + string.Format("/vault/{0}/ingest/{1}", this.ID, this.ObjectID)
+                + string.Format("/compute/v1/instances/{0}", this.ID)
         )
         {
             Query = this.QueryString(options),

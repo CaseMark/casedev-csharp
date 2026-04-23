@@ -6,41 +6,28 @@ using System.Net.Http;
 using System.Text.Json;
 using Casedev.Core;
 
-namespace Casedev.Models.Vault;
+namespace Casedev.Models.Compute.V1;
 
 /// <summary>
-/// Triggers ingestion workflow for a vault object to extract text, generate chunks,
-/// and create embeddings. For supported file types (PDF, DOCX, PPTX, TXT, RTF, XML,
-/// HTML, Markdown, CSV/TSV, JSON/YAML/TOML, common source code files, ZIP, audio,
-/// video), processing happens asynchronously. ZIP archives are unpacked recursively
-/// up to 5 levels, and each extracted file is created as an independent vault object
-/// and ingested via the normal pipeline. For unsupported types (images, etc.), the
-/// file is marked as completed immediately without text extraction. GraphRAG indexing
-/// must be triggered separately via POST /vault/:id/graphrag/:objectId.
+/// Returns current pricing for GPU instances. Prices are fetched in real-time and
+/// include a 20% platform fee. For detailed instance types and availability, use
+/// GET /compute/v1/instance-types.
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that
 /// cause existing derived classes to break.</para>
 /// </summary>
-public record class VaultIngestParams : ParamsBase
+public record class V1GetPricingParams : ParamsBase
 {
-    public required string ID { get; init; }
-
-    public string? ObjectID { get; init; }
-
-    public VaultIngestParams() { }
+    public V1GetPricingParams() { }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    public VaultIngestParams(VaultIngestParams vaultIngestParams)
-        : base(vaultIngestParams)
-    {
-        this.ID = vaultIngestParams.ID;
-        this.ObjectID = vaultIngestParams.ObjectID;
-    }
+    public V1GetPricingParams(V1GetPricingParams v1GetPricingParams)
+        : base(v1GetPricingParams) { }
 #pragma warning restore CS8618
 
-    public VaultIngestParams(
+    public V1GetPricingParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData
     )
@@ -51,33 +38,25 @@ public record class VaultIngestParams : ParamsBase
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    VaultIngestParams(
+    V1GetPricingParams(
         FrozenDictionary<string, JsonElement> rawHeaderData,
-        FrozenDictionary<string, JsonElement> rawQueryData,
-        string id,
-        string objectID
+        FrozenDictionary<string, JsonElement> rawQueryData
     )
     {
         this._rawHeaderData = new(rawHeaderData);
         this._rawQueryData = new(rawQueryData);
-        this.ID = id;
-        this.ObjectID = objectID;
     }
 #pragma warning restore CS8618
 
     /// <inheritdoc cref="IFromRawJson{T}.FromRawUnchecked"/>
-    public static VaultIngestParams FromRawUnchecked(
+    public static V1GetPricingParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
-        IReadOnlyDictionary<string, JsonElement> rawQueryData,
-        string id,
-        string objectID
+        IReadOnlyDictionary<string, JsonElement> rawQueryData
     )
     {
         return new(
             FrozenDictionary.ToFrozenDictionary(rawHeaderData),
-            FrozenDictionary.ToFrozenDictionary(rawQueryData),
-            id,
-            objectID
+            FrozenDictionary.ToFrozenDictionary(rawQueryData)
         );
     }
 
@@ -86,8 +65,6 @@ public record class VaultIngestParams : ParamsBase
             FriendlyJsonPrinter.PrintValue(
                 new Dictionary<string, JsonElement>()
                 {
-                    ["ID"] = JsonSerializer.SerializeToElement(this.ID),
-                    ["ObjectID"] = JsonSerializer.SerializeToElement(this.ObjectID),
                     ["HeaderData"] = FriendlyJsonPrinter.PrintValue(
                         JsonSerializer.SerializeToElement(this._rawHeaderData.Freeze())
                     ),
@@ -99,24 +76,19 @@ public record class VaultIngestParams : ParamsBase
             ModelBase.ToStringSerializerOptions
         );
 
-    public virtual bool Equals(VaultIngestParams? other)
+    public virtual bool Equals(V1GetPricingParams? other)
     {
         if (other == null)
         {
             return false;
         }
-        return this.ID.Equals(other.ID)
-            && (this.ObjectID?.Equals(other.ObjectID) ?? other.ObjectID == null)
-            && this._rawHeaderData.Equals(other._rawHeaderData)
+        return this._rawHeaderData.Equals(other._rawHeaderData)
             && this._rawQueryData.Equals(other._rawQueryData);
     }
 
     public override Uri Url(ClientOptions options)
     {
-        return new UriBuilder(
-            options.BaseUrl.ToString().TrimEnd('/')
-                + string.Format("/vault/{0}/ingest/{1}", this.ID, this.ObjectID)
-        )
+        return new UriBuilder(options.BaseUrl.ToString().TrimEnd('/') + "/compute/v1/pricing")
         {
             Query = this.QueryString(options),
         }.Uri;

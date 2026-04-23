@@ -33,6 +33,8 @@ public sealed class V1Service : IV1Service
 
         _withRawResponse = new(() => new V1ServiceWithRawResponse(client.WithRawResponse));
         _environments = new(() => new EnvironmentService(client));
+        _instanceTypes = new(() => new InstanceTypeService(client));
+        _instances = new(() => new InstanceService(client));
         _secrets = new(() => new SecretService(client));
     }
 
@@ -42,10 +44,31 @@ public sealed class V1Service : IV1Service
         get { return _environments.Value; }
     }
 
+    readonly Lazy<IInstanceTypeService> _instanceTypes;
+    public IInstanceTypeService InstanceTypes
+    {
+        get { return _instanceTypes.Value; }
+    }
+
+    readonly Lazy<IInstanceService> _instances;
+    public IInstanceService Instances
+    {
+        get { return _instances.Value; }
+    }
+
     readonly Lazy<ISecretService> _secrets;
     public ISecretService Secrets
     {
         get { return _secrets.Value; }
+    }
+
+    /// <inheritdoc/>
+    public Task GetPricing(
+        V1GetPricingParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return this.WithRawResponse.GetPricing(parameters, cancellationToken);
     }
 
     /// <inheritdoc/>
@@ -77,6 +100,8 @@ public sealed class V1ServiceWithRawResponse : IV1ServiceWithRawResponse
         _client = client;
 
         _environments = new(() => new EnvironmentServiceWithRawResponse(client));
+        _instanceTypes = new(() => new InstanceTypeServiceWithRawResponse(client));
+        _instances = new(() => new InstanceServiceWithRawResponse(client));
         _secrets = new(() => new SecretServiceWithRawResponse(client));
     }
 
@@ -86,10 +111,38 @@ public sealed class V1ServiceWithRawResponse : IV1ServiceWithRawResponse
         get { return _environments.Value; }
     }
 
+    readonly Lazy<IInstanceTypeServiceWithRawResponse> _instanceTypes;
+    public IInstanceTypeServiceWithRawResponse InstanceTypes
+    {
+        get { return _instanceTypes.Value; }
+    }
+
+    readonly Lazy<IInstanceServiceWithRawResponse> _instances;
+    public IInstanceServiceWithRawResponse Instances
+    {
+        get { return _instances.Value; }
+    }
+
     readonly Lazy<ISecretServiceWithRawResponse> _secrets;
     public ISecretServiceWithRawResponse Secrets
     {
         get { return _secrets.Value; }
+    }
+
+    /// <inheritdoc/>
+    public Task<HttpResponse> GetPricing(
+        V1GetPricingParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        HttpRequest<V1GetPricingParams> request = new()
+        {
+            Method = HttpMethod.Get,
+            Params = parameters,
+        };
+        return this._client.Execute(request, cancellationToken);
     }
 
     /// <inheritdoc/>
