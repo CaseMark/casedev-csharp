@@ -6,41 +6,29 @@ using System.Net.Http;
 using System.Text.Json;
 using Casedev.Core;
 
-namespace Casedev.Models.Vault;
+namespace Casedev.Models.Compute.V1.InstanceTypes;
 
 /// <summary>
-/// Triggers ingestion workflow for a vault object to extract text, generate chunks,
-/// and create embeddings. For supported file types (PDF, DOCX, PPTX, TXT, RTF, XML,
-/// HTML, Markdown, CSV/TSV, JSON/YAML/TOML, common source code files, ZIP, audio,
-/// video), processing happens asynchronously. ZIP archives are unpacked recursively
-/// up to 5 levels, and each extracted file is created as an independent vault object
-/// and ingested via the normal pipeline. For unsupported types (images, etc.), the
-/// file is marked as completed immediately without text extraction. GraphRAG indexing
-/// must be triggered separately via POST /vault/:id/graphrag/:objectId.
+/// Retrieves all available GPU instance types with pricing, specifications, and
+/// regional availability. Includes T4, A10, A100, H100, and H200 GPUs powered by
+/// Lambda Labs. Perfect for AI model training, inference workloads, and legal document
+/// OCR processing at scale.
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that
 /// cause existing derived classes to break.</para>
 /// </summary>
-public record class VaultIngestParams : ParamsBase
+public record class InstanceTypeListParams : ParamsBase
 {
-    public required string ID { get; init; }
-
-    public string? ObjectID { get; init; }
-
-    public VaultIngestParams() { }
+    public InstanceTypeListParams() { }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    public VaultIngestParams(VaultIngestParams vaultIngestParams)
-        : base(vaultIngestParams)
-    {
-        this.ID = vaultIngestParams.ID;
-        this.ObjectID = vaultIngestParams.ObjectID;
-    }
+    public InstanceTypeListParams(InstanceTypeListParams instanceTypeListParams)
+        : base(instanceTypeListParams) { }
 #pragma warning restore CS8618
 
-    public VaultIngestParams(
+    public InstanceTypeListParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData
     )
@@ -51,33 +39,25 @@ public record class VaultIngestParams : ParamsBase
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    VaultIngestParams(
+    InstanceTypeListParams(
         FrozenDictionary<string, JsonElement> rawHeaderData,
-        FrozenDictionary<string, JsonElement> rawQueryData,
-        string id,
-        string objectID
+        FrozenDictionary<string, JsonElement> rawQueryData
     )
     {
         this._rawHeaderData = new(rawHeaderData);
         this._rawQueryData = new(rawQueryData);
-        this.ID = id;
-        this.ObjectID = objectID;
     }
 #pragma warning restore CS8618
 
     /// <inheritdoc cref="IFromRawJson{T}.FromRawUnchecked"/>
-    public static VaultIngestParams FromRawUnchecked(
+    public static InstanceTypeListParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
-        IReadOnlyDictionary<string, JsonElement> rawQueryData,
-        string id,
-        string objectID
+        IReadOnlyDictionary<string, JsonElement> rawQueryData
     )
     {
         return new(
             FrozenDictionary.ToFrozenDictionary(rawHeaderData),
-            FrozenDictionary.ToFrozenDictionary(rawQueryData),
-            id,
-            objectID
+            FrozenDictionary.ToFrozenDictionary(rawQueryData)
         );
     }
 
@@ -86,8 +66,6 @@ public record class VaultIngestParams : ParamsBase
             FriendlyJsonPrinter.PrintValue(
                 new Dictionary<string, JsonElement>()
                 {
-                    ["ID"] = JsonSerializer.SerializeToElement(this.ID),
-                    ["ObjectID"] = JsonSerializer.SerializeToElement(this.ObjectID),
                     ["HeaderData"] = FriendlyJsonPrinter.PrintValue(
                         JsonSerializer.SerializeToElement(this._rawHeaderData.Freeze())
                     ),
@@ -99,23 +77,20 @@ public record class VaultIngestParams : ParamsBase
             ModelBase.ToStringSerializerOptions
         );
 
-    public virtual bool Equals(VaultIngestParams? other)
+    public virtual bool Equals(InstanceTypeListParams? other)
     {
         if (other == null)
         {
             return false;
         }
-        return this.ID.Equals(other.ID)
-            && (this.ObjectID?.Equals(other.ObjectID) ?? other.ObjectID == null)
-            && this._rawHeaderData.Equals(other._rawHeaderData)
+        return this._rawHeaderData.Equals(other._rawHeaderData)
             && this._rawQueryData.Equals(other._rawQueryData);
     }
 
     public override Uri Url(ClientOptions options)
     {
         return new UriBuilder(
-            options.BaseUrl.ToString().TrimEnd('/')
-                + string.Format("/vault/{0}/ingest/{1}", this.ID, this.ObjectID)
+            options.BaseUrl.ToString().TrimEnd('/') + "/compute/v1/instance-types"
         )
         {
             Query = this.QueryString(options),
