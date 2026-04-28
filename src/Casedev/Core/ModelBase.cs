@@ -27,7 +27,6 @@ using Objects = Casedev.Models.Vault.Objects;
 using OcrV1 = Casedev.Models.Ocr.V1;
 using Parties = Casedev.Models.Matters.V1.Parties;
 using Projects = Casedev.Models.Database.V1.Projects;
-using Run = Casedev.Models.Agent.V2.Run;
 using SearchV1 = Casedev.Models.Search.V1;
 using Speak = Casedev.Models.Voice.V1.Speak;
 using SuperdocV1 = Casedev.Models.Superdoc.V1;
@@ -35,8 +34,6 @@ using Templates = Casedev.Models.Format.V1.Templates;
 using Transcription = Casedev.Models.Voice.Transcription;
 using V1 = Casedev.Models.Legal.V1;
 using V1Chat = Casedev.Models.Llm.V1.Chat;
-using V2Chat = Casedev.Models.Agent.V2.Chat;
-using V2Execute = Casedev.Models.Agent.V2.Execute;
 using Vault = Casedev.Models.Vault;
 using WorkItems = Casedev.Models.Matters.V1.WorkItems;
 
@@ -73,17 +70,6 @@ public abstract record class ModelBase
             new ApiEnumConverter<string, Execute::Status>(),
             new ApiEnumConverter<string, Chat::Type>(),
             new ApiEnumConverter<string, Chat::ChatSendMessageParamsPartType>(),
-            new ApiEnumConverter<string, Run::Status>(),
-            new ApiEnumConverter<string, Run::Provider>(),
-            new ApiEnumConverter<string, Run::RuntimeState>(),
-            new ApiEnumConverter<string, Run::RunExecResponseStatus>(),
-            new ApiEnumConverter<string, Run::RunGetStatusResponseStatus>(),
-            new ApiEnumConverter<string, V2Execute::Provider>(),
-            new ApiEnumConverter<string, V2Execute::RuntimeState>(),
-            new ApiEnumConverter<string, V2Execute::Status>(),
-            new ApiEnumConverter<string, V2Chat::Provider>(),
-            new ApiEnumConverter<string, V2Chat::Type>(),
-            new ApiEnumConverter<string, V2Chat::ChatSendMessageParamsPartType>(),
             new ApiEnumConverter<string, Environments::Status>(),
             new ApiEnumConverter<string, Instances::Status>(),
             new ApiEnumConverter<string, Projects::Status>(),
