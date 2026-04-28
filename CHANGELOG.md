@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.31.0 (2026-04-28)
+
+Full Changelog: [v0.30.0...v0.31.0](https://github.com/CaseMark/casedev-csharp/compare/v0.30.0...v0.31.0)
+
+### Features
+
+* **api:** api update ([f561975](https://github.com/CaseMark/casedev-csharp/commit/f561975bfe08ce20f19cccde9a1a231415dba7dd))
+* **api:** api update ([a0e5e65](https://github.com/CaseMark/casedev-csharp/commit/a0e5e65fe2f3f514bd3723ddeb7ed965caf03d7b))
+* support setting headers via env ([3d1fe63](https://github.com/CaseMark/casedev-csharp/commit/3d1fe639ba10fcf700e3e5f6a74fb28ab1340ca5))
+
 ## 0.30.0 (2026-04-23)
 
 Full Changelog: [v0.29.0...v0.30.0](https://github.com/CaseMark/casedev-csharp/compare/v0.29.0...v0.30.0)
