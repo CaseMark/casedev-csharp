@@ -80,6 +80,24 @@ public sealed class V1Service : IV1Service
     }
 
     /// <inheritdoc/>
+    public Task Boot(V1BootParams parameters, CancellationToken cancellationToken = default)
+    {
+        return this.WithRawResponse.Boot(parameters, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async Task Boot(
+        string id,
+        V1BootParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        await this.Boot(parameters with { ID = id }, cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
     public Task ProxyDelete(
         V1ProxyDeleteParams parameters,
         CancellationToken cancellationToken = default
@@ -266,6 +284,33 @@ public sealed class V1ServiceWithRawResponse : IV1ServiceWithRawResponse
         parameters ??= new();
 
         return this.Delete(parameters with { ID = id }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public Task<HttpResponse> Boot(
+        V1BootParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        if (parameters.ID == null)
+        {
+            throw new CasedevInvalidDataException("'parameters.ID' cannot be null");
+        }
+
+        HttpRequest<V1BootParams> request = new() { Method = HttpMethod.Post, Params = parameters };
+        return this._client.Execute(request, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public Task<HttpResponse> Boot(
+        string id,
+        V1BootParams? parameters = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        parameters ??= new();
+
+        return this.Boot(parameters with { ID = id }, cancellationToken);
     }
 
     /// <inheritdoc/>

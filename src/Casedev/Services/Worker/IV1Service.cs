@@ -57,6 +57,20 @@ public interface IV1Service
     );
 
     /// <summary>
+    /// Starts or resumes the worker sandbox and OpenCode server. Native
+    /// /worker/v1/:id/* proxy routes require this lifecycle primitive to have completed
+    /// first.
+    /// </summary>
+    Task Boot(V1BootParams parameters, CancellationToken cancellationToken = default);
+
+    /// <inheritdoc cref="Boot(V1BootParams, CancellationToken)"/>
+    Task Boot(
+        string id,
+        V1BootParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
     /// Forwards a DELETE request to the worker runtime without translating response
     /// shapes.
     /// </summary>
@@ -173,6 +187,19 @@ public interface IV1ServiceWithRawResponse
     Task<HttpResponse> Delete(
         string id,
         V1DeleteParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for <c>post /worker/v1/{id}/boot</c>, but is otherwise the
+    /// same as <see cref="IV1Service.Boot(V1BootParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse> Boot(V1BootParams parameters, CancellationToken cancellationToken = default);
+
+    /// <inheritdoc cref="Boot(V1BootParams, CancellationToken)"/>
+    Task<HttpResponse> Boot(
+        string id,
+        V1BootParams? parameters = null,
         CancellationToken cancellationToken = default
     );
 
