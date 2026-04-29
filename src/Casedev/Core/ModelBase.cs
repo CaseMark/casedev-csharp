@@ -8,7 +8,6 @@ using Casedev.Models.Matters.V1.MatterParties;
 using Casedev.Models.Matters.V1.Shares;
 using Casedev.Models.Matters.V1.Types;
 using Casedev.Models.Privilege.V1;
-using Casedev.Models.Skills;
 using Casedev.Models.Translate.V1;
 using Casedev.Models.Usage.V1;
 using Casedev.Models.Voice.V1;
@@ -28,6 +27,7 @@ using OcrV1 = Casedev.Models.Ocr.V1;
 using Parties = Casedev.Models.Matters.V1.Parties;
 using Projects = Casedev.Models.Database.V1.Projects;
 using SearchV1 = Casedev.Models.Search.V1;
+using Skills = Casedev.Models.Skills;
 using Speak = Casedev.Models.Voice.V1.Speak;
 using SuperdocV1 = Casedev.Models.Superdoc.V1;
 using Templates = Casedev.Models.Format.V1.Templates;
@@ -123,8 +123,10 @@ public abstract record class ModelBase
             new ApiEnumConverter<string, Recommendation>(),
             new ApiEnumConverter<string, Category>(),
             new ApiEnumConverter<string, Jurisdiction>(),
-            new ApiEnumConverter<string, Source>(),
-            new ApiEnumConverter<string, ResultSource>(),
+            new ApiEnumConverter<string, Skills::Role>(),
+            new ApiEnumConverter<string, Skills::UnionMember1Role>(),
+            new ApiEnumConverter<string, Skills::Source>(),
+            new ApiEnumConverter<string, Skills::ResultSource>(),
             new ApiEnumConverter<string, SearchV1::V1RetrieveResearchResponseModel>(),
             new ApiEnumConverter<string, SearchV1::Status>(),
             new ApiEnumConverter<string, SearchV1::SearchType>(),
