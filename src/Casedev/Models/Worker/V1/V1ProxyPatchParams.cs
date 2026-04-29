@@ -6,53 +6,35 @@ using System.Net.Http;
 using System.Text.Json;
 using Casedev.Core;
 
-namespace Casedev.Models.Agent.V1.Chat;
+namespace Casedev.Models.Worker.V1;
 
 /// <summary>
-/// Relays runtime SSE events for this chat. Supports replay from buffered events
-/// using Last-Event-ID.
+/// Forwards a PATCH request to the worker runtime without translating request or
+/// response shapes.
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that
 /// cause existing derived classes to break.</para>
 /// </summary>
-public record class ChatStreamParams : ParamsBase
+public record class V1ProxyPatchParams : ParamsBase
 {
-    public string? ID { get; init; }
+    public required string ID { get; init; }
 
-    /// <summary>
-    /// Replay events after this sequence number
-    /// </summary>
-    public long? LastEventID
-    {
-        get
-        {
-            this._rawQueryData.Freeze();
-            return this._rawQueryData.GetNullableStruct<long>("lastEventId");
-        }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
+    public string? WorkerPath { get; init; }
 
-            this._rawQueryData.Set("lastEventId", value);
-        }
-    }
-
-    public ChatStreamParams() { }
+    public V1ProxyPatchParams() { }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    public ChatStreamParams(ChatStreamParams chatStreamParams)
-        : base(chatStreamParams)
+    public V1ProxyPatchParams(V1ProxyPatchParams v1ProxyPatchParams)
+        : base(v1ProxyPatchParams)
     {
-        this.ID = chatStreamParams.ID;
+        this.ID = v1ProxyPatchParams.ID;
+        this.WorkerPath = v1ProxyPatchParams.WorkerPath;
     }
 #pragma warning restore CS8618
 
-    public ChatStreamParams(
+    public V1ProxyPatchParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData
     )
@@ -63,29 +45,33 @@ public record class ChatStreamParams : ParamsBase
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    ChatStreamParams(
+    V1ProxyPatchParams(
         FrozenDictionary<string, JsonElement> rawHeaderData,
         FrozenDictionary<string, JsonElement> rawQueryData,
-        string id
+        string id,
+        string workerPath
     )
     {
         this._rawHeaderData = new(rawHeaderData);
         this._rawQueryData = new(rawQueryData);
         this.ID = id;
+        this.WorkerPath = workerPath;
     }
 #pragma warning restore CS8618
 
     /// <inheritdoc cref="IFromRawJson{T}.FromRawUnchecked"/>
-    public static ChatStreamParams FromRawUnchecked(
+    public static V1ProxyPatchParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
-        string id
+        string id,
+        string workerPath
     )
     {
         return new(
             FrozenDictionary.ToFrozenDictionary(rawHeaderData),
             FrozenDictionary.ToFrozenDictionary(rawQueryData),
-            id
+            id,
+            workerPath
         );
     }
 
@@ -95,6 +81,7 @@ public record class ChatStreamParams : ParamsBase
                 new Dictionary<string, JsonElement>()
                 {
                     ["ID"] = JsonSerializer.SerializeToElement(this.ID),
+                    ["WorkerPath"] = JsonSerializer.SerializeToElement(this.WorkerPath),
                     ["HeaderData"] = FriendlyJsonPrinter.PrintValue(
                         JsonSerializer.SerializeToElement(this._rawHeaderData.Freeze())
                     ),
@@ -106,13 +93,14 @@ public record class ChatStreamParams : ParamsBase
             ModelBase.ToStringSerializerOptions
         );
 
-    public virtual bool Equals(ChatStreamParams? other)
+    public virtual bool Equals(V1ProxyPatchParams? other)
     {
         if (other == null)
         {
             return false;
         }
-        return (this.ID?.Equals(other.ID) ?? other.ID == null)
+        return this.ID.Equals(other.ID)
+            && (this.WorkerPath?.Equals(other.WorkerPath) ?? other.WorkerPath == null)
             && this._rawHeaderData.Equals(other._rawHeaderData)
             && this._rawQueryData.Equals(other._rawQueryData);
     }
@@ -121,7 +109,7 @@ public record class ChatStreamParams : ParamsBase
     {
         return new UriBuilder(
             options.BaseUrl.ToString().TrimEnd('/')
-                + string.Format("/agent/v1/chat/{0}/stream", this.ID)
+                + string.Format("/worker/v1/{0}/{1}", this.ID, this.WorkerPath)
         )
         {
             Query = this.QueryString(options),
@@ -131,7 +119,6 @@ public record class ChatStreamParams : ParamsBase
     internal override void AddHeadersToRequest(HttpRequestMessage request, ClientOptions options)
     {
         ParamsBase.AddDefaultHeaders(request, options);
-        request.Headers.Add("Accept", "text/event-stream");
         foreach (var item in this.RawHeaderData)
         {
             ParamsBase.AddHeaderElementToRequest(request, item.Key, item.Value);

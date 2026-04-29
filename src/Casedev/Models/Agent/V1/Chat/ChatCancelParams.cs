@@ -9,7 +9,7 @@ using Casedev.Core;
 namespace Casedev.Models.Agent.V1.Chat;
 
 /// <summary>
-/// Aborts the active OpenCode generation for this chat session.
+/// Aborts the active generation for this chat session.
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that

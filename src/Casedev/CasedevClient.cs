@@ -84,6 +84,12 @@ public sealed class CasedevClient : ICasedevClient
         get { return _system.Value; }
     }
 
+    readonly Lazy<IWorkerService> _worker;
+    public IWorkerService Worker
+    {
+        get { return _worker.Value; }
+    }
+
     readonly Lazy<IComputeService> _compute;
     public IComputeService Compute
     {
@@ -201,6 +207,7 @@ public sealed class CasedevClient : ICasedevClient
         _withRawResponse = new(() => new CasedevClientWithRawResponse(this._options));
         _agent = new(() => new AgentService(this));
         _system = new(() => new SystemService(this));
+        _worker = new(() => new WorkerService(this));
         _compute = new(() => new ComputeService(this));
         _database = new(() => new DatabaseService(this));
         _format = new(() => new FormatService(this));
@@ -304,6 +311,12 @@ public sealed class CasedevClientWithRawResponse : ICasedevClientWithRawResponse
     public ISystemServiceWithRawResponse System
     {
         get { return _system.Value; }
+    }
+
+    readonly Lazy<IWorkerServiceWithRawResponse> _worker;
+    public IWorkerServiceWithRawResponse Worker
+    {
+        get { return _worker.Value; }
     }
 
     readonly Lazy<IComputeServiceWithRawResponse> _compute;
@@ -614,6 +627,7 @@ public sealed class CasedevClientWithRawResponse : ICasedevClientWithRawResponse
 
         _agent = new(() => new AgentServiceWithRawResponse(this));
         _system = new(() => new SystemServiceWithRawResponse(this));
+        _worker = new(() => new WorkerServiceWithRawResponse(this));
         _compute = new(() => new ComputeServiceWithRawResponse(this));
         _database = new(() => new DatabaseServiceWithRawResponse(this));
         _format = new(() => new FormatServiceWithRawResponse(this));

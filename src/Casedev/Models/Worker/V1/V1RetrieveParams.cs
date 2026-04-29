@@ -6,53 +6,31 @@ using System.Net.Http;
 using System.Text.Json;
 using Casedev.Core;
 
-namespace Casedev.Models.Agent.V1.Chat;
+namespace Casedev.Models.Worker.V1;
 
 /// <summary>
-/// Relays runtime SSE events for this chat. Supports replay from buffered events
-/// using Last-Event-ID.
+/// Get worker
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that
 /// cause existing derived classes to break.</para>
 /// </summary>
-public record class ChatStreamParams : ParamsBase
+public record class V1RetrieveParams : ParamsBase
 {
     public string? ID { get; init; }
 
-    /// <summary>
-    /// Replay events after this sequence number
-    /// </summary>
-    public long? LastEventID
-    {
-        get
-        {
-            this._rawQueryData.Freeze();
-            return this._rawQueryData.GetNullableStruct<long>("lastEventId");
-        }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawQueryData.Set("lastEventId", value);
-        }
-    }
-
-    public ChatStreamParams() { }
+    public V1RetrieveParams() { }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    public ChatStreamParams(ChatStreamParams chatStreamParams)
-        : base(chatStreamParams)
+    public V1RetrieveParams(V1RetrieveParams v1RetrieveParams)
+        : base(v1RetrieveParams)
     {
-        this.ID = chatStreamParams.ID;
+        this.ID = v1RetrieveParams.ID;
     }
 #pragma warning restore CS8618
 
-    public ChatStreamParams(
+    public V1RetrieveParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData
     )
@@ -63,7 +41,7 @@ public record class ChatStreamParams : ParamsBase
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    ChatStreamParams(
+    V1RetrieveParams(
         FrozenDictionary<string, JsonElement> rawHeaderData,
         FrozenDictionary<string, JsonElement> rawQueryData,
         string id
@@ -76,7 +54,7 @@ public record class ChatStreamParams : ParamsBase
 #pragma warning restore CS8618
 
     /// <inheritdoc cref="IFromRawJson{T}.FromRawUnchecked"/>
-    public static ChatStreamParams FromRawUnchecked(
+    public static V1RetrieveParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
         string id
@@ -106,7 +84,7 @@ public record class ChatStreamParams : ParamsBase
             ModelBase.ToStringSerializerOptions
         );
 
-    public virtual bool Equals(ChatStreamParams? other)
+    public virtual bool Equals(V1RetrieveParams? other)
     {
         if (other == null)
         {
@@ -120,8 +98,7 @@ public record class ChatStreamParams : ParamsBase
     public override Uri Url(ClientOptions options)
     {
         return new UriBuilder(
-            options.BaseUrl.ToString().TrimEnd('/')
-                + string.Format("/agent/v1/chat/{0}/stream", this.ID)
+            options.BaseUrl.ToString().TrimEnd('/') + string.Format("/worker/v1/{0}", this.ID)
         )
         {
             Query = this.QueryString(options),
@@ -131,7 +108,6 @@ public record class ChatStreamParams : ParamsBase
     internal override void AddHeadersToRequest(HttpRequestMessage request, ClientOptions options)
     {
         ParamsBase.AddDefaultHeaders(request, options);
-        request.Headers.Add("Accept", "text/event-stream");
         foreach (var item in this.RawHeaderData)
         {
             ParamsBase.AddHeaderElementToRequest(request, item.Key, item.Value);

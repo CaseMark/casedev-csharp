@@ -11,8 +11,8 @@ using Casedev.Core;
 namespace Casedev.Models.Agent.V1.Chat;
 
 /// <summary>
-/// Creates a persistent OpenCode chat session backed by a Daytona or Vercel runtime.
-/// Session state is retained and can be resumed or recovered across requests.
+/// Creates a persistent chat session backed by a Daytona or Vercel runtime. Session
+/// state is retained and can be resumed or recovered across requests.
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that
@@ -41,7 +41,7 @@ public record class ChatCreateParams : ParamsBase
     }
 
     /// <summary>
-    /// Optional model override for the OpenCode session
+    /// Optional model override for the chat runtime session
     /// </summary>
     public string? Model
     {

@@ -58,6 +58,8 @@ public interface ICasedevClient : IDisposable
 
     ISystemService System { get; }
 
+    IWorkerService Worker { get; }
+
     IComputeService Compute { get; }
 
     IDatabaseService Database { get; }
@@ -130,6 +132,8 @@ public interface ICasedevClientWithRawResponse : IDisposable
     IAgentServiceWithRawResponse Agent { get; }
 
     ISystemServiceWithRawResponse System { get; }
+
+    IWorkerServiceWithRawResponse Worker { get; }
 
     IComputeServiceWithRawResponse Compute { get; }
 

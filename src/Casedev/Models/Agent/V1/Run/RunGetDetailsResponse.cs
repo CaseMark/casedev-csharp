@@ -384,7 +384,7 @@ public sealed record class Result : JsonModel
     }
 
     /// <summary>
-    /// Sandbox execution logs (OpenCode server + runner script)
+    /// Sandbox execution logs (runtime server + runner script)
     /// </summary>
     public Logs? Logs
     {
@@ -589,13 +589,13 @@ class FinalResponseFromRaw : IFromRawJson<FinalResponse>
 }
 
 /// <summary>
-/// Sandbox execution logs (OpenCode server + runner script)
+/// Sandbox execution logs (runtime server + runner script)
 /// </summary>
 [JsonConverter(typeof(JsonModelConverter<Logs, LogsFromRaw>))]
 public sealed record class Logs : JsonModel
 {
     /// <summary>
-    /// OpenCode server stdout/stderr
+    /// Legacy runtime server stdout/stderr
     /// </summary>
     public string? Opencode
     {
@@ -636,11 +636,33 @@ public sealed record class Logs : JsonModel
         }
     }
 
+    /// <summary>
+    /// Runtime server stdout/stderr
+    /// </summary>
+    public string? Runtime
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("runtime");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawData.Set("runtime", value);
+        }
+    }
+
     /// <inheritdoc/>
     public override void Validate()
     {
         _ = this.Opencode;
         _ = this.Runner;
+        _ = this.Runtime;
     }
 
     public Logs() { }
