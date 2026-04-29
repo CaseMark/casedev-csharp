@@ -23,6 +23,12 @@ public class V1ServiceTest : TestBase
     }
 
     [Fact]
+    public async Task Boot_Works()
+    {
+        await this.client.Worker.V1.Boot("id", new(), TestContext.Current.CancellationToken);
+    }
+
+    [Fact]
     public async Task ProxyDelete_Works()
     {
         await this.client.Worker.V1.ProxyDelete(
