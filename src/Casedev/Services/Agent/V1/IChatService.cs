@@ -34,9 +34,8 @@ public interface IChatService
     IFileService Files { get; }
 
     /// <summary>
-    /// Creates a persistent OpenCode chat session backed by a Daytona or Vercel
-    /// runtime. Session state is retained and can be resumed or recovered across
-    /// requests.
+    /// Creates a persistent chat session backed by a Daytona or Vercel runtime. Session
+    /// state is retained and can be resumed or recovered across requests.
     /// </summary>
     Task<ChatCreateResponse> Create(
         ChatCreateParams? parameters = null,
@@ -60,7 +59,7 @@ public interface IChatService
     );
 
     /// <summary>
-    /// Aborts the active OpenCode generation for this chat session.
+    /// Aborts the active generation for this chat session.
     /// </summary>
     Task<ChatCancelResponse> Cancel(
         ChatCancelParams parameters,
@@ -75,7 +74,7 @@ public interface IChatService
     );
 
     /// <summary>
-    /// Answers a pending OpenCode question for the chat session bound to this agent
+    /// Answers a pending runtime question for the chat session bound to this agent
     /// chat.
     /// </summary>
     Task ReplyToQuestion(
@@ -139,7 +138,7 @@ public interface IChatService
     );
 
     /// <summary>
-    /// Relays OpenCode SSE events for this chat. Supports replay from buffered events
+    /// Relays runtime SSE events for this chat. Supports replay from buffered events
     /// using Last-Event-ID.
     /// </summary>
     IAsyncEnumerable<string> StreamStreaming(

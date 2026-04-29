@@ -12,7 +12,7 @@ using Casedev.Core;
 namespace Casedev.Models.Agent.V1.Chat;
 
 /// <summary>
-/// Answers a pending OpenCode question for the chat session bound to this agent chat.
+/// Answers a pending runtime question for the chat session bound to this agent chat.
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that

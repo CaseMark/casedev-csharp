@@ -31,7 +31,12 @@ public class RunGetDetailsResponseTest : TestBase
                     Issues = ["string"],
                     Summary = "summary",
                 },
-                Logs = new() { Opencode = "opencode", Runner = "runner" },
+                Logs = new()
+                {
+                    Opencode = "opencode",
+                    Runner = "runner",
+                    Runtime = "runtime",
+                },
                 Output = "output",
                 OutputObjectIds = ["string"],
             },
@@ -107,7 +112,12 @@ public class RunGetDetailsResponseTest : TestBase
                 Issues = ["string"],
                 Summary = "summary",
             },
-            Logs = new() { Opencode = "opencode", Runner = "runner" },
+            Logs = new()
+            {
+                Opencode = "opencode",
+                Runner = "runner",
+                Runtime = "runtime",
+            },
             Output = "output",
             OutputObjectIds = ["string"],
         };
@@ -212,7 +222,12 @@ public class RunGetDetailsResponseTest : TestBase
                     Issues = ["string"],
                     Summary = "summary",
                 },
-                Logs = new() { Opencode = "opencode", Runner = "runner" },
+                Logs = new()
+                {
+                    Opencode = "opencode",
+                    Runner = "runner",
+                    Runtime = "runtime",
+                },
                 Output = "output",
                 OutputObjectIds = ["string"],
             },
@@ -302,7 +317,12 @@ public class RunGetDetailsResponseTest : TestBase
                     Issues = ["string"],
                     Summary = "summary",
                 },
-                Logs = new() { Opencode = "opencode", Runner = "runner" },
+                Logs = new()
+                {
+                    Opencode = "opencode",
+                    Runner = "runner",
+                    Runtime = "runtime",
+                },
                 Output = "output",
                 OutputObjectIds = ["string"],
             },
@@ -385,7 +405,12 @@ public class RunGetDetailsResponseTest : TestBase
                 Issues = ["string"],
                 Summary = "summary",
             },
-            Logs = new() { Opencode = "opencode", Runner = "runner" },
+            Logs = new()
+            {
+                Opencode = "opencode",
+                Runner = "runner",
+                Runtime = "runtime",
+            },
             Output = "output",
             OutputObjectIds = ["string"],
         };
@@ -490,7 +515,12 @@ public class RunGetDetailsResponseTest : TestBase
                     Issues = ["string"],
                     Summary = "summary",
                 },
-                Logs = new() { Opencode = "opencode", Runner = "runner" },
+                Logs = new()
+                {
+                    Opencode = "opencode",
+                    Runner = "runner",
+                    Runtime = "runtime",
+                },
                 Output = "output",
                 OutputObjectIds = ["string"],
             },
@@ -570,7 +600,12 @@ public class RunGetDetailsResponseTest : TestBase
                     Issues = ["string"],
                     Summary = "summary",
                 },
-                Logs = new() { Opencode = "opencode", Runner = "runner" },
+                Logs = new()
+                {
+                    Opencode = "opencode",
+                    Runner = "runner",
+                    Runtime = "runtime",
+                },
                 Output = "output",
                 OutputObjectIds = ["string"],
             },
@@ -646,7 +681,12 @@ public class RunGetDetailsResponseTest : TestBase
                     Issues = ["string"],
                     Summary = "summary",
                 },
-                Logs = new() { Opencode = "opencode", Runner = "runner" },
+                Logs = new()
+                {
+                    Opencode = "opencode",
+                    Runner = "runner",
+                    Runtime = "runtime",
+                },
                 Output = "output",
                 OutputObjectIds = ["string"],
             },
@@ -711,7 +751,12 @@ public class RunGetDetailsResponseTest : TestBase
                     Issues = ["string"],
                     Summary = "summary",
                 },
-                Logs = new() { Opencode = "opencode", Runner = "runner" },
+                Logs = new()
+                {
+                    Opencode = "opencode",
+                    Runner = "runner",
+                    Runtime = "runtime",
+                },
                 Output = "output",
                 OutputObjectIds = ["string"],
             },
@@ -795,7 +840,12 @@ public class RunGetDetailsResponseTest : TestBase
                     Issues = ["string"],
                     Summary = "summary",
                 },
-                Logs = new() { Opencode = "opencode", Runner = "runner" },
+                Logs = new()
+                {
+                    Opencode = "opencode",
+                    Runner = "runner",
+                    Runtime = "runtime",
+                },
                 Output = "output",
                 OutputObjectIds = ["string"],
             },
@@ -1054,7 +1104,12 @@ public class RunGetDetailsResponseTest : TestBase
                     Issues = ["string"],
                     Summary = "summary",
                 },
-                Logs = new() { Opencode = "opencode", Runner = "runner" },
+                Logs = new()
+                {
+                    Opencode = "opencode",
+                    Runner = "runner",
+                    Runtime = "runtime",
+                },
                 Output = "output",
                 OutputObjectIds = ["string"],
             },
@@ -1190,7 +1245,12 @@ public class ResultTest : TestBase
                 Issues = ["string"],
                 Summary = "summary",
             },
-            Logs = new() { Opencode = "opencode", Runner = "runner" },
+            Logs = new()
+            {
+                Opencode = "opencode",
+                Runner = "runner",
+                Runtime = "runtime",
+            },
             Output = "output",
             OutputObjectIds = ["string"],
         };
@@ -1201,7 +1261,12 @@ public class ResultTest : TestBase
             Issues = ["string"],
             Summary = "summary",
         };
-        Run::Logs expectedLogs = new() { Opencode = "opencode", Runner = "runner" };
+        Run::Logs expectedLogs = new()
+        {
+            Opencode = "opencode",
+            Runner = "runner",
+            Runtime = "runtime",
+        };
         string expectedOutput = "output";
         List<string> expectedOutputObjectIds = ["string"];
 
@@ -1227,7 +1292,12 @@ public class ResultTest : TestBase
                 Issues = ["string"],
                 Summary = "summary",
             },
-            Logs = new() { Opencode = "opencode", Runner = "runner" },
+            Logs = new()
+            {
+                Opencode = "opencode",
+                Runner = "runner",
+                Runtime = "runtime",
+            },
             Output = "output",
             OutputObjectIds = ["string"],
         };
@@ -1252,7 +1322,12 @@ public class ResultTest : TestBase
                 Issues = ["string"],
                 Summary = "summary",
             },
-            Logs = new() { Opencode = "opencode", Runner = "runner" },
+            Logs = new()
+            {
+                Opencode = "opencode",
+                Runner = "runner",
+                Runtime = "runtime",
+            },
             Output = "output",
             OutputObjectIds = ["string"],
         };
@@ -1270,7 +1345,12 @@ public class ResultTest : TestBase
             Issues = ["string"],
             Summary = "summary",
         };
-        Run::Logs expectedLogs = new() { Opencode = "opencode", Runner = "runner" };
+        Run::Logs expectedLogs = new()
+        {
+            Opencode = "opencode",
+            Runner = "runner",
+            Runtime = "runtime",
+        };
         string expectedOutput = "output";
         List<string> expectedOutputObjectIds = ["string"];
 
@@ -1296,7 +1376,12 @@ public class ResultTest : TestBase
                 Issues = ["string"],
                 Summary = "summary",
             },
-            Logs = new() { Opencode = "opencode", Runner = "runner" },
+            Logs = new()
+            {
+                Opencode = "opencode",
+                Runner = "runner",
+                Runtime = "runtime",
+            },
             Output = "output",
             OutputObjectIds = ["string"],
         };
@@ -1315,7 +1400,12 @@ public class ResultTest : TestBase
                 Issues = ["string"],
                 Summary = "summary",
             },
-            Logs = new() { Opencode = "opencode", Runner = "runner" },
+            Logs = new()
+            {
+                Opencode = "opencode",
+                Runner = "runner",
+                Runtime = "runtime",
+            },
         };
 
         Assert.Null(model.Output);
@@ -1335,7 +1425,12 @@ public class ResultTest : TestBase
                 Issues = ["string"],
                 Summary = "summary",
             },
-            Logs = new() { Opencode = "opencode", Runner = "runner" },
+            Logs = new()
+            {
+                Opencode = "opencode",
+                Runner = "runner",
+                Runtime = "runtime",
+            },
         };
 
         model.Validate();
@@ -1352,7 +1447,12 @@ public class ResultTest : TestBase
                 Issues = ["string"],
                 Summary = "summary",
             },
-            Logs = new() { Opencode = "opencode", Runner = "runner" },
+            Logs = new()
+            {
+                Opencode = "opencode",
+                Runner = "runner",
+                Runtime = "runtime",
+            },
 
             // Null should be interpreted as omitted for these properties
             Output = null,
@@ -1376,7 +1476,12 @@ public class ResultTest : TestBase
                 Issues = ["string"],
                 Summary = "summary",
             },
-            Logs = new() { Opencode = "opencode", Runner = "runner" },
+            Logs = new()
+            {
+                Opencode = "opencode",
+                Runner = "runner",
+                Runtime = "runtime",
+            },
 
             // Null should be interpreted as omitted for these properties
             Output = null,
@@ -1449,7 +1554,12 @@ public class ResultTest : TestBase
                 Issues = ["string"],
                 Summary = "summary",
             },
-            Logs = new() { Opencode = "opencode", Runner = "runner" },
+            Logs = new()
+            {
+                Opencode = "opencode",
+                Runner = "runner",
+                Runtime = "runtime",
+            },
             Output = "output",
             OutputObjectIds = ["string"],
         };
@@ -1634,19 +1744,31 @@ public class LogsTest : TestBase
     [Fact]
     public void FieldRoundtrip_Works()
     {
-        var model = new Run::Logs { Opencode = "opencode", Runner = "runner" };
+        var model = new Run::Logs
+        {
+            Opencode = "opencode",
+            Runner = "runner",
+            Runtime = "runtime",
+        };
 
         string expectedOpencode = "opencode";
         string expectedRunner = "runner";
+        string expectedRuntime = "runtime";
 
         Assert.Equal(expectedOpencode, model.Opencode);
         Assert.Equal(expectedRunner, model.Runner);
+        Assert.Equal(expectedRuntime, model.Runtime);
     }
 
     [Fact]
     public void SerializationRoundtrip_Works()
     {
-        var model = new Run::Logs { Opencode = "opencode", Runner = "runner" };
+        var model = new Run::Logs
+        {
+            Opencode = "opencode",
+            Runner = "runner",
+            Runtime = "runtime",
+        };
 
         string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
         var deserialized = JsonSerializer.Deserialize<Run::Logs>(json, ModelBase.SerializerOptions);
@@ -1657,7 +1779,12 @@ public class LogsTest : TestBase
     [Fact]
     public void FieldRoundtripThroughSerialization_Works()
     {
-        var model = new Run::Logs { Opencode = "opencode", Runner = "runner" };
+        var model = new Run::Logs
+        {
+            Opencode = "opencode",
+            Runner = "runner",
+            Runtime = "runtime",
+        };
 
         string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
         var deserialized = JsonSerializer.Deserialize<Run::Logs>(
@@ -1668,15 +1795,22 @@ public class LogsTest : TestBase
 
         string expectedOpencode = "opencode";
         string expectedRunner = "runner";
+        string expectedRuntime = "runtime";
 
         Assert.Equal(expectedOpencode, deserialized.Opencode);
         Assert.Equal(expectedRunner, deserialized.Runner);
+        Assert.Equal(expectedRuntime, deserialized.Runtime);
     }
 
     [Fact]
     public void Validation_Works()
     {
-        var model = new Run::Logs { Opencode = "opencode", Runner = "runner" };
+        var model = new Run::Logs
+        {
+            Opencode = "opencode",
+            Runner = "runner",
+            Runtime = "runtime",
+        };
 
         model.Validate();
     }
@@ -1690,6 +1824,8 @@ public class LogsTest : TestBase
         Assert.False(model.RawData.ContainsKey("opencode"));
         Assert.Null(model.Runner);
         Assert.False(model.RawData.ContainsKey("runner"));
+        Assert.Null(model.Runtime);
+        Assert.False(model.RawData.ContainsKey("runtime"));
     }
 
     [Fact]
@@ -1708,12 +1844,15 @@ public class LogsTest : TestBase
             // Null should be interpreted as omitted for these properties
             Opencode = null,
             Runner = null,
+            Runtime = null,
         };
 
         Assert.Null(model.Opencode);
         Assert.False(model.RawData.ContainsKey("opencode"));
         Assert.Null(model.Runner);
         Assert.False(model.RawData.ContainsKey("runner"));
+        Assert.Null(model.Runtime);
+        Assert.False(model.RawData.ContainsKey("runtime"));
     }
 
     [Fact]
@@ -1724,6 +1863,7 @@ public class LogsTest : TestBase
             // Null should be interpreted as omitted for these properties
             Opencode = null,
             Runner = null,
+            Runtime = null,
         };
 
         model.Validate();
@@ -1732,7 +1872,12 @@ public class LogsTest : TestBase
     [Fact]
     public void CopyConstructor_Works()
     {
-        var model = new Run::Logs { Opencode = "opencode", Runner = "runner" };
+        var model = new Run::Logs
+        {
+            Opencode = "opencode",
+            Runner = "runner",
+            Runtime = "runtime",
+        };
 
         Run::Logs copied = new(model);
 
