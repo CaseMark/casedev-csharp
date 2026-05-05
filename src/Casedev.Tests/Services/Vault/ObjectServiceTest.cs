@@ -92,6 +92,17 @@ public class ObjectServiceTest : TestBase
     }
 
     [Fact]
+    public async Task GetPages_Works()
+    {
+        var response = await this.client.Vault.Objects.GetPages(
+            "objectId",
+            new() { ID = "id" },
+            TestContext.Current.CancellationToken
+        );
+        response.Validate();
+    }
+
+    [Fact]
     public async Task GetSummarizeJob_Works()
     {
         var response = await this.client.Vault.Objects.GetSummarizeJob(
