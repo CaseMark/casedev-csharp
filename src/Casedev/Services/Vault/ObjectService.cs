@@ -210,6 +210,28 @@ public sealed class ObjectService : IObjectService
     }
 
     /// <inheritdoc/>
+    public async Task<ObjectGetPagesResponse> GetPages(
+        ObjectGetPagesParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.GetPages(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public Task<ObjectGetPagesResponse> GetPages(
+        string objectID,
+        ObjectGetPagesParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return this.GetPages(parameters with { ObjectID = objectID }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
     public async Task<ObjectGetSummarizeJobResponse> GetSummarizeJob(
         ObjectGetSummarizeJobParams parameters,
         CancellationToken cancellationToken = default
@@ -600,6 +622,49 @@ public sealed class ObjectServiceWithRawResponse : IObjectServiceWithRawResponse
     )
     {
         return this.GetOcrWords(parameters with { ObjectID = objectID }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async Task<HttpResponse<ObjectGetPagesResponse>> GetPages(
+        ObjectGetPagesParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        if (parameters.ObjectID == null)
+        {
+            throw new CasedevInvalidDataException("'parameters.ObjectID' cannot be null");
+        }
+
+        HttpRequest<ObjectGetPagesParams> request = new()
+        {
+            Method = HttpMethod.Get,
+            Params = parameters,
+        };
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var deserializedResponse = await response
+                    .Deserialize<ObjectGetPagesResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    deserializedResponse.Validate();
+                }
+                return deserializedResponse;
+            }
+        );
+    }
+
+    /// <inheritdoc/>
+    public Task<HttpResponse<ObjectGetPagesResponse>> GetPages(
+        string objectID,
+        ObjectGetPagesParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return this.GetPages(parameters with { ObjectID = objectID }, cancellationToken);
     }
 
     /// <inheritdoc/>
