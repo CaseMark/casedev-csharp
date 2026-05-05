@@ -147,6 +147,7 @@ public abstract record class ModelBase
             new ApiEnumConverter<bool, Vault::VaultConfirmUploadFailureSuccess>(),
             new ApiEnumConverter<string, Vault::Method>(),
             new ApiEnumConverter<string, Graphrag::Status>(),
+            new ApiEnumConverter<string, Objects::Source>(),
             new ApiEnumConverter<string, Objects::Status>(),
             new ApiEnumConverter<string, Objects::Force>(),
             new ApiEnumConverter<string, Objects::Operation>(),

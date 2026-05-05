@@ -169,6 +169,32 @@ public interface IObjectService
     );
 
     /// <summary>
+    /// Retrieves the raw text of a processed vault object split by page. The object
+    /// must have completed ingestion before pages can be retrieved — for PDFs this
+    /// requires the OCR pipeline to have finished writing the per-page sidecar, so
+    /// freshly uploaded PDFs return 400 with the current `ingestionStatus` until
+    /// processing completes. For PDFs this returns the per-page OCR text. For plain
+    /// text files (txt, md, source code, court reporter transcripts) the text is split
+    /// using right-aligned page-number markers when present (preserving the original
+    /// document numbering, including continuations like Volume 2 starting at page 234),
+    /// falling back to form-feed (\f) page-break characters, and finally a single page
+    /// if neither signal is present. Use the optional `start` and `end` query
+    /// parameters to fetch a specific inclusive page range. Pages with no text are
+    /// omitted.
+    /// </summary>
+    Task<ObjectGetPagesResponse> GetPages(
+        ObjectGetPagesParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="GetPages(ObjectGetPagesParams, CancellationToken)"/>
+    Task<ObjectGetPagesResponse> GetPages(
+        string objectID,
+        ObjectGetPagesParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
     /// Get the status of a CaseMark summary workflow job.
     /// </summary>
     Task<ObjectGetSummarizeJobResponse> GetSummarizeJob(
@@ -339,6 +365,22 @@ public interface IObjectServiceWithRawResponse
     Task<HttpResponse<ObjectGetOcrWordsResponse>> GetOcrWords(
         string objectID,
         ObjectGetOcrWordsParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for <c>get /vault/{id}/objects/{objectId}/pages</c>, but is otherwise the
+    /// same as <see cref="IObjectService.GetPages(ObjectGetPagesParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<ObjectGetPagesResponse>> GetPages(
+        ObjectGetPagesParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <inheritdoc cref="GetPages(ObjectGetPagesParams, CancellationToken)"/>
+    Task<HttpResponse<ObjectGetPagesResponse>> GetPages(
+        string objectID,
+        ObjectGetPagesParams parameters,
         CancellationToken cancellationToken = default
     );
 
