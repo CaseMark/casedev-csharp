@@ -313,13 +313,13 @@ public record class Bundle : ModelBase
         }
     }
 
-    public Bundle(ReadResponseRootBundle value, JsonElement? element = null)
+    public Bundle(UnionMember0 value, JsonElement? element = null)
     {
         this.Value = value;
         this._element = element;
     }
 
-    public Bundle(ReadResponseFileBundle value, JsonElement? element = null)
+    public Bundle(UnionMember1 value, JsonElement? element = null)
     {
         this.Value = value;
         this._element = element;
@@ -332,43 +332,43 @@ public record class Bundle : ModelBase
 
     /// <summary>
     /// Returns true and sets the <c>out</c> parameter if the instance was constructed with a variant of
-    /// type <see cref="ReadResponseRootBundle"/>.
+    /// type <see cref="UnionMember0"/>.
     ///
     /// <para>Consider using <see cref="Switch"/> or <see cref="Match"/> if you need to handle every variant.</para>
     ///
     /// <example>
     /// <code>
-    /// if (instance.TryPickReadResponseRoot(out var value)) {
-    ///     // `value` is of type `ReadResponseRootBundle`
+    /// if (instance.TryPickUnionMember0(out var value)) {
+    ///     // `value` is of type `UnionMember0`
     ///     Console.WriteLine(value);
     /// }
     /// </code>
     /// </example>
     /// </summary>
-    public bool TryPickReadResponseRoot([NotNullWhen(true)] out ReadResponseRootBundle? value)
+    public bool TryPickUnionMember0([NotNullWhen(true)] out UnionMember0? value)
     {
-        value = this.Value as ReadResponseRootBundle;
+        value = this.Value as UnionMember0;
         return value != null;
     }
 
     /// <summary>
     /// Returns true and sets the <c>out</c> parameter if the instance was constructed with a variant of
-    /// type <see cref="ReadResponseFileBundle"/>.
+    /// type <see cref="UnionMember1"/>.
     ///
     /// <para>Consider using <see cref="Switch"/> or <see cref="Match"/> if you need to handle every variant.</para>
     ///
     /// <example>
     /// <code>
-    /// if (instance.TryPickReadResponseFile(out var value)) {
-    ///     // `value` is of type `ReadResponseFileBundle`
+    /// if (instance.TryPickUnionMember1(out var value)) {
+    ///     // `value` is of type `UnionMember1`
     ///     Console.WriteLine(value);
     /// }
     /// </code>
     /// </example>
     /// </summary>
-    public bool TryPickReadResponseFile([NotNullWhen(true)] out ReadResponseFileBundle? value)
+    public bool TryPickUnionMember1([NotNullWhen(true)] out UnionMember1? value)
     {
-        value = this.Value as ReadResponseFileBundle;
+        value = this.Value as UnionMember1;
         return value != null;
     }
 
@@ -386,24 +386,21 @@ public record class Bundle : ModelBase
     /// <example>
     /// <code>
     /// instance.Switch(
-    ///     (ReadResponseRootBundle value) =&gt; {...},
-    ///     (ReadResponseFileBundle value) =&gt; {...}
+    ///     (UnionMember0 value) =&gt; {...},
+    ///     (UnionMember1 value) =&gt; {...}
     /// );
     /// </code>
     /// </example>
     /// </summary>
-    public void Switch(
-        Action<ReadResponseRootBundle> readResponseRoot,
-        Action<ReadResponseFileBundle> readResponseFile
-    )
+    public void Switch(Action<UnionMember0> unionMember0, Action<UnionMember1> unionMember1)
     {
         switch (this.Value)
         {
-            case ReadResponseRootBundle value:
-                readResponseRoot(value);
+            case UnionMember0 value:
+                unionMember0(value);
                 break;
-            case ReadResponseFileBundle value:
-                readResponseFile(value);
+            case UnionMember1 value:
+                unionMember1(value);
                 break;
             default:
                 throw new CasedevInvalidDataException("Data did not match any variant of Bundle");
@@ -425,28 +422,25 @@ public record class Bundle : ModelBase
     /// <example>
     /// <code>
     /// var result = instance.Match(
-    ///     (ReadResponseRootBundle value) =&gt; {...},
-    ///     (ReadResponseFileBundle value) =&gt; {...}
+    ///     (UnionMember0 value) =&gt; {...},
+    ///     (UnionMember1 value) =&gt; {...}
     /// );
     /// </code>
     /// </example>
     /// </summary>
-    public T Match<T>(
-        Func<ReadResponseRootBundle, T> readResponseRoot,
-        Func<ReadResponseFileBundle, T> readResponseFile
-    )
+    public T Match<T>(Func<UnionMember0, T> unionMember0, Func<UnionMember1, T> unionMember1)
     {
         return this.Value switch
         {
-            ReadResponseRootBundle value => readResponseRoot(value),
-            ReadResponseFileBundle value => readResponseFile(value),
+            UnionMember0 value => unionMember0(value),
+            UnionMember1 value => unionMember1(value),
             _ => throw new CasedevInvalidDataException("Data did not match any variant of Bundle"),
         };
     }
 
-    public static implicit operator Bundle(ReadResponseRootBundle value) => new(value);
+    public static implicit operator Bundle(UnionMember0 value) => new(value);
 
-    public static implicit operator Bundle(ReadResponseFileBundle value) => new(value);
+    public static implicit operator Bundle(UnionMember1 value) => new(value);
 
     /// <summary>
     /// Validates that the instance was constructed with a known variant and that this variant is valid
@@ -465,8 +459,8 @@ public record class Bundle : ModelBase
             throw new CasedevInvalidDataException("Data did not match any variant of Bundle");
         }
         this.Switch(
-            (readResponseRoot) => readResponseRoot.Validate(),
-            (readResponseFile) => readResponseFile.Validate()
+            (unionMember0) => unionMember0.Validate(),
+            (unionMember1) => unionMember1.Validate()
         );
     }
 
@@ -490,8 +484,8 @@ public record class Bundle : ModelBase
     {
         return this.Value switch
         {
-            ReadResponseRootBundle _ => 0,
-            ReadResponseFileBundle _ => 1,
+            UnionMember0 _ => 0,
+            UnionMember1 _ => 1,
             _ => -1,
         };
     }
@@ -508,7 +502,7 @@ sealed class BundleConverter : JsonConverter<Bundle?>
         var element = JsonSerializer.Deserialize<JsonElement>(ref reader, options);
         try
         {
-            var deserialized = JsonSerializer.Deserialize<ReadResponseRootBundle>(element, options);
+            var deserialized = JsonSerializer.Deserialize<UnionMember0>(element, options);
             if (deserialized != null)
             {
                 deserialized.Validate();
@@ -522,7 +516,7 @@ sealed class BundleConverter : JsonConverter<Bundle?>
 
         try
         {
-            var deserialized = JsonSerializer.Deserialize<ReadResponseFileBundle>(element, options);
+            var deserialized = JsonSerializer.Deserialize<UnionMember1>(element, options);
             if (deserialized != null)
             {
                 deserialized.Validate();
@@ -540,6 +534,332 @@ sealed class BundleConverter : JsonConverter<Bundle?>
     public override void Write(Utf8JsonWriter writer, Bundle? value, JsonSerializerOptions options)
     {
         JsonSerializer.Serialize(writer, value?.Json, options);
+    }
+}
+
+[JsonConverter(typeof(JsonModelConverter<UnionMember0, UnionMember0FromRaw>))]
+public sealed record class UnionMember0 : JsonModel
+{
+    public required IReadOnlyList<File> Files
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullStruct<ImmutableArray<File>>("files");
+        }
+        init
+        {
+            this._rawData.Set<ImmutableArray<File>>(
+                "files",
+                ImmutableArray.ToImmutableArray(value)
+            );
+        }
+    }
+
+    public required ApiEnum<string, Role> Role
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullClass<ApiEnum<string, Role>>("role");
+        }
+        init { this._rawData.Set("role", value); }
+    }
+
+    /// <inheritdoc/>
+    public override void Validate()
+    {
+        foreach (var item in this.Files)
+        {
+            item.Validate();
+        }
+        this.Role.Validate();
+    }
+
+    public UnionMember0() { }
+
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
+    public UnionMember0(UnionMember0 unionMember0)
+        : base(unionMember0) { }
+#pragma warning restore CS8618
+
+    public UnionMember0(IReadOnlyDictionary<string, JsonElement> rawData)
+    {
+        this._rawData = new(rawData);
+    }
+
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
+    UnionMember0(FrozenDictionary<string, JsonElement> rawData)
+    {
+        this._rawData = new(rawData);
+    }
+#pragma warning restore CS8618
+
+    /// <inheritdoc cref="UnionMember0FromRaw.FromRawUnchecked"/>
+    public static UnionMember0 FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
+    {
+        return new(FrozenDictionary.ToFrozenDictionary(rawData));
+    }
+}
+
+class UnionMember0FromRaw : IFromRawJson<UnionMember0>
+{
+    /// <inheritdoc/>
+    public UnionMember0 FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
+        UnionMember0.FromRawUnchecked(rawData);
+}
+
+[JsonConverter(typeof(JsonModelConverter<File, FileFromRaw>))]
+public sealed record class File : JsonModel
+{
+    public required string Path
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullClass<string>("path");
+        }
+        init { this._rawData.Set("path", value); }
+    }
+
+    public required string Slug
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullClass<string>("slug");
+        }
+        init { this._rawData.Set("slug", value); }
+    }
+
+    public string? ContentType
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("content_type");
+        }
+        init { this._rawData.Set("content_type", value); }
+    }
+
+    public string? Name
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("name");
+        }
+        init { this._rawData.Set("name", value); }
+    }
+
+    /// <inheritdoc/>
+    public override void Validate()
+    {
+        _ = this.Path;
+        _ = this.Slug;
+        _ = this.ContentType;
+        _ = this.Name;
+    }
+
+    public File() { }
+
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
+    public File(File file)
+        : base(file) { }
+#pragma warning restore CS8618
+
+    public File(IReadOnlyDictionary<string, JsonElement> rawData)
+    {
+        this._rawData = new(rawData);
+    }
+
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
+    File(FrozenDictionary<string, JsonElement> rawData)
+    {
+        this._rawData = new(rawData);
+    }
+#pragma warning restore CS8618
+
+    /// <inheritdoc cref="FileFromRaw.FromRawUnchecked"/>
+    public static File FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
+    {
+        return new(FrozenDictionary.ToFrozenDictionary(rawData));
+    }
+}
+
+class FileFromRaw : IFromRawJson<File>
+{
+    /// <inheritdoc/>
+    public File FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
+        File.FromRawUnchecked(rawData);
+}
+
+[JsonConverter(typeof(RoleConverter))]
+public enum Role
+{
+    Root,
+}
+
+sealed class RoleConverter : JsonConverter<Role>
+{
+    public override Role Read(
+        ref Utf8JsonReader reader,
+        Type typeToConvert,
+        JsonSerializerOptions options
+    )
+    {
+        return JsonSerializer.Deserialize<string>(ref reader, options) switch
+        {
+            "root" => Role.Root,
+            _ => (Role)(-1),
+        };
+    }
+
+    public override void Write(Utf8JsonWriter writer, Role value, JsonSerializerOptions options)
+    {
+        JsonSerializer.Serialize(
+            writer,
+            value switch
+            {
+                Role.Root => "root",
+                _ => throw new CasedevInvalidDataException(
+                    string.Format("Invalid value '{0}' in {1}", value, nameof(value))
+                ),
+            },
+            options
+        );
+    }
+}
+
+[JsonConverter(typeof(JsonModelConverter<UnionMember1, UnionMember1FromRaw>))]
+public sealed record class UnionMember1 : JsonModel
+{
+    public required string Path
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullClass<string>("path");
+        }
+        init { this._rawData.Set("path", value); }
+    }
+
+    public required ApiEnum<string, UnionMember1Role> Role
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullClass<ApiEnum<string, UnionMember1Role>>("role");
+        }
+        init { this._rawData.Set("role", value); }
+    }
+
+    public required string RootSlug
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNotNullClass<string>("root_slug");
+        }
+        init { this._rawData.Set("root_slug", value); }
+    }
+
+    public string? ContentType
+    {
+        get
+        {
+            this._rawData.Freeze();
+            return this._rawData.GetNullableClass<string>("content_type");
+        }
+        init { this._rawData.Set("content_type", value); }
+    }
+
+    /// <inheritdoc/>
+    public override void Validate()
+    {
+        _ = this.Path;
+        this.Role.Validate();
+        _ = this.RootSlug;
+        _ = this.ContentType;
+    }
+
+    public UnionMember1() { }
+
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
+    public UnionMember1(UnionMember1 unionMember1)
+        : base(unionMember1) { }
+#pragma warning restore CS8618
+
+    public UnionMember1(IReadOnlyDictionary<string, JsonElement> rawData)
+    {
+        this._rawData = new(rawData);
+    }
+
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
+    UnionMember1(FrozenDictionary<string, JsonElement> rawData)
+    {
+        this._rawData = new(rawData);
+    }
+#pragma warning restore CS8618
+
+    /// <inheritdoc cref="UnionMember1FromRaw.FromRawUnchecked"/>
+    public static UnionMember1 FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
+    {
+        return new(FrozenDictionary.ToFrozenDictionary(rawData));
+    }
+}
+
+class UnionMember1FromRaw : IFromRawJson<UnionMember1>
+{
+    /// <inheritdoc/>
+    public UnionMember1 FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
+        UnionMember1.FromRawUnchecked(rawData);
+}
+
+[JsonConverter(typeof(UnionMember1RoleConverter))]
+public enum UnionMember1Role
+{
+    File,
+}
+
+sealed class UnionMember1RoleConverter : JsonConverter<UnionMember1Role>
+{
+    public override UnionMember1Role Read(
+        ref Utf8JsonReader reader,
+        Type typeToConvert,
+        JsonSerializerOptions options
+    )
+    {
+        return JsonSerializer.Deserialize<string>(ref reader, options) switch
+        {
+            "file" => UnionMember1Role.File,
+            _ => (UnionMember1Role)(-1),
+        };
+    }
+
+    public override void Write(
+        Utf8JsonWriter writer,
+        UnionMember1Role value,
+        JsonSerializerOptions options
+    )
+    {
+        JsonSerializer.Serialize(
+            writer,
+            value switch
+            {
+                UnionMember1Role.File => "file",
+                _ => throw new CasedevInvalidDataException(
+                    string.Format("Invalid value '{0}' in {1}", value, nameof(value))
+                ),
+            },
+            options
+        );
     }
 }
 
