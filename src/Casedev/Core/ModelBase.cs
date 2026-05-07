@@ -124,7 +124,7 @@ public abstract record class ModelBase
             new ApiEnumConverter<string, Category>(),
             new ApiEnumConverter<string, Jurisdiction>(),
             new ApiEnumConverter<string, Skills::Role>(),
-            new ApiEnumConverter<string, Skills::ReadResponseRootBundleRole>(),
+            new ApiEnumConverter<string, Skills::UnionMember1Role>(),
             new ApiEnumConverter<string, Skills::Source>(),
             new ApiEnumConverter<string, Skills::ResultSource>(),
             new ApiEnumConverter<string, SearchV1::V1RetrieveResearchResponseModel>(),
