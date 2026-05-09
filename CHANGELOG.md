@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.38.1 (2026-05-09)
+
+Full Changelog: [v0.38.0...v0.38.1](https://github.com/CaseMark/casedev-csharp/compare/v0.38.0...v0.38.1)
+
+### Bug Fixes
+
+* **internal:** disable default HttpClient timeout as we have our own ([c3b3ac6](https://github.com/CaseMark/casedev-csharp/commit/c3b3ac6358d2dabb57609f886fca8632aca72583))
+
 ## 0.38.0 (2026-05-07)
 
 Full Changelog: [v0.37.0...v0.38.0](https://github.com/CaseMark/casedev-csharp/compare/v0.37.0...v0.38.0)
