@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.38.2 (2026-05-13)
+
+Full Changelog: [v0.38.1...v0.38.2](https://github.com/CaseMark/casedev-csharp/compare/v0.38.1...v0.38.2)
+
 ## 0.38.1 (2026-05-09)
 
 Full Changelog: [v0.38.0...v0.38.1](https://github.com/CaseMark/casedev-csharp/compare/v0.38.0...v0.38.1)
