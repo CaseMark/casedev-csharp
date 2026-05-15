@@ -150,8 +150,7 @@ public record class V1DocketParams : ParamsBase
     }
 
     /// <summary>
-    /// Include docket entries/filings in lookup responses. Coming soon — currently
-    /// returns 501. The parameter is accepted for forward compatibility.
+    /// Include docket entries/filings in lookup responses.
     /// </summary>
     public bool? IncludeEntries
     {
