@@ -6,32 +6,26 @@ using System.Net.Http;
 using System.Text.Json;
 using Casedev.Core;
 
-namespace Casedev.Models.Worker.V1;
+namespace Casedev.Models.Agent.Skills.Namespaces;
 
 /// <summary>
-/// Starts or resumes the worker sandbox and OpenCode server. Native /worker/v1/:id/*
-/// proxy routes require this lifecycle primitive to have completed first.
+/// List all active skill namespaces owned by the authenticated organization.
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that
 /// cause existing derived classes to break.</para>
 /// </summary>
-public record class V1BootParams : ParamsBase
+public record class NamespaceListParams : ParamsBase
 {
-    public string? ID { get; init; }
-
-    public V1BootParams() { }
+    public NamespaceListParams() { }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    public V1BootParams(V1BootParams v1BootParams)
-        : base(v1BootParams)
-    {
-        this.ID = v1BootParams.ID;
-    }
+    public NamespaceListParams(NamespaceListParams namespaceListParams)
+        : base(namespaceListParams) { }
 #pragma warning restore CS8618
 
-    public V1BootParams(
+    public NamespaceListParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData
     )
@@ -42,29 +36,25 @@ public record class V1BootParams : ParamsBase
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    V1BootParams(
+    NamespaceListParams(
         FrozenDictionary<string, JsonElement> rawHeaderData,
-        FrozenDictionary<string, JsonElement> rawQueryData,
-        string id
+        FrozenDictionary<string, JsonElement> rawQueryData
     )
     {
         this._rawHeaderData = new(rawHeaderData);
         this._rawQueryData = new(rawQueryData);
-        this.ID = id;
     }
 #pragma warning restore CS8618
 
     /// <inheritdoc cref="IFromRawJson{T}.FromRawUnchecked"/>
-    public static V1BootParams FromRawUnchecked(
+    public static NamespaceListParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
-        IReadOnlyDictionary<string, JsonElement> rawQueryData,
-        string id
+        IReadOnlyDictionary<string, JsonElement> rawQueryData
     )
     {
         return new(
             FrozenDictionary.ToFrozenDictionary(rawHeaderData),
-            FrozenDictionary.ToFrozenDictionary(rawQueryData),
-            id
+            FrozenDictionary.ToFrozenDictionary(rawQueryData)
         );
     }
 
@@ -73,7 +63,6 @@ public record class V1BootParams : ParamsBase
             FriendlyJsonPrinter.PrintValue(
                 new Dictionary<string, JsonElement>()
                 {
-                    ["ID"] = JsonSerializer.SerializeToElement(this.ID),
                     ["HeaderData"] = FriendlyJsonPrinter.PrintValue(
                         JsonSerializer.SerializeToElement(this._rawHeaderData.Freeze())
                     ),
@@ -85,22 +74,19 @@ public record class V1BootParams : ParamsBase
             ModelBase.ToStringSerializerOptions
         );
 
-    public virtual bool Equals(V1BootParams? other)
+    public virtual bool Equals(NamespaceListParams? other)
     {
         if (other == null)
         {
             return false;
         }
-        return (this.ID?.Equals(other.ID) ?? other.ID == null)
-            && this._rawHeaderData.Equals(other._rawHeaderData)
+        return this._rawHeaderData.Equals(other._rawHeaderData)
             && this._rawQueryData.Equals(other._rawQueryData);
     }
 
     public override Uri Url(ClientOptions options)
     {
-        return new UriBuilder(
-            options.BaseUrl.ToString().TrimEnd('/') + string.Format("/worker/v1/{0}/boot", this.ID)
-        )
+        return new UriBuilder(options.BaseUrl.ToString().TrimEnd('/') + "/agent/skills/namespaces")
         {
             Query = this.QueryString(options),
         }.Uri;

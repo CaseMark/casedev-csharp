@@ -1,6 +1,6 @@
 using System;
 using Casedev.Core;
-using Casedev.Services.Agent;
+using Agent = Casedev.Services.Agent;
 
 namespace Casedev.Services;
 
@@ -24,7 +24,9 @@ public interface IAgentService
     /// </summary>
     IAgentService WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
-    IV1Service V1 { get; }
+    Agent::ISkillService Skills { get; }
+
+    Agent::IV1Service V1 { get; }
 }
 
 /// <summary>
@@ -40,5 +42,7 @@ public interface IAgentServiceWithRawResponse
     /// </summary>
     IAgentServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
-    IV1ServiceWithRawResponse V1 { get; }
+    Agent::ISkillServiceWithRawResponse Skills { get; }
+
+    Agent::IV1ServiceWithRawResponse V1 { get; }
 }
