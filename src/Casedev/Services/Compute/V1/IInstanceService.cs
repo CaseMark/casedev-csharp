@@ -30,9 +30,9 @@ public interface IInstanceService
 
     /// <summary>
     /// Launches a new GPU compute instance with automatic SSH key generation. Supports
-    /// mounting Case.dev Vaults as filesystems and configurable auto-shutdown. Instance
-    /// boots in ~2-5 minutes. Perfect for batch OCR processing, AI model training, and
-    /// intensive document analysis workloads.
+    /// mounting Case.dev Vaults as filesystems. Instance boots in ~2-5 minutes. Perfect
+    /// for batch OCR processing, AI model training, and intensive document analysis
+    /// workloads.
     /// </summary>
     Task<InstanceCreateResponse> Create(
         InstanceCreateParams parameters,
@@ -58,9 +58,8 @@ public interface IInstanceService
 
     /// <summary>
     /// Retrieves all GPU compute instances for your organization with real-time status
-    /// updates from Lambda Labs. Includes pricing, runtime metrics, and auto-shutdown
-    /// configuration. Perfect for monitoring AI workloads, document processing jobs,
-    /// and cost tracking.
+    /// updates from Lambda Labs. Includes pricing and runtime metrics. Perfect for
+    /// monitoring AI workloads, document processing jobs, and cost tracking.
     /// </summary>
     Task<InstanceListResponse> List(
         InstanceListParams? parameters = null,

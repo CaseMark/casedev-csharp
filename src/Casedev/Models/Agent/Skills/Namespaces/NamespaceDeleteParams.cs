@@ -6,34 +6,31 @@ using System.Net.Http;
 using System.Text.Json;
 using Casedev.Core;
 
-namespace Casedev.Models.Worker.V1;
+namespace Casedev.Models.Agent.Skills.Namespaces;
 
 /// <summary>
-/// Forwards a PUT request to the worker runtime without translating request or response shapes.
+/// Delete skill namespace
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that
 /// cause existing derived classes to break.</para>
 /// </summary>
-public record class V1ProxyPutParams : ParamsBase
+public record class NamespaceDeleteParams : ParamsBase
 {
-    public required string ID { get; init; }
+    public string? ID { get; init; }
 
-    public string? WorkerPath { get; init; }
-
-    public V1ProxyPutParams() { }
+    public NamespaceDeleteParams() { }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    public V1ProxyPutParams(V1ProxyPutParams v1ProxyPutParams)
-        : base(v1ProxyPutParams)
+    public NamespaceDeleteParams(NamespaceDeleteParams namespaceDeleteParams)
+        : base(namespaceDeleteParams)
     {
-        this.ID = v1ProxyPutParams.ID;
-        this.WorkerPath = v1ProxyPutParams.WorkerPath;
+        this.ID = namespaceDeleteParams.ID;
     }
 #pragma warning restore CS8618
 
-    public V1ProxyPutParams(
+    public NamespaceDeleteParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData
     )
@@ -44,33 +41,29 @@ public record class V1ProxyPutParams : ParamsBase
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    V1ProxyPutParams(
+    NamespaceDeleteParams(
         FrozenDictionary<string, JsonElement> rawHeaderData,
         FrozenDictionary<string, JsonElement> rawQueryData,
-        string id,
-        string workerPath
+        string id
     )
     {
         this._rawHeaderData = new(rawHeaderData);
         this._rawQueryData = new(rawQueryData);
         this.ID = id;
-        this.WorkerPath = workerPath;
     }
 #pragma warning restore CS8618
 
     /// <inheritdoc cref="IFromRawJson{T}.FromRawUnchecked"/>
-    public static V1ProxyPutParams FromRawUnchecked(
+    public static NamespaceDeleteParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
-        string id,
-        string workerPath
+        string id
     )
     {
         return new(
             FrozenDictionary.ToFrozenDictionary(rawHeaderData),
             FrozenDictionary.ToFrozenDictionary(rawQueryData),
-            id,
-            workerPath
+            id
         );
     }
 
@@ -80,7 +73,6 @@ public record class V1ProxyPutParams : ParamsBase
                 new Dictionary<string, JsonElement>()
                 {
                     ["ID"] = JsonSerializer.SerializeToElement(this.ID),
-                    ["WorkerPath"] = JsonSerializer.SerializeToElement(this.WorkerPath),
                     ["HeaderData"] = FriendlyJsonPrinter.PrintValue(
                         JsonSerializer.SerializeToElement(this._rawHeaderData.Freeze())
                     ),
@@ -92,14 +84,13 @@ public record class V1ProxyPutParams : ParamsBase
             ModelBase.ToStringSerializerOptions
         );
 
-    public virtual bool Equals(V1ProxyPutParams? other)
+    public virtual bool Equals(NamespaceDeleteParams? other)
     {
         if (other == null)
         {
             return false;
         }
-        return this.ID.Equals(other.ID)
-            && (this.WorkerPath?.Equals(other.WorkerPath) ?? other.WorkerPath == null)
+        return (this.ID?.Equals(other.ID) ?? other.ID == null)
             && this._rawHeaderData.Equals(other._rawHeaderData)
             && this._rawQueryData.Equals(other._rawQueryData);
     }
@@ -108,7 +99,7 @@ public record class V1ProxyPutParams : ParamsBase
     {
         return new UriBuilder(
             options.BaseUrl.ToString().TrimEnd('/')
-                + string.Format("/worker/v1/{0}/{1}", this.ID, this.WorkerPath)
+                + string.Format("/agent/skills/namespaces/{0}", this.ID)
         )
         {
             Query = this.QueryString(options),

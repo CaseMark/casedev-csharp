@@ -1,5 +1,6 @@
 using System.Text.Json;
 using Casedev.Exceptions;
+using Casedev.Models.Agent.Skills.Namespaces;
 using Casedev.Models.Agent.V1.Run;
 using Casedev.Models.Format.V1;
 using Casedev.Models.Llm.V1;
@@ -56,6 +57,7 @@ public abstract record class ModelBase
         Converters =
         {
             new FrozenDictionaryConverterFactory(),
+            new ApiEnumConverter<string, Encoding>(),
             new ApiEnumConverter<string, RunCreateResponseStatus>(),
             new ApiEnumConverter<string, RunListResponseRunStatus>(),
             new ApiEnumConverter<string, RunCancelResponseStatus>(),

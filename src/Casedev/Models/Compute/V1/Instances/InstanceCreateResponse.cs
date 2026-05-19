@@ -29,16 +29,6 @@ public sealed record class InstanceCreateResponse : JsonModel
         }
     }
 
-    public long? AutoShutdownMinutes
-    {
-        get
-        {
-            this._rawData.Freeze();
-            return this._rawData.GetNullableStruct<long>("autoShutdownMinutes");
-        }
-        init { this._rawData.Set("autoShutdownMinutes", value); }
-    }
-
     public string? CreatedAt
     {
         get
@@ -226,7 +216,6 @@ public sealed record class InstanceCreateResponse : JsonModel
     public override void Validate()
     {
         _ = this.ID;
-        _ = this.AutoShutdownMinutes;
         _ = this.CreatedAt;
         _ = this.Gpu;
         _ = this.InstanceType;

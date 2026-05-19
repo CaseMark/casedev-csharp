@@ -14,20 +14,17 @@ public class InstanceCreateParamsTest : TestBase
             InstanceType = "gpu_1x_a10",
             Name = "ocr-batch-job",
             Region = "us-west-1",
-            AutoShutdownMinutes = 120,
             VaultIds = ["vault_abc123"],
         };
 
         string expectedInstanceType = "gpu_1x_a10";
         string expectedName = "ocr-batch-job";
         string expectedRegion = "us-west-1";
-        long expectedAutoShutdownMinutes = 120;
         List<string> expectedVaultIds = ["vault_abc123"];
 
         Assert.Equal(expectedInstanceType, parameters.InstanceType);
         Assert.Equal(expectedName, parameters.Name);
         Assert.Equal(expectedRegion, parameters.Region);
-        Assert.Equal(expectedAutoShutdownMinutes, parameters.AutoShutdownMinutes);
         Assert.NotNull(parameters.VaultIds);
         Assert.Equal(expectedVaultIds.Count, parameters.VaultIds.Count);
         for (int i = 0; i < expectedVaultIds.Count; i++)
@@ -44,7 +41,6 @@ public class InstanceCreateParamsTest : TestBase
             InstanceType = "gpu_1x_a10",
             Name = "ocr-batch-job",
             Region = "us-west-1",
-            AutoShutdownMinutes = 120,
         };
 
         Assert.Null(parameters.VaultIds);
@@ -59,7 +55,6 @@ public class InstanceCreateParamsTest : TestBase
             InstanceType = "gpu_1x_a10",
             Name = "ocr-batch-job",
             Region = "us-west-1",
-            AutoShutdownMinutes = 120,
 
             // Null should be interpreted as omitted for these properties
             VaultIds = null,
@@ -67,38 +62,6 @@ public class InstanceCreateParamsTest : TestBase
 
         Assert.Null(parameters.VaultIds);
         Assert.False(parameters.RawBodyData.ContainsKey("vaultIds"));
-    }
-
-    [Fact]
-    public void OptionalNullableParamsUnsetAreNotSet_Works()
-    {
-        var parameters = new InstanceCreateParams
-        {
-            InstanceType = "gpu_1x_a10",
-            Name = "ocr-batch-job",
-            Region = "us-west-1",
-            VaultIds = ["vault_abc123"],
-        };
-
-        Assert.Null(parameters.AutoShutdownMinutes);
-        Assert.False(parameters.RawBodyData.ContainsKey("autoShutdownMinutes"));
-    }
-
-    [Fact]
-    public void OptionalNullableParamsSetToNullAreSetToNull_Works()
-    {
-        var parameters = new InstanceCreateParams
-        {
-            InstanceType = "gpu_1x_a10",
-            Name = "ocr-batch-job",
-            Region = "us-west-1",
-            VaultIds = ["vault_abc123"],
-
-            AutoShutdownMinutes = null,
-        };
-
-        Assert.Null(parameters.AutoShutdownMinutes);
-        Assert.True(parameters.RawBodyData.ContainsKey("autoShutdownMinutes"));
     }
 
     [Fact]
@@ -124,7 +87,6 @@ public class InstanceCreateParamsTest : TestBase
             InstanceType = "gpu_1x_a10",
             Name = "ocr-batch-job",
             Region = "us-west-1",
-            AutoShutdownMinutes = 120,
             VaultIds = ["vault_abc123"],
         };
 

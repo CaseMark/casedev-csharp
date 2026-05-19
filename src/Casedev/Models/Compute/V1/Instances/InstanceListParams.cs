@@ -10,9 +10,8 @@ namespace Casedev.Models.Compute.V1.Instances;
 
 /// <summary>
 /// Retrieves all GPU compute instances for your organization with real-time status
-/// updates from Lambda Labs. Includes pricing, runtime metrics, and auto-shutdown
-/// configuration. Perfect for monitoring AI workloads, document processing jobs,
-/// and cost tracking.
+/// updates from Lambda Labs. Includes pricing and runtime metrics. Perfect for monitoring
+/// AI workloads, document processing jobs, and cost tracking.
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that

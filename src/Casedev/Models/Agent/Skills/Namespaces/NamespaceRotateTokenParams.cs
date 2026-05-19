@@ -6,31 +6,31 @@ using System.Net.Http;
 using System.Text.Json;
 using Casedev.Core;
 
-namespace Casedev.Models.Worker.V1;
+namespace Casedev.Models.Agent.Skills.Namespaces;
 
 /// <summary>
-/// End worker
+/// Rotate skill namespace token
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that
 /// cause existing derived classes to break.</para>
 /// </summary>
-public record class V1DeleteParams : ParamsBase
+public record class NamespaceRotateTokenParams : ParamsBase
 {
     public string? ID { get; init; }
 
-    public V1DeleteParams() { }
+    public NamespaceRotateTokenParams() { }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    public V1DeleteParams(V1DeleteParams v1DeleteParams)
-        : base(v1DeleteParams)
+    public NamespaceRotateTokenParams(NamespaceRotateTokenParams namespaceRotateTokenParams)
+        : base(namespaceRotateTokenParams)
     {
-        this.ID = v1DeleteParams.ID;
+        this.ID = namespaceRotateTokenParams.ID;
     }
 #pragma warning restore CS8618
 
-    public V1DeleteParams(
+    public NamespaceRotateTokenParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData
     )
@@ -41,7 +41,7 @@ public record class V1DeleteParams : ParamsBase
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    V1DeleteParams(
+    NamespaceRotateTokenParams(
         FrozenDictionary<string, JsonElement> rawHeaderData,
         FrozenDictionary<string, JsonElement> rawQueryData,
         string id
@@ -54,7 +54,7 @@ public record class V1DeleteParams : ParamsBase
 #pragma warning restore CS8618
 
     /// <inheritdoc cref="IFromRawJson{T}.FromRawUnchecked"/>
-    public static V1DeleteParams FromRawUnchecked(
+    public static NamespaceRotateTokenParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
         string id
@@ -84,7 +84,7 @@ public record class V1DeleteParams : ParamsBase
             ModelBase.ToStringSerializerOptions
         );
 
-    public virtual bool Equals(V1DeleteParams? other)
+    public virtual bool Equals(NamespaceRotateTokenParams? other)
     {
         if (other == null)
         {
@@ -98,7 +98,8 @@ public record class V1DeleteParams : ParamsBase
     public override Uri Url(ClientOptions options)
     {
         return new UriBuilder(
-            options.BaseUrl.ToString().TrimEnd('/') + string.Format("/worker/v1/{0}", this.ID)
+            options.BaseUrl.ToString().TrimEnd('/')
+                + string.Format("/agent/skills/namespaces/{0}/rotate-token", this.ID)
         )
         {
             Query = this.QueryString(options),
