@@ -20,7 +20,6 @@ public class InstanceListResponseTest : TestBase
                 new()
                 {
                     ID = "id",
-                    AutoShutdownMinutes = 0,
                     CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                     Gpu = "gpu",
                     InstanceType = "instanceType",
@@ -42,7 +41,6 @@ public class InstanceListResponseTest : TestBase
             new()
             {
                 ID = "id",
-                AutoShutdownMinutes = 0,
                 CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                 Gpu = "gpu",
                 InstanceType = "instanceType",
@@ -77,7 +75,6 @@ public class InstanceListResponseTest : TestBase
                 new()
                 {
                     ID = "id",
-                    AutoShutdownMinutes = 0,
                     CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                     Gpu = "gpu",
                     InstanceType = "instanceType",
@@ -113,7 +110,6 @@ public class InstanceListResponseTest : TestBase
                 new()
                 {
                     ID = "id",
-                    AutoShutdownMinutes = 0,
                     CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                     Gpu = "gpu",
                     InstanceType = "instanceType",
@@ -142,7 +138,6 @@ public class InstanceListResponseTest : TestBase
             new()
             {
                 ID = "id",
-                AutoShutdownMinutes = 0,
                 CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                 Gpu = "gpu",
                 InstanceType = "instanceType",
@@ -177,7 +172,6 @@ public class InstanceListResponseTest : TestBase
                 new()
                 {
                     ID = "id",
-                    AutoShutdownMinutes = 0,
                     CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                     Gpu = "gpu",
                     InstanceType = "instanceType",
@@ -255,7 +249,6 @@ public class InstanceListResponseTest : TestBase
                 new()
                 {
                     ID = "id",
-                    AutoShutdownMinutes = 0,
                     CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                     Gpu = "gpu",
                     InstanceType = "instanceType",
@@ -285,7 +278,6 @@ public class InstanceTest : TestBase
         var model = new Instance
         {
             ID = "id",
-            AutoShutdownMinutes = 0,
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Gpu = "gpu",
             InstanceType = "instanceType",
@@ -300,7 +292,6 @@ public class InstanceTest : TestBase
         };
 
         string expectedID = "id";
-        long expectedAutoShutdownMinutes = 0;
         DateTimeOffset expectedCreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
         string expectedGpu = "gpu";
         string expectedInstanceType = "instanceType";
@@ -314,7 +305,6 @@ public class InstanceTest : TestBase
         long expectedTotalRuntimeSeconds = 0;
 
         Assert.Equal(expectedID, model.ID);
-        Assert.Equal(expectedAutoShutdownMinutes, model.AutoShutdownMinutes);
         Assert.Equal(expectedCreatedAt, model.CreatedAt);
         Assert.Equal(expectedGpu, model.Gpu);
         Assert.Equal(expectedInstanceType, model.InstanceType);
@@ -334,7 +324,6 @@ public class InstanceTest : TestBase
         var model = new Instance
         {
             ID = "id",
-            AutoShutdownMinutes = 0,
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Gpu = "gpu",
             InstanceType = "instanceType",
@@ -360,7 +349,6 @@ public class InstanceTest : TestBase
         var model = new Instance
         {
             ID = "id",
-            AutoShutdownMinutes = 0,
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Gpu = "gpu",
             InstanceType = "instanceType",
@@ -382,7 +370,6 @@ public class InstanceTest : TestBase
         Assert.NotNull(deserialized);
 
         string expectedID = "id";
-        long expectedAutoShutdownMinutes = 0;
         DateTimeOffset expectedCreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
         string expectedGpu = "gpu";
         string expectedInstanceType = "instanceType";
@@ -396,7 +383,6 @@ public class InstanceTest : TestBase
         long expectedTotalRuntimeSeconds = 0;
 
         Assert.Equal(expectedID, deserialized.ID);
-        Assert.Equal(expectedAutoShutdownMinutes, deserialized.AutoShutdownMinutes);
         Assert.Equal(expectedCreatedAt, deserialized.CreatedAt);
         Assert.Equal(expectedGpu, deserialized.Gpu);
         Assert.Equal(expectedInstanceType, deserialized.InstanceType);
@@ -416,7 +402,6 @@ public class InstanceTest : TestBase
         var model = new Instance
         {
             ID = "id",
-            AutoShutdownMinutes = 0,
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Gpu = "gpu",
             InstanceType = "instanceType",
@@ -438,7 +423,6 @@ public class InstanceTest : TestBase
     {
         var model = new Instance
         {
-            AutoShutdownMinutes = 0,
             IP = "ip",
             StartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
         };
@@ -470,7 +454,6 @@ public class InstanceTest : TestBase
     {
         var model = new Instance
         {
-            AutoShutdownMinutes = 0,
             IP = "ip",
             StartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
         };
@@ -483,7 +466,6 @@ public class InstanceTest : TestBase
     {
         var model = new Instance
         {
-            AutoShutdownMinutes = 0,
             IP = "ip",
             StartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
 
@@ -527,7 +509,6 @@ public class InstanceTest : TestBase
     {
         var model = new Instance
         {
-            AutoShutdownMinutes = 0,
             IP = "ip",
             StartedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
 
@@ -564,8 +545,6 @@ public class InstanceTest : TestBase
             TotalRuntimeSeconds = 0,
         };
 
-        Assert.Null(model.AutoShutdownMinutes);
-        Assert.False(model.RawData.ContainsKey("autoShutdownMinutes"));
         Assert.Null(model.IP);
         Assert.False(model.RawData.ContainsKey("ip"));
         Assert.Null(model.StartedAt);
@@ -608,13 +587,10 @@ public class InstanceTest : TestBase
             TotalCost = "totalCost",
             TotalRuntimeSeconds = 0,
 
-            AutoShutdownMinutes = null,
             IP = null,
             StartedAt = null,
         };
 
-        Assert.Null(model.AutoShutdownMinutes);
-        Assert.True(model.RawData.ContainsKey("autoShutdownMinutes"));
         Assert.Null(model.IP);
         Assert.True(model.RawData.ContainsKey("ip"));
         Assert.Null(model.StartedAt);
@@ -637,7 +613,6 @@ public class InstanceTest : TestBase
             TotalCost = "totalCost",
             TotalRuntimeSeconds = 0,
 
-            AutoShutdownMinutes = null,
             IP = null,
             StartedAt = null,
         };
@@ -651,7 +626,6 @@ public class InstanceTest : TestBase
         var model = new Instance
         {
             ID = "id",
-            AutoShutdownMinutes = 0,
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Gpu = "gpu",
             InstanceType = "instanceType",

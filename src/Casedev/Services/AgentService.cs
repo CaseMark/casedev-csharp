@@ -1,6 +1,6 @@
 using System;
 using Casedev.Core;
-using Casedev.Services.Agent;
+using Agent = Casedev.Services.Agent;
 
 namespace Casedev.Services;
 
@@ -28,11 +28,18 @@ public sealed class AgentService : IAgentService
         _client = client;
 
         _withRawResponse = new(() => new AgentServiceWithRawResponse(client.WithRawResponse));
-        _v1 = new(() => new V1Service(client));
+        _skills = new(() => new Agent::SkillService(client));
+        _v1 = new(() => new Agent::V1Service(client));
     }
 
-    readonly Lazy<IV1Service> _v1;
-    public IV1Service V1
+    readonly Lazy<Agent::ISkillService> _skills;
+    public Agent::ISkillService Skills
+    {
+        get { return _skills.Value; }
+    }
+
+    readonly Lazy<Agent::IV1Service> _v1;
+    public Agent::IV1Service V1
     {
         get { return _v1.Value; }
     }
@@ -53,11 +60,18 @@ public sealed class AgentServiceWithRawResponse : IAgentServiceWithRawResponse
     {
         _client = client;
 
-        _v1 = new(() => new V1ServiceWithRawResponse(client));
+        _skills = new(() => new Agent::SkillServiceWithRawResponse(client));
+        _v1 = new(() => new Agent::V1ServiceWithRawResponse(client));
     }
 
-    readonly Lazy<IV1ServiceWithRawResponse> _v1;
-    public IV1ServiceWithRawResponse V1
+    readonly Lazy<Agent::ISkillServiceWithRawResponse> _skills;
+    public Agent::ISkillServiceWithRawResponse Skills
+    {
+        get { return _skills.Value; }
+    }
+
+    readonly Lazy<Agent::IV1ServiceWithRawResponse> _v1;
+    public Agent::IV1ServiceWithRawResponse V1
     {
         get { return _v1.Value; }
     }

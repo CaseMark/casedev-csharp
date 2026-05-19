@@ -1,44 +1,44 @@
 using System;
 using Casedev.Core;
-using Casedev.Services.Worker;
+using Casedev.Services.Agent.Skills;
 
-namespace Casedev.Services;
+namespace Casedev.Services.Agent;
 
 /// <summary>
 /// NOTE: Do not inherit from this type outside the SDK unless you're okay with breaking
 /// changes in non-major versions. We may add new methods in the future that cause
 /// existing derived classes to break.
 /// </summary>
-public interface IWorkerService
+public interface ISkillService
 {
     /// <summary>
     /// Returns a view of this service that provides access to raw HTTP responses
     /// for each method.
     /// </summary>
-    IWorkerServiceWithRawResponse WithRawResponse { get; }
+    ISkillServiceWithRawResponse WithRawResponse { get; }
 
     /// <summary>
     /// Returns a view of this service with the given option modifications applied.
     ///
     /// <para>The original service is not modified.</para>
     /// </summary>
-    IWorkerService WithOptions(Func<ClientOptions, ClientOptions> modifier);
+    ISkillService WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
-    IV1Service V1 { get; }
+    INamespaceService Namespaces { get; }
 }
 
 /// <summary>
-/// A view of <see cref="IWorkerService"/> that provides access to raw
+/// A view of <see cref="ISkillService"/> that provides access to raw
 /// HTTP responses for each method.
 /// </summary>
-public interface IWorkerServiceWithRawResponse
+public interface ISkillServiceWithRawResponse
 {
     /// <summary>
     /// Returns a view of this service with the given option modifications applied.
     ///
     /// <para>The original service is not modified.</para>
     /// </summary>
-    IWorkerServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
+    ISkillServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
-    IV1ServiceWithRawResponse V1 { get; }
+    INamespaceServiceWithRawResponse Namespaces { get; }
 }

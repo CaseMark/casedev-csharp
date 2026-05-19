@@ -13,7 +13,6 @@ public class InstanceCreateResponseTest : TestBase
         var model = new InstanceCreateResponse
         {
             ID = "id",
-            AutoShutdownMinutes = 0,
             CreatedAt = "createdAt",
             Gpu = "gpu",
             InstanceType = "instanceType",
@@ -27,7 +26,6 @@ public class InstanceCreateResponseTest : TestBase
         };
 
         string expectedID = "id";
-        long expectedAutoShutdownMinutes = 0;
         string expectedCreatedAt = "createdAt";
         string expectedGpu = "gpu";
         string expectedInstanceType = "instanceType";
@@ -40,7 +38,6 @@ public class InstanceCreateResponseTest : TestBase
         List<JsonElement> expectedVaults = [JsonSerializer.Deserialize<JsonElement>("{}")];
 
         Assert.Equal(expectedID, model.ID);
-        Assert.Equal(expectedAutoShutdownMinutes, model.AutoShutdownMinutes);
         Assert.Equal(expectedCreatedAt, model.CreatedAt);
         Assert.Equal(expectedGpu, model.Gpu);
         Assert.Equal(expectedInstanceType, model.InstanceType);
@@ -65,7 +62,6 @@ public class InstanceCreateResponseTest : TestBase
         var model = new InstanceCreateResponse
         {
             ID = "id",
-            AutoShutdownMinutes = 0,
             CreatedAt = "createdAt",
             Gpu = "gpu",
             InstanceType = "instanceType",
@@ -93,7 +89,6 @@ public class InstanceCreateResponseTest : TestBase
         var model = new InstanceCreateResponse
         {
             ID = "id",
-            AutoShutdownMinutes = 0,
             CreatedAt = "createdAt",
             Gpu = "gpu",
             InstanceType = "instanceType",
@@ -114,7 +109,6 @@ public class InstanceCreateResponseTest : TestBase
         Assert.NotNull(deserialized);
 
         string expectedID = "id";
-        long expectedAutoShutdownMinutes = 0;
         string expectedCreatedAt = "createdAt";
         string expectedGpu = "gpu";
         string expectedInstanceType = "instanceType";
@@ -127,7 +121,6 @@ public class InstanceCreateResponseTest : TestBase
         List<JsonElement> expectedVaults = [JsonSerializer.Deserialize<JsonElement>("{}")];
 
         Assert.Equal(expectedID, deserialized.ID);
-        Assert.Equal(expectedAutoShutdownMinutes, deserialized.AutoShutdownMinutes);
         Assert.Equal(expectedCreatedAt, deserialized.CreatedAt);
         Assert.Equal(expectedGpu, deserialized.Gpu);
         Assert.Equal(expectedInstanceType, deserialized.InstanceType);
@@ -152,7 +145,6 @@ public class InstanceCreateResponseTest : TestBase
         var model = new InstanceCreateResponse
         {
             ID = "id",
-            AutoShutdownMinutes = 0,
             CreatedAt = "createdAt",
             Gpu = "gpu",
             InstanceType = "instanceType",
@@ -171,7 +163,7 @@ public class InstanceCreateResponseTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetAreNotSet_Works()
     {
-        var model = new InstanceCreateResponse { AutoShutdownMinutes = 0 };
+        var model = new InstanceCreateResponse { };
 
         Assert.Null(model.ID);
         Assert.False(model.RawData.ContainsKey("id"));
@@ -200,7 +192,7 @@ public class InstanceCreateResponseTest : TestBase
     [Fact]
     public void OptionalNonNullablePropertiesUnsetValidation_Works()
     {
-        var model = new InstanceCreateResponse { AutoShutdownMinutes = 0 };
+        var model = new InstanceCreateResponse { };
 
         model.Validate();
     }
@@ -210,8 +202,6 @@ public class InstanceCreateResponseTest : TestBase
     {
         var model = new InstanceCreateResponse
         {
-            AutoShutdownMinutes = 0,
-
             // Null should be interpreted as omitted for these properties
             ID = null,
             CreatedAt = null,
@@ -255,8 +245,6 @@ public class InstanceCreateResponseTest : TestBase
     {
         var model = new InstanceCreateResponse
         {
-            AutoShutdownMinutes = 0,
-
             // Null should be interpreted as omitted for these properties
             ID = null,
             CreatedAt = null,
@@ -275,102 +263,11 @@ public class InstanceCreateResponseTest : TestBase
     }
 
     [Fact]
-    public void OptionalNullablePropertiesUnsetAreNotSet_Works()
-    {
-        var model = new InstanceCreateResponse
-        {
-            ID = "id",
-            CreatedAt = "createdAt",
-            Gpu = "gpu",
-            InstanceType = "instanceType",
-            Message = "message",
-            Name = "name",
-            PricePerHour = "pricePerHour",
-            Region = "region",
-            Specs = JsonSerializer.Deserialize<JsonElement>("{}"),
-            Status = "status",
-            Vaults = [JsonSerializer.Deserialize<JsonElement>("{}")],
-        };
-
-        Assert.Null(model.AutoShutdownMinutes);
-        Assert.False(model.RawData.ContainsKey("autoShutdownMinutes"));
-    }
-
-    [Fact]
-    public void OptionalNullablePropertiesUnsetValidation_Works()
-    {
-        var model = new InstanceCreateResponse
-        {
-            ID = "id",
-            CreatedAt = "createdAt",
-            Gpu = "gpu",
-            InstanceType = "instanceType",
-            Message = "message",
-            Name = "name",
-            PricePerHour = "pricePerHour",
-            Region = "region",
-            Specs = JsonSerializer.Deserialize<JsonElement>("{}"),
-            Status = "status",
-            Vaults = [JsonSerializer.Deserialize<JsonElement>("{}")],
-        };
-
-        model.Validate();
-    }
-
-    [Fact]
-    public void OptionalNullablePropertiesSetToNullAreSetToNull_Works()
-    {
-        var model = new InstanceCreateResponse
-        {
-            ID = "id",
-            CreatedAt = "createdAt",
-            Gpu = "gpu",
-            InstanceType = "instanceType",
-            Message = "message",
-            Name = "name",
-            PricePerHour = "pricePerHour",
-            Region = "region",
-            Specs = JsonSerializer.Deserialize<JsonElement>("{}"),
-            Status = "status",
-            Vaults = [JsonSerializer.Deserialize<JsonElement>("{}")],
-
-            AutoShutdownMinutes = null,
-        };
-
-        Assert.Null(model.AutoShutdownMinutes);
-        Assert.True(model.RawData.ContainsKey("autoShutdownMinutes"));
-    }
-
-    [Fact]
-    public void OptionalNullablePropertiesSetToNullValidation_Works()
-    {
-        var model = new InstanceCreateResponse
-        {
-            ID = "id",
-            CreatedAt = "createdAt",
-            Gpu = "gpu",
-            InstanceType = "instanceType",
-            Message = "message",
-            Name = "name",
-            PricePerHour = "pricePerHour",
-            Region = "region",
-            Specs = JsonSerializer.Deserialize<JsonElement>("{}"),
-            Status = "status",
-            Vaults = [JsonSerializer.Deserialize<JsonElement>("{}")],
-
-            AutoShutdownMinutes = null,
-        };
-
-        model.Validate();
-    }
-
-    [Fact]
     public void CopyConstructor_Works()
     {
         var model = new InstanceCreateResponse
         {
             ID = "id",
-            AutoShutdownMinutes = 0,
             CreatedAt = "createdAt",
             Gpu = "gpu",
             InstanceType = "instanceType",

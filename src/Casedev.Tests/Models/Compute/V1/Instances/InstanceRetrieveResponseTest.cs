@@ -13,7 +13,6 @@ public class InstanceRetrieveResponseTest : TestBase
         var model = new InstanceRetrieveResponse
         {
             ID = "id",
-            AutoShutdownMinutes = 0,
             CreatedAt = "createdAt",
             CurrentCost = "currentCost",
             CurrentRuntimeSeconds = 0,
@@ -38,7 +37,6 @@ public class InstanceRetrieveResponseTest : TestBase
         };
 
         string expectedID = "id";
-        long expectedAutoShutdownMinutes = 0;
         string expectedCreatedAt = "createdAt";
         string expectedCurrentCost = "currentCost";
         long expectedCurrentRuntimeSeconds = 0;
@@ -62,7 +60,6 @@ public class InstanceRetrieveResponseTest : TestBase
         JsonElement expectedVaultMounts = JsonSerializer.Deserialize<JsonElement>("{}");
 
         Assert.Equal(expectedID, model.ID);
-        Assert.Equal(expectedAutoShutdownMinutes, model.AutoShutdownMinutes);
         Assert.Equal(expectedCreatedAt, model.CreatedAt);
         Assert.Equal(expectedCurrentCost, model.CurrentCost);
         Assert.Equal(expectedCurrentRuntimeSeconds, model.CurrentRuntimeSeconds);
@@ -87,7 +84,6 @@ public class InstanceRetrieveResponseTest : TestBase
         var model = new InstanceRetrieveResponse
         {
             ID = "id",
-            AutoShutdownMinutes = 0,
             CreatedAt = "createdAt",
             CurrentCost = "currentCost",
             CurrentRuntimeSeconds = 0,
@@ -126,7 +122,6 @@ public class InstanceRetrieveResponseTest : TestBase
         var model = new InstanceRetrieveResponse
         {
             ID = "id",
-            AutoShutdownMinutes = 0,
             CreatedAt = "createdAt",
             CurrentCost = "currentCost",
             CurrentRuntimeSeconds = 0,
@@ -158,7 +153,6 @@ public class InstanceRetrieveResponseTest : TestBase
         Assert.NotNull(deserialized);
 
         string expectedID = "id";
-        long expectedAutoShutdownMinutes = 0;
         string expectedCreatedAt = "createdAt";
         string expectedCurrentCost = "currentCost";
         long expectedCurrentRuntimeSeconds = 0;
@@ -182,7 +176,6 @@ public class InstanceRetrieveResponseTest : TestBase
         JsonElement expectedVaultMounts = JsonSerializer.Deserialize<JsonElement>("{}");
 
         Assert.Equal(expectedID, deserialized.ID);
-        Assert.Equal(expectedAutoShutdownMinutes, deserialized.AutoShutdownMinutes);
         Assert.Equal(expectedCreatedAt, deserialized.CreatedAt);
         Assert.Equal(expectedCurrentCost, deserialized.CurrentCost);
         Assert.Equal(expectedCurrentRuntimeSeconds, deserialized.CurrentRuntimeSeconds);
@@ -207,7 +200,6 @@ public class InstanceRetrieveResponseTest : TestBase
         var model = new InstanceRetrieveResponse
         {
             ID = "id",
-            AutoShutdownMinutes = 0,
             CreatedAt = "createdAt",
             CurrentCost = "currentCost",
             CurrentRuntimeSeconds = 0,
@@ -239,7 +231,6 @@ public class InstanceRetrieveResponseTest : TestBase
     {
         var model = new InstanceRetrieveResponse
         {
-            AutoShutdownMinutes = 0,
             IP = "ip",
             Ssh = new()
             {
@@ -282,7 +273,6 @@ public class InstanceRetrieveResponseTest : TestBase
     {
         var model = new InstanceRetrieveResponse
         {
-            AutoShutdownMinutes = 0,
             IP = "ip",
             Ssh = new()
             {
@@ -304,7 +294,6 @@ public class InstanceRetrieveResponseTest : TestBase
     {
         var model = new InstanceRetrieveResponse
         {
-            AutoShutdownMinutes = 0,
             IP = "ip",
             Ssh = new()
             {
@@ -360,7 +349,6 @@ public class InstanceRetrieveResponseTest : TestBase
     {
         var model = new InstanceRetrieveResponse
         {
-            AutoShutdownMinutes = 0,
             IP = "ip",
             Ssh = new()
             {
@@ -408,8 +396,6 @@ public class InstanceRetrieveResponseTest : TestBase
             Status = "status",
         };
 
-        Assert.Null(model.AutoShutdownMinutes);
-        Assert.False(model.RawData.ContainsKey("autoShutdownMinutes"));
         Assert.Null(model.IP);
         Assert.False(model.RawData.ContainsKey("ip"));
         Assert.Null(model.Ssh);
@@ -458,15 +444,12 @@ public class InstanceRetrieveResponseTest : TestBase
             Specs = JsonSerializer.Deserialize<JsonElement>("{}"),
             Status = "status",
 
-            AutoShutdownMinutes = null,
             IP = null,
             Ssh = null,
             StartedAt = null,
             VaultMounts = null,
         };
 
-        Assert.Null(model.AutoShutdownMinutes);
-        Assert.True(model.RawData.ContainsKey("autoShutdownMinutes"));
         Assert.Null(model.IP);
         Assert.True(model.RawData.ContainsKey("ip"));
         Assert.Null(model.Ssh);
@@ -494,7 +477,6 @@ public class InstanceRetrieveResponseTest : TestBase
             Specs = JsonSerializer.Deserialize<JsonElement>("{}"),
             Status = "status",
 
-            AutoShutdownMinutes = null,
             IP = null,
             Ssh = null,
             StartedAt = null,
@@ -510,7 +492,6 @@ public class InstanceRetrieveResponseTest : TestBase
         var model = new InstanceRetrieveResponse
         {
             ID = "id",
-            AutoShutdownMinutes = 0,
             CreatedAt = "createdAt",
             CurrentCost = "currentCost",
             CurrentRuntimeSeconds = 0,

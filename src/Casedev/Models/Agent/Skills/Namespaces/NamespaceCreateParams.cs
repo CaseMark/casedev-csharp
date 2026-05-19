@@ -1,25 +1,23 @@
 using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
-using System.Text;
 using System.Text.Json;
 using Casedev.Core;
+using Text = System.Text;
 
-namespace Casedev.Models.Compute.V1.Instances;
+namespace Casedev.Models.Agent.Skills.Namespaces;
 
 /// <summary>
-/// Launches a new GPU compute instance with automatic SSH key generation. Supports
-/// mounting Case.dev Vaults as filesystems. Instance boots in ~2-5 minutes. Perfect
-/// for batch OCR processing, AI model training, and intensive document analysis workloads.
+/// Create a private skill namespace owned by the authenticated org and receive a
+/// one-time bearer token used by the case-skills publisher.
 ///
 /// <para>NOTE: Do not inherit from this type outside the SDK unless you're okay with
 /// breaking changes in non-major versions. We may add new methods in the future that
 /// cause existing derived classes to break.</para>
 /// </summary>
-public record class InstanceCreateParams : ParamsBase
+public record class NamespaceCreateParams : ParamsBase
 {
     readonly JsonDictionary _rawBodyData = new();
     public IReadOnlyDictionary<string, JsonElement> RawBodyData
@@ -28,80 +26,61 @@ public record class InstanceCreateParams : ParamsBase
     }
 
     /// <summary>
-    /// GPU type (e.g., 'gpu_1x_h100_sxm5')
+    /// URL-safe slug, e.g. "curi" or "client-firm-abc". Lowercase alphanumeric with
+    /// single hyphens, 2-64 chars.
     /// </summary>
-    public required string InstanceType
+    public required string NamespaceID
     {
         get
         {
             this._rawBodyData.Freeze();
-            return this._rawBodyData.GetNotNullClass<string>("instanceType");
+            return this._rawBodyData.GetNotNullClass<string>("namespaceId");
         }
-        init { this._rawBodyData.Set("instanceType", value); }
+        init { this._rawBodyData.Set("namespaceId", value); }
     }
 
-    /// <summary>
-    /// Instance name
-    /// </summary>
-    public required string Name
+    public string? Description
     {
         get
         {
             this._rawBodyData.Freeze();
-            return this._rawBodyData.GetNotNullClass<string>("name");
+            return this._rawBodyData.GetNullableClass<string>("description");
         }
-        init { this._rawBodyData.Set("name", value); }
+        init { this._rawBodyData.Set("description", value); }
     }
 
-    /// <summary>
-    /// Region (e.g., 'us-west-1')
-    /// </summary>
-    public required string Region
+    public string? Label
     {
         get
         {
             this._rawBodyData.Freeze();
-            return this._rawBodyData.GetNotNullClass<string>("region");
+            return this._rawBodyData.GetNullableClass<string>("label");
         }
-        init { this._rawBodyData.Set("region", value); }
+        init { this._rawBodyData.Set("label", value); }
     }
 
-    /// <summary>
-    /// Vault IDs to mount
-    /// </summary>
-    public IReadOnlyList<string>? VaultIds
+    public JsonElement? Metadata
     {
         get
         {
             this._rawBodyData.Freeze();
-            return this._rawBodyData.GetNullableStruct<ImmutableArray<string>>("vaultIds");
+            return this._rawBodyData.GetNullableStruct<JsonElement>("metadata");
         }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawBodyData.Set<ImmutableArray<string>?>(
-                "vaultIds",
-                value == null ? null : ImmutableArray.ToImmutableArray(value)
-            );
-        }
+        init { this._rawBodyData.Set("metadata", value); }
     }
 
-    public InstanceCreateParams() { }
+    public NamespaceCreateParams() { }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    public InstanceCreateParams(InstanceCreateParams instanceCreateParams)
-        : base(instanceCreateParams)
+    public NamespaceCreateParams(NamespaceCreateParams namespaceCreateParams)
+        : base(namespaceCreateParams)
     {
-        this._rawBodyData = new(instanceCreateParams._rawBodyData);
+        this._rawBodyData = new(namespaceCreateParams._rawBodyData);
     }
 #pragma warning restore CS8618
 
-    public InstanceCreateParams(
+    public NamespaceCreateParams(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
         IReadOnlyDictionary<string, JsonElement> rawBodyData
@@ -114,7 +93,7 @@ public record class InstanceCreateParams : ParamsBase
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    InstanceCreateParams(
+    NamespaceCreateParams(
         FrozenDictionary<string, JsonElement> rawHeaderData,
         FrozenDictionary<string, JsonElement> rawQueryData,
         FrozenDictionary<string, JsonElement> rawBodyData
@@ -127,7 +106,7 @@ public record class InstanceCreateParams : ParamsBase
 #pragma warning restore CS8618
 
     /// <inheritdoc cref="IFromRawJson{T}.FromRawUnchecked"/>
-    public static InstanceCreateParams FromRawUnchecked(
+    public static NamespaceCreateParams FromRawUnchecked(
         IReadOnlyDictionary<string, JsonElement> rawHeaderData,
         IReadOnlyDictionary<string, JsonElement> rawQueryData,
         IReadOnlyDictionary<string, JsonElement> rawBodyData
@@ -157,7 +136,7 @@ public record class InstanceCreateParams : ParamsBase
             ModelBase.ToStringSerializerOptions
         );
 
-    public virtual bool Equals(InstanceCreateParams? other)
+    public virtual bool Equals(NamespaceCreateParams? other)
     {
         if (other == null)
         {
@@ -170,7 +149,7 @@ public record class InstanceCreateParams : ParamsBase
 
     public override Uri Url(ClientOptions options)
     {
-        return new UriBuilder(options.BaseUrl.ToString().TrimEnd('/') + "/compute/v1/instances")
+        return new UriBuilder(options.BaseUrl.ToString().TrimEnd('/') + "/agent/skills/namespaces")
         {
             Query = this.QueryString(options),
         }.Uri;
@@ -180,7 +159,7 @@ public record class InstanceCreateParams : ParamsBase
     {
         return new StringContent(
             JsonSerializer.Serialize(this.RawBodyData, ModelBase.SerializerOptions),
-            Encoding.UTF8,
+            Text::Encoding.UTF8,
             "application/json"
         );
     }
