@@ -16,8 +16,8 @@ permissions:
   contents: read
 
 jobs:
-  osv-scan:
-    name: OSV dependency scan
+  dependency-audit:
+    name: NuGet dependency audit
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -26,28 +26,46 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Scan committed dependency manifests
-        id: osv
-        continue-on-error: true
-        uses: google/osv-scanner-action/osv-scanner-action@c51854704019a247608d928f370c98740469d4b5 # v2.3.5
+      - name: Set up .NET
+        uses: actions/setup-dotnet@c2fa09f4bde5ebb9d1777cf28262a3eb3db3ced7 # v5.2.0
         with:
-          scan-args: |-
-            --output=dependency-scan-results.json
-            --format=json
-            --recursive
-            ./
+          dotnet-version: "8.0.x"
 
-      - name: Retain scan results
+      - name: Audit resolved NuGet dependencies
+        id: audit
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -o pipefail
+          : > dependency-scan-stderr.log
+          dotnet restore Casedev.sln \
+            -p:NuGetAudit=true \
+            -p:NuGetAuditMode=all \
+            -p:NuGetAuditLevel=high \
+            -warnaserror:NU1903,NU1904 \
+            2> >(tee dependency-scan-stderr.log >&2) | tee dependency-scan-results.log
+
+      - name: Retain resolved vulnerability inventory
+        if: always()
+        shell: bash
+        run: |
+          dotnet list Casedev.sln package --vulnerable --include-transitive --format json \
+            > dependency-scan-results.json 2>> dependency-scan-stderr.log || true
+
+      - name: Retain audit evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          name: osv-dependency-scan-${{ github.sha }}
-          path: dependency-scan-results.json
+          name: dependency-audit-${{ github.sha }}
+          path: |
+            dependency-scan-results.json
+            dependency-scan-results.log
+            dependency-scan-stderr.log
           if-no-files-found: error
           retention-days: 30
 
       - name: Enforce vulnerability gate
-        if: steps.osv.outcome != 'success'
+        if: steps.audit.outcome != 'success'
         run: |
-          echo "OSV-Scanner reported vulnerabilities or could not complete; review the retained result." >&2
+          echo "The dependency audit found vulnerabilities or could not complete; review the retained evidence." >&2
           exit 1
